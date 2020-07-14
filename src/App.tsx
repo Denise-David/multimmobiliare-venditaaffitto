@@ -1,61 +1,41 @@
+import 'date-fns';
 import React from 'react';
-import logo from './logo.svg';
-import Counter from './features/counter/Counter';
-import './App.css';
+import Grid from '@material-ui/core/Grid';
+import DateFnsUtils from '@date-io/date-fns';
+import {
+    MuiPickersUtilsProvider,
+    KeyboardTimePicker,
+    KeyboardDatePicker,
+} from '@material-ui/pickers';
 
-const App = () => (
-  <div className="App">
-    <header className="App-header">
-      <img src={logo} className="App-logo" alt="logo" />
-      <Counter />
-      <p>
-        Edit
-        {' '}
-        <code>src/App.js</code>
-        {' '}
-        and save to reload.
-      </p>
-      <span>
-        <span>Learn </span>
-        <a
-          className="App-link"
-          href="https://reactjs.org/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          React
-        </a>
-        <span>, </span>
-        <a
-          className="App-link"
-          href="https://redux.js.org/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Redux
-        </a>
-        <span>, </span>
-        <a
-          className="App-link"
-          href="https://redux-toolkit.js.org/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Redux Toolkit
-        </a>
-        ,
-        <span> and </span>
-        <a
-          className="App-link"
-          href="https://react-redux.js.org/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          React Redux
-        </a>
-      </span>
-    </header>
-  </div>
-);
+export default function MaterialUIPickers() {
+    // The first commit of Material-UI
+    const [selectedDate, setSelectedDate] = React.useState<Date | null>(
+        new Date('2014-08-18T21:11:54'),
+    );
 
-export default App;
+    const handleDateChange = (date: Date | null) => {
+        setSelectedDate(date);
+    };
+
+    return (
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <Grid container justify="space-around">
+                <KeyboardDatePicker
+                    disableToolbar
+                    variant="inline"
+                    format="MM/dd/yyyy"
+                    margin="normal"
+                    id="date-picker-inline"
+                    label="Date picker inline"
+                    value={selectedDate}
+                    onChange={handleDateChange}
+                    KeyboardButtonProps={{
+                        'aria-label': 'change date',
+                    }}
+                />
+
+            </Grid>
+        </MuiPickersUtilsProvider>
+    );
+}
