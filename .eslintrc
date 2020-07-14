@@ -1,0 +1,35 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "react",
+    "@typescript-eslint"
+  ],
+  "extends": [
+    "airbnb",
+    "plugin:react/recommended"
+  ],
+  "rules": {
+    "linebreak-style": 0,
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [
+          ".js",
+          ".jsx",
+          ".tsx"
+        ]
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": [
+        "*Slice.js",
+        "*Slice.ts"
+      ],
+      "rules": {
+        "no-param-reassign": "off"
+      }
+    }
+  ]
+}
