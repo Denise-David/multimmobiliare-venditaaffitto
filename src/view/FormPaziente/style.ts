@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginLeft: theme.spacing(2),
     marginRight: theme.spacing(2),
     padding: theme.spacing(4),
+    marginBottom: theme.spacing(2),
 
   },
   NavColor: {
@@ -27,5 +28,34 @@ const useStyles = makeStyles((theme: Theme) => ({
     display: 'flex',
   },
 
+  DropDownList: {
+    minWidth: '100px',
+
+  },
+  risposta: {
+    display: 'inline-block',
+    marginRight: '1em',
+    marginLeft: 'auto',
+  },
+  rispostaDrop: {
+    display: 'inline-block',
+    marginRight: '1em',
+    marginLeft: 'auto',
+
+  },
+
+  container: {
+    padding: theme.spacing(3),
+  },
+
+  Titolo: {
+    background: theme.palette.secondary.main,
+    borderRadius: '0.2em',
+    color: 'white',
+  },
+
+  centerButton: {
+    textAlign: 'center',
+  },
 }));
 export default useStyles;
