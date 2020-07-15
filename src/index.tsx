@@ -3,17 +3,35 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import { Provider } from 'react-redux';
 import { CssBaseline, MuiThemeProvider } from '@material-ui/core';
-import App from './App.tsx';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from 'react-router-dom';
+import App from './view/Barcode/App';
 import store from './app/store';
 import * as serviceWorker from './serviceWorker';
 import theme from './theme';
+import FormPaziente from './view/FormPaziente/FormPaziente';
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <MuiThemeProvider theme={theme}>
         <CssBaseline />
-        <App />
+        <Router>
+
+          <Switch>
+            <Route path="/about">
+              <FormPaziente />
+            </Route>
+
+            <Route path="/">
+              <App />
+            </Route>
+          </Switch>
+
+        </Router>
       </MuiThemeProvider>
     </Provider>
   </React.StrictMode>,

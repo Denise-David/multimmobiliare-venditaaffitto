@@ -16,10 +16,21 @@
         "extensions": [
           ".js",
           ".jsx",
-          ".tsx"
+          ".tsx",
+          ".ts",
         ]
       }
-    ]
+    ],
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never"
+      }
+   ]
   },
   "overrides": [
     {
@@ -31,5 +42,12 @@
         "no-param-reassign": "off"
       }
     }
-  ]
+  ],
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
+  }
 }
