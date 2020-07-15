@@ -3,12 +3,9 @@ import { makeStyles, Theme } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme:Theme) => ({
 
-  Content: {
-    textAlign: 'center',
-  },
-
-  Margin: {
-    margin: theme.spacing(2),
+  NavColor: {
+    background: theme.palette.primary.main,
+    padding: '2em',
   },
 
 }));

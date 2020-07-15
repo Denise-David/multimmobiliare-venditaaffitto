@@ -1,14 +1,12 @@
 // eslint-disable-next-line no-unused-vars
 import { makeStyles, Theme } from '@material-ui/core/styles';
-
+// eslint-disable-next-line no-unused-vars
 const useStyles = makeStyles((theme:Theme) => ({
 
-  Content: {
-    textAlign: 'center',
-  },
+  Logo: {
+    display: 'inline-block',
+    margin: '2em',
 
-  Margin: {
-    margin: theme.spacing(2),
   },
 
 }));
