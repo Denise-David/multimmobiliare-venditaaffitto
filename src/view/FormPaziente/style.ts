@@ -57,5 +57,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   centerButton: {
     textAlign: 'center',
   },
+
 }));
 export default useStyles;

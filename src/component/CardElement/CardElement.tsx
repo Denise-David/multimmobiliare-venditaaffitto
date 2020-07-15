@@ -10,8 +10,8 @@ import useStyles from './style';
 const CardElement = () => {
   const classes = useStyles();
   return (
-    <div>
-      <Card className={classes.Card}>
+    <div className={classes.Card}>
+      <Card>
         <CardContent className={classes.Center}>
           <Typography variant="h4"> Scannerizza Barcode </Typography>
           <div>

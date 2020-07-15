@@ -3,12 +3,8 @@ import { makeStyles, Theme } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme:Theme) => ({
 
-  Content: {
-    textAlign: 'center',
-  },
-
-  Margin: {
-    margin: theme.spacing(4),
+  margin: {
+    margin: theme.spacing(2),
   },
 
 }));
