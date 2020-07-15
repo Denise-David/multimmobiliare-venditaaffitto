@@ -20,9 +20,11 @@ const useStyles = makeStyles((theme: Theme) => ({
     padding: '2em',
   },
   center: {
-    display: 'inline-block',
-    marginRight: 'auto',
-    marginLeft: 'auto',
+    textAlign: 'center',
+    marginTop: theme.spacing(1),
+  },
+  inline: {
+    display: 'flex',
   },
 
 }));
