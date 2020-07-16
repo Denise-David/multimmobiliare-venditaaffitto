@@ -6,6 +6,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
+
 import useStyles from './style';
 import Nav from '../../component/Navbar/Nav';
 import TextName from '../../component/TextName/TextName';
@@ -56,7 +57,9 @@ const FormPaziente = () => {
             <DropDownList />
           </ListItem>
           <ListItem divider>
-            Ha presentato recente cambio di peso?
+            <Typography variant="subtitle1">
+              Ha presentato recente cambio di peso?
+            </Typography>
             <BooleanAnswer />
           </ListItem>
           <ListItem divider>
@@ -66,7 +69,9 @@ const FormPaziente = () => {
             <DropDownList />
           </ListItem>
           <ListItem divider>
-            Ha presentato recente cambio di peso?
+            <Typography variant="subtitle1">
+              Ha presentato febbre persistente?
+            </Typography>
             <BooleanAnswer />
           </ListItem>
         </List>

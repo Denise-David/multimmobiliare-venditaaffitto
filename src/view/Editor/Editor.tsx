@@ -23,7 +23,7 @@ const FormPaziente = () => {
       <div className={classes.root}>
         <SceltaReparto />
         <Grid container spacing={3}>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={7}>
             <Paper>
               <AppBar position="static" className={classes.NavColor}>
                 <Typography variant="h5" align="center">
@@ -66,7 +66,7 @@ const FormPaziente = () => {
               </div>
             </Paper>
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={5}>
             <Paper>
               <AppBar position="static" className={classes.NavColor}>
                 <Typography variant="h5" align="center">
