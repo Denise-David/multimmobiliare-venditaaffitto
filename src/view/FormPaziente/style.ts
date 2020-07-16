@@ -58,5 +58,11 @@ const useStyles = makeStyles((theme: Theme) => ({
     textAlign: 'center',
   },
 
+  contentCard: {
+    display: 'inline-block',
+    marginRight: 'auto',
+    marginLeft: 'auto',
+
+  },
 }));
 export default useStyles;

@@ -13,6 +13,7 @@ import store from './app/store';
 import * as serviceWorker from './serviceWorker';
 import theme from './theme';
 import FormPaziente from './view/FormPaziente/FormPaziente';
+import Editor from './view/Editor/Editor';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -20,15 +21,19 @@ ReactDOM.render(
       <MuiThemeProvider theme={theme}>
         <CssBaseline />
         <Router>
+          <Route path="/editor">
+            <Editor />
+          </Route>
 
           <Switch>
             <Route path="/about">
               <FormPaziente />
             </Route>
 
-            <Route path="/">
+            <Route path="/home">
               <App />
             </Route>
+
           </Switch>
 
         </Router>

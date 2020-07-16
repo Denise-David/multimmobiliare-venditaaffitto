@@ -27,7 +27,7 @@ const FormPaziente = () => {
     <div>
       <Nav />
       <Card className={classes.card}>
-        <div>
+        <div className={classes.contentCard}>
           <Typography variant="h5" align="center"> Dati personali </Typography>
           <Typography variant="subtitle2" align="center"> Se già compilato, siete pregati di controllare e aggiornare i dati </Typography>
           <div className={classes.center}>

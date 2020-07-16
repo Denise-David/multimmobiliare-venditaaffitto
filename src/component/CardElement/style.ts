@@ -5,10 +5,10 @@ const useStyles = makeStyles((theme:Theme) => ({
 
   Card: {
     marginTop: theme.spacing(1),
-    display: 'inline-block',
-    marginRight: 'auto',
-    marginLeft: 'auto',
-    padding: theme.spacing(5),
+    display: 'block',
+    alignContent: 'center',
+    marginLeft: theme.spacing(3),
+    marginRight: theme.spacing(3),
 
   },
   Center: {
