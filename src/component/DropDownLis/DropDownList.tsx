@@ -14,9 +14,7 @@ const DropDownList = () => {
     <Grid container>
       <Grid item xs={12} sm={8}>
         <div className={classes.marginTop}>
-          <Typography variant="subtitle1">
-            Come valuta globalmente il fastidio alle gambe e alle braccia derivante dalla RLS?
-          </Typography>
+          <Typography variant="subtitle1" />
         </div>
       </Grid>
       <Grid item xs={12} sm={4}>
@@ -26,9 +24,9 @@ const DropDownList = () => {
             <MenuItem value="">
               <em>None</em>
             </MenuItem>
-            <MenuItem value={4}>molto grave</MenuItem>
-            <MenuItem value={3}>grave</MenuItem>
-            <MenuItem value={2}>moderato</MenuItem>
+            <MenuItem value={4} />
+            <MenuItem value={3} />
+            <MenuItem value={2} />
           </Select>
         </FormControl>
       </Grid>

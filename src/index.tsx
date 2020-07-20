@@ -26,11 +26,11 @@ ReactDOM.render(
           </Route>
 
           <Switch>
-            <Route path="/about">
+            <Route path="/form">
               <FormPaziente />
             </Route>
 
-            <Route path="/home">
+            <Route path="/">
               <App />
             </Route>
 
