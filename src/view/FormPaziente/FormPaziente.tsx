@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
 import PermIdentityIcon from '@material-ui/icons/PermIdentity';
@@ -7,6 +7,7 @@ import ListItem from '@material-ui/core/ListItem';
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 
+import { useDispatch } from 'react-redux';
 import useStyles from './style';
 import Nav from '../../component/Navbar/Nav';
 import TextName from '../../component/TextName/TextName';
@@ -23,8 +24,12 @@ import BooleanAnswer from '../../component/BooleanAnswer/BooleanAnswer';
 
 const FormPaziente = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch({ type: 'INIT' });
+    dispatch({ type: 'GET_DOMANDE' });
+  }, []);
   return (
-
     <div>
       <Nav />
       <Card className={classes.card}>
@@ -53,20 +58,10 @@ const FormPaziente = () => {
           <Typography className={classes.Titolo} variant="h5" align="center"> Si prega di rispondere alle seguenti domande </Typography>
         </Paper>
         <List>
+          <DropDownList />
           <ListItem divider>
-            <DropDownList />
-          </ListItem>
-          <ListItem divider>
-            <Typography variant="subtitle1">
-              Ha presentato recente cambio di peso?
-            </Typography>
+            <Typography variant="subtitle1" />
             <BooleanAnswer />
-          </ListItem>
-          <ListItem divider>
-            <DropDownList />
-          </ListItem>
-          <ListItem divider>
-            <DropDownList />
           </ListItem>
           <ListItem divider>
             <Typography variant="subtitle1">

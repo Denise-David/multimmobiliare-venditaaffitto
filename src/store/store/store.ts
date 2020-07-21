@@ -1,8 +1,8 @@
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
 import logger from 'redux-logger';
-import forms from '../features/getForms/formsSlice';
-import rootSaga from '../store/sagas';
+import forms from '../slice/formsSlice';
+import rootSaga from '../sagas';
 
 const sagaMiddleware = createSagaMiddleware();
 

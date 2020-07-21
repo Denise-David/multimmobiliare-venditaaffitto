@@ -5,7 +5,6 @@ import useStyles from './style';
 import Nav from '../../component/Navbar/Nav';
 import Logo from '../../component/Logo/Logo';
 import CardElement from '../../component/CardElement/CardElement';
-import Forms from '../../features/getForms/Forms';
 
 const Barcodepage = () => {
   const classes = useStyles();
@@ -17,7 +16,6 @@ const Barcodepage = () => {
       <div className={classes.Margin}>Oppure</div>
       <div className={classes.Margin}><TextFieldCodice /></div>
       <ButtonSend />
-      <Forms />
     </div>
 
   );

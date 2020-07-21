@@ -9,7 +9,7 @@ import {
   Route,
 } from 'react-router-dom';
 import App from './view/Barcode/App';
-import store from './app/store';
+import store from './store/store/store';
 import * as serviceWorker from './serviceWorker';
 import theme from './theme';
 import FormPaziente from './view/FormPaziente/FormPaziente';
