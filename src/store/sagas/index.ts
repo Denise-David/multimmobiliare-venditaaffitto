@@ -2,7 +2,7 @@ import {
   all, takeLatest, call,
 } from 'redux-saga/effects';
 import fetchForm from '../api/index';
-import { getDomande } from './getDomande';
+import { getDomande, getRisposte } from './getFormBase';
 
 function* init(action : any) {
   yield console.log('xxx', action);
@@ -12,7 +12,8 @@ function* init(action : any) {
 
 function* actionWatcher() {
   yield takeLatest('INIT', init);
-  yield takeLatest('GET_DOMANDE', getDomande);
+  yield takeLatest('domande', getDomande);
+  yield takeLatest('risposte', getRisposte);
 }
 export default function* rootSaga() {
   yield all([actionWatcher()]);
