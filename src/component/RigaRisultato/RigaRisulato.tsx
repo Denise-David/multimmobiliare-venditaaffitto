@@ -4,9 +4,14 @@ import CreateIcon from '@material-ui/icons/Create';
 import { IconButton } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Grid from '@material-ui/core/Grid';
+import { useSelector } from 'react-redux';
+import { formData } from '../../store/slice/risultatiFormularioSlice';
 
-const RigaRisulato = () => (
-  <div>
+const RigaRisulato = () => {
+  const listForm = useSelector(formData);
+  const listItems = listForm ? listForm.Risultati.map((oneForm) => (
+
+    // eslint-disable-next-line react/jsx-key
     <Grid container spacing={3}>
       <Grid item xs={12} sm={1}>
         <IconButton>
@@ -19,16 +24,20 @@ const RigaRisulato = () => (
         </IconButton>
       </Grid>
       <Grid item xs={12} sm={6}>
-        <TextField disabled id="standard-basic" value="Molto grave" fullWidth />
+        <TextField disabled id="standard-basic" value={oneForm.testoAnamnesi} fullWidth />
       </Grid>
       <Grid item xs={12} sm={2}>
-        <TextField disabled id="standard-basic" value="10" fullWidth />
+        <TextField disabled id="standard-basic" value={oneForm.valoreMin} fullWidth />
       </Grid>
       <Grid item xs={12} sm={2}>
-        <TextField disabled id="standard-basic" value="12" fullWidth />
+        <TextField disabled id="standard-basic" value={oneForm.valoreMax} fullWidth />
       </Grid>
     </Grid>
-  </div>
-);
+
+  )) : <></>;
+  return (
+    <div>{listItems}</div>
+  );
+};
 
 export default RigaRisulato;

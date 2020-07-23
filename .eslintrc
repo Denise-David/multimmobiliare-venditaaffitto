@@ -6,7 +6,9 @@
   ],
   "extends": [
     "airbnb",
-    "plugin:react/recommended"
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended"
   ],
   "rules": {
     "linebreak-style": 0,
@@ -39,8 +41,7 @@
         "*Slice.ts"
       ],
       "rules": {
-        "no-param-reassign": "off",
-        "no-unused-vars" : "off"
+        "no-param-reassign": "off"
 
       }
     }

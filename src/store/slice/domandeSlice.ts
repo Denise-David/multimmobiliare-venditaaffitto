@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getDomandeAndID, getRisposteByDomandaID } from '../sagas/getFormBase';
 import { State } from '../store/store';
 
 export interface Domanda { ID : number, Domanda : string, Risposte : Risposta[]}
@@ -13,7 +12,7 @@ const domandeSlice = createSlice({
   reducers: {
     domande: (state, { payload }) => {
       state.dataDomande = payload;
-      console.log('ccc', payload);
+      console.log('ddd', state.dataDomande);
     },
   },
 });

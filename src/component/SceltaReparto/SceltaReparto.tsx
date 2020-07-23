@@ -6,10 +6,21 @@ import MenuItem from '@material-ui/core/MenuItem';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import { IconButton } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
+import { useSelector } from 'react-redux';
 import useStyles from './style';
+import { allFormData } from '../../store/slice/formulariSlice';
 
 const SceltaReparto = () => {
   const classes = useStyles();
+  const listForm = useSelector(allFormData);
+  const listItems = listForm.map((oneForm) => (
+
+    // eslint-disable-next-line react/jsx-key
+    <MenuItem value={oneForm.ID}>
+      {oneForm.Reparto}
+    </MenuItem>
+
+  ));
   return (
 
     <div className={classes.margin}>
@@ -29,8 +40,7 @@ const SceltaReparto = () => {
               <MenuItem value="">
                 <em>None</em>
               </MenuItem>
-              <MenuItem value={4}>Pronto soccorso </MenuItem>
-              <MenuItem value={3}>Sonno ed epilettogia</MenuItem>
+              {listItems}
             </Select>
           </FormControl>
         </Grid>

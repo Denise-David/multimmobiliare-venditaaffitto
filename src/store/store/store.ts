@@ -4,6 +4,8 @@ import logger from 'redux-logger';
 import domande from '../slice/domandeSlice';
 import rootSaga from '../sagas';
 import loading from '../slice/loadingSlice';
+import formulari from '../slice/formulariSlice';
+import risForm from '../slice/risultatiFormularioSlice';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -11,6 +13,9 @@ const store = configureStore({
   reducer: {
     domande,
     loading,
+    formulari,
+    risForm,
+
   },
 
   middleware: [sagaMiddleware, logger, ...getDefaultMiddleware()],

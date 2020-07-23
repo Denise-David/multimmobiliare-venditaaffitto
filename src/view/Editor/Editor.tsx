@@ -11,16 +11,15 @@ import SceltaReparto from '../../component/SceltaReparto/SceltaReparto';
 import RigaRisultato from '../../component/RigaRisultato/RigaRisulato';
 import RigaRisultatoVuota from '../../component/RigaRisultatoVuota/RigaRisultatoVuota';
 import RigaDomanda from '../../component/RigaDomanda/RigaDomanda';
+import { formulariAction } from '../../store/slice/formulariSlice';
 
 const FormPaziente = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch({ type: 'INIT' });
-    dispatch({ type: 'domande' });
   }, []);
   return (
-
     <div>
       <Nav />
       <div className={classes.root}>
@@ -90,11 +89,6 @@ const FormPaziente = () => {
                   </Grid>
                   <Divider />
                 </div>
-                <RigaRisultato />
-                <RigaRisultato />
-                <RigaRisultato />
-                <RigaRisultato />
-                <RigaRisultato />
                 <RigaRisultato />
                 <RigaRisultatoVuota />
 

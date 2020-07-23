@@ -2,9 +2,7 @@ import React from 'react';
 import MenuItem from '@material-ui/core/MenuItem';
 import { useSelector } from 'react-redux';
 import { Select } from '@material-ui/core';
-// eslint-disable-next-line no-unused-vars
 import { State } from '../../store/store/store';
-// eslint-disable-next-line no-unused-vars
 import { Domanda, Risposta } from '../../store/slice/domandeSlice';
 
 interface Props {id : number}

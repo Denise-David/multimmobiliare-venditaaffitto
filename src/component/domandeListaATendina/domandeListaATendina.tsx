@@ -13,7 +13,6 @@ const DropDownList = () => {
   const classes = useStyles();
 
   const domande = useSelector(selectData);
-  console.log('ggg', domande);
   const listItems = domande.map((domanda : any) => (
 
     /* eslint-disable */
