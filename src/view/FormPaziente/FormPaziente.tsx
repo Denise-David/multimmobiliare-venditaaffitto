@@ -19,7 +19,7 @@ import TextDoctor from '../../component/TextDoctor/TextDoctor';
 import TextCassaMalati from '../../component/TextCassaMalati/TextCassaMalati';
 import TextPhone from '../../component/TextPhone/TextPhone';
 import ButtonSend from '../../component/ButtonSend/ButtonSend';
-import DropDownList from '../../component/DropDownLis/DropDownList';
+import DropDownList from '../../component/domandeListaATendina/domandeListaATendina';
 import BooleanAnswer from '../../component/BooleanAnswer/BooleanAnswer';
 
 const FormPaziente = () => {

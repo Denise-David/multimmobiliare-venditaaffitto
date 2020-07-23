@@ -1,21 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import AppBar from '@material-ui/core/AppBar';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
+import { useDispatch } from 'react-redux';
 import Nav from '../../component/Navbar/Nav';
 import useStyles from './style';
 import SceltaReparto from '../../component/SceltaReparto/SceltaReparto';
 import RigaRisultato from '../../component/RigaRisultato/RigaRisulato';
 import RigaRisultatoVuota from '../../component/RigaRisultatoVuota/RigaRisultatoVuota';
 import RigaDomanda from '../../component/RigaDomanda/RigaDomanda';
-import RigaRisposta from '../../component/RigaRisposta/RigaRisposta';
-import RigaRispostaVuota from '../../component/RigaRispostaVuota/RigaRispostaVuota';
-import RigaDomandaVuota from '../../component/RigaDomandaVuota/RigaDomandaVuota';
 
 const FormPaziente = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch({ type: 'INIT' });
+    dispatch({ type: 'domande' });
+  }, []);
   return (
 
     <div>
@@ -23,7 +26,7 @@ const FormPaziente = () => {
       <div className={classes.root}>
         <SceltaReparto />
         <Grid container spacing={3}>
-          <Grid item xs={12} sm={7}>
+          <Grid item xs={12} sm={8}>
             <Paper>
               <AppBar position="static" className={classes.NavColor}>
                 <Typography variant="h5" align="center">
@@ -54,19 +57,10 @@ const FormPaziente = () => {
                   <Divider />
                 </div>
                 <RigaDomanda />
-                <RigaRisposta />
-                <RigaRisposta />
-                <RigaRisposta />
-                <RigaRispostaVuota />
-                <RigaDomanda />
-                <RigaRisposta />
-                <RigaRisposta />
-                <RigaRispostaVuota />
-                <RigaDomandaVuota />
               </div>
             </Paper>
           </Grid>
-          <Grid item xs={12} sm={5}>
+          <Grid item xs={12} sm={4}>
             <Paper>
               <AppBar position="static" className={classes.NavColor}>
                 <Typography variant="h5" align="center">

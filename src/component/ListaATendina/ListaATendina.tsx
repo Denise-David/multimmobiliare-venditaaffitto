@@ -10,10 +10,11 @@ import { Domanda, Risposta } from '../../store/slice/domandeSlice';
 interface Props {id : number}
 
 const ListaATendina = ({ id }: Props) => {
-  // eslint-disable-next-line max-len
-  const risposte = useSelector((state: State) => state.domande.dataDomande.find((d: Domanda) => d.ID === id)?.Risposte);
-  // eslint-disable-next-line no-console
-  console.log('aaa', risposte);
+  const controlID = (state : State) => {
+    const domandaID = state.domande.dataDomande.find((d: Domanda) => d.ID === id);
+    return domandaID?.Risposte;
+  };
+  const risposte = useSelector(controlID);
   // eslint-disable-next-line
   const listItems = risposte ? risposte.map((risposta : Risposta) => <MenuItem value={risposta.valore}>{risposta.risposta}</MenuItem>) : <></>;
   return (
