@@ -1,14 +1,16 @@
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
 import logger from 'redux-logger';
-import forms from '../slice/formsSlice';
+import domande from '../slice/domandeSlice';
 import rootSaga from '../sagas';
+import loading from '../slice/loadingSlice';
 
 const sagaMiddleware = createSagaMiddleware();
 
 const store = configureStore({
   reducer: {
-    forms,
+    domande,
+    loading,
   },
 
   middleware: [sagaMiddleware, logger, ...getDefaultMiddleware()],
@@ -16,4 +18,5 @@ const store = configureStore({
 
 });
 sagaMiddleware.run(rootSaga);
+export type State = ReturnType<typeof store.getState>
 export default store;

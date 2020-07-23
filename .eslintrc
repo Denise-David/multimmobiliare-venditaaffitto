@@ -39,7 +39,9 @@
         "*Slice.ts"
       ],
       "rules": {
-        "no-param-reassign": "off"
+        "no-param-reassign": "off",
+        "no-unused-vars" : "off"
+
       }
     }
   ],

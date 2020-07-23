@@ -1,5 +1,5 @@
 import axios from 'axios';
 
-const fetchForm = () => axios.get('/getData');
+const fetchForm = (ID) => axios.get(`/getData/${ID}`);
 
 export default fetchForm;

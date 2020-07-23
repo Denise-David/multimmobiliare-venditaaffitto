@@ -28,7 +28,6 @@ const FormPaziente = () => {
   useEffect(() => {
     dispatch({ type: 'INIT' });
     dispatch({ type: 'domande' });
-    dispatch({ type: 'risposte' });
   }, []);
   return (
     <div>
