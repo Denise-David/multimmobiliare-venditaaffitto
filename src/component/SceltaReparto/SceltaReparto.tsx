@@ -6,11 +6,22 @@ import MenuItem from '@material-ui/core/MenuItem';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import { IconButton } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import useStyles from './style';
 import { allFormData } from '../../store/slice/formulariSlice';
+import { valueAction } from '../../store/slice/repartoSlice';
+import { domande } from '../../store/slice/domandeSlice';
 
 const SceltaReparto = () => {
+  const dispatch = useDispatch();
+  const getValueOnChange = (event : React.ChangeEvent<{ value: unknown }>) => {
+    const { value } = event.target;
+    dispatch(valueAction(value));
+    dispatch({ type: 'domande' });
+    dispatch({ type: 'formulari' });
+    dispatch({ type: 'formulariAction' });
+    dispatch({ type: 'INIT' });
+  };
   const classes = useStyles();
   const listForm = useSelector(allFormData);
   const listItems = listForm.map((oneForm) => (
@@ -34,9 +45,8 @@ const SceltaReparto = () => {
           <FormControl variant="outlined" fullWidth>
             <InputLabel id="demo-simple-select-outlined-label">
               Reparto
-
             </InputLabel>
-            <Select autoWidth>
+            <Select autoWidth onChange={getValueOnChange}>
               <MenuItem value="">
                 <em>None</em>
               </MenuItem>
@@ -46,6 +56,7 @@ const SceltaReparto = () => {
         </Grid>
       </Grid>
     </div>
+
   );
 };
 

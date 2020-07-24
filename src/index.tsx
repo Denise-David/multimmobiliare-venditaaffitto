@@ -30,7 +30,7 @@ ReactDOM.render(
               <FormPaziente />
             </Route>
 
-            <Route path="/">
+            <Route path="/home">
               <App />
             </Route>
 

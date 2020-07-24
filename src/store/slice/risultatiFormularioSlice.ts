@@ -12,6 +12,7 @@ const risFormSlice = createSlice({
   reducers: {
     formulari(state, { payload }) {
       state.dataForm = payload;
+      console.log('ciao', state.dataForm);
     },
   },
 

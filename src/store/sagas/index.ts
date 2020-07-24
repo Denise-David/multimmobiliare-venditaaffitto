@@ -1,19 +1,20 @@
 import {
-  all, takeLatest, call, put,
+  all, takeLatest, call, put, select,
 } from 'redux-saga/effects';
 import fetchForm, { fetchAllForm } from '../api/index';
 import { getDomandeAndID, getAllForm } from './getFormBase';
 import { domande } from '../slice/domandeSlice';
 import { formulari } from '../slice/risultatiFormularioSlice';
 import { formulariAction } from '../slice/formulariSlice';
+import { formID } from '../slice/repartoSlice';
 
 function* init(action : any) {
-  yield console.log('xxx', action);
-  const form = yield call(fetchForm, 1);
+  const ID = yield select(formID);
+  const form = yield call(fetchForm, ID);
   const datiDomande = form.data.Domande;
   yield put(domande(datiDomande));
 
-  const formulario = yield call(fetchForm, 1);
+  const formulario = yield call(fetchForm, ID);
   const datiForm = formulario.data;
   yield put(formulari(datiForm));
 

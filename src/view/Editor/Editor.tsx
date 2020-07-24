@@ -10,8 +10,7 @@ import useStyles from './style';
 import SceltaReparto from '../../component/SceltaReparto/SceltaReparto';
 import RigaRisultato from '../../component/RigaRisultato/RigaRisulato';
 import RigaRisultatoVuota from '../../component/RigaRisultatoVuota/RigaRisultatoVuota';
-import RigaDomanda from '../../component/RigaDomanda/RigaDomanda';
-import { formulariAction } from '../../store/slice/formulariSlice';
+import RigaDomanda from '../../component/DomandeConRisposte/RigaDomanda';
 
 const FormPaziente = () => {
   const classes = useStyles();
@@ -24,6 +23,7 @@ const FormPaziente = () => {
       <Nav />
       <div className={classes.root}>
         <SceltaReparto />
+        {/* Tabella Domande e risposte */}
         <Grid container spacing={3}>
           <Grid item xs={12} sm={8}>
             <Paper>
@@ -60,6 +60,7 @@ const FormPaziente = () => {
             </Paper>
           </Grid>
           <Grid item xs={12} sm={4}>
+            {/* Tabella Risultati */}
             <Paper>
               <AppBar position="static" className={classes.NavColor}>
                 <Typography variant="h5" align="center">
@@ -91,7 +92,6 @@ const FormPaziente = () => {
                 </div>
                 <RigaRisultato />
                 <RigaRisultatoVuota />
-
               </div>
             </Paper>
           </Grid>

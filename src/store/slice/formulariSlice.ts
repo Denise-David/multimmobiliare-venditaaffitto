@@ -12,11 +12,10 @@ const formulariSlice = createSlice({
   reducers: {
     formulariAction(state, { payload }) {
       state.dataAllForm = payload;
-      console.log('ppp', state.dataAllForm);
     },
   },
 });
 
-export const allFormData = (state: State) => state.formulari.dataAllForm;
+export const allFormData = (state: State): Formulario[] => state.formulari.dataAllForm;
 export const { formulariAction } = formulariSlice.actions;
 export default formulariSlice.reducer;
