@@ -11,5 +11,24 @@ const useStyles = makeStyles((theme:Theme) => ({
     margin: theme.spacing(4),
   },
 
+  Logo: {
+    display: 'inline-block',
+    margin: '2em',
+
+  },
+  Card: {
+    marginTop: theme.spacing(1),
+    display: 'block',
+    alignContent: 'center',
+    marginLeft: theme.spacing(3),
+    marginRight: theme.spacing(3),
+
+  },
+  Center: {
+    display: 'inline-block',
+    marginRight: 'auto',
+    marginLeft: 'auto',
+  },
+
 }));
 export default useStyles;

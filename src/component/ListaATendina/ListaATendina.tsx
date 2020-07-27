@@ -3,13 +3,13 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { useSelector } from 'react-redux';
 import { Select } from '@material-ui/core';
 import { State } from '../../store/store/store';
-import { Domanda, Risposta } from '../../store/slice/domandeSlice';
+import { Domanda, Risposta } from '../../store/slice/formSlice';
 
 interface Props {id : number}
 
 const ListaATendina = ({ id }: Props) => {
   const controlID = (state : State) => {
-    const domandaID = state.domande.dataDomande.find((d: Domanda) => d.ID === id);
+    const domandaID = state.form.dataDomande.find((d: Domanda) => d.ID === id);
     return domandaID?.Risposte;
   };
   const risposte = useSelector(controlID);

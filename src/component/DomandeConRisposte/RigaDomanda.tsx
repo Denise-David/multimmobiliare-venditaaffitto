@@ -6,7 +6,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import Grid from '@material-ui/core/Grid';
 import { useSelector, useDispatch } from 'react-redux';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
-import { selectData } from '../../store/slice/domandeSlice';
+import { selectData } from '../../store/slice/formSlice';
 import RigaRisposta from '../RigaRisposta/RigaRisposta';
 import RigaRispostaVuota from '../RigaRispostaVuota/RigaRispostaVuota';
 import RigaDomandaVuota from '../RigaDomandaVuota/RigaDomandaVuota';

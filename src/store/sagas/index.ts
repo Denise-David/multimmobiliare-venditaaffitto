@@ -3,7 +3,7 @@ import {
 } from 'redux-saga/effects';
 import fetchForm, { fetchAllForm } from '../api/index';
 import { getDomandeAndID, getAllForm } from './getFormBase';
-import { domande } from '../slice/domandeSlice';
+import { domande } from '../slice/formSlice';
 import { formulari } from '../slice/risultatiFormularioSlice';
 import { formulariAction } from '../slice/formulariSlice';
 import { formID } from '../slice/repartoSlice';
@@ -30,8 +30,6 @@ function* init(action : any) {
 
 function* actionWatcher() {
   yield takeLatest('INIT', init);
-  yield takeLatest(domande.type, getDomandeAndID);
-  yield takeLatest(formulari.type, getDomandeAndID); // per prenderne l'action
   yield takeLatest(formulariAction.type, getAllForm);
 }
 export default function* rootSaga() {

@@ -1,19 +1,19 @@
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
 import logger from 'redux-logger';
-import domande from '../slice/domandeSlice';
 import rootSaga from '../sagas';
 import loading from '../slice/loadingSlice';
 import formulari from '../slice/formulariSlice';
 import risForm from '../slice/risultatiFormularioSlice';
 import reparto from '../slice/repartoSlice';
 import editForm from '../slice/editFormSlice';
+import form from '../slice/formSlice';
 
 const sagaMiddleware = createSagaMiddleware();
 
 const store = configureStore({
   reducer: {
-    domande,
+    form,
     loading,
     formulari,
     risForm,

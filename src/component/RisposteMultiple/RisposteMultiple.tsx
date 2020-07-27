@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import ListItem from '@material-ui/core/ListItem';
 import { useSelector } from 'react-redux';
 import useStyles from './style';
-import { selectData } from '../../store/slice/domandeSlice';
+import { selectData } from '../../store/slice/formSlice';
 import ListaATendina from '../ListaATendina/ListaATendina';
 
 const DropDownList = () => {
