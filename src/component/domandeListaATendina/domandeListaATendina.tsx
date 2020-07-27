@@ -13,7 +13,8 @@ const DropDownList = () => {
   const classes = useStyles();
 
   const domande = useSelector(selectData);
-  const listItems = domande.map((domanda : any) => (
+  if (domande !== null) {
+    const listItems = domande.map((domanda : any) => (
 
     /* eslint-disable */
     <ListItem divider key={domanda.ID}>
@@ -39,6 +40,17 @@ const DropDownList = () => {
     <div>{listItems}</div>
 
   );
+  } else{
+  
+    return (
+
+      <div>
+        
+      </div>
+  
+    );
+
+  }
 };
 
 export default DropDownList;

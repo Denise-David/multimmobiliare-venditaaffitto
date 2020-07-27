@@ -4,7 +4,7 @@ import { State } from '../store/store';
 const repartoSlice = createSlice({
   name: 'reparto',
   initialState: {
-    IDnumber: 1 as number,
+    IDnumber: 0 as number,
   },
   reducers: {
     valueAction(state, { payload }) {

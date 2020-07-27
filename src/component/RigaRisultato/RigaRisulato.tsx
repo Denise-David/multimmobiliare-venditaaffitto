@@ -6,6 +6,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import Grid from '@material-ui/core/Grid';
 import { useSelector } from 'react-redux';
 import { formData } from '../../store/slice/risultatiFormularioSlice';
+import RigaRisultatoVuota from '../RigaRisultatoVuota/RigaRisultatoVuota';
 
 const RigaRisulato = () => {
   const listForm = useSelector(formData);
@@ -36,7 +37,11 @@ const RigaRisulato = () => {
 
   )) : <></>;
   return (
-    <div>{listItems}</div>
+    <div>
+      {listItems}
+      <RigaRisultatoVuota />
+
+    </div>
   );
 };
 

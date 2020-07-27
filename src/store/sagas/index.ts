@@ -10,13 +10,18 @@ import { formID } from '../slice/repartoSlice';
 
 function* init(action : any) {
   const ID = yield select(formID);
-  const form = yield call(fetchForm, ID);
-  const datiDomande = form.data.Domande;
-  yield put(domande(datiDomande));
+  if (ID !== 0) {
+    const form = yield call(fetchForm, ID);
+    const datiDomande = form.data.Domande;
+    yield put(domande(datiDomande));
 
-  const formulario = yield call(fetchForm, ID);
-  const datiForm = formulario.data;
-  yield put(formulari(datiForm));
+    const formulario = yield call(fetchForm, ID);
+    const datiForm = formulario.data;
+    yield put(formulari(datiForm));
+  } else {
+    yield put(domande(null));
+    yield put(formulari(null));
+  }
 
   const allForm = yield call(fetchAllForm);
   const datiFormulari = allForm.data.formulari;

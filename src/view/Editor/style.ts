@@ -25,5 +25,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   marginDivider: {
     marginBottom: theme.spacing(3),
   },
+
 }));
 export default useStyles;

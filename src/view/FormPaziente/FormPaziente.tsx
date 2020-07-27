@@ -27,8 +27,8 @@ const FormPaziente = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch({ type: 'INIT' });
-    dispatch({ type: 'domande' });
   }, []);
+
   return (
     <div>
       <Nav />

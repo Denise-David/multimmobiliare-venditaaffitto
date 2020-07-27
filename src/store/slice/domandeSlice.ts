@@ -12,7 +12,6 @@ const domandeSlice = createSlice({
   reducers: {
     domande: (state, { payload }) => {
       state.dataDomande = payload;
-      console.log('ddd', state.dataDomande);
     },
   },
 });

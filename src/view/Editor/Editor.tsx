@@ -22,6 +22,13 @@ const FormPaziente = () => {
     <div>
       <Nav />
       <div className={classes.root}>
+        <Typography
+          variant="subtitle1"
+          align="right"
+          color="primary"
+        >
+          NomeUtente
+        </Typography>
         <SceltaReparto />
         {/* Tabella Domande e risposte */}
         <Grid container spacing={3}>
@@ -91,7 +98,6 @@ const FormPaziente = () => {
                   <Divider />
                 </div>
                 <RigaRisultato />
-                <RigaRisultatoVuota />
               </div>
             </Paper>
           </Grid>
