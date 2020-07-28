@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { State } from '../store/store';
 
 export interface Domanda { ID : number, Domanda : string, Risposte : Risposta[]}
-export interface Risposta { risposta : string, valore : string}
+export interface Risposta { ID : number, risposta : string, valore : string}
 
 const FormSlice = createSlice({
   name: 'form',
@@ -14,7 +14,6 @@ const FormSlice = createSlice({
   reducers: {
     domande: (state, { payload }) => {
       state.dataDomande = payload;
-      console.log('eee', state.dataDomande);
     },
   },
 });

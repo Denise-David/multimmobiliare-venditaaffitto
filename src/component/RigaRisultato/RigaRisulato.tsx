@@ -8,13 +8,11 @@ import { useSelector } from 'react-redux';
 import { formData } from '../../store/slice/risultatiFormularioSlice';
 import RigaRisultatoVuota from '../RigaRisultatoVuota/RigaRisultatoVuota';
 import { selectData } from '../../store/slice/formSlice';
-import { ddl } from '../../store/slice/editFormSlice';
 
 const RigaRisulato = () => {
   const listForm = useSelector(formData);
   const domande = useSelector(selectData);
-  const addActive = useSelector(ddl);
-  if (domande !== null && addActive === 'dropDownList') {
+  if (domande !== null) {
     const listItems = listForm ? listForm.Risultati.map((oneForm) => (
 
       // eslint-disable-next-line react/jsx-key

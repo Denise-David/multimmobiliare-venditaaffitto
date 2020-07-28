@@ -9,7 +9,6 @@ import Nav from '../../component/Navbar/Nav';
 import useStyles from './style';
 import SceltaReparto from '../../component/SceltaReparto/SceltaReparto';
 import RigaRisultato from '../../component/RigaRisultato/RigaRisulato';
-import RigaRisultatoVuota from '../../component/RigaRisultatoVuota/RigaRisultatoVuota';
 import RigaDomanda from '../../component/DomandeConRisposte/RigaDomanda';
 
 const FormPaziente = () => {

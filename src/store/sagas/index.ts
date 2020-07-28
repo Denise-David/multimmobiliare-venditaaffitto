@@ -7,7 +7,7 @@ import { domande } from '../slice/formSlice';
 import { formulari } from '../slice/risultatiFormularioSlice';
 import { formulariAction } from '../slice/formulariSlice';
 import { formID } from '../slice/repartoSlice';
-import { initializeDomande } from '../slice/editFormSlice';
+import { initializeDomande, initializeRisposte } from '../slice/editFormSlice';
 
 function* init(action : any) {
   const ID = yield select(formID);
@@ -26,6 +26,12 @@ function* init(action : any) {
     );
     const reduce = arrayToObject(initialStateDomande);
     yield put(initializeDomande(reduce));
+
+    // const initialStateRisposte = datiDomande.ID.Risposte.map(
+    //   (risposta : any) => ({ ID: risposta.ID }),
+    // );
+    // const reduceR = arrayToObject(initialStateRisposte);
+    // yield put(initializeRisposte(reduceR));
 
     const formulario = yield call(fetchForm, ID);
     const datiForm = formulario.data;

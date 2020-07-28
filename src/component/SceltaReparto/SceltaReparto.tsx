@@ -15,23 +15,17 @@ import useStyles from './style';
 import { allFormData } from '../../store/slice/formulariSlice';
 import { valueAction } from '../../store/slice/repartoSlice';
 import {
-  addRepartoAction, ddl, confirmAction, modify, modifyRepartoAction,
+  addRepartoAction, modify, modifyRepartoAction,
 } from '../../store/slice/editFormSlice';
 import { selectData } from '../../store/slice/formSlice';
 
 const SceltaReparto = () => {
   const dispatch = useDispatch();
-  const ddlState = useSelector(ddl);
 
-  const confirmation = () => {
-    dispatch(confirmAction());
-  };
   const addReparto = () => {
     dispatch(addRepartoAction());
   };
-  const modifyReparto = () => {
-    dispatch(modifyRepartoAction());
-  };
+
   const getValueOnChange = (event : React.ChangeEvent<{ value: unknown }>) => {
     const { value } = event.target;
     dispatch(valueAction(value));
@@ -41,115 +35,138 @@ const SceltaReparto = () => {
   const classes = useStyles();
   const listForm = useSelector(allFormData);
   const domande = useSelector(selectData);
-  const modifyActive = useSelector(modify);
+  const modifyReparto = useSelector(modify);
 
-  if (ddlState === 'dropDownList') {
-    const listItems = listForm.map((oneForm) => (
-
-      <MenuItem key={oneForm.ID} value={oneForm.ID}>
-        {oneForm.Reparto}
-      </MenuItem>
-
-    ));
-    if (domande !== null) {
-      return (
-
-        // se è selezionato un reparto e la casella è una dropdownlist
-        <div className={classes.margin}>
-          <Grid container>
-            <Grid item xs={12} sm={2}>
-              <IconButton onClick={addReparto}>
-                <AddCircleOutlineIcon fontSize="large" color="primary" />
-              </IconButton>
-              <IconButton onClick={modifyReparto}>
-                <CreateIcon fontSize="large" color="primary" />
-              </IconButton>
-              <IconButton>
-                <DeleteIcon fontSize="large" color="primary" />
-              </IconButton>
-            </Grid>
-            <Grid item xs={12} sm={10}>
-              <FormControl variant="outlined" fullWidth>
-                <InputLabel id="demo-simple-select-outlined-label">
-                  Reparto
-                </InputLabel>
-                <Select autoWidth onChange={getValueOnChange}>
-                  {listItems}
-                </Select>
-              </FormControl>
-            </Grid>
-          </Grid>
-        </div>
-
-      );
-    }
-    return (
-      // se non è selezionato un reparto e la casella è una dropdownlist
-      <div className={classes.margin}>
-        <Grid container>
-          <Grid item xs={12} sm={2}>
-            <IconButton onClick={addReparto}>
-              <AddCircleOutlineIcon fontSize="large" color="primary" />
-            </IconButton>
-          </Grid>
-          <Grid item xs={12} sm={10}>
-            <FormControl variant="outlined" fullWidth>
-              <InputLabel id="demo-simple-select-outlined-label">
-                Reparto
-              </InputLabel>
-              <Select autoWidth onChange={getValueOnChange}>
-                {listItems}
-              </Select>
-            </FormControl>
-          </Grid>
-        </Grid>
-      </div>
-
-    );
-  } if (modifyActive === false) {
-    return (
-    // se la casella è un TextField e non è attiva la modifica
-      <div className={classes.margin}>
-        <Grid container>
-          <Grid item xs={12} sm={2}>
-            <IconButton onClick={confirmation}>
-              <CheckCircleOutlineIcon fontSize="large" color="primary" />
-            </IconButton>
-            <IconButton>
-              <HighlightOffIcon fontSize="large" color="primary" />
-            </IconButton>
-          </Grid>
-          <Grid item xs={12} sm={10}>
-            <TextField fullWidth />
-          </Grid>
-        </Grid>
-      </div>
-
-    );
-  }
   const listItems = listForm.map((oneForm) => (
 
-    <TextField key={oneForm.ID} value={oneForm.Reparto} fullWidth />
-
+    <MenuItem key={oneForm.ID} value={oneForm.ID}>
+      {oneForm.Reparto}
+    </MenuItem>
   ));
+
+  if (domande !== null) {
+    return (
+    // se è selezionato un reparto e modify non è stato cliccato
+      <div className={classes.margin}>
+        <Grid container>
+          <Grid item xs={12} sm={2}>
+            {modifyReparto
+              ? (
+                <div>
+                  <IconButton onClick={() => dispatch(modifyRepartoAction())}>
+                    <AddCircleOutlineIcon fontSize="large" color="primary" />
+                  </IconButton>
+                  <IconButton>
+                    <CreateIcon fontSize="large" color="primary" />
+                  </IconButton>
+                  <IconButton>
+                    <DeleteIcon fontSize="large" color="primary" />
+                  </IconButton>
+                </div>
+              )
+              : (
+                <div>
+                  <IconButton onClick={() => dispatch(modifyRepartoAction())}>
+                    <CheckCircleOutlineIcon fontSize="large" color="primary" />
+                  </IconButton>
+                  <IconButton>
+                    <HighlightOffIcon fontSize="large" color="primary" />
+                  </IconButton>
+                </div>
+              )}
+          </Grid>
+          <Grid item xs={12} sm={10}>
+            {modifyReparto
+              ? (
+                <FormControl variant="outlined" fullWidth>
+                  <InputLabel id="demo-simple-select-outlined-label">
+                    Reparto
+                  </InputLabel>
+                  <Select autoWidth onChange={getValueOnChange}>
+                    {listItems}
+                  </Select>
+                </FormControl>
+              ) : <TextField fullWidth />}
+          </Grid>
+        </Grid>
+      </div>
+    );
+  }
   return (
-  // se la casella è un TextField ed è attiva la modifica
+  // se non è selezionato un reparto e la casella è una dropdownlist
     <div className={classes.margin}>
       <Grid container>
         <Grid item xs={12} sm={2}>
-          <IconButton onClick={confirmation}>
-            <CheckCircleOutlineIcon fontSize="large" color="primary" />
-          </IconButton>
-          <IconButton>
-            <HighlightOffIcon fontSize="large" color="primary" />
+          <IconButton onClick={addReparto}>
+            <AddCircleOutlineIcon fontSize="large" color="primary" />
           </IconButton>
         </Grid>
-        <Grid item xs={12} sm={10} />
-        {listItems}
+        <Grid item xs={12} sm={10}>
+          <FormControl variant="outlined" fullWidth>
+            <InputLabel id="demo-simple-select-outlined-label">
+              Reparto
+            </InputLabel>
+            <Select autoWidth onChange={getValueOnChange}>
+              {listItems}
+            </Select>
+          </FormControl>
+        </Grid>
       </Grid>
     </div>
 
   );
+
+  //   return (
+  //     // se non è selezionato un reparto e la casella è una dropdownlist
+  //     <div className={classes.margin}>
+  //       <Grid container>
+  //         <Grid item xs={12} sm={2}>
+  //           <IconButton onClick={addReparto}>
+  //             <AddCircleOutlineIcon fontSize="large" color="primary" />
+  //           </IconButton>
+  //         </Grid>
+  //         <Grid item xs={12} sm={10}>
+  //           <FormControl variant="outlined" fullWidth>
+  //             <InputLabel id="demo-simple-select-outlined-label">
+  //               Reparto
+  //             </InputLabel>
+  //             <Select autoWidth onChange={getValueOnChange}>
+  //               {listItems}
+  //             </Select>
+  //           </FormControl>
+  //         </Grid>
+  //       </Grid>
+  //     </div>
+
+  //   );
+  // } if (modifyActive === false) {
+  //   return (
+  //   // se la casella è un TextField e non è attiva la modifica
+  //     <div className={classes.margin}>
+  //       <Grid container>
+  //         <Grid item xs={12} sm={2}>
+  //           <IconButton onClick={confirmation}>
+  //             <CheckCircleOutlineIcon fontSize="large" color="primary" />
+  //           </IconButton>
+  //           <IconButton>
+  //             <HighlightOffIcon fontSize="large" color="primary" />
+  //           </IconButton>
+  //         </Grid>
+  //         <Grid item xs={12} sm={10}>
+  //           <TextField fullWidth />
+  //         </Grid>
+  //       </Grid>
+  //     </div>
+
+  //   );
+  // }
+  // const listItems = listForm.map((oneForm) => (
+
+  //   <TextField key={oneForm.ID} value={oneForm.Reparto} fullWidth />
+
+  // ));
+
+  // );
 };
 
 export default SceltaReparto;

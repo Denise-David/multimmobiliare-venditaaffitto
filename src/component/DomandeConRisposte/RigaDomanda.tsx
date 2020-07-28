@@ -18,10 +18,9 @@ const RigaRisulato = () => {
   const dispatch = useDispatch();
   const domande = useSelector(selectData);
   const textFieldState = useSelector(stateTextField);
-  const addActive = useSelector(ddl);
 
-  if (domande !== null && addActive === 'dropDownList') {
-    const listItems = domande.map((domanda : any, index : number) => (
+  if (domande !== null) {
+    const listItems = domande.map((domanda : any) => (
       <div key={domanda.ID}>
         <Grid container spacing={3}>
           <Grid item xs={12} sm={1}>

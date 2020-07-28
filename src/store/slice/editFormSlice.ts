@@ -6,8 +6,9 @@ const editFormSlice = createSlice({
   initialState:
   {
     disabled: {} as any,
+    stateModifyRisposte: {} as any,
     icon: 'modify',
-    conversion: 'dropDownList',
+    conversion: true,
     modifyActive: true,
 
   },
@@ -17,21 +18,21 @@ const editFormSlice = createSlice({
     },
     initializeDomande(state, { payload }) {
       state.disabled = payload;
-      state.icon = 'done';
+    },
+    initializeRisposte(state, { payload }) {
+      state.stateModifyRisposte = payload;
+    },
+    modifyRispostaAction(state, { payload }) {
+      state.stateModifyRisposte[payload] = !state.stateModifyRisposte[payload];
     },
     addRepartoAction(state) {
-      state.conversion = 'TextField';
-      state.modifyActive = false;
+      state.conversion = !state.conversion;
+      state.modifyActive = !state.modifyActive;
     },
     modifyRepartoAction(state) {
-      state.modifyActive = true;
-      state.conversion = 'TextField';
-    },
-    deleteRepartoAction(state) {
-      state.conversion = 'TextField';
+      state.modifyActive = !state.modifyActive;
     },
     confirmAction(state) {
-      state.conversion = 'dropDownList';
       state.icon = 'modify';
       console.log('aggiunta reparto a banca dati');
     },
@@ -44,5 +45,6 @@ export const ddl = (state : State) => state.editForm.conversion;
 export const modify = (state : State) => state.editForm.modifyActive;
 export const {
   modifyDomandaAction, addRepartoAction, confirmAction, modifyRepartoAction, initializeDomande,
+  initializeRisposte, modifyRispostaAction,
 } = editFormSlice.actions;
 export default editFormSlice.reducer;

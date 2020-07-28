@@ -6,7 +6,6 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
-
 import { useDispatch } from 'react-redux';
 import useStyles from './style';
 import Nav from '../../component/Navbar/Nav';
