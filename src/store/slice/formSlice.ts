@@ -14,7 +14,7 @@ const FormSlice = createSlice({
   reducers: {
     domande: (state, { payload }) => {
       state.dataDomande = payload;
-      console.log('fff', state.dataDomande);
+      console.log('eee', state.dataDomande);
     },
   },
 });

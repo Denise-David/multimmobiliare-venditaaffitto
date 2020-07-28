@@ -7,41 +7,51 @@ import Grid from '@material-ui/core/Grid';
 import { useSelector } from 'react-redux';
 import { formData } from '../../store/slice/risultatiFormularioSlice';
 import RigaRisultatoVuota from '../RigaRisultatoVuota/RigaRisultatoVuota';
+import { selectData } from '../../store/slice/formSlice';
+import { ddl } from '../../store/slice/editFormSlice';
 
 const RigaRisulato = () => {
   const listForm = useSelector(formData);
-  const listItems = listForm ? listForm.Risultati.map((oneForm) => (
+  const domande = useSelector(selectData);
+  const addActive = useSelector(ddl);
+  if (domande !== null && addActive === 'dropDownList') {
+    const listItems = listForm ? listForm.Risultati.map((oneForm) => (
 
-    // eslint-disable-next-line react/jsx-key
-    <Grid container spacing={3}>
-      <Grid item xs={12} sm={1}>
-        <IconButton>
-          <CreateIcon color="primary" />
-        </IconButton>
+      // eslint-disable-next-line react/jsx-key
+      <Grid container spacing={3}>
+        <Grid item xs={12} sm={1}>
+          <IconButton>
+            <CreateIcon color="primary" />
+          </IconButton>
+        </Grid>
+        <Grid item xs={12} sm={1}>
+          <IconButton>
+            <DeleteIcon color="primary" />
+          </IconButton>
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextField disabled id="standard-basic" value={oneForm.testoAnamnesi} fullWidth />
+        </Grid>
+        <Grid item xs={12} sm={2}>
+          <TextField disabled id="standard-basic" value={oneForm.valoreMin} fullWidth />
+        </Grid>
+        <Grid item xs={12} sm={2}>
+          <TextField disabled id="standard-basic" value={oneForm.valoreMax} fullWidth />
+        </Grid>
       </Grid>
-      <Grid item xs={12} sm={1}>
-        <IconButton>
-          <DeleteIcon color="primary" />
-        </IconButton>
-      </Grid>
-      <Grid item xs={12} sm={6}>
-        <TextField disabled id="standard-basic" value={oneForm.testoAnamnesi} fullWidth />
-      </Grid>
-      <Grid item xs={12} sm={2}>
-        <TextField disabled id="standard-basic" value={oneForm.valoreMin} fullWidth />
-      </Grid>
-      <Grid item xs={12} sm={2}>
-        <TextField disabled id="standard-basic" value={oneForm.valoreMax} fullWidth />
-      </Grid>
-    </Grid>
 
-  )) : <></>;
+    )) : <></>;
+    return (
+      <div>
+        {listItems}
+        <RigaRisultatoVuota />
+
+      </div>
+    );
+  }
+
   return (
-    <div>
-      {listItems}
-      <RigaRisultatoVuota />
-
-    </div>
+    <div />
   );
 };
 

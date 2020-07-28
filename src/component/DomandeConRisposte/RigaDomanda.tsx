@@ -11,98 +11,48 @@ import RigaRisposta from '../RigaRisposta/RigaRisposta';
 import RigaRispostaVuota from '../RigaRispostaVuota/RigaRispostaVuota';
 import RigaDomandaVuota from '../RigaDomandaVuota/RigaDomandaVuota';
 import {
-  modifyDomandaAction, stateTextField, iconCurrent, confirmAction,
+  modifyDomandaAction, stateTextField, ddl,
 } from '../../store/slice/editFormSlice';
 
 const RigaRisulato = () => {
   const dispatch = useDispatch();
   const domande = useSelector(selectData);
   const textFieldState = useSelector(stateTextField);
-  const icon = useSelector(iconCurrent);
+  const addActive = useSelector(ddl);
 
-  const confirmation = () => {
-    dispatch(confirmAction());
-  };
-
-  const modifyState = () => {
-    dispatch(modifyDomandaAction());
-  };
-
-  if (domande !== null) {
-    if (icon === 'modify') {
-      const listItems = domande.map((domanda : any) => (
-        /* eslint-disable*/
-    <div>
-    <Grid container spacing={3}>
-      <Grid item xs={12} sm={1}>
-        <IconButton onClick={modifyState}>
-          <CreateIcon color="primary" />
-        </IconButton>
-      </Grid>
-      <Grid item xs={12} sm={1}>
-        <IconButton >
-          <DeleteIcon color="primary" />
-        </IconButton >
-      </Grid>
-      <Grid item xs={12} sm={10}>
-        <TextField disabled={textFieldState} value={domanda.Domanda} fullWidth />
-      </Grid>
-    </Grid>
-    <RigaRisposta id={domanda.ID}/>
-    <RigaRispostaVuota />
-    </div> 
-     ));
-     return (
-   
-       <div>{listItems}
-       <RigaDomandaVuota />
-       </div>
-        );
-      
-      
-      } else
-      {
-        const listItems = domande.map((domanda : any) => (
-          /* eslint-disable*/
-   <div>
-   <Grid container spacing={3}>
-     <Grid item xs={12} sm={1}>
-       <IconButton onClick={confirmation}>
-         <CheckCircleOutlineIcon color="primary"/>
-       </IconButton>
-     </Grid>
-     <Grid item xs={12} sm={1}>
-       <IconButton >
-         <DeleteIcon color="primary" />
-       </IconButton >
-     </Grid>
-     <Grid item xs={12} sm={10}>
-       <TextField disabled={textFieldState} value={domanda.Domanda} fullWidth />
-     </Grid>
-   </Grid>
-   <RigaRisposta id={domanda.ID}/>
-   <RigaRispostaVuota />
-   </div> 
+  if (domande !== null && addActive === 'dropDownList') {
+    const listItems = domande.map((domanda : any, index : number) => (
+      <div key={domanda.ID}>
+        <Grid container spacing={3}>
+          <Grid item xs={12} sm={1}>
+            <IconButton onClick={() => dispatch(modifyDomandaAction(domanda.ID))}>
+              {textFieldState[domanda.ID] ? <CreateIcon color="primary" /> : <CheckCircleOutlineIcon color="primary" /> }
+            </IconButton>
+          </Grid>
+          <Grid item xs={12} sm={1}>
+            <IconButton>
+              <DeleteIcon color="primary" />
+            </IconButton>
+          </Grid>
+          <Grid item xs={12} sm={10}>
+            <TextField disabled={textFieldState[domanda.ID]} value={domanda.Domanda} fullWidth />
+          </Grid>
+        </Grid>
+        <RigaRisposta id={domanda.ID} />
+        <RigaRispostaVuota />
+      </div>
     ));
     return (
-  
-      <div>{listItems}
-      <RigaDomandaVuota />
+
+      <div>
+        {listItems}
+        <RigaDomandaVuota />
       </div>
-      );
-    }
-      }
-
-  else {
-
-    return (
-         <div>
-
-         </div>
-
     );
-
   }
+  return (
+    <div />
+  );
 };
 
 export default RigaRisulato;
