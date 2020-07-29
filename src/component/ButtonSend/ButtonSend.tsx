@@ -5,7 +5,7 @@ import useStyles from './style';
 const ButtonSend = () => {
   const classes = useStyles();
   return (
-    <Button className={classes.margin} variant="contained" color="primary" href="/about">
+    <Button className={classes.margin} variant="contained" color="primary" href="/form">
       Invia
     </Button>
   );

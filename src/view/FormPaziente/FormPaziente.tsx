@@ -6,7 +6,6 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
-
 import { useDispatch } from 'react-redux';
 import useStyles from './style';
 import Nav from '../../component/Navbar/Nav';
@@ -19,7 +18,7 @@ import TextDoctor from '../../component/TextDoctor/TextDoctor';
 import TextCassaMalati from '../../component/TextCassaMalati/TextCassaMalati';
 import TextPhone from '../../component/TextPhone/TextPhone';
 import ButtonSend from '../../component/ButtonSend/ButtonSend';
-import DropDownList from '../../component/DropDownLis/DropDownList';
+import DropDownList from '../../component/RisposteMultiple/RisposteMultiple';
 import BooleanAnswer from '../../component/BooleanAnswer/BooleanAnswer';
 
 const FormPaziente = () => {
@@ -27,8 +26,8 @@ const FormPaziente = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch({ type: 'INIT' });
-    dispatch({ type: 'domande' });
   }, []);
+
   return (
     <div>
       <Nav />

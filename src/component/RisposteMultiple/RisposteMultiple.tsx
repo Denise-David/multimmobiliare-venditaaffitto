@@ -6,15 +6,15 @@ import Typography from '@material-ui/core/Typography';
 import ListItem from '@material-ui/core/ListItem';
 import { useSelector } from 'react-redux';
 import useStyles from './style';
-import { selectData } from '../../store/slice/domandeSlice';
+import { selectData } from '../../store/slice/formSlice';
 import ListaATendina from '../ListaATendina/ListaATendina';
 
 const DropDownList = () => {
   const classes = useStyles();
 
   const domande = useSelector(selectData);
-  console.log('ggg', domande);
-  const listItems = domande.map((domanda : any) => (
+  if (domande !== null) {
+    const listItems = domande.map((domanda : any) => (
 
     /* eslint-disable */
     <ListItem divider key={domanda.ID}>
@@ -40,6 +40,17 @@ const DropDownList = () => {
     <div>{listItems}</div>
 
   );
+  } else{
+  
+    return (
+
+      <div>
+        
+      </div>
+  
+    );
+
+  }
 };
 
 export default DropDownList;
