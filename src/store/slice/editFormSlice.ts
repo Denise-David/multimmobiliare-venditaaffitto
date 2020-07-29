@@ -12,6 +12,7 @@ const editFormSlice = createSlice({
     modifyActive: false,
     deleteActive: false as boolean | undefined,
     isDisable: false,
+    addRisVuotaDeactive: true,
 
   },
   reducers: {
@@ -51,6 +52,9 @@ const editFormSlice = createSlice({
     disableEnableAll(state) {
       state.isDisable = !state.isDisable;
     },
+    addRispostaVuotaAction(state) {
+      state.addRisVuotaDeactive = !state.addRisVuotaDeactive;
+    },
   },
 });
 
@@ -60,9 +64,10 @@ export const add = (state : State) => state.editForm.addActive;
 export const modify = (state : State) => state.editForm.modifyActive;
 export const delActive = (state : State) => state.editForm.deleteActive;
 export const isDisable = (state : State) => state.editForm.isDisable;
+export const risActive = (state : State) => state.editForm.addRisVuotaDeactive;
 export const {
   modifyDomandaAction, addRepartoAction, confirmRepartoAction, modifyRepartoAction,
   initializeDomande, initializeRisposte, modifyRispostaAction, cancelRepartoAction,
-  alertConfirmDelete, disableEnableAll,
+  alertConfirmDelete, disableEnableAll, addRispostaVuotaAction,
 } = editFormSlice.actions;
 export default editFormSlice.reducer;

@@ -23,7 +23,7 @@ const RigaRisulato = ({ id }: Props) => {
     // eslint-disable-next-line react/jsx-key
     <Grid container spacing={3}>
       <Grid item xs={12} sm={1}>
-        <IconButton onClick={() => dispatch(modifyRispostaAction(risposta.ID))}>
+        <IconButton>
           <CreateIcon color="primary" />
         </IconButton>
       </Grid>

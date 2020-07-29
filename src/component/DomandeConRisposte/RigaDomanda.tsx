@@ -11,7 +11,7 @@ import RigaRisposta from '../RigaRisposta/RigaRisposta';
 import RigaRispostaVuota from '../RigaRispostaVuota/RigaRispostaVuota';
 import RigaDomandaVuota from '../RigaDomandaVuota/RigaDomandaVuota';
 import {
-  modifyDomandaAction, stateTextField,
+  modifyDomandaAction, stateTextField, isDisable,
 } from '../../store/slice/editFormSlice';
 import { initialID } from '../../store/slice/initialStateSlice';
 
@@ -20,18 +20,22 @@ const RigaRisulato = () => {
   const iniID = useSelector(initialID);
   const domande = useSelector(selectData);
   const textFieldState = useSelector(stateTextField);
+  const disableActive = useSelector(isDisable);
 
   if (iniID !== 0) {
     const listItems = domande.map((domanda : any) => (
       <div key={domanda.ID}>
         <Grid container spacing={3}>
           <Grid item xs={12} sm={1}>
-            <IconButton onClick={() => dispatch(modifyDomandaAction(domanda.ID))}>
+            <IconButton
+              disabled={disableActive}
+              onClick={() => dispatch(modifyDomandaAction(domanda.ID))}
+            >
               {textFieldState[domanda.ID] ? <CreateIcon color="primary" /> : <CheckCircleOutlineIcon color="primary" /> }
             </IconButton>
           </Grid>
           <Grid item xs={12} sm={1}>
-            <IconButton>
+            <IconButton disabled={disableActive}>
               <DeleteIcon color="primary" />
             </IconButton>
           </Grid>

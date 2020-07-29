@@ -13,7 +13,7 @@ import CreateIcon from '@material-ui/icons/Create';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import useStyles from './style';
-import { allFormData } from '../../store/slice/formulariSlice';
+import { allFormData, Formulario } from '../../store/slice/formulariSlice';
 import { valueAction, resetReparto, formID } from '../../store/slice/repartoSlice';
 import {
   addRepartoAction, modify, modifyRepartoAction, add, confirmRepartoAction, cancelRepartoAction,
@@ -47,6 +47,10 @@ const SceltaReparto = () => {
     dispatch(disableEnableAll());
   };
 
+  const cancelDispatch = () => {
+    dispatch(cancelRepartoAction());
+  };
+
   /* Dispatch delle action del pulsante Conferma eliminazione dell'alert */
   const confirmDeleteDispatch = () => {
     dispatch(resetDomande());
@@ -66,6 +70,9 @@ const SceltaReparto = () => {
   const deleteActive = useSelector(delActive);
   const disableActive = useSelector(isDisable);
   const IDReparto = useSelector(formID);
+  console.log('yyy', listForm);
+
+  const getRepartoName = (form : Formulario) => form.ID === IDReparto;
 
   const listItems = listForm.map((oneForm) => (
 
@@ -93,7 +100,7 @@ const SceltaReparto = () => {
                 </IconButton>
                 <IconButton
                   disabled={disableActive}
-                  onClick={() => dispatch(cancelRepartoAction())}
+                  onClick={cancelDispatch}
                 >
                   <HighlightOffIcon fontSize="large" color="primary" />
                 </IconButton>
@@ -134,18 +141,18 @@ const SceltaReparto = () => {
           {/* se è cliccato il tasto add */}
           {addReparto
 
-            ? <TextField label="inserisci nome reparto" variant="outlined" fullWidth />
+            ? <TextField label="inserisci nome reparto" variant="filled" fullWidth />
             : (
               <div>
                 {/* se è cliccato il tasto modify */}
                 { modifyReparto
                   ? (
-                    <TextField variant="outlined" fullWidth />
+                    <TextField value={listForm.find(getRepartoName)?.Reparto} variant="filled" fullWidth />
                   )
                   : (
                     <div>
                       {/* se non è cliccato nulla */}
-                      <FormControl variant="outlined" fullWidth>
+                      <FormControl disabled={disableActive} variant="outlined" fullWidth>
                         <Select
                           defaultValue={0}
                           value={IDReparto}
