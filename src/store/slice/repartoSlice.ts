@@ -10,9 +10,12 @@ const repartoSlice = createSlice({
     valueAction(state, { payload }) {
       state.IDnumber = payload;
     },
+    resetReparto(state) {
+      state.IDnumber = 0;
+    },
   },
 });
 
-export const { valueAction } = repartoSlice.actions;
+export const { valueAction, resetReparto } = repartoSlice.actions;
 export default repartoSlice.reducer;
 export const formID = (state : State): number => state.reparto.IDnumber;

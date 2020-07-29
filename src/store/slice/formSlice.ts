@@ -15,9 +15,12 @@ const FormSlice = createSlice({
     domande: (state, { payload }) => {
       state.dataDomande = payload;
     },
+    resetDomande: (state) => {
+      state.dataDomande = [];
+    },
   },
 });
 
 export const selectData = (state: State) => state.form.dataDomande;
-export const { domande } = FormSlice.actions;
+export const { domande, resetDomande } = FormSlice.actions;
 export default FormSlice.reducer;

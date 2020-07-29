@@ -1,13 +1,15 @@
 import {
   all, takeLatest, call, put, select,
 } from 'redux-saga/effects';
+import { formData, formulari } from '../slice/risultatiFormularioSlice';
 import fetchForm, { fetchAllForm } from '../api/index';
 import { getAllForm } from './getFormBase';
-import { domande } from '../slice/formSlice';
-import { formulari } from '../slice/risultatiFormularioSlice';
+import { domande, selectData } from '../slice/formSlice';
+
 import { formulariAction } from '../slice/formulariSlice';
 import { formID } from '../slice/repartoSlice';
-import { initializeDomande, initializeRisposte } from '../slice/editFormSlice';
+import { initializeDomande } from '../slice/editFormSlice';
+import { setInitialStateAction, desetInitialStateAction, initialID } from '../slice/initialStateSlice';
 
 function* init(action : any) {
   const ID = yield select(formID);
@@ -17,6 +19,7 @@ function* init(action : any) {
     obj[item.ID] = true;
     return obj;
   }, {});
+
   if (ID !== 0) {
     const form = yield call(fetchForm, ID);
     const datiDomande = form.data.Domande;
@@ -27,18 +30,12 @@ function* init(action : any) {
     const reduce = arrayToObject(initialStateDomande);
     yield put(initializeDomande(reduce));
 
-    // const initialStateRisposte = datiDomande.ID.Risposte.map(
-    //   (risposta : any) => ({ ID: risposta.ID }),
-    // );
-    // const reduceR = arrayToObject(initialStateRisposte);
-    // yield put(initializeRisposte(reduceR));
-
     const formulario = yield call(fetchForm, ID);
     const datiForm = formulario.data;
     yield put(formulari(datiForm));
+    yield put(desetInitialStateAction());
   } else {
-    yield put(domande(null));
-    yield put(formulari(null));
+    yield put(setInitialStateAction());
   }
 
   const allForm = yield call(fetchAllForm);

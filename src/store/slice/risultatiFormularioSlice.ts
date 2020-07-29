@@ -13,10 +13,13 @@ const risFormSlice = createSlice({
     formulari(state, { payload }) {
       state.dataForm = payload;
     },
+    resetRisultati: (state) => {
+      state.dataForm = null;
+    },
   },
 
 });
 
 export const formData = (state: State) => state.risForm.dataForm;
-export const { formulari } = risFormSlice.actions;
+export const { formulari, resetRisultati } = risFormSlice.actions;
 export default risFormSlice.reducer;

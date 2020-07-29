@@ -1,10 +1,11 @@
 import React from 'react';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-import { IconButton, TextField } from '@material-ui/core';
+import {
+  IconButton, TextField, Button, Snackbar,
+} from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import { useSelector, useDispatch } from 'react-redux';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -13,160 +14,177 @@ import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import useStyles from './style';
 import { allFormData } from '../../store/slice/formulariSlice';
-import { valueAction } from '../../store/slice/repartoSlice';
+import { valueAction, resetReparto, formID } from '../../store/slice/repartoSlice';
 import {
-  addRepartoAction, modify, modifyRepartoAction,
+  addRepartoAction, modify, modifyRepartoAction, add, confirmRepartoAction, cancelRepartoAction,
+  delActive, alertConfirmDelete, isDisable, disableEnableAll,
 } from '../../store/slice/editFormSlice';
-import { selectData } from '../../store/slice/formSlice';
+import { resetDomande } from '../../store/slice/formSlice';
+import { initialID, setInitialStateAction, desetInitialStateAction } from '../../store/slice/initialStateSlice';
+import { resetRisultati } from '../../store/slice/risultatiFormularioSlice';
 
 const SceltaReparto = () => {
   const dispatch = useDispatch();
-
-  const addReparto = () => {
-    dispatch(addRepartoAction());
-  };
 
   const getValueOnChange = (event : React.ChangeEvent<{ value: unknown }>) => {
     const { value } = event.target;
     dispatch(valueAction(value));
     dispatch({ type: 'INIT' });
+    dispatch(desetInitialStateAction());
   };
 
+  /* Dispatch delle action del pulsante add */
+  const addDispatch = () => {
+    dispatch(addRepartoAction());
+    dispatch(setInitialStateAction());
+    dispatch(resetDomande());
+    dispatch(resetRisultati());
+  };
+
+  /* Dispatch delle action del pulsante Delete e annulla Delete */
+  const deleteDispatch = () => {
+    dispatch(alertConfirmDelete());
+    dispatch(disableEnableAll());
+  };
+
+  /* Dispatch delle action del pulsante Conferma eliminazione dell'alert */
+  const confirmDeleteDispatch = () => {
+    dispatch(resetDomande());
+    dispatch(resetRisultati());
+    dispatch(alertConfirmDelete());
+    dispatch(setInitialStateAction());
+    dispatch(resetReparto());
+    dispatch(disableEnableAll());
+  };
+
+  // recupero stati dagli slice
   const classes = useStyles();
   const listForm = useSelector(allFormData);
-  const domande = useSelector(selectData);
   const modifyReparto = useSelector(modify);
+  const addReparto = useSelector(add);
+  const noRep = useSelector(initialID);
+  const deleteActive = useSelector(delActive);
+  const disableActive = useSelector(isDisable);
+  const IDReparto = useSelector(formID);
 
   const listItems = listForm.map((oneForm) => (
 
     <MenuItem key={oneForm.ID} value={oneForm.ID}>
       {oneForm.Reparto}
     </MenuItem>
+
   ));
 
-  if (domande !== null) {
-    return (
-    // se è selezionato un reparto e modify non è stato cliccato
-      <div className={classes.margin}>
-        <Grid container>
-          <Grid item xs={12} sm={2}>
-            {modifyReparto
-              ? (
-                <div>
-                  <IconButton onClick={() => dispatch(modifyRepartoAction())}>
-                    <AddCircleOutlineIcon fontSize="large" color="primary" />
-                  </IconButton>
-                  <IconButton>
-                    <CreateIcon fontSize="large" color="primary" />
-                  </IconButton>
-                  <IconButton>
-                    <DeleteIcon fontSize="large" color="primary" />
-                  </IconButton>
-                </div>
-              )
-              : (
-                <div>
-                  <IconButton onClick={() => dispatch(modifyRepartoAction())}>
-                    <CheckCircleOutlineIcon fontSize="large" color="primary" />
-                  </IconButton>
-                  <IconButton>
-                    <HighlightOffIcon fontSize="large" color="primary" />
-                  </IconButton>
-                </div>
-              )}
-          </Grid>
-          <Grid item xs={12} sm={10}>
-            {modifyReparto
-              ? (
-                <FormControl variant="outlined" fullWidth>
-                  <InputLabel id="demo-simple-select-outlined-label">
-                    Reparto
-                  </InputLabel>
-                  <Select autoWidth onChange={getValueOnChange}>
-                    {listItems}
-                  </Select>
-                </FormControl>
-              ) : <TextField fullWidth />}
-          </Grid>
-        </Grid>
-      </div>
-    );
-  }
   return (
-  // se non è selezionato un reparto e la casella è una dropdownlist
+
     <div className={classes.margin}>
       <Grid container>
         <Grid item xs={12} sm={2}>
-          <IconButton onClick={addReparto}>
-            <AddCircleOutlineIcon fontSize="large" color="primary" />
-          </IconButton>
+          {/* Pulsanti accanto al dropDownList scelta reparto */}
+          {addReparto || modifyReparto
+            ? (
+              <div>
+                {/* se il pulsante add o modify è attivo */}
+                <IconButton
+                  disabled={disableActive}
+                  onClick={() => dispatch(confirmRepartoAction())}
+                >
+                  <CheckCircleOutlineIcon fontSize="large" color="primary" />
+                </IconButton>
+                <IconButton
+                  disabled={disableActive}
+                  onClick={() => dispatch(cancelRepartoAction())}
+                >
+                  <HighlightOffIcon fontSize="large" color="primary" />
+                </IconButton>
+              </div>
+            )
+            : (
+              <div>
+                {/* se nè add nè modify sono attivi e non è selezionato nessun reparto */}
+                {noRep === 0
+                  ? (
+                    <IconButton disabled={disableActive} onClick={addDispatch}>
+                      <AddCircleOutlineIcon fontSize="large" color="primary" />
+                    </IconButton>
+                  )
+                  : (
+                    <div>
+                      {/* se nè add nè modify sono attivi eed è selezionato il reparto */}
+                      <IconButton disabled={disableActive} onClick={addDispatch}>
+                        <AddCircleOutlineIcon fontSize="large" color="primary" />
+                      </IconButton>
+                      <IconButton
+                        disabled={disableActive}
+                        onClick={() => dispatch(modifyRepartoAction())}
+                      >
+                        <CreateIcon fontSize="large" color="primary" />
+                      </IconButton>
+                      <IconButton disabled={disableActive} onClick={deleteDispatch}>
+                        <DeleteIcon fontSize="large" color="primary" />
+                      </IconButton>
+                    </div>
+
+                  )}
+              </div>
+            )}
         </Grid>
         <Grid item xs={12} sm={10}>
-          <FormControl variant="outlined" fullWidth>
-            <InputLabel id="demo-simple-select-outlined-label">
-              Reparto
-            </InputLabel>
-            <Select autoWidth onChange={getValueOnChange}>
-              {listItems}
-            </Select>
-          </FormControl>
+          {/* DropDownList selezione reparto */}
+          {/* se è cliccato il tasto add */}
+          {addReparto
+
+            ? <TextField label="inserisci nome reparto" variant="outlined" fullWidth />
+            : (
+              <div>
+                {/* se è cliccato il tasto modify */}
+                { modifyReparto
+                  ? (
+                    <TextField variant="outlined" fullWidth />
+                  )
+                  : (
+                    <div>
+                      {/* se non è cliccato nulla */}
+                      <FormControl variant="outlined" fullWidth>
+                        <Select
+                          defaultValue={0}
+                          value={IDReparto}
+                          autoWidth
+                          onChange={getValueOnChange}
+                        >
+                          <MenuItem value={0}>
+                            Seleziona Reparto
+                          </MenuItem>
+                          {listItems}
+                        </Select>
+                      </FormControl>
+                    </div>
+                  )}
+              </div>
+
+            )}
         </Grid>
       </Grid>
+      {/* Alert per il delete del reparto */}
+      <Snackbar
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        message="Stai per eliminare un'intero formulario, sei sicuro?"
+        open={deleteActive}
+        action={(
+          <div>
+            <Button onClick={confirmDeleteDispatch} variant="contained" color="primary" size="small">
+              Conferma eliminazione
+            </Button>
+            &nbsp;&nbsp;
+            <Button onClick={deleteDispatch} variant="contained" color="primary" size="small">
+              Annulla
+            </Button>
+          </div>
+          )}
+      />
     </div>
 
   );
-
-  //   return (
-  //     // se non è selezionato un reparto e la casella è una dropdownlist
-  //     <div className={classes.margin}>
-  //       <Grid container>
-  //         <Grid item xs={12} sm={2}>
-  //           <IconButton onClick={addReparto}>
-  //             <AddCircleOutlineIcon fontSize="large" color="primary" />
-  //           </IconButton>
-  //         </Grid>
-  //         <Grid item xs={12} sm={10}>
-  //           <FormControl variant="outlined" fullWidth>
-  //             <InputLabel id="demo-simple-select-outlined-label">
-  //               Reparto
-  //             </InputLabel>
-  //             <Select autoWidth onChange={getValueOnChange}>
-  //               {listItems}
-  //             </Select>
-  //           </FormControl>
-  //         </Grid>
-  //       </Grid>
-  //     </div>
-
-  //   );
-  // } if (modifyActive === false) {
-  //   return (
-  //   // se la casella è un TextField e non è attiva la modifica
-  //     <div className={classes.margin}>
-  //       <Grid container>
-  //         <Grid item xs={12} sm={2}>
-  //           <IconButton onClick={confirmation}>
-  //             <CheckCircleOutlineIcon fontSize="large" color="primary" />
-  //           </IconButton>
-  //           <IconButton>
-  //             <HighlightOffIcon fontSize="large" color="primary" />
-  //           </IconButton>
-  //         </Grid>
-  //         <Grid item xs={12} sm={10}>
-  //           <TextField fullWidth />
-  //         </Grid>
-  //       </Grid>
-  //     </div>
-
-  //   );
-  // }
-  // const listItems = listForm.map((oneForm) => (
-
-  //   <TextField key={oneForm.ID} value={oneForm.Reparto} fullWidth />
-
-  // ));
-
-  // );
 };
 
 export default SceltaReparto;

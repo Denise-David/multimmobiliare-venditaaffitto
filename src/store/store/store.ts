@@ -8,6 +8,7 @@ import risForm from '../slice/risultatiFormularioSlice';
 import reparto from '../slice/repartoSlice';
 import editForm from '../slice/editFormSlice';
 import form from '../slice/formSlice';
+import initialState from '../slice/initialStateSlice';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -19,6 +20,7 @@ const store = configureStore({
     risForm,
     reparto,
     editForm,
+    initialState,
 
   },
 

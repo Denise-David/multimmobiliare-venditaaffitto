@@ -11,15 +11,17 @@ import RigaRisposta from '../RigaRisposta/RigaRisposta';
 import RigaRispostaVuota from '../RigaRispostaVuota/RigaRispostaVuota';
 import RigaDomandaVuota from '../RigaDomandaVuota/RigaDomandaVuota';
 import {
-  modifyDomandaAction, stateTextField, ddl,
+  modifyDomandaAction, stateTextField,
 } from '../../store/slice/editFormSlice';
+import { initialID } from '../../store/slice/initialStateSlice';
 
 const RigaRisulato = () => {
   const dispatch = useDispatch();
+  const iniID = useSelector(initialID);
   const domande = useSelector(selectData);
   const textFieldState = useSelector(stateTextField);
 
-  if (domande !== null) {
+  if (iniID !== 0) {
     const listItems = domande.map((domanda : any) => (
       <div key={domanda.ID}>
         <Grid container spacing={3}>
@@ -50,7 +52,9 @@ const RigaRisulato = () => {
     );
   }
   return (
-    <div />
+    <div>
+      <RigaDomandaVuota />
+    </div>
   );
 };
 
