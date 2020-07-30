@@ -6,11 +6,15 @@ import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import { useSelector, useDispatch } from 'react-redux';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
-import { risActive, addRispostaVuotaAction } from '../../store/slice/editFormSlice';
+import {
+  risActive, addRispostaVuotaAction, isDisable, colDisable,
+} from '../../store/slice/editFormSlice';
 
 const RigaRisulato = () => {
   const dispatch = useDispatch();
 
+  const colorButton = useSelector(colDisable);
+  const disableActive = useSelector(isDisable);
   const risultActive = useSelector(risActive);
 
   const addRispostaDispatch = () => {
@@ -25,8 +29,8 @@ const RigaRisulato = () => {
         {risultActive
           ? (
             <Grid item xs={12} sm={1}>
-              <IconButton>
-                <AddCircleOutlineIcon onClick={addRispostaDispatch} color="primary" />
+              <IconButton disabled={disableActive}>
+                <AddCircleOutlineIcon onClick={addRispostaDispatch} color={colorButton} />
               </IconButton>
             </Grid>
 

@@ -13,21 +13,26 @@ const editFormSlice = createSlice({
     deleteActive: false as boolean | undefined,
     isDisable: false,
     addRisVuotaDeactive: true,
+    risultati: {} as any,
+    colorButton: 'primary' as 'inherit' | 'disabled' | 'primary' | 'action' | 'secondary' | 'error' | undefined,
 
   },
   reducers: {
+    // Gestione domande
     modifyDomandaAction(state, { payload }) {
       state.disabled[payload] = !state.disabled[payload];
     },
     initializeDomande(state, { payload }) {
       state.disabled = payload;
     },
-    initializeRisposte(state, { payload }) {
-      state.stateModifyRisposte = payload;
+    // Gestione risultati
+    initializeRisultati(state, { payload }) {
+      state.risultati = payload;
     },
-    modifyRispostaAction(state, { payload }) {
-      state.stateModifyRisposte[payload] = !state.stateModifyRisposte[payload];
+    modifyRisultatiAction(state, { payload }) {
+      state.risultati[payload] = !state.risultati[payload];
     },
+    // Gestione reparto
     addRepartoAction(state) {
       state.addActive = !state.addActive;
     },
@@ -46,15 +51,27 @@ const editFormSlice = createSlice({
       state.addActive = false;
       state.modifyActive = false;
     },
+    // gestione alert
     alertConfirmDelete(state) {
       state.deleteActive = !state.deleteActive;
     },
-    disableEnableAll(state) {
-      state.isDisable = !state.isDisable;
+    disableAll(state) {
+      state.isDisable = true;
+      state.colorButton = 'disabled';
     },
+    enableAll(state) {
+      state.isDisable = false;
+      state.colorButton = 'primary';
+    },
+
+    // Gestione risposte
     addRispostaVuotaAction(state) {
       state.addRisVuotaDeactive = !state.addRisVuotaDeactive;
     },
+    repartoOnChange(state) {
+      console.log('ciao');
+    },
+
   },
 });
 
@@ -65,9 +82,12 @@ export const modify = (state : State) => state.editForm.modifyActive;
 export const delActive = (state : State) => state.editForm.deleteActive;
 export const isDisable = (state : State) => state.editForm.isDisable;
 export const risActive = (state : State) => state.editForm.addRisVuotaDeactive;
+export const stateRisultato = (state : State) => state.editForm.risultati;
+export const colDisable = (state : State) => state.editForm.colorButton;
 export const {
   modifyDomandaAction, addRepartoAction, confirmRepartoAction, modifyRepartoAction,
-  initializeDomande, initializeRisposte, modifyRispostaAction, cancelRepartoAction,
-  alertConfirmDelete, disableEnableAll, addRispostaVuotaAction,
+  initializeDomande, cancelRepartoAction, enableAll, repartoOnChange,
+  alertConfirmDelete, disableAll, addRispostaVuotaAction, initializeRisultati,
+  modifyRisultatiAction,
 } = editFormSlice.actions;
 export default editFormSlice.reducer;

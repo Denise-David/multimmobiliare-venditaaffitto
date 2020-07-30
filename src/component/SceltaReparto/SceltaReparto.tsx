@@ -17,20 +17,33 @@ import { allFormData, Formulario } from '../../store/slice/formulariSlice';
 import { valueAction, resetReparto, formID } from '../../store/slice/repartoSlice';
 import {
   addRepartoAction, modify, modifyRepartoAction, add, confirmRepartoAction, cancelRepartoAction,
-  delActive, alertConfirmDelete, isDisable, disableEnableAll,
+  delActive, alertConfirmDelete, isDisable, disableAll, enableAll, colDisable, repartoOnChange,
 } from '../../store/slice/editFormSlice';
 import { resetDomande } from '../../store/slice/formSlice';
 import { initialID, setInitialStateAction, desetInitialStateAction } from '../../store/slice/initialStateSlice';
 import { resetRisultati } from '../../store/slice/risultatiFormularioSlice';
+import createRisultatiArray from '../../store/sagas/risultatiOnChange';
 
 const SceltaReparto = () => {
   const dispatch = useDispatch();
+
+  // recupero stati dagli slice
+  const classes = useStyles();
+  const listForm = useSelector(allFormData);
+  const modifyReparto = useSelector(modify);
+  const addReparto = useSelector(add);
+  const noRep = useSelector(initialID);
+  const deleteActive = useSelector(delActive);
+  const disableActive = useSelector(isDisable);
+  const IDReparto = useSelector(formID);
+  const colorButton = useSelector(colDisable);
 
   const getValueOnChange = (event : React.ChangeEvent<{ value: unknown }>) => {
     const { value } = event.target;
     dispatch(valueAction(value));
     dispatch({ type: 'INIT' });
     dispatch(desetInitialStateAction());
+    dispatch(repartoOnChange());
   };
 
   /* Dispatch delle action del pulsante add */
@@ -44,11 +57,7 @@ const SceltaReparto = () => {
   /* Dispatch delle action del pulsante Delete e annulla Delete */
   const deleteDispatch = () => {
     dispatch(alertConfirmDelete());
-    dispatch(disableEnableAll());
-  };
-
-  const cancelDispatch = () => {
-    dispatch(cancelRepartoAction());
+    dispatch(disableAll());
   };
 
   /* Dispatch delle action del pulsante Conferma eliminazione dell'alert */
@@ -58,19 +67,33 @@ const SceltaReparto = () => {
     dispatch(alertConfirmDelete());
     dispatch(setInitialStateAction());
     dispatch(resetReparto());
-    dispatch(disableEnableAll());
+    dispatch(enableAll());
   };
 
-  // recupero stati dagli slice
-  const classes = useStyles();
-  const listForm = useSelector(allFormData);
-  const modifyReparto = useSelector(modify);
-  const addReparto = useSelector(add);
-  const noRep = useSelector(initialID);
-  const deleteActive = useSelector(delActive);
-  const disableActive = useSelector(isDisable);
-  const IDReparto = useSelector(formID);
-  console.log('yyy', listForm);
+  // Dispatch del pulsante croce (annulla)
+  const cancelDispatch = () => {
+    dispatch(cancelRepartoAction());
+    dispatch(enableAll());
+    if (addReparto === true) {
+      dispatch(resetReparto());
+    }
+  };
+
+  const confirmDispatch = () => {
+    dispatch(enableAll());
+    dispatch(confirmRepartoAction());
+  };
+
+  // Dispatch pulsante annulla dell'alert
+  const cancelDeleteDispatch = () => {
+    dispatch(enableAll());
+    dispatch(alertConfirmDelete());
+  };
+
+  const modifyDispatch = () => {
+    dispatch(modifyRepartoAction());
+    dispatch(disableAll());
+  };
 
   const getRepartoName = (form : Formulario) => form.ID === IDReparto;
 
@@ -93,13 +116,13 @@ const SceltaReparto = () => {
               <div>
                 {/* se il pulsante add o modify è attivo */}
                 <IconButton
-                  disabled={disableActive}
-                  onClick={() => dispatch(confirmRepartoAction())}
+
+                  onClick={confirmDispatch}
                 >
                   <CheckCircleOutlineIcon fontSize="large" color="primary" />
                 </IconButton>
                 <IconButton
-                  disabled={disableActive}
+
                   onClick={cancelDispatch}
                 >
                   <HighlightOffIcon fontSize="large" color="primary" />
@@ -111,27 +134,26 @@ const SceltaReparto = () => {
                 {/* se nè add nè modify sono attivi e non è selezionato nessun reparto */}
                 {noRep === 0
                   ? (
-                    <IconButton disabled={disableActive} onClick={addDispatch}>
+                    <IconButton onClick={addDispatch}>
                       <AddCircleOutlineIcon fontSize="large" color="primary" />
                     </IconButton>
                   )
                   : (
                     <div>
-                      {/* se nè add nè modify sono attivi eed è selezionato il reparto */}
-                      <IconButton disabled={disableActive} onClick={addDispatch}>
-                        <AddCircleOutlineIcon fontSize="large" color="primary" />
+                      {/* se nè add nè modify sono attivi ed è selezionato il reparto */}
+                      <IconButton onClick={addDispatch}>
+                        <AddCircleOutlineIcon fontSize="large" color={colorButton} />
                       </IconButton>
                       <IconButton
                         disabled={disableActive}
-                        onClick={() => dispatch(modifyRepartoAction())}
+                        onClick={modifyDispatch}
                       >
-                        <CreateIcon fontSize="large" color="primary" />
+                        <CreateIcon fontSize="large" color={colorButton} />
                       </IconButton>
                       <IconButton disabled={disableActive} onClick={deleteDispatch}>
-                        <DeleteIcon fontSize="large" color="primary" />
+                        <DeleteIcon fontSize="large" color={colorButton} />
                       </IconButton>
                     </div>
-
                   )}
               </div>
             )}
@@ -140,7 +162,6 @@ const SceltaReparto = () => {
           {/* DropDownList selezione reparto */}
           {/* se è cliccato il tasto add */}
           {addReparto
-
             ? <TextField label="inserisci nome reparto" variant="filled" fullWidth />
             : (
               <div>
@@ -168,7 +189,6 @@ const SceltaReparto = () => {
                     </div>
                   )}
               </div>
-
             )}
         </Grid>
       </Grid>
@@ -183,14 +203,13 @@ const SceltaReparto = () => {
               Conferma eliminazione
             </Button>
             &nbsp;&nbsp;
-            <Button onClick={deleteDispatch} variant="contained" color="primary" size="small">
+            <Button onClick={cancelDeleteDispatch} variant="contained" color="primary" size="small">
               Annulla
             </Button>
           </div>
           )}
       />
     </div>
-
   );
 };
 

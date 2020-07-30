@@ -1,5 +1,5 @@
 import {
-  all, takeLatest, call, put, select,
+  all, takeLatest, call, put, select, take, takeEvery,
 } from 'redux-saga/effects';
 import { formulari } from '../slice/risultatiFormularioSlice';
 import fetchForm, { fetchAllForm } from '../api/index';
@@ -8,10 +8,14 @@ import { domande } from '../slice/formSlice';
 
 import { formulariAction } from '../slice/formulariSlice';
 import { formID } from '../slice/repartoSlice';
-import { initializeDomande } from '../slice/editFormSlice';
+import { initializeDomande, initializeRisultati, repartoOnChange } from '../slice/editFormSlice';
 import { setInitialStateAction, desetInitialStateAction } from '../slice/initialStateSlice';
+import createRisultatiArray from './risultatiOnChange';
+import { isLoadingLoaded } from '../slice/loadingSlice';
 
 function* init(action : any) {
+  yield put(isLoadingLoaded());
+
   const ID = yield select(formID);
 
   // metodo che converte un array in un object
@@ -23,6 +27,19 @@ function* init(action : any) {
 
   // controllo se è selezionato un reparto
   if (ID !== 0) {
+    // prendo i risultati del form ID selezionato
+    const ris = yield call(fetchForm, ID);
+    const datiRisultati = ris.data.Risultati;
+    yield put(domande(datiRisultati));
+
+    // creo un array con indice ID Risultati e stato true
+    const initialStateRisultati = datiRisultati.map(
+      (risultato : any) => ({ ID: risultato.ID }),
+    );
+    const reduceRis = arrayToObject(initialStateRisultati);
+    // invio l'array
+    yield put(initializeRisultati(reduceRis));
+
     // prendo le domande del form ID selezionato
     const form = yield call(fetchForm, ID);
     const datiDomande = form.data.Domande;
@@ -41,6 +58,7 @@ function* init(action : any) {
     yield put(formulari(datiForm));
 
     yield put(desetInitialStateAction());
+    yield put(isLoadingLoaded());
   } else {
     yield put(setInitialStateAction());
   }
@@ -49,26 +67,11 @@ function* init(action : any) {
   const allForm = yield call(fetchAllForm);
   const datiFormulari = allForm.data.formulari;
   yield put(formulariAction(datiFormulari));
-
-  // // prendo i risultati del form ID selezionato
-  // const form = yield call(fetchForm, ID);
-  // const datiRisultati = form.data.Risultati;
-  // yield put(domande(datiRisultati));
-
-  // // creo un array con indice ID Risultati e stato true
-  // const initialStateRisultati = datiRisultati.map(
-  //   (risultato : any) => ({ ID: risultato.ID }),
-  // );
-  // const reduceRis = arrayToObject(initialStateRisultati);
-  // // invio l'array
-  // yield put(initializeDomande(reduceRis));
-
-  // console.log('rrr', reduceRis);
 }
 
 function* actionWatcher() {
-  yield takeLatest('INIT', init);
-  yield takeLatest(formulariAction.type, getAllForm);
+  // yield takeLatest(repartoOnChange.type, createRisultatiArray);
+  yield takeEvery('INIT', init);
 }
 export default function* rootSaga() {
   yield all([actionWatcher()]);
