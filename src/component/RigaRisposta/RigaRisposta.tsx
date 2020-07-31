@@ -9,7 +9,7 @@ import { Domanda, Risposta } from '../../store/slice/formSlice';
 import { State } from '../../store/store/store';
 import { colDisable, isDisable } from '../../store/slice/editFormSlice';
 
-interface Props {id : number}
+interface Props {id : string}
 
 const RigaRisulato = ({ id }: Props) => {
   const colorButton = useSelector(colDisable);

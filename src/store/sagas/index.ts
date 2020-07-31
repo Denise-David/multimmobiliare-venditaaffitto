@@ -14,59 +14,72 @@ import createRisultatiArray from './risultatiOnChange';
 import { isLoadingLoaded } from '../slice/loadingSlice';
 
 function* init(action : any) {
-  yield put(isLoadingLoaded());
+  // yield put(isLoadingLoaded());
+  try {
+    const ID : string = yield select(formID);
+    console.log('www', ID);
 
-  const ID = yield select(formID);
+    // prendo tutti i formulari
+    const allForm = yield call(fetchAllForm);
+    const datiFormulari = allForm.data;
 
-  // metodo che converte un array in un object
-  const arrayToObject = (array : any) => array.reduce((obj : any, item : any) => {
+    yield put(formulariAction(datiFormulari));
+
+    // metodo che converte un array in un object
+    const arrayToObject = (array : any) => array.reduce((obj : any, item : any) => {
     // eslint-disable-next-line no-param-reassign
-    obj[item.ID] = true;
-    return obj;
-  }, {});
+      obj[item.ID] = true;
+      return obj;
+    }, {});
 
-  // controllo se è selezionato un reparto
-  if (ID !== 0) {
-    // prendo i risultati del form ID selezionato
-    const ris = yield call(fetchForm, ID);
-    const datiRisultati = ris.data.Risultati;
-    yield put(domande(datiRisultati));
+    // controllo se è selezionato un reparto
+    if (ID !== '0') {
+      try {
+        // prendo i risultati del form ID selezionato
+        const ris = yield call(fetchForm, ID);
+        console.log('xxx ris', ris);
+        const datiRisultati = ris.Risultati;
+        yield put(domande(datiRisultati));
 
-    // creo un array con indice ID Risultati e stato true
-    const initialStateRisultati = datiRisultati.map(
-      (risultato : any) => ({ ID: risultato.ID }),
-    );
-    const reduceRis = arrayToObject(initialStateRisultati);
-    // invio l'array
-    yield put(initializeRisultati(reduceRis));
+        console.log('xxx datiRisultati', datiRisultati);
 
-    // prendo le domande del form ID selezionato
-    const form = yield call(fetchForm, ID);
-    const datiDomande = form.data.Domande;
-    yield put(domande(datiDomande));
-    // Creo un array con indice ID e stato true
-    const initialStateDomande = datiDomande.map(
-      (domanda : any) => ({ ID: domanda.ID }),
-    );
-    const reduce = arrayToObject(initialStateDomande);
-    // invio l'array
-    yield put(initializeDomande(reduce));
+        // creo un array con indice ID Risultati e stato true
+        const initialStateRisultati = datiRisultati.map(
+          (risultato : any) => ({ ID: risultato.ID }),
+        );
+        const reduceRis = arrayToObject(initialStateRisultati);
+        // invio l'array
+        yield put(initializeRisultati(reduceRis));
 
-    // prendo il form ID selezionato
-    const formulario = yield call(fetchForm, ID);
-    const datiForm = formulario.data;
-    yield put(formulari(datiForm));
+        // prendo le domande del form ID selezionato
+        const form = yield call(fetchForm, ID);
+        console.log('xxx', form, ID);
+        const datiDomande = form.Domande;
+        yield put(domande(datiDomande));
 
-    yield put(desetInitialStateAction());
-    yield put(isLoadingLoaded());
-  } else {
-    yield put(setInitialStateAction());
+        console.log('sss', datiDomande);
+        // Creo un array con indice ID e stato true
+        const initialStateDomande = datiDomande.map(
+          (domanda : any) => ({ ID: domanda.ID }),
+        );
+        const reduce = arrayToObject(initialStateDomande);
+        // invio l'array
+        yield put(initializeDomande(reduce));
+
+        // prendo il form ID selezionato
+        const formulario = yield call(fetchForm, ID);
+        const datiForm = formulario.data;
+        yield put(formulari(datiForm));
+
+        yield put(desetInitialStateAction());
+        yield put(isLoadingLoaded());
+      } catch (error) { console.log('errore', error); }
+    } else {
+      yield put(setInitialStateAction());
+    }
+  } catch (error) {
+    console.log('error', error);
   }
-
-  // prendo tutti i formulari
-  const allForm = yield call(fetchAllForm);
-  const datiFormulari = allForm.data.formulari;
-  yield put(formulariAction(datiFormulari));
 }
 
 function* actionWatcher() {

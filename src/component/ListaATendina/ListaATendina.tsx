@@ -5,7 +5,7 @@ import { Select } from '@material-ui/core';
 import { State } from '../../store/store/store';
 import { Domanda, Risposta } from '../../store/slice/formSlice';
 
-interface Props {id : number}
+interface Props {id : string}
 
 const ListaATendina = ({ id }: Props) => {
   const controlID = (state : State) => {

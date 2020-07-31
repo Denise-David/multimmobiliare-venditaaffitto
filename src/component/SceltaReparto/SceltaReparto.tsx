@@ -17,12 +17,11 @@ import { allFormData, Formulario } from '../../store/slice/formulariSlice';
 import { valueAction, resetReparto, formID } from '../../store/slice/repartoSlice';
 import {
   addRepartoAction, modify, modifyRepartoAction, add, confirmRepartoAction, cancelRepartoAction,
-  delActive, alertConfirmDelete, isDisable, disableAll, enableAll, colDisable, repartoOnChange,
+  delActive, alertConfirmDelete, isDisable, disableAll, enableAll, colDisable,
 } from '../../store/slice/editFormSlice';
 import { resetDomande } from '../../store/slice/formSlice';
-import { initialID, setInitialStateAction, desetInitialStateAction } from '../../store/slice/initialStateSlice';
+import { initialID, setInitialStateAction } from '../../store/slice/initialStateSlice';
 import { resetRisultati } from '../../store/slice/risultatiFormularioSlice';
-import createRisultatiArray from '../../store/sagas/risultatiOnChange';
 
 const SceltaReparto = () => {
   const dispatch = useDispatch();
@@ -42,8 +41,8 @@ const SceltaReparto = () => {
     const { value } = event.target;
     dispatch(valueAction(value));
     dispatch({ type: 'INIT' });
-    dispatch(desetInitialStateAction());
-    dispatch(repartoOnChange());
+    // dispatch(desetInitialStateAction());
+    // dispatch(repartoOnChange());
   };
 
   /* Dispatch delle action del pulsante add */
@@ -95,11 +94,15 @@ const SceltaReparto = () => {
     dispatch(disableAll());
   };
 
-  const getRepartoName = (form : Formulario) => form.ID === IDReparto;
+  // eslint-disable-next-line no-underscore-dangle
+  const getRepartoName = (form : Formulario) => form._id === IDReparto;
+
+  console.log('gne', listForm);
 
   const listItems = listForm.map((oneForm) => (
 
-    <MenuItem key={oneForm.ID} value={oneForm.ID}>
+    // eslint-disable-next-line no-underscore-dangle
+    <MenuItem key={oneForm._id} value={oneForm._id}>
       {oneForm.Reparto}
     </MenuItem>
 
