@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme:Theme) => ({
 
   },
   Card: {
-    marginTop: theme.spacing(1),
+    marginTop: theme.spacing(15),
     display: 'block',
     alignContent: 'center',
     marginLeft: theme.spacing(3),

@@ -1,13 +1,28 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
+import { useDispatch } from 'react-redux';
 import useStyles from './style';
+import { buttonSendCode } from '../../store/slice/CodeSlice';
 
 const ButtonSend = () => {
+  const dispatch = useDispatch();
   const classes = useStyles();
+
+  const handleClickOpen = () => {
+    dispatch(buttonSendCode());
+  };
+
   return (
-    <Button className={classes.margin} variant="contained" color="primary" href="/form">
-      Invia
-    </Button>
+    <>
+      <Button
+        onClick={handleClickOpen}
+        className={classes.margin}
+        variant="contained"
+        color="primary"
+      >
+        Invia
+      </Button>
+    </>
   );
 };
 

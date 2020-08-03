@@ -1,32 +1,26 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
 import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
-import { useDispatch } from 'react-redux';
 import useStyles from './style';
 import Nav from '../../component/Navbar/Nav';
 import TextName from '../../component/TextName/TextName';
 import TextLastname from '../../component/TextLastname/TextLastname';
 import TextStreet from '../../component/TextStreet/TextStreet';
 import TextNumber from '../../component/TextNumber/TextNumber';
-import TextResidence from '../../component/TextResidence/TextResidence';
+import TextResidence from '../../component/TextCityName/TextCityName';
 import TextDoctor from '../../component/TextDoctor/TextDoctor';
 import TextCassaMalati from '../../component/TextCassaMalati/TextCassaMalati';
 import TextPhone from '../../component/TextPhone/TextPhone';
 import ButtonSend from '../../component/ButtonSend/ButtonSend';
 import DropDownList from '../../component/RisposteMultiple/RisposteMultiple';
-import BooleanAnswer from '../../component/BooleanAnswer/BooleanAnswer';
+import TextFamilyDoctor from '../../component/TextFamilyDoctor/TextFamilyDoctor';
 
 const FormPaziente = () => {
   const classes = useStyles();
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch({ type: 'INIT' });
-  }, []);
 
   return (
     <div>
@@ -47,6 +41,7 @@ const FormPaziente = () => {
             <TextNumber />
           </div>
           <TextResidence />
+          <TextFamilyDoctor />
           <TextDoctor />
           <TextCassaMalati />
           <TextPhone />
@@ -58,7 +53,7 @@ const FormPaziente = () => {
         </Paper>
         <List>
           <DropDownList />
-          <ListItem divider>
+          {/* <ListItem divider>
             <Typography variant="subtitle1" />
             <BooleanAnswer />
           </ListItem>
@@ -67,7 +62,7 @@ const FormPaziente = () => {
               Ha presentato febbre persistente?
             </Typography>
             <BooleanAnswer />
-          </ListItem>
+          </ListItem> */}
         </List>
         <div className={classes.centerButton}>
           <ButtonSend />

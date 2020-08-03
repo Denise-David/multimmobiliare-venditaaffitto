@@ -7,7 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import { useSelector, useDispatch } from 'react-redux';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
-import { formData } from '../../store/slice/risultatiFormularioSlice';
+import { dataRisultati } from '../../store/slice/risultatiFormularioSlice';
 import RigaRisultatoVuota from '../RigaRisultatoVuota/RigaRisultatoVuota';
 import { selectData } from '../../store/slice/formSlice';
 import {
@@ -17,7 +17,7 @@ import {
 const RigaRisulato = () => {
   const dispatch = useDispatch();
 
-  const listForm = useSelector(formData);
+  const listForm = useSelector(dataRisultati);
   const domande = useSelector(selectData);
   const risDisabled = useSelector(stateRisultato);
   const colorButton = useSelector(colDisable);

@@ -1,23 +1,24 @@
 import {
-  all, takeLatest, call, put, select, take, takeEvery,
+  all, takeLatest, call, put, select, takeEvery,
 } from 'redux-saga/effects';
-import { formulari } from '../slice/risultatiFormularioSlice';
+import { getRisultati } from '../slice/risultatiFormularioSlice';
 import fetchForm, { fetchAllForm } from '../api/index';
-import { getAllForm } from './getFormBase';
+
 import { domande } from '../slice/formSlice';
 
 import { formulariAction } from '../slice/formulariSlice';
 import { formID } from '../slice/repartoSlice';
-import { initializeDomande, initializeRisultati, repartoOnChange } from '../slice/editFormSlice';
+import {
+  initializeDomande, initializeRisultati, confirmRepartoAction,
+} from '../slice/editFormSlice';
 import { setInitialStateAction, desetInitialStateAction } from '../slice/initialStateSlice';
-import createRisultatiArray from './risultatiOnChange';
-import { isLoadingLoaded } from '../slice/loadingSlice';
+import addReparto from './editFormSagas';
+import { buttonSendCode } from '../slice/CodeSlice';
+import getDataEtichetta from './barcodeSagas';
 
 function* init(action : any) {
-  // yield put(isLoadingLoaded());
   try {
     const ID : string = yield select(formID);
-    console.log('www', ID);
 
     // prendo tutti i formulari
     const allForm = yield call(fetchAllForm);
@@ -69,10 +70,9 @@ function* init(action : any) {
         // prendo il form ID selezionato
         const formulario = yield call(fetchForm, ID);
         const datiForm = formulario.data;
-        yield put(formulari(datiForm));
+        yield put(getRisultati(datiForm));
 
         yield put(desetInitialStateAction());
-        yield put(isLoadingLoaded());
       } catch (error) { console.log('errore', error); }
     } else {
       yield put(setInitialStateAction());
@@ -83,8 +83,9 @@ function* init(action : any) {
 }
 
 function* actionWatcher() {
-  // yield takeLatest(repartoOnChange.type, createRisultatiArray);
-  yield takeEvery('INIT', init);
+  yield takeLatest('INIT', init);
+  yield takeLatest(confirmRepartoAction.type, addReparto);
+  yield takeEvery(buttonSendCode.type, getDataEtichetta);
 }
 export default function* rootSaga() {
   yield all([actionWatcher()]);

@@ -3,11 +3,13 @@ import TextField from '@material-ui/core/TextField';
 import { useSelector } from 'react-redux';
 import { allDataEtichetta } from '../../store/slice/datiPazienteSlice';
 
-const TextLastname = () => {
+const TextCityName = () => {
   const dataEtichetta = useSelector(allDataEtichetta);
+
   return (
-    <TextField fullWidth label="Nome" value={dataEtichetta.data.patient.givenname} />
+    <TextField fullWidth label="Residenza" value={dataEtichetta.data.patient.address.cityName} />
+
   );
 };
 
-export default TextLastname;
+export default TextCityName;

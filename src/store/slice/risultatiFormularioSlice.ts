@@ -12,19 +12,19 @@ export interface Risultato {
 const risFormSlice = createSlice({
   name: 'formulari',
   initialState: {
-    dataForm: null as Formulario | null,
+    dataRis: null as Formulario | null,
   },
   reducers: {
-    formulari(state, { payload }) {
-      state.dataForm = payload;
+    getRisultati(state, { payload }) {
+      state.dataRis = payload;
     },
     resetRisultati: (state) => {
-      state.dataForm = null;
+      state.dataRis = null;
     },
   },
 
 });
 
-export const formData = (state: State) => state.risForm.dataForm;
-export const { formulari, resetRisultati } = risFormSlice.actions;
+export const dataRisultati = (state: State) => state.risForm.dataRis;
+export const { getRisultati, resetRisultati } = risFormSlice.actions;
 export default risFormSlice.reducer;

@@ -4,22 +4,19 @@ import Grid from '@material-ui/core/Grid';
 import AppBar from '@material-ui/core/AppBar';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
-import { useDispatch, useSelector } from 'react-redux';
-import { Backdrop, CircularProgress } from '@material-ui/core';
+import { useDispatch } from 'react-redux';
 import Nav from '../../component/Navbar/Nav';
 import useStyles from './style';
 import SceltaReparto from '../../component/SceltaReparto/SceltaReparto';
 import RigaRisultato from '../../component/RigaRisultato/RigaRisulato';
 import RigaDomanda from '../../component/DomandeConRisposte/RigaDomanda';
-import { loading } from '../../store/slice/loadingSlice';
 
 const FormPaziente = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch({ type: 'INIT' });
-  }, []);
-  const load = useSelector(loading);
+  });
 
   return (
     <div>

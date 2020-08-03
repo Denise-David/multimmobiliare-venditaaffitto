@@ -5,16 +5,14 @@ import ButtonSend from '../../component/ButtonSend/ButtonSend';
 import TextFieldCodice from '../../component/TextFieldCodice/TextFieldCodice';
 import useStyles from './style';
 import Nav from '../../component/Navbar/Nav';
-import logo from '../../img/eoc.png';
 import CameraButton from '../../component/CameraButton/CameraButton';
+import PatientFormDialog from '../../component/PatientFormDialog';
 
 const Barcodepage = () => {
   const classes = useStyles();
   return (
     <div className={classes.Content}>
       <Nav />
-      <img className={classes.Logo} src={logo} alt="Eoc Logo" />
-
       <div className={classes.Card}>
         <Card>
           <CardContent className={classes.Center}>
@@ -29,6 +27,7 @@ const Barcodepage = () => {
       <div className={classes.Margin}>Oppure</div>
       <div className={classes.Margin}><TextFieldCodice /></div>
       <ButtonSend />
+      <PatientFormDialog />
     </div>
 
   );

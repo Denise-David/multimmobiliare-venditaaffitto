@@ -18,6 +18,7 @@ import { valueAction, resetReparto, formID } from '../../store/slice/repartoSlic
 import {
   addRepartoAction, modify, modifyRepartoAction, add, confirmRepartoAction, cancelRepartoAction,
   delActive, alertConfirmDelete, isDisable, disableAll, enableAll, colDisable,
+  valueAddRepartoAction,
 } from '../../store/slice/editFormSlice';
 import { resetDomande } from '../../store/slice/formSlice';
 import { initialID, setInitialStateAction } from '../../store/slice/initialStateSlice';
@@ -43,6 +44,11 @@ const SceltaReparto = () => {
     dispatch({ type: 'INIT' });
     // dispatch(desetInitialStateAction());
     // dispatch(repartoOnChange());
+  };
+
+  const getValueTextField = (event : React.ChangeEvent<{ value: unknown }>) => {
+    const textFieldValue = event.target.value;
+    dispatch(valueAddRepartoAction(textFieldValue));
   };
 
   /* Dispatch delle action del pulsante add */
@@ -165,7 +171,7 @@ const SceltaReparto = () => {
           {/* DropDownList selezione reparto */}
           {/* se è cliccato il tasto add */}
           {addReparto
-            ? <TextField label="inserisci nome reparto" variant="filled" fullWidth />
+            ? <TextField label="inserisci nome reparto" variant="filled" onChange={getValueTextField} fullWidth />
             : (
               <div>
                 {/* se è cliccato il tasto modify */}

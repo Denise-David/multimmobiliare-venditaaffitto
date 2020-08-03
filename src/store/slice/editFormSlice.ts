@@ -15,7 +15,7 @@ const editFormSlice = createSlice({
     addRisVuotaDeactive: true,
     risultati: {} as any,
     colorButton: 'primary' as 'inherit' | 'disabled' | 'primary' | 'action' | 'secondary' | 'error' | undefined,
-
+    textFieldValue: '' as string,
   },
   reducers: {
     // Gestione domande
@@ -35,6 +35,9 @@ const editFormSlice = createSlice({
     // Gestione reparto
     addRepartoAction(state) {
       state.addActive = !state.addActive;
+    },
+    valueAddRepartoAction(state, { payload }) {
+      state.textFieldValue = payload;
     },
     modifyRepartoAction(state) {
       state.modifyActive = !state.modifyActive;
@@ -84,10 +87,11 @@ export const isDisable = (state : State) => state.editForm.isDisable;
 export const risActive = (state : State) => state.editForm.addRisVuotaDeactive;
 export const stateRisultato = (state : State) => state.editForm.risultati;
 export const colDisable = (state : State) => state.editForm.colorButton;
+export const valueTextField = (state : State) => state.editForm.textFieldValue;
 export const {
   modifyDomandaAction, addRepartoAction, confirmRepartoAction, modifyRepartoAction,
   initializeDomande, cancelRepartoAction, enableAll, repartoOnChange,
   alertConfirmDelete, disableAll, addRispostaVuotaAction, initializeRisultati,
-  modifyRisultatiAction,
+  modifyRisultatiAction, valueAddRepartoAction,
 } = editFormSlice.actions;
 export default editFormSlice.reducer;

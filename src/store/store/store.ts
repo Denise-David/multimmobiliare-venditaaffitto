@@ -9,6 +9,9 @@ import reparto from '../slice/repartoSlice';
 import editForm from '../slice/editFormSlice';
 import form from '../slice/formSlice';
 import initialState from '../slice/initialStateSlice';
+import code from '../slice/CodeSlice';
+import datiPaziente from '../slice/datiPazienteSlice';
+import dialog from '../slice/dialogSlice';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -21,6 +24,9 @@ const store = configureStore({
     reparto,
     editForm,
     initialState,
+    code,
+    datiPaziente,
+    dialog,
 
   },
 
