@@ -2,8 +2,8 @@ import { createSlice } from '@reduxjs/toolkit';
 import { State } from '../store/store';
 import { Domanda } from './formSlice';
 
-const dialogSlice = createSlice({
-  name: 'dialog',
+const patientFormSlice = createSlice({
+  name: 'patientForm',
   initialState:
   {
     open: false as boolean,
@@ -14,23 +14,27 @@ const dialogSlice = createSlice({
   },
   reducers: {
     showPatientFormDialog(state) {
+      // eslint-disable-next-line no-param-reassign
       state.open = !state.open;
     },
     getDomandeReparto(state, { payload }) {
+      // eslint-disable-next-line no-param-reassign
       state.domandeReparto = payload;
     },
     buttonSendForm(state) {
+      // eslint-disable-next-line no-param-reassign
       state.isButtonClcked = true;
     },
     getNomePaziente(state, { payload }) {
+      // eslint-disable-next-line no-param-reassign
       state.nomePaziente = payload;
     },
   },
 });
 
-export const repartoDomande = (state: State) => state.dialog.domandeReparto;
-export const isOpen = (state : State) => state.dialog.open;
+export const repartoDomande = (state: State) => state.patientForm.domandeReparto;
+export const isOpen = (state : State) => state.patientForm.open;
 export const {
   getNomePaziente, showPatientFormDialog, getDomandeReparto, buttonSendForm,
-} = dialogSlice.actions;
-export default dialogSlice.reducer;
+} = patientFormSlice.actions;
+export default patientFormSlice.reducer;

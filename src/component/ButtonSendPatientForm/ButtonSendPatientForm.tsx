@@ -2,7 +2,7 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import { useDispatch } from 'react-redux';
 import useStyles from './style';
-import { buttonSendForm } from '../../store/slice/dialogSlice';
+import { buttonSendForm } from '../../store/slice/patientFormSagas';
 
 const ButtonSendFormPaziente = () => {
   const dispatch = useDispatch();

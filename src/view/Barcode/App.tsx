@@ -1,10 +1,10 @@
 import React from 'react';
 import { CardContent, Typography, Card } from '@material-ui/core';
 import CropFreeIcon from '@material-ui/icons/CropFree';
-import ButtonSend from '../../component/ButtonSendBarcodePage/ButtonSendBarcodePage';
-import TextFieldCodice from '../../component/TextFieldCodice/TextFieldCodice';
+import ButtonSend from '../../component/ButtonSendCode/ButtonSendCode';
+import TextFieldCodice from '../../component/TextCode/TextCode';
 import useStyles from './style';
-import Nav from '../../component/Navbar/Nav';
+import Nav from '../../component/Navbar/Navbar';
 import CameraButton from '../../component/CameraButton/CameraButton';
 import PatientFormDialog from '../../component/PatientFormDialog';
 

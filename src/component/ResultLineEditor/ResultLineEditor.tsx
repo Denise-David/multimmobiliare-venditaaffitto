@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import { dataRisultati } from '../../store/slice/risultatiFormularioSlice';
-import RigaRisultatoVuota from '../RigaRisultatoVuota/RigaRisultatoVuota';
+import RigaRisultatoVuota from '../EmptyResultLineEditor/EmptyResultLineEditor';
 import { selectData } from '../../store/slice/formSlice';
 import {
   stateRisultato, modifyRisultatiAction, colDisable, isDisable, disableAll, enableAll,

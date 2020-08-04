@@ -5,11 +5,11 @@ import AppBar from '@material-ui/core/AppBar';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import { useDispatch } from 'react-redux';
-import Nav from '../../component/Navbar/Nav';
+import Nav from '../../component/Navbar/Navbar';
 import useStyles from './style';
-import SceltaReparto from '../../component/SceltaReparto/SceltaReparto';
-import RigaRisultato from '../../component/RigaRisultato/RigaRisulato';
-import RigaDomanda from '../../component/DomandeConRisposte/RigaDomanda';
+import SceltaReparto from '../../component/DepartmentChoiceEditor/DepartmentChoiceEditor';
+import RigaRisultato from '../../component/ResultLineEditor/ResultLineEditor';
+import RigaDomanda from '../../component/QuestionsAndAnswersEditor/QuestionsAndAnswersEditor';
 
 const FormPaziente = () => {
   const classes = useStyles();

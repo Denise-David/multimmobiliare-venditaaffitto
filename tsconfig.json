@@ -20,6 +20,6 @@
     "jsx": "react"
   },
   "include": [
-    "src", "src/component/RigaDomandaVuota/.RigaDomandaVuota.ts"
+    "src", "src/component/EmptyQuestionLine/.RigaDomandaVuota.ts"
   ]
 }

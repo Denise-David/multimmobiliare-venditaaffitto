@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { State } from '../store/store';
 
-const datiPazienteSlice = createSlice({
-  name: 'datiPaziente',
+const patientDataSlice = createSlice({
+  name: 'patientData',
   initialState:
   {
     allData: null as any | null,
@@ -14,6 +14,6 @@ const datiPazienteSlice = createSlice({
   },
 });
 
-export const allDataEtichetta = (state : State) => state.datiPaziente.allData;
-export const { getAllDataEtichetta } = datiPazienteSlice.actions;
-export default datiPazienteSlice.reducer;
+export const allDataEtichetta = (state : State) => state.patientData.allData;
+export const { getAllDataEtichetta } = patientDataSlice.actions;
+export default patientDataSlice.reducer;

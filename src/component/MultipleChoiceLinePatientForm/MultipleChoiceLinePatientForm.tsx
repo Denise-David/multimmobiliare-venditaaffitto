@@ -7,9 +7,9 @@ import ListItem from '@material-ui/core/ListItem';
 import { useSelector } from 'react-redux';
 import useStyles from './style';
 
-import ListaATendina from '../ListaATendina/ListaATendina';
+import ListaATendina from '../DropDownListAnswersPatientForm/DropDownListAnswersPatientForm';
 
-import { repartoDomande } from '../../store/slice/dialogSlice';
+import { repartoDomande } from '../../store/slice/patientFormSagas';
 
 const DropDownList = () => {
   const classes = useStyles();

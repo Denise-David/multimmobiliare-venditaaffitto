@@ -6,19 +6,19 @@ import List from '@material-ui/core/List';
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import useStyles from './style';
-import Nav from '../../component/Navbar/Nav';
+import Nav from '../../component/Navbar/Navbar';
 import TextName from '../../component/TextName/TextName';
 import TextLastname from '../../component/TextLastname/TextLastname';
 import TextStreet from '../../component/TextStreet/TextStreet';
 import TextNumber from '../../component/TextNumber/TextNumber';
 import TextResidence from '../../component/TextCityName/TextCityName';
 import TextDoctor from '../../component/TextDoctor/TextDoctor';
-import TextCassaMalati from '../../component/TextCassaMalati/TextCassaMalati';
+import TextCassaMalati from '../../component/TextHealthInsurance/TextHealthInsurance';
 import TextPhone from '../../component/TextPhone/TextPhone';
 
-import DropDownList from '../../component/RisposteMultiple/RisposteMultiple';
+import DropDownList from '../../component/MultipleChoiceLinePatientForm/MultipleChoiceLinePatientForm';
 import TextFamilyDoctor from '../../component/TextFamilyDoctor/TextFamilyDoctor';
-import ButtonSendFormPaziente from '../../component/ButtonSendFormPaziente/ButtonSendFormPaziente';
+import ButtonSendFormPaziente from '../../component/ButtonSendPatientForm/ButtonSendPatientForm';
 
 const FormPaziente = () => {
   const classes = useStyles();

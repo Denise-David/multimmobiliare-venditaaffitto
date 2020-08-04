@@ -1,7 +1,7 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import { useSelector } from 'react-redux';
-import { allDataEtichetta } from '../../store/slice/datiPazienteSlice';
+import { allDataEtichetta } from '../../store/slice/patientDataSlice';
 
 const TextName = () => {
   const dataEtichetta = useSelector(allDataEtichetta);

@@ -1,8 +1,8 @@
 import { call, select, put } from 'redux-saga/effects';
-import { allDataEtichetta, getAllDataEtichetta } from '../slice/datiPazienteSlice';
+import { allDataEtichetta, getAllDataEtichetta } from '../slice/patientDataSlice';
 import {
   showPatientFormDialog, getDomandeReparto,
-} from '../slice/dialogSlice';
+} from '../slice/patientFormSagas';
 import { ValueCode } from '../slice/CodeSlice';
 
 import { getEtichettaData, fetchRepartoFormByGUID } from '../api';

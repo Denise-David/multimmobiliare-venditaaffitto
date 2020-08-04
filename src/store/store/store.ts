@@ -10,8 +10,8 @@ import editForm from '../slice/editFormSlice';
 import form from '../slice/formSlice';
 import initialState from '../slice/initialStateSlice';
 import code from '../slice/CodeSlice';
-import datiPaziente from '../slice/datiPazienteSlice';
-import dialog from '../slice/dialogSlice';
+import patientData from '../slice/patientDataSlice';
+import patientForm from '../slice/patientFormSagas';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -25,8 +25,8 @@ const store = configureStore({
     editForm,
     initialState,
     code,
-    datiPaziente,
-    dialog,
+    patientData,
+    patientForm,
 
   },
 

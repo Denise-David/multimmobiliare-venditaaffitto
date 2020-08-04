@@ -8,9 +8,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import { selectData } from '../../store/slice/formSlice';
-import RigaRisposta from '../RigaRisposta/RigaRisposta';
-import RigaRispostaVuota from '../RigaRispostaVuota/RigaRispostaVuota';
-import RigaDomandaVuota from '../RigaDomandaVuota/RigaDomandaVuota';
+import RigaRisposta from '../AnswerLineEditor/AnswerLineEditor';
+import RigaRispostaVuota from '../EmptyAnswerLineEditor/EmptyAnswerLineEditor';
+import RigaDomandaVuota from '../EmptyQuestionLineEditor/EmptyQuestionLineEditor';
 import {
   modifyDomandaAction, stateTextField, isDisable, colDisable, disableAll, enableAll,
 } from '../../store/slice/editFormSlice';

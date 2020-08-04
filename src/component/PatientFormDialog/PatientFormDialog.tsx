@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import Slide from '@material-ui/core/Slide';
 // eslint-disable-next-line import/no-unresolved
 import { TransitionProps } from '@material-ui/core/transitions';
-import { isOpen } from '../../store/slice/dialogSlice';
+import { isOpen } from '../../store/slice/patientFormSagas';
 import FormPaziente from '../../view/FormPaziente/FormPaziente';
 
 const PatientFormDialog = () => {

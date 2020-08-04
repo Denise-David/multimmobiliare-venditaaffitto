@@ -9,7 +9,7 @@ interface Props {idDomanda : string}
 
 const ListaATendina = ({ idDomanda } : Props) => {
   const controlID = (state : State) => {
-    const domandaByID = state.dialog.domandeReparto.find((d: Domanda) => d.ID === idDomanda);
+    const domandaByID = state.patientForm.domandeReparto.find((d: Domanda) => d.ID === idDomanda);
 
     return domandaByID?.Risposte;
   };
