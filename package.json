@@ -24,6 +24,7 @@
     "@types/redux-logger": "^3.0.8",
     "axios": "^0.19.2",
     "date-fns": "^2.14.0",
+    "feathers-mongodb-fuzzy-search": "^1.1.1",
     "http-proxy-middleware": "^1.0.5",
     "lint-staged": "^10.2.11",
     "node": "^14.5.0",

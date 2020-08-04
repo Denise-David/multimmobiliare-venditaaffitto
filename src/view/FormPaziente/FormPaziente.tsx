@@ -5,6 +5,7 @@ import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 import List from '@material-ui/core/List';
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
+import { useSelector } from 'react-redux';
 import useStyles from './style';
 import Nav from '../../component/Navbar/Nav';
 import TextName from '../../component/TextName/TextName';

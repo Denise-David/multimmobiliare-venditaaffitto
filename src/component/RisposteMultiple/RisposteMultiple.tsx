@@ -4,15 +4,18 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import ListItem from '@material-ui/core/ListItem';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import useStyles from './style';
-import { selectData } from '../../store/slice/formSlice';
+
 import ListaATendina from '../ListaATendina/ListaATendina';
 
+import { repartoDomande } from '../../store/slice/dialogSlice';
+
 const DropDownList = () => {
+  const dispatch = useDispatch();
   const classes = useStyles();
 
-  const domande = useSelector(selectData);
+  const domande = useSelector(repartoDomande);
   if (domande !== null) {
     const listItems = domande.map((domanda : any) => (
 

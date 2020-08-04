@@ -14,7 +14,7 @@ import {
 import { setInitialStateAction, desetInitialStateAction } from '../slice/initialStateSlice';
 import addReparto from './editFormSagas';
 import { buttonSendCode } from '../slice/CodeSlice';
-import getDataEtichetta from './barcodeSagas';
+import getDataEtichetta from './dialogFormPazienteSagas';
 
 function* init(action : any) {
   try {
@@ -38,11 +38,8 @@ function* init(action : any) {
       try {
         // prendo i risultati del form ID selezionato
         const ris = yield call(fetchForm, ID);
-        console.log('xxx ris', ris);
         const datiRisultati = ris.Risultati;
         yield put(domande(datiRisultati));
-
-        console.log('xxx datiRisultati', datiRisultati);
 
         // creo un array con indice ID Risultati e stato true
         const initialStateRisultati = datiRisultati.map(
@@ -54,11 +51,9 @@ function* init(action : any) {
 
         // prendo le domande del form ID selezionato
         const form = yield call(fetchForm, ID);
-        console.log('xxx', form, ID);
         const datiDomande = form.Domande;
         yield put(domande(datiDomande));
 
-        console.log('sss', datiDomande);
         // Creo un array con indice ID e stato true
         const initialStateDomande = datiDomande.map(
           (domanda : any) => ({ ID: domanda.ID }),

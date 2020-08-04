@@ -20,6 +20,11 @@ export const fetchAllForm = () => struttureFormReparti.find({});
 const fetchForm = (ID) => struttureFormReparti.get(ID, {});
 export default fetchForm;
 
+// Prendi il formulario con actualWardGUID GUID
+export const fetchRepartoFormByGUID = (GUID) => struttureFormReparti.find(
+  { query: { actualWardGUID: GUID } },
+);
+
 // Aggiungi formulario
 export const addForm = (nomeReparto) => struttureFormReparti.create(
   {
@@ -30,4 +35,5 @@ export const addForm = (nomeReparto) => struttureFormReparti.create(
   },
 );
 
+// PRendo i dati dell'etichetta
 export const getEtichettaData = (labelNumber) => axios.get(`/adts/app/hcase/getCompositeByLabelnumber/${labelNumber}`);
