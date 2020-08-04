@@ -1,7 +1,7 @@
 import React from 'react';
 import { CardContent, Typography, Card } from '@material-ui/core';
 import CropFreeIcon from '@material-ui/icons/CropFree';
-import ButtonSend from '../../component/ButtonSend/ButtonSend';
+import ButtonSend from '../../component/ButtonSendBarcodePage/ButtonSendBarcodePage';
 import TextFieldCodice from '../../component/TextFieldCodice/TextFieldCodice';
 import useStyles from './style';
 import Nav from '../../component/Navbar/Nav';

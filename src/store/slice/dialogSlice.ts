@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { State } from '../store/store';
+import { Domanda } from './formSlice';
 
 const dialogSlice = createSlice({
   name: 'dialog',
@@ -7,7 +8,9 @@ const dialogSlice = createSlice({
   {
     open: false as boolean,
     repartoID: '' as any,
-    domandeReparto: [] as string[],
+    domandeReparto: [] as Domanda[],
+    isButtonClcked: false,
+    nomePaziente: '' as string,
   },
   reducers: {
     showPatientFormDialog(state) {
@@ -16,10 +19,18 @@ const dialogSlice = createSlice({
     getDomandeReparto(state, { payload }) {
       state.domandeReparto = payload;
     },
+    buttonSendForm(state) {
+      state.isButtonClcked = true;
+    },
+    getNomePaziente(state, { payload }) {
+      state.nomePaziente = payload;
+    },
   },
 });
 
 export const repartoDomande = (state: State) => state.dialog.domandeReparto;
 export const isOpen = (state : State) => state.dialog.open;
-export const { showPatientFormDialog, getDomandeReparto } = dialogSlice.actions;
+export const {
+  getNomePaziente, showPatientFormDialog, getDomandeReparto, buttonSendForm,
+} = dialogSlice.actions;
 export default dialogSlice.reducer;

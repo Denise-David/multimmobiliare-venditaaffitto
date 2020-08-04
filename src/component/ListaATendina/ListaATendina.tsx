@@ -5,14 +5,16 @@ import { Select } from '@material-ui/core';
 import { State } from '../../store/store/store';
 import { Domanda, Risposta } from '../../store/slice/formSlice';
 
-interface Props {id : string}
+interface Props {idDomanda : string}
 
-const ListaATendina = ({ id }: Props) => {
+const ListaATendina = ({ idDomanda } : Props) => {
   const controlID = (state : State) => {
-    const domandaID = state.form.dataDomande.find((d: Domanda) => d.ID === id);
-    return domandaID?.Risposte;
+    const domandaByID = state.dialog.domandeReparto.find((d: Domanda) => d.ID === idDomanda);
+
+    return domandaByID?.Risposte;
   };
   const risposte = useSelector(controlID);
+
   // eslint-disable-next-line
   const listItems = risposte ? risposte.map((risposta : Risposta) => <MenuItem value={risposta.valore}>{risposta.risposta}</MenuItem>) : <></>;
   return (

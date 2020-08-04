@@ -13,7 +13,7 @@ const CodeSlice = createSlice({
       state.Code = payload;
     },
     buttonSendCode(state) {
-      state.ButtonSend = !state.ButtonSend;
+      state.ButtonSend = true;
     },
   },
 });

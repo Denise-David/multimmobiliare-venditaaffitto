@@ -12,6 +12,7 @@ app.configure(restClient.axios(axios));
 
 // Connect to the service
 const struttureFormReparti = app.service('strutture_form_reparti');
+const risposteFormPazienti = app.service('risposte_form_pazienti');
 
 // prendi tutti i formulari
 export const fetchAllForm = () => struttureFormReparti.find({});
@@ -35,5 +36,20 @@ export const addForm = (nomeReparto) => struttureFormReparti.create(
   },
 );
 
-// PRendo i dati dell'etichetta
+// Prendo i dati dell'etichetta
 export const getEtichettaData = (labelNumber) => axios.get(`/adts/app/hcase/getCompositeByLabelnumber/${labelNumber}`);
+
+// Aggiungi formulario risposte paziente
+
+export const addRisposteFormPazienti = (nomePaziente,
+  cognomePaziente) => risposteFormPazienti.create(
+
+  {
+    paziente: {
+      nome: nomePaziente,
+      cognome: cognomePaziente,
+    },
+
+  },
+
+);

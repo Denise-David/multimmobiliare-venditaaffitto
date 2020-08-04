@@ -5,7 +5,6 @@ import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 import List from '@material-ui/core/List';
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
-import { useSelector } from 'react-redux';
 import useStyles from './style';
 import Nav from '../../component/Navbar/Nav';
 import TextName from '../../component/TextName/TextName';
@@ -16,9 +15,10 @@ import TextResidence from '../../component/TextCityName/TextCityName';
 import TextDoctor from '../../component/TextDoctor/TextDoctor';
 import TextCassaMalati from '../../component/TextCassaMalati/TextCassaMalati';
 import TextPhone from '../../component/TextPhone/TextPhone';
-import ButtonSend from '../../component/ButtonSend/ButtonSend';
+
 import DropDownList from '../../component/RisposteMultiple/RisposteMultiple';
 import TextFamilyDoctor from '../../component/TextFamilyDoctor/TextFamilyDoctor';
+import ButtonSendFormPaziente from '../../component/ButtonSendFormPaziente/ButtonSendFormPaziente';
 
 const FormPaziente = () => {
   const classes = useStyles();
@@ -66,7 +66,7 @@ const FormPaziente = () => {
           </ListItem> */}
         </List>
         <div className={classes.centerButton}>
-          <ButtonSend />
+          <ButtonSendFormPaziente />
         </div>
       </Container>
     </div>
