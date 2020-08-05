@@ -23,6 +23,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   center: {
     textAlign: 'center',
     marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(4),
   },
   inline: {
     display: 'flex',
@@ -63,6 +64,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginRight: 'auto',
     marginLeft: 'auto',
 
+  },
+  Icon: {
+    marginBottom: theme.spacing(4),
   },
 }));
 export default useStyles;

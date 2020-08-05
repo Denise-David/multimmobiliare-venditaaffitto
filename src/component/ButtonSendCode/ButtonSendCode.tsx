@@ -2,7 +2,7 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import { useDispatch } from 'react-redux';
 import useStyles from './style';
-import { buttonSendCode } from '../../store/slice/CodeSlice';
+import { buttonSendCode, resetCode } from '../../store/slice/CodeSlice';
 
 const ButtonSend = () => {
   const dispatch = useDispatch();
@@ -10,6 +10,7 @@ const ButtonSend = () => {
 
   const handleClickOpen = () => {
     dispatch(buttonSendCode());
+    dispatch(resetCode());
   };
 
   return (

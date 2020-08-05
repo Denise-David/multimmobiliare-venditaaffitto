@@ -11,7 +11,7 @@ import form from '../slice/formSlice';
 import initialState from '../slice/initialStateSlice';
 import code from '../slice/CodeSlice';
 import patientData from '../slice/patientDataSlice';
-import patientForm from '../slice/patientFormSagas';
+import patientForm from '../slice/patientFormSlice';
 
 const sagaMiddleware = createSagaMiddleware();
 

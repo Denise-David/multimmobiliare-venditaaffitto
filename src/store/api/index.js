@@ -41,15 +41,11 @@ export const getEtichettaData = (labelNumber) => axios.get(`/adts/app/hcase/getC
 
 // Aggiungi formulario risposte paziente
 
-export const addRisposteFormPazienti = (nomePaziente,
-  cognomePaziente) => risposteFormPazienti.create(
+export const addRisposteFormPazienti = (paziente, risposte) => risposteFormPazienti.create(
 
   {
-    paziente: {
-      nome: nomePaziente,
-      cognome: cognomePaziente,
-    },
-
+    paziente,
+    risposte,
   },
 
 );

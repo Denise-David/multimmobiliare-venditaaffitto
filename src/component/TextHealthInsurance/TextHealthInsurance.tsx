@@ -1,12 +1,25 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
-import { useSelector } from 'react-redux';
-import { allDataEtichetta } from '../../store/slice/patientDataSlice';
+import { useSelector, useDispatch } from 'react-redux';
+import { allDataEtichetta, changePatientValue, isDisable } from '../../store/slice/patientDataSlice';
 
 const TextCassaMalati = () => {
   const dataEtichetta = useSelector(allDataEtichetta);
+  const disabled = useSelector(isDisable);
+  const dispatch = useDispatch();
   return (
-    <TextField fullWidth label="Cassa malati" value={dataEtichetta.data.hcase.insuranceCovers[0].guarantName} />
+    <TextField
+      fullWidth
+      disabled={disabled}
+      label="Cassa malati"
+      value={dataEtichetta.insuranceCoversName}
+
+      onChange={(event) => {
+        const { value } = event.target;
+        const name = 'insuranceCoversName';
+        dispatch(changePatientValue({ name, value }));
+      }}
+    />
   );
 };
 

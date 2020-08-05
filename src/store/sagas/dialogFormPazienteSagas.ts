@@ -1,11 +1,13 @@
 import { call, select, put } from 'redux-saga/effects';
 import { allDataEtichetta, getAllDataEtichetta } from '../slice/patientDataSlice';
+
 import {
-  showPatientFormDialog, getDomandeReparto,
-} from '../slice/patientFormSagas';
+  showPatientFormDialog, getDomandeReparto, repartoDomande, risposte,
+} from '../slice/patientFormSlice';
 import { ValueCode } from '../slice/CodeSlice';
 
-import { getEtichettaData, fetchRepartoFormByGUID } from '../api';
+import { getEtichettaData, fetchRepartoFormByGUID, addRisposteFormPazienti } from '../api';
+import { domande } from '../slice/formSlice';
 
 export default function* getDataEtichetta() {
   try {
@@ -13,11 +15,34 @@ export default function* getDataEtichetta() {
     const label : string = yield select(ValueCode);
 
     const dataEtichetta = yield call(getEtichettaData, label);
-    yield put(getAllDataEtichetta(dataEtichetta));
+    const { data = {} } = dataEtichetta;
+    const { patient = {}, hcase = {} } = data;
+    const { familyname = '', givenname = '', address = {} } = patient;
+    const { street = '', cityName = '', mobile = '' } = address;
+    const indexSpace = street.lastIndexOf(' ');
+    const streetNumber = street.substring(indexSpace, street.length);
+    const streetName = street.substring(0, indexSpace);
+    const { familyDoctor = {}, doctor = {}, insuranceCovers = [] } = hcase;
+    const insuranceCoversName = insuranceCovers[0].guarantName;
+    const nameFamilyDoctor = `${familyDoctor.familyname} ${familyDoctor.givenname}`;
+    const nameDoctor = `${doctor.familyname} ${doctor.givenname}`;
+
+    const patientInfo = {
+      familyname,
+      givenname,
+      cityName,
+      mobile,
+      streetName,
+      streetNumber,
+      nameDoctor,
+      nameFamilyDoctor,
+      insuranceCoversName,
+    };
+    yield put(getAllDataEtichetta(patientInfo));
 
     // Prendo il GUID reparto dell'etichetta delezionata
-    const dataAllEtichetta = yield select(allDataEtichetta);
-    const repartoGUID = dataAllEtichetta.data.hcase.actualWardGUID;
+    // const dataAllEtichetta = yield select(allDataEtichetta);
+    const repartoGUID = hcase.actualWardGUID;
 
     // prendo le domande del reparto selezionato
     const allDataReparto = yield call(fetchRepartoFormByGUID, repartoGUID);
@@ -29,4 +54,14 @@ export default function* getDataEtichetta() {
 
   // fai vedere il dialog
   yield put(showPatientFormDialog());
+}
+
+export function* sendDataPazienti() {
+  try {
+    const patientData = yield select(allDataEtichetta);
+    const answersData = yield select(risposte);
+    yield put(addRisposteFormPazienti(patientData, answersData));
+  } catch (error) {
+    console.log('errore', error);
+  }
 }

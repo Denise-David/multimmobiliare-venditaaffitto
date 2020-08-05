@@ -15,9 +15,12 @@ const CodeSlice = createSlice({
     buttonSendCode(state) {
       state.ButtonSend = true;
     },
+    resetCode(state) {
+      state.Code = '';
+    },
   },
 });
 
 export const ValueCode = (state : State) => state.code.Code;
-export const { getCodeValue, buttonSendCode } = CodeSlice.actions;
+export const { getCodeValue, buttonSendCode, resetCode } = CodeSlice.actions;
 export default CodeSlice.reducer;

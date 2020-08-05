@@ -2,7 +2,7 @@ import {
   all, takeLatest, call, put, select, takeEvery,
 } from 'redux-saga/effects';
 import { getRisultati } from '../slice/risultatiFormularioSlice';
-import fetchForm, { fetchAllForm } from '../api/index';
+import fetchForm, { fetchAllForm, addRisposteFormPazienti } from '../api/index';
 
 import { domande } from '../slice/formSlice';
 
@@ -14,7 +14,8 @@ import {
 import { setInitialStateAction, desetInitialStateAction } from '../slice/initialStateSlice';
 import addReparto from './editFormSagas';
 import { buttonSendCode } from '../slice/CodeSlice';
-import getDataEtichetta from './dialogFormPazienteSagas';
+import getDataEtichetta, { sendDataPazienti } from './dialogFormPazienteSagas';
+import { buttonSendForm } from '../slice/patientFormSlice';
 
 function* init(action : any) {
   try {
@@ -81,6 +82,7 @@ function* actionWatcher() {
   yield takeLatest('INIT', init);
   yield takeLatest(confirmRepartoAction.type, addReparto);
   yield takeEvery(buttonSendCode.type, getDataEtichetta);
+  yield takeLatest(buttonSendForm.type, sendDataPazienti);
 }
 export default function* rootSaga() {
   yield all([actionWatcher()]);

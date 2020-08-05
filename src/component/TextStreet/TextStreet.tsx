@@ -1,13 +1,25 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
-import { useSelector } from 'react-redux';
-import { allDataEtichetta } from '../../store/slice/patientDataSlice';
+import { useSelector, useDispatch } from 'react-redux';
+import { allDataEtichetta, changePatientValue, isDisable } from '../../store/slice/patientDataSlice';
 
 const TextLastname = () => {
   const dataEtichetta = useSelector(allDataEtichetta);
-  const allAdress = dataEtichetta.data.patient.address.street;
+  const disabled = useSelector(isDisable);
+  const dispatch = useDispatch();
   return (
-    <TextField fullWidth label="Via" value={allAdress.substring(0, allAdress.length - 2)} />
+    <TextField
+      fullWidth
+      disabled={disabled}
+      label="Via"
+      value={dataEtichetta.streetName}
+
+      onChange={(event) => {
+        const { value } = event.target;
+        const name = 'streetName';
+        dispatch(changePatientValue({ name, value }));
+      }}
+    />
   );
 };
 

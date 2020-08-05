@@ -9,7 +9,7 @@ import useStyles from './style';
 
 import ListaATendina from '../DropDownListAnswersPatientForm/DropDownListAnswersPatientForm';
 
-import { repartoDomande } from '../../store/slice/patientFormSagas';
+import { repartoDomande } from '../../store/slice/patientFormSlice';
 
 const DropDownList = () => {
   const classes = useStyles();

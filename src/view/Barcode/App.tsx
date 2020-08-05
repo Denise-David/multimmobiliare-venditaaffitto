@@ -7,6 +7,7 @@ import useStyles from './style';
 import Nav from '../../component/Navbar/Navbar';
 import CameraButton from '../../component/CameraButton/CameraButton';
 import PatientFormDialog from '../../component/PatientFormDialog';
+import ReturnDeviceDialog from '../../component/ReturnDeviceDialog/ReturnDeviceDialog';
 
 const Barcodepage = () => {
   const classes = useStyles();
@@ -28,6 +29,7 @@ const Barcodepage = () => {
       <div className={classes.Margin}><TextFieldCodice /></div>
       <ButtonSend />
       <PatientFormDialog />
+      <ReturnDeviceDialog />
     </div>
 
   );

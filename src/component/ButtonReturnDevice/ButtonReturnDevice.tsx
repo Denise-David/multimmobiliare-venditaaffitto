@@ -1,29 +1,27 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
+
 import { useDispatch } from 'react-redux';
 import useStyles from './style';
-import { buttonSendForm } from '../../store/slice/patientFormSlice';
+import { buttonReturnDevice } from '../../store/slice/patientFormSlice';
 
-const ButtonSendFormPaziente = () => {
-  const dispatch = useDispatch();
+const ButtonReturnDevice = () => {
   const classes = useStyles();
 
-  const handleClickOpen = () => {
-    dispatch(buttonSendForm());
-  };
-
+  const dispatch = useDispatch();
   return (
     <>
       <Button
-        onClick={handleClickOpen}
+        size="large"
         className={classes.margin}
         variant="contained"
         color="primary"
+        onClick={() => (dispatch(buttonReturnDevice()))}
       >
-        Invia
+        Fine
       </Button>
     </>
   );
 };
 
-export default ButtonSendFormPaziente;
+export default ButtonReturnDevice;
