@@ -41,29 +41,10 @@ const FormPaziente = () => {
                 </Typography>
               </AppBar>
               <div className={classes.padding}>
-                <div className={classes.marginDivider}>
-                  <Grid container>
-                    <Grid item xs={12} sm={1} />
-                    <Grid item xs={12} sm={1} />
-                    <Grid item xs={12} sm={5}>
-                      <Typography variant="subtitle1" align="center">
-                        Domanda
-                      </Typography>
-                    </Grid>
-                    <Grid item xs={12} sm={4}>
-                      <Typography variant="subtitle1" align="center">
-                        Risposte
-                      </Typography>
-                    </Grid>
-                    <Grid item xs={12} sm={1}>
-                      <Typography variant="subtitle1" align="center">
-                        Valore
-                      </Typography>
-                    </Grid>
-                  </Grid>
-                  <Divider />
-                </div>
+
+                <div className={classes.marginDivider} />
                 <RigaDomanda />
+
               </div>
             </Paper>
           </Grid>

@@ -6,9 +6,10 @@ const patientDataSlice = createSlice({
   initialState: {
     allData: { } as any | null,
     isDisable: true,
+    oldPatientInfo: {} as any | null,
   },
   reducers: {
-    getAllDataEtichetta(state, { payload }) {
+    getNewPatientInfo(state, { payload }) {
       state.allData = payload;
     },
     changePatientValue(state, { payload }) {
@@ -21,11 +22,13 @@ const patientDataSlice = createSlice({
   },
 });
 
+export const oldPatientInfo = (state : State) => state.patientData.oldPatientInfo;
 export const isDisable = (state : State) => state.patientData.isDisable;
-export const allDataEtichetta = (state : State) => state.patientData.allData;
+export const newPatientInfo = (state : State) => state.patientData.allData;
 export const {
-  getAllDataEtichetta,
+  getNewPatientInfo,
   changePatientValue,
   switchStateDisabled,
+
 } = patientDataSlice.actions;
 export default patientDataSlice.reducer;

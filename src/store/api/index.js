@@ -49,3 +49,4 @@ export const addRisposteFormPazienti = (paziente, risposte) => risposteFormPazie
   },
 
 );
+export const getRisposteFormPazienti = (ID) => risposteFormPazienti.get(ID, {});

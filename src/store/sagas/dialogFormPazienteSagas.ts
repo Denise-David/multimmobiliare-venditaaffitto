@@ -1,5 +1,5 @@
 import { call, select, put } from 'redux-saga/effects';
-import { allDataEtichetta, getAllDataEtichetta } from '../slice/patientDataSlice';
+import { newPatientInfo, getNewPatientInfo } from '../slice/patientDataSlice';
 
 import {
   showPatientFormDialog, getDomandeReparto, repartoDomande, risposte,
@@ -7,7 +7,6 @@ import {
 import { ValueCode } from '../slice/CodeSlice';
 
 import { getEtichettaData, fetchRepartoFormByGUID, addRisposteFormPazienti } from '../api';
-import { domande } from '../slice/formSlice';
 
 export default function* getDataEtichetta() {
   try {
@@ -38,10 +37,9 @@ export default function* getDataEtichetta() {
       nameFamilyDoctor,
       insuranceCoversName,
     };
-    yield put(getAllDataEtichetta(patientInfo));
+    yield put(getNewPatientInfo(patientInfo));
 
     // Prendo il GUID reparto dell'etichetta delezionata
-    // const dataAllEtichetta = yield select(allDataEtichetta);
     const repartoGUID = hcase.actualWardGUID;
 
     // prendo le domande del reparto selezionato
@@ -58,7 +56,7 @@ export default function* getDataEtichetta() {
 
 export function* sendDataPazienti() {
   try {
-    const patientData = yield select(allDataEtichetta);
+    const patientData = yield select(newPatientInfo);
     const answersData = yield select(risposte);
     yield put(addRisposteFormPazienti(patientData, answersData));
   } catch (error) {

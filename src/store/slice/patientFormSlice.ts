@@ -27,9 +27,6 @@ const patientFormSlice = createSlice({
       const { idDomanda, value, domanda } = payload;
       state.risposte[idDomanda] = value;
     },
-    createPDF(state) {
-      // ReactPDF.render( < PDFPatientData />, 'Desktop/example.pdf');
-    },
     buttonReturnDevice(state) {
       state.isButtonClcked = false;
       state.cancelCode = true;

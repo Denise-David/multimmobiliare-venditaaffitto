@@ -1,13 +1,13 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import { useSelector, useDispatch } from 'react-redux';
-import { allDataEtichetta, changePatientValue, isDisable } from '../../store/slice/patientDataSlice';
+import { newPatientInfo, changePatientValue, isDisable } from '../../store/slice/patientDataSlice';
 
 const TextLastname = () => {
   const dispatch = useDispatch();
   const disabled = useSelector(isDisable);
 
-  const dataEtichetta = useSelector(allDataEtichetta);
+  const dataEtichetta = useSelector(newPatientInfo);
   return (
     <TextField
       fullWidth

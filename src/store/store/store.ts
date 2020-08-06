@@ -12,6 +12,7 @@ import initialState from '../slice/initialStateSlice';
 import code from '../slice/CodeSlice';
 import patientData from '../slice/patientDataSlice';
 import patientForm from '../slice/patientFormSlice';
+import patientInfoPDF from '../slice/patientInfoPDFSlice';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -27,6 +28,7 @@ const store = configureStore({
     code,
     patientData,
     patientForm,
+    patientInfoPDF,
 
   },
 

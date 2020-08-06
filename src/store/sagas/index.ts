@@ -16,6 +16,7 @@ import addReparto from './editFormSagas';
 import { buttonSendCode } from '../slice/CodeSlice';
 import getDataEtichetta, { sendDataPazienti } from './dialogFormPazienteSagas';
 import { buttonSendForm } from '../slice/patientFormSlice';
+import initPDFPatientData from './patientInfoPDFSagas';
 
 function* init(action : any) {
   try {
@@ -83,6 +84,7 @@ function* actionWatcher() {
   yield takeLatest(confirmRepartoAction.type, addReparto);
   yield takeEvery(buttonSendCode.type, getDataEtichetta);
   yield takeLatest(buttonSendForm.type, sendDataPazienti);
+  yield takeLatest('initPDFPatientData', initPDFPatientData);
 }
 export default function* rootSaga() {
   yield all([actionWatcher()]);
