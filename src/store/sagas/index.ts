@@ -17,6 +17,7 @@ import { buttonSendCode } from '../slice/CodeSlice';
 import getDataEtichetta, { sendDataPazienti } from './dialogFormPazienteSagas';
 import { buttonSendForm } from '../slice/patientFormSlice';
 import initPDFPatientData from './patientInfoPDFSagas';
+import initPDFPatientAnswers from './patientAnswersPDFSagas';
 
 function* init(action : any) {
   try {
@@ -85,6 +86,7 @@ function* actionWatcher() {
   yield takeEvery(buttonSendCode.type, getDataEtichetta);
   yield takeLatest(buttonSendForm.type, sendDataPazienti);
   yield takeLatest('initPDFPatientData', initPDFPatientData);
+  yield takeLatest('initPDFPatientAnswers', initPDFPatientAnswers);
 }
 export default function* rootSaga() {
   yield all([actionWatcher()]);

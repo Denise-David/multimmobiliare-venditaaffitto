@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import queryString from 'query-string';
 import {
   setNumEtichetta, setIDFormRisposte, oldPatientData, newPatientData,
-} from '../../store/slice/patientInfoPDFSlice';
+} from '../../store/slice/patientFormPDFSlice';
 import useStyles from './style';
 
 const PDFPatientData = () => {

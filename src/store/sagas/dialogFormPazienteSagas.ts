@@ -58,6 +58,7 @@ export function* sendDataPazienti() {
   try {
     const patientData = yield select(newPatientInfo);
     const answersData = yield select(risposte);
+    console.log('xxrisposte', answersData);
     yield put(addRisposteFormPazienti(patientData, answersData));
   } catch (error) {
     console.log('errore', error);

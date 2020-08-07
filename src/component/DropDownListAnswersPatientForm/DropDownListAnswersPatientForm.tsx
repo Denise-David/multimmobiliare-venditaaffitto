@@ -6,9 +6,9 @@ import { State } from '../../store/store/store';
 import { Domanda, Risposta } from '../../store/slice/formSlice';
 import { getRisposta } from '../../store/slice/patientFormSlice';
 
-interface Props {idDomanda : string}
+interface Props {idDomanda : string, domanda : string}
 
-const ListaATendina = ({ idDomanda } : Props) => {
+const ListaATendina = ({ idDomanda, domanda } : Props) => {
   const dispatch = useDispatch();
   const controlID = (state : State) => {
     const domandaByID = state.patientForm.domandeReparto.find((d: Domanda) => d.ID === idDomanda);
@@ -25,8 +25,7 @@ const ListaATendina = ({ idDomanda } : Props) => {
     <Select
       onChange={(event) => {
         const { value } = event.target;
-        dispatch(getRisposta({ idDomanda, value }));
-        console.log('id e value', idDomanda, value);
+        dispatch(getRisposta({ idDomanda, value, domanda }));
       }}
       autoWidth
     >

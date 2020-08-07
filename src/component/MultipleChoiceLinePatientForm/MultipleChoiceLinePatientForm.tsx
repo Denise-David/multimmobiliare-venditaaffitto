@@ -30,7 +30,7 @@ const DropDownList = () => {
           <FormControl variant="outlined" fullWidth className={classes.margin}>
             <InputLabel id="demo-simple-select-outlined-label"> </InputLabel>
              
-            <ListaATendina idDomanda={domanda.ID} />
+            <ListaATendina idDomanda={domanda.ID} domanda={domanda.Domanda} />
           </FormControl>
         </Grid>
       </Grid>

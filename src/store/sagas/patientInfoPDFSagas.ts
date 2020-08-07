@@ -1,7 +1,7 @@
 import { select, put, call } from 'redux-saga/effects';
 import {
   IDFormRisposte, numEtichetta, getOldPatientData, getNewPatientData,
-} from '../slice/patientInfoPDFSlice';
+} from '../slice/patientFormPDFSlice';
 
 import { getEtichettaData, getRisposteFormPazienti } from '../api';
 

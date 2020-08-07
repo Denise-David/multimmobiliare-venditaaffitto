@@ -15,6 +15,7 @@ import theme from './theme';
 import FormPaziente from './view/FormPaziente/FormPaziente';
 import Editor from './view/Editor/Editor';
 import PDFPatientData from './component/PDFPatientData/PDFPatentData';
+import PDFPatientAnswers from './component/PDFPatientAnswers/PDFPatientAnswers';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -39,6 +40,9 @@ ReactDOM.render(
               <PDFPatientData />
             </Route>
 
+            <Route path="/pdfRispostePaziente">
+              <PDFPatientAnswers />
+            </Route>
           </Switch>
 
         </Router>
