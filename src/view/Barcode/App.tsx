@@ -8,6 +8,7 @@ import Nav from '../../component/Navbar/Navbar';
 import CameraButton from '../../component/CameraButton/CameraButton';
 import PatientFormDialog from '../../component/PatientFormDialog';
 import ReturnDeviceDialog from '../../component/ReturnDeviceDialog/ReturnDeviceDialog';
+import SummaryDialog from '../../component/SummaryDialog/SummaryDialog';
 
 const Barcodepage = () => {
   const classes = useStyles();
@@ -30,6 +31,7 @@ const Barcodepage = () => {
       <ButtonSend />
       <PatientFormDialog />
       <ReturnDeviceDialog />
+      <SummaryDialog />
     </div>
 
   );

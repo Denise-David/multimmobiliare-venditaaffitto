@@ -18,16 +18,18 @@ export default function* initPDFPatientAnswers(action : any) {
     const dataReparto = yield call(fetchRepartoFormByGUID, actualWardGUID);
 
     const datiReparto = dataReparto.data;
-    const { Reparto = '', Risposte = {}, tipo = '' } = datiReparto[0];
+    const {
+      Reparto = '', Risposte = {}, tipo = '', Risultati = {},
+    } = datiReparto[0];
     const { risposta1 = '' } = Risposte;
 
     const infoReparto = {
+      Risultati,
       Reparto,
       tipo,
       risposta1,
     };
 
-    console.log('xxxreparto', infoReparto);
     yield put(getRepartoInfo(infoReparto));
 
     const dataFormPaziente = yield call(getRisposteFormPazienti, IDForm);

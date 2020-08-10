@@ -4,7 +4,7 @@ import {
 import { getRisultati } from '../slice/risultatiFormularioSlice';
 import fetchForm, { fetchAllForm, addRisposteFormPazienti } from '../api/index';
 
-import { domande } from '../slice/formSlice';
+import { domande, risultati } from '../slice/formSlice';
 
 import { formulariAction } from '../slice/formulariSlice';
 import { formID } from '../slice/repartoSlice';
@@ -42,7 +42,7 @@ function* init(action : any) {
         // prendo i risultati del form ID selezionato
         const ris = yield call(fetchForm, ID);
         const datiRisultati = ris.Risultati;
-        yield put(domande(datiRisultati));
+        yield put(risultati(datiRisultati));
 
         // creo un array con indice ID Risultati e stato true
         const initialStateRisultati = datiRisultati.map(

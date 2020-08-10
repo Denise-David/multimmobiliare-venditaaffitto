@@ -27,8 +27,12 @@ const patientFormSlice = createSlice({
       state.isButtonClcked = true;
     },
     getRisposta(state, { payload }) {
-      const { idDomanda, value, domanda } = payload;
-      state.risposte[idDomanda] = { idDomanda, value, domanda };
+      const {
+        idDomanda, valore, domanda, testoRisposta,
+      } = payload;
+      state.risposte[idDomanda] = {
+        idDomanda, valore, domanda, testoRisposta,
+      };
     },
     buttonReturnDevice(state) {
       state.isButtonClcked = false;

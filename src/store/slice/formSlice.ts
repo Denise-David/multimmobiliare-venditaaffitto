@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { dataRisultati } from './risultatiFormularioSlice';
 import { State } from '../store/store';
 
 export interface Domanda { ID : string, Domanda : string, Risposte : Risposta[]}
@@ -9,6 +10,7 @@ const FormSlice = createSlice({
   initialState:
   {
     dataDomande: [] as Domanda[],
+    datiRisultati: [] as any,
 
   },
   reducers: {
@@ -18,9 +20,13 @@ const FormSlice = createSlice({
     resetDomande: (state) => {
       state.dataDomande = [];
     },
+    risultati: (state, { payload }) => {
+      state.datiRisultati = payload;
+    },
   },
 });
 
+export const datiRisultati = (state : State) => state.form.datiRisultati;
 export const selectData = (state: State) => state.form.dataDomande;
-export const { domande, resetDomande } = FormSlice.actions;
+export const { domande, resetDomande, risultati } = FormSlice.actions;
 export default FormSlice.reducer;

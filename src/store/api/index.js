@@ -50,3 +50,14 @@ export const addRisposteFormPazienti = (paziente, risposte) => risposteFormPazie
 
 );
 export const getRisposteFormPazienti = (ID) => risposteFormPazienti.get(ID, {});
+
+// prendo id ultimo documento risposte messo nel DB
+
+export const getLastRisposteFormPazienti = () => risposteFormPazienti.find({
+  query: {
+    $limit: 1,
+    $sort: {
+      createdAt: -1,
+    },
+  },
+});

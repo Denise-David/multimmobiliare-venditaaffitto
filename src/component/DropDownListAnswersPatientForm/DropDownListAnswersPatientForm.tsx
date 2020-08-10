@@ -18,14 +18,23 @@ const ListaATendina = ({ idDomanda, domanda } : Props) => {
   const risposte = useSelector(controlID);
 
   // eslint-disable-next-line
-  const listItems = risposte ? risposte.map((risposta : Risposta) => (<MenuItem value={risposta.risposta} >{risposta.risposta}</MenuItem>
-  )) : <></>;
+  const listItems = risposte ? risposte.map((risposta : Risposta) => {
+    return (
+      <MenuItem key={risposta.ID} value={risposta.ID}>{risposta.risposta}</MenuItem>);
+  }) : <></>;
+
   return (
 
     <Select
       onChange={(event) => {
         const { value } = event.target;
-        dispatch(getRisposta({ idDomanda, value, domanda }));
+        const rispostaSelezionata = risposte?.find((risposta : Risposta) => risposta.ID === value);
+        const valore = rispostaSelezionata?.valore;
+        const testoRisposta = rispostaSelezionata?.risposta;
+
+        dispatch(getRisposta({
+          idDomanda, valore, domanda, testoRisposta,
+        }));
       }}
       autoWidth
     >

@@ -32,9 +32,12 @@ const PDFPatientAnswers = () => {
     return risposta;
   }) : [];
 
+  let sommaRisposte = 0;
+
   const listRisposte = answersArray ? answersArray.map((risposta :any) => {
     const { domanda } = risposta;
     const noPuntoDiDomanda = domanda.substring(0, domanda.length - 1);
+    sommaRisposte += risposta.valore;
     if (typeForm === 'a più risposte') {
       return (
         <div className={classes.cornice}>
@@ -42,12 +45,11 @@ const PDFPatientAnswers = () => {
             {risposta.domanda}
           </Typography>
           <Typography variant="body1" align="right">
-            {risposta.value}
+            {risposta.testoRisposta}
           </Typography>
         </div>
       );
     }
-
     return (
       <>
         {risposta.value === repartoInfo.risposta1
@@ -58,10 +60,26 @@ const PDFPatientAnswers = () => {
               </Typography>
             </div>
           ) : <></>}
-
       </>
     );
   }) : <></>;
+
+  const risultatiArray = repartoInfo.Risultati ? Object.keys(repartoInfo.Risultati).map((key) => {
+    const risultato = repartoInfo.Risultati[key];
+    return risultato;
+  }) : [];
+  const listRisultati = risultatiArray ? risultatiArray.map((risultato :any) => {
+    if (sommaRisposte >= risultato.valoreMin && sommaRisposte <= risultato.valoreMax) {
+      return (
+        <div>
+          {risultato.testoAnamnesi}
+        </div>
+      );
+    }
+    return (
+      <div />
+    );
+  }) : <> </>;
 
   return (
     <div className={classes.margini}>
@@ -88,6 +106,14 @@ const PDFPatientAnswers = () => {
       </Typography>
       <hr />
       {listRisposte}
+      <Typography className={classes.risultatoSpace} variant="h6">
+        Risultato:
+        {' '}
+        <span className={classes.center}>
+          {listRisultati}
+        </span>
+      </Typography>
+
     </div>
   );
 };

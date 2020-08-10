@@ -18,6 +18,7 @@ const patientInfoPDFSlice = createSlice({
     newPatientData: {} as patientData,
     patientAnswers: {} as answersData,
     infoReparto: {} as any,
+    sommaRisposte: 0 as number,
   },
   reducers: {
     setNumEtichetta(state, { payload }) {

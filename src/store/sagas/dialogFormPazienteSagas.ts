@@ -1,13 +1,16 @@
 import { call, select, put } from 'redux-saga/effects';
 import {
   repartoDomande, showPatientFormDialog, getDomandeReparto, risposte,
-  getTipoFormulario, getBooleanAnswers, openSnackbar, closeDialogForm,
+  getTipoFormulario, getBooleanAnswers, openSnackbar,
 } from '../slice/patientFormSlice';
 import { newPatientInfo, getNewPatientInfo } from '../slice/patientDataSlice';
 
 import { ValueCode } from '../slice/CodeSlice';
 
-import { getEtichettaData, fetchRepartoFormByGUID, addRisposteFormPazienti } from '../api';
+import {
+  getEtichettaData, fetchRepartoFormByGUID, addRisposteFormPazienti, getLastRisposteFormPazienti,
+} from '../api';
+import { setLastDocumentRisposte, setSummaryDialogOpen } from '../slice/summaryDialogSlice';
 
 export default function* getDataEtichetta() {
   try {
@@ -73,9 +76,11 @@ export function* sendDataPazienti() {
 
     // Se le risposte ricevute dal paziente sono uguali al numero di domande tot
     if (numDomande === numRisposte) {
-      yield put(closeDialogForm());
       const patientData = yield select(newPatientInfo);
       yield put(addRisposteFormPazienti(patientData, answersData));
+
+      const lastDocumentRisposte = yield call(getLastRisposteFormPazienti);
+      yield put(setLastDocumentRisposte(lastDocumentRisposte));
     } else {
       yield put(openSnackbar());
     }
