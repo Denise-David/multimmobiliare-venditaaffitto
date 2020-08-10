@@ -39,7 +39,6 @@ const PDFPatientData = () => {
         Dati paziente
         <hr />
       </Typography>
-
       <Typography variant="subtitle1">
         Nome :&nbsp;
         {oldDataPatient.givenname}
@@ -50,7 +49,6 @@ const PDFPatientData = () => {
               {' '}
               { newDataPatient.givenname }
             </span>
-
           ) }
         <br />
         Cognome :

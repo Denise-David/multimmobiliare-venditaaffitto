@@ -68,5 +68,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   Icon: {
     marginBottom: theme.spacing(4),
   },
+
+  button: {
+    margin: theme.spacing(1),
+  },
 }));
 export default useStyles;

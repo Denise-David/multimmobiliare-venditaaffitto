@@ -11,15 +11,8 @@ import FormPaziente from '../../view/FormPaziente/FormPaziente';
 const PatientFormDialog = () => {
   const open = useSelector(isOpen);
 
-  // eslint-disable-next-line react/display-name
-  const Transition = React.forwardRef((
-    props: TransitionProps & { children?: React.ReactElement },
-    ref: React.Ref<unknown>,
-  // eslint-disable-next-line react/jsx-props-no-spreading
-  ) => <Slide direction="up" ref={ref} {...props} />);
-
   return (
-    <Dialog fullScreen open={open} TransitionComponent={Transition}>
+    <Dialog fullScreen open={open}>
       <AppBar />
       <FormPaziente />
     </Dialog>

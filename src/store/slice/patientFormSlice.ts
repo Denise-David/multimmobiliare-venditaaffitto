@@ -11,6 +11,10 @@ const patientFormSlice = createSlice({
     isButtonClcked: false,
     risposte: {} as any,
     cancelCode: false,
+    tipoForm: '' as string,
+    boolAnswers: {} as any,
+    snackbarStatus: false as boolean,
+    dialogClose: false as boolean,
   },
   reducers: {
     showPatientFormDialog(state) {
@@ -21,7 +25,6 @@ const patientFormSlice = createSlice({
     },
     buttonSendForm(state) {
       state.isButtonClcked = true;
-      state.open = false;
     },
     getRisposta(state, { payload }) {
       const { idDomanda, value, domanda } = payload;
@@ -31,9 +34,28 @@ const patientFormSlice = createSlice({
       state.isButtonClcked = false;
       state.cancelCode = true;
     },
+    getTipoFormulario(state, { payload }) {
+      state.tipoForm = payload;
+    },
+    getBooleanAnswers(state, { payload }) {
+      state.boolAnswers = payload;
+    },
+    openSnackbar(state) {
+      state.snackbarStatus = true;
+    },
+    closeSnackbar(state) {
+      state.snackbarStatus = false;
+    },
+    closeDialogForm(state) {
+      state.open = false;
+    },
   },
 });
 
+export const dialogClose = (state : State) => state.patientForm.dialogClose;
+export const snackbarStatus = (state : State) => state.patientForm.snackbarStatus;
+export const boolAnswers = (state : State) => state.patientForm.boolAnswers;
+export const tipoForm = (state : State) => state.patientForm.tipoForm;
 export const risposte = (state : State) => state.patientForm.risposte;
 export const repartoDomande = (state: State) => state.patientForm.domandeReparto;
 export const isClicked = (state : State) => state.patientForm.isButtonClcked;
@@ -42,5 +64,7 @@ export const cancelCode = (state: State) => state.patientForm.cancelCode;
 export const {
   showPatientFormDialog, getDomandeReparto,
   buttonSendForm, getRisposta, buttonReturnDevice,
+  getTipoFormulario, getBooleanAnswers, openSnackbar,
+  closeSnackbar, closeDialogForm,
 } = patientFormSlice.actions;
 export default patientFormSlice.reducer;

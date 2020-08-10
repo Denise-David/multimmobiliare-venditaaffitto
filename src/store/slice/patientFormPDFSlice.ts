@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { newPatientInfo } from './patientDataSlice';
 import { State } from '../store/store';
 
 export interface patientData {familyname : '', givenname : '',
@@ -16,6 +17,7 @@ const patientInfoPDFSlice = createSlice({
     oldPatientData: {} as patientData,
     newPatientData: {} as patientData,
     patientAnswers: {} as answersData,
+    infoReparto: {} as any,
   },
   reducers: {
     setNumEtichetta(state, { payload }) {
@@ -33,10 +35,14 @@ const patientInfoPDFSlice = createSlice({
     getPatientAnswer(state, { payload }) {
       state.patientAnswers = payload;
     },
+    getRepartoInfo(state, { payload }) {
+      state.infoReparto = payload;
+    },
 
   },
 });
 
+export const infoReparto = (state : State) => state.patientInfoPDF.infoReparto;
 export const patientAnswers = (state : State) => state.patientInfoPDF.patientAnswers;
 export const newPatientData = (state : State) => state.patientInfoPDF.newPatientData;
 export const oldPatientData = (state : State) => state.patientInfoPDF.oldPatientData;
@@ -45,6 +51,6 @@ export const numEtichetta = (state : State) => state.patientInfoPDF.numEtichetta
 export const {
   setNumEtichetta, setIDFormRisposte,
   getOldPatientData, getNewPatientData,
-  getPatientAnswer,
+  getPatientAnswer, getRepartoInfo,
 } = patientInfoPDFSlice.actions;
 export default patientInfoPDFSlice.reducer;

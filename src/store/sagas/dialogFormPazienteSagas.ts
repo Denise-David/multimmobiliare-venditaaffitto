@@ -1,9 +1,10 @@
 import { call, select, put } from 'redux-saga/effects';
+import {
+  repartoDomande, showPatientFormDialog, getDomandeReparto, risposte,
+  getTipoFormulario, getBooleanAnswers, openSnackbar, closeDialogForm,
+} from '../slice/patientFormSlice';
 import { newPatientInfo, getNewPatientInfo } from '../slice/patientDataSlice';
 
-import {
-  showPatientFormDialog, getDomandeReparto, repartoDomande, risposte,
-} from '../slice/patientFormSlice';
 import { ValueCode } from '../slice/CodeSlice';
 
 import { getEtichettaData, fetchRepartoFormByGUID, addRisposteFormPazienti } from '../api';
@@ -46,6 +47,14 @@ export default function* getDataEtichetta() {
     const allDataReparto = yield call(fetchRepartoFormByGUID, repartoGUID);
     const datiDomande = allDataReparto.data[0].Domande;
     yield put(getDomandeReparto(datiDomande));
+
+    // prendo il tipo del formulario
+    const formType = allDataReparto.data[0].tipo;
+    yield put(getTipoFormulario(formType));
+
+    // prendo risposte per formulario booleano
+    const booleanAnswers = allDataReparto.data[0].Risposte;
+    yield put(getBooleanAnswers(booleanAnswers));
   } catch (error) {
     console.log('errore', error);
   }
@@ -56,10 +65,20 @@ export default function* getDataEtichetta() {
 
 export function* sendDataPazienti() {
   try {
-    const patientData = yield select(newPatientInfo);
+    const domande = yield select(repartoDomande);
+    const numDomande : number = domande.length;
     const answersData = yield select(risposte);
-    console.log('xxrisposte', answersData);
-    yield put(addRisposteFormPazienti(patientData, answersData));
+    const arrayAnswersData = Object.keys(answersData);
+    const numRisposte : number = arrayAnswersData.length;
+
+    // Se le risposte ricevute dal paziente sono uguali al numero di domande tot
+    if (numDomande === numRisposte) {
+      yield put(closeDialogForm());
+      const patientData = yield select(newPatientInfo);
+      yield put(addRisposteFormPazienti(patientData, answersData));
+    } else {
+      yield put(openSnackbar());
+    }
   } catch (error) {
     console.log('errore', error);
   }

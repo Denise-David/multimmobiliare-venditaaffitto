@@ -11,7 +11,7 @@ const ReturnDeviceDialog = () => {
   const classes = useStyles();
 
   return (
-    <Dialog fullScreen open={isOpen}>
+    <Dialog fullScreen open={false}>
       <Nav />
       <div className={classes.marginDialog}>
         <Typography className={classes.margin} variant="h4" align="center">

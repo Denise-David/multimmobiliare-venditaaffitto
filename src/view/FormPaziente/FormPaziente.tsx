@@ -1,13 +1,15 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
-import PermIdentityIcon from '@material-ui/icons/PermIdentity';
+
 import List from '@material-ui/core/List';
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import CreateIcon from '@material-ui/icons/Create';
-import { useDispatch } from 'react-redux';
-import { IconButton } from '@material-ui/core';
+import { useDispatch, useSelector } from 'react-redux';
+import { IconButton, Snackbar, Button } from '@material-ui/core';
+
+import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 import useStyles from './style';
 import Nav from '../../component/Navbar/Navbar';
 import TextName from '../../component/TextName/TextName';
@@ -22,10 +24,18 @@ import TextFamilyDoctor from '../../component/TextFamilyDoctor/TextFamilyDoctor'
 import ButtonSendFormPaziente from '../../component/ButtonSendPatientForm/ButtonSendPatientForm';
 import { switchStateDisabled } from '../../store/slice/patientDataSlice';
 import TextCityName from '../../component/TextCityName/TextCityName';
+import { tipoForm, snackbarStatus, closeSnackbar } from '../../store/slice/patientFormSlice';
+import BooleanLinePatientForm from '../../component/BooleanLinePatientForm/BooleanLinePatientForm';
 
 const FormPaziente = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const formType = useSelector(tipoForm);
+  const statusSnackbar = useSelector(snackbarStatus);
+  function Alert(props: AlertProps) {
+    // eslint-disable-next-line react/jsx-props-no-spreading
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+  }
 
   return (
     <div>
@@ -58,9 +68,21 @@ const FormPaziente = () => {
         <Paper>
           <Typography className={classes.Titolo} variant="h5" align="center"> Si prega di rispondere alle seguenti domande </Typography>
         </Paper>
-        <List>
-          <DropDownList />
-        </List>
+        { formType === 'a più risposte'
+          ? (
+            <List>
+              <DropDownList />
+            </List>
+          ) : <BooleanLinePatientForm /> }
+        <Snackbar
+          open={statusSnackbar}
+        >
+          <Alert onClose={() => dispatch(closeSnackbar())} severity="warning">
+            <Typography variant="body1">
+              Non ha risposto a tutte le domande!
+            </Typography>
+          </Alert>
+        </Snackbar>
         <div className={classes.centerButton}>
           <ButtonSendFormPaziente />
         </div>

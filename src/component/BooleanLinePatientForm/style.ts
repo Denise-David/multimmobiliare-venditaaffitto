@@ -4,9 +4,12 @@ import { makeStyles, Theme } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme: Theme) => ({
 
   risposta: {
-    display: 'inline-block',
-    marginRight: '1em',
-    marginLeft: 'auto',
+    textAlign: 'right',
+
+  },
+  marginTop: {
+    marginTop: theme.spacing(3),
+
   },
 
 }));
