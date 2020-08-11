@@ -2,15 +2,13 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import { useDispatch } from 'react-redux';
 import useStyles from './style';
-import { buttonSendCode, resetCode } from '../../store/slice/CodeSlice';
+import { buttonSendCancelClicked } from '../../store/slice/summaryDialogSlice';
 
-const ButtonSend = () => {
+const ButtonSendCancelSummary = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
-
   const handleClickOpen = () => {
-    dispatch(buttonSendCode());
-    // dispatch(resetCode());
+    dispatch(buttonSendCancelClicked());
   };
 
   return (
@@ -21,10 +19,10 @@ const ButtonSend = () => {
         variant="contained"
         color="primary"
       >
-        Invia
+        Annulla e correggi dati
       </Button>
     </>
   );
 };
 
-export default ButtonSend;
+export default ButtonSendCancelSummary;

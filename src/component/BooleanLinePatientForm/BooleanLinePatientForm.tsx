@@ -36,11 +36,20 @@ const BooleanLinePatientForm = () => {
                     name="quiz"
                     onChange={(event) => {
                       const { value } = event.target;
-                      dispatch(getRisposta({ idDomanda, value, domanda }));
+                      const valore = value;
+                      dispatch(getRisposta({ idDomanda, valore, domanda }));
                     }}
                   >
-                    <FormControlLabel value="Si" control={<Radio />} label={booleanAnswers.risposta1} />
-                    <FormControlLabel value="No" control={<Radio />} label={booleanAnswers.risposta2} />
+                    <FormControlLabel
+                      value={booleanAnswers.risposta1}
+                      control={<Radio />}
+                      label={booleanAnswers.risposta1}
+                    />
+                    <FormControlLabel
+                      value={booleanAnswers.risposta2}
+                      control={<Radio />}
+                      label={booleanAnswers.risposta2}
+                    />
                   </RadioGroup>
                 </FormControl>
               </form>

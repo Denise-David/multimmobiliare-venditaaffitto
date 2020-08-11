@@ -8,9 +8,10 @@ import { newPatientInfo, getNewPatientInfo } from '../slice/patientDataSlice';
 import { ValueCode } from '../slice/CodeSlice';
 
 import {
-  getEtichettaData, fetchRepartoFormByGUID, addRisposteFormPazienti, getLastRisposteFormPazienti,
+  getEtichettaData, fetchRepartoFormByGUID,
 } from '../api';
-import { setLastDocumentRisposte, setSummaryDialogOpen } from '../slice/summaryDialogSlice';
+import { setSummaryDialogOpen, setPatientData, setAnswersData } from '../slice/summaryDialogSlice';
+import { getRepartoInfo } from '../slice/patientFormPDFSlice';
 
 export default function* getDataEtichetta() {
   try {
@@ -73,14 +74,36 @@ export function* sendDataPazienti() {
     const answersData = yield select(risposte);
     const arrayAnswersData = Object.keys(answersData);
     const numRisposte : number = arrayAnswersData.length;
+    const patientData = yield select(newPatientInfo);
+    const etichettaNum = yield select(ValueCode);
+    const dataEtichetta = yield call(getEtichettaData, etichettaNum);
+
+    const { data = {} } = dataEtichetta;
+    const { hcase = {} } = data;
+    const { actualWardGUID = '' } = hcase;
+    const dataReparto = yield call(fetchRepartoFormByGUID, actualWardGUID);
+
+    const datiReparto = dataReparto.data;
+    const {
+      Reparto = '', Risposte = {}, tipo = '', Risultati = {},
+    } = datiReparto[0];
+    const { risposta1 = '' } = Risposte;
+
+    const infoReparto = {
+      Risultati,
+      Reparto,
+      tipo,
+      risposta1,
+    };
 
     // Se le risposte ricevute dal paziente sono uguali al numero di domande tot
-    if (numDomande === numRisposte) {
-      const patientData = yield select(newPatientInfo);
-      yield put(addRisposteFormPazienti(patientData, answersData));
+    if (numDomande <= numRisposte) {
+      yield put(setSummaryDialogOpen());
+      yield put(setPatientData(patientData));
+      yield put(setAnswersData(answersData));
+      yield put(getRepartoInfo(infoReparto));
 
-      const lastDocumentRisposte = yield call(getLastRisposteFormPazienti);
-      yield put(setLastDocumentRisposte(lastDocumentRisposte));
+      // yield put(addRisposteFormPazienti(patientData, answersData));
     } else {
       yield put(openSnackbar());
     }

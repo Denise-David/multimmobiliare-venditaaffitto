@@ -34,10 +34,7 @@ const patientFormSlice = createSlice({
         idDomanda, valore, domanda, testoRisposta,
       };
     },
-    buttonReturnDevice(state) {
-      state.isButtonClcked = false;
-      state.cancelCode = true;
-    },
+
     getTipoFormulario(state, { payload }) {
       state.tipoForm = payload;
     },
@@ -67,7 +64,7 @@ export const isOpen = (state:State) => state.patientForm.open;
 export const cancelCode = (state: State) => state.patientForm.cancelCode;
 export const {
   showPatientFormDialog, getDomandeReparto,
-  buttonSendForm, getRisposta, buttonReturnDevice,
+  buttonSendForm, getRisposta,
   getTipoFormulario, getBooleanAnswers, openSnackbar,
   closeSnackbar, closeDialogForm,
 } = patientFormSlice.actions;

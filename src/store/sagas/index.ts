@@ -18,6 +18,9 @@ import getDataEtichetta, { sendDataPazienti } from './dialogFormPazienteSagas';
 import { buttonSendForm } from '../slice/patientFormSlice';
 import initPDFPatientData from './patientInfoPDFSagas';
 import initPDFPatientAnswers from './patientAnswersPDFSagas';
+import ButtonSendConfirmSummary from '../../component/ButtonSendConfirmSummary/ButtonSendConfirmSummary';
+import setDataRisposteFormPaziente from './summaryDialogSagas';
+import { buttonSendConfirmClicked } from '../slice/summaryDialogSlice';
 
 function* init(action : any) {
   try {
@@ -87,6 +90,7 @@ function* actionWatcher() {
   yield takeLatest(buttonSendForm.type, sendDataPazienti);
   yield takeLatest('initPDFPatientData', initPDFPatientData);
   yield takeLatest('initPDFPatientAnswers', initPDFPatientAnswers);
+  yield takeLatest(buttonSendConfirmClicked.type, setDataRisposteFormPaziente);
 }
 export default function* rootSaga() {
   yield all([actionWatcher()]);
