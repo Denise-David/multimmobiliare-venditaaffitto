@@ -1,22 +1,30 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { State } from '../store/store';
 
-export interface Formulario { ID : number, Reparto : string, Risultati : Risultato[], Domande : []}
-export interface Risultato {testoAnamnesi : string, valoreMin : number, valoreMax: number}
+export interface Formulario { ID : string, Reparto : string, Risultati : Risultato[], Domande : []}
+export interface Risultato {
+  ID: string,
+  testoAnamnesi : string,
+  valoreMin : number,
+  valoreMax: number
+}
 
 const risFormSlice = createSlice({
   name: 'formulari',
   initialState: {
-    dataForm: null as Formulario | null,
+    dataRis: null as Formulario | null,
   },
   reducers: {
-    formulari(state, { payload }) {
-      state.dataForm = payload;
+    getRisultati(state, { payload }) {
+      state.dataRis = payload;
+    },
+    resetRisultati: (state) => {
+      state.dataRis = null;
     },
   },
 
 });
 
-export const formData = (state: State) => state.risForm.dataForm;
-export const { formulari } = risFormSlice.actions;
+export const dataRisultati = (state: State) => state.risForm.dataRis;
+export const { getRisultati, resetRisultati } = risFormSlice.actions;
 export default risFormSlice.reducer;

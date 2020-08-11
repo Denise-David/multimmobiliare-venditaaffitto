@@ -5,20 +5,22 @@ import AppBar from '@material-ui/core/AppBar';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import { useDispatch } from 'react-redux';
-import Nav from '../../component/Navbar/Nav';
+import Nav from '../../component/Navbar/Navbar';
 import useStyles from './style';
-import SceltaReparto from '../../component/SceltaReparto/SceltaReparto';
-import RigaRisultato from '../../component/RigaRisultato/RigaRisulato';
-import RigaDomanda from '../../component/DomandeConRisposte/RigaDomanda';
+import SceltaReparto from '../../component/DepartmentChoiceEditor/DepartmentChoiceEditor';
+import RigaRisultato from '../../component/ResultLineEditor/ResultLineEditor';
+import RigaDomanda from '../../component/QuestionsAndAnswersEditor/QuestionsAndAnswersEditor';
 
 const FormPaziente = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch({ type: 'INIT' });
-  }, []);
+  });
+
   return (
     <div>
+
       <Nav />
       <div className={classes.root}>
         <Typography
@@ -39,29 +41,10 @@ const FormPaziente = () => {
                 </Typography>
               </AppBar>
               <div className={classes.padding}>
-                <div className={classes.marginDivider}>
-                  <Grid container>
-                    <Grid item xs={12} sm={1} />
-                    <Grid item xs={12} sm={1} />
-                    <Grid item xs={12} sm={5}>
-                      <Typography variant="subtitle1" align="center">
-                        Domanda
-                      </Typography>
-                    </Grid>
-                    <Grid item xs={12} sm={4}>
-                      <Typography variant="subtitle1" align="center">
-                        Risposte
-                      </Typography>
-                    </Grid>
-                    <Grid item xs={12} sm={1}>
-                      <Typography variant="subtitle1" align="center">
-                        Valore
-                      </Typography>
-                    </Grid>
-                  </Grid>
-                  <Divider />
-                </div>
+
+                <div className={classes.marginDivider} />
                 <RigaDomanda />
+
               </div>
             </Paper>
           </Grid>
@@ -103,6 +86,9 @@ const FormPaziente = () => {
 
         </Grid>
       </div>
+      {/* <Backdrop open={load}>
+        <CircularProgress color="inherit" />
+      </Backdrop> */}
 
     </div>
 

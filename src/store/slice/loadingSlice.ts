@@ -1,17 +1,20 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { State } from '../store/store';
 
 const loadingSlice = createSlice({
   name: 'loading',
-  initialState: true,
+  initialState:
+  {
+    load: true,
+
+  },
   reducers: {
-    isLoading() {
-      return true;
-    },
-    isLoaded() {
-      return false;
+    isLoadingLoaded(state) {
+      state.load = !state.load;
     },
   },
 });
 
-export const { isLoading, isLoaded } = loadingSlice.actions;
+export const loading = (state : State) => state.loading.load;
+export const { isLoadingLoaded } = loadingSlice.actions;
 export default loadingSlice.reducer;

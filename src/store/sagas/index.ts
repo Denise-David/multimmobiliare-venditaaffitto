@@ -1,54 +1,96 @@
 import {
-  all, takeLatest, call, put, select,
+  all, takeLatest, call, put, select, takeEvery,
 } from 'redux-saga/effects';
-import fetchForm, { fetchAllForm } from '../api/index';
-import { getAllForm } from './getFormBase';
-import { domande } from '../slice/formSlice';
-import { formulari } from '../slice/risultatiFormularioSlice';
+import { getRisultati } from '../slice/risultatiFormularioSlice';
+import fetchForm, { fetchAllForm, addRisposteFormPazienti } from '../api/index';
+
+import { domande, risultati } from '../slice/formSlice';
+
 import { formulariAction } from '../slice/formulariSlice';
 import { formID } from '../slice/repartoSlice';
-import { initializeDomande, initializeRisposte } from '../slice/editFormSlice';
+import {
+  initializeDomande, initializeRisultati, confirmRepartoAction,
+} from '../slice/editFormSlice';
+import { setInitialStateAction, desetInitialStateAction } from '../slice/initialStateSlice';
+import addReparto from './editFormSagas';
+import { buttonSendCode } from '../slice/CodeSlice';
+import getDataEtichetta, { sendDataPazienti } from './dialogFormPazienteSagas';
+import { buttonSendForm } from '../slice/patientFormSlice';
+import initPDFPatientData from './patientInfoPDFSagas';
+import initPDFPatientAnswers from './patientAnswersPDFSagas';
+import ButtonSendConfirmSummary from '../../component/ButtonSendConfirmSummary/ButtonSendConfirmSummary';
+import setDataRisposteFormPaziente from './summaryDialogSagas';
+import { buttonSendConfirmClicked } from '../slice/summaryDialogSlice';
 
 function* init(action : any) {
-  const ID = yield select(formID);
+  try {
+    const ID : string = yield select(formID);
 
-  const arrayToObject = (array : any) => array.reduce((obj : any, item : any) => {
+    // prendo tutti i formulari
+    const allForm = yield call(fetchAllForm);
+    const datiFormulari = allForm.data;
+
+    yield put(formulariAction(datiFormulari));
+
+    // metodo che converte un array in un object
+    const arrayToObject = (array : any) => array.reduce((obj : any, item : any) => {
     // eslint-disable-next-line no-param-reassign
-    obj[item.ID] = true;
-    return obj;
-  }, {});
-  if (ID !== 0) {
-    const form = yield call(fetchForm, ID);
-    const datiDomande = form.data.Domande;
-    yield put(domande(datiDomande));
-    const initialStateDomande = datiDomande.map(
-      (domanda : any) => ({ ID: domanda.ID }),
-    );
-    const reduce = arrayToObject(initialStateDomande);
-    yield put(initializeDomande(reduce));
+      obj[item.ID] = true;
+      return obj;
+    }, {});
 
-    // const initialStateRisposte = datiDomande.ID.Risposte.map(
-    //   (risposta : any) => ({ ID: risposta.ID }),
-    // );
-    // const reduceR = arrayToObject(initialStateRisposte);
-    // yield put(initializeRisposte(reduceR));
+    // controllo se è selezionato un reparto
+    if (ID !== '0') {
+      try {
+        // prendo i risultati del form ID selezionato
+        const ris = yield call(fetchForm, ID);
+        const datiRisultati = ris.Risultati;
+        yield put(risultati(datiRisultati));
 
-    const formulario = yield call(fetchForm, ID);
-    const datiForm = formulario.data;
-    yield put(formulari(datiForm));
-  } else {
-    yield put(domande(null));
-    yield put(formulari(null));
+        // creo un array con indice ID Risultati e stato true
+        const initialStateRisultati = datiRisultati.map(
+          (risultato : any) => ({ ID: risultato.ID }),
+        );
+        const reduceRis = arrayToObject(initialStateRisultati);
+        // invio l'array
+        yield put(initializeRisultati(reduceRis));
+
+        // prendo le domande del form ID selezionato
+        const form = yield call(fetchForm, ID);
+        const datiDomande = form.Domande;
+        yield put(domande(datiDomande));
+
+        // Creo un array con indice ID e stato true
+        const initialStateDomande = datiDomande.map(
+          (domanda : any) => ({ ID: domanda.ID }),
+        );
+        const reduce = arrayToObject(initialStateDomande);
+        // invio l'array
+        yield put(initializeDomande(reduce));
+
+        // prendo il form ID selezionato
+        const formulario = yield call(fetchForm, ID);
+        const datiForm = formulario.data;
+        yield put(getRisultati(datiForm));
+
+        yield put(desetInitialStateAction());
+      } catch (error) { console.log('errore', error); }
+    } else {
+      yield put(setInitialStateAction());
+    }
+  } catch (error) {
+    console.log('error', error);
   }
-
-  const allForm = yield call(fetchAllForm);
-  const datiFormulari = allForm.data.formulari;
-  yield put(formulariAction(datiFormulari));
 }
 
 function* actionWatcher() {
   yield takeLatest('INIT', init);
-  yield takeLatest(formulariAction.type, getAllForm);
+  yield takeLatest(confirmRepartoAction.type, addReparto);
+  yield takeEvery(buttonSendCode.type, getDataEtichetta);
+  yield takeLatest(buttonSendForm.type, sendDataPazienti);
+  yield takeLatest('initPDFPatientData', initPDFPatientData);
+  yield takeLatest('initPDFPatientAnswers', initPDFPatientAnswers);
+  yield takeLatest(buttonSendConfirmClicked.type, setDataRisposteFormPaziente);
 }
 export default function* rootSaga() {
   yield all([actionWatcher()]);

@@ -1,32 +1,41 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
-import PermIdentityIcon from '@material-ui/icons/PermIdentity';
+
 import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
-import { useDispatch } from 'react-redux';
+import CreateIcon from '@material-ui/icons/Create';
+import { useDispatch, useSelector } from 'react-redux';
+import { IconButton, Snackbar, Button } from '@material-ui/core';
+
+import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 import useStyles from './style';
-import Nav from '../../component/Navbar/Nav';
+import Nav from '../../component/Navbar/Navbar';
 import TextName from '../../component/TextName/TextName';
 import TextLastname from '../../component/TextLastname/TextLastname';
 import TextStreet from '../../component/TextStreet/TextStreet';
 import TextNumber from '../../component/TextNumber/TextNumber';
-import TextResidence from '../../component/TextResidence/TextResidence';
 import TextDoctor from '../../component/TextDoctor/TextDoctor';
-import TextCassaMalati from '../../component/TextCassaMalati/TextCassaMalati';
+import TextCassaMalati from '../../component/TextHealthInsurance/TextHealthInsurance';
 import TextPhone from '../../component/TextPhone/TextPhone';
-import ButtonSend from '../../component/ButtonSend/ButtonSend';
-import DropDownList from '../../component/RisposteMultiple/RisposteMultiple';
-import BooleanAnswer from '../../component/BooleanAnswer/BooleanAnswer';
+import DropDownList from '../../component/MultipleChoiceLinePatientForm/MultipleChoiceLinePatientForm';
+import TextFamilyDoctor from '../../component/TextFamilyDoctor/TextFamilyDoctor';
+import ButtonSendFormPaziente from '../../component/ButtonSendPatientForm/ButtonSendPatientForm';
+import { switchStateDisabled } from '../../store/slice/patientDataSlice';
+import TextCityName from '../../component/TextCityName/TextCityName';
+import { tipoForm, snackbarStatus, closeSnackbar } from '../../store/slice/patientFormSlice';
+import BooleanLinePatientForm from '../../component/BooleanLinePatientForm/BooleanLinePatientForm';
 
 const FormPaziente = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch({ type: 'INIT' });
-  }, []);
+  const formType = useSelector(tipoForm);
+  const statusSnackbar = useSelector(snackbarStatus);
+  function Alert(props: AlertProps) {
+    // eslint-disable-next-line react/jsx-props-no-spreading
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+  }
 
   return (
     <div>
@@ -36,7 +45,9 @@ const FormPaziente = () => {
           <Typography variant="h5" align="center"> Dati personali </Typography>
           <Typography variant="subtitle2" align="center"> Se già compilato, siete pregati di controllare e aggiornare i dati </Typography>
           <div className={classes.center}>
-            <PermIdentityIcon color="secondary" fontSize="large" />
+            <IconButton onClick={() => (dispatch(switchStateDisabled()))}>
+              <CreateIcon color="secondary" fontSize="large" />
+            </IconButton>
           </div>
           <div className={classes.inline}>
             <TextName />
@@ -46,7 +57,8 @@ const FormPaziente = () => {
             <TextStreet />
             <TextNumber />
           </div>
-          <TextResidence />
+          <TextCityName />
+          <TextFamilyDoctor />
           <TextDoctor />
           <TextCassaMalati />
           <TextPhone />
@@ -56,21 +68,23 @@ const FormPaziente = () => {
         <Paper>
           <Typography className={classes.Titolo} variant="h5" align="center"> Si prega di rispondere alle seguenti domande </Typography>
         </Paper>
-        <List>
-          <DropDownList />
-          <ListItem divider>
-            <Typography variant="subtitle1" />
-            <BooleanAnswer />
-          </ListItem>
-          <ListItem divider>
-            <Typography variant="subtitle1">
-              Ha presentato febbre persistente?
+        { formType === 'a più risposte'
+          ? (
+            <List>
+              <DropDownList />
+            </List>
+          ) : <BooleanLinePatientForm /> }
+        <Snackbar
+          open={statusSnackbar}
+        >
+          <Alert onClose={() => dispatch(closeSnackbar())} severity="warning">
+            <Typography variant="body1">
+              Non ha risposto a tutte le domande!
             </Typography>
-            <BooleanAnswer />
-          </ListItem>
-        </List>
+          </Alert>
+        </Snackbar>
         <div className={classes.centerButton}>
-          <ButtonSend />
+          <ButtonSendFormPaziente />
         </div>
       </Container>
     </div>

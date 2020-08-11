@@ -4,15 +4,18 @@ import { State } from '../store/store';
 const repartoSlice = createSlice({
   name: 'reparto',
   initialState: {
-    IDnumber: 0 as number,
+    IDnumber: '0' as string,
   },
   reducers: {
     valueAction(state, { payload }) {
       state.IDnumber = payload;
     },
+    resetReparto(state) {
+      state.IDnumber = '0';
+    },
   },
 });
 
-export const { valueAction } = repartoSlice.actions;
+export const { valueAction, resetReparto } = repartoSlice.actions;
 export default repartoSlice.reducer;
-export const formID = (state : State): number => state.reparto.IDnumber;
+export const formID = (state : State): string => state.reparto.IDnumber;

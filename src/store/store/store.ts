@@ -8,6 +8,13 @@ import risForm from '../slice/risultatiFormularioSlice';
 import reparto from '../slice/repartoSlice';
 import editForm from '../slice/editFormSlice';
 import form from '../slice/formSlice';
+import initialState from '../slice/initialStateSlice';
+import code from '../slice/CodeSlice';
+import patientData from '../slice/patientDataSlice';
+import patientForm from '../slice/patientFormSlice';
+import patientInfoPDF from '../slice/patientFormPDFSlice';
+import summaryDialog from '../slice/summaryDialogSlice';
+import returnDevice from '../slice/returnDeviceSlice';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -19,6 +26,13 @@ const store = configureStore({
     risForm,
     reparto,
     editForm,
+    initialState,
+    code,
+    patientData,
+    patientForm,
+    patientInfoPDF,
+    summaryDialog,
+    returnDevice,
 
   },
 

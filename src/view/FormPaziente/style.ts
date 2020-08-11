@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginRight: theme.spacing(2),
     padding: theme.spacing(4),
     marginBottom: theme.spacing(2),
-
+    marginTop: theme.spacing(2),
   },
   NavColor: {
     background: theme.palette.primary.main,
@@ -23,6 +23,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   center: {
     textAlign: 'center',
     marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(4),
   },
   inline: {
     display: 'flex',
@@ -63,6 +64,13 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginRight: 'auto',
     marginLeft: 'auto',
 
+  },
+  Icon: {
+    marginBottom: theme.spacing(4),
+  },
+
+  button: {
+    margin: theme.spacing(1),
   },
 }));
 export default useStyles;
