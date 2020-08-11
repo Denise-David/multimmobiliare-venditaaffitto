@@ -5,7 +5,7 @@ import rest from '@feathersjs/rest-client';
 const app = feathers();
 
 // Connect to a different URL
-const restClient = rest();
+const restClient = rest('/autoanamnesi');
 
 // Configure an AJAX library (see below) with that client
 app.configure(restClient.axios(axios));

@@ -22,7 +22,7 @@ ReactDOM.render(
     <Provider store={store}>
       <MuiThemeProvider theme={theme}>
         <CssBaseline />
-        <Router>
+        <Router basename={process.env.REACT_APP_BASENAME}>
           <Route path="/editor">
             <Editor />
           </Route>

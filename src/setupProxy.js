@@ -8,16 +8,9 @@ module.exports = function (app) {
     }),
   );
   app.use(
-    '/strutture_form_reparti',
+    '/autoanamnesi',
     createProxyMiddleware({
-      target: 'http://localhost:3030',
-      changeOrigin: true,
-    }),
-  );
-  app.use(
-    '/risposte_form_pazienti',
-    createProxyMiddleware({
-      target: 'http://localhost:3030',
+      target: 'http://gecodev.eoc.ch',
       changeOrigin: true,
     }),
   );
