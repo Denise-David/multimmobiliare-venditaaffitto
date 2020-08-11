@@ -24,7 +24,7 @@ import { resetDomande } from '../../store/slice/formSlice';
 import { initialID, setInitialStateAction } from '../../store/slice/initialStateSlice';
 import { resetRisultati } from '../../store/slice/risultatiFormularioSlice';
 
-const SceltaReparto = () => {
+const DepartmentChoiceEditor = () => {
   const dispatch = useDispatch();
 
   // recupero stati dagli slice
@@ -102,8 +102,6 @@ const SceltaReparto = () => {
 
   // eslint-disable-next-line no-underscore-dangle
   const getRepartoName = (form : Formulario) => form._id === IDReparto;
-
-  console.log('gne', listForm);
 
   const listItems = listForm.map((oneForm) => (
 
@@ -222,4 +220,4 @@ const SceltaReparto = () => {
   );
 };
 
-export default SceltaReparto;
+export default DepartmentChoiceEditor;

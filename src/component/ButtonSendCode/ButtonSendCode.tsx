@@ -2,9 +2,9 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import { useDispatch } from 'react-redux';
 import useStyles from './style';
-import { buttonSendCode, resetCode } from '../../store/slice/CodeSlice';
+import { buttonSendCode } from '../../store/slice/CodeSlice';
 
-const ButtonSend = () => {
+const ButtonSendCode = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
 
@@ -27,4 +27,4 @@ const ButtonSend = () => {
   );
 };
 
-export default ButtonSend;
+export default ButtonSendCode;

@@ -6,7 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import { useSelector } from 'react-redux';
 import { colDisable, isDisable } from '../../store/slice/editFormSlice';
 
-const RigaRisulato = () => {
+const EmptyResultLineEditor = () => {
   const colorButton = useSelector(colDisable);
   const disableActive = useSelector(isDisable);
 
@@ -33,4 +33,4 @@ const RigaRisulato = () => {
   );
 };
 
-export default RigaRisulato;
+export default EmptyResultLineEditor;

@@ -2,7 +2,7 @@ import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import CreateIcon from '@material-ui/icons/Create';
 import {
-  IconButton, Card, Paper, Typography, Divider,
+  IconButton, Paper, Typography, Divider,
 } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Grid from '@material-ui/core/Grid';
@@ -10,16 +10,16 @@ import { useSelector, useDispatch } from 'react-redux';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import { selectData } from '../../store/slice/formSlice';
-import RigaRisposta from '../AnswerLineEditor/AnswerLineEditor';
-import RigaRispostaVuota from '../EmptyAnswerLineEditor/EmptyAnswerLineEditor';
-import RigaDomandaVuota from '../EmptyQuestionLineEditor/EmptyQuestionLineEditor';
+import AnswerLineEditor from '../AnswerLineEditor/AnswerLineEditor';
+import EmptyAnswerLineEditor from '../EmptyAnswerLineEditor/EmptyAnswerLineEditor';
+import EmptyQuestionLineEditor from '../EmptyQuestionLineEditor/EmptyQuestionLineEditor';
 import {
   modifyDomandaAction, stateTextField, isDisable, colDisable, disableAll, enableAll,
 } from '../../store/slice/editFormSlice';
 import { initialID } from '../../store/slice/initialStateSlice';
 import useStyles from './style';
 
-const RigaRisulato = () => {
+const QuestionsAndAnswersEditor = () => {
   const dispatch = useDispatch();
   const iniID = useSelector(initialID);
   const domande = useSelector(selectData);
@@ -111,8 +111,8 @@ const RigaRisulato = () => {
                 />
               </Grid>
             </Grid>
-            <RigaRisposta id={domanda.ID} />
-            <RigaRispostaVuota />
+            <AnswerLineEditor id={domanda.ID} />
+            <EmptyAnswerLineEditor />
           </div>
         </Paper>
       </div>
@@ -122,15 +122,15 @@ const RigaRisulato = () => {
 
       <div>
         {listItems}
-        <RigaDomandaVuota />
+        <EmptyQuestionLineEditor />
       </div>
     );
   }
   return (
     <div>
-      <RigaDomandaVuota />
+      <EmptyQuestionLineEditor />
     </div>
   );
 };
 
-export default RigaRisulato;
+export default QuestionsAndAnswersEditor;

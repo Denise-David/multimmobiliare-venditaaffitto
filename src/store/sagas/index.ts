@@ -2,7 +2,7 @@ import {
   all, takeLatest, call, put, select, takeEvery,
 } from 'redux-saga/effects';
 import { getRisultati } from '../slice/risultatiFormularioSlice';
-import fetchForm, { fetchAllForm, addRisposteFormPazienti } from '../api/index';
+import fetchForm, { fetchAllForm } from '../api/index';
 
 import { domande, risultati } from '../slice/formSlice';
 
@@ -18,7 +18,6 @@ import getDataEtichetta, { sendDataPazienti } from './dialogFormPazienteSagas';
 import { buttonSendForm } from '../slice/patientFormSlice';
 import initPDFPatientData from './patientInfoPDFSagas';
 import initPDFPatientAnswers from './patientAnswersPDFSagas';
-import ButtonSendConfirmSummary from '../../component/ButtonSendConfirmSummary/ButtonSendConfirmSummary';
 import setDataRisposteFormPaziente from './summaryDialogSagas';
 import { buttonSendConfirmClicked } from '../slice/summaryDialogSlice';
 

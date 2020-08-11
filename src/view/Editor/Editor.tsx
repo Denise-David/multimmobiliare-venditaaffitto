@@ -7,9 +7,9 @@ import Divider from '@material-ui/core/Divider';
 import { useDispatch } from 'react-redux';
 import Nav from '../../component/Navbar/Navbar';
 import useStyles from './style';
-import SceltaReparto from '../../component/DepartmentChoiceEditor/DepartmentChoiceEditor';
-import RigaRisultato from '../../component/ResultLineEditor/ResultLineEditor';
-import RigaDomanda from '../../component/QuestionsAndAnswersEditor/QuestionsAndAnswersEditor';
+import DepartmentChoiceEditor from '../../component/DepartmentChoiceEditor/DepartmentChoiceEditor';
+import ResultLineEditor from '../../component/ResultLineEditor/ResultLineEditor';
+import QuestionsAndAnswersEditor from '../../component/QuestionsAndAnswersEditor/QuestionsAndAnswersEditor';
 
 const FormPaziente = () => {
   const classes = useStyles();
@@ -30,7 +30,7 @@ const FormPaziente = () => {
         >
           NomeUtente
         </Typography>
-        <SceltaReparto />
+        <DepartmentChoiceEditor />
         {/* Tabella Domande e risposte */}
         <Grid container spacing={3}>
           <Grid item xs={12} sm={8}>
@@ -43,7 +43,7 @@ const FormPaziente = () => {
               <div className={classes.padding}>
 
                 <div className={classes.marginDivider} />
-                <RigaDomanda />
+                <QuestionsAndAnswersEditor />
 
               </div>
             </Paper>
@@ -79,17 +79,13 @@ const FormPaziente = () => {
                   </Grid>
                   <Divider />
                 </div>
-                <RigaRisultato />
+                <ResultLineEditor />
               </div>
             </Paper>
           </Grid>
 
         </Grid>
       </div>
-      {/* <Backdrop open={load}>
-        <CircularProgress color="inherit" />
-      </Backdrop> */}
-
     </div>
 
   );

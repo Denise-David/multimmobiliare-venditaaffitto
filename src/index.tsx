@@ -16,6 +16,7 @@ import FormPaziente from './view/FormPaziente/FormPaziente';
 import Editor from './view/Editor/Editor';
 import PDFPatientData from './component/PDFPatientData/PDFPatentData';
 import PDFPatientAnswers from './component/PDFPatientAnswers/PDFPatientAnswers';
+import EtichettaQrCode from './component/EtichettaQRCode/EtichettaQrCode';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -42,6 +43,10 @@ ReactDOM.render(
 
             <Route path="/pdfRispostePaziente">
               <PDFPatientAnswers />
+            </Route>
+
+            <Route path="/QRCode">
+              <EtichettaQrCode />
             </Route>
           </Switch>
 

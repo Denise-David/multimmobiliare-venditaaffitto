@@ -7,11 +7,11 @@ import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import CreateIcon from '@material-ui/icons/Create';
 import { useDispatch, useSelector } from 'react-redux';
-import { IconButton, Snackbar, Button } from '@material-ui/core';
+import { IconButton, Snackbar } from '@material-ui/core';
 
 import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 import useStyles from './style';
-import Nav from '../../component/Navbar/Navbar';
+import Navbar from '../../component/Navbar/Navbar';
 import TextName from '../../component/TextName/TextName';
 import TextLastname from '../../component/TextLastname/TextLastname';
 import TextStreet from '../../component/TextStreet/TextStreet';
@@ -19,7 +19,7 @@ import TextNumber from '../../component/TextNumber/TextNumber';
 import TextDoctor from '../../component/TextDoctor/TextDoctor';
 import TextCassaMalati from '../../component/TextHealthInsurance/TextHealthInsurance';
 import TextPhone from '../../component/TextPhone/TextPhone';
-import DropDownList from '../../component/MultipleChoiceLinePatientForm/MultipleChoiceLinePatientForm';
+import MultipleChoiceLinePatientForm from '../../component/MultipleChoiceLinePatientForm/MultipleChoiceLinePatientForm';
 import TextFamilyDoctor from '../../component/TextFamilyDoctor/TextFamilyDoctor';
 import ButtonSendFormPaziente from '../../component/ButtonSendPatientForm/ButtonSendPatientForm';
 import { switchStateDisabled } from '../../store/slice/patientDataSlice';
@@ -39,7 +39,7 @@ const FormPaziente = () => {
 
   return (
     <div>
-      <Nav />
+      <Navbar />
       <Card className={classes.card}>
         <div className={classes.contentCard}>
           <Typography variant="h5" align="center"> Dati personali </Typography>
@@ -71,7 +71,7 @@ const FormPaziente = () => {
         { formType === 'a più risposte'
           ? (
             <List>
-              <DropDownList />
+              <MultipleChoiceLinePatientForm />
             </List>
           ) : <BooleanLinePatientForm /> }
         <Snackbar

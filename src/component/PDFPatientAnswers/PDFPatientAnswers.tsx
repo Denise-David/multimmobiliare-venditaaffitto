@@ -21,7 +21,7 @@ const PDFPatientAnswers = () => {
     dispatch(setNumEtichetta(parsed.etichetta));
     dispatch(setIDFormRisposte(parsed.ID));
     dispatch({ type: 'initPDFPatientAnswers' });
-  }, []);
+  }, [dispatch]);
 
   const repartoInfo = useSelector(infoReparto);
   const typeForm = repartoInfo.tipo;

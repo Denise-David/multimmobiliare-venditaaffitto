@@ -8,7 +8,7 @@ import { getRisposta } from '../../store/slice/patientFormSlice';
 
 interface Props {idDomanda : string, domanda : string}
 
-const ListaATendina = ({ idDomanda, domanda } : Props) => {
+const DropDownListAnswersPatient = ({ idDomanda, domanda } : Props) => {
   const dispatch = useDispatch();
   const controlID = (state : State) => {
     const domandaByID = state.patientForm.domandeReparto.find((d: Domanda) => d.ID === idDomanda);
@@ -43,4 +43,4 @@ const ListaATendina = ({ idDomanda, domanda } : Props) => {
   );
 };
 
-export default ListaATendina;
+export default DropDownListAnswersPatient;

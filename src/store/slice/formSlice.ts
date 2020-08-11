@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { dataRisultati } from './risultatiFormularioSlice';
 import { State } from '../store/store';
 
 export interface Domanda { ID : string, Domanda : string, Risposte : Risposta[]}

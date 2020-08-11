@@ -10,7 +10,7 @@ import {
   risActive, addRispostaVuotaAction, isDisable, colDisable,
 } from '../../store/slice/editFormSlice';
 
-const RigaRisulato = () => {
+const EmptyAnswerLineEditor = () => {
   const dispatch = useDispatch();
 
   const colorButton = useSelector(colDisable);
@@ -59,4 +59,4 @@ const RigaRisulato = () => {
   );
 };
 
-export default RigaRisulato;
+export default EmptyAnswerLineEditor;

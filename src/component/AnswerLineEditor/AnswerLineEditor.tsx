@@ -11,7 +11,7 @@ import { colDisable, isDisable } from '../../store/slice/editFormSlice';
 
 interface Props {id : string}
 
-const RigaRisulato = ({ id }: Props) => {
+const AnswerLineEditor = ({ id }: Props) => {
   const colorButton = useSelector(colDisable);
   const disableActive = useSelector(isDisable);
 
@@ -49,4 +49,4 @@ const RigaRisulato = ({ id }: Props) => {
   );
 };
 
-export default RigaRisulato;
+export default AnswerLineEditor;

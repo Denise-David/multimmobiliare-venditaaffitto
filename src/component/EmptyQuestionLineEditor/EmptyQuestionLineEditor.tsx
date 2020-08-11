@@ -6,7 +6,7 @@ import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import { useSelector } from 'react-redux';
 import { colDisable, isDisable } from '../../store/slice/editFormSlice';
 
-const RigaRisulato = () => {
+const EmptyQuestionLineEditor = () => {
   const colorButton = useSelector(colDisable);
   const disableActive = useSelector(isDisable);
   return (
@@ -26,4 +26,4 @@ const RigaRisulato = () => {
   );
 };
 
-export default RigaRisulato;
+export default EmptyQuestionLineEditor;

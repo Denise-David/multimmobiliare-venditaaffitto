@@ -8,13 +8,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import { dataRisultati } from '../../store/slice/risultatiFormularioSlice';
-import RigaRisultatoVuota from '../EmptyResultLineEditor/EmptyResultLineEditor';
+import EmptyResultLineEditor from '../EmptyResultLineEditor/EmptyResultLineEditor';
 import { selectData } from '../../store/slice/formSlice';
 import {
   stateRisultato, modifyRisultatiAction, colDisable, isDisable, disableAll, enableAll,
 } from '../../store/slice/editFormSlice';
 
-const RigaRisulato = () => {
+const ResultLineEditor = () => {
   const dispatch = useDispatch();
 
   const listForm = useSelector(dataRisultati);
@@ -86,7 +86,7 @@ const RigaRisulato = () => {
     return (
       <div>
         {listItems}
-        <RigaRisultatoVuota />
+        <EmptyResultLineEditor />
 
       </div>
     );
@@ -97,4 +97,4 @@ const RigaRisulato = () => {
   );
 };
 
-export default RigaRisulato;
+export default ResultLineEditor;

@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { newPatientInfo } from './patientDataSlice';
 import { State } from '../store/store';
 
 export interface patientData {familyname : '', givenname : '',

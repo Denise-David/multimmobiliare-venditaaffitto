@@ -1,4 +1,4 @@
-import { call, select, put } from 'redux-saga/effects';
+import { select, put } from 'redux-saga/effects';
 import { addRisposteFormPazienti } from '../api';
 import { risposte } from '../slice/patientFormSlice';
 import { newPatientInfo } from '../slice/patientDataSlice';

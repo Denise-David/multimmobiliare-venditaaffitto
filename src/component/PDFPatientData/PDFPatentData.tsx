@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Typography, Grid } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
 import queryString from 'query-string';
 import {
@@ -20,7 +20,7 @@ const PDFPatientData = () => {
     dispatch(setNumEtichetta(parsed.etichetta));
     dispatch(setIDFormRisposte(parsed.ID));
     dispatch({ type: 'initPDFPatientData' });
-  }, []);
+  }, [dispatch]);
   const oldDataPatient = useSelector(oldPatientData);
   const newDataPatient = useSelector(newPatientData);
 

@@ -14,8 +14,6 @@ const BooleanLinePatientForm = () => {
   const domande = useSelector(repartoDomande);
   const booleanAnswers = useSelector(boolAnswers);
 
-  console.log('xxAnswers', booleanAnswers);
-
   const listItems = domande.map((question: any) => {
     const domanda : string = question.Domanda;
     const idDomanda : string = question.IDDomanda;

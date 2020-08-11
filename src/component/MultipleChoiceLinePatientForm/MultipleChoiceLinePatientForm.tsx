@@ -7,11 +7,11 @@ import ListItem from '@material-ui/core/ListItem';
 import { useSelector } from 'react-redux';
 import useStyles from './style';
 
-import ListaATendina from '../DropDownListAnswersPatientForm/DropDownListAnswersPatientForm';
+import DropDownListAnswersPatientForm from '../DropDownListAnswersPatientForm/DropDownListAnswersPatientForm';
 
 import { repartoDomande } from '../../store/slice/patientFormSlice';
 
-const DropDownList = () => {
+const MultipleChoiceLinePatient = () => {
   const classes = useStyles();
 
   const domande = useSelector(repartoDomande);
@@ -30,7 +30,7 @@ const DropDownList = () => {
           <FormControl variant="outlined" fullWidth className={classes.margin}>
             <InputLabel id="demo-simple-select-outlined-label"> </InputLabel>
              
-            <ListaATendina idDomanda={domanda.ID} domanda={domanda.Domanda} />
+            <DropDownListAnswersPatientForm idDomanda={domanda.ID} domanda={domanda.Domanda} />
           </FormControl>
         </Grid>
       </Grid>
@@ -55,4 +55,4 @@ const DropDownList = () => {
   }
 };
 
-export default DropDownList;
+export default MultipleChoiceLinePatient;

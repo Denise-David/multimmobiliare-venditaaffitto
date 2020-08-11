@@ -3,7 +3,6 @@ import Button from '@material-ui/core/Button';
 import { useDispatch } from 'react-redux';
 import useStyles from './style';
 import { buttonSendForm } from '../../store/slice/patientFormSlice';
-import { setSummaryDialogOpen } from '../../store/slice/summaryDialogSlice';
 
 const ButtonSendFormPaziente = () => {
   const dispatch = useDispatch();
