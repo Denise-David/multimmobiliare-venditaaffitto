@@ -61,3 +61,10 @@ export const getLastRisposteFormPazienti = () => risposteFormPazienti.find({
     },
   },
 });
+
+// Cerco dottori
+export const searchDoctor = (medicoName, medicoCognome) => axios.post('/eocmoss/api/operator/searchOperator',
+  {
+    givenname: medicoName.value,
+    familyname: medicoCognome.value,
+  });

@@ -20,6 +20,8 @@ import initPDFPatientData from './patientInfoPDFSagas';
 import initPDFPatientAnswers from './patientAnswersPDFSagas';
 import setDataRisposteFormPaziente from './summaryDialogSagas';
 import { buttonSendConfirmClicked } from '../slice/summaryDialogSlice';
+import { buttonSearchClicked } from '../slice/searchDoctorSlice';
+import buttonSearch from './searchDoctorSagas';
 
 function* init(action : any) {
   try {
@@ -90,6 +92,7 @@ function* actionWatcher() {
   yield takeLatest('initPDFPatientData', initPDFPatientData);
   yield takeLatest('initPDFPatientAnswers', initPDFPatientAnswers);
   yield takeLatest(buttonSendConfirmClicked.type, setDataRisposteFormPaziente);
+  yield takeLatest(buttonSearchClicked.type, buttonSearch);
 }
 export default function* rootSaga() {
   yield all([actionWatcher()]);

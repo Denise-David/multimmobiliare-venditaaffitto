@@ -95,11 +95,6 @@ const DepartmentChoiceEditor = () => {
     dispatch(alertConfirmDelete());
   };
 
-  const modifyDispatch = () => {
-    dispatch(modifyRepartoAction());
-    dispatch(disableAll());
-  };
-
   // eslint-disable-next-line no-underscore-dangle
   const getRepartoName = (form : Formulario) => form._id === IDReparto;
 
@@ -151,12 +146,6 @@ const DepartmentChoiceEditor = () => {
                       <IconButton onClick={addDispatch}>
                         <AddCircleOutlineIcon fontSize="large" color={colorButton} />
                       </IconButton>
-                      <IconButton
-                        disabled={disableActive}
-                        onClick={modifyDispatch}
-                      >
-                        <CreateIcon fontSize="large" color={colorButton} />
-                      </IconButton>
                       <IconButton disabled={disableActive} onClick={deleteDispatch}>
                         <DeleteIcon fontSize="large" color={colorButton} />
                       </IconButton>
@@ -169,7 +158,7 @@ const DepartmentChoiceEditor = () => {
           {/* DropDownList selezione reparto */}
           {/* se è cliccato il tasto add */}
           {addReparto
-            ? <TextField label="inserisci nome reparto" variant="filled" onChange={getValueTextField} fullWidth />
+            ? <TextField label="inserisci area GUID" variant="filled" onChange={getValueTextField} fullWidth />
             : (
               <div>
                 {/* se è cliccato il tasto modify */}

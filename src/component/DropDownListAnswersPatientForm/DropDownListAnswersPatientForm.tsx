@@ -36,7 +36,6 @@ const DropDownListAnswersPatient = ({ idDomanda, domanda } : Props) => {
           idDomanda, valore, domanda, testoRisposta,
         }));
       }}
-      autoWidth
     >
       {listItems}
     </Select>

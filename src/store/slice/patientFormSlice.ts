@@ -50,6 +50,15 @@ const patientFormSlice = createSlice({
     closeDialogForm(state) {
       state.open = false;
     },
+    resetDomandeReparto(state) {
+      state.domandeReparto = [];
+    },
+    resetRisposte(state) {
+      state.risposte = {};
+    },
+    resetBooleanAnswers(state) {
+      state.boolAnswers = {};
+    },
   },
 });
 
@@ -66,6 +75,7 @@ export const {
   showPatientFormDialog, getDomandeReparto,
   buttonSendForm, getRisposta,
   getTipoFormulario, getBooleanAnswers, openSnackbar,
-  closeSnackbar, closeDialogForm,
+  closeSnackbar, closeDialogForm, resetDomandeReparto,
+  resetBooleanAnswers, resetRisposte,
 } = patientFormSlice.actions;
 export default patientFormSlice.reducer;

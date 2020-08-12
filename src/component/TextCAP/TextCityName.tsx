@@ -3,24 +3,25 @@ import TextField from '@material-ui/core/TextField';
 import { useSelector, useDispatch } from 'react-redux';
 import { newPatientInfo, changePatientValue, isDisable } from '../../store/slice/patientDataSlice';
 
-const TextLastname = () => {
+const TextCAP = () => {
   const dataEtichetta = useSelector(newPatientInfo);
   const disabled = useSelector(isDisable);
   const dispatch = useDispatch();
+
   return (
     <TextField
       fullWidth
-      disabled
-      label="Medico inviante"
-      value={dataEtichetta.nameDoctor}
-
+      disabled={disabled}
+      label="CAP"
+      value={dataEtichetta.zip}
       onChange={(event) => {
         const { value } = event.target;
-        const name = 'nameDoctor';
+        const name = 'zip';
         dispatch(changePatientValue({ name, value }));
       }}
     />
+
   );
 };
 
-export default TextLastname;
+export default TextCAP;

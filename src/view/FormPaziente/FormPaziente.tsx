@@ -10,6 +10,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { IconButton, Snackbar } from '@material-ui/core';
 
 import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
+import SearchIcon from '@material-ui/icons/Search';
+
 import useStyles from './style';
 import Navbar from '../../component/Navbar/Navbar';
 import TextName from '../../component/TextName/TextName';
@@ -26,6 +28,8 @@ import { switchStateDisabled } from '../../store/slice/patientDataSlice';
 import TextCityName from '../../component/TextCityName/TextCityName';
 import { tipoForm, snackbarStatus, closeSnackbar } from '../../store/slice/patientFormSlice';
 import BooleanLinePatientForm from '../../component/BooleanLinePatientForm/BooleanLinePatientForm';
+import TextCAP from '../../component/TextCAP/TextCityName';
+import SearchDoctorDialog from '../../component/SearchDoctorDialog/SearchDoctorDialog';
 
 const FormPaziente = () => {
   const classes = useStyles();
@@ -46,7 +50,7 @@ const FormPaziente = () => {
           <Typography variant="subtitle2" align="center"> Se già compilato, siete pregati di controllare e aggiornare i dati </Typography>
           <div className={classes.center}>
             <IconButton onClick={() => (dispatch(switchStateDisabled()))}>
-              <CreateIcon color="secondary" fontSize="large" />
+              <CreateIcon color="primary" fontSize="large" />
             </IconButton>
           </div>
           <div className={classes.inline}>
@@ -57,13 +61,27 @@ const FormPaziente = () => {
             <TextStreet />
             <TextNumber />
           </div>
+
+          <TextCAP />
           <TextCityName />
-          <TextFamilyDoctor />
-          <TextDoctor />
+
           <TextCassaMalati />
           <TextPhone />
+          <div className={classes.inline}>
+            <IconButton>
+              <SearchIcon />
+            </IconButton>
+            <TextFamilyDoctor />
+          </div>
+          <div className={classes.inline}>
+            <IconButton>
+              <SearchIcon />
+            </IconButton>
+            <TextDoctor />
+          </div>
         </div>
       </Card>
+      <SearchDoctorDialog />
       <Container className={classes.container}>
         <Paper>
           <Typography className={classes.Titolo} variant="h5" align="center"> Si prega di rispondere alle seguenti domande </Typography>
@@ -76,8 +94,10 @@ const FormPaziente = () => {
           ) : <BooleanLinePatientForm /> }
         <Snackbar
           open={statusSnackbar}
+          autoHideDuration={4000}
+          onClose={() => dispatch(closeSnackbar())}
         >
-          <Alert onClose={() => dispatch(closeSnackbar())} severity="warning">
+          <Alert severity="warning">
             <Typography variant="body1">
               Non ha risposto a tutte le domande!
             </Typography>

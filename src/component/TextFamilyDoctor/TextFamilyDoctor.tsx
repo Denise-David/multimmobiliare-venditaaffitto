@@ -10,7 +10,7 @@ const TextLastname = () => {
   return (
     <TextField
       fullWidth
-      disabled={disabled}
+      disabled
       label="Medico di famiglia"
       value={dataEtichetta.nameFamilyDoctor}
 

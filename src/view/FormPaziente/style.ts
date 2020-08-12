@@ -46,11 +46,11 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 
   container: {
-    padding: theme.spacing(3),
+    padding: theme.spacing(1),
   },
 
   Titolo: {
-    background: theme.palette.secondary.main,
+    background: theme.palette.primary.main,
     borderRadius: '0.2em',
     color: 'white',
   },

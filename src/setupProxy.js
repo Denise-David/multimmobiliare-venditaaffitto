@@ -14,4 +14,11 @@ module.exports = function (app) {
       changeOrigin: true,
     }),
   );
+  app.use(
+    '/eocmoss',
+    createProxyMiddleware({
+      target: 'http://gecodev.eoc.ch',
+      changeOrigin: true,
+    }),
+  );
 };
