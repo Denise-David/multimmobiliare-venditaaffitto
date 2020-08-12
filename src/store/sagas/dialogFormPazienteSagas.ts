@@ -5,7 +5,7 @@ import {
 } from '../slice/patientFormSlice';
 import { newPatientInfo, getNewPatientInfo } from '../slice/patientDataSlice';
 
-import { ValueCode } from '../slice/CodeSlice';
+import { ValueCode, openSnackbarBarcode } from '../slice/CodeSlice';
 
 import {
   getEtichettaData, fetchRepartoFormByGUID,
@@ -59,12 +59,12 @@ export default function* getDataEtichetta() {
     // prendo risposte per formulario booleano
     const booleanAnswers = allDataReparto.data[0].Risposte;
     yield put(getBooleanAnswers(booleanAnswers));
+
+    yield put(showPatientFormDialog());
   } catch (error) {
     console.log('errore', error);
+    yield put(openSnackbarBarcode());
   }
-
-  // fai vedere il dialog
-  yield put(showPatientFormDialog());
 }
 
 export function* sendDataPazienti() {

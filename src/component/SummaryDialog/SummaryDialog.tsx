@@ -24,6 +24,7 @@ const SummaryDialog = () => {
     if (repartoInfo.tipo === 'a più risposte') {
       return (
         <Typography key={risposta.idDomanda} variant="subtitle1">
+          <br />
           {' '}
           {risposta.domanda}
           <br />

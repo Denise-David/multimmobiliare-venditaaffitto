@@ -1,8 +1,11 @@
 import React, { useEffect } from 'react';
-import { CardContent, Typography, Card } from '@material-ui/core';
+import {
+  CardContent, Typography, Card, Snackbar,
+} from '@material-ui/core';
 import CropFreeIcon from '@material-ui/icons/CropFree';
 import queryString from 'query-string';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import Alert from '@material-ui/lab/Alert';
 import ButtonSend from '../../component/ButtonSendCode/ButtonSendCode';
 import TextFieldCodice from '../../component/TextCode/TextCode';
 import useStyles from './style';
@@ -11,7 +14,9 @@ import CameraButton from '../../component/CameraButton/CameraButton';
 import PatientFormDialog from '../../component/PatientFormDialog';
 import ReturnDeviceDialog from '../../component/ReturnDeviceDialog/ReturnDeviceDialog';
 import SummaryDialog from '../../component/SummaryDialog/SummaryDialog';
-import { getCodeValue, buttonSendCode } from '../../store/slice/CodeSlice';
+import {
+  getCodeValue, buttonSendCode, snackbarStatusBarcode, closeSnackbarBarcode,
+} from '../../store/slice/CodeSlice';
 
 const Barcodepage = () => {
   const classes = useStyles();
@@ -25,6 +30,7 @@ const Barcodepage = () => {
     }
   }, [dispatch]);
 
+  const statusSnackbarBarcode = useSelector(snackbarStatusBarcode);
   return (
     <div className={classes.Content}>
       <Navbar />
@@ -42,6 +48,15 @@ const Barcodepage = () => {
       <div className={classes.Margin}>Oppure</div>
       <div className={classes.Margin}><TextFieldCodice /></div>
       <ButtonSend />
+      <Snackbar
+        open={statusSnackbarBarcode}
+      >
+        <Alert onClose={() => dispatch(closeSnackbarBarcode())} severity="warning">
+          <Typography variant="body1">
+            Codice immesso errato
+          </Typography>
+        </Alert>
+      </Snackbar>
       <PatientFormDialog />
       <ReturnDeviceDialog />
       <SummaryDialog />

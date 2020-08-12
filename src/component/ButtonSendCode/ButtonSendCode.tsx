@@ -10,7 +10,6 @@ const ButtonSendCode = () => {
 
   const handleClickOpen = () => {
     dispatch(buttonSendCode());
-    // dispatch(resetCode());
   };
 
   return (
