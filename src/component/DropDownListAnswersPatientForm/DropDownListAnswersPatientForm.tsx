@@ -26,12 +26,12 @@ const DropDownListAnswersPatient = ({ idDomanda, domanda } : Props) => {
   return (
 
     <Select
+
       onChange={(event) => {
         const { value } = event.target;
         const rispostaSelezionata = risposte?.find((risposta : Risposta) => risposta.ID === value);
         const valore = rispostaSelezionata?.valore;
         const testoRisposta = rispostaSelezionata?.risposta;
-
         dispatch(getRisposta({
           idDomanda, valore, domanda, testoRisposta,
         }));

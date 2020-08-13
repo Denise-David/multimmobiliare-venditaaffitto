@@ -34,6 +34,7 @@ const SearchDoctorDialog = () => {
     // eslint-disable-next-line react/jsx-key
     <div>
       <MenuItem
+        key={medico.id}
         value={medico.firstname}
          // onClick={handleClick}
         onClick={() => {
@@ -60,7 +61,7 @@ const SearchDoctorDialog = () => {
 
         <div className={classes.margin}>
           <DialogTitle>
-            <Typography className={classes.button} variant="h5">
+            <Typography className={classes.button}>
               Cerca il tuo medico
             </Typography>
             <TextField
