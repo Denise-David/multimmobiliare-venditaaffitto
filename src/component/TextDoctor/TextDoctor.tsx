@@ -2,6 +2,7 @@ import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import { useSelector, useDispatch } from 'react-redux';
 import { newPatientInfo, changePatientValue, isDisable } from '../../store/slice/patientDataSlice';
+import { getStringMedico } from '../../util';
 
 const TextLastname = () => {
   const dataEtichetta = useSelector(newPatientInfo);
@@ -12,11 +13,11 @@ const TextLastname = () => {
       fullWidth
       disabled
       label="Medico inviante"
-      value={dataEtichetta.nameDoctor}
+      value={getStringMedico(dataEtichetta.doctor)}
 
       onChange={(event) => {
         const { value } = event.target;
-        const name = 'nameDoctor';
+        const name = 'doctor';
         dispatch(changePatientValue({ name, value }));
       }}
     />

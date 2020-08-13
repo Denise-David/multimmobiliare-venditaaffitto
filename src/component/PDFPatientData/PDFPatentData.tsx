@@ -115,7 +115,7 @@ const PDFPatientData = () => {
 
           ) }
         <br />
-        Medico di famiglia :
+        {/* Medico di famiglia :
         {' '}
         {oldDataPatient.nameFamilyDoctor}
         { oldDataPatient.nameFamilyDoctor === newDataPatient.nameFamilyDoctor ? <></>
@@ -140,7 +140,7 @@ const PDFPatientData = () => {
             </span>
 
           ) }
-        <br />
+        <br /> */}
         Cassa malati :
         {' '}
         {oldDataPatient.insuranceCoversName}

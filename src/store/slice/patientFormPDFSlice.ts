@@ -1,11 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { Medico } from '../../util/index';
 import { State } from '../store/store';
 
-export interface patientData {familyname : '', givenname : '',
-cityName : '', mobile: '', streetName: '', streetNumber : '',
-nameDoctor : '', nameFamilyDoctor : '', insuranceCoversName: ''}
+export interface PatientData {familyname : string, givenname : string,
+cityName : string, mobile: string, streetName: string, streetNumber : string,
+doctor : Medico, familyDoctor : Medico, insuranceCoversName: string}
 
-export interface answersData { givenname:'', familyname:'', risposte:{[key: string] : { idDomanda : '', value: '', domanda: ''}}}
+export interface AnswersData { givenname:string, familyname:string, risposte:{[key: string] : { idDomanda : '', value: '', domanda: ''}}}
 
 const patientInfoPDFSlice = createSlice({
   name: 'patientInfoPDF',
@@ -13,9 +14,9 @@ const patientInfoPDFSlice = createSlice({
   {
     numEtichetta: 0 as number,
     ID: '' as string,
-    oldPatientData: {} as patientData,
-    newPatientData: {} as patientData,
-    patientAnswers: {} as answersData,
+    oldPatientData: {} as PatientData,
+    newPatientData: {} as PatientData,
+    patientAnswers: {} as AnswersData,
     infoReparto: {} as any,
     sommaRisposte: 0 as number,
   },
