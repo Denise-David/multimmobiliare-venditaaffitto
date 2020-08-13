@@ -37,7 +37,7 @@ export const addForm = (nomeReparto) => struttureFormReparti.create(
 );
 
 // Prendo i dati dell'etichetta
-export const getEtichettaData = (labelNumber) => axios.get(`/adts/app/hcase/getCompositeByLabelnumber/${labelNumber}`);
+export const getEtichettaData = (labelNumber) => axios.get(`/autoanamnesi/forwardCall/adts?edsId=${labelNumber}`);
 
 // Aggiungi formulario risposte paziente
 
@@ -63,7 +63,7 @@ export const getLastRisposteFormPazienti = () => risposteFormPazienti.find({
 });
 
 // Cerco dottori
-export const searchDoctor = (medicoName, medicoCognome) => axios.post('/eocmoss/api/operator/searchOperator',
+export const searchDoctor = (medicoName, medicoCognome) => axios.post('/autoanamnesi/forwardCall/eocmoss',
   {
     givenname: medicoName.value,
     familyname: medicoCognome.value,
