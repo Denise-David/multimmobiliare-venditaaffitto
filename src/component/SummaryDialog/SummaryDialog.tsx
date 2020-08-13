@@ -87,14 +87,24 @@ const SummaryDialog = () => {
           {' '}
           {dataPatient.mobile}
           <br />
-          Medico inviante:
-          {' '}
-          {/* {dataPatient.nameDoctor} */}
-          {getStringMedico(dataPatient.medico)}
+          {dataPatient.doctor
+            && (
+              <span>
+                Medico inviante:
+                {' '}
+                {/* {dataPatient.nameDoctor} */}
+                {getStringMedico(dataPatient.doctor)}
+              </span>
+            )}
           <br />
-          Medico di famiglia:
-          {' '}
-          {dataPatient.nameFamilyDoctor}
+          {dataPatient.familyDoctor
+            && (
+            <span>
+              Medico di famiglia:
+              {' '}
+              {getStringMedico(dataPatient.familyDoctor)}
+            </span>
+            )}
           <br />
           Cassa malati:
           {' '}

@@ -9,7 +9,7 @@ import useStyles from './style';
 import {
   getNomeMedico, getCognomeMedico,
   mediciTrovati, buttonSearchClicked,
-  dialogSearchStatus, closeDialogSearch, nameSearch,
+  dialogSearchStatus, closeDialogSearch, nameSearch, resetMedici,
 } from '../../store/slice/searchDoctorSlice';
 import { changePatientValue } from '../../store/slice/patientDataSlice';
 
@@ -25,42 +25,38 @@ const SearchDoctorDialog = () => {
     return medico;
   }) : [];
 
-  const handleClick = (event : React.MouseEvent< {value: any}>) => {
-    const { value } = event.currentTarget;
-    console.log('xx valore', value);
-    dispatch(changePatientValue({ name, value }));
+  const dispatchOnClose = () => {
+    dispatch(closeDialogSearch());
+    dispatch(resetMedici());
   };
 
-  const doctorList = listaMediciArray ? listaMediciArray.map((medico : any) => {
-    const valoreSel = `${medico.firstname} ${medico.lastname}, ${medico.city}`;
-
-    return (
+  const doctorList = listaMediciArray ? listaMediciArray.map((medico : any) => (
     // eslint-disable-next-line react/jsx-key
-      <div>
-        <MenuItem
-          value={medico.firstname}
+    <div>
+      <MenuItem
+        value={medico.firstname}
          // onClick={handleClick}
-          onClick={() => {
-            console.log('xx medico', `${medico.firstname} ${medico.lastname}, ${medico.city}`);
-            console.log('xx medico2 ', medico);
-          }}
-        >
-          <Typography variant="body1">
-            {medico.firstname}
-            {' '}
-            {medico.lastname}
-            {', '}
-            {medico.city}
-          </Typography>
-        </MenuItem>
+        onClick={() => {
+          dispatch(changePatientValue({ name, value: medico }));
+          dispatch(closeDialogSearch());
+          dispatch(resetMedici());
+        }}
+      >
+        <Typography variant="body1">
+          {medico.firstname}
+          {' '}
+          {medico.lastname}
+          {', '}
+          {medico.city}
+        </Typography>
+      </MenuItem>
 
-      </div>
-    );
-  }) : <></>;
+    </div>
+  )) : <></>;
 
   return (
     <div>
-      <Dialog open={statusDialogSearch} onClose={() => dispatch(closeDialogSearch())} scroll="paper">
+      <Dialog open={statusDialogSearch} onClose={dispatchOnClose} scroll="paper">
 
         <div className={classes.margin}>
           <DialogTitle>

@@ -71,13 +71,13 @@ const FormPaziente = () => {
             <TextPhone />
             <div className={classes.inline}>
               <IconButton>
-                <SearchIcon onClick={() => dispatch(openDialogSearch('nameFamilyDoctor'))} />
+                <SearchIcon onClick={() => dispatch(openDialogSearch('familyDoctor'))} />
               </IconButton>
               <TextFamilyDoctor />
             </div>
             <div className={classes.inline}>
               <IconButton>
-                <SearchIcon onClick={() => dispatch(openDialogSearch('nameDoctor'))} />
+                <SearchIcon onClick={() => dispatch(openDialogSearch('doctor'))} />
               </IconButton>
               <TextDoctor />
             </div>

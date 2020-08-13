@@ -31,6 +31,9 @@ const searchDoctorSlice = createSlice({
     closeDialogSearch(state) {
       state.dialogSearchStatus = false;
     },
+    resetMedici(state) {
+      state.mediciTrovati = {};
+    },
   },
 });
 
@@ -43,5 +46,6 @@ export const {
   getNomeMedico, getCognomeMedico,
   setMediciTrovati, buttonSearchClicked,
   openDialogSearch, closeDialogSearch,
+  resetMedici,
 } = searchDoctorSlice.actions;
 export default searchDoctorSlice.reducer;
