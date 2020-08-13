@@ -40,7 +40,13 @@ const TextFieldCodice = () => {
 
   return (
 
-    <TextField id="outlined-basic" value={valueCode} label="Immetti codice" onChange={getValueOnChange} fullWidth variant="outlined" />
+    // Questo è da CANCELLARE!!!!!
+    <TextField id="outlined-basic" value="4153656" label="Immetti codice" onChange={getValueOnChange} fullWidth variant="outlined" />
+
+  // <TextField id="outlined-basic"
+  // value={valueCode} label="Immetti codice"
+  // onChange={getValueOnChange} fullWidth variant="outlined" />
+
   // <NumPad.Number
   //   onChange={getValueOnChange}
   //   label="Total"

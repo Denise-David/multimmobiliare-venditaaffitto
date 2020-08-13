@@ -12,5 +12,10 @@ const useStyles = makeStyles((theme:Theme) => ({
     margin: theme.spacing(2),
   },
 
+  dialogContent: {
+
+    maxHeight: theme.spacing(50),
+
+  },
 }));
 export default useStyles;

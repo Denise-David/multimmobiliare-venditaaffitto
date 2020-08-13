@@ -30,6 +30,7 @@ import { tipoForm, snackbarStatus, closeSnackbar } from '../../store/slice/patie
 import BooleanLinePatientForm from '../../component/BooleanLinePatientForm/BooleanLinePatientForm';
 import TextCAP from '../../component/TextCAP/TextCityName';
 import SearchDoctorDialog from '../../component/SearchDoctorDialog/SearchDoctorDialog';
+import { openDialogSearch } from '../../store/slice/searchDoctorSlice';
 
 const FormPaziente = () => {
   const classes = useStyles();
@@ -44,69 +45,71 @@ const FormPaziente = () => {
   return (
     <div>
       <Navbar />
-      <Card className={classes.card}>
-        <div className={classes.contentCard}>
-          <Typography variant="h5" align="center"> Dati personali </Typography>
-          <Typography variant="subtitle2" align="center"> Se già compilato, siete pregati di controllare e aggiornare i dati </Typography>
-          <div className={classes.center}>
-            <IconButton onClick={() => (dispatch(switchStateDisabled()))}>
-              <CreateIcon color="primary" fontSize="large" />
-            </IconButton>
-          </div>
-          <div className={classes.inline}>
-            <TextName />
-            <TextLastname />
-          </div>
-          <div className={classes.inline}>
-            <TextStreet />
-            <TextNumber />
-          </div>
+      <div className={classes.bordi}>
+        <Card className={classes.card}>
+          <div className={classes.contentCard}>
+            <Typography variant="h5" align="center"> Dati personali </Typography>
+            <Typography variant="subtitle2" align="center"> Se già compilato, siete pregati di controllare e aggiornare i dati </Typography>
+            <div className={classes.center}>
+              <IconButton onClick={() => (dispatch(switchStateDisabled()))}>
+                <CreateIcon color="primary" fontSize="large" />
+              </IconButton>
+            </div>
+            <div className={classes.inline}>
+              <TextName />
+              <TextLastname />
+            </div>
+            <div className={classes.inline}>
+              <TextStreet />
+              <TextNumber />
+            </div>
 
-          <TextCAP />
-          <TextCityName />
+            <TextCAP />
+            <TextCityName />
 
-          <TextCassaMalati />
-          <TextPhone />
-          <div className={classes.inline}>
-            <IconButton>
-              <SearchIcon />
-            </IconButton>
-            <TextFamilyDoctor />
+            <TextCassaMalati />
+            <TextPhone />
+            <div className={classes.inline}>
+              <IconButton>
+                <SearchIcon onClick={() => dispatch(openDialogSearch('nameFamilyDoctor'))} />
+              </IconButton>
+              <TextFamilyDoctor />
+            </div>
+            <div className={classes.inline}>
+              <IconButton>
+                <SearchIcon onClick={() => dispatch(openDialogSearch('nameDoctor'))} />
+              </IconButton>
+              <TextDoctor />
+            </div>
           </div>
-          <div className={classes.inline}>
-            <IconButton>
-              <SearchIcon />
-            </IconButton>
-            <TextDoctor />
+        </Card>
+        <SearchDoctorDialog />
+        <Container className={classes.container}>
+          <Paper>
+            <Typography className={classes.Titolo} variant="h5" align="center"> Si prega di rispondere alle seguenti domande </Typography>
+          </Paper>
+          { formType === 'a più risposte'
+            ? (
+              <List>
+                <MultipleChoiceLinePatientForm />
+              </List>
+            ) : <BooleanLinePatientForm /> }
+          <Snackbar
+            open={statusSnackbar}
+            autoHideDuration={4000}
+            onClose={() => dispatch(closeSnackbar())}
+          >
+            <Alert severity="warning">
+              <Typography variant="body1">
+                Non ha risposto a tutte le domande!
+              </Typography>
+            </Alert>
+          </Snackbar>
+          <div className={classes.centerButton}>
+            <ButtonSendFormPaziente />
           </div>
-        </div>
-      </Card>
-      <SearchDoctorDialog />
-      <Container className={classes.container}>
-        <Paper>
-          <Typography className={classes.Titolo} variant="h5" align="center"> Si prega di rispondere alle seguenti domande </Typography>
-        </Paper>
-        { formType === 'a più risposte'
-          ? (
-            <List>
-              <MultipleChoiceLinePatientForm />
-            </List>
-          ) : <BooleanLinePatientForm /> }
-        <Snackbar
-          open={statusSnackbar}
-          autoHideDuration={4000}
-          onClose={() => dispatch(closeSnackbar())}
-        >
-          <Alert severity="warning">
-            <Typography variant="body1">
-              Non ha risposto a tutte le domande!
-            </Typography>
-          </Alert>
-        </Snackbar>
-        <div className={classes.centerButton}>
-          <ButtonSendFormPaziente />
-        </div>
-      </Container>
+        </Container>
+      </div>
     </div>
 
   );

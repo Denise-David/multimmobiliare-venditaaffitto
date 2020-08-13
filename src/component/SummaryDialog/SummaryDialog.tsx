@@ -7,6 +7,7 @@ import useStyles from './style';
 import { infoReparto } from '../../store/slice/patientFormPDFSlice';
 import ButtonSendConfirmSummary from '../ButtonSendConfirmSummary/ButtonSendConfirmSummary';
 import ButtonSendCancelSummary from '../ButtonSendCancelSummary copy/ButtonSendCancelSummary';
+import { getStringMedico } from '../../util';
 
 const SummaryDialog = () => {
   const statusDialog = useSelector(dialogStatus);
@@ -88,7 +89,8 @@ const SummaryDialog = () => {
           <br />
           Medico inviante:
           {' '}
-          {dataPatient.nameDoctor}
+          {/* {dataPatient.nameDoctor} */}
+          {getStringMedico(dataPatient.medico)}
           <br />
           Medico di famiglia:
           {' '}

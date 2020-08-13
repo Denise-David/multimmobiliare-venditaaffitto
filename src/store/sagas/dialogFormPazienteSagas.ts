@@ -30,8 +30,12 @@ export default function* getDataEtichetta() {
     const streetName = street.substring(0, indexSpace);
     const { familyDoctor = {}, doctor = {}, insuranceCovers = [] } = hcase;
     const insuranceCoversName = insuranceCovers[0].guarantName;
-    const nameFamilyDoctor = `${familyDoctor.familyname} ${familyDoctor.givenname}, ${familyDoctor.city}`;
-    const nameDoctor = `${doctor.familyname} ${doctor.givenname}, ${doctor.city}`;
+    // const nameFamilyDoctor = {
+    //   familyname: familyDoctor.familyname,
+    //   givenname: familyDoctor.givenname,
+    //   city: familyDoctor.city,
+    // };
+    // const nameDoctor = `${doctor.familyname} ${doctor.givenname}, ${doctor.city}`;
 
     const patientInfo = {
       familyname,

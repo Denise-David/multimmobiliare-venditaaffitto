@@ -72,5 +72,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   button: {
     margin: theme.spacing(1),
   },
+
+  bordi: {
+    margin: theme.spacing(3),
+  },
 }));
 export default useStyles;
