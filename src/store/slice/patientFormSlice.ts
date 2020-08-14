@@ -27,12 +27,8 @@ const patientFormSlice = createSlice({
       state.isButtonClcked = true;
     },
     getRisposta(state, { payload }) {
-      const {
-        idDomanda, valore, domanda, testoRisposta,
-      } = payload;
-      state.risposte[idDomanda] = {
-        idDomanda, valore, domanda, testoRisposta,
-      };
+      const { idDomanda } = payload;
+      state.risposte[idDomanda] = payload;
     },
 
     getTipoFormulario(state, { payload }) {
