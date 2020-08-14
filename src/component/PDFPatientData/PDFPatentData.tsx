@@ -2,10 +2,9 @@ import React, { useEffect } from 'react';
 import { Typography } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
 import queryString from 'query-string';
-import {
-  setNumEtichetta, setIDFormRisposte, oldPatientData, newPatientData,
-} from '../../store/slice/patientFormPDFSlice';
+import { setIDFormRisposte, oldPatientData, newPatientData } from '../../store/slice/patientFormPDFSlice';
 import useStyles from './style';
+import { getStringMedico } from '../../util';
 
 const PDFPatientData = () => {
   const dispatch = useDispatch();
@@ -17,7 +16,6 @@ const PDFPatientData = () => {
     // eslint-disable-next-line no-restricted-globals
     const parsed = queryString.parse(location.search);
 
-    dispatch(setNumEtichetta(parsed.etichetta));
     dispatch(setIDFormRisposte(parsed.ID));
     dispatch({ type: 'initPDFPatientData' });
   }, [dispatch]);
@@ -27,10 +25,6 @@ const PDFPatientData = () => {
   return (
     <div className={classes.margini}>
       <Typography variant="body2">
-        Etichetta :
-        {' '}
-        {parsedText.etichetta}
-        <br />
         ID formulario risposte :
         {' '}
         {parsedText.ID}
@@ -89,15 +83,24 @@ const PDFPatientData = () => {
             </span>
           ) }
         <br />
-        Numero :
-        {' '}
-        {oldDataPatient.streetNumber}
-        { oldDataPatient.streetNumber === newDataPatient.streetNumber ? <></>
+
+        { oldDataPatient.streetNumber === newDataPatient.streetNumber ? (
+          <>
+            Numero :
+            {' '}
+            {oldDataPatient.streetNumber}
+          </>
+        )
           : (
-            <span className={classes.spazio}>
-              NUOVO Numero :
+            <span className={classes.color}>
+              Numero :
               {' '}
-              { newDataPatient.streetNumber}
+              {oldDataPatient.streetNumber}
+              <span className={classes.spazio}>
+                NUOVO Numero :
+                {' '}
+                { newDataPatient.streetNumber}
+              </span>
             </span>
 
           ) }
@@ -115,32 +118,63 @@ const PDFPatientData = () => {
 
           ) }
         <br />
-        {/* Medico di famiglia :
-        {' '}
-        {oldDataPatient.nameFamilyDoctor}
-        { oldDataPatient.nameFamilyDoctor === newDataPatient.nameFamilyDoctor ? <></>
-          : (
-            <span className={classes.spazio}>
-              NUOVO Medico di famiglia :
-              {' '}
-              { newDataPatient.nameFamilyDoctor}
-            </span>
 
-          ) }
+        {oldDataPatient.familyDoctor
+        && (
+          <>
+            { getStringMedico(oldDataPatient.familyDoctor)
+            === getStringMedico(newDataPatient.familyDoctor)
+              ? (
+                <>
+                  Medico di famiglia :
+                  {' '}
+                  {getStringMedico(oldDataPatient.familyDoctor)}
+                </>
+              )
+              : (
+                <span className={classes.color}>
+                  Medico di famiglia :
+                  {' '}
+                  {getStringMedico(oldDataPatient.familyDoctor)}
+                  <span className={classes.spazio}>
+                    NUOVO Medico di famiglia :
+                    {' '}
+                    { getStringMedico(newDataPatient.familyDoctor)}
+                  </span>
+                </span>
+
+              ) }
+          </>
+        )}
         <br />
-        Medico inviante :
-        {' '}
-        {oldDataPatient.nameDoctor}
-        { oldDataPatient.nameDoctor === newDataPatient.nameDoctor ? <></>
-          : (
-            <span className={classes.spazio}>
-              NUOVO Medico Inviante :
-              {' '}
-              { newDataPatient.nameDoctor}
-            </span>
+        {oldDataPatient.doctor
+        && (
+          <>
+            { getStringMedico(oldDataPatient.doctor)
+            === getStringMedico(newDataPatient.doctor)
+              ? (
+                <>
+                  Medico di famiglia :
+                  {' '}
+                  {getStringMedico(oldDataPatient.doctor)}
+                </>
+              )
+              : (
+                <span className={classes.color}>
+                  Medico di famiglia :
+                  {' '}
+                  {getStringMedico(oldDataPatient.doctor)}
+                  <span className={classes.spazio}>
+                    NUOVO Medico di famiglia :
+                    {' '}
+                    { getStringMedico(newDataPatient.doctor)}
+                  </span>
+                </span>
 
-          ) }
-        <br /> */}
+              ) }
+          </>
+        )}
+        <br />
         Cassa malati :
         {' '}
         {oldDataPatient.insuranceCoversName}

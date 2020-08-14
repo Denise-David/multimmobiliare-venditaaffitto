@@ -3,7 +3,7 @@ import {
   repartoDomande, showPatientFormDialog, getDomandeReparto, risposte,
   getTipoFormulario, getBooleanAnswers, openSnackbar,
 } from '../slice/patientFormSlice';
-import { newPatientInfo, getNewPatientInfo } from '../slice/patientDataSlice';
+import { newPatientInfo, getNewPatientInfo, getOldPatientInfo } from '../slice/patientDataSlice';
 
 import { ValueCode, openSnackbarBarcode } from '../slice/CodeSlice';
 
@@ -43,6 +43,7 @@ export default function* getDataEtichetta() {
       doctor,
       insuranceCoversName,
     };
+    yield put(getOldPatientInfo(patientInfo));
     yield put(getNewPatientInfo(patientInfo));
 
     // Prendo il GUID reparto dell'etichetta delezionata

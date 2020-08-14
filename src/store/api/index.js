@@ -41,9 +41,14 @@ export const getEtichettaData = (labelNumber) => axios.get(`/autoanamnesi/forwar
 
 // Aggiungi formulario risposte paziente
 
-export const addRisposteFormPazienti = (paziente, risposte) => risposteFormPazienti.create(
+export const addRisposteFormPazienti = (
+  oldPaziente,
+  paziente,
+  risposte,
+) => risposteFormPazienti.create(
 
   {
+    oldPaziente,
     paziente,
     risposte,
   },
@@ -55,7 +60,7 @@ export const getRisposteFormPazienti = (ID) => risposteFormPazienti.get(ID, {});
 
 export const getLastRisposteFormPazienti = () => risposteFormPazienti.find({
   query: {
-    $limit: 1,
+    $limit: 10,
     $sort: {
       createdAt: -1,
     },
