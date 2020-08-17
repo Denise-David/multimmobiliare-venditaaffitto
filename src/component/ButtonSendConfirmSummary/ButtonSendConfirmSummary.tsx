@@ -2,7 +2,6 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import { useDispatch } from 'react-redux';
 import useStyles from './style';
-import { resetCode } from '../../store/slice/CodeSlice';
 import { buttonSendConfirmClicked } from '../../store/slice/summaryDialogSlice';
 import { closeDialogForm } from '../../store/slice/patientFormSlice';
 import { openReturnDeviceDialog } from '../../store/slice/returnDeviceSlice';
@@ -12,7 +11,6 @@ const ButtonSendConfirmSummary = () => {
   const classes = useStyles();
 
   const handleClickOpen = () => {
-    dispatch(resetCode());
     dispatch(buttonSendConfirmClicked());
     dispatch(closeDialogForm());
     dispatch(openReturnDeviceDialog());

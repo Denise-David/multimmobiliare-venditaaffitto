@@ -9,11 +9,8 @@ export default function* setDataRisposteFormPaziente() {
     const answersData = yield select(risposte);
     const patientData = yield select(newPatientInfo);
     const oldPatient = yield select(oldPatientInfo);
-    console.log('www', oldPatient);
-    yield put(addRisposteFormPazienti(oldPatient, patientData, answersData));
-    const lastRispostaFormPaziente = yield call(getLastRisposteFormPazienti);
-    console.log('www', lastRispostaFormPaziente);
-    yield put(setLastRisposta(lastRispostaFormPaziente));
+    const res = yield call(addRisposteFormPazienti, oldPatient, patientData, answersData);
+    yield put(setLastRisposta(res));
   } catch (error) {
     console.log('errore', error);
   }

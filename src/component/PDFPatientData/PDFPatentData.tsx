@@ -154,18 +154,18 @@ const PDFPatientData = () => {
             === getStringMedico(newDataPatient.doctor)
               ? (
                 <>
-                  Medico di famiglia :
+                  Medico inviante :
                   {' '}
                   {getStringMedico(oldDataPatient.doctor)}
                 </>
               )
               : (
                 <span className={classes.color}>
-                  Medico di famiglia :
+                  Medico inviante :
                   {' '}
                   {getStringMedico(oldDataPatient.doctor)}
                   <span className={classes.spazio}>
-                    NUOVO Medico di famiglia :
+                    NUOVO Medico inviante :
                     {' '}
                     { getStringMedico(newDataPatient.doctor)}
                   </span>

@@ -1,15 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { State } from '../store/store';
 
+export interface nomeCognomeMedico { value : string}
 const searchDoctorSlice = createSlice({
   name: 'searchDoctor',
   initialState: {
-    nomeMedico: '' as string,
-    cognomeMedico: '' as string,
+    nomeMedico: {} as nomeCognomeMedico,
+    cognomeMedico: {} as nomeCognomeMedico,
     mediciTrovati: {} as any,
-    buttonSearchState: false as boolean,
+    buttonSearchClick: false as boolean,
     dialogSearchStatus: false as boolean,
     name: '' as string,
+    buttonSearchStatus: true as boolean,
   },
   reducers: {
     getNomeMedico(state, { payload }) {
@@ -22,7 +24,7 @@ const searchDoctorSlice = createSlice({
       state.mediciTrovati = payload;
     },
     buttonSearchClicked(state) {
-      state.buttonSearchState = true;
+      state.buttonSearchClick = true;
     },
     openDialogSearch(state, { payload }) {
       state.dialogSearchStatus = true;
@@ -34,9 +36,16 @@ const searchDoctorSlice = createSlice({
     resetMedici(state) {
       state.mediciTrovati = {};
     },
+    setButtonSearchDisabled(state) {
+      state.buttonSearchStatus = true;
+    },
+    setButtonSearchEnable(state) {
+      state.buttonSearchStatus = false;
+    },
   },
 });
 
+export const buttonSearchStatus = (state : State) => state.searchDoctor.buttonSearchStatus;
 export const nameSearch = (state : State) => state.searchDoctor.name;
 export const dialogSearchStatus = (state : State) => state.searchDoctor.dialogSearchStatus;
 export const mediciTrovati = (state : State) => state.searchDoctor.mediciTrovati;
@@ -46,6 +55,7 @@ export const {
   getNomeMedico, getCognomeMedico,
   setMediciTrovati, buttonSearchClicked,
   openDialogSearch, closeDialogSearch,
-  resetMedici,
+  resetMedici, setButtonSearchEnable,
+  setButtonSearchDisabled,
 } = searchDoctorSlice.actions;
 export default searchDoctorSlice.reducer;

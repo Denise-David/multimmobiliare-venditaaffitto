@@ -22,6 +22,9 @@ const patientDataSlice = createSlice({
     switchStateDisabled(state) {
       state.isDisable = !state.isDisable;
     },
+    setDisabledTrue(state) {
+      state.isDisable = true;
+    },
     resetAllData(state) {
       state.newPatientInfo = {};
     },
@@ -36,7 +39,7 @@ export const {
   changePatientValue,
   switchStateDisabled,
   resetAllData,
-  getOldPatientInfo,
+  getOldPatientInfo, setDisabledTrue,
 
 } = patientDataSlice.actions;
 export default patientDataSlice.reducer;

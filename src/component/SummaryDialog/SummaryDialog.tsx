@@ -72,7 +72,7 @@ const SummaryDialog = () => {
               <>
                 Nome:
                 {' '}
-                { dataPatient.givenname}
+                { oldDataPatient.givenname}
               </>
             )
             : (
@@ -94,7 +94,7 @@ const SummaryDialog = () => {
               <>
                 Cognome:
                 {' '}
-                { dataPatient.familyname}
+                { oldDataPatient.familyname}
               </>
             )
             : (
@@ -116,7 +116,7 @@ const SummaryDialog = () => {
               <>
                 Città:
                 {' '}
-                { dataPatient.cityName}
+                { oldDataPatient.cityName}
               </>
             )
             : (
@@ -138,7 +138,7 @@ const SummaryDialog = () => {
               <>
                 Via:
                 {' '}
-                { dataPatient.streetName}
+                { oldDataPatient.streetName}
               </>
             )
             : (
@@ -160,7 +160,7 @@ const SummaryDialog = () => {
               <>
                 Numero:
                 {' '}
-                { dataPatient.streetNumber}
+                { oldDataPatient.streetNumber}
               </>
             )
             : (
@@ -168,7 +168,7 @@ const SummaryDialog = () => {
                 Numero:
                 {' '}
                 <span className={classes.oldData}>
-                  {oldDataPatient.streetnumber}
+                  {oldDataPatient.streetNumber}
                 </span>
                 {' '}
                 Nuovo:
@@ -182,7 +182,7 @@ const SummaryDialog = () => {
               <>
                 Telefono:
                 {' '}
-                { dataPatient.mobile}
+                { oldDataPatient.mobile}
               </>
             )
             : (
