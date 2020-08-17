@@ -29,6 +29,9 @@ const useStyles = makeStyles((theme:Theme) => ({
   marginDivider: {
     marginBottom: theme.spacing(3),
   },
+  button: {
+    margin: theme.spacing(2),
+  },
 
 }));
 export default useStyles;

@@ -10,8 +10,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import { selectData } from '../../store/slice/formSlice';
-import AnswerLineEditor from '../AnswerLineEditor/AnswerLineEditor';
-import EmptyAnswerLineEditor from '../EmptyAnswerLineEditor/EmptyAnswerLineEditor';
+
 import EmptyQuestionLineEditor from '../EmptyQuestionLineEditor/EmptyQuestionLineEditor';
 import {
   modifyDomandaAction, stateTextField, isDisable, colDisable, disableAll, enableAll,
@@ -19,7 +18,7 @@ import {
 import { initialID } from '../../store/slice/initialStateSlice';
 import useStyles from './style';
 
-const QuestionsAndAnswersEditor = () => {
+const QuestionsEditor = () => {
   const dispatch = useDispatch();
   const iniID = useSelector(initialID);
   const domande = useSelector(selectData);
@@ -111,8 +110,6 @@ const QuestionsAndAnswersEditor = () => {
                 />
               </Grid>
             </Grid>
-            <AnswerLineEditor id={domanda.ID} />
-            <EmptyAnswerLineEditor />
           </div>
         </Paper>
       </div>
@@ -123,7 +120,7 @@ const QuestionsAndAnswersEditor = () => {
       <div>
         <AppBar position="static" className={classes.NavColor}>
           <Typography variant="h5" align="center">
-            Domande e risposte
+            Domande
           </Typography>
         </AppBar>
         <div className={classes.padding}>
@@ -138,7 +135,7 @@ const QuestionsAndAnswersEditor = () => {
     <div>
       <AppBar position="static" className={classes.NavColor}>
         <Typography variant="h5" align="center">
-          Domande e risposte
+          Domande
         </Typography>
       </AppBar>
       <div className={classes.padding}>
@@ -149,4 +146,4 @@ const QuestionsAndAnswersEditor = () => {
   );
 };
 
-export default QuestionsAndAnswersEditor;
+export default QuestionsEditor;

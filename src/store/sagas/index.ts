@@ -22,6 +22,7 @@ import setDataRisposteFormPaziente from './summaryDialogSagas';
 import { buttonSendConfirmClicked } from '../slice/summaryDialogSlice';
 import { buttonSearchClicked } from '../slice/searchDoctorSlice';
 import buttonSearch from './searchDoctorSagas';
+import { getFormType } from '../slice/addFormSlice';
 
 function* init(action : any) {
   try {
@@ -60,6 +61,7 @@ function* init(action : any) {
         const form = yield call(fetchForm, ID);
         const datiDomande = form.Domande;
         yield put(domande(datiDomande));
+        yield put(getFormType(form.tipo));
 
         // Creo un array con indice ID e stato true
         const initialStateDomande = datiDomande.map(

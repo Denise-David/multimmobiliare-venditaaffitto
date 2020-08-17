@@ -18,7 +18,7 @@ import PDFPatientData from './component/PDFPatientData/PDFPatentData';
 import PDFPatientAnswers from './component/PDFPatientAnswers/PDFPatientAnswers';
 import EtichettaQrCode from './component/EtichettaQRCode/EtichettaQrCode';
 
-const escapeRegex = /([[\].#*$><+~=|^:(),"'`\s])/g;
+// const escapeRegex = /([[\].#*$><+~=|^:(),"'`\s])/g;
 let classCounter = 0;
 
 const generateClassName = (rule : any, styleSheet : any) => {

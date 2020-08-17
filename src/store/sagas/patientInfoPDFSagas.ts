@@ -1,9 +1,9 @@
 import { select, put, call } from 'redux-saga/effects';
 import {
-  IDFormRisposte, numEtichetta, getOldPatientData, getNewPatientData,
+  IDFormRisposte, getOldPatientData, getNewPatientData,
 } from '../slice/patientFormPDFSlice';
 
-import { getEtichettaData, getRisposteFormPazienti } from '../api';
+import { getRisposteFormPazienti } from '../api';
 
 export default function* initPDFPatientData(action : any) {
   try {

@@ -4,25 +4,24 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import {
-  IconButton, TextField, Button, Snackbar,
+  IconButton, Button, Snackbar, RadioGroup, FormControlLabel, Radio,
 } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import { useSelector, useDispatch } from 'react-redux';
 import DeleteIcon from '@material-ui/icons/Delete';
-import CreateIcon from '@material-ui/icons/Create';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import useStyles from './style';
-import { allFormData, Formulario } from '../../store/slice/formulariSlice';
+import { allFormData } from '../../store/slice/formulariSlice';
 import { valueAction, resetReparto, formID } from '../../store/slice/repartoSlice';
 import {
-  addRepartoAction, modify, modifyRepartoAction, add, confirmRepartoAction, cancelRepartoAction,
+  addRepartoAction, add, confirmRepartoAction, cancelRepartoAction,
   delActive, alertConfirmDelete, isDisable, disableAll, enableAll, colDisable,
-  valueAddRepartoAction,
 } from '../../store/slice/editFormSlice';
 import { resetDomande } from '../../store/slice/formSlice';
 import { initialID, setInitialStateAction } from '../../store/slice/initialStateSlice';
 import { resetRisultati } from '../../store/slice/risultatiFormularioSlice';
+import { getFormType } from '../../store/slice/addFormSlice';
 
 const DepartmentChoiceEditor = () => {
   const dispatch = useDispatch();
@@ -30,7 +29,6 @@ const DepartmentChoiceEditor = () => {
   // recupero stati dagli slice
   const classes = useStyles();
   const listForm = useSelector(allFormData);
-  const modifyReparto = useSelector(modify);
   const addReparto = useSelector(add);
   const noRep = useSelector(initialID);
   const deleteActive = useSelector(delActive);
@@ -42,13 +40,6 @@ const DepartmentChoiceEditor = () => {
     const { value } = event.target;
     dispatch(valueAction(value));
     dispatch({ type: 'INIT' });
-    // dispatch(desetInitialStateAction());
-    // dispatch(repartoOnChange());
-  };
-
-  const getValueTextField = (event : React.ChangeEvent<{ value: unknown }>) => {
-    const textFieldValue = event.target.value;
-    dispatch(valueAddRepartoAction(textFieldValue));
   };
 
   /* Dispatch delle action del pulsante add */
@@ -95,9 +86,6 @@ const DepartmentChoiceEditor = () => {
     dispatch(alertConfirmDelete());
   };
 
-  // eslint-disable-next-line no-underscore-dangle
-  const getRepartoName = (form : Formulario) => form._id === IDReparto;
-
   const listItems = listForm.map((oneForm) => (
 
     // eslint-disable-next-line no-underscore-dangle
@@ -113,10 +101,10 @@ const DepartmentChoiceEditor = () => {
       <Grid container>
         <Grid item xs={12} sm={2}>
           {/* Pulsanti accanto al dropDownList scelta reparto */}
-          {addReparto || modifyReparto
+          {addReparto
             ? (
               <div>
-                {/* se il pulsante add o modify è attivo */}
+                {/* se il pulsante add è attivo */}
                 <IconButton
 
                   onClick={confirmDispatch}
@@ -129,11 +117,12 @@ const DepartmentChoiceEditor = () => {
                 >
                   <HighlightOffIcon fontSize="large" color="primary" />
                 </IconButton>
+
               </div>
             )
             : (
               <div>
-                {/* se nè add nè modify sono attivi e non è selezionato nessun reparto */}
+                {/* se add non è attivo e non è selezionato nessun reparto */}
                 {noRep === 0
                   ? (
                     <IconButton onClick={addDispatch}>
@@ -142,7 +131,7 @@ const DepartmentChoiceEditor = () => {
                   )
                   : (
                     <div>
-                      {/* se nè add nè modify sono attivi ed è selezionato il reparto */}
+                      {/* se add non è attivo ed è selezionato il reparto */}
                       <IconButton onClick={addDispatch}>
                         <AddCircleOutlineIcon fontSize="large" color={colorButton} />
                       </IconButton>
@@ -154,39 +143,46 @@ const DepartmentChoiceEditor = () => {
               </div>
             )}
         </Grid>
-        <Grid item xs={12} sm={10}>
-          {/* DropDownList selezione reparto */}
-          {/* se è cliccato il tasto add */}
-          {addReparto
-            ? <TextField label="inserisci area GUID" variant="filled" onChange={getValueTextField} fullWidth />
-            : (
-              <div>
-                {/* se è cliccato il tasto modify */}
-                { modifyReparto
-                  ? (
-                    <TextField value={listForm.find(getRepartoName)?.Reparto} variant="filled" fullWidth />
-                  )
-                  : (
-                    <div>
-                      {/* se non è cliccato nulla */}
-                      <FormControl disabled={disableActive} variant="outlined" fullWidth>
-                        <Select
-                          defaultValue={0}
-                          value={IDReparto}
-                          autoWidth
-                          onChange={getValueOnChange}
-                        >
-                          <MenuItem value={0}>
-                            Seleziona Reparto
-                          </MenuItem>
-                          {listItems}
-                        </Select>
-                      </FormControl>
-                    </div>
-                  )}
-              </div>
-            )}
-        </Grid>
+
+        {/* DropDownList selezione reparto */}
+        {/* se è cliccato il tasto add */}
+        {addReparto
+          ? (
+            <>
+              <RadioGroup
+                row
+                onChange={(event) => {
+                  const { value } = event.target;
+                  dispatch(getFormType(value));
+                }}
+              >
+                <FormControlLabel value="a più risposte" control={<Radio />} label="Formulario a più risposte" />
+                <FormControlLabel value="a due risposte" control={<Radio />} label="Formulario a due risposte" />
+              </RadioGroup>
+            </>
+          )
+          : (
+            <>
+              {/* se non è cliccato nulla */}
+              <Grid item xs={12} sm={10}>
+                <FormControl disabled={disableActive} variant="outlined" fullWidth>
+                  <Select
+                    defaultValue={0}
+                    value={IDReparto}
+                    autoWidth
+                    onChange={getValueOnChange}
+                  >
+                    <MenuItem value={0}>
+                      Seleziona Reparto
+                    </MenuItem>
+                    {listItems}
+                  </Select>
+                </FormControl>
+              </Grid>
+            </>
+
+          )}
+
       </Grid>
       {/* Alert per il delete del reparto */}
       <Snackbar

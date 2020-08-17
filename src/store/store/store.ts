@@ -16,6 +16,7 @@ import patientInfoPDF from '../slice/patientFormPDFSlice';
 import summaryDialog from '../slice/summaryDialogSlice';
 import returnDevice from '../slice/returnDeviceSlice';
 import searchDoctor from '../slice/searchDoctorSlice';
+import addForm from '../slice/addFormSlice';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -35,6 +36,7 @@ const store = configureStore({
     summaryDialog,
     returnDevice,
     searchDoctor,
+    addForm,
 
   },
 
