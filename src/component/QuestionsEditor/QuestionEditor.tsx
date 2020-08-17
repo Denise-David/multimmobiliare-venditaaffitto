@@ -33,31 +33,7 @@ const QuestionsEditor = () => {
       <div key={domanda.ID}>
         <Paper className={classes.bordiCard} elevation={3}>
           <div className={classes.bordi}>
-            <span className={classes.bordi}>
-              <Grid container>
-                <Grid item xs={12} sm={1} />
-                <Grid item xs={12} sm={1} />
-
-                <Grid item xs={12} sm={5}>
-                  <Typography variant="subtitle1" align="center">
-                    Domanda
-                  </Typography>
-                </Grid>
-                <Grid item xs={12} sm={4}>
-                  <Typography variant="subtitle1" align="center">
-                    Risposte
-                  </Typography>
-                </Grid>
-                <Grid item xs={12} sm={1}>
-                  <Typography variant="subtitle1" align="center">
-                    Valore
-                  </Typography>
-                </Grid>
-
-              </Grid>
-
-              <Divider />
-            </span>
+            <span className={classes.bordi} />
             <Grid container spacing={3}>
               {textFieldState[domanda.ID]
                 ? (

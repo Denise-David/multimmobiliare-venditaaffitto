@@ -13,7 +13,6 @@ import { oldPatientInfo } from '../../store/slice/patientDataSlice';
 const SummaryDialog = () => {
   const statusDialog = useSelector(dialogStatus);
   const dataPatient = useSelector(patientInfoData);
-  console.log('xxdatapatient', dataPatient);
   const oldDataPatient = useSelector(oldPatientInfo);
   const dataAnswers = useSelector(answersPatientData);
   const repartoInfo = useSelector(infoReparto);

@@ -17,7 +17,6 @@ const DropDownListAnswersPatient = ({ idDomanda, domanda } : Props) => {
   };
   const risposte = useSelector(controlID);
   const answer = useSelector((state : State) => state.patientForm.risposte[idDomanda] || null);
-  console.log('xx answer', answer);
 
   // eslint-disable-next-line
   const listItems = risposte ? risposte.map((risposta : Risposta) => {
@@ -25,7 +24,6 @@ const DropDownListAnswersPatient = ({ idDomanda, domanda } : Props) => {
       <MenuItem key={risposta.ID} value={risposta.ID}>{risposta.risposta}</MenuItem>);
   }) : <></>;
 
-  // console.log('xxProva', risposte?.find((risposta : Risposta) => risposta.ID === value));
   return (
 
     <Select

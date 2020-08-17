@@ -8,7 +8,6 @@ export default function* buttonSearch(action : any) {
     const medicoCognome = yield select(cognomeMedico);
     const risultatoMedici = yield call(searchDoctor, medicoName, medicoCognome);
     const { data = {} } = risultatoMedici;
-    console.log('xxrisult', data);
 
     yield put(setMediciTrovati(data));
   } catch (error) {
