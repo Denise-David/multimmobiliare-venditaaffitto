@@ -9,9 +9,9 @@ const TextFieldCodice = () => {
   const dispatch = useDispatch();
   const valueCode = useSelector(ValueCode);
 
-  const getValueOnChange = (event : React.ChangeEvent<{ value: unknown }>) => {
-    const codeValue = event.target.value;
-    dispatch(getCodeValue(codeValue));
+  const getValueOnChange = (value : string) => {
+    console.log(value);
+    dispatch(getCodeValue(value));
   };
   const muiTheme = {
     global: {
@@ -44,23 +44,24 @@ const TextFieldCodice = () => {
   // <TextField id="outlined-basic" value="4153656"
   // label="Immetti codice" onChange={getValueOnChange} fullWidth variant="outlined" />
 
-    <TextField
-      id="outlined-basic"
-      value={valueCode}
-      label="Immetti codice"
-      onChange={getValueOnChange}
+    <NumPad.Number
       fullWidth
-      variant="outlined"
-    />
+      onChange={getValueOnChange}
+      placeholder="Immetti Codice"
+      value={valueCode}
+      decimal={0}
+      theme={muiTheme}
+    >
+      <TextField
+        id="outlined-basic"
+        value={valueCode}
+        label="Immetti codice"
+   //   onChange={getValueOnChange}
+        fullWidth
+        variant="outlined"
+      />
 
-  // <NumPad.Number
-  //   onChange={getValueOnChange}
-  //   label="Total"
-  //   placeholder="my placeholder"
-  //   value={valueCode}
-  //   decimal={0}
-  //   theme={muiTheme}
-  // />
+    </NumPad.Number>
   );
 };
 

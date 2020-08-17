@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import { Provider } from 'react-redux';
-import { CssBaseline, MuiThemeProvider } from '@material-ui/core';
+import { CssBaseline, MuiThemeProvider, StylesProvider } from '@material-ui/core';
 import {
   BrowserRouter as Router,
   Switch,
@@ -18,40 +18,72 @@ import PDFPatientData from './component/PDFPatientData/PDFPatentData';
 import PDFPatientAnswers from './component/PDFPatientAnswers/PDFPatientAnswers';
 import EtichettaQrCode from './component/EtichettaQRCode/EtichettaQrCode';
 
+const escapeRegex = /([[\].#*$><+~=|^:(),"'`\s])/g;
+let classCounter = 0;
+
+const generateClassName = (rule : any, styleSheet : any) => {
+  classCounter += 1;
+
+  // if (process.env.NODE_ENV === 'production') {
+  //   console.log('classCounter');
+  return `c${classCounter}`;
+  // }
+
+  // if (styleSheet && styleSheet.options.classNamePrefix) {
+  //   let prefix = styleSheet.options.classNamePrefix;
+  //   // Sanitize the string as will be used to prefix the generated class name.
+  //   prefix = prefix.replace(escapeRegex, '-');
+  //   console.log('prefix', prefix);
+
+  //   if (prefix.match(/^Mui/)) {
+  //     return `${prefix}-${rule.key}`;
+  //   }
+  //   console.log('prefix-rulekey-classCounter');
+  //   return `${prefix}-${rule.key}-${classCounter}`;
+  // }
+  // console.log('rulekey-classCounter');
+  // return `${rule.key}-${classCounter}`;
+};
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <MuiThemeProvider theme={theme}>
-        <CssBaseline />
-        <Router basename={process.env.REACT_APP_BASENAME}>
-          <Route path="/editor">
-            <Editor />
-          </Route>
+      <StylesProvider generateClassName={generateClassName}>
+        <MuiThemeProvider theme={theme}>
 
-          <Switch>
-            <Route path="/form">
-              <FormPaziente />
+          <CssBaseline />
+          <Router basename={process.env.REACT_APP_BASENAME}>
+            <Route path="/editor">
+              <Editor />
             </Route>
 
-            <Route path="/home">
-              <App />
-            </Route>
+            <Switch>
+              <Route path="/form">
+                <FormPaziente />
+              </Route>
 
-            <Route path="/pdfDatiPaziente">
-              <PDFPatientData />
-            </Route>
+              <Route path="/home">
+                <App />
+              </Route>
 
-            <Route path="/pdfRispostePaziente">
-              <PDFPatientAnswers />
-            </Route>
+              <Route path="/pdfDatiPaziente">
+                <PDFPatientData />
+              </Route>
 
-            <Route path="/QRCode">
-              <EtichettaQrCode />
-            </Route>
-          </Switch>
+              <Route path="/pdfRispostePaziente">
+                <PDFPatientAnswers />
+              </Route>
 
-        </Router>
-      </MuiThemeProvider>
+              <Route path="/QRCode">
+                <EtichettaQrCode />
+              </Route>
+            </Switch>
+
+          </Router>
+
+        </MuiThemeProvider>
+      </StylesProvider>
+
     </Provider>
   </React.StrictMode>,
   // eslint-disable-next-line no-undef
