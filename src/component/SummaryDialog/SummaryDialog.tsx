@@ -8,10 +8,13 @@ import { infoReparto } from '../../store/slice/patientFormPDFSlice';
 import ButtonSendConfirmSummary from '../ButtonSendConfirmSummary/ButtonSendConfirmSummary';
 import ButtonSendCancelSummary from '../ButtonSendCancelSummary copy/ButtonSendCancelSummary';
 import { getStringMedico } from '../../util';
+import { oldPatientInfo } from '../../store/slice/patientDataSlice';
 
 const SummaryDialog = () => {
   const statusDialog = useSelector(dialogStatus);
   const dataPatient = useSelector(patientInfoData);
+  console.log('xxdatapatient', dataPatient);
+  const oldDataPatient = useSelector(oldPatientInfo);
   const dataAnswers = useSelector(answersPatientData);
   const repartoInfo = useSelector(infoReparto);
   const classes = useStyles();
@@ -63,52 +66,223 @@ const SummaryDialog = () => {
           <hr />
         </Typography>
         <Typography className={classes.marginBottom} variant="subtitle1">
-          Nome:
-          {' '}
-          {dataPatient.givenname}
-          <br />
-          Cognome:
-          {' '}
-          {dataPatient.familyname}
-          <br />
-          Città:
-          {' '}
-          {dataPatient.cityName}
-          <br />
-          Via:
-          {' '}
-          {dataPatient.streetName}
-          <br />
-          Numero:
-          {' '}
-          {dataPatient.streetNumber}
-          <br />
-          Telefono:
-          {' '}
-          {dataPatient.mobile}
-          <br />
-          {dataPatient.doctor
-            && (
-              <span>
-                Medico inviante:
+
+          {dataPatient.givenname === oldDataPatient.givenname
+            ? (
+              <>
+                Nome:
                 {' '}
-                {/* {dataPatient.nameDoctor} */}
-                {getStringMedico(dataPatient.doctor)}
+                { oldDataPatient.givenname}
+              </>
+            )
+            : (
+              <span className={classes.color}>
+                Nome:
+                {' '}
+                <span className={classes.oldData}>
+                  {oldDataPatient.givenname}
+                </span>
+                {' '}
+                Nuovo:
+                {' '}
+                {dataPatient.givenname}
               </span>
             )}
           <br />
-          {dataPatient.familyDoctor
-            && (
-            <span>
-              Medico di famiglia:
-              {' '}
-              {getStringMedico(dataPatient.familyDoctor)}
-            </span>
+          {dataPatient.familyname === oldDataPatient.familyname
+            ? (
+              <>
+                Cognome:
+                {' '}
+                { oldDataPatient.familyname}
+              </>
+            )
+            : (
+              <span className={classes.color}>
+                Cognome:
+                {' '}
+                <span className={classes.oldData}>
+                  {oldDataPatient.familyname}
+                </span>
+                {' '}
+                Nuovo:
+                {' '}
+                {dataPatient.familyname}
+              </span>
             )}
           <br />
-          Cassa malati:
-          {' '}
-          {dataPatient.insuranceCoversName}
+          {dataPatient.cityName === oldDataPatient.cityName
+            ? (
+              <>
+                Città:
+                {' '}
+                { oldDataPatient.cityName}
+              </>
+            )
+            : (
+              <span className={classes.color}>
+                Città:
+                {' '}
+                <span className={classes.oldData}>
+                  {oldDataPatient.cityName}
+                </span>
+                {' '}
+                Nuovo:
+                {' '}
+                {dataPatient.cityName}
+              </span>
+            )}
+          <br />
+          {dataPatient.streetName === oldDataPatient.streetName
+            ? (
+              <>
+                Via:
+                {' '}
+                { oldDataPatient.streetName}
+              </>
+            )
+            : (
+              <span className={classes.color}>
+                Via:
+                {' '}
+                <span className={classes.oldData}>
+                  {oldDataPatient.streetName}
+                </span>
+                {' '}
+                Nuovo:
+                {' '}
+                {dataPatient.streetName}
+              </span>
+            )}
+          <br />
+          {dataPatient.streetNumber === oldDataPatient.streetNumber
+            ? (
+              <>
+                Numero:
+                {' '}
+                { oldDataPatient.streetNumber}
+              </>
+            )
+            : (
+              <span className={classes.color}>
+                Numero:
+                {' '}
+                <span className={classes.oldData}>
+                  {oldDataPatient.streetNumber}
+                </span>
+                {' '}
+                Nuovo:
+                {' '}
+                {dataPatient.streetNumber}
+              </span>
+            )}
+          <br />
+          {dataPatient.mobile === oldDataPatient.mobile
+            ? (
+              <>
+                Telefono:
+                {' '}
+                { oldDataPatient.mobile}
+              </>
+            )
+            : (
+              <span className={classes.color}>
+                Telefono:
+                {' '}
+                <span className={classes.oldData}>
+                  {oldDataPatient.mobile}
+                </span>
+                {' '}
+                Nuovo:
+                {' '}
+                {dataPatient.mobile}
+              </span>
+            )}
+          <br />
+          {dataPatient.doctor
+            && (
+            <>
+              { getStringMedico(dataPatient.doctor)
+              === getStringMedico(oldDataPatient.doctor)
+                ? (
+                  <>
+                    <span>
+                      Medico inviante:
+                      {' '}
+                      {getStringMedico(oldDataPatient.doctor)}
+                    </span>
+
+                  </>
+                )
+                : (
+                  <span className={classes.color}>
+                    Medico inviante:
+                    {' '}
+                    <span className={classes.oldData}>
+                      {getStringMedico(oldDataPatient.doctor)}
+                    </span>
+                    {' '}
+                    Nuovo:
+                    {' '}
+                    {getStringMedico(dataPatient.doctor)}
+                  </span>
+                )}
+            </>
+            )}
+
+          <br />
+          {dataPatient.familyDoctor
+            && (
+            <>
+              { getStringMedico(dataPatient.familyDoctor)
+              === getStringMedico(oldDataPatient.familyDoctor)
+                ? (
+                  <>
+                    <span>
+                      Medico di famiglia:
+                      {' '}
+                      {getStringMedico(oldDataPatient.familyDoctor)}
+                    </span>
+
+                  </>
+                )
+                : (
+                  <span className={classes.color}>
+                    Medico di famiglia:
+                    {' '}
+                    <span className={classes.oldData}>
+                      {getStringMedico(oldDataPatient.familyDoctor)}
+                    </span>
+                    {' '}
+                    Nuovo:
+                    {' '}
+                    {getStringMedico(dataPatient.familyDoctor)}
+                  </span>
+                )}
+            </>
+            )}
+          <br />
+          {dataPatient.insuranceCoversName === oldDataPatient.insuranceCoversName
+            ? (
+              <>
+                Cassa malati:
+                {' '}
+                { dataPatient.insuranceCoversName}
+              </>
+            )
+            : (
+              <span className={classes.color}>
+                Cassa malati:
+                {' '}
+                <span className={classes.oldData}>
+                  {oldDataPatient.insuranceCoversName}
+                </span>
+                {' '}
+                Nuovo:
+                {' '}
+                {dataPatient.insuranceCoversName}
+              </span>
+            )}
           <br />
 
         </Typography>

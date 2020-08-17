@@ -50,8 +50,10 @@ const Barcodepage = () => {
       <ButtonSend />
       <Snackbar
         open={statusSnackbarBarcode}
+        autoHideDuration={2000}
+        onClose={() => dispatch(closeSnackbarBarcode())}
       >
-        <Alert onClose={() => dispatch(closeSnackbarBarcode())} severity="warning">
+        <Alert severity="warning">
           <Typography variant="body1">
             Codice immesso errato
           </Typography>

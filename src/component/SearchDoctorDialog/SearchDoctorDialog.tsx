@@ -9,7 +9,9 @@ import useStyles from './style';
 import {
   getNomeMedico, getCognomeMedico,
   mediciTrovati, buttonSearchClicked,
-  dialogSearchStatus, closeDialogSearch, nameSearch, resetMedici,
+  dialogSearchStatus, closeDialogSearch,
+  nameSearch, resetMedici, nomeMedico, cognomeMedico,
+  setButtonSearchEnable, setButtonSearchDisabled, buttonSearchStatus,
 } from '../../store/slice/searchDoctorSlice';
 import { changePatientValue } from '../../store/slice/patientDataSlice';
 
@@ -19,6 +21,20 @@ const SearchDoctorDialog = () => {
   const listaMedici = useSelector(mediciTrovati);
   const statusDialogSearch = useSelector(dialogSearchStatus);
   const name = useSelector(nameSearch);
+  const doctorName = useSelector(nomeMedico);
+  const doctorLastname = useSelector(cognomeMedico);
+  const stateButton = useSelector(buttonSearchStatus);
+
+  const lunghezzaNome = doctorName.value ? doctorName.value.length : 0;
+  const lunghezzaCognome = doctorLastname.value ? doctorLastname.value.length : 0;
+
+  if (lunghezzaNome + lunghezzaCognome > 2 && stateButton === true) {
+    dispatch(setButtonSearchEnable());
+  }
+
+  if (lunghezzaNome + lunghezzaCognome < 2 && stateButton !== true) {
+    dispatch(setButtonSearchDisabled());
+  }
 
   const listaMediciArray = listaMedici ? Object.keys(listaMedici).map((key) => {
     const medico = listaMedici[key];
@@ -34,6 +50,7 @@ const SearchDoctorDialog = () => {
     // eslint-disable-next-line react/jsx-key
     <div>
       <MenuItem
+        key={medico.id}
         value={medico.firstname}
          // onClick={handleClick}
         onClick={() => {
@@ -60,7 +77,7 @@ const SearchDoctorDialog = () => {
 
         <div className={classes.margin}>
           <DialogTitle>
-            <Typography className={classes.button} variant="h5">
+            <Typography className={classes.button}>
               Cerca il tuo medico
             </Typography>
             <TextField
@@ -81,6 +98,7 @@ const SearchDoctorDialog = () => {
             />
             <br />
             <Button
+              disabled={stateButton}
               className={classes.button}
               variant="contained"
               color="primary"

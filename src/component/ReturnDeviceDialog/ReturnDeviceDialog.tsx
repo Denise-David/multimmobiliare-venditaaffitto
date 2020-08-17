@@ -5,6 +5,8 @@ import useStyles from './style';
 import Nav from '../Navbar/Navbar';
 import ButtonReturnDevice from '../ButtonReturnDevice/ButtonReturnDevice';
 import { returnDeviceIsOpen } from '../../store/slice/returnDeviceSlice';
+import ButtonOpenPDFDataPatient from '../ButtonOpenPDFDataPatient/ButtonOpenPDFDataPatient';
+import ButtonOpenPDFFormPatient from '../ButtonOpenPDFFormPatient/ButtonOpenPDFFormPatient';
 
 const ReturnDeviceDialog = () => {
   const isOpen = useSelector(returnDeviceIsOpen);
@@ -21,6 +23,8 @@ const ReturnDeviceDialog = () => {
           Grazie!
         </Typography>
         <ButtonReturnDevice />
+        <ButtonOpenPDFDataPatient />
+        <ButtonOpenPDFFormPatient />
       </div>
 
     </Dialog>

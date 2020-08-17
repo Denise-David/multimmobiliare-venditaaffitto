@@ -4,8 +4,8 @@ import { makeStyles, Theme } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme: Theme) => ({
 
   spazio: {
-    display: 'block',
-    textAlign: 'right',
+    marginLeft: theme.spacing(7),
+
   },
   margini: {
     margin: theme.spacing(4),
@@ -13,6 +13,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   titolo: {
     marginTop: theme.spacing(15),
     marginBottom: theme.spacing(5),
+  },
+  color: {
+    backgroundColor: theme.palette.secondary.main,
   },
 
 }));
