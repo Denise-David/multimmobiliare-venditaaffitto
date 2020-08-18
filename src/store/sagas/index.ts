@@ -23,6 +23,7 @@ import { buttonSendConfirmClicked } from '../slice/summaryDialogSlice';
 import { buttonSearchClicked } from '../slice/searchDoctorSlice';
 import buttonSearch from './searchDoctorSagas';
 import { getFormType } from '../slice/addFormSlice';
+import initUserRightsAUTAN from './rightsUserSagas';
 
 function* init(action : any) {
   try {
@@ -95,6 +96,7 @@ function* actionWatcher() {
   yield takeLatest('initPDFPatientAnswers', initPDFPatientAnswers);
   yield takeLatest(buttonSendConfirmClicked.type, setDataRisposteFormPaziente);
   yield takeLatest(buttonSearchClicked.type, buttonSearch);
+  yield takeLatest('initUserRightsAUTAN', initUserRightsAUTAN);
 }
 export default function* rootSaga() {
   yield all([actionWatcher()]);

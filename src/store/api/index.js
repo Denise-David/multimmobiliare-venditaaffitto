@@ -74,3 +74,12 @@ export const searchDoctor = (medicoName, medicoCognome) => axios.post('/autoanam
     givenname: medicoName.value,
     familyname: medicoCognome.value,
   });
+
+// Cerco diritti dell utente selezionato
+export const getUserRights = (username) => axios.get(`/autoanamnesi/forwardCall/user?username=${username}`);
+
+// Cerco reparti ZAS
+export const getRepartiZAS = (zasAcronym) => axios.get(`/autoanamnesi/forwardCall/unit?zasAcronym=${zasAcronym}`);
+
+// Cerco reparti ZAM
+export const getRepartiZAM = (zamAcronym) => axios.get(`/autoanamnesi/forwardCall/sermed?zamAcronym=${zamAcronym}`);

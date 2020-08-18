@@ -17,6 +17,7 @@ import summaryDialog from '../slice/summaryDialogSlice';
 import returnDevice from '../slice/returnDeviceSlice';
 import searchDoctor from '../slice/searchDoctorSlice';
 import addForm from '../slice/addFormSlice';
+import rights from '../slice/rightsSlice';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -37,6 +38,7 @@ const store = configureStore({
     returnDevice,
     searchDoctor,
     addForm,
+    rights,
 
   },
 

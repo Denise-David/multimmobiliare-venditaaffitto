@@ -12,3 +12,15 @@ export function getStringMedico(medico: Medico): string {
     medico.familyname || medico.lastname || ''
   }, ${medico.city || ''}`;
 }
+
+export function extractAndMergeArray(array : any[]) {
+  let arrayRepartiUniti : any[] = [];
+  array.map((ArrayRepartiSeparati : any) => {
+    ArrayRepartiSeparati.map((reparto : any) => {
+      arrayRepartiUniti = arrayRepartiUniti.concat(reparto);
+      return (arrayRepartiUniti);
+    });
+    return (arrayRepartiUniti);
+  });
+  return arrayRepartiUniti;
+}

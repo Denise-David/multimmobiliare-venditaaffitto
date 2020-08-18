@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid';
 
 import Typography from '@material-ui/core/Typography';
 import { useDispatch, useSelector } from 'react-redux';
-import { DialogContent } from '@material-ui/core';
+import { DialogContent, MenuItem } from '@material-ui/core';
 import Nav from '../../component/Navbar/Navbar';
 import useStyles from './style';
 import DepartmentChoiceEditor from '../../component/DepartmentChoiceEditor/DepartmentChoiceEditor';
@@ -14,15 +14,23 @@ import { formType } from '../../store/slice/addFormSlice';
 import QuestionsEditor from '../../component/QuestionsEditor/QuestionEditor';
 import ResultTableEditor from '../../component/ResultTable/ResultTableEditor';
 import AnswersTableEditor from '../../component/AnswersTableEditor/AnswersTableEditor';
+import { user, repartiCreate } from '../../store/slice/rightsSlice';
+import { extractAndMergeArray } from '../../util';
 
 const FormPaziente = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch({ type: 'INIT' });
-  });
+    dispatch({ type: 'initUserRightsAUTAN' });
+  }, []);
   const addReparto = useSelector(add);
   const typeForm = useSelector(formType);
+  const username = useSelector(user);
+  // Estraggo i reparti e li unisco in un unico array (da spostare nel saga magari)
+  const doppiArrayRepartiCreate = useSelector(repartiCreate);
+
+  const listRepartiCreate = extractAndMergeArray(doppiArrayRepartiCreate);
 
   return (
     <div>
@@ -34,7 +42,7 @@ const FormPaziente = () => {
           align="right"
           color="primary"
         >
-          NomeUtente
+          {username}
         </Typography>
         <DepartmentChoiceEditor />
         {!addReparto
@@ -63,7 +71,11 @@ const FormPaziente = () => {
             </>
           ) : (
             <>
-              <DialogContent dividers />
+              <DialogContent dividers>
+                <MenuItem>
+                  Ciao
+                </MenuItem>
+              </DialogContent>
             </>
           )}
       </div>
