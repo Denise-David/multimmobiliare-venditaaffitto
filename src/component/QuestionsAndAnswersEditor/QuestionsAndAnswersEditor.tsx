@@ -12,7 +12,7 @@ import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import { selectData } from '../../store/slice/formSlice';
 import AnswerLineEditor from '../AnswerLineEditor/AnswerLineEditor';
 import EmptyAnswerLineEditor from '../EmptyAnswerLineEditor/EmptyAnswerLineEditor';
-import EmptyQuestionLineEditor from '../EmptyQuestionLineEditor/EmptyQuestionLineEditor';
+import EmptyQuestionDueRisposteEditor from '../EmptyQuestionDueRisposteEditor/EmptyQuestionDueRisposteEditor';
 import {
   modifyDomandaAction, stateTextField, isDisable, colDisable, disableAll, enableAll,
 } from '../../store/slice/editFormSlice';
@@ -129,7 +129,7 @@ const QuestionsAndAnswersEditor = () => {
         <div className={classes.padding}>
           <div className={classes.marginDivider} />
           {listItems}
-          <EmptyQuestionLineEditor />
+          <EmptyQuestionDueRisposteEditor />
         </div>
       </div>
     );
@@ -143,7 +143,7 @@ const QuestionsAndAnswersEditor = () => {
       </AppBar>
       <div className={classes.padding}>
         <div className={classes.marginDivider} />
-        <EmptyQuestionLineEditor />
+        <EmptyQuestionDueRisposteEditor />
       </div>
     </div>
   );

@@ -26,6 +26,7 @@
     "@types/react-redux": "^7.1.9",
     "@types/react-router-dom": "^5.1.5",
     "@types/redux-logger": "^3.0.8",
+    "@types/uuid": "^8.3.0",
     "axios": "^0.19.2",
     "date-fns": "^2.15.0",
     "feathers-mongodb-fuzzy-search": "^1.1.1",

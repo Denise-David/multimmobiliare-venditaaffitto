@@ -9,10 +9,10 @@ import { domande, risultati } from '../slice/formSlice';
 import { formulariAction } from '../slice/formulariSlice';
 import { formID } from '../slice/repartoSlice';
 import {
-  initializeDomande, initializeRisultati, confirmRepartoAction,
+  initializeDomande, initializeRisultati,
 } from '../slice/editFormSlice';
 import { setInitialStateAction, desetInitialStateAction } from '../slice/initialStateSlice';
-import addReparto from './editFormSagas';
+import addReparto, { addDomandaInArray } from './addFormSagas';
 import { buttonSendCode } from '../slice/CodeSlice';
 import getDataEtichetta, { sendDataPazienti } from './dialogFormPazienteSagas';
 import { buttonSendForm } from '../slice/patientFormSlice';
@@ -22,8 +22,9 @@ import setDataRisposteFormPaziente from './summaryDialogSagas';
 import { buttonSendConfirmClicked } from '../slice/summaryDialogSlice';
 import { buttonSearchClicked } from '../slice/searchDoctorSlice';
 import buttonSearch from './searchDoctorSagas';
-import { getFormType } from '../slice/addFormSlice';
+import { getFormType, setBAddFormUnclicked } from '../slice/addFormSlice';
 import initUserRightsAUTAN from './rightsUserSagas';
+import confirmAddForm, { cancelAddForm } from './departmentChoiceEditorSagas';
 
 function* init(action : any) {
   try {
@@ -89,7 +90,7 @@ function* init(action : any) {
 
 function* actionWatcher() {
   yield takeLatest('INIT', init);
-  yield takeLatest(confirmRepartoAction.type, addReparto);
+  yield takeLatest('BUTTON_SAVE_FORM_CLICKED', addReparto);
   yield takeEvery(buttonSendCode.type, getDataEtichetta);
   yield takeLatest(buttonSendForm.type, sendDataPazienti);
   yield takeLatest('initPDFPatientData', initPDFPatientData);
@@ -97,6 +98,9 @@ function* actionWatcher() {
   yield takeLatest(buttonSendConfirmClicked.type, setDataRisposteFormPaziente);
   yield takeLatest(buttonSearchClicked.type, buttonSearch);
   yield takeLatest('initUserRightsAUTAN', initUserRightsAUTAN);
+  yield takeLatest('BUTTON_CONFIRM_CLICKED', confirmAddForm);
+  yield takeLatest('BUTTON_CANCEL_CLICKED', cancelAddForm);
+  yield takeLatest('ADD_DOMANDA_IN_ARRAY', addDomandaInArray);
 }
 export default function* rootSaga() {
   yield all([actionWatcher()]);

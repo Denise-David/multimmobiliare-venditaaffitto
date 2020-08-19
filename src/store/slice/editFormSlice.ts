@@ -8,7 +8,6 @@ const editFormSlice = createSlice({
     disabled: {} as any,
     stateModifyRisposte: {} as any,
     icon: 'modify',
-    addActive: false,
     modifyActive: false,
     deleteActive: false as boolean | undefined,
     isDisable: false,
@@ -33,26 +32,14 @@ const editFormSlice = createSlice({
       state.risultati[payload] = !state.risultati[payload];
     },
     // Gestione reparto
-    addRepartoAction(state) {
-      state.addActive = !state.addActive;
-    },
     valueAddRepartoAction(state, { payload }) {
       state.textFieldValue = payload;
     },
     modifyRepartoAction(state) {
       state.modifyActive = !state.modifyActive;
     },
-    confirmRepartoAction(state) {
-      state.addActive = false;
-      state.modifyActive = false;
-      console.log('aggiungi,modifica reparto e selezionarlo');
-    },
     deleteRepartoAction(state) {
       console.log('elemina reparto e tutti dati su back-end');
-    },
-    cancelRepartoAction(state) {
-      state.addActive = false;
-      state.modifyActive = false;
     },
     // gestione alert
     alertConfirmDelete(state) {
@@ -80,7 +67,6 @@ const editFormSlice = createSlice({
 
 export const stateTextField = (state : State) => state.editForm.disabled;
 export const iconCurrent = (state : State) => state.editForm.icon;
-export const add = (state : State) => state.editForm.addActive;
 export const modify = (state : State) => state.editForm.modifyActive;
 export const delActive = (state : State) => state.editForm.deleteActive;
 export const isDisable = (state : State) => state.editForm.isDisable;
@@ -89,8 +75,8 @@ export const stateRisultato = (state : State) => state.editForm.risultati;
 export const colDisable = (state : State) => state.editForm.colorButton;
 export const valueTextField = (state : State) => state.editForm.textFieldValue;
 export const {
-  modifyDomandaAction, addRepartoAction, confirmRepartoAction, modifyRepartoAction,
-  initializeDomande, cancelRepartoAction, enableAll, repartoOnChange,
+  modifyDomandaAction, modifyRepartoAction,
+  initializeDomande, enableAll, repartoOnChange,
   alertConfirmDelete, disableAll, addRispostaVuotaAction, initializeRisultati,
   modifyRisultatiAction, valueAddRepartoAction,
 } = editFormSlice.actions;

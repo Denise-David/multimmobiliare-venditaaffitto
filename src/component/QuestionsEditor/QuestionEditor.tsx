@@ -2,7 +2,7 @@ import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import CreateIcon from '@material-ui/icons/Create';
 import {
-  IconButton, Paper, Typography, Divider, AppBar,
+  IconButton, Paper, Typography, AppBar,
 } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Grid from '@material-ui/core/Grid';
@@ -11,7 +11,7 @@ import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import { selectData } from '../../store/slice/formSlice';
 
-import EmptyQuestionLineEditor from '../EmptyQuestionLineEditor/EmptyQuestionLineEditor';
+import EmptyQuestionDueRisposteEditor from '../EmptyQuestionDueRisposteEditor/EmptyQuestionDueRisposteEditor';
 import {
   modifyDomandaAction, stateTextField, isDisable, colDisable, disableAll, enableAll,
 } from '../../store/slice/editFormSlice';
@@ -102,7 +102,7 @@ const QuestionsEditor = () => {
         <div className={classes.padding}>
           <div className={classes.marginDivider} />
           {listItems}
-          <EmptyQuestionLineEditor />
+          <EmptyQuestionDueRisposteEditor />
         </div>
       </div>
     );
@@ -116,7 +116,7 @@ const QuestionsEditor = () => {
       </AppBar>
       <div className={classes.padding}>
         <div className={classes.marginDivider} />
-        <EmptyQuestionLineEditor />
+        <EmptyQuestionDueRisposteEditor />
       </div>
     </div>
   );

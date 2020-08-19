@@ -9,13 +9,14 @@ import Nav from '../../component/Navbar/Navbar';
 import useStyles from './style';
 import DepartmentChoiceEditor from '../../component/DepartmentChoiceEditor/DepartmentChoiceEditor';
 import QuestionsAndAnswersEditor from '../../component/QuestionsAndAnswersEditor/QuestionsAndAnswersEditor';
-import { add } from '../../store/slice/editFormSlice';
-import { formType } from '../../store/slice/addFormSlice';
+import { isButtonAddFormClicked, formType, setSelectedReparto } from '../../store/slice/addFormSlice';
+
 import QuestionsEditor from '../../component/QuestionsEditor/QuestionEditor';
 import ResultTableEditor from '../../component/ResultTable/ResultTableEditor';
 import AnswersTableEditor from '../../component/AnswersTableEditor/AnswersTableEditor';
 import { user, repartiCreate } from '../../store/slice/rightsSlice';
 import { extractAndMergeArray } from '../../util';
+import { State } from '../../store/store/store';
 
 const FormPaziente = () => {
   const classes = useStyles();
@@ -24,14 +25,29 @@ const FormPaziente = () => {
     dispatch({ type: 'INIT' });
     dispatch({ type: 'initUserRightsAUTAN' });
   }, []);
-  const addReparto = useSelector(add);
+  // Controllo lo stato del pulsante addForm
+
   const typeForm = useSelector(formType);
+
+  const addReparto = useSelector(isButtonAddFormClicked);
   const username = useSelector(user);
   // Estraggo i reparti e li unisco in un unico array (da spostare nel saga magari)
   const doppiArrayRepartiCreate = useSelector(repartiCreate);
 
-  const listRepartiCreate = extractAndMergeArray(doppiArrayRepartiCreate);
+  const repartiDirittoCreate = extractAndMergeArray(doppiArrayRepartiCreate);
 
+  const listRepartiCreate = repartiDirittoCreate.map((Reparto : any) => {
+    const nomeReparto = Reparto.longname;
+    const idReparto = Reparto.unitid || Reparto.sermednodeid;
+    return (
+      <MenuItem
+        onClick={() => dispatch(setSelectedReparto({ nomeReparto, idReparto }))}
+        key={Reparto.unitid || Reparto.sermednodeid}
+      >
+        {Reparto.longname}
+      </MenuItem>
+    );
+  });
   return (
     <div>
 
@@ -45,8 +61,15 @@ const FormPaziente = () => {
           {username}
         </Typography>
         <DepartmentChoiceEditor />
-        {!addReparto
+        {addReparto
           ? (
+            <>
+              <Typography className={classes.background} variant="h5">Scegli il reparto</Typography>
+              <br />
+              <DialogContent dividers>{listRepartiCreate}</DialogContent>
+            </>
+
+          ) : (
             <>
               {/* Tabella Domande e risposte */}
               <Grid container spacing={3}>
@@ -60,7 +83,6 @@ const FormPaziente = () => {
                 </Grid>
                 <Grid item xs={12} sm={4}>
                   {/* Tabella Risultati */}
-                  {/* <ResultTableEditor /> */}
                   {typeForm === 'a più risposte'
                     ? <ResultTableEditor />
                     : (<>{typeForm === 'a due risposte' ? <AnswersTableEditor /> : <></>}</>)}
@@ -69,14 +91,7 @@ const FormPaziente = () => {
 
               </Grid>
             </>
-          ) : (
-            <>
-              <DialogContent dividers>
-                <MenuItem>
-                  Ciao
-                </MenuItem>
-              </DialogContent>
-            </>
+
           )}
       </div>
     </div>

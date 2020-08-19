@@ -32,6 +32,14 @@ const useStyles = makeStyles((theme:Theme) => ({
   button: {
     margin: theme.spacing(2),
   },
+  background: {
+    background: theme.palette.primary.main,
+    color: 'White',
+    borderRadius: '0.2em',
+    marginRight: theme.spacing(2),
+    padding: theme.spacing(2),
+
+  },
 
 }));
 export default useStyles;

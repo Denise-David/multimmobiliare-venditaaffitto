@@ -28,6 +28,13 @@ const useStyles = makeStyles((theme: Theme) => ({
   bordiCard: {
     margin: theme.spacing(),
   },
+  background: {
+    background: theme.palette.primary.main,
+    color: 'White',
+    borderRadius: '0.2em',
+    padding: theme.spacing(1),
+
+  },
 
 }));
 export default useStyles;
