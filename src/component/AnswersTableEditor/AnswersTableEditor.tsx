@@ -3,18 +3,27 @@ import {
   Paper, AppBar, Typography, Grid, TextField, IconButton,
 } from '@material-ui/core';
 import CreateIcon from '@material-ui/icons/Create';
-import DeleteIcon from '@material-ui/icons/Delete';
 import { useDispatch, useSelector } from 'react-redux';
+import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import useStyles from './style';
 import {
-  getRisposta1, setBModifyRis1Clicked, risposta1, risposta2, setBModifyRis2Clicked,
+  getRisposta1, setBModifyRis1Clicked, risposta1, risposta2,
+  setBModifyRis2Clicked, isBModifyRis1Clicked,
+  setBModifyRis1Unclicked, setBModifyRis2Unclicked, isBModifyRis2Clicked,
 } from '../../store/slice/risposteAddFormSlice';
+import {
+  isIconsDisabled, colorButton, unsetIcons, setIcons,
+} from '../../store/slice/domandeAddFormSlice';
 
 const AnswersTableEditor = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const ris1 = useSelector(risposta1);
   const ris2 = useSelector(risposta2);
+  const isIconEnabled = useSelector(isIconsDisabled);
+  const colButton = useSelector(colorButton);
+  const bModifyRis1Clicked = useSelector(isBModifyRis1Clicked);
+  const bModifyRis2Clicked = useSelector(isBModifyRis2Clicked);
   return (
     <div>
 
@@ -35,9 +44,29 @@ const AnswersTableEditor = () => {
                 </Typography>
               </Grid>
               <Grid item xs={12} sm={2}>
-                <IconButton onClick={() => dispatch(setBModifyRis1Clicked())} color="primary">
-                  <CreateIcon />
-                </IconButton>
+                {!bModifyRis1Clicked
+                  ? (
+                    <IconButton
+                      disabled={isIconEnabled}
+                      color={colButton}
+                      onClick={() => {
+                        dispatch(setBModifyRis1Clicked());
+                        dispatch(unsetIcons());
+                      }}
+                    >
+                      <CreateIcon />
+                    </IconButton>
+                  ) : (
+                    <IconButton
+                      color="primary"
+                      onClick={() => {
+                        dispatch(setBModifyRis1Unclicked());
+                        dispatch(setIcons());
+                      }}
+                    >
+                      <CheckCircleOutlineIcon />
+                    </IconButton>
+                  )}
               </Grid>
               <Grid item xs={12} sm={10}>
                 <TextField
@@ -62,9 +91,29 @@ const AnswersTableEditor = () => {
                 </Typography>
               </Grid>
               <Grid item xs={12} sm={2}>
-                <IconButton onClick={() => dispatch(setBModifyRis2Clicked())} color="primary">
-                  <CreateIcon />
-                </IconButton>
+                {!bModifyRis2Clicked
+                  ? (
+                    <IconButton
+                      disabled={isIconEnabled}
+                      color={colButton}
+                      onClick={() => {
+                        dispatch(setBModifyRis2Clicked());
+                        dispatch(unsetIcons());
+                      }}
+                    >
+                      <CreateIcon />
+                    </IconButton>
+                  ) : (
+                    <IconButton
+                      color="primary"
+                      onClick={() => {
+                        dispatch(setBModifyRis2Unclicked());
+                        dispatch(setIcons());
+                      }}
+                    >
+                      <CheckCircleOutlineIcon />
+                    </IconButton>
+                  )}
               </Grid>
               <Grid item xs={12} sm={10}>
                 <TextField

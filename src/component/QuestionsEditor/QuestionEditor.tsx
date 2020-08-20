@@ -2,7 +2,7 @@ import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import CreateIcon from '@material-ui/icons/Create';
 import {
-  IconButton, Paper, Typography, AppBar,
+  IconButton, Paper, Typography, AppBar, Switch,
 } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Grid from '@material-ui/core/Grid';
@@ -15,15 +15,17 @@ import { selectData } from '../../store/slice/formSlice';
 import EmptyQuestionDueRisposteEditor from '../EmptyQuestionDueRisposteEditor/EmptyQuestionDueRisposteEditor';
 import {
   modifyDomandaAction, stateTextField as stateTextFieldNewDomanda, isDisable,
-  colDisable, disableAll, enableAll,
+  disableAll, enableAll,
 } from '../../store/slice/editFormSlice';
 import { initialID } from '../../store/slice/initialStateSlice';
 import useStyles from './style';
 import {
   domandeObject, setBModifyDomandaClicked, setBModifyDomandaUnclicked,
-  modifyDomandaInObjectDomande, deleteDomandaInObjectDomande,
+  modifyDomandaInObjectDomande, deleteDomandaInObjectDomande, isIconsDisabled,
+  unsetIcons, setIcons, colorButton,
 } from '../../store/slice/domandeAddFormSlice';
 import { objectToArray } from '../../util';
+import { setBSaveDisabled, setBSaveEnabled } from '../../store/slice/addFormSlice';
 
 const QuestionsEditor = () => {
   const dispatch = useDispatch();
@@ -31,10 +33,11 @@ const QuestionsEditor = () => {
   const domande = useSelector(selectData);
   const textFieldStateNewDomanda = useSelector(stateTextFieldNewDomanda);
   const disableActive = useSelector(isDisable);
-  const colorButton = useSelector(colDisable);
   const classes = useStyles();
   const DomandeAddFormObj = useSelector(domandeObject);
   const domandeAddFormArray = objectToArray(DomandeAddFormObj);
+  const iconsModifyAndDeleteDisabled = useSelector(isIconsDisabled);
+  const colButton = useSelector(colorButton);
 
   if (iniID !== 0) {
     const listItems = domande.map((domanda : any) => (
@@ -50,17 +53,18 @@ const QuestionsEditor = () => {
                     <Grid item xs={12} sm={1}>
                       <IconButton
                         disabled={disableActive}
+                        color={colButton}
                         onClick={() => {
                           dispatch(modifyDomandaAction(domanda.ID));
                           dispatch(disableAll());
                         }}
                       >
-                        <CreateIcon color={colorButton} />
+                        <CreateIcon />
                       </IconButton>
                     </Grid>
                     <Grid item xs={12} sm={1}>
                       <IconButton disabled={disableActive}>
-                        <DeleteIcon color={colorButton} />
+                        <DeleteIcon />
                       </IconButton>
                     </Grid>
                   </ >
@@ -132,21 +136,25 @@ const QuestionsEditor = () => {
                   < >
                     <Grid item xs={12} sm={1}>
                       <IconButton
+                        color={colButton}
+                        disabled={iconsModifyAndDeleteDisabled}
                         onClick={() => {
                           dispatch(setBModifyDomandaClicked(domandaAddForm.IDDomanda));
+                          dispatch(unsetIcons());
                         }}
                       >
-                        <CreateIcon color={colorButton} />
+                        <CreateIcon />
                       </IconButton>
                     </Grid>
                     <Grid item xs={12} sm={1}>
                       <IconButton
+                        color={colButton}
+                        disabled={iconsModifyAndDeleteDisabled}
                         onClick={
                         () => dispatch(deleteDomandaInObjectDomande(IDDomanda))
                       }
-                        disabled={disableActive}
                       >
-                        <DeleteIcon color={colorButton} />
+                        <DeleteIcon />
                       </IconButton>
                     </Grid>
                   </ >
@@ -155,11 +163,15 @@ const QuestionsEditor = () => {
                     < >
                       <Grid item xs={12} sm={2}>
                         <IconButton
+                          color="primary"
                           onClick={
-                            () => dispatch(setBModifyDomandaUnclicked(domandaAddForm.IDDomanda))
+                            () => {
+                              dispatch(setBModifyDomandaUnclicked(domandaAddForm.IDDomanda));
+                              dispatch(setIcons());
+                            }
                           }
                         >
-                          <CheckCircleOutlineIcon color={colorButton} />
+                          <CheckCircleOutlineIcon />
                         </IconButton>
                       </Grid>
 
@@ -196,8 +208,31 @@ const QuestionsEditor = () => {
       </AppBar>
       <div className={classes.padding}>
         <div className={classes.marginDivider} />
+
+        <Grid container spacing={3}>
+
+          <Grid item xs={12} sm={2}>
+            <Typography className={classes.spaceTopIntestazione} variant="body1" align="center">Intestazione*</Typography>
+          </Grid>
+          <Grid item xs={12} sm={9}>
+            <TextField fullWidth variant="outlined" />
+          </Grid>
+          <Grid item xs={12} sm={1}>
+            <Switch
+              className={classes.spaceTop}
+              name="checkedA"
+              inputProps={{ 'aria-label': 'secondary checkbox' }}
+            />
+          </Grid>
+
+        </Grid>
+
         {listNewDomande}
         <EmptyQuestionDueRisposteEditor />
+        <Typography className={classes.marginGenerico} variant="body1">
+          * L&apos;intestazione è quella porzione di testo che viene immessa
+          all&apos;inizio di ogni domanda.
+        </Typography>
       </div>
     </div>
   );

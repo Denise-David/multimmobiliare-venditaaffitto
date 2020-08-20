@@ -23,6 +23,15 @@ const useStyles = makeStyles((theme: Theme) => ({
   marginDivider: {
     marginBottom: theme.spacing(3),
   },
+  spaceTop: {
+    marginTop: theme.spacing(1),
+  },
+  spaceTopIntestazione: {
+    marginTop: theme.spacing(2),
+  },
+  marginGenerico: {
+    margin: theme.spacing(2),
+  },
 
 }));
 export default useStyles;

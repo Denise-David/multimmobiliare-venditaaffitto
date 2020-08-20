@@ -6,25 +6,31 @@ import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import { useSelector, useDispatch } from 'react-redux';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
-
-import { colDisable, isDisable } from '../../store/slice/editFormSlice';
+import useStyles from './style';
 import {
   setBAddDomandaClicked, isTextFieldNewDomandaDisabled,
   isBAddDomandaClicked, setBAddDomandaUnclicked, setDomanda,
   addDomandaInArray,
   question,
+  resetDomanda,
+  isIconsDisabled,
+  colorButton,
+  unsetIcons,
+  setIcons,
 } from '../../store/slice/domandeAddFormSlice';
 
 const EmptyQuestionDueRisposteEditor = () => {
   const dispatch = useDispatch();
-  const colorButton = useSelector(colDisable);
-  const disableActive = useSelector(isDisable);
   const valoreTextField = useSelector(question);
+  const isIconEnabled = useSelector(isIconsDisabled);
+  const colButton = useSelector(colorButton);
+  const classes = useStyles();
 
   const textFieldDomandaDisabled = useSelector(isTextFieldNewDomandaDisabled);
   const buttonAddClicked = useSelector(isBAddDomandaClicked);
+
   return (
-    <div>
+    <div className={classes.marginGenerico}>
       <Grid container spacing={3}>
 
         {!buttonAddClicked
@@ -32,10 +38,15 @@ const EmptyQuestionDueRisposteEditor = () => {
             <>
               <Grid item xs={12} sm={1}>
                 <IconButton
-                  onClick={() => dispatch(setBAddDomandaClicked())}
-                  disabled={disableActive}
+                  color={colButton}
+                  disabled={isIconEnabled}
+                  onClick={() => {
+                    dispatch(setBAddDomandaClicked());
+                    dispatch(unsetIcons());
+                  }}
+
                 >
-                  <AddCircleOutlineIcon color={colorButton} />
+                  <AddCircleOutlineIcon />
                 </IconButton>
               </Grid>
               <Grid item xs={12} sm={1} />
@@ -45,11 +56,21 @@ const EmptyQuestionDueRisposteEditor = () => {
             <>
               <Grid item xs={12} sm={2}>
                 <IconButton
-                  onClick={() => dispatch(addDomandaInArray())}
+                  color="primary"
+                  onClick={() => {
+                    dispatch(addDomandaInArray());
+                    dispatch(setIcons());
+                  }}
+
                 >
-                  <CheckCircleOutlineIcon color="primary" />
+                  <CheckCircleOutlineIcon />
                 </IconButton>
-                <IconButton onClick={() => dispatch(setBAddDomandaUnclicked())}>
+                <IconButton onClick={() => {
+                  dispatch(setBAddDomandaUnclicked());
+                  dispatch(resetDomanda());
+                  dispatch(setIcons());
+                }}
+                >
                   <HighlightOffIcon color="primary" />
                 </IconButton>
               </Grid>

@@ -16,7 +16,6 @@ import ResultTableEditor from '../../component/ResultTable/ResultTableEditor';
 import AnswersTableEditor from '../../component/AnswersTableEditor/AnswersTableEditor';
 import { user, repartiCreate } from '../../store/slice/rightsSlice';
 import { extractAndMergeArray } from '../../util';
-import { State } from '../../store/store/store';
 
 const FormPaziente = () => {
   const classes = useStyles();
@@ -24,7 +23,7 @@ const FormPaziente = () => {
   useEffect(() => {
     dispatch({ type: 'INIT' });
     dispatch({ type: 'initUserRightsAUTAN' });
-  }, []);
+  }, [dispatch]);
   // Controllo lo stato del pulsante addForm
 
   const typeForm = useSelector(formType);

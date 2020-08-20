@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+
 import { State } from '../store/store';
 
 export interface domandaAddForm{IDDomanda : string, Domanda : string, stateText : boolean}
@@ -10,6 +11,8 @@ const domandeAddFormSlice = createSlice({
     isTextFieldNewDomandaDisabled: true as boolean,
     Question: '' as string,
     domandeObject: {} as {[key:string]:domandaAddForm},
+    isIconsDisabled: false as boolean,
+    colorButton: 'primary' as 'primary' | 'inherit' | 'secondary' | 'default' | undefined,
   },
   reducers: {
     setBAddDomandaClicked(state) {
@@ -44,6 +47,14 @@ const domandeAddFormSlice = createSlice({
     deleteDomandaInObjectDomande(state, { payload }) {
       delete state.domandeObject[payload];
     },
+    unsetIcons(state) {
+      state.isIconsDisabled = true;
+      state.colorButton = 'secondary';
+    },
+    setIcons(state) {
+      state.isIconsDisabled = false;
+      state.colorButton = 'primary';
+    },
 
   },
 });
@@ -53,6 +64,8 @@ export const addDomandaInArray = () => ({
 
 });
 
+export const colorButton = (state : State) => state.domandeAddForm.colorButton;
+export const isIconsDisabled = (state : State) => state.domandeAddForm.isIconsDisabled;
 // eslint-disable-next-line max-len
 export const domandeObject = (state : State) => state.domandeAddForm.domandeObject;
 export const question = (state : State) => state.domandeAddForm.Question;
@@ -64,5 +77,6 @@ export const {
   setDomanda, setDomandaInObjectDomande, resetDomanda,
   setBModifyDomandaClicked, setBModifyDomandaUnclicked,
   modifyDomandaInObjectDomande, deleteDomandaInObjectDomande,
+  setIcons, unsetIcons,
 } = domandeAddFormSlice.actions;
 export default domandeAddFormSlice.reducer;
