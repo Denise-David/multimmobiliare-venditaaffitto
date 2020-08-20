@@ -12,7 +12,7 @@ import {
   initializeDomande, initializeRisultati,
 } from '../slice/editFormSlice';
 import { setInitialStateAction, desetInitialStateAction } from '../slice/initialStateSlice';
-import addReparto, { addDomandaInArray } from './addFormSagas';
+import addFormulario, { addDomandaInArray } from './addFormSagas';
 import { buttonSendCode } from '../slice/CodeSlice';
 import getDataEtichetta, { sendDataPazienti } from './dialogFormPazienteSagas';
 import { buttonSendForm } from '../slice/patientFormSlice';
@@ -22,7 +22,7 @@ import setDataRisposteFormPaziente from './summaryDialogSagas';
 import { buttonSendConfirmClicked } from '../slice/summaryDialogSlice';
 import { buttonSearchClicked } from '../slice/searchDoctorSlice';
 import buttonSearch from './searchDoctorSagas';
-import { getFormType, setBAddFormUnclicked } from '../slice/addFormSlice';
+import { getFormType } from '../slice/addFormSlice';
 import initUserRightsAUTAN from './rightsUserSagas';
 import confirmAddForm, { cancelAddForm } from './departmentChoiceEditorSagas';
 
@@ -90,7 +90,7 @@ function* init(action : any) {
 
 function* actionWatcher() {
   yield takeLatest('INIT', init);
-  yield takeLatest('BUTTON_SAVE_FORM_CLICKED', addReparto);
+  yield takeLatest('BUTTON_SAVE_FORM_CLICKED', addFormulario);
   yield takeEvery(buttonSendCode.type, getDataEtichetta);
   yield takeLatest(buttonSendForm.type, sendDataPazienti);
   yield takeLatest('initPDFPatientData', initPDFPatientData);

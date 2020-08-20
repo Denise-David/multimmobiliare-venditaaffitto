@@ -19,6 +19,7 @@ import searchDoctor from '../slice/searchDoctorSlice';
 import addForm from '../slice/addFormSlice';
 import rights from '../slice/rightsSlice';
 import domandeAddForm from '../slice/domandeAddFormSlice';
+import risposteAddForm from '../slice/risposteAddFormSlice';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -41,6 +42,7 @@ const store = configureStore({
     addForm,
     rights,
     domandeAddForm,
+    risposteAddForm,
 
   },
 

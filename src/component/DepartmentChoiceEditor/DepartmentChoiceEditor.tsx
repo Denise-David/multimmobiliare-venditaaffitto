@@ -30,10 +30,10 @@ import {
   setBAddFormClicked,
   isBConfirmAddFormClicked,
   setNomeFormulario,
-  nomeFormulario,
   setBSaveEnabled,
   isBSaveDisabled,
   setBSaveDisabled,
+  buttonSaveFormClicked,
 } from '../../store/slice/addFormSlice';
 
 const DepartmentChoiceEditor = () => {
@@ -141,7 +141,11 @@ const DepartmentChoiceEditor = () => {
                   ? (
                     <div>
                       {/* se add non è attivo ed è selezionato il reparto */}
-                      <IconButton disabled={isSaveDisabled} onClick={addDispatch}>
+
+                      <IconButton
+                        disabled={isSaveDisabled}
+                        onClick={() => dispatch(buttonSaveFormClicked())}
+                      >
                         <SaveIcon fontSize="large" color={buttonColor} />
                       </IconButton>
                       <IconButton

@@ -9,17 +9,19 @@ import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 
 import { colDisable, isDisable } from '../../store/slice/editFormSlice';
 import {
-  setBAddDomandaClicked, isTextFieldDomandaDisabled,
+  setBAddDomandaClicked, isTextFieldNewDomandaDisabled,
   isBAddDomandaClicked, setBAddDomandaUnclicked, setDomanda,
   addDomandaInArray,
+  question,
 } from '../../store/slice/domandeAddFormSlice';
 
 const EmptyQuestionDueRisposteEditor = () => {
   const dispatch = useDispatch();
   const colorButton = useSelector(colDisable);
   const disableActive = useSelector(isDisable);
+  const valoreTextField = useSelector(question);
 
-  const textFieldDomandaDisabled = useSelector(isTextFieldDomandaDisabled);
+  const textFieldDomandaDisabled = useSelector(isTextFieldNewDomandaDisabled);
   const buttonAddClicked = useSelector(isBAddDomandaClicked);
   return (
     <div>
@@ -37,6 +39,7 @@ const EmptyQuestionDueRisposteEditor = () => {
                 </IconButton>
               </Grid>
               <Grid item xs={12} sm={1} />
+
             </>
           ) : (
             <>
@@ -50,20 +53,22 @@ const EmptyQuestionDueRisposteEditor = () => {
                   <HighlightOffIcon color="primary" />
                 </IconButton>
               </Grid>
+              <Grid item xs={12} sm={10}>
+                <TextField
+                  autoFocus={!textFieldDomandaDisabled}
+                  value={valoreTextField}
+                  onChange={(event) => {
+                    const { value } = event.target;
+                    dispatch(setDomanda(value));
+                  }}
+                  disabled={textFieldDomandaDisabled}
+                  id="standard-basic"
+                  fullWidth
+                />
+              </Grid>
             </>
           )}
-        <Grid item xs={12} sm={10}>
-          <TextField
-            onChange={(event) => {
-              const { value } = event.target;
-              dispatch(setDomanda(value));
-            }}
 
-            disabled={textFieldDomandaDisabled}
-            id="standard-basic"
-            fullWidth
-          />
-        </Grid>
       </Grid>
     </div>
   );

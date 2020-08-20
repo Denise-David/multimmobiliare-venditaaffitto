@@ -37,7 +37,7 @@ export const addFormDueRisposte = (
     actualWardGUID: idReparto,
     Reparto: nomeReparto,
     formulario: nomeForm,
-    Domande: [domande],
+    Domande: domande,
     Risposte: {
       risposta1,
       risposta2,

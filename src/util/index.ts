@@ -24,3 +24,14 @@ export function extractAndMergeArray(array : any[]) {
   });
   return arrayRepartiUniti;
 }
+
+export function objectToArray(object : any) {
+  if (object.length !== 0) {
+    const array = Object.keys(object).map((key) => {
+      const risposta = object[key];
+      return risposta;
+    });
+    return array;
+  }
+  return [];
+}
