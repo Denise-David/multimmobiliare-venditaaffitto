@@ -13,7 +13,6 @@ import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import SaveIcon from '@material-ui/icons/Save';
 import useStyles from './style';
-import { allFormData } from '../../store/slice/formulariSlice';
 import { valueAction, resetReparto, formID } from '../../store/slice/repartoSlice';
 import {
   delActive, alertConfirmDelete, isDisable, disableAll, enableAll, colDisable,
@@ -42,7 +41,6 @@ const DepartmentChoiceEditor = () => {
 
   // recupero stati dagli slice
   const classes = useStyles();
-  const listForm = useSelector(allFormData);
   const addReparto = useSelector(isButtonAddFormClicked);
   const noRep = useSelector(initialID);
   const deleteActive = useSelector(delActive);

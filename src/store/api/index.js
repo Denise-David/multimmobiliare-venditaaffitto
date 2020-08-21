@@ -14,12 +14,12 @@ app.configure(restClient.axios(axios));
 const struttureFormReparti = app.service('strutture_form_reparti');
 const risposteFormPazienti = app.service('risposte_form_pazienti');
 
-// prendi tutti i formulari
-export const fetchAllForm = () => struttureFormReparti.find({});
+// prendi tutte le strutture formulari, filtrando quello di cui ho bisogno
+export const fetchAllFormStructure = () => struttureFormReparti.find({});
 
-// Prendi il formulario con id ID
-const fetchForm = (ID) => struttureFormReparti.get(ID, {});
-export default fetchForm;
+// Prendi il formulario con tramite ID
+const fetchFormStructureByID = (ID) => struttureFormReparti.get(ID, {});
+export default fetchFormStructureByID;
 
 // Prendi il formulario con actualWardGUID GUID
 export const fetchRepartoFormByGUID = (GUID) => struttureFormReparti.find(
@@ -47,7 +47,7 @@ export const addFormDueRisposte = (
 );
 
 // Prendo i dati dell'etichetta
-export const getEtichettaData = (labelNumber) => axios.get(`/autoanamnesi/forwardCall/adts?edsId=${labelNumber}`);
+export const getEtichettaDataByLabel = (labelNumber) => axios.get(`/autoanamnesi/forwardCall/adts?edsId=${labelNumber}`);
 
 // Aggiungi formulario risposte paziente
 
@@ -64,21 +64,11 @@ export const addRisposteFormPazienti = (
   },
 
 );
-export const getRisposteFormPazienti = (ID) => risposteFormPazienti.get(ID, {});
 
-// prendo ultimo documento risposte messo nel DB
+// prendo le risposte dei pazienti tramite ID
+export const getRisposteFormPazientiByID = (ID) => risposteFormPazienti.get(ID, {});
 
-export const getLastRisposteFormPazienti = () => risposteFormPazienti.find({
-  query: {
-    $select: ['_id'],
-    $limit: 1,
-    $sort: {
-      createdAt: -1,
-    },
-  },
-});
-
-// Cerco dottori
+// Cerco dottori tramite nome e cognome
 export const searchDoctor = (medicoName, medicoCognome) => axios.post('/autoanamnesi/forwardCall/eocmoss',
   {
     givenname: medicoName.value,

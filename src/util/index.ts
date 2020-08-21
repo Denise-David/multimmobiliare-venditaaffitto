@@ -14,7 +14,7 @@ export function getStringMedico(medico: Medico): string {
 }
 
 export function extractAndMergeArray(array : any[]) {
-  let arrayRepartiUniti : any[] = [];
+  let arrayRepartiUniti : any = [];
   array.map((ArrayRepartiSeparati : any) => {
     ArrayRepartiSeparati.map((reparto : any) => {
       arrayRepartiUniti = arrayRepartiUniti.concat(reparto);

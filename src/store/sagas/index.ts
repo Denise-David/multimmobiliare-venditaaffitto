@@ -1,16 +1,10 @@
 import {
   all, takeLatest, call, put, select, takeEvery,
 } from 'redux-saga/effects';
-import { getRisultati } from '../slice/risultatiFormularioSlice';
-import fetchForm, { fetchAllForm } from '../api/index';
 
 import { domande, risultati } from '../slice/formSlice';
 
-import { formulariAction } from '../slice/formulariSlice';
 import { formID } from '../slice/repartoSlice';
-import {
-  initializeDomande, initializeRisultati,
-} from '../slice/editFormSlice';
 import { setInitialStateAction, desetInitialStateAction } from '../slice/initialStateSlice';
 import addFormulario, { addDomandaInArray } from './addFormSagas';
 import { buttonSendCode } from '../slice/CodeSlice';
@@ -25,58 +19,23 @@ import buttonSearch from './searchDoctorSagas';
 import { getFormType } from '../slice/addFormSlice';
 import initUserRightsAUTAN from './rightsUserSagas';
 import confirmAddForm, { cancelAddForm } from './departmentChoiceEditorSagas';
+import fetchFormStructureByID from '../api';
 
 function* init(action : any) {
   try {
     const ID : string = yield select(formID);
 
-    // prendo tutti i formulari
-    const allForm = yield call(fetchAllForm);
-    const datiFormulari = allForm.data;
-
-    yield put(formulariAction(datiFormulari));
-
-    // metodo che converte un array in un object
-    const arrayToObject = (array : any) => array.reduce((obj : any, item : any) => {
-    // eslint-disable-next-line no-param-reassign
-      obj[item.ID] = true;
-      return obj;
-    }, {});
-
     // controllo se è selezionato un reparto
     if (ID !== '0') {
       try {
-        // prendo i risultati del form ID selezionato
-        const ris = yield call(fetchForm, ID);
-        const datiRisultati = ris.Risultati;
+        // prendo  i risultati, domande
+        const selectedForm = yield call(fetchFormStructureByID, ID);
+        const datiRisultati = selectedForm.Risultati;
         yield put(risultati(datiRisultati));
 
-        // creo un array con indice ID Risultati e stato true
-        const initialStateRisultati = datiRisultati.map(
-          (risultato : any) => ({ ID: risultato.ID }),
-        );
-        const reduceRis = arrayToObject(initialStateRisultati);
-        // invio l'array
-        yield put(initializeRisultati(reduceRis));
-
-        // prendo le domande del form ID selezionato
-        const form = yield call(fetchForm, ID);
-        const datiDomande = form.Domande;
+        const datiDomande = selectedForm.Domande;
         yield put(domande(datiDomande));
-        yield put(getFormType(form.tipo));
-
-        // Creo un array con indice ID e stato true
-        const initialStateDomande = datiDomande.map(
-          (domanda : any) => ({ ID: domanda.ID }),
-        );
-        const reduce = arrayToObject(initialStateDomande);
-        // invio l'array
-        yield put(initializeDomande(reduce));
-
-        // prendo il form ID selezionato
-        const formulario = yield call(fetchForm, ID);
-        const datiForm = formulario.data;
-        yield put(getRisultati(datiForm));
+        yield put(getFormType(selectedForm.tipo));
 
         yield put(desetInitialStateAction());
       } catch (error) { console.log('errore', error); }

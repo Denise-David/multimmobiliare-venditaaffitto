@@ -3,13 +3,13 @@ import {
   IDFormRisposte, getPatientAnswer, numEtichetta, getRepartoInfo,
 } from '../slice/patientFormPDFSlice';
 
-import { getRisposteFormPazienti, getEtichettaData, fetchRepartoFormByGUID } from '../api';
+import { getRisposteFormPazientiByID, getEtichettaDataByLabel, fetchRepartoFormByGUID } from '../api';
 
 export default function* initPDFPatientAnswers(action : any) {
   try {
     const IDForm = yield select(IDFormRisposte);
     const etichettaNum = yield select(numEtichetta);
-    const dataEtichetta = yield call(getEtichettaData, etichettaNum);
+    const dataEtichetta = yield call(getEtichettaDataByLabel, etichettaNum);
 
     const { data = {} } = dataEtichetta;
     const { hcase = {} } = data;
@@ -32,7 +32,7 @@ export default function* initPDFPatientAnswers(action : any) {
 
     yield put(getRepartoInfo(infoReparto));
 
-    const dataFormPaziente = yield call(getRisposteFormPazienti, IDForm);
+    const dataFormPaziente = yield call(getRisposteFormPazientiByID, IDForm);
     const { paziente = {}, risposte = {} } = dataFormPaziente;
     const { givenname = '', familyname = '' } = paziente;
 
