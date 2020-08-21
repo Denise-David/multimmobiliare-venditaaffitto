@@ -91,6 +91,7 @@ function* init(action : any) {
 function* actionWatcher() {
   yield takeLatest('INIT', init);
   yield takeLatest('BUTTON_SAVE_FORM_CLICKED', addFormulario);
+  yield takeLatest('BUTTON_SAVE_FORM_CLICKED', cancelAddForm);
   yield takeEvery(buttonSendCode.type, getDataEtichetta);
   yield takeLatest(buttonSendForm.type, sendDataPazienti);
   yield takeLatest('initPDFPatientData', initPDFPatientData);

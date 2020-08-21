@@ -21,11 +21,13 @@ import { initialID } from '../../store/slice/initialStateSlice';
 import useStyles from './style';
 import {
   domandeObject, setBModifyDomandaClicked, setBModifyDomandaUnclicked,
-  modifyDomandaInObjectDomande, deleteDomandaInObjectDomande, isIconsDisabled,
-  unsetIcons, setIcons, colorButton,
+  modifyDomandaInObjectDomande, deleteDomandaInObjectDomande,
+  setBCheckDisabled, isBCheckDisabled, setBCheckEnabled, colorBCheck,
 } from '../../store/slice/domandeAddFormSlice';
 import { objectToArray } from '../../util';
-import { setBSaveDisabled, setBSaveEnabled } from '../../store/slice/addFormSlice';
+import {
+  isIconsDisabled, unsetIcons, colorIcons, setIcons,
+} from '../../store/slice/addFormSlice';
 
 const QuestionsEditor = () => {
   const dispatch = useDispatch();
@@ -37,7 +39,9 @@ const QuestionsEditor = () => {
   const DomandeAddFormObj = useSelector(domandeObject);
   const domandeAddFormArray = objectToArray(DomandeAddFormObj);
   const iconsModifyAndDeleteDisabled = useSelector(isIconsDisabled);
-  const colButton = useSelector(colorButton);
+  const colButton = useSelector(colorIcons);
+  const bCheckDisabled = useSelector(isBCheckDisabled);
+  const colBCheck = useSelector(colorBCheck);
 
   if (iniID !== 0) {
     const listItems = domande.map((domanda : any) => (
@@ -121,6 +125,8 @@ const QuestionsEditor = () => {
     );
   }
 
+  // Riga Domanda per Add form a due Risposte
+
   const listNewDomande = domandeAddFormArray.map((domandaAddForm : any) => {
     const { IDDomanda } = domandaAddForm;
 
@@ -163,7 +169,8 @@ const QuestionsEditor = () => {
                     < >
                       <Grid item xs={12} sm={2}>
                         <IconButton
-                          color="primary"
+                          disabled={bCheckDisabled}
+                          color={colBCheck}
                           onClick={
                             () => {
                               dispatch(setBModifyDomandaUnclicked(domandaAddForm.IDDomanda));
@@ -188,6 +195,11 @@ const QuestionsEditor = () => {
                   onChange={(event) => {
                     const Domanda = event.target.value;
                     dispatch(modifyDomandaInObjectDomande({ IDDomanda, Domanda }));
+                    if (Domanda === '') {
+                      dispatch(setBCheckDisabled());
+                    } else if (bCheckDisabled === true) {
+                      dispatch(setBCheckEnabled());
+                    }
                   }}
                 />
 
@@ -230,7 +242,7 @@ const QuestionsEditor = () => {
         {listNewDomande}
         <EmptyQuestionDueRisposteEditor />
         <Typography className={classes.marginGenerico} variant="body1">
-          * L&apos;intestazione è quella porzione di testo che viene immessa
+          * L&apos;intestazione è quella porzione di testo che viene messa
           all&apos;inizio di ogni domanda.
         </Typography>
       </div>

@@ -13,19 +13,23 @@ import {
   addDomandaInArray,
   question,
   resetDomanda,
-  isIconsDisabled,
-  colorButton,
-  unsetIcons,
-  setIcons,
+  colorBCheckAddDomanda,
+  isBCheckAddDomandaDisabled,
+  setBCheckAddDomandaDisabled,
+  setBCheckAddDomandaEnabled,
 } from '../../store/slice/domandeAddFormSlice';
+import {
+  isIconsDisabled, unsetIcons, setIcons, colorIcons,
+} from '../../store/slice/addFormSlice';
 
 const EmptyQuestionDueRisposteEditor = () => {
   const dispatch = useDispatch();
   const valoreTextField = useSelector(question);
   const isIconEnabled = useSelector(isIconsDisabled);
-  const colButton = useSelector(colorButton);
+  const colButton = useSelector(colorIcons);
   const classes = useStyles();
-
+  const colBCheck = useSelector(colorBCheckAddDomanda);
+  const bCheckDisabled = useSelector(isBCheckAddDomandaDisabled);
   const textFieldDomandaDisabled = useSelector(isTextFieldNewDomandaDisabled);
   const buttonAddClicked = useSelector(isBAddDomandaClicked);
 
@@ -56,7 +60,8 @@ const EmptyQuestionDueRisposteEditor = () => {
             <>
               <Grid item xs={12} sm={2}>
                 <IconButton
-                  color="primary"
+                  disabled={bCheckDisabled}
+                  color={colBCheck}
                   onClick={() => {
                     dispatch(addDomandaInArray());
                     dispatch(setIcons());
@@ -65,13 +70,15 @@ const EmptyQuestionDueRisposteEditor = () => {
                 >
                   <CheckCircleOutlineIcon />
                 </IconButton>
-                <IconButton onClick={() => {
-                  dispatch(setBAddDomandaUnclicked());
-                  dispatch(resetDomanda());
-                  dispatch(setIcons());
-                }}
+                <IconButton
+                  color="primary"
+                  onClick={() => {
+                    dispatch(setBAddDomandaUnclicked());
+                    dispatch(resetDomanda());
+                    dispatch(setIcons());
+                  }}
                 >
-                  <HighlightOffIcon color="primary" />
+                  <HighlightOffIcon />
                 </IconButton>
               </Grid>
               <Grid item xs={12} sm={10}>
@@ -81,6 +88,11 @@ const EmptyQuestionDueRisposteEditor = () => {
                   onChange={(event) => {
                     const { value } = event.target;
                     dispatch(setDomanda(value));
+                    if (value === '') {
+                      dispatch(setBCheckAddDomandaDisabled());
+                    } else if (bCheckDisabled === true) {
+                      dispatch(setBCheckAddDomandaEnabled());
+                    }
                   }}
                   disabled={textFieldDomandaDisabled}
                   id="standard-basic"

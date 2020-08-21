@@ -9,11 +9,17 @@ import useStyles from './style';
 import {
   getRisposta1, setBModifyRis1Clicked, risposta1, risposta2,
   setBModifyRis2Clicked, isBModifyRis1Clicked,
-  setBModifyRis1Unclicked, setBModifyRis2Unclicked, isBModifyRis2Clicked,
+  setBModifyRis1Unclicked, setBModifyRis2Unclicked,
+  isBModifyRis2Clicked, getRisposta2, isBCheckRis1Disabled,
+  colorBCheckRis1, setBCheckRisposta1Disabled,
+  setBCheckRisposta1Enabled, setBCheckRisposta2Disabled, setBCheckRisposta2Enabled,
+  colorBCheckRis2, isBCheckRis2Disabled,
 } from '../../store/slice/risposteAddFormSlice';
 import {
-  isIconsDisabled, colorButton, unsetIcons, setIcons,
 } from '../../store/slice/domandeAddFormSlice';
+import {
+  unsetIcons, setIcons, isIconsDisabled, colorIcons,
+} from '../../store/slice/addFormSlice';
 
 const AnswersTableEditor = () => {
   const classes = useStyles();
@@ -21,9 +27,13 @@ const AnswersTableEditor = () => {
   const ris1 = useSelector(risposta1);
   const ris2 = useSelector(risposta2);
   const isIconEnabled = useSelector(isIconsDisabled);
-  const colButton = useSelector(colorButton);
+  const colButton = useSelector(colorIcons);
   const bModifyRis1Clicked = useSelector(isBModifyRis1Clicked);
   const bModifyRis2Clicked = useSelector(isBModifyRis2Clicked);
+  const colBCheckRis1 = useSelector(colorBCheckRis1);
+  const bCheckRis1Disabled = useSelector(isBCheckRis1Disabled);
+  const colBCheckRis2 = useSelector(colorBCheckRis2);
+  const bCheckRis2Disabled = useSelector(isBCheckRis2Disabled);
   return (
     <div>
 
@@ -58,7 +68,8 @@ const AnswersTableEditor = () => {
                     </IconButton>
                   ) : (
                     <IconButton
-                      color="primary"
+                      disabled={bCheckRis1Disabled}
+                      color={colBCheckRis1}
                       onClick={() => {
                         dispatch(setBModifyRis1Unclicked());
                         dispatch(setIcons());
@@ -72,11 +83,15 @@ const AnswersTableEditor = () => {
                 <TextField
                   value={ris1.risposta1}
                   disabled={ris1.stateText}
-                  defaultValue="Si"
                   onChange={
                   (event) => {
                     const res1 = event.target.value;
                     dispatch(getRisposta1(res1));
+                    if (res1 === '') {
+                      dispatch(setBCheckRisposta1Disabled());
+                    } else if (bCheckRis1Disabled === true) {
+                      dispatch(setBCheckRisposta1Enabled());
+                    }
                   }
                 }
                   fullWidth
@@ -105,7 +120,8 @@ const AnswersTableEditor = () => {
                     </IconButton>
                   ) : (
                     <IconButton
-                      color="primary"
+                      disabled={bCheckRis2Disabled}
+                      color={colBCheckRis2}
                       onClick={() => {
                         dispatch(setBModifyRis2Unclicked());
                         dispatch(setIcons());
@@ -123,7 +139,12 @@ const AnswersTableEditor = () => {
                   onChange={
                   (event) => {
                     const res2 = event.target.value;
-                    dispatch(getRisposta1(res2));
+                    dispatch(getRisposta2(res2));
+                    if (res2 === '') {
+                      dispatch(setBCheckRisposta2Disabled());
+                    } else if (bCheckRis2Disabled === true) {
+                      dispatch(setBCheckRisposta2Enabled());
+                    }
                   }
                 }
                   fullWidth

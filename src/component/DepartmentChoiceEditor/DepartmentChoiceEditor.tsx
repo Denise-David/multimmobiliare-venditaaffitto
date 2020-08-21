@@ -35,6 +35,7 @@ import {
   setBSaveDisabled,
   buttonSaveFormClicked,
 } from '../../store/slice/addFormSlice';
+import DropDownListFormulari from '../DropDownListFormulari/DropDownListFormulari';
 
 const DepartmentChoiceEditor = () => {
   const dispatch = useDispatch();
@@ -55,12 +56,14 @@ const DepartmentChoiceEditor = () => {
   const bConfirmAddFormClicked = useSelector(isBConfirmAddFormClicked);
   const isSaveDisabled = useSelector(isBSaveDisabled);
 
+  // prendo valore DDL Reparto
   const getValueOnChange = (event : React.ChangeEvent<{ value: unknown }>) => {
     const { value } = event.target;
     dispatch(valueAction(value));
     dispatch({ type: 'INIT' });
   };
 
+  // Prendo il nome del form immesso dall'utente e controllo se è vuoto
   const getNomeForm = (event : React.ChangeEvent<{ value: unknown }>) => {
     const { value } = event.target;
     dispatch(setNomeFormulario(value));
@@ -100,15 +103,6 @@ const DepartmentChoiceEditor = () => {
     dispatch(enableAll());
     dispatch(alertConfirmDelete());
   };
-
-  const listItems = listForm.map((oneForm) => (
-
-    // eslint-disable-next-line no-underscore-dangle
-    <MenuItem key={oneForm._id} value={oneForm._id}>
-      {oneForm.Reparto}
-    </MenuItem>
-
-  ));
 
   return (
 
@@ -184,7 +178,7 @@ const DepartmentChoiceEditor = () => {
             )}
         </Grid>
 
-        {/* DropDownList selezione reparto */}
+        {/* Header */}
         {/* se è cliccato il tasto add */}
         {addReparto
           ? (
@@ -249,7 +243,7 @@ const DepartmentChoiceEditor = () => {
                 ) : (
                   <>
                     {/* se non è cliccato nulla */}
-                    <Grid item xs={12} sm={10}>
+                    <Grid item xs={12} sm={4}>
                       <FormControl disabled={disableActive} variant="outlined" fullWidth>
                         <Select
                           defaultValue={0}
@@ -260,9 +254,12 @@ const DepartmentChoiceEditor = () => {
                           <MenuItem value={0}>
                             Seleziona Reparto
                           </MenuItem>
-                          {listItems}
                         </Select>
                       </FormControl>
+                    </Grid>
+                    <Grid item xs={12} sm={1} />
+                    <Grid item xs={12} sm={4}>
+                      <DropDownListFormulari />
                     </Grid>
                   </>
                 )}

@@ -11,8 +11,10 @@ const domandeAddFormSlice = createSlice({
     isTextFieldNewDomandaDisabled: true as boolean,
     Question: '' as string,
     domandeObject: {} as {[key:string]:domandaAddForm},
-    isIconsDisabled: false as boolean,
-    colorButton: 'primary' as 'primary' | 'inherit' | 'secondary' | 'default' | undefined,
+    isBCheckDisabled: false as boolean,
+    colorBCheck: 'primary' as 'primary' | 'default' |'inherit' | 'secondary' | 'default' | undefined,
+    isBCheckAddDomandaDisabled: true as boolean,
+    colorBCheckAddDomanda: 'default' as 'primary' | 'default' |'inherit' | 'secondary' | 'default' | undefined,
   },
   reducers: {
     setBAddDomandaClicked(state) {
@@ -22,6 +24,8 @@ const domandeAddFormSlice = createSlice({
     setBAddDomandaUnclicked(state) {
       state.isBAddDomandaclicked = false;
       state.isTextFieldNewDomandaDisabled = true;
+      state.isBCheckAddDomandaDisabled = true;
+      state.colorBCheckAddDomanda = 'default';
     },
     setDomanda(state, { payload }) {
       state.Question = payload;
@@ -47,13 +51,21 @@ const domandeAddFormSlice = createSlice({
     deleteDomandaInObjectDomande(state, { payload }) {
       delete state.domandeObject[payload];
     },
-    unsetIcons(state) {
-      state.isIconsDisabled = true;
-      state.colorButton = 'secondary';
+    setBCheckDisabled(state) {
+      state.isBCheckDisabled = true;
+      state.colorBCheck = 'default';
     },
-    setIcons(state) {
-      state.isIconsDisabled = false;
-      state.colorButton = 'primary';
+    setBCheckEnabled(state) {
+      state.isBCheckDisabled = false;
+      state.colorBCheck = 'primary';
+    },
+    setBCheckAddDomandaDisabled(state) {
+      state.isBCheckAddDomandaDisabled = true;
+      state.colorBCheckAddDomanda = 'default';
+    },
+    setBCheckAddDomandaEnabled(state) {
+      state.isBCheckAddDomandaDisabled = false;
+      state.colorBCheckAddDomanda = 'primary';
     },
 
   },
@@ -64,8 +76,11 @@ export const addDomandaInArray = () => ({
 
 });
 
-export const colorButton = (state : State) => state.domandeAddForm.colorButton;
-export const isIconsDisabled = (state : State) => state.domandeAddForm.isIconsDisabled;
+// eslint-disable-next-line max-len
+export const isBCheckAddDomandaDisabled = (state : State) => state.domandeAddForm.isBCheckAddDomandaDisabled;
+export const colorBCheckAddDomanda = (state : State) => state.domandeAddForm.colorBCheckAddDomanda;
+export const isBCheckDisabled = (state : State) => state.domandeAddForm.isBCheckDisabled;
+export const colorBCheck = (state : State) => state.domandeAddForm.colorBCheck;
 // eslint-disable-next-line max-len
 export const domandeObject = (state : State) => state.domandeAddForm.domandeObject;
 export const question = (state : State) => state.domandeAddForm.Question;
@@ -76,7 +91,8 @@ export const {
   setBAddDomandaClicked, setBAddDomandaUnclicked,
   setDomanda, setDomandaInObjectDomande, resetDomanda,
   setBModifyDomandaClicked, setBModifyDomandaUnclicked,
-  modifyDomandaInObjectDomande, deleteDomandaInObjectDomande,
-  setIcons, unsetIcons,
+  modifyDomandaInObjectDomande, deleteDomandaInObjectDomande, setBCheckDisabled,
+  setBCheckEnabled, setBCheckAddDomandaDisabled, setBCheckAddDomandaEnabled,
+
 } = domandeAddFormSlice.actions;
 export default domandeAddFormSlice.reducer;
