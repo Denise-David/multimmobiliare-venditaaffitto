@@ -2,9 +2,9 @@ import React from 'react';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import {
-  IconButton, Button, Snackbar, RadioGroup, FormControlLabel, Radio, Typography, TextField, Paper,
+  IconButton, Button, Snackbar, RadioGroup,
+  FormControlLabel, Radio, Typography, TextField, Paper, Fab,
 } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import { useSelector, useDispatch } from 'react-redux';
@@ -12,8 +12,10 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import SaveIcon from '@material-ui/icons/Save';
+import AddIcon from '@material-ui/icons/Add';
+import KeyboardReturnIcon from '@material-ui/icons/KeyboardReturn';
 import useStyles from './style';
-import { setRepartoSelected, resetReparto, idRepartoSelected } from '../../store/slice/repartoSlice';
+import { setRepartoSelected, idRepartoSelected, resetIDReparto } from '../../store/slice/repartoSlice';
 import {
   delActive, alertConfirmDelete, isDisable, disableAll, enableAll, colDisable,
 } from '../../store/slice/editFormSlice';
@@ -94,7 +96,7 @@ const DepartmentChoiceEditor = () => {
     dispatch(resetRisultati());
     dispatch(alertConfirmDelete());
     dispatch(setInitialStateAction());
-    dispatch(resetReparto());
+    dispatch(resetIDReparto());
     dispatch(enableAll());
   };
 
@@ -135,7 +137,7 @@ const DepartmentChoiceEditor = () => {
 
                   onClick={() => dispatch(buttonCancelAddFormClicked())}
                 >
-                  <HighlightOffIcon fontSize="large" color="primary" />
+                  <KeyboardReturnIcon fontSize="large" color="primary" />
                 </IconButton>
               </div>
             )
@@ -159,7 +161,7 @@ const DepartmentChoiceEditor = () => {
                         () => dispatch(buttonCancelAddFormClicked())
                         }
                       >
-                        <HighlightOffIcon fontSize="large" color={colorButton} />
+                        <KeyboardReturnIcon fontSize="large" color={colorButton} />
                       </IconButton>
                     </div>
                   ) : (
@@ -167,19 +169,38 @@ const DepartmentChoiceEditor = () => {
                       {/* se add non è attivo e non è selezionato nessun reparto */}
                       {noRep === 0
                         ? (
-                          <IconButton onClick={addDispatch}>
-                            <AddCircleOutlineIcon fontSize="large" color="primary" />
-                          </IconButton>
+                          <>
+                            <Fab className={classes.buttonAdd} onClick={addDispatch} color="primary">
+                              <AddIcon />
+
+                            </Fab>
+
+                          </>
                         )
                         : (
                           <div>
-                            {/* se add non è attivo ed è selezionato il reparto */}
-                            <IconButton onClick={addDispatch}>
-                              <AddCircleOutlineIcon fontSize="large" color={colorButton} />
-                            </IconButton>
-                            <IconButton disabled={disableActive} onClick={deleteDispatch}>
-                              <DeleteIcon fontSize="large" color={colorButton} />
-                            </IconButton>
+                            <div>
+                              {/* se add non è attivo ed è selezionato il reparto */}
+                              <Fab className={classes.buttonAdd} onClick={addDispatch} color="primary">
+                                <AddIcon />
+                              </Fab>
+                            </div>
+                            <div className={classes.ButtonDelSaveCanc}>
+                              <IconButton disabled={disableActive} onClick={deleteDispatch}>
+                                <DeleteIcon fontSize="large" color={colorButton} />
+                              </IconButton>
+                              <IconButton disabled={disableActive} onClick={deleteDispatch}>
+                                <SaveIcon fontSize="large" color={colorButton} />
+                              </IconButton>
+                              <IconButton
+                                disabled={disableActive}
+                                onClick={
+                        () => dispatch(buttonCancelAddFormClicked())
+                        }
+                              >
+                                <KeyboardReturnIcon fontSize="large" color={colorButton} />
+                              </IconButton>
+                            </div>
                           </div>
                         )}
                     </div>
@@ -259,12 +280,12 @@ const DepartmentChoiceEditor = () => {
                         <Typography variant="h5" className={classes.backRepartoFormulario}>Reparto:</Typography>
                         <FormControl disabled={disableActive} variant="outlined" fullWidth>
                           <Select
-                            defaultValue={0}
+                            defaultValue={-1}
                             value={IDReparto}
                             autoWidth
                             onChange={getValueOnChange}
                           >
-                            <MenuItem value={0}>
+                            <MenuItem value={-1}>
                               Seleziona Reparto
                             </MenuItem>
                             {listRep}

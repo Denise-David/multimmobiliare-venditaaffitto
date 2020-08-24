@@ -45,6 +45,14 @@ const useStyles = makeStyles((theme:Theme) => ({
     color: 'White',
     padding: theme.spacing(2),
   },
+  buttonAdd: {
+    marginTop: theme.spacing(-12),
+  },
+
+  ButtonDelSaveCanc: {
+
+    marginTop: theme.spacing(5),
+  },
 
 }));
 export default useStyles;

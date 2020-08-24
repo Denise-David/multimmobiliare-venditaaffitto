@@ -4,23 +4,29 @@ import { State } from '../store/store';
 const repartoSlice = createSlice({
   name: 'reparto',
   initialState: {
-    IDnumber: '0' as string,
-    IDForm: '0' as string,
+    IDnumber: '-1' as string,
+    IDForm: '-1' as string,
   },
   reducers: {
     setRepartoSelected(state, { payload }) {
       state.IDnumber = payload;
     },
-    resetReparto(state) {
-      state.IDnumber = '0';
-    },
     setFormularioSelected(state, { payload }) {
       state.IDForm = payload;
+    },
+    resetIDReparto(state) {
+      state.IDnumber = '-1';
+    },
+    resetIDForm(state) {
+      state.IDForm = '-1';
     },
   },
 });
 
 export const IDForm = (state : State) => state.reparto.IDForm;
-export const { setRepartoSelected, resetReparto, setFormularioSelected } = repartoSlice.actions;
+export const {
+  setRepartoSelected,
+  setFormularioSelected, resetIDForm, resetIDReparto,
+} = repartoSlice.actions;
 export default repartoSlice.reducer;
 export const idRepartoSelected = (state : State): string => state.reparto.IDnumber;
