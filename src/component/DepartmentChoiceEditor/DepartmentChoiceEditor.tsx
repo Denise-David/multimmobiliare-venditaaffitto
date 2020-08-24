@@ -4,7 +4,7 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import {
-  IconButton, Button, Snackbar, RadioGroup, FormControlLabel, Radio, Typography, TextField,
+  IconButton, Button, Snackbar, RadioGroup, FormControlLabel, Radio, Typography, TextField, Paper,
 } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import { useSelector, useDispatch } from 'react-redux';
@@ -13,11 +13,11 @@ import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import SaveIcon from '@material-ui/icons/Save';
 import useStyles from './style';
-import { valueAction, resetReparto, formID } from '../../store/slice/repartoSlice';
+import { setRepartoSelected, resetReparto, idRepartoSelected } from '../../store/slice/repartoSlice';
 import {
   delActive, alertConfirmDelete, isDisable, disableAll, enableAll, colDisable,
 } from '../../store/slice/editFormSlice';
-import { resetDomande } from '../../store/slice/formSlice';
+import { resetDomande } from '../../store/slice/domandeModifySlice';
 import { initialID, setInitialStateAction } from '../../store/slice/initialStateSlice';
 import { resetRisultati } from '../../store/slice/risultatiFormularioSlice';
 import {
@@ -35,6 +35,7 @@ import {
   buttonSaveFormClicked,
 } from '../../store/slice/addFormSlice';
 import DropDownListFormulari from '../DropDownListFormulari/DropDownListFormulari';
+import { allReparti } from '../../store/slice/rightsSlice';
 
 const DepartmentChoiceEditor = () => {
   const dispatch = useDispatch();
@@ -45,7 +46,7 @@ const DepartmentChoiceEditor = () => {
   const noRep = useSelector(initialID);
   const deleteActive = useSelector(delActive);
   const disableActive = useSelector(isDisable);
-  const IDReparto = useSelector(formID);
+  const IDReparto = useSelector(idRepartoSelected);
   const colorButton = useSelector(colDisable);
   const repartoSelezionato = useSelector(selectedReparto);
   const confirmDisabled = useSelector(isConfirmDisabled);
@@ -53,11 +54,12 @@ const DepartmentChoiceEditor = () => {
   const buttonColor = useSelector(colButton);
   const bConfirmAddFormClicked = useSelector(isBConfirmAddFormClicked);
   const isSaveDisabled = useSelector(isBSaveDisabled);
+  const allRep = useSelector(allReparti);
 
   // prendo valore DDL Reparto
   const getValueOnChange = (event : React.ChangeEvent<{ value: unknown }>) => {
     const { value } = event.target;
-    dispatch(valueAction(value));
+    dispatch(setRepartoSelected(value));
     dispatch({ type: 'INIT' });
   };
 
@@ -101,6 +103,17 @@ const DepartmentChoiceEditor = () => {
     dispatch(enableAll());
     dispatch(alertConfirmDelete());
   };
+
+  // mappo tutti i reparti
+  const listRep = allRep.map((reparto: any) => (
+    <MenuItem
+      value={reparto.unitid ? reparto.unitid : reparto.sermednodeid}
+      key={reparto.unitid}
+    >
+      {reparto.longname}
+
+    </MenuItem>
+  ));
 
   return (
 
@@ -242,22 +255,30 @@ const DepartmentChoiceEditor = () => {
                   <>
                     {/* se non è cliccato nulla */}
                     <Grid item xs={12} sm={4}>
-                      <FormControl disabled={disableActive} variant="outlined" fullWidth>
-                        <Select
-                          defaultValue={0}
-                          value={IDReparto}
-                          autoWidth
-                          onChange={getValueOnChange}
-                        >
-                          <MenuItem value={0}>
-                            Seleziona Reparto
-                          </MenuItem>
-                        </Select>
-                      </FormControl>
+                      <Paper>
+                        <Typography variant="h5" className={classes.backRepartoFormulario}>Reparto:</Typography>
+                        <FormControl disabled={disableActive} variant="outlined" fullWidth>
+                          <Select
+                            defaultValue={0}
+                            value={IDReparto}
+                            autoWidth
+                            onChange={getValueOnChange}
+                          >
+                            <MenuItem value={0}>
+                              Seleziona Reparto
+                            </MenuItem>
+                            {listRep}
+                          </Select>
+
+                        </FormControl>
+                      </Paper>
                     </Grid>
                     <Grid item xs={12} sm={1} />
                     <Grid item xs={12} sm={4}>
-                      <DropDownListFormulari />
+                      <Paper>
+                        <Typography variant="h5" className={classes.backRepartoFormulario}>Formulario:</Typography>
+                        <DropDownListFormulari />
+                      </Paper>
                     </Grid>
                   </>
                 )}

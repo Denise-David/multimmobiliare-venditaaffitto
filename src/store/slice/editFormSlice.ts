@@ -17,10 +17,7 @@ const editFormSlice = createSlice({
     textFieldValue: '' as string,
   },
   reducers: {
-    // Gestione domande
-    modifyDomandaAction(state, { payload }) {
-      state.disabled[payload] = !state.disabled[payload];
-    },
+
     initializeDomande(state, { payload }) {
       state.disabled = payload;
     },
@@ -75,7 +72,7 @@ export const stateRisultato = (state : State) => state.editForm.risultati;
 export const colDisable = (state : State) => state.editForm.colorButton;
 export const valueTextField = (state : State) => state.editForm.textFieldValue;
 export const {
-  modifyDomandaAction, modifyRepartoAction,
+  modifyRepartoAction,
   initializeDomande, enableAll, repartoOnChange,
   alertConfirmDelete, disableAll, addRispostaVuotaAction, initializeRisultati,
   modifyRisultatiAction, valueAddRepartoAction,

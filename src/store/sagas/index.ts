@@ -2,9 +2,9 @@ import {
   all, takeLatest, call, put, select, takeEvery,
 } from 'redux-saga/effects';
 
-import { domande, risultati } from '../slice/formSlice';
+import { domande, risultati } from '../slice/domandeModifySlice';
 
-import { formID } from '../slice/repartoSlice';
+import { idRepartoSelected, IDForm } from '../slice/repartoSlice';
 import { setInitialStateAction, desetInitialStateAction } from '../slice/initialStateSlice';
 import addFormulario, { addDomandaInArray } from './addFormSagas';
 import { buttonSendCode } from '../slice/CodeSlice';
@@ -19,23 +19,50 @@ import buttonSearch from './searchDoctorSagas';
 import { getFormType } from '../slice/addFormSlice';
 import initUserRightsAUTAN from './rightsUserSagas';
 import confirmAddForm, { cancelAddForm } from './departmentChoiceEditorSagas';
-import fetchFormStructureByID from '../api';
+import fetchFormStructureByID, { fetchRepartoFormByGUID } from '../api';
+import { setFormulari } from '../slice/rightsSlice';
 
 function* init(action : any) {
   try {
-    const ID : string = yield select(formID);
+    const ID = yield select(idRepartoSelected);
+
+    // cerco i nome  e id dei formulari del reparto selezionato
+    const form = yield call(fetchRepartoFormByGUID, ID);
+    // eslint-disable-next-line no-underscore-dangle
+    const formulari = form.data.map((formu : any) => {
+      const { formulario, _id } = formu;
+      const res = { formulario, _id };
+
+      return res;
+    });
+    yield put(setFormulari(formulari));
+
+    const IDFormulario = yield select(IDForm);
+    console.log('xxID', IDFormulario);
 
     // controllo se è selezionato un reparto
-    if (ID !== '0') {
+    if (IDFormulario !== '0') {
       try {
         // prendo  i risultati, domande
-        const selectedForm = yield call(fetchFormStructureByID, ID);
+
+        // eslint-disable-next-line no-underscore-dangle
+        const selectedForm = yield call(fetchFormStructureByID, IDFormulario);
+
         const datiRisultati = selectedForm.Risultati;
         yield put(risultati(datiRisultati));
 
         const datiDomande = selectedForm.Domande;
-        yield put(domande(datiDomande));
+
+        // genero un nuovo parametro stato
+        const datiDomandeWithState = datiDomande.map((domandaObj : any) => {
+          const { IDDomanda, Domanda } = domandaObj;
+          const domandaWithState = { IDDomanda, Domanda, stateModify: false };
+          return domandaWithState;
+        });
+        yield put(domande(datiDomandeWithState));
         yield put(getFormType(selectedForm.tipo));
+
+        // prendo tutti i form del reparto ID
 
         yield put(desetInitialStateAction());
       } catch (error) { console.log('errore', error); }

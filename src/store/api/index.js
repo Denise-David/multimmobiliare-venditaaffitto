@@ -21,7 +21,7 @@ export const fetchAllFormStructure = () => struttureFormReparti.find({});
 const fetchFormStructureByID = (ID) => struttureFormReparti.get(ID, {});
 export default fetchFormStructureByID;
 
-// Prendi il formulario con actualWardGUID GUID
+// Prendi i formulari con actualWardGUID GUID
 export const fetchRepartoFormByGUID = (GUID) => struttureFormReparti.find(
   { query: { actualWardGUID: GUID } },
 );

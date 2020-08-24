@@ -9,7 +9,7 @@ import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import { dataRisultati } from '../../store/slice/risultatiFormularioSlice';
 import EmptyResultLineEditor from '../EmptyResultLineEditor/EmptyResultLineEditor';
-import { selectData } from '../../store/slice/formSlice';
+import { domandeView } from '../../store/slice/domandeModifySlice';
 import {
   stateRisultato, modifyRisultatiAction, colDisable, isDisable, disableAll, enableAll,
 } from '../../store/slice/editFormSlice';
@@ -18,7 +18,7 @@ const ResultLineEditor = () => {
   const dispatch = useDispatch();
 
   const listForm = useSelector(dataRisultati);
-  const domande = useSelector(selectData);
+  const domande = useSelector(domandeView);
   const risDisabled = useSelector(stateRisultato);
   const colorButton = useSelector(colDisable);
   const disableActive = useSelector(isDisable);

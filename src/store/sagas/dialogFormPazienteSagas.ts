@@ -51,6 +51,7 @@ export default function* getDataEtichetta() {
 
     // prendo le domande del reparto selezionato
     const allDataReparto = yield call(fetchRepartoFormByGUID, repartoGUID);
+    console.log('xxData', allDataReparto);
     const datiDomande = allDataReparto.data[0].Domande;
     yield put(getDomandeReparto(datiDomande));
 

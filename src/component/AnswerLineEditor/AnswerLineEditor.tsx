@@ -5,7 +5,7 @@ import { IconButton } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Grid from '@material-ui/core/Grid';
 import { useSelector } from 'react-redux';
-import { Domanda, Risposta } from '../../store/slice/formSlice';
+import { Domanda, Risposta } from '../../store/slice/domandeModifySlice';
 import { State } from '../../store/store/store';
 import { colDisable, isDisable } from '../../store/slice/editFormSlice';
 
@@ -16,7 +16,7 @@ const AnswerLineEditor = ({ id }: Props) => {
   const disableActive = useSelector(isDisable);
 
   // eslint-disable-next-line max-len
-  const risposte = useSelector((state: State) => state.form.dataDomande.find((d: Domanda) => d.ID === id)?.Risposte);
+  const risposte = useSelector((state: State) => state.form.domandeView.find((d: Domanda) => d.ID === id)?.Risposte);
   const listItems = risposte ? risposte.map((risposta : Risposta) => (
 
     <Grid key={risposta.ID} container spacing={3}>

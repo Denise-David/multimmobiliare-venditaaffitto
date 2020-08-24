@@ -40,6 +40,11 @@ const useStyles = makeStyles((theme:Theme) => ({
     padding: theme.spacing(2),
 
   },
+  backRepartoFormulario: {
+    background: theme.palette.primary.main,
+    color: 'White',
+    padding: theme.spacing(2),
+  },
 
 }));
 export default useStyles;

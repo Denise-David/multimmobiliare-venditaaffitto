@@ -9,12 +9,12 @@ import Grid from '@material-ui/core/Grid';
 import { useSelector, useDispatch } from 'react-redux';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
-import { selectData } from '../../store/slice/formSlice';
+import { domandeView } from '../../store/slice/domandeModifySlice';
 import AnswerLineEditor from '../AnswerLineEditor/AnswerLineEditor';
 import EmptyAnswerLineEditor from '../EmptyAnswerLineEditor/EmptyAnswerLineEditor';
 import EmptyQuestionDueRisposteEditor from '../EmptyQuestionDueRisposteEditor/EmptyQuestionDueRisposteEditor';
 import {
-  modifyDomandaAction, stateTextField, isDisable, colDisable, disableAll, enableAll,
+  stateTextField, isDisable, colDisable, disableAll, enableAll,
 } from '../../store/slice/editFormSlice';
 import { initialID } from '../../store/slice/initialStateSlice';
 import useStyles from './style';
@@ -22,7 +22,7 @@ import useStyles from './style';
 const QuestionsAndAnswersEditor = () => {
   const dispatch = useDispatch();
   const iniID = useSelector(initialID);
-  const domande = useSelector(selectData);
+  const domande = useSelector(domandeView);
   const textFieldState = useSelector(stateTextField);
   const disableActive = useSelector(isDisable);
   const colorButton = useSelector(colDisable);
@@ -60,14 +60,13 @@ const QuestionsAndAnswersEditor = () => {
               <Divider />
             </span>
             <Grid container spacing={3}>
-              {textFieldState[domanda.ID]
+              {!domanda.stateModify
                 ? (
                   < >
                     <Grid item xs={12} sm={1}>
                       <IconButton
                         disabled={disableActive}
                         onClick={() => {
-                          dispatch(modifyDomandaAction(domanda.ID));
                           dispatch(disableAll());
                         }}
                       >
@@ -84,7 +83,6 @@ const QuestionsAndAnswersEditor = () => {
                   < >
                     <Grid item xs={12} sm={1}>
                       <IconButton onClick={() => {
-                        dispatch(modifyDomandaAction(domanda.ID));
                         dispatch(enableAll());
                       }}
                       >
@@ -93,7 +91,6 @@ const QuestionsAndAnswersEditor = () => {
                     </Grid>
                     <Grid item xs={12} sm={1}>
                       <IconButton onClick={() => {
-                        dispatch(modifyDomandaAction(domanda.ID));
                         dispatch(enableAll());
                       }}
                       >

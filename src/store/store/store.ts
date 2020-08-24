@@ -6,7 +6,7 @@ import loading from '../slice/loadingSlice';
 import risForm from '../slice/risultatiFormularioSlice';
 import reparto from '../slice/repartoSlice';
 import editForm from '../slice/editFormSlice';
-import form from '../slice/formSlice';
+import form from '../slice/domandeModifySlice';
 import initialState from '../slice/initialStateSlice';
 import code from '../slice/CodeSlice';
 import patientData from '../slice/patientDataSlice';

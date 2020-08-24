@@ -2,7 +2,7 @@ import {
   select, put, call, all,
 } from 'redux-saga/effects';
 import {
-  user, setRightsUserAUTAN, setRepartiCreate, setRepartiDelete,
+  user, setRightsUserAUTAN, setRepartiCreate, setRepartiDelete, setAllReparti,
 } from '../slice/rightsSlice';
 import { getUserRights, getRepartiZAM, getRepartiZAS } from '../api';
 import { extractAndMergeArray } from '../../util';
@@ -55,10 +55,13 @@ export default function* initUserRightsAUTAN() {
       }
       return null;
     }));
-    // estraggo i reparti
+    // estraggo i reparti Delete
     const listRepartiDelete = allDataRepartiDelete.map((reparto : any) => reparto.data);
 
-    // unisco gli array dell'array
+    // li metto su una variabile di stato
+    yield put(setRepartiDelete(listRepartiDelete));
+
+    // unisco i reparti del delete e create dell'array
     const arrayRepartiDelete = extractAndMergeArray(listRepartiDelete);
     const arrayRepartiCreate = extractAndMergeArray(listRepartiCreate);
     const arrayAllReparti = arrayRepartiDelete.concat(arrayRepartiCreate);
@@ -70,8 +73,8 @@ export default function* initUserRightsAUTAN() {
         ),
       ),
     );
-    // li metto su una variabile di stato
-    yield put(setRepartiDelete(listRepartiDelete));
+    // li metto su un a variabile
+    yield put(setAllReparti(ArrayUnique));
   } catch (error) {
     console.log(error);
   }

@@ -8,13 +8,14 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import Grid from '@material-ui/core/Grid';
 import { useSelector, useDispatch } from 'react-redux';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
-import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 
-import { selectData } from '../../store/slice/formSlice';
+import {
+  domandeView, setModifyClicked, setModifyUnclicked, deleteObjectDomanda, modifyDomanda,
+} from '../../store/slice/domandeModifySlice';
 
 import EmptyQuestionDueRisposteEditor from '../EmptyQuestionDueRisposteEditor/EmptyQuestionDueRisposteEditor';
 import {
-  modifyDomandaAction, stateTextField as stateTextFieldNewDomanda, isDisable,
+  isDisable,
   disableAll, enableAll,
 } from '../../store/slice/editFormSlice';
 import { initialID } from '../../store/slice/initialStateSlice';
@@ -32,8 +33,7 @@ import {
 const QuestionsEditor = () => {
   const dispatch = useDispatch();
   const iniID = useSelector(initialID);
-  const domande = useSelector(selectData);
-  const textFieldStateNewDomanda = useSelector(stateTextFieldNewDomanda);
+  const domande = useSelector(domandeView);
   const disableActive = useSelector(isDisable);
   const classes = useStyles();
   const DomandeAddFormObj = useSelector(domandeObject);
@@ -44,14 +44,14 @@ const QuestionsEditor = () => {
   const colBCheck = useSelector(colorBCheck);
 
   if (iniID !== 0) {
-    const listItems = domande.map((domanda : any) => (
+    const listItems = domande.map((domanda : any, index: any) => (
 
       <div key={domanda.ID}>
         <Paper className={classes.bordiCard} elevation={3}>
           <div className={classes.bordi}>
             <span className={classes.bordi} />
             <Grid container spacing={3}>
-              {textFieldStateNewDomanda[domanda.ID]
+              {!domanda.stateModify
                 ? (
                   < >
                     <Grid item xs={12} sm={1}>
@@ -59,15 +59,19 @@ const QuestionsEditor = () => {
                         disabled={disableActive}
                         color={colButton}
                         onClick={() => {
-                          dispatch(modifyDomandaAction(domanda.ID));
                           dispatch(disableAll());
+                          dispatch(setModifyClicked(index));
                         }}
                       >
                         <CreateIcon />
                       </IconButton>
                     </Grid>
                     <Grid item xs={12} sm={1}>
-                      <IconButton disabled={disableActive}>
+                      <IconButton
+                        onClick={() => dispatch(deleteObjectDomanda(index))}
+                        color="primary"
+                        disabled={disableActive}
+                      >
                         <DeleteIcon />
                       </IconButton>
                     </Grid>
@@ -76,30 +80,26 @@ const QuestionsEditor = () => {
                   < >
                     <Grid item xs={12} sm={1}>
                       <IconButton onClick={() => {
-                        dispatch(modifyDomandaAction(domanda.ID));
                         dispatch(enableAll());
+                        dispatch(setModifyUnclicked(index));
                       }}
                       >
                         <CheckCircleOutlineIcon color="primary" />
                       </IconButton>
                     </Grid>
-                    <Grid item xs={12} sm={1}>
-                      <IconButton onClick={() => {
-                        dispatch(modifyDomandaAction(domanda.ID));
-                        dispatch(enableAll());
-                      }}
-                      >
-                        <HighlightOffIcon color="primary" />
-                      </IconButton>
-                    </Grid>
+                    <Grid item xs={12} sm={1} />
                   </ >
                 ) }
 
               <Grid item xs={12} sm={10}>
                 <TextField
-                  disabled={textFieldStateNewDomanda[domanda.ID]}
+                  disabled={!domanda.stateModify}
                   value={domanda.Domanda}
                   fullWidth
+                  onChange={(event) => {
+                    const { value } = event.target;
+                    dispatch(modifyDomanda({ index, value }));
+                  }}
                 />
               </Grid>
             </Grid>
@@ -127,7 +127,7 @@ const QuestionsEditor = () => {
 
   // Riga Domanda per Add form a due Risposte
 
-  const listNewDomande = domandeAddFormArray.map((domandaAddForm : any) => {
+  const listNewDomande = domandeAddFormArray.map((domandaAddForm : any, index : any) => {
     const { IDDomanda } = domandaAddForm;
 
     return (

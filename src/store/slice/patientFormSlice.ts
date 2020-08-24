@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { State } from '../store/store';
-import { Domanda } from './formSlice';
+import { Domanda } from './domandeModifySlice';
 
 const patientFormSlice = createSlice({
   name: 'patientForm',

@@ -78,7 +78,6 @@ export const buttonConfirmAddFormClicked = () => ({
 });
 export const buttonCancelAddFormClicked = () => ({
   type: 'BUTTON_CANCEL_CLICKED',
-
 });
 export const buttonSaveFormClicked = () => ({
   type: 'BUTTON_SAVE_FORM_CLICKED',
