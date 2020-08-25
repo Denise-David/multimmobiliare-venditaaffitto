@@ -21,8 +21,9 @@ import {
 import {
   isIconsDisabled, unsetIcons, setIcons, colorIcons,
 } from '../../store/slice/addFormSlice';
+import { resetRisposteObject } from '../../store/slice/risposteAddFormSlice';
 
-const EmptyQuestionDueRisposteEditor = () => {
+const EmptyAddQuestionEditor = () => {
   const dispatch = useDispatch();
   const valoreTextField = useSelector(question);
   const isIconEnabled = useSelector(isIconsDisabled);
@@ -65,6 +66,7 @@ const EmptyQuestionDueRisposteEditor = () => {
                   onClick={() => {
                     dispatch(addDomandaInArray());
                     dispatch(setIcons());
+                    dispatch(resetRisposteObject());
                   }}
 
                 >
@@ -107,4 +109,4 @@ const EmptyQuestionDueRisposteEditor = () => {
   );
 };
 
-export default EmptyQuestionDueRisposteEditor;
+export default EmptyAddQuestionEditor;

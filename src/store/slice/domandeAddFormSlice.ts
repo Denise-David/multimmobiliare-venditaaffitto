@@ -2,7 +2,11 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import { State } from '../store/store';
 
-export interface domandaAddForm{IDDomanda : string, Domanda : string, stateText : boolean}
+export interface domandaAddForm {
+  IDDomanda : string,
+   Domanda : string,
+   stateText : boolean,
+    Risposte? : []}
 
 const domandeAddFormSlice = createSlice({
   name: 'domandeAddForm',
@@ -30,7 +34,12 @@ const domandeAddFormSlice = createSlice({
     setDomanda(state, { payload }) {
       state.Question = payload;
     },
-    setDomandaInObjectDomande(state, { payload }) {
+    setDomandaInObjectDomandeTwoRes(state, { payload }) {
+      const { IDDomanda } = payload;
+      state.domandeObject[IDDomanda] = payload;
+      state.domandeObject[IDDomanda].stateText = true;
+    },
+    setDomandaInObjectDomandeMoreRes(state, { payload }) {
       const { IDDomanda } = payload;
       state.domandeObject[IDDomanda] = payload;
       state.domandeObject[IDDomanda].stateText = true;
@@ -89,7 +98,7 @@ export const isBAddDomandaClicked = (state : State) => state.domandeAddForm.isBA
 export const isTextFieldNewDomandaDisabled = (state : State) => state.domandeAddForm.isTextFieldNewDomandaDisabled;
 export const {
   setBAddDomandaClicked, setBAddDomandaUnclicked,
-  setDomanda, setDomandaInObjectDomande, resetDomanda,
+  setDomanda, setDomandaInObjectDomandeTwoRes: setDomandaInObjectDomande, resetDomanda,
   setBModifyDomandaClicked, setBModifyDomandaUnclicked,
   modifyDomandaInObjectDomande, deleteDomandaInObjectDomande, setBCheckDisabled,
   setBCheckEnabled, setBCheckAddDomandaDisabled, setBCheckAddDomandaEnabled,

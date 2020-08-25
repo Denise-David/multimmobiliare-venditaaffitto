@@ -83,6 +83,15 @@ export const buttonSaveFormClicked = () => ({
   type: 'BUTTON_SAVE_FORM_CLICKED',
 });
 
+export const buttonAddClicked = () => ({
+  type: 'BUTTON_ADD_CLICKED',
+});
+
+export const buttonDeleteOrSaveClicked = () => ({
+  type: 'BUTTON_DELETE_OR_SAVE_CLICKED',
+
+});
+
 // eslint-disable-next-line max-len
 export const colorIcons = (state : State) => state.addForm.colorIcons;
 export const isBSaveDisabled = (state : State) => state.addForm.isBSaveDisabled;

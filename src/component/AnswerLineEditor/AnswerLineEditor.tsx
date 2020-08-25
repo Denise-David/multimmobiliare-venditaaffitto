@@ -5,21 +5,25 @@ import { IconButton } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Grid from '@material-ui/core/Grid';
 import { useSelector } from 'react-redux';
-import { Domanda, Risposta } from '../../store/slice/domandeModifySlice';
-import { State } from '../../store/store/store';
 import { colDisable, isDisable } from '../../store/slice/editFormSlice';
+import { risposteOfDomandaObject, stateAddedRisposta } from '../../store/slice/risposteAddFormSlice';
+import { objectToArray } from '../../util';
 
 interface Props {id : string}
 
 const AnswerLineEditor = ({ id }: Props) => {
   const colorButton = useSelector(colDisable);
   const disableActive = useSelector(isDisable);
+  const buttonAddClicked = useSelector(stateAddedRisposta);
+  const risposteOFDomandeObj = useSelector(risposteOfDomandaObject);
 
-  // eslint-disable-next-line max-len
-  const risposte = useSelector((state: State) => state.form.domandeView.find((d: Domanda) => d.ID === id)?.Risposte);
-  const listItems = risposte ? risposte.map((risposta : Risposta) => (
+  const risposteOfDomanda = risposteOFDomandeObj[id] ? risposteOFDomandeObj[id] : {};
+  const risposteArray = objectToArray(risposteOfDomanda);
+  console.log('xxresArray', risposteArray);
 
-    <Grid key={risposta.ID} container spacing={3}>
+  const listItems = risposteArray ? risposteArray.map((risposta : any) => (
+
+    <Grid key={risposta.IDRisposta} container spacing={3}>
       <Grid item xs={12} sm={1}>
         <IconButton disabled={disableActive}>
           <CreateIcon color={colorButton} />
@@ -32,10 +36,10 @@ const AnswerLineEditor = ({ id }: Props) => {
       </Grid>
       <Grid item xs={12} sm={5} />
       <Grid item xs={12} sm={4}>
-        <TextField disabled id="standard-basic" value={risposta.risposta} fullWidth />
+        <TextField disabled id="standard-basic" value={risposta.Risposta} fullWidth />
       </Grid>
       <Grid item xs={12} sm={1}>
-        <TextField disabled id="standard-basic" value={risposta.valore} fullWidth />
+        <TextField disabled id="standard-basic" value={risposta.Valore} fullWidth />
       </Grid>
 
     </Grid>

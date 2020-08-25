@@ -1,58 +1,80 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import TextField from '@material-ui/core/TextField';
 import { IconButton } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import { useSelector, useDispatch } from 'react-redux';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
-import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import {
-  risActive, addRispostaVuotaAction, isDisable, colDisable,
+  isDisable, colDisable,
 } from '../../store/slice/editFormSlice';
+import {
+  setAddRispostaClicked, stateAddedRisposta,
+  setAddRispostaUnclicked, setAnswer, setValore, addRisposta,
+} from '../../store/slice/risposteAddFormSlice';
 
-const EmptyAnswerLineEditor = () => {
+interface Props{ IDDomanda: string}
+
+const EmptyAnswerLineEditor = ({ IDDomanda }: Props) => {
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(setAddRispostaUnclicked(IDDomanda));
+  }, [dispatch]);
 
   const colorButton = useSelector(colDisable);
   const disableActive = useSelector(isDisable);
-  const risultActive = useSelector(risActive);
-
-  const addRispostaDispatch = () => {
-    dispatch(addRispostaVuotaAction());
-  };
+  const stateTextField = useSelector(stateAddedRisposta);
 
   return (
     <div>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={1} />
 
-        {risultActive
+        {stateTextField[IDDomanda]
           ? (
             <Grid item xs={12} sm={1}>
               <IconButton disabled={disableActive}>
-                <AddCircleOutlineIcon onClick={addRispostaDispatch} color={colorButton} />
+                <AddCircleOutlineIcon
+                  onClick={() => dispatch(setAddRispostaClicked(IDDomanda))}
+                  color={colorButton}
+                />
               </IconButton>
             </Grid>
 
           )
           : (
-            <div>
-              <IconButton onClick={addRispostaDispatch} color="primary">
-                <HighlightOffIcon />
-              </IconButton>
-              <IconButton onClick={addRispostaDispatch} color="primary">
+            <Grid item xs={12} sm={1}>
+              <IconButton onClick={() => (dispatch(addRisposta(IDDomanda)))} color="primary">
                 <CheckCircleOutlineIcon />
               </IconButton>
-            </div>
+            </Grid>
           )}
 
         <Grid item xs={12} sm={1} />
         <Grid item xs={12} sm={4} />
         <Grid item xs={12} sm={4}>
-          <TextField disabled={risultActive} id="standard-basic" fullWidth />
+
+          <TextField
+            onChange={(event) => {
+              const { value } = event.target;
+              dispatch(setAnswer(value));
+            }}
+            disabled={stateTextField[IDDomanda]}
+            id="standard-basic"
+            fullWidth
+          />
+
         </Grid>
         <Grid item xs={12} sm={1}>
-          <TextField disabled={risultActive} id="standard-basic" fullWidth />
+          <TextField
+            onChange={(event) => {
+              const { value } = event.target;
+              dispatch(setValore(value));
+            }}
+            disabled={stateTextField[IDDomanda]}
+            id="standard-basic"
+            fullWidth
+          />
         </Grid>
       </Grid>
     </div>

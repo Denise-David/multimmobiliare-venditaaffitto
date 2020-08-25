@@ -1,16 +1,27 @@
 import { call, select, put } from 'redux-saga/effects';
 import { v4 as uuidv4 } from 'uuid';
-import { risposta2 as Response2, risposta1 as response1 } from '../slice/risposteAddFormSlice';
+import {
+  risposteObject,
+  valore, answer, risposta2 as Response2,
+  risposta1 as response1, setAnswerInObject, setAnswersInDomanda, resetRisposteObject,
+} from '../slice/risposteAddFormSlice';
 
 import {
   domandaAddForm,
   domandeObject,
-  question, setDomandaInObjectDomande, setBAddDomandaUnclicked, resetDomanda,
+  question, setBAddDomandaUnclicked, resetDomanda,
+  setDomandaInObjectDomande,
 } from '../slice/domandeAddFormSlice';
 
-import { formType, selectedReparto, nomeFormulario } from '../slice/addFormSlice';
+import {
+  formType, selectedReparto, nomeFormulario, setBAddFormClicked,
+} from '../slice/addFormSlice';
 import { addFormDueRisposte } from '../api';
 import { objectToArray } from '../../util';
+import { setInitialStateAction } from '../slice/initialStateSlice';
+import { resetDomande } from '../slice/domandeModifySlice';
+import { resetRisultati } from '../slice/risultatiFormularioSlice';
+import { alertConfirmDelete, disableAll } from '../slice/editFormSlice';
 
 // eslint-disable-next-line import/no-cycle
 
@@ -46,4 +57,36 @@ export function* addDomandaInArray() {
   yield put(setDomandaInObjectDomande({ IDDomanda, Domanda }));
   yield put(setBAddDomandaUnclicked());
   yield put(resetDomanda());
+}
+
+export function* clickAddButton() {
+  yield put(setBAddFormClicked());
+  yield put(setInitialStateAction());
+  yield put(resetDomande());
+  yield put(resetRisultati());
+}
+export function* clickDelOrSaveButton() {
+  yield put(alertConfirmDelete());
+  yield put(disableAll());
+}
+
+export function* addDomandaMoreAnswers() {
+  const IDDomanda = uuidv4();
+  const Domanda = yield select(question);
+
+  yield put(setDomandaInObjectDomande({ IDDomanda, Domanda }));
+  yield put(setBAddDomandaUnclicked());
+  yield put(resetDomanda());
+}
+export function* addRes(action:any) {
+  const IDRisposta = uuidv4();
+  const Risposta = yield select(answer);
+  const Valore = yield select(valore);
+
+  yield put(setAnswerInObject({ IDRisposta, Risposta, Valore }));
+  const IDDomanda = action.payload;
+  const risposteObj = yield select(risposteObject);
+  console.log('xxxRisposteObj', risposteObj);
+
+  yield put(setAnswersInDomanda({ IDDomanda, risposteObj }));
 }

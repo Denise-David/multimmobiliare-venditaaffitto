@@ -46,6 +46,26 @@ export const addFormDueRisposte = (
   },
 );
 
+// Aggiungi formulario piu risposte
+export const addFormPiuRisposte = (
+  nomeReparto, tipoForm,
+  idReparto, nomeForm,
+  domande, risposta1, risposta2,
+) => struttureFormReparti.create(
+  {
+    tipo: tipoForm,
+    actualWardGUID: idReparto,
+    Reparto: nomeReparto,
+    formulario: nomeForm,
+    Domande: domande,
+    Risposte: {
+      risposta1,
+      risposta2,
+    },
+
+  },
+);
+
 // Prendo i dati dell'etichetta
 export const getEtichettaDataByLabel = (labelNumber) => axios.get(`/autoanamnesi/forwardCall/adts?edsId=${labelNumber}`);
 

@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { DialogContent, MenuItem } from '@material-ui/core';
 import Nav from '../../component/Navbar/Navbar';
 import useStyles from './style';
-import DepartmentChoiceEditor from '../../component/DepartmentChoiceEditor/DepartmentChoiceEditor';
+import HeaderEditor from '../../component/HeaderEditor/HeaderEditor';
 import QuestionsAndAnswersEditor from '../../component/QuestionsAndAnswersEditor/QuestionsAndAnswersEditor';
 import { isButtonAddFormClicked, formType, setSelectedReparto } from '../../store/slice/addFormSlice';
 
@@ -59,7 +59,7 @@ const FormPaziente = () => {
         >
           {username}
         </Typography>
-        <DepartmentChoiceEditor />
+        <HeaderEditor />
         {addReparto
           ? (
             <>

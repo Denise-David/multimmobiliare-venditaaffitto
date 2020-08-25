@@ -13,7 +13,7 @@ import {
   domandeView, setModifyClicked, setModifyUnclicked, deleteObjectDomanda, modifyDomanda,
 } from '../../store/slice/domandeModifySlice';
 
-import EmptyQuestionDueRisposteEditor from '../EmptyQuestionDueRisposteEditor/EmptyQuestionDueRisposteEditor';
+import EmptyAddQuestionEditor from '../EmptyAddQuestionEditor/EmptyAddQuestionEditor';
 import {
   isDisable,
   disableAll, enableAll,
@@ -61,6 +61,7 @@ const QuestionsEditor = () => {
                         onClick={() => {
                           dispatch(disableAll());
                           dispatch(setModifyClicked(index));
+                          dispatch(unsetIcons());
                         }}
                       >
                         <CreateIcon />
@@ -82,6 +83,7 @@ const QuestionsEditor = () => {
                       <IconButton onClick={() => {
                         dispatch(enableAll());
                         dispatch(setModifyUnclicked(index));
+                        dispatch(setIcons());
                       }}
                       >
                         <CheckCircleOutlineIcon color="primary" />
@@ -119,7 +121,7 @@ const QuestionsEditor = () => {
         <div className={classes.padding}>
           <div className={classes.marginDivider} />
           {listItems}
-          <EmptyQuestionDueRisposteEditor />
+          <EmptyAddQuestionEditor />
         </div>
       </div>
     );
@@ -240,7 +242,7 @@ const QuestionsEditor = () => {
         </Grid>
 
         {listNewDomande}
-        <EmptyQuestionDueRisposteEditor />
+        <EmptyAddQuestionEditor />
         <Typography className={classes.marginGenerico} variant="body1">
           * L&apos;intestazione è quella porzione di testo che viene messa
           all&apos;inizio di ogni domanda.

@@ -6,7 +6,9 @@ import { domande, risultati } from '../slice/domandeModifySlice';
 
 import { idRepartoSelected, IDForm } from '../slice/repartoSlice';
 import { setInitialStateAction, desetInitialStateAction } from '../slice/initialStateSlice';
-import addFormulario, { addDomandaInArray } from './addFormSagas';
+import addFormulario, {
+  addDomandaInArray, clickAddButton, clickDelOrSaveButton, addRes,
+} from './addFormSagas';
 import { buttonSendCode } from '../slice/CodeSlice';
 import getDataEtichetta, { sendDataPazienti } from './dialogFormPazienteSagas';
 import { buttonSendForm } from '../slice/patientFormSlice';
@@ -88,6 +90,9 @@ function* actionWatcher() {
   yield takeLatest('BUTTON_CONFIRM_CLICKED', confirmAddForm);
   yield takeLatest('BUTTON_CANCEL_CLICKED', cancelAddForm);
   yield takeLatest('ADD_DOMANDA_IN_ARRAY', addDomandaInArray);
+  yield takeLatest('BUTTON_ADD_CLICKED', clickAddButton);
+  yield takeLatest('BUTTON_DELETE_OR_SAVE_CLICKED', clickDelOrSaveButton);
+  yield takeLatest('ADD_RISPOSTA', addRes);
 }
 export default function* rootSaga() {
   yield all([actionWatcher()]);
