@@ -50,7 +50,7 @@ export const addFormDueRisposte = (
 export const addFormPiuRisposte = (
   nomeReparto, tipoForm,
   idReparto, nomeForm,
-  domande, risposta1, risposta2,
+  domande, risultati,
 ) => struttureFormReparti.create(
   {
     tipo: tipoForm,
@@ -58,10 +58,7 @@ export const addFormPiuRisposte = (
     Reparto: nomeReparto,
     formulario: nomeForm,
     Domande: domande,
-    Risposte: {
-      risposta1,
-      risposta2,
-    },
+    Risultati: risultati,
 
   },
 );

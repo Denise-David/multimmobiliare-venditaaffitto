@@ -5,7 +5,7 @@ import rootSaga from '../sagas';
 import loading from '../slice/loadingSlice';
 import risForm from '../slice/risultatiFormularioSlice';
 import reparto from '../slice/repartoSlice';
-import editForm from '../slice/editFormSlice';
+import editForm from '../slice/risultatiAddFormSlice';
 import form from '../slice/domandeModifySlice';
 import initialState from '../slice/initialStateSlice';
 import code from '../slice/CodeSlice';

@@ -6,66 +6,57 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import Grid from '@material-ui/core/Grid';
 import { useSelector, useDispatch } from 'react-redux';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
-import HighlightOffIcon from '@material-ui/icons/HighlightOff';
-import { dataRisultati } from '../../store/slice/risultatiFormularioSlice';
 import EmptyResultLineEditor from '../EmptyResultLineEditor/EmptyResultLineEditor';
 import { domandeView } from '../../store/slice/domandeModifySlice';
 import {
-  stateRisultato, modifyRisultatiAction, colDisable, isDisable, disableAll, enableAll,
-} from '../../store/slice/editFormSlice';
+  colDisable, disableAll, enableAll, risultati, setBModifyClicked,
+  setBModifyUnclicked, deleteRisultato,
+} from '../../store/slice/risultatiAddFormSlice';
+import { objectToArray } from '../../util';
 
 const ResultLineEditor = () => {
   const dispatch = useDispatch();
 
-  const listForm = useSelector(dataRisultati);
+  const risultatiObject = useSelector(risultati);
   const domande = useSelector(domandeView);
-  const risDisabled = useSelector(stateRisultato);
   const colorButton = useSelector(colDisable);
-  const disableActive = useSelector(isDisable);
+
+  const risultatiArray = objectToArray(risultatiObject);
+
   if (domande !== null) {
-    const listItems = listForm ? listForm.Risultati.map((oneForm) => (
+    const listRisultati = risultatiArray ? risultatiArray.map((oneForm: any) => (
 
       // eslint-disable-next-line react/jsx-key
       <Grid container spacing={3}>
-
-        { risDisabled[oneForm.ID]
+        {!oneForm.stateModify
           ? (
             <>
               <Grid item xs={12} sm={1}>
                 <IconButton
-                  disabled={disableActive}
+
                   onClick={() => {
-                    dispatch(modifyRisultatiAction(oneForm.ID));
                     dispatch(disableAll());
+                    dispatch(setBModifyClicked(oneForm.IDRisultato));
                   }}
                 >
                   <CreateIcon color={colorButton} />
                 </IconButton>
               </Grid>
               <Grid item xs={12} sm={1}>
-                <IconButton disabled={disableActive}>
+                <IconButton onClick={() => dispatch(deleteRisultato(oneForm.IDRisultato))}>
                   <DeleteIcon color={colorButton} />
                 </IconButton>
               </Grid>
             </>
           ) : (
             <>
-              <Grid item xs={12} sm={1}>
+              <Grid item xs={12} sm={2}>
                 <IconButton onClick={() => {
-                  dispatch(modifyRisultatiAction(oneForm.ID));
                   dispatch(enableAll());
+                  dispatch(setBModifyUnclicked(oneForm.IDRisultato));
                 }}
                 >
                   <CheckCircleOutlineIcon color="primary" />
-                </IconButton>
-              </Grid>
-              <Grid item xs={12} sm={1}>
-                <IconButton onClick={() => {
-                  dispatch(modifyRisultatiAction(oneForm.ID));
-                  dispatch(enableAll());
-                }}
-                >
-                  <HighlightOffIcon color="primary" />
                 </IconButton>
               </Grid>
             </>
@@ -73,19 +64,19 @@ const ResultLineEditor = () => {
           )}
 
         <Grid item xs={12} sm={6}>
-          <TextField disabled={risDisabled[oneForm.ID]} id="standard-basic" value={oneForm.testoAnamnesi} fullWidth />
+          <TextField disabled={!oneForm.stateModify} id="standard-basic" value={oneForm.risultato} fullWidth />
         </Grid>
         <Grid item xs={12} sm={2}>
-          <TextField disabled={risDisabled[oneForm.ID]} id="standard-basic" value={oneForm.valoreMin} fullWidth />
+          <TextField disabled={!oneForm.stateModify} id="standard-basic" value={oneForm.ValoreMin} fullWidth />
         </Grid>
         <Grid item xs={12} sm={2}>
-          <TextField disabled={risDisabled[oneForm.ID]} id="standard-basic" value={oneForm.valoreMax} fullWidth />
+          <TextField disabled={!oneForm.stateModify} id="standard-basic" value={oneForm.ValoreMax} fullWidth />
         </Grid>
       </Grid>
     )) : <></>;
     return (
       <div>
-        {listItems}
+        {listRisultati}
         <EmptyResultLineEditor />
 
       </div>

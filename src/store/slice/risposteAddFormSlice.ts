@@ -18,33 +18,50 @@ const risposteAddFormSlice = createSlice({
     isBCheckRis2Disabled: false as boolean,
     colorBCheckRis1: 'primary' as 'primary' | 'default' |'inherit' | 'secondary' | 'default' | undefined,
     colorBCheckRis2: 'primary' as 'primary' | 'default' |'inherit' | 'secondary' | 'default' | undefined,
-    risposteObject: {} as {[key:string]:rispostaMoreAnswers},
     stateAddRisposta: { } as {[key:string]:boolean},
-    answer: '' as string,
-    valore: -1 as number,
-    risposteOfDomandaObject: {} as risposteOfQuestion,
+    answer: {} as any,
+    valore: {} as any,
+    risposteOfDomandaObject: {} as any,
   },
   reducers: {
+    setModifyRispostaClicked(state, { payload }) {
+      const { IDDomanda, IDRisposta } = payload;
+      state.risposteOfDomandaObject[IDDomanda][IDRisposta].stateModify = true;
+    },
+    setModifyRispostaUnclicked(state, { payload }) {
+      const { IDDomanda, IDRisposta } = payload;
+      state.risposteOfDomandaObject[IDDomanda][IDRisposta].stateModify = false;
+    },
+    deleteDomandeObject(state, { payload }) {
+      delete state.risposteOfDomandaObject[payload];
+    },
     deleteRisposta(state, { payload }) {
       const { IDDomanda, IDRisposta } = payload;
-      // delete state.risposteOfDomandaObject[IDDomanda][IDRisposta];
+      delete state.risposteOfDomandaObject[IDDomanda][IDRisposta];
     },
-    resetRisposteObject(state) {
-      state.risposteObject = {};
+    resetAnswerValore(state) {
+      state.answer = {};
+      state.valore = {};
     },
     setAnswersInDomanda(state, { payload }) {
-      const { IDDomanda, risposteObj } = payload;
-      state.risposteOfDomandaObject[IDDomanda] = risposteObj;
-    },
-    setAnswerInObject(state, { payload }) {
-      const { IDRisposta } = payload;
-      state.risposteObject[IDRisposta] = payload;
+      const stateModify = false;
+      const {
+        IDDomanda, IDRisposta, Risposta, Valore,
+      } = payload;
+
+      const oldRisposte = state.risposteOfDomandaObject[IDDomanda] || {};
+      oldRisposte[IDRisposta] = {
+        IDRisposta, Risposta, Valore, stateModify,
+      };
+      state.risposteOfDomandaObject[IDDomanda] = oldRisposte;
     },
     setAnswer(state, { payload }) {
-      state.answer = payload;
+      const { IDDomanda, value } = payload;
+      state.answer[IDDomanda] = value;
     },
     setValore(state, { payload }) {
-      state.valore = payload;
+      const { IDDomanda, value } = payload;
+      state.valore[IDDomanda] = value;
     },
     setAddRispostaClicked(state, { payload }) {
       state.stateAddRisposta[payload] = false;
@@ -104,7 +121,6 @@ export const risposteOfDomandaObject = (state : State) => state.risposteAddForm.
 export const answer = (state : State) => state.risposteAddForm.answer;
 export const valore = (state : State) => state.risposteAddForm.valore;
 export const stateAddedRisposta = (state : State) => state.risposteAddForm.stateAddRisposta;
-export const risposteObject = (state : State) => state.risposteAddForm.risposteObject;
 export const isBCheckRis2Disabled = (state : State) => state.risposteAddForm.isBCheckRis2Disabled;
 export const colorBCheckRis2 = (state : State) => state.risposteAddForm.colorBCheckRis2;
 export const isBCheckRis1Disabled = (state : State) => state.risposteAddForm.isBCheckRis1Disabled;
@@ -120,6 +136,8 @@ export const {
   setBCheckRisposta1Enabled, setBCheckRisposta2Disabled,
   setBCheckRisposta2Enabled, setAddRispostaClicked,
   setAddRispostaUnclicked, setAnswer, setValore,
-  setAnswerInObject, setAnswersInDomanda, resetRisposteObject,
+  setAnswersInDomanda, resetAnswerValore,
+  deleteRisposta, deleteDomandeObject, setModifyRispostaClicked,
+  setModifyRispostaUnclicked,
 } = risposteAddFormSlice.actions;
 export default risposteAddFormSlice.reducer;

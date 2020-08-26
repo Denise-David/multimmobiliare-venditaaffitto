@@ -15,7 +15,7 @@ import {
   isBConfirmAddFormClicked, isBSaveDisabled,
   buttonSaveFormClicked, buttonDeleteOrSaveClicked, buttonAddClicked,
 } from '../../store/slice/addFormSlice';
-import { isDisable, colDisable } from '../../store/slice/editFormSlice';
+import { isDisable, colDisable } from '../../store/slice/risultatiAddFormSlice';
 import { initialID } from '../../store/slice/initialStateSlice';
 
 const PrimaryButtons = () => {

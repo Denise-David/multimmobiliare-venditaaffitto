@@ -1,7 +1,7 @@
 import { put, select } from 'redux-saga/effects';
 import {
   enableAll,
-} from '../slice/editFormSlice';
+} from '../slice/risultatiAddFormSlice';
 import {
   resetFormType, resetSelectedReparto, setConfirmDisabled,
   isButtonAddFormClicked, setBAddFormUnclicked, setBConfirmAddFormClicked,
@@ -9,6 +9,7 @@ import {
 } from '../slice/addFormSlice';
 import { resetIDReparto, resetIDForm } from '../slice/repartoSlice';
 import { setInitialStateAction } from '../slice/initialStateSlice';
+import { resetDomandeOfDomandeObject } from '../slice/domandeAddFormSlice';
 // eslint-disable-next-line import/no-cycle
 
 export default function* confirmAddForm() {
@@ -29,6 +30,7 @@ export function* cancelAddForm() {
   yield put(resetIDReparto());
   yield put(resetIDForm());
   yield put(setInitialStateAction());
+  yield put(resetDomandeOfDomandeObject());
   if (addReparto === true) {
     yield put(resetIDReparto());
   }

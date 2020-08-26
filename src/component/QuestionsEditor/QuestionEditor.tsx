@@ -17,7 +17,7 @@ import EmptyAddQuestionEditor from '../EmptyAddQuestionEditor/EmptyAddQuestionEd
 import {
   isDisable,
   disableAll, enableAll,
-} from '../../store/slice/editFormSlice';
+} from '../../store/slice/risultatiAddFormSlice';
 import { initialID } from '../../store/slice/initialStateSlice';
 import useStyles from './style';
 import {

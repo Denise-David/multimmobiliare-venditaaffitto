@@ -8,7 +8,7 @@ import useStyles from './style';
 import { resetIDReparto } from '../../store/slice/repartoSlice';
 import {
   delActive, alertConfirmDelete, enableAll,
-} from '../../store/slice/editFormSlice';
+} from '../../store/slice/risultatiAddFormSlice';
 import { resetDomande } from '../../store/slice/domandeModifySlice';
 import { setInitialStateAction } from '../../store/slice/initialStateSlice';
 import { resetRisultati } from '../../store/slice/risultatiFormularioSlice';

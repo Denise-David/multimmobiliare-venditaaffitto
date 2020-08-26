@@ -21,6 +21,12 @@ const domandeAddFormSlice = createSlice({
     colorBCheckAddDomanda: 'default' as 'primary' | 'default' |'inherit' | 'secondary' | 'default' | undefined,
   },
   reducers: {
+    resetDomandaByIDDomanda(state, { payload }) {
+      delete state.domandeObject[payload];
+    },
+    resetDomandeOfDomandeObject(state) {
+      state.domandeObject = {};
+    },
     setBAddDomandaClicked(state) {
       state.isBAddDomandaclicked = true;
       state.isTextFieldNewDomandaDisabled = false;
@@ -84,6 +90,10 @@ export const addDomandaInArray = () => ({
   type: 'ADD_DOMANDA_IN_ARRAY',
 
 });
+export const deleteDomandaFormPiuRes = (payload:any) => ({
+  type: 'DELETE_DOMANDA_FORM_PIU_RES',
+  payload,
+});
 
 // eslint-disable-next-line max-len
 export const isBCheckAddDomandaDisabled = (state : State) => state.domandeAddForm.isBCheckAddDomandaDisabled;
@@ -101,7 +111,9 @@ export const {
   setDomanda, setDomandaInObjectDomandeTwoRes: setDomandaInObjectDomande, resetDomanda,
   setBModifyDomandaClicked, setBModifyDomandaUnclicked,
   modifyDomandaInObjectDomande, deleteDomandaInObjectDomande, setBCheckDisabled,
-  setBCheckEnabled, setBCheckAddDomandaDisabled, setBCheckAddDomandaEnabled,
+  setBCheckEnabled, setBCheckAddDomandaDisabled,
+  setBCheckAddDomandaEnabled, resetDomandaByIDDomanda,
+  resetDomandeOfDomandeObject,
 
 } = domandeAddFormSlice.actions;
 export default domandeAddFormSlice.reducer;

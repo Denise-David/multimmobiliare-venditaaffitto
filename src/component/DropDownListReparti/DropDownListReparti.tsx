@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormControl, Select, MenuItem } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
-import { isDisable } from '../../store/slice/editFormSlice';
+import { isDisable } from '../../store/slice/risultatiAddFormSlice';
 import { idRepartoSelected, setRepartoSelected } from '../../store/slice/repartoSlice';
 import { allReparti } from '../../store/slice/rightsSlice';
 
