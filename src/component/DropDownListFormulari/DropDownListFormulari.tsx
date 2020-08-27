@@ -2,13 +2,13 @@ import React from 'react';
 import { FormControl, Select, MenuItem } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
 import { formulariByReparto } from '../../store/slice/rightsSlice';
-import { setFormularioSelected, IDForm, idRepartoSelected } from '../../store/slice/repartoSlice';
+import { setFormularioSelected, IDForm, IDRepartoSelected } from '../../store/slice/repartoDDLSlice';
 
 const DropDownListFormulari = () => {
   const formulari = useSelector(formulariByReparto);
   const dispatch = useDispatch();
   const IDFormulario = useSelector(IDForm);
-  const IDRep = useSelector(idRepartoSelected);
+  const IDRep = useSelector(IDRepartoSelected);
 
   // attivo la DDL formulari solo se c'è un valore nella DDL reparti
   let disabled = true;

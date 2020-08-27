@@ -9,13 +9,26 @@ const risultatiAddFormSlice = createSlice({
     deleteActive: false as boolean | undefined,
     isDisable: false,
     risultati: {} as any,
-    valoreMin: '' as string,
-    valoreMax: '' as string,
-    risultato: ''as string,
+    valueMin: 0 as number,
+    valueMax: 0 as number,
+    result: ''as string,
     colorButton: 'primary' as 'inherit' | 'disabled' | 'primary' | 'action' | 'secondary' | 'error' | undefined,
     stateTextFieldAddRisultato: true as boolean,
   },
   reducers: {
+    modifyRisultato(state, { payload }) {
+      const {
+        IDRisultato, risultato, valoreMin, valoreMax,
+      } = payload;
+      state.risultati[IDRisultato].risultato = risultato;
+      state.risultati[IDRisultato].valoreMin = valoreMin;
+      state.risultati[IDRisultato].valoreMax = valoreMax;
+    },
+    resetRisultato(state) {
+      state.result = '';
+      state.valueMax = 0;
+      state.valueMin = 0;
+    },
     deleteRisultato(state, { payload }) {
       delete state.risultati[payload];
     },
@@ -32,13 +45,13 @@ const risultatiAddFormSlice = createSlice({
       state.stateTextFieldAddRisultato = true;
     },
     setRisultato(state, { payload }) {
-      state.risultato = payload;
+      state.result = payload;
     },
     setValoreMax(state, { payload }) {
-      state.valoreMax = payload;
+      state.valueMax = payload;
     },
     setValoreMin(state, { payload }) {
-      state.valoreMin = payload;
+      state.valueMin = payload;
     },
     addRisultato(state, { payload }) {
       const { IDRisultato } = payload;
@@ -66,10 +79,10 @@ export const addRisultatoClicked = () => ({
 
 // eslint-disable-next-line max-len
 export const textFieldStateAddRisultato = (state : State) => state.editForm.stateTextFieldAddRisultato;
-export const valoreMax = (state : State) => state.editForm.valoreMax;
+export const valueMax = (state : State) => state.editForm.valueMax;
 export const risultati = (state: State) => state.editForm.risultati;
-export const valoreMin = (state: State) => state.editForm.valoreMin;
-export const result = (state: State) => state.editForm.risultato;
+export const valueMin = (state: State) => state.editForm.valueMin;
+export const result = (state: State) => state.editForm.result;
 export const delActive = (state : State) => state.editForm.deleteActive;
 export const isDisable = (state : State) => state.editForm.isDisable;
 export const stateRisultato = (state : State) => state.editForm.risultati;
@@ -82,5 +95,6 @@ export const {
   setRisultato, setValoreMax, setValoreMin,
   addRisultato, setBAddResultClicked, setBAddResultUnclicked,
   setBModifyClicked, setBModifyUnclicked, deleteRisultato,
+  resetRisultato, modifyRisultato,
 } = risultatiAddFormSlice.actions;
 export default risultatiAddFormSlice.reducer;

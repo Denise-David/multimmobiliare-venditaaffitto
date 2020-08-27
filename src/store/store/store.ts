@@ -4,7 +4,7 @@ import logger from 'redux-logger';
 import rootSaga from '../sagas';
 import loading from '../slice/loadingSlice';
 import risForm from '../slice/risultatiFormularioSlice';
-import reparto from '../slice/repartoSlice';
+import reparto from '../slice/repartoDDLSlice';
 import editForm from '../slice/risultatiAddFormSlice';
 import form from '../slice/domandeModifySlice';
 import initialState from '../slice/initialStateSlice';

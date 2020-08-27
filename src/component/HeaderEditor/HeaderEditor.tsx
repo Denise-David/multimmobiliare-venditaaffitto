@@ -5,7 +5,7 @@ import {
 import Grid from '@material-ui/core/Grid';
 import { useSelector, useDispatch } from 'react-redux';
 import useStyles from './style';
-import { resetIDReparto } from '../../store/slice/repartoSlice';
+import { resetIDReparto } from '../../store/slice/repartoDDLSlice';
 import {
   delActive, alertConfirmDelete, enableAll,
 } from '../../store/slice/risultatiAddFormSlice';

@@ -79,6 +79,7 @@ const EmptyAddQuestionEditor = () => {
                     dispatch(setBAddDomandaUnclicked());
                     dispatch(resetDomanda());
                     dispatch(setIcons());
+                    dispatch(enableAll());
                   }}
                 >
                   <HighlightOffIcon />
@@ -86,6 +87,7 @@ const EmptyAddQuestionEditor = () => {
               </Grid>
               <Grid item xs={12} sm={10}>
                 <TextField
+                  error={bCheckDisabled}
                   autoFocus={!textFieldDomandaDisabled}
                   value={valoreTextField}
                   onChange={(event) => {

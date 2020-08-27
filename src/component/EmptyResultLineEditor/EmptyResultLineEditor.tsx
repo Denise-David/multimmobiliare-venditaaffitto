@@ -8,14 +8,21 @@ import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import {
   colDisable, isDisable, setRisultato, setValoreMin,
   setValoreMax, textFieldStateAddRisultato, setBAddResultClicked,
-  setBAddResultUnclicked, addRisultatoClicked,
+  setBAddResultUnclicked, addRisultatoClicked, disableAll, enableAll,
+  result, valueMax, valueMin, resetRisultato,
 } from '../../store/slice/risultatiAddFormSlice';
+import { unsetIcons, setIcons } from '../../store/slice/addFormSlice';
 
 const EmptyResultLineEditor = () => {
   const colorButton = useSelector(colDisable);
   const disableActive = useSelector(isDisable);
   const dispatch = useDispatch();
   const textFieldState = useSelector(textFieldStateAddRisultato);
+  const res = useSelector(result);
+  const valMin = useSelector(valueMin);
+  const valMax = useSelector(valueMax);
+  // eslint-disable-next-line no-useless-escape
+  const NON_DIGIT = '/[^\d]/g';
 
   return (
     <div>
@@ -24,7 +31,14 @@ const EmptyResultLineEditor = () => {
         <Grid item xs={12} sm={1}>
           {textFieldState
             ? (
-              <IconButton onClick={() => dispatch(setBAddResultClicked())} disabled={disableActive}>
+              <IconButton
+                onClick={() => {
+                  dispatch(unsetIcons());
+                  dispatch(disableAll());
+                  dispatch(setBAddResultClicked());
+                }}
+                disabled={disableActive}
+              >
                 <AddCircleOutlineIcon color={colorButton} />
               </IconButton>
             ) : (
@@ -32,15 +46,18 @@ const EmptyResultLineEditor = () => {
                 onClick={() => {
                   dispatch(setBAddResultUnclicked());
                   dispatch(addRisultatoClicked());
+                  dispatch(enableAll());
+                  dispatch(setIcons());
+                  dispatch(resetRisultato());
                 }}
-                disabled={disableActive}
               >
-                <CheckCircleOutlineIcon color={colorButton} />
+                <CheckCircleOutlineIcon color="primary" />
               </IconButton>
             ) }
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
+            value={res}
             disabled={textFieldState}
             onChange={(event) => {
               const { value } = event.target;
@@ -53,10 +70,13 @@ const EmptyResultLineEditor = () => {
         </Grid>
         <Grid item xs={12} sm={2}>
           <TextField
+            value={valMin}
             disabled={textFieldState}
             onChange={(event) => {
               const { value } = event.target;
-              dispatch(setValoreMin(value));
+              // eslint-disable-next-line radix
+              const intVal = parseInt(value.toString().replace(NON_DIGIT, ''));
+              dispatch(setValoreMin(intVal));
             }}
 
             id="standard-basic"
@@ -65,10 +85,14 @@ const EmptyResultLineEditor = () => {
         </Grid>
         <Grid item xs={12} sm={2}>
           <TextField
+
+            value={valMax}
             disabled={textFieldState}
             onChange={(event) => {
               const { value } = event.target;
-              dispatch(setValoreMax(value));
+              // eslint-disable-next-line radix
+              const intVal = parseInt(value.toString().replace(NON_DIGIT, ''));
+              dispatch(setValoreMax(intVal));
             }}
 
             id="standard-basic"

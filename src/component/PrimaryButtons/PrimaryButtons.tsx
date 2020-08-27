@@ -17,6 +17,12 @@ import {
 } from '../../store/slice/addFormSlice';
 import { isDisable, colDisable } from '../../store/slice/risultatiAddFormSlice';
 import { initialID } from '../../store/slice/initialStateSlice';
+import {
+  rightsUserAUTAN, setUserCreateRight, setUserDeleteRight,
+  setUserModifyRight, haveUserCreateRight, repartiDelete, haveRepDeleteRight,
+  setRepartoDeleteRight, haveRepModifyRight, setRepartoModifyRight, repartiModify,
+} from '../../store/slice/rightsSlice';
+import { IDRepartoSelected } from '../../store/slice/repartoDDLSlice';
 
 const PrimaryButtons = () => {
   const classes = useStyles();
@@ -29,6 +35,39 @@ const PrimaryButtons = () => {
   const disableActive = useSelector(isDisable);
   const colorButton = useSelector(colDisable);
   const noRep = useSelector(initialID);
+  const rightUser = useSelector(rightsUserAUTAN);
+  const rightCreate = useSelector(haveUserCreateRight);
+  const rightRepModify = useSelector(haveRepModifyRight);
+  const IDRepSelected = useSelector(IDRepartoSelected);
+  const repDelete = useSelector(repartiDelete);
+  const rightRepDelete = useSelector(haveRepDeleteRight);
+  const repModify = useSelector(repartiModify);
+
+  // controllo i diritti che ha l'utente
+  // eslint-disable-next-line array-callback-return
+  rightUser.map((scope: any) => {
+    if (scope.id === 6856) {
+      dispatch(setUserCreateRight());
+    } // diritto delete
+    if (scope.id === 6876) {
+      dispatch(setUserDeleteRight());
+      // eslint-disable-next-line array-callback-return
+      repDelete.map((reparto:any) => {
+        if (IDRepSelected === reparto.unitid || IDRepSelected === reparto.sermednodeid) {
+          dispatch(setRepartoDeleteRight());
+        }
+      });
+    }
+    if (scope.id === 6916) {
+      dispatch(setUserModifyRight());
+      // eslint-disable-next-line array-callback-return
+      repModify.map((reparto:any) => {
+        if (IDRepSelected === reparto.unitid || IDRepSelected === reparto.sermednodeid) {
+          dispatch(setRepartoModifyRight());
+        }
+      });
+    }
+  });
 
   return (
     <Grid item xs={12} sm={2}>
@@ -57,7 +96,7 @@ const PrimaryButtons = () => {
             {bConfirmAddFormClicked
               ? (
                 <div>
-                  {/* se add non è attivo ed è selezionato il reparto */}
+                  {/* Se add è non è attivo ed è stato cliccato il confirm add Form */}
 
                   <IconButton
                     disabled={isSaveDisabled}
@@ -65,6 +104,7 @@ const PrimaryButtons = () => {
                   >
                     <SaveIcon fontSize="large" color={buttonColor} />
                   </IconButton>
+
                   <IconButton
                     disabled={disableActive}
                     onClick={
@@ -76,18 +116,22 @@ const PrimaryButtons = () => {
                 </div>
               ) : (
                 <div>
-                  {/* se add non è attivo e non è selezionato nessun reparto */}
+                  {/* se add non è attivo e non è stato cliccato il
+                   confirm add form e non è sel. un reparto */}
                   {noRep === 0
                     ? (
                       <>
-                        <Fab
-                          className={classes.buttonAdd}
-                          onClick={() => dispatch(buttonAddClicked())}
-                          color="primary"
-                        >
-                          <AddIcon />
+                        {rightCreate
+                          ? (
+                            <Fab
+                              className={classes.buttonAdd}
+                              onClick={() => dispatch(buttonAddClicked())}
+                              color="primary"
+                            >
+                              <AddIcon />
 
-                        </Fab>
+                            </Fab>
+                          ) : <></>}
 
                       </>
                     )
@@ -95,26 +139,36 @@ const PrimaryButtons = () => {
                       <div>
                         <div>
                           {/* se add non è attivo ed è selezionato il reparto */}
-                          <Fab className={classes.buttonAdd} onClick={() => dispatch(buttonAddClicked())} color="primary">
-                            <AddIcon />
-                          </Fab>
+                          {rightCreate
+                            ? (
+                              <Fab className={classes.buttonAdd} onClick={() => dispatch(buttonAddClicked())} color="primary">
+                                <AddIcon />
+                              </Fab>
+                            ) : <></>}
                         </div>
                         <div className={classes.ButtonDelSaveCanc}>
-                          <IconButton
-                            disabled={disableActive}
-                            onClick={() => dispatch(buttonDeleteOrSaveClicked())}
-                          >
-                            <DeleteIcon
-                              fontSize="large"
-                              color={colorButton}
-                            />
-                          </IconButton>
-                          <IconButton
-                            disabled={disableActive}
-                            onClick={() => dispatch(buttonDeleteOrSaveClicked())}
-                          >
-                            <SaveIcon fontSize="large" color={colorButton} />
-                          </IconButton>
+                          {rightRepDelete
+                            ? (
+                              <IconButton
+                                disabled={disableActive}
+                                onClick={() => dispatch(buttonDeleteOrSaveClicked())}
+                              >
+                                <DeleteIcon
+                                  fontSize="large"
+                                  color={colorButton}
+                                />
+                              </IconButton>
+                            ) : <></>}
+                          {rightRepModify
+
+                            ? (
+                              <IconButton
+                                disabled={disableActive}
+                                onClick={() => dispatch(buttonDeleteOrSaveClicked())}
+                              >
+                                <SaveIcon fontSize="large" color={colorButton} />
+                              </IconButton>
+                            ) : <></>}
                           <IconButton
                             disabled={disableActive}
                             onClick={

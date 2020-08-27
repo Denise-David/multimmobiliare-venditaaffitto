@@ -15,7 +15,6 @@ import QuestionsEditor from '../../component/QuestionsEditor/QuestionEditor';
 import ResultTableEditor from '../../component/ResultTable/ResultTableEditor';
 import AnswersTableEditor from '../../component/AnswersTableEditor/AnswersTableEditor';
 import { user, repartiCreate } from '../../store/slice/rightsSlice';
-import { extractAndMergeArray } from '../../util';
 
 const FormPaziente = () => {
   const classes = useStyles();
@@ -33,9 +32,7 @@ const FormPaziente = () => {
   // Estraggo i reparti e li unisco in un unico array (da spostare nel saga magari)
   const doppiArrayRepartiCreate = useSelector(repartiCreate);
 
-  const repartiDirittoCreate = extractAndMergeArray(doppiArrayRepartiCreate);
-
-  const listRepartiCreate = repartiDirittoCreate.map((Reparto : any) => {
+  const listRepartiCreate = doppiArrayRepartiCreate.map((Reparto : any) => {
     const nomeReparto = Reparto.longname;
     const idReparto = Reparto.unitid || Reparto.sermednodeid;
     return (

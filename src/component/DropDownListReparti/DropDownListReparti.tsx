@@ -2,12 +2,12 @@ import React from 'react';
 import { FormControl, Select, MenuItem } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
 import { isDisable } from '../../store/slice/risultatiAddFormSlice';
-import { idRepartoSelected, setRepartoSelected } from '../../store/slice/repartoSlice';
-import { allReparti } from '../../store/slice/rightsSlice';
+import { IDRepartoSelected, setRepartoSelected, changeReparto } from '../../store/slice/repartoDDLSlice';
+import { allReparti, unsetRepartoDeleteRight } from '../../store/slice/rightsSlice';
 
 const DropDownListReparti = () => {
   const disableActive = useSelector(isDisable);
-  const IDReparto = useSelector(idRepartoSelected);
+  const IDReparto = useSelector(IDRepartoSelected);
   const allRep = useSelector(allReparti);
   const dispatch = useDispatch();
 
@@ -15,6 +15,8 @@ const DropDownListReparti = () => {
     const { value } = event.target;
     dispatch(setRepartoSelected(value));
     dispatch({ type: 'INIT' });
+    dispatch(unsetRepartoDeleteRight());
+    dispatch(changeReparto());
   };
 
   const listRep = allRep.map((reparto: any) => (

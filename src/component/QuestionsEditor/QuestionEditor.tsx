@@ -29,6 +29,7 @@ import { objectToArray } from '../../util';
 import {
   isIconsDisabled, unsetIcons, colorIcons, setIcons,
 } from '../../store/slice/addFormSlice';
+import { haveRepModifyRight } from '../../store/slice/rightsSlice';
 
 const QuestionsEditor = () => {
   const dispatch = useDispatch();
@@ -42,6 +43,7 @@ const QuestionsEditor = () => {
   const colButton = useSelector(colorIcons);
   const bCheckDisabled = useSelector(isBCheckDisabled);
   const colBCheck = useSelector(colorBCheck);
+  const rightRepModify = useSelector(haveRepModifyRight);
 
   if (iniID !== 0) {
     const listItems = domande.map((domanda : any, index: any) => (
@@ -51,48 +53,55 @@ const QuestionsEditor = () => {
           <div className={classes.bordi}>
             <span className={classes.bordi} />
             <Grid container spacing={3}>
-              {!domanda.stateModify
+              {rightRepModify
                 ? (
-                  < >
-                    <Grid item xs={12} sm={1}>
-                      <IconButton
-                        disabled={disableActive}
-                        color={colButton}
-                        onClick={() => {
-                          dispatch(disableAll());
-                          dispatch(setModifyClicked(index));
-                          dispatch(unsetIcons());
-                        }}
-                      >
-                        <CreateIcon />
-                      </IconButton>
-                    </Grid>
-                    <Grid item xs={12} sm={1}>
-                      <IconButton
-                        onClick={() => dispatch(deleteObjectDomanda(index))}
-                        color="primary"
-                        disabled={disableActive}
-                      >
-                        <DeleteIcon />
-                      </IconButton>
-                    </Grid>
-                  </ >
-                ) : (
-                  < >
-                    <Grid item xs={12} sm={1}>
-                      <IconButton onClick={() => {
-                        dispatch(enableAll());
-                        dispatch(setModifyUnclicked(index));
-                        dispatch(setIcons());
-                      }}
-                      >
-                        <CheckCircleOutlineIcon color="primary" />
-                      </IconButton>
-                    </Grid>
-                    <Grid item xs={12} sm={1} />
-                  </ >
-                ) }
+                  <>
+                    {' '}
+                    {!domanda.stateModify
+                      ? (
+                        < >
+                          <Grid item xs={12} sm={1}>
+                            <IconButton
+                              disabled={disableActive}
+                              color={colButton}
+                              onClick={() => {
+                                dispatch(disableAll());
+                                dispatch(setModifyClicked(index));
+                                dispatch(unsetIcons());
+                              }}
+                            >
+                              <CreateIcon />
+                            </IconButton>
+                          </Grid>
+                          <Grid item xs={12} sm={1}>
+                            <IconButton
+                              onClick={() => dispatch(deleteObjectDomanda(index))}
+                              color="primary"
+                              disabled={disableActive}
+                            >
+                              <DeleteIcon />
+                            </IconButton>
+                          </Grid>
+                        </ >
+                      ) : (
+                        < >
+                          <Grid item xs={12} sm={1}>
+                            <IconButton onClick={() => {
+                              dispatch(enableAll());
+                              dispatch(setModifyUnclicked(index));
+                              dispatch(setIcons());
+                            }}
+                            >
+                              <CheckCircleOutlineIcon color="primary" />
+                            </IconButton>
+                          </Grid>
+                          <Grid item xs={12} sm={1} />
+                        </ >
+                      ) }
 
+                  </>
+                )
+                : <></>}
               <Grid item xs={12} sm={10}>
                 <TextField
                   disabled={!domanda.stateModify}
@@ -121,7 +130,8 @@ const QuestionsEditor = () => {
         <div className={classes.padding}>
           <div className={classes.marginDivider} />
           {listItems}
-          <EmptyAddQuestionEditor />
+          {rightRepModify
+            ? <EmptyAddQuestionEditor /> : <></>}
         </div>
       </div>
     );
@@ -139,55 +149,62 @@ const QuestionsEditor = () => {
           <div className={classes.bordi}>
             <span className={classes.bordi} />
             <Grid container spacing={3}>
-              { domandaAddForm.stateText
+              {rightRepModify
                 ? (
-                  < >
-                    <Grid item xs={12} sm={1}>
-                      <IconButton
-                        color={colButton}
-                        disabled={iconsModifyAndDeleteDisabled}
-                        onClick={() => {
-                          dispatch(setBModifyDomandaClicked(domandaAddForm.IDDomanda));
-                          dispatch(unsetIcons());
-                        }}
-                      >
-                        <CreateIcon />
-                      </IconButton>
-                    </Grid>
-                    <Grid item xs={12} sm={1}>
-                      <IconButton
-                        color={colButton}
-                        disabled={iconsModifyAndDeleteDisabled}
-                        onClick={
+                  <>
+                    {' '}
+                    { domandaAddForm.stateText
+                      ? (
+                        < >
+                          <Grid item xs={12} sm={1}>
+                            <IconButton
+                              color={colButton}
+                              disabled={iconsModifyAndDeleteDisabled}
+                              onClick={() => {
+                                dispatch(setBModifyDomandaClicked(domandaAddForm.IDDomanda));
+                                dispatch(unsetIcons());
+                              }}
+                            >
+                              <CreateIcon />
+                            </IconButton>
+                          </Grid>
+                          <Grid item xs={12} sm={1}>
+                            <IconButton
+                              color={colButton}
+                              disabled={iconsModifyAndDeleteDisabled}
+                              onClick={
                         () => dispatch(deleteDomandaInObjectDomande(IDDomanda))
                       }
-                      >
-                        <DeleteIcon />
-                      </IconButton>
-                    </Grid>
-                  </ >
-                ) : (
-                  <>
-                    < >
-                      <Grid item xs={12} sm={2}>
-                        <IconButton
-                          disabled={bCheckDisabled}
-                          color={colBCheck}
-                          onClick={
+                            >
+                              <DeleteIcon />
+                            </IconButton>
+                          </Grid>
+                        </ >
+                      ) : (
+                        <>
+                          < >
+                            <Grid item xs={12} sm={2}>
+                              <IconButton
+                                disabled={bCheckDisabled}
+                                color={colBCheck}
+                                onClick={
                             () => {
                               dispatch(setBModifyDomandaUnclicked(domandaAddForm.IDDomanda));
                               dispatch(setIcons());
                             }
                           }
-                        >
-                          <CheckCircleOutlineIcon />
-                        </IconButton>
-                      </Grid>
+                              >
+                                <CheckCircleOutlineIcon />
+                              </IconButton>
+                            </Grid>
 
-                    </ >
+                          </ >
+
+                        </>
+                      )}
 
                   </>
-                )}
+                ) : <></>}
               <Grid item xs={12} sm={10}>
 
                 <TextField
@@ -242,7 +259,8 @@ const QuestionsEditor = () => {
         </Grid>
 
         {listNewDomande}
-        <EmptyAddQuestionEditor />
+        {rightRepModify
+          ? <EmptyAddQuestionEditor /> : <></>}
         <Typography className={classes.marginGenerico} variant="body1">
           * L&apos;intestazione è quella porzione di testo che viene messa
           all&apos;inizio di ogni domanda.

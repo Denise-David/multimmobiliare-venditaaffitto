@@ -20,6 +20,7 @@ import {
 import {
   unsetIcons, setIcons, isIconsDisabled, colorIcons,
 } from '../../store/slice/addFormSlice';
+import { haveRepModifyRight } from '../../store/slice/rightsSlice';
 
 const AnswersTableEditor = () => {
   const classes = useStyles();
@@ -34,6 +35,7 @@ const AnswersTableEditor = () => {
   const bCheckRis1Disabled = useSelector(isBCheckRis1Disabled);
   const colBCheckRis2 = useSelector(colorBCheckRis2);
   const bCheckRis2Disabled = useSelector(isBCheckRis2Disabled);
+  const rightRepModify = useSelector(haveRepModifyRight);
   return (
     <div>
 
@@ -54,30 +56,37 @@ const AnswersTableEditor = () => {
                 </Typography>
               </Grid>
               <Grid item xs={12} sm={2}>
-                {!bModifyRis1Clicked
+                {rightRepModify
                   ? (
-                    <IconButton
-                      disabled={isIconEnabled}
-                      color={colButton}
-                      onClick={() => {
-                        dispatch(setBModifyRis1Clicked());
-                        dispatch(unsetIcons());
-                      }}
-                    >
-                      <CreateIcon />
-                    </IconButton>
-                  ) : (
-                    <IconButton
-                      disabled={bCheckRis1Disabled}
-                      color={colBCheckRis1}
-                      onClick={() => {
-                        dispatch(setBModifyRis1Unclicked());
-                        dispatch(setIcons());
-                      }}
-                    >
-                      <CheckCircleOutlineIcon />
-                    </IconButton>
-                  )}
+                    <>
+                      {' '}
+                      {!bModifyRis1Clicked
+                        ? (
+                          <IconButton
+                            disabled={isIconEnabled}
+                            color={colButton}
+                            onClick={() => {
+                              dispatch(setBModifyRis1Clicked());
+                              dispatch(unsetIcons());
+                            }}
+                          >
+                            <CreateIcon />
+                          </IconButton>
+                        ) : (
+                          <IconButton
+                            disabled={bCheckRis1Disabled}
+                            color={colBCheckRis1}
+                            onClick={() => {
+                              dispatch(setBModifyRis1Unclicked());
+                              dispatch(setIcons());
+                            }}
+                          >
+                            <CheckCircleOutlineIcon />
+                          </IconButton>
+                        )}
+
+                    </>
+                  ) : <></>}
               </Grid>
               <Grid item xs={12} sm={10}>
                 <TextField
@@ -106,30 +115,37 @@ const AnswersTableEditor = () => {
                 </Typography>
               </Grid>
               <Grid item xs={12} sm={2}>
-                {!bModifyRis2Clicked
+                {rightRepModify
                   ? (
-                    <IconButton
-                      disabled={isIconEnabled}
-                      color={colButton}
-                      onClick={() => {
-                        dispatch(setBModifyRis2Clicked());
-                        dispatch(unsetIcons());
-                      }}
-                    >
-                      <CreateIcon />
-                    </IconButton>
-                  ) : (
-                    <IconButton
-                      disabled={bCheckRis2Disabled}
-                      color={colBCheckRis2}
-                      onClick={() => {
-                        dispatch(setBModifyRis2Unclicked());
-                        dispatch(setIcons());
-                      }}
-                    >
-                      <CheckCircleOutlineIcon />
-                    </IconButton>
-                  )}
+                    <>
+                      {' '}
+                      {!bModifyRis2Clicked
+                        ? (
+                          <IconButton
+                            disabled={isIconEnabled}
+                            color={colButton}
+                            onClick={() => {
+                              dispatch(setBModifyRis2Clicked());
+                              dispatch(unsetIcons());
+                            }}
+                          >
+                            <CreateIcon />
+                          </IconButton>
+                        ) : (
+                          <IconButton
+                            disabled={bCheckRis2Disabled}
+                            color={colBCheckRis2}
+                            onClick={() => {
+                              dispatch(setBModifyRis2Unclicked());
+                              dispatch(setIcons());
+                            }}
+                          >
+                            <CheckCircleOutlineIcon />
+                          </IconButton>
+                        )}
+
+                    </>
+                  ) : <></>}
               </Grid>
               <Grid item xs={12} sm={10}>
                 <TextField

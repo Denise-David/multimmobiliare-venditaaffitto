@@ -6,11 +6,16 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import Grid from '@material-ui/core/Grid';
 import { useSelector, useDispatch } from 'react-redux';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
-import { colDisable, isDisable } from '../../store/slice/risultatiAddFormSlice';
+
 import {
-  risposteOfDomandaObject, deleteRisposta, setModifyRispostaClicked, setModifyRispostaUnclicked,
+  colDisable, isDisable, disableAll, enableAll,
+} from '../../store/slice/risultatiAddFormSlice';
+import {
+  risposteOfDomandaObject, deleteRisposta, setModifyRispostaClicked,
+  setModifyRispostaUnclicked, modifyRisposta,
 } from '../../store/slice/risposteAddFormSlice';
 import { objectToArray } from '../../util';
+import { unsetIcons, setIcons } from '../../store/slice/addFormSlice';
 
 interface Props {id : string}
 
@@ -20,20 +25,25 @@ const AnswerLineEditor = ({ id }: Props) => {
   const disableActive = useSelector(isDisable);
   const risposteOFDomandeObj = useSelector(risposteOfDomandaObject);
   const IDDomanda = id;
+  const NON_DIGIT = '/[^d]/g';
 
   const risposteOfDomanda = risposteOFDomandeObj[id] ? risposteOFDomandeObj[id] : {};
   const risposteArray = objectToArray(risposteOfDomanda);
 
-  const listItems = risposteArray ? risposteArray.map((risposta : any) => {
-    const { IDRisposta } = risposta;
+  const listItems = risposteArray ? risposteArray.map((rispostaArray : any) => {
+    const { IDRisposta } = rispostaArray;
     return (
-      <Grid key={risposta.IDRisposta} container spacing={3}>
-        {!risposta.stateModify
+      <Grid key={rispostaArray.IDRisposta} container spacing={3}>
+        {!rispostaArray.stateModify
           ? (
             <>
               <Grid item xs={12} sm={1}>
                 <IconButton
-                  onClick={() => dispatch(setModifyRispostaClicked({ IDDomanda, IDRisposta }))}
+                  onClick={() => {
+                    dispatch(unsetIcons());
+                    dispatch(disableAll());
+                    dispatch(setModifyRispostaClicked({ IDDomanda, IDRisposta }));
+                  }}
                   disabled={disableActive}
                 >
                   <CreateIcon color={colorButton} />
@@ -54,7 +64,11 @@ const AnswerLineEditor = ({ id }: Props) => {
 
               <Grid item xs={12} sm={1}>
                 <IconButton
-                  onClick={() => dispatch(setModifyRispostaUnclicked({ IDDomanda, IDRisposta }))}
+                  onClick={() => {
+                    dispatch(setIcons());
+                    dispatch(enableAll());
+                    dispatch(setModifyRispostaUnclicked({ IDDomanda, IDRisposta }));
+                  }}
                 >
                   <CheckCircleOutlineIcon color="primary" />
                 </IconButton>
@@ -65,10 +79,30 @@ const AnswerLineEditor = ({ id }: Props) => {
 
         <Grid item xs={12} sm={5} />
         <Grid item xs={12} sm={4}>
-          <TextField disabled={!risposta.stateModify} id="standard-basic" value={risposta.Risposta} fullWidth />
+          <TextField
+            onChange={(event) => {
+              const risposta = event.target.value;
+              dispatch(modifyRisposta({ IDDomanda, IDRisposta, risposta }));
+            }}
+            disabled={!rispostaArray.stateModify}
+            id="standard-basic"
+            value={rispostaArray.Risposta}
+            fullWidth
+          />
         </Grid>
         <Grid item xs={12} sm={1}>
-          <TextField disabled={!risposta.stateModify} id="standard-basic" value={risposta.Valore} fullWidth />
+          <TextField
+            onChange={(event) => {
+              const { value } = event.target;
+              // eslint-disable-next-line radix
+              const valore = parseInt(value.toString().replace(NON_DIGIT, ''));
+              dispatch(modifyRisposta({ IDDomanda, IDRisposta, valore }));
+            }}
+            disabled={!rispostaArray.stateModify}
+            id="standard-basic"
+            value={rispostaArray.Valore}
+            fullWidth
+          />
         </Grid>
 
       </Grid>

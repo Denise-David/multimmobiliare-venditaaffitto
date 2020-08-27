@@ -1,9 +1,16 @@
 import {
   select, put, call, all,
 } from 'redux-saga/effects';
+import { uniqBy } from 'lodash';
 import {
-  user, setRightsUserAUTAN, setRepartiCreate, setRepartiDelete, setAllReparti,
+  repartiModify,
+  haveUserModifyRight,
+  repartiCreate,
+  haveUserCreateRight, haveUserDeleteRight,
+  user, setRightsUserAUTAN, setRepartiCreate, setRepartiDelete,
+  setAllReparti, repartiDelete, setRepartiModify,
 } from '../slice/rightsSlice';
+
 import { getUserRights, getRepartiZAM, getRepartiZAS } from '../api';
 import { extractAndMergeArray } from '../../util';
 
@@ -14,67 +21,100 @@ export default function* initUserRightsAUTAN() {
     const { data } = userRights;
     // estraggo gli scopes
     yield put(setRightsUserAUTAN(data));
+    // controllo i diritti dell utente
+    const haveRightCreate = yield select(haveUserCreateRight);
+    const haveRightDelete = yield select(haveUserDeleteRight);
+    const haveRightModify = yield select(haveUserModifyRight);
 
-    // filtro solo il diritto CREATE
-    const findCreate = (right : any) => right.id === 6856;
-    const rightCreate = data.find(findCreate);
-    // filtro gli scope del Create
-    const scopesCreate = rightCreate.scopes;
-    // li mappo controllando se sono ZAM o ZAS
-    const allDataRepartiCreate = yield all(scopesCreate.map((scope :any) => {
-      if (scope.areaType === 'UP-ZAM') {
-        const repartiZAM = call(getRepartiZAM, scope.areaCode);
-        return repartiZAM;
-      } if (scope.areaType === 'UP-ZAS') {
-        const repartiZAS = call(getRepartiZAS, scope.areaCode);
-        console.log('xxReparti', repartiZAS);
-        return repartiZAS;
-      }
-      return null;
-    }));
-    // estraggo i reparti
-    const listRepartiCreate = allDataRepartiCreate.map((reparto : any) => reparto.data);
+    if (haveRightCreate === true) {
+      // filtro solo il diritto CREATE
+      const findCreate = (right : any) => right.id === 6856;
+      const rightCreate = data.find(findCreate);
+      // filtro gli scope del Create
+      const scopesCreate = rightCreate.scopes;
+      // li mappo controllando se sono ZAM o ZAS
+      const allDataRepartiCreate = yield all(scopesCreate.map((scope :any) => {
+        if (scope.areaType === 'UP-ZAM') {
+          const repartiZAM = call(getRepartiZAM, scope.areaCode);
+          return repartiZAM;
+        } if (scope.areaType === 'UP-ZAS') {
+          const repartiZAS = call(getRepartiZAS, scope.areaCode);
+          return repartiZAS;
+        }
+        return null;
+      }));
+      // estraggo i reparti
+      const listRepartiCreateSeparate = allDataRepartiCreate.map((reparto : any) => reparto.data);
 
-    // li metto su una variabile di stato
-    yield put(setRepartiCreate(listRepartiCreate));
+      const listRepartiCreate = extractAndMergeArray(listRepartiCreateSeparate);
+      // li metto su una variabile di stato
+      yield put(setRepartiCreate(listRepartiCreate));
+    }
+    if (haveRightDelete === true) {
+      // filtro solo il diritto DELETE
+      const findDelete = (right : any) => right.id === 6876;
+      const rightDelete = data.find(findDelete);
 
-    // filtro solo il diritto DELETE
-    const findDelete = (right : any) => right.id === 6876;
-    const rightDelete = data.find(findDelete);
+      // filtro gli scope del delete
+      const scopesDelete = rightDelete.scopes;
+      // li mappo controllando se sono ZAM o ZAS
+      const allDataRepartiDelete = yield all(scopesDelete.map((scope :any) => {
+        if (scope.areaType === 'UP-ZAM') {
+          const repartiZAM = call(getRepartiZAM, scope.areaCode);
+          return repartiZAM;
+        } if (scope.areaType === 'UP-ZAS') {
+          const repartiZAS = call(getRepartiZAS, scope.areaCode);
+          return repartiZAS;
+        }
+        return null;
+      }));
+      // estraggo i reparti Delete
+      const listRepartiDeleteSeparate = allDataRepartiDelete.map((reparto : any) => reparto.data);
 
-    // filtro gli scope del delete
-    const scopesDelete = rightDelete.scopes;
-    // li mappo controllando se sono ZAM o ZAS
-    const allDataRepartiDelete = yield all(scopesDelete.map((scope :any) => {
-      if (scope.areaType === 'UP-ZAM') {
-        const repartiZAM = call(getRepartiZAM, scope.areaCode);
-        return repartiZAM;
-      } if (scope.areaType === 'UP-ZAS') {
-        const repartiZAS = call(getRepartiZAS, scope.areaCode);
-        return repartiZAS;
-      }
-      return null;
-    }));
-    // estraggo i reparti Delete
-    const listRepartiDelete = allDataRepartiDelete.map((reparto : any) => reparto.data);
+      const listRepartiDelete = extractAndMergeArray(listRepartiDeleteSeparate);
+      // li metto su una variabile di stato
+      yield put(setRepartiDelete(listRepartiDelete));
+    }
 
-    // li metto su una variabile di stato
-    yield put(setRepartiDelete(listRepartiDelete));
+    if (haveRightModify === true) {
+      // filtro solo il diritto MODIFY
+      const findModify = (right : any) => right.id === 6916;
+      const rightModify = data.find(findModify);
 
+      // filtro gli scope del modify
+      const scopesModify = rightModify.scopes;
+      // li mappo controllando se sono ZAM o ZAS
+      const allDataRepartiModify = yield all(scopesModify.map((scope :any) => {
+        if (scope.areaType === 'UP-ZAM') {
+          const repartiZAM = call(getRepartiZAM, scope.areaCode);
+          return repartiZAM;
+        } if (scope.areaType === 'UP-ZAS') {
+          const repartiZAS = call(getRepartiZAS, scope.areaCode);
+          return repartiZAS;
+        }
+        return null;
+      }));
+      // estraggo i reparti Modify
+      const listRepartiModifySeparate = allDataRepartiModify.map((reparto : any) => reparto.data);
+
+      const listRepartiModify = extractAndMergeArray(listRepartiModifySeparate);
+      // li metto su una variabile di stato
+      yield put(setRepartiModify(listRepartiModify));
+    }
+
+    // controllo tramite i diritti i reparti da visualizzare
+
+    const listRepartiModify = yield select(repartiModify);
+    const listRepartiDelete = yield select(repartiDelete);
+    const listRepartiCreate = yield select(repartiCreate);
     // unisco i reparti del delete e create dell'array
-    const arrayRepartiDelete = extractAndMergeArray(listRepartiDelete);
-    const arrayRepartiCreate = extractAndMergeArray(listRepartiCreate);
-    const arrayAllReparti = arrayRepartiDelete.concat(arrayRepartiCreate);
+    const arrayAllReparti = listRepartiDelete.concat(listRepartiCreate, listRepartiModify);
     // elimino i doppioni
-    const ArrayUnique = arrayAllReparti.filter(
-      (reparto : any, index : any, self: any) => index === self.findIndex(
-        (t:any) => (
-          t.unitid === reparto.unitid
-        ),
-      ),
-    );
-    // li metto su un a variabile
-    yield put(setAllReparti(ArrayUnique));
+    const arrayNoDuplicate = uniqBy(arrayAllReparti.map((reparto : any) => ({
+      ...reparto, ID: reparto.unitid || reparto.sermednodeid,
+    })), 'ID');
+      // li metto su un a variabile
+    yield put(setAllReparti(arrayNoDuplicate));
   } catch (error) {
     console.log(error);
   }

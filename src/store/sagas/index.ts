@@ -4,7 +4,7 @@ import {
 
 import { domande, risultati } from '../slice/domandeModifySlice';
 
-import { idRepartoSelected, IDForm } from '../slice/repartoSlice';
+import { IDRepartoSelected, IDForm } from '../slice/repartoDDLSlice';
 import { setInitialStateAction, desetInitialStateAction } from '../slice/initialStateSlice';
 import addFormulario, {
   addDomandaInArray, clickAddButton, clickDelOrSaveButton, addRes, deleteDomandaPiuRes, addResult,
@@ -20,13 +20,13 @@ import { buttonSearchClicked } from '../slice/searchDoctorSlice';
 import buttonSearch from './searchDoctorSagas';
 import { getFormType } from '../slice/addFormSlice';
 import initUserRightsAUTAN from './rightsUserSagas';
-import confirmAddForm, { cancelAddForm } from './departmentChoiceEditorSagas';
+import confirmAddForm, { changeRep, cancelAddForm } from './departmentChoiceEditorSagas';
 import fetchFormStructureByID, { fetchRepartoFormByGUID } from '../api';
 import { setFormulari } from '../slice/rightsSlice';
 
 function* init(action : any) {
   try {
-    const ID = yield select(idRepartoSelected);
+    const ID = yield select(IDRepartoSelected);
 
     // cerco i nome  e id dei formulari del reparto selezionato
     const form = yield call(fetchRepartoFormByGUID, ID);
@@ -95,6 +95,7 @@ function* actionWatcher() {
   yield takeLatest('ADD_RISPOSTA', addRes);
   yield takeLatest('DELETE_DOMANDA_FORM_PIU_RES', deleteDomandaPiuRes);
   yield takeLatest('ADD_RISULTATO', addResult);
+  yield takeLatest('CHANGE_REPARTO', changeRep);
 }
 export default function* rootSaga() {
   yield all([actionWatcher()]);

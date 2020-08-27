@@ -7,9 +7,10 @@ import {
   isButtonAddFormClicked, setBAddFormUnclicked, setBConfirmAddFormClicked,
   setBConfirmAddFormUnclicked,
 } from '../slice/addFormSlice';
-import { resetIDReparto, resetIDForm } from '../slice/repartoSlice';
+import { resetIDReparto, resetIDForm } from '../slice/repartoDDLSlice';
 import { setInitialStateAction } from '../slice/initialStateSlice';
 import { resetDomandeOfDomandeObject } from '../slice/domandeAddFormSlice';
+import { unsetRepartoModifyRight } from '../slice/rightsSlice';
 // eslint-disable-next-line import/no-cycle
 
 export default function* confirmAddForm() {
@@ -34,4 +35,16 @@ export function* cancelAddForm() {
   if (addReparto === true) {
     yield put(resetIDReparto());
   }
+}
+export function* changeRep() {
+  yield put(setBAddFormUnclicked());
+  yield put(enableAll());
+  yield put(resetFormType());
+  yield put(resetSelectedReparto());
+  yield put(setConfirmDisabled());
+  yield put(setBConfirmAddFormUnclicked());
+  yield put(resetIDForm());
+  yield put(setInitialStateAction());
+  yield put(resetDomandeOfDomandeObject());
+  yield put(unsetRepartoModifyRight());
 }

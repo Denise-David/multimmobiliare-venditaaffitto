@@ -20,6 +20,7 @@ interface Props{ IDDomanda: string}
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const EmptyAnswerLineEditor = ({ IDDomanda }: Props) => {
   const dispatch = useDispatch();
+  const NON_DIGIT = '/[^d]/g';
   useEffect(() => {
     dispatch(setAddRispostaUnclicked(IDDomanda));
   }, [dispatch, IDDomanda]);
@@ -87,7 +88,9 @@ const EmptyAnswerLineEditor = ({ IDDomanda }: Props) => {
             value={valoreText[IDDomanda] || ''}
             onChange={(event) => {
               const { value } = event.target;
-              dispatch(setValore({ IDDomanda, value }));
+              // eslint-disable-next-line radix
+              const intValue = parseInt(value.toString().replace(NON_DIGIT, ''));
+              dispatch(setValore({ IDDomanda, intValue }));
             }}
             disabled={stateTextField[IDDomanda]}
             id="standard-basic"

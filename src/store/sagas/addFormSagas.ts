@@ -8,7 +8,7 @@ import {
 } from '../slice/risposteAddFormSlice';
 import { resetRisultati } from '../slice/risultatiFormularioSlice';
 import {
-  valoreMin, valoreMax, alertConfirmDelete, disableAll, result, addRisultato,
+  valueMin, valueMax, alertConfirmDelete, disableAll, result, addRisultato,
 } from '../slice/risultatiAddFormSlice';
 
 import {
@@ -141,11 +141,11 @@ export function* deleteDomandaPiuRes(action:any) {
 export function* addResult() {
   const IDRisultato = uuidv4();
   const risultato = yield select(result);
-  const ValoreMin = yield select(valoreMin);
-  const ValoreMax = yield select(valoreMax);
+  const valoreMin = yield select(valueMin);
+  const valoreMax = yield select(valueMax);
   const stateModify = false;
 
   yield put(addRisultato({
-    IDRisultato, risultato, ValoreMin, ValoreMax, stateModify,
+    IDRisultato, risultato, valoreMin, valoreMax, stateModify,
   }));
 }

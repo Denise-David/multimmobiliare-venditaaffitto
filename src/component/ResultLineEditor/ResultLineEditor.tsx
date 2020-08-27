@@ -10,7 +10,7 @@ import EmptyResultLineEditor from '../EmptyResultLineEditor/EmptyResultLineEdito
 import { domandeView } from '../../store/slice/domandeModifySlice';
 import {
   colDisable, disableAll, enableAll, risultati, setBModifyClicked,
-  setBModifyUnclicked, deleteRisultato,
+  setBModifyUnclicked, deleteRisultato, modifyRisultato,
 } from '../../store/slice/risultatiAddFormSlice';
 import { objectToArray } from '../../util';
 
@@ -22,58 +22,101 @@ const ResultLineEditor = () => {
   const colorButton = useSelector(colDisable);
 
   const risultatiArray = objectToArray(risultatiObject);
+  // eslint-disable-next-line no-useless-escape
+  const NON_DIGIT = '/[^\d]/g';
 
   if (domande !== null) {
-    const listRisultati = risultatiArray ? risultatiArray.map((oneForm: any) => (
-
+    const listRisultati = risultatiArray ? risultatiArray.map((oneForm: any) => {
+      const {
+        IDRisultato,
+      } = oneForm;
+      return (
       // eslint-disable-next-line react/jsx-key
-      <Grid container spacing={3}>
-        {!oneForm.stateModify
-          ? (
-            <>
-              <Grid item xs={12} sm={1}>
-                <IconButton
+        <Grid container spacing={3}>
+          {!oneForm.stateModify
+            ? (
+              <>
+                <Grid item xs={12} sm={1}>
+                  <IconButton
 
-                  onClick={() => {
-                    dispatch(disableAll());
-                    dispatch(setBModifyClicked(oneForm.IDRisultato));
+                    onClick={() => {
+                      dispatch(disableAll());
+                      dispatch(setBModifyClicked(oneForm.IDRisultato));
+                    }}
+                  >
+                    <CreateIcon color={colorButton} />
+                  </IconButton>
+                </Grid>
+                <Grid item xs={12} sm={1}>
+                  <IconButton onClick={() => dispatch(deleteRisultato(oneForm.IDRisultato))}>
+                    <DeleteIcon color={colorButton} />
+                  </IconButton>
+                </Grid>
+              </>
+            ) : (
+              <>
+                <Grid item xs={12} sm={2}>
+                  <IconButton onClick={() => {
+                    dispatch(enableAll());
+                    dispatch(setBModifyUnclicked(oneForm.IDRisultato));
                   }}
-                >
-                  <CreateIcon color={colorButton} />
-                </IconButton>
-              </Grid>
-              <Grid item xs={12} sm={1}>
-                <IconButton onClick={() => dispatch(deleteRisultato(oneForm.IDRisultato))}>
-                  <DeleteIcon color={colorButton} />
-                </IconButton>
-              </Grid>
-            </>
-          ) : (
-            <>
-              <Grid item xs={12} sm={2}>
-                <IconButton onClick={() => {
-                  dispatch(enableAll());
-                  dispatch(setBModifyUnclicked(oneForm.IDRisultato));
-                }}
-                >
-                  <CheckCircleOutlineIcon color="primary" />
-                </IconButton>
-              </Grid>
-            </>
+                  >
+                    <CheckCircleOutlineIcon color="primary" />
+                  </IconButton>
+                </Grid>
+              </>
 
-          )}
+            )}
 
-        <Grid item xs={12} sm={6}>
-          <TextField disabled={!oneForm.stateModify} id="standard-basic" value={oneForm.risultato} fullWidth />
+          <Grid item xs={12} sm={6}>
+            <TextField
+              onChange={(event) => {
+                const risultato = event.target.value;
+                dispatch(modifyRisultato({
+                  IDRisultato, risultato,
+                }));
+              }}
+              disabled={!oneForm.stateModify}
+              id="standard-basic"
+              value={oneForm.risultato}
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12} sm={2}>
+            <TextField
+              onChange={(event) => {
+                const { value } = event.target;
+                // eslint-disable-next-line radix
+                const valoreMin = parseInt(value.toString().replace(NON_DIGIT, ''));
+                dispatch(modifyRisultato({
+                  IDRisultato, valoreMin,
+                }));
+              }}
+              disabled={!oneForm.stateModify}
+              id="standard-basic"
+              value={oneForm.valoreMin}
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12} sm={2}>
+            <TextField
+              onChange={(event) => {
+                const { value } = event.target;
+                // eslint-disable-next-line radix
+                const valoreMax = parseInt(value.toString().replace(NON_DIGIT, ''));
+                dispatch(modifyRisultato({
+                  IDRisultato, valoreMax,
+                }));
+              }}
+              disabled={!oneForm.stateModify}
+              id="standard-basic"
+              value={oneForm.valoreMax}
+              fullWidth
+            />
+          </Grid>
         </Grid>
-        <Grid item xs={12} sm={2}>
-          <TextField disabled={!oneForm.stateModify} id="standard-basic" value={oneForm.ValoreMin} fullWidth />
-        </Grid>
-        <Grid item xs={12} sm={2}>
-          <TextField disabled={!oneForm.stateModify} id="standard-basic" value={oneForm.ValoreMax} fullWidth />
-        </Grid>
-      </Grid>
-    )) : <></>;
+      );
+    }) : <></>;
     return (
       <div>
         {listRisultati}
