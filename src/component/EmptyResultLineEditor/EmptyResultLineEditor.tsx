@@ -12,6 +12,7 @@ import {
   result, valueMax, valueMin, resetRisultato,
 } from '../../store/slice/risultatiAddFormSlice';
 import { unsetIcons, setIcons } from '../../store/slice/addFormSlice';
+import { haveRepModifyRight } from '../../store/slice/rightsSlice';
 
 const EmptyResultLineEditor = () => {
   const colorButton = useSelector(colDisable);
@@ -23,37 +24,46 @@ const EmptyResultLineEditor = () => {
   const valMax = useSelector(valueMax);
   // eslint-disable-next-line no-useless-escape
   const NON_DIGIT = '/[^\d]/g';
+  const rightRepModify = useSelector(haveRepModifyRight);
 
   return (
     <div>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={1} />
         <Grid item xs={12} sm={1}>
-          {textFieldState
+          {rightRepModify
             ? (
-              <IconButton
-                onClick={() => {
-                  dispatch(unsetIcons());
-                  dispatch(disableAll());
-                  dispatch(setBAddResultClicked());
-                }}
-                disabled={disableActive}
-              >
-                <AddCircleOutlineIcon color={colorButton} />
-              </IconButton>
-            ) : (
-              <IconButton
-                onClick={() => {
-                  dispatch(setBAddResultUnclicked());
-                  dispatch(addRisultatoClicked());
-                  dispatch(enableAll());
-                  dispatch(setIcons());
-                  dispatch(resetRisultato());
-                }}
-              >
-                <CheckCircleOutlineIcon color="primary" />
-              </IconButton>
-            ) }
+              <>
+                {' '}
+                {textFieldState
+                  ? (
+                    <IconButton
+                      onClick={() => {
+                        dispatch(unsetIcons());
+                        dispatch(disableAll());
+                        dispatch(setBAddResultClicked());
+                      }}
+                      disabled={disableActive}
+                    >
+                      <AddCircleOutlineIcon color={colorButton} />
+                    </IconButton>
+                  ) : (
+                    <IconButton
+                      onClick={() => {
+                        dispatch(setBAddResultUnclicked());
+                        dispatch(addRisultatoClicked());
+                        dispatch(enableAll());
+                        dispatch(setIcons());
+                        dispatch(resetRisultato());
+                      }}
+                    >
+                      <CheckCircleOutlineIcon color="primary" />
+                    </IconButton>
+                  ) }
+                {' '}
+
+              </>
+            ) : <></>}
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField

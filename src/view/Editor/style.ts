@@ -35,6 +35,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     padding: theme.spacing(1),
 
   },
+  marginTable: {
+    marginBottom: theme.spacing(4),
+  },
 
 }));
 export default useStyles;

@@ -9,8 +9,8 @@ export interface Risultato {
   valoreMax: number
 }
 
-const risFormSlice = createSlice({
-  name: 'formulari',
+const risultatiFormulario = createSlice({
+  name: 'risultatiFormulario',
   initialState: {
     dataRis: null as Formulario | null,
   },
@@ -25,6 +25,6 @@ const risFormSlice = createSlice({
 
 });
 
-export const dataRisultati = (state: State) => state.risForm.dataRis;
-export const { getRisultati, resetRisultati } = risFormSlice.actions;
-export default risFormSlice.reducer;
+export const dataRisultati = (state: State) => state.risultatiFormulario.dataRis;
+export const { getRisultati, resetRisultati } = risultatiFormulario.actions;
+export default risultatiFormulario.reducer;

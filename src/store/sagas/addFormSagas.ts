@@ -26,7 +26,6 @@ import {
 import { addFormDueRisposte, addFormPiuRisposte } from '../api';
 import { objectToArray } from '../../util';
 import { setInitialStateAction } from '../slice/initialStateSlice';
-import { resetDomande } from '../slice/domandeModifySlice';
 
 export default function* addFormulario() {
   const tipoForm = yield select(formType);
@@ -100,7 +99,6 @@ export function* addDomandaInArray() {
 export function* clickAddButton() {
   yield put(setBAddFormClicked());
   yield put(setInitialStateAction());
-  yield put(resetDomande());
   yield put(resetRisultati());
 }
 export function* clickDelOrSaveButton() {

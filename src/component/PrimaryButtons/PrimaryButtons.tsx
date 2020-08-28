@@ -101,8 +101,9 @@ const PrimaryButtons = () => {
                   <IconButton
                     disabled={isSaveDisabled}
                     onClick={() => dispatch(buttonSaveFormClicked())}
+                    color="primary"
                   >
-                    <SaveIcon fontSize="large" color={buttonColor} />
+                    <SaveIcon fontSize="large" />
                   </IconButton>
 
                   <IconButton
@@ -166,7 +167,7 @@ const PrimaryButtons = () => {
                                 disabled={disableActive}
                                 onClick={() => dispatch(buttonDeleteOrSaveClicked())}
                               >
-                                <SaveIcon fontSize="large" color={colorButton} />
+                                <SaveIcon fontSize="large" color="primary" />
                               </IconButton>
                             ) : <></>}
                           <IconButton

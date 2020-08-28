@@ -2,8 +2,6 @@ import {
   all, takeLatest, call, put, select, takeEvery,
 } from 'redux-saga/effects';
 
-import { domande, risultati } from '../slice/domandeModifySlice';
-
 import { IDRepartoSelected, IDForm } from '../slice/repartoDDLSlice';
 import { setInitialStateAction, desetInitialStateAction } from '../slice/initialStateSlice';
 import addFormulario, {
@@ -23,6 +21,7 @@ import initUserRightsAUTAN from './rightsUserSagas';
 import confirmAddForm, { changeRep, cancelAddForm } from './departmentChoiceEditorSagas';
 import fetchFormStructureByID, { fetchRepartoFormByGUID } from '../api';
 import { setFormulari } from '../slice/rightsSlice';
+import { setDomandeinObject } from '../slice/domandeAddFormSlice';
 
 function* init(action : any) {
   try {
@@ -45,23 +44,26 @@ function* init(action : any) {
     // controllo se è selezionato un reparto
     if (IDFormulario !== '0') {
       try {
-        // prendo  i risultati, domande
-
+        // prendo il formulario ID
         // eslint-disable-next-line no-underscore-dangle
         const selectedForm = yield call(fetchFormStructureByID, IDFormulario);
-
-        const datiRisultati = selectedForm.Risultati;
-        yield put(risultati(datiRisultati));
 
         const datiDomande = selectedForm.Domande;
 
         // genero un nuovo parametro stato
         const datiDomandeWithState = datiDomande.map((domandaObj : any) => {
-          const { IDDomanda, Domanda } = domandaObj;
-          const domandaWithState = { IDDomanda, Domanda, stateModify: false };
+          const domandaWithState = { [domandaObj.IDDomanda]: { ...domandaObj, stateText: true } };
+
           return domandaWithState;
         });
-        yield put(domande(datiDomandeWithState));
+
+        const res = datiDomandeWithState.reduce((accumulator:any, currentValue:any) => {
+          accumulator[Object.keys(currentValue)[0]] = currentValue[Object.keys(currentValue)[0]];
+          return accumulator;
+        }, {});
+
+        yield put(setDomandeinObject(res));
+        // setto il tipo di formulario
         yield put(getFormType(selectedForm.tipo));
 
         // prendo tutti i form del reparto ID

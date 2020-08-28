@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+import { emit } from 'process';
 import { State } from '../store/store';
 
 export interface domandaAddForm {
@@ -21,6 +22,9 @@ const domandeAddFormSlice = createSlice({
     colorBCheckAddDomanda: 'default' as 'primary' | 'default' |'inherit' | 'secondary' | 'default' | undefined,
   },
   reducers: {
+    setDomandeinObject(state, { payload }) {
+      state.domandeObject = payload;
+    },
     resetDomandaByIDDomanda(state, { payload }) {
       delete state.domandeObject[payload];
     },
@@ -112,7 +116,8 @@ export const {
   setBModifyDomandaClicked, setBModifyDomandaUnclicked,
   modifyDomandaInObjectDomande, deleteDomandaInObjectDomande, setBCheckDisabled,
   setBCheckEnabled, setBCheckAddDomandaDisabled,
-  setBCheckAddDomandaEnabled, resetDomandaByIDDomanda,
+  setBCheckAddDomandaEnabled, resetDomandaByIDDomanda, setDomandaInObjectDomandeMoreRes,
+  setDomandeinObject,
   resetDomandeOfDomandeObject,
 
 } = domandeAddFormSlice.actions;

@@ -3,10 +3,12 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { useSelector, useDispatch } from 'react-redux';
 import { Select } from '@material-ui/core';
 import { State } from '../../store/store/store';
-import { Domanda, Risposta } from '../../store/slice/domandeModifySlice';
 import { getRisposta } from '../../store/slice/patientFormSlice';
 
 interface Props {idDomanda : string, domanda : string}
+export interface Domanda { ID : string, Domanda : string, Risposte : Risposta[],
+  stateModify: boolean}
+export interface Risposta { ID : string, risposta : string, valore : string}
 
 const DropDownListAnswersPatient = ({ idDomanda, domanda } : Props) => {
   const dispatch = useDispatch();

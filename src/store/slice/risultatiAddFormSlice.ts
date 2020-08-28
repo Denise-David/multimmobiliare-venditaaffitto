@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { State } from '../store/store';
 
 const risultatiAddFormSlice = createSlice({
-  name: 'editForm',
+  name: 'risultatiAddForm',
   initialState:
   {
 
@@ -78,15 +78,15 @@ export const addRisultatoClicked = () => ({
 });
 
 // eslint-disable-next-line max-len
-export const textFieldStateAddRisultato = (state : State) => state.editForm.stateTextFieldAddRisultato;
-export const valueMax = (state : State) => state.editForm.valueMax;
-export const risultati = (state: State) => state.editForm.risultati;
-export const valueMin = (state: State) => state.editForm.valueMin;
-export const result = (state: State) => state.editForm.result;
-export const delActive = (state : State) => state.editForm.deleteActive;
-export const isDisable = (state : State) => state.editForm.isDisable;
-export const stateRisultato = (state : State) => state.editForm.risultati;
-export const colDisable = (state : State) => state.editForm.colorButton;
+export const textFieldStateAddRisultato = (state : State) => state.risultatiAddForm.stateTextFieldAddRisultato;
+export const valueMax = (state : State) => state.risultatiAddForm.valueMax;
+export const risultati = (state: State) => state.risultatiAddForm.risultati;
+export const valueMin = (state: State) => state.risultatiAddForm.valueMin;
+export const result = (state: State) => state.risultatiAddForm.result;
+export const delActive = (state : State) => state.risultatiAddForm.deleteActive;
+export const isDisable = (state : State) => state.risultatiAddForm.isDisable;
+export const stateRisultato = (state : State) => state.risultatiAddForm.risultati;
+export const colDisable = (state : State) => state.risultatiAddForm.colorButton;
 
 export const {
 

@@ -3,10 +3,10 @@ import createSagaMiddleware from 'redux-saga';
 import logger from 'redux-logger';
 import rootSaga from '../sagas';
 import loading from '../slice/loadingSlice';
-import risForm from '../slice/risultatiFormularioSlice';
+import risultatiFormulario from '../slice/risultatiFormularioSlice';
 import reparto from '../slice/repartoDDLSlice';
-import editForm from '../slice/risultatiAddFormSlice';
-import form from '../slice/domandeModifySlice';
+import risultatiAddForm from '../slice/risultatiAddFormSlice';
+
 import initialState from '../slice/initialStateSlice';
 import code from '../slice/CodeSlice';
 import patientData from '../slice/patientDataSlice';
@@ -24,11 +24,11 @@ const sagaMiddleware = createSagaMiddleware();
 
 const store = configureStore({
   reducer: {
-    form,
+
     loading,
-    risForm,
+    risultatiFormulario,
     reparto,
-    editForm,
+    risultatiAddForm,
     initialState,
     code,
     patientData,

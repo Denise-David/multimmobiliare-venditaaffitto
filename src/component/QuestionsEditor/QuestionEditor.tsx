@@ -9,10 +9,6 @@ import Grid from '@material-ui/core/Grid';
 import { useSelector, useDispatch } from 'react-redux';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 
-import {
-  domandeView, setModifyClicked, setModifyUnclicked, deleteObjectDomanda, modifyDomanda,
-} from '../../store/slice/domandeModifySlice';
-
 import EmptyAddQuestionEditor from '../EmptyAddQuestionEditor/EmptyAddQuestionEditor';
 import {
   isDisable,
@@ -34,7 +30,7 @@ import { haveRepModifyRight } from '../../store/slice/rightsSlice';
 const QuestionsEditor = () => {
   const dispatch = useDispatch();
   const iniID = useSelector(initialID);
-  const domande = useSelector(domandeView);
+
   const disableActive = useSelector(isDisable);
   const classes = useStyles();
   const DomandeAddFormObj = useSelector(domandeObject);
@@ -45,97 +41,97 @@ const QuestionsEditor = () => {
   const colBCheck = useSelector(colorBCheck);
   const rightRepModify = useSelector(haveRepModifyRight);
 
-  if (iniID !== 0) {
-    const listItems = domande.map((domanda : any, index: any) => (
+  // if (iniID !== 0) {
+  //   const listItems = domande.map((domanda : any, index: any) => (
 
-      <div key={domanda.ID}>
-        <Paper className={classes.bordiCard} elevation={3}>
-          <div className={classes.bordi}>
-            <span className={classes.bordi} />
-            <Grid container spacing={3}>
-              {rightRepModify
-                ? (
-                  <>
-                    {' '}
-                    {!domanda.stateModify
-                      ? (
-                        < >
-                          <Grid item xs={12} sm={1}>
-                            <IconButton
-                              disabled={disableActive}
-                              color={colButton}
-                              onClick={() => {
-                                dispatch(disableAll());
-                                dispatch(setModifyClicked(index));
-                                dispatch(unsetIcons());
-                              }}
-                            >
-                              <CreateIcon />
-                            </IconButton>
-                          </Grid>
-                          <Grid item xs={12} sm={1}>
-                            <IconButton
-                              onClick={() => dispatch(deleteObjectDomanda(index))}
-                              color="primary"
-                              disabled={disableActive}
-                            >
-                              <DeleteIcon />
-                            </IconButton>
-                          </Grid>
-                        </ >
-                      ) : (
-                        < >
-                          <Grid item xs={12} sm={1}>
-                            <IconButton onClick={() => {
-                              dispatch(enableAll());
-                              dispatch(setModifyUnclicked(index));
-                              dispatch(setIcons());
-                            }}
-                            >
-                              <CheckCircleOutlineIcon color="primary" />
-                            </IconButton>
-                          </Grid>
-                          <Grid item xs={12} sm={1} />
-                        </ >
-                      ) }
+  //     <div key={domanda.ID}>
+  //       <Paper className={classes.bordiCard} elevation={3}>
+  //         <div className={classes.bordi}>
+  //           <span className={classes.bordi} />
+  //           <Grid container spacing={3}>
+  //             {rightRepModify
+  //               ? (
+  //                 <>
+  //                   {' '}
+  //                   {!domanda.stateModify
+  //                     ? (
+  //                       < >
+  //                         <Grid item xs={12} sm={1}>
+  //                           <IconButton
+  //                             disabled={disableActive}
+  //                             color={colButton}
+  //                             onClick={() => {
+  //                               dispatch(disableAll());
+  //                               dispatch(setModifyClicked(index));
+  //                               dispatch(unsetIcons());
+  //                             }}
+  //                           >
+  //                             <CreateIcon />
+  //                           </IconButton>
+  //                         </Grid>
+  //                         <Grid item xs={12} sm={1}>
+  //                           <IconButton
+  //                             onClick={() => dispatch(deleteObjectDomanda(index))}
+  //                             color="primary"
+  //                             disabled={disableActive}
+  //                           >
+  //                             <DeleteIcon />
+  //                           </IconButton>
+  //                         </Grid>
+  //                       </ >
+  //                     ) : (
+  //                       < >
+  //                         <Grid item xs={12} sm={1}>
+  //                           <IconButton onClick={() => {
+  //                             dispatch(enableAll());
+  //                             dispatch(setModifyUnclicked(index));
+  //                             dispatch(setIcons());
+  //                           }}
+  //                           >
+  //                             <CheckCircleOutlineIcon color="primary" />
+  //                           </IconButton>
+  //                         </Grid>
+  //                         <Grid item xs={12} sm={1} />
+  //                       </ >
+  //                     ) }
 
-                  </>
-                )
-                : <></>}
-              <Grid item xs={12} sm={10}>
-                <TextField
-                  disabled={!domanda.stateModify}
-                  value={domanda.Domanda}
-                  fullWidth
-                  onChange={(event) => {
-                    const { value } = event.target;
-                    dispatch(modifyDomanda({ index, value }));
-                  }}
-                />
-              </Grid>
-            </Grid>
-          </div>
-        </Paper>
-      </div>
+  //                 </>
+  //               )
+  //               : <></>}
+  //             <Grid item xs={12} sm={10}>
+  //               <TextField
+  //                 disabled={!domanda.stateModify}
+  //                 value={domanda.Domanda}
+  //                 fullWidth
+  //                 onChange={(event) => {
+  //                   const { value } = event.target;
+  //                   dispatch(modifyDomanda({ index, value }));
+  //                 }}
+  //               />
+  //             </Grid>
+  //           </Grid>
+  //         </div>
+  //       </Paper>
+  //     </div>
 
-    ));
-    return (
+  //   ));
+  //   return (
 
-      <div>
-        <AppBar position="static" className={classes.NavColor}>
-          <Typography variant="h5" align="center">
-            Domande
-          </Typography>
-        </AppBar>
-        <div className={classes.padding}>
-          <div className={classes.marginDivider} />
-          {listItems}
-          {rightRepModify
-            ? <EmptyAddQuestionEditor /> : <></>}
-        </div>
-      </div>
-    );
-  }
+  //     <div>
+  //       <AppBar position="static" className={classes.NavColor}>
+  //         <Typography variant="h5" align="center">
+  //           Domande
+  //         </Typography>
+  //       </AppBar>
+  //       <div className={classes.padding}>
+  //         <div className={classes.marginDivider} />
+  //         {listItems}
+  //         {rightRepModify
+  //           ? <EmptyAddQuestionEditor /> : <></>}
+  //       </div>
+  //     </div>
+  //   );
+  // }
 
   // Riga Domanda per Add form a due Risposte
 

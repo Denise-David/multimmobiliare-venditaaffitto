@@ -9,12 +9,15 @@ import Nav from '../../component/Navbar/Navbar';
 import useStyles from './style';
 import HeaderEditor from '../../component/HeaderEditor/HeaderEditor';
 import QuestionsAndAnswersEditor from '../../component/QuestionsAndAnswersEditor/QuestionsAndAnswersEditor';
-import { isButtonAddFormClicked, formType, setSelectedReparto } from '../../store/slice/addFormSlice';
+import {
+  isButtonAddFormClicked, formType, setSelectedReparto, setConfirmEnabled,
+} from '../../store/slice/addFormSlice';
 
 import QuestionsEditor from '../../component/QuestionsEditor/QuestionEditor';
 import ResultTableEditor from '../../component/ResultTable/ResultTableEditor';
 import AnswersTableEditor from '../../component/AnswersTableEditor/AnswersTableEditor';
 import { user, repartiCreate } from '../../store/slice/rightsSlice';
+import { IDRepartoSelected, IDForm } from '../../store/slice/repartoDDLSlice';
 
 const FormPaziente = () => {
   const classes = useStyles();
@@ -23,9 +26,7 @@ const FormPaziente = () => {
     dispatch({ type: 'INIT' });
     dispatch({ type: 'initUserRightsAUTAN' });
   }, [dispatch]);
-  // Controllo lo stato del pulsante addForm
-
-  const typeForm = useSelector(formType);
+  const IDFormSelected = useSelector(IDForm);
 
   const addReparto = useSelector(isButtonAddFormClicked);
   const username = useSelector(user);
@@ -37,7 +38,10 @@ const FormPaziente = () => {
     const idReparto = Reparto.unitid || Reparto.sermednodeid;
     return (
       <MenuItem
-        onClick={() => dispatch(setSelectedReparto({ nomeReparto, idReparto }))}
+        onClick={() => {
+          dispatch(setSelectedReparto({ nomeReparto, idReparto }));
+          dispatch(setConfirmEnabled());
+        }}
         key={Reparto.unitid || Reparto.sermednodeid}
       >
         {Reparto.longname}
@@ -57,38 +61,46 @@ const FormPaziente = () => {
           {username}
         </Typography>
         <HeaderEditor />
-        {addReparto
+        {IDFormSelected !== '-1'
           ? (
             <>
-              <Typography className={classes.background} variant="h5">Scegli il reparto</Typography>
-              <br />
-              <DialogContent dividers>{listRepartiCreate}</DialogContent>
+              {' '}
+              {addReparto
+                ? (
+                  <>
+                    <Typography className={classes.background} variant="h5">Scegli il reparto</Typography>
+                    <br />
+                    <DialogContent dividers>{listRepartiCreate}</DialogContent>
+                  </>
+
+                ) : (
+                  <>
+                    {/* Tabelle Domande e risposte */}
+                    <Grid container spacing={3}>
+                      <Grid item xs={12} sm={8}>
+                        <Paper className={classes.marginTable}>
+
+                          <QuestionsAndAnswersEditor />
+                        </Paper>
+                        <Paper>
+                          <QuestionsEditor />
+                        </Paper>
+
+                      </Grid>
+                      <Grid item xs={12} sm={4}>
+                        <div className={classes.marginTable}>
+                          <ResultTableEditor />
+                        </div>
+                        <AnswersTableEditor />
+
+                      </Grid>
+
+                    </Grid>
+                  </>
+
+                )}
             </>
-
-          ) : (
-            <>
-              {/* Tabella Domande e risposte */}
-              <Grid container spacing={3}>
-                <Grid item xs={12} sm={8}>
-                  <Paper>
-                    {typeForm === 'a più risposte'
-                      ? <QuestionsAndAnswersEditor />
-                      : (<>{typeForm === 'a due risposte' ? <QuestionsEditor /> : <></>}</>)}
-
-                  </Paper>
-                </Grid>
-                <Grid item xs={12} sm={4}>
-                  {/* Tabella Risultati */}
-                  {typeForm === 'a più risposte'
-                    ? <ResultTableEditor />
-                    : (<>{typeForm === 'a due risposte' ? <AnswersTableEditor /> : <></>}</>)}
-
-                </Grid>
-
-              </Grid>
-            </>
-
-          )}
+          ) : <></>}
       </div>
     </div>
 
