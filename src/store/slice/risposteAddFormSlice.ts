@@ -24,6 +24,9 @@ const risposteAddFormSlice = createSlice({
     risposteOfDomandaObject: {} as any,
   },
   reducers: {
+    setRisposteOfDomandaInObject(state, { payload }) {
+      state.risposteOfDomandaObject = payload;
+    },
     modifyRisposta(state, { payload }) {
       const {
         IDDomanda, IDRisposta, risposta, valore,
@@ -145,6 +148,6 @@ export const {
   setAddRispostaUnclicked, setAnswer, setValore,
   setAnswersInDomanda, resetAnswerValore,
   deleteRisposta, deleteDomandeObject, setModifyRispostaClicked,
-  setModifyRispostaUnclicked, modifyRisposta,
+  setModifyRispostaUnclicked, modifyRisposta, setRisposteOfDomandaInObject,
 } = risposteAddFormSlice.actions;
 export default risposteAddFormSlice.reducer;

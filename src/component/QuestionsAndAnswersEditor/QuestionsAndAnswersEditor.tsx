@@ -12,7 +12,7 @@ import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 
 import AnswerLineEditor from '../AnswerLineEditor/AnswerLineEditor';
 import EmptyAnswerLineEditor from '../EmptyAnswerLineEditor/EmptyAnswerLineEditor';
-import EmptyAddQuestionEditor from '../EmptyAddQuestionEditor/EmptyAddQuestionEditor';
+import EmptyAddQuestionMoreAnswers from '../EmptyAddQuestionMoreAnswers/EmptyAddQuestionMoreAnswers';
 import {
   isDisable, colDisable, disableAll, enableAll,
 } from '../../store/slice/risultatiAddFormSlice';
@@ -23,7 +23,7 @@ import {
   setBModifyDomandaClicked, setBModifyDomandaUnclicked, modifyDomandaInObjectDomande,
 } from '../../store/slice/domandeAddFormSlice';
 import { objectToArray } from '../../util';
-import { unsetIcons, setIcons } from '../../store/slice/addFormSlice';
+import { unsetIcons, setIcons, isBConfirmAddFormClicked } from '../../store/slice/addFormSlice';
 import { haveRepModifyRight } from '../../store/slice/rightsSlice';
 
 const QuestionsAndAnswersEditor = () => {
@@ -36,6 +36,7 @@ const QuestionsAndAnswersEditor = () => {
 
   const arrayDomandeAdded = objectToArray(domandeAddedObject);
   const rightRepModify = useSelector(haveRepModifyRight);
+  const confirmAddFormClicked = useSelector(isBConfirmAddFormClicked);
 
   // vista domande da aggiunta nuovo form
   const listDomandeAdded = arrayDomandeAdded.map((domanda : any) => {
@@ -44,96 +45,115 @@ const QuestionsAndAnswersEditor = () => {
     return (
 
       <div key={domanda.ID}>
-        <Paper className={classes.bordiCard} elevation={3}>
-          <div className={classes.bordi}>
-            <span className={classes.bordi}>
-              <Grid container>
-                <Grid item xs={12} sm={1} />
-                <Grid item xs={12} sm={1} />
+        {domanda.Tipo === 'a più risposte'
+          ? (
+            <Paper className={classes.bordiCard} elevation={3}>
+              <div className={classes.bordi}>
+                <span className={classes.bordi}>
+                  <Grid container>
+                    <Grid item xs={12} sm={1} />
+                    <Grid item xs={12} sm={1} />
 
-                <Grid item xs={12} sm={5}>
-                  <Typography variant="subtitle1" align="center">
-                    Domanda
-                  </Typography>
+                    <Grid item xs={12} sm={5}>
+                      <Typography variant="subtitle1" align="center">
+                        Domanda
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={12} sm={4}>
+                      <Typography variant="subtitle1" align="center">
+                        Risposte
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={12} sm={1}>
+                      <Typography variant="subtitle1" align="center">
+                        Valore
+                      </Typography>
+                    </Grid>
+
+                  </Grid>
+
+                  <Divider />
+                </span>
+                <Grid container spacing={3}>
+                  {rightRepModify || confirmAddFormClicked
+                    ? (
+                      <>
+                        {' '}
+                        {domanda.stateText
+                          ? (
+                            < >
+                              <Grid item xs={12} sm={1}>
+                                <IconButton
+                                  disabled={disableActive}
+                                  onClick={() => {
+                                    dispatch(disableAll());
+                                    dispatch(setBModifyDomandaClicked(domanda.IDDomanda));
+                                    dispatch(unsetIcons());
+                                  }}
+                                >
+                                  <CreateIcon color={colorButton} />
+                                </IconButton>
+                              </Grid>
+                              <Grid item xs={12} sm={1}>
+                                <IconButton
+                                  onClick={
+                                    () => dispatch(deleteDomandaFormPiuRes(domanda.IDDomanda))
+                                    }
+                                  disabled={disableActive}
+                                >
+                                  <DeleteIcon color={colorButton} />
+                                </IconButton>
+                              </Grid>
+                            </ >
+                          ) : (
+                            < >
+                              <Grid item xs={12} sm={1}>
+                                <IconButton onClick={() => {
+                                  dispatch(enableAll());
+                                  dispatch(setBModifyDomandaUnclicked(domanda.IDDomanda));
+                                  dispatch(setIcons());
+                                }}
+                                >
+                                  <CheckCircleOutlineIcon color="primary" />
+                                </IconButton>
+                              </Grid>
+                              <Grid item xs={12} sm={1}>
+                                <IconButton onClick={() => {
+                                  dispatch(enableAll());
+                                  dispatch(setBModifyDomandaUnclicked(domanda.IDDomanda));
+                                  dispatch(setIcons());
+                                }}
+                                >
+                                  <HighlightOffIcon color="primary" />
+                                </IconButton>
+                              </Grid>
+                            </ >
+                          ) }
+                      </>
+                    ) : (
+                      <>
+                        {' '}
+                        <Grid item xs={12} sm={2} />
+                      </>
+                    )}
+
+                  <Grid item xs={12} sm={10}>
+                    <TextField
+                      disabled={domanda.stateText}
+                      value={domanda.Domanda}
+                      fullWidth
+                      onChange={() => dispatch(modifyDomandaInObjectDomande(
+                        { IDDomanda, question },
+                      ))}
+                    />
+                  </Grid>
                 </Grid>
-                <Grid item xs={12} sm={4}>
-                  <Typography variant="subtitle1" align="center">
-                    Risposte
-                  </Typography>
-                </Grid>
-                <Grid item xs={12} sm={1}>
-                  <Typography variant="subtitle1" align="center">
-                    Valore
-                  </Typography>
-                </Grid>
-
-              </Grid>
-
-              <Divider />
-            </span>
-            <Grid container spacing={3}>
-              {domanda.stateText
-                ? (
-                  < >
-                    <Grid item xs={12} sm={1}>
-                      <IconButton
-                        disabled={disableActive}
-                        onClick={() => {
-                          dispatch(disableAll());
-                          dispatch(setBModifyDomandaClicked(domanda.IDDomanda));
-                          dispatch(unsetIcons());
-                        }}
-                      >
-                        <CreateIcon color={colorButton} />
-                      </IconButton>
-                    </Grid>
-                    <Grid item xs={12} sm={1}>
-                      <IconButton
-                        onClick={() => dispatch(deleteDomandaFormPiuRes(domanda.IDDomanda))}
-                        disabled={disableActive}
-                      >
-                        <DeleteIcon color={colorButton} />
-                      </IconButton>
-                    </Grid>
-                  </ >
-                ) : (
-                  < >
-                    <Grid item xs={12} sm={1}>
-                      <IconButton onClick={() => {
-                        dispatch(enableAll());
-                        dispatch(setBModifyDomandaUnclicked(domanda.IDDomanda));
-                        dispatch(setIcons());
-                      }}
-                      >
-                        <CheckCircleOutlineIcon color="primary" />
-                      </IconButton>
-                    </Grid>
-                    <Grid item xs={12} sm={1}>
-                      <IconButton onClick={() => {
-                        dispatch(enableAll());
-                        dispatch(setBModifyDomandaUnclicked(domanda.IDDomanda));
-                        dispatch(setIcons());
-                      }}
-                      >
-                        <HighlightOffIcon color="primary" />
-                      </IconButton>
-                    </Grid>
-                  </ >
-                ) }
-
-              <Grid item xs={12} sm={10}>
-                <TextField
-                  disabled={domanda.stateText}
-                  value={domanda.Domanda}
-                  fullWidth
-                  onChange={() => dispatch(modifyDomandaInObjectDomande({ IDDomanda, question }))}
-                />
-              </Grid>
-            </Grid>
-            <AnswerLineEditor id={domanda.IDDomanda} />
-            <EmptyAnswerLineEditor IDDomanda={domanda.IDDomanda} />
-          </div>
-        </Paper>
+                <AnswerLineEditor id={domanda.IDDomanda} />
+                {rightRepModify || confirmAddFormClicked
+                  ? <EmptyAnswerLineEditor IDDomanda={domanda.IDDomanda} /> : <></>}
+              </div>
+            </Paper>
+          ) : <></>}
       </div>
 
     );
@@ -149,7 +169,8 @@ const QuestionsAndAnswersEditor = () => {
       <div className={classes.padding}>
         <div className={classes.marginDivider} />
         {listDomandeAdded}
-        <EmptyAddQuestionEditor />
+        {rightRepModify || confirmAddFormClicked
+          ? <EmptyAddQuestionMoreAnswers /> : <></>}
       </div>
     </div>
   );

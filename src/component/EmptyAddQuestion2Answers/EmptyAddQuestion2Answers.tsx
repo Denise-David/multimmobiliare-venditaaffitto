@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import { IconButton } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
@@ -23,7 +23,7 @@ import {
 } from '../../store/slice/addFormSlice';
 import { disableAll, enableAll } from '../../store/slice/risultatiAddFormSlice';
 
-const EmptyAddQuestionEditor = () => {
+const EmptyAddQuestion2Answers = () => {
   const dispatch = useDispatch();
   const valoreTextField = useSelector(question);
   const isIconEnabled = useSelector(isIconsDisabled);
@@ -31,14 +31,13 @@ const EmptyAddQuestionEditor = () => {
   const classes = useStyles();
   const colBCheck = useSelector(colorBCheckAddDomanda);
   const bCheckDisabled = useSelector(isBCheckAddDomandaDisabled);
-  const textFieldDomandaDisabled = useSelector(isTextFieldNewDomandaDisabled);
-  const buttonAddClicked = useSelector(isBAddDomandaClicked);
+  const [showTextField, setShowTextField] = useState(false);
 
   return (
     <div className={classes.marginGenerico}>
       <Grid container spacing={3}>
 
-        {!buttonAddClicked
+        {!showTextField
           ? (
             <>
               <Grid item xs={12} sm={1}>
@@ -49,6 +48,7 @@ const EmptyAddQuestionEditor = () => {
                     dispatch(setBAddDomandaClicked());
                     dispatch(unsetIcons());
                     dispatch(disableAll());
+                    setShowTextField(!showTextField);
                   }}
 
                 >
@@ -68,6 +68,7 @@ const EmptyAddQuestionEditor = () => {
                     dispatch(addDomandaInArray());
                     dispatch(setIcons());
                     dispatch(enableAll());
+                    setShowTextField(!showTextField);
                   }}
 
                 >
@@ -80,6 +81,7 @@ const EmptyAddQuestionEditor = () => {
                     dispatch(resetDomanda());
                     dispatch(setIcons());
                     dispatch(enableAll());
+                    setShowTextField(!showTextField);
                   }}
                 >
                   <HighlightOffIcon />
@@ -88,7 +90,6 @@ const EmptyAddQuestionEditor = () => {
               <Grid item xs={12} sm={10}>
                 <TextField
                   error={bCheckDisabled}
-                  autoFocus={!textFieldDomandaDisabled}
                   value={valoreTextField}
                   onChange={(event) => {
                     const { value } = event.target;
@@ -99,7 +100,6 @@ const EmptyAddQuestionEditor = () => {
                       dispatch(setBCheckAddDomandaEnabled());
                     }
                   }}
-                  disabled={textFieldDomandaDisabled}
                   id="standard-basic"
                   fullWidth
                 />
@@ -112,4 +112,4 @@ const EmptyAddQuestionEditor = () => {
   );
 };
 
-export default EmptyAddQuestionEditor;
+export default EmptyAddQuestion2Answers;

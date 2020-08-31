@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { emit } from 'process';
 import { State } from '../store/store';
 
 export interface domandaAddForm {
+  Tipo: string,
   IDDomanda : string,
    Domanda : string,
    stateText : boolean,
@@ -48,11 +48,13 @@ const domandeAddFormSlice = createSlice({
       const { IDDomanda } = payload;
       state.domandeObject[IDDomanda] = payload;
       state.domandeObject[IDDomanda].stateText = true;
+      state.domandeObject[IDDomanda].Tipo = 'a due risposte';
     },
     setDomandaInObjectDomandeMoreRes(state, { payload }) {
       const { IDDomanda } = payload;
       state.domandeObject[IDDomanda] = payload;
       state.domandeObject[IDDomanda].stateText = true;
+      state.domandeObject[IDDomanda].Tipo = 'a più risposte';
     },
     resetDomanda(state) {
       state.Question = '';
@@ -92,6 +94,10 @@ const domandeAddFormSlice = createSlice({
 
 export const addDomandaInArray = () => ({
   type: 'ADD_DOMANDA_IN_ARRAY',
+
+});
+export const addDomandaMoreResInArray = () => ({
+  type: 'ADD_DOMANDA_MORE_RES_IN_ARRAY',
 
 });
 export const deleteDomandaFormPiuRes = (payload:any) => ({

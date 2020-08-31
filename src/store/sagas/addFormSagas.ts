@@ -18,17 +18,17 @@ import {
   setDomandaInObjectDomande,
   resetDomandaByIDDomanda,
   resetDomandeOfDomandeObject,
+  setDomandaInObjectDomandeMoreRes,
 } from '../slice/domandeAddFormSlice';
 
 import {
-  formType, selectedReparto, nomeFormulario, setBAddFormClicked,
+  selectedReparto, nomeFormulario, setBAddFormClicked,
 } from '../slice/addFormSlice';
-import { addFormDueRisposte, addFormPiuRisposte } from '../api';
+import { addFormPiuRisposte } from '../api';
 import { objectToArray } from '../../util';
 import { setInitialStateAction } from '../slice/initialStateSlice';
 
 export default function* addFormulario() {
-  const tipoForm = yield select(formType);
   const reparto = yield select(selectedReparto);
   const { idReparto, nomeReparto } = reparto;
   const nomeForm = yield select(nomeFormulario);
@@ -40,58 +40,56 @@ export default function* addFormulario() {
   const resWithStatus = yield select(result);
   const risposteWithStatus = yield select(risposteOfDomandaObject);
 
-  // controllo il tipo fi Form
-  if (tipoForm === 'a due risposte') {
-    // creo un array con solo le domande senza lo stateText
-    const domandeAndStatusArray = objectToArray(domandeAndStatus);
+  // creo un array con solo le domande senza lo stateText
+  const domandeAndStatusArray = objectToArray(domandeAndStatus);
 
-    // eslint-disable-next-line max-len
-    const domande = domandeAndStatusArray.map((domandaAndStatus: domandaAddForm) => {
-      const { IDDomanda, Domanda } = domandaAndStatus;
-      return { IDDomanda, Domanda };
-    });
-    // inserisco Form due risposte nel DB
-    yield call(addFormDueRisposte, nomeReparto,
-      tipoForm, idReparto, nomeForm, domande,
-      risposta1, risposta2);
-  } else {
-    // creo un array con solo le domande senza lo stateText e aggiungo risposte senta stateText.
-    const domandeAndStatusArray = objectToArray(domandeAndStatus);
-
-    // eslint-disable-next-line max-len
-    const domande = domandeAndStatusArray.map((domandaAndStatus: domandaAddForm) => {
-      const { IDDomanda, Domanda } = domandaAndStatus;
+  // eslint-disable-next-line max-len
+  const domande = domandeAndStatusArray.map((domandaAndStatus: domandaAddForm) => {
+    const { IDDomanda, Domanda, Tipo } = domandaAndStatus;
+    if (domandaAndStatus.Tipo === 'a più risposte') {
       const risposteWithStatusArray = objectToArray(risposteWithStatus[IDDomanda]);
       const risposte = risposteWithStatusArray.map((rispostaWithStatus : any) => {
         const { IDRisposta, Risposta, Valore } = rispostaWithStatus;
         return { IDRisposta, Risposta, Valore };
       });
-      return { IDDomanda, Domanda, risposte };
-    });
-    // Creo Array con solo i risultati senza gli status
-    const resWithStatusArray = objectToArray(resWithStatus);
-
-    const risultati = resWithStatusArray.map((risultatoWithStatus : any) => {
-      const {
-        IDRisultato, Risultato, ValoreMin, ValoreMax,
-      } = risultatoWithStatus;
       return {
-        IDRisultato, Risultato, ValoreMin, ValoreMax,
+        IDDomanda, Domanda, Tipo, risposte,
       };
-    });
+    }
+    return { IDDomanda, Domanda, Tipo };
+  });
+    // Creo Array con solo i risultati senza gli status
+  const resWithStatusArray = objectToArray(resWithStatus);
+
+  const risultati = resWithStatusArray.map((risultatoWithStatus : any) => {
+    const {
+      IDRisultato, Risultato, ValoreMin, ValoreMax,
+    } = risultatoWithStatus;
+    return {
+      IDRisultato, Risultato, ValoreMin, ValoreMax,
+    };
+  });
     // inserico Form piu risposte nel DB
-    yield call(addFormPiuRisposte, nomeReparto, tipoForm, idReparto,
-      nomeForm, domande, risultati);
-  }
+  yield call(addFormPiuRisposte, nomeReparto, idReparto,
+    nomeForm, domande, risultati, risposta1, risposta2);
 
   yield put(resetDomandeOfDomandeObject());
 }
 
-export function* addDomandaInArray() {
+export function* addDomandaTwoResInArray() {
   const IDDomanda = uuidv4();
   const Domanda = yield select(question);
 
   yield put(setDomandaInObjectDomande({ IDDomanda, Domanda }));
+  yield put(setBAddDomandaUnclicked());
+  yield put(resetDomanda());
+}
+
+export function* addDomandaMoreResInArray() {
+  const IDDomanda = uuidv4();
+  const Domanda = yield select(question);
+
+  yield put(setDomandaInObjectDomandeMoreRes({ IDDomanda, Domanda }));
   yield put(setBAddDomandaUnclicked());
   yield put(resetDomanda());
 }

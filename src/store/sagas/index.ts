@@ -5,7 +5,8 @@ import {
 import { IDRepartoSelected, IDForm } from '../slice/repartoDDLSlice';
 import { setInitialStateAction, desetInitialStateAction } from '../slice/initialStateSlice';
 import addFormulario, {
-  addDomandaInArray, clickAddButton, clickDelOrSaveButton, addRes, deleteDomandaPiuRes, addResult,
+  addDomandaTwoResInArray, clickAddButton,
+  clickDelOrSaveButton, addRes, deleteDomandaPiuRes, addResult, addDomandaMoreResInArray,
 } from './addFormSagas';
 import { buttonSendCode } from '../slice/CodeSlice';
 import getDataEtichetta, { sendDataPazienti } from './dialogFormPazienteSagas';
@@ -22,6 +23,7 @@ import confirmAddForm, { changeRep, cancelAddForm } from './departmentChoiceEdit
 import fetchFormStructureByID, { fetchRepartoFormByGUID } from '../api';
 import { setFormulari } from '../slice/rightsSlice';
 import { setDomandeinObject } from '../slice/domandeAddFormSlice';
+import { setRisposteOfDomandaInObject } from '../slice/risposteAddFormSlice';
 
 function* init(action : any) {
   try {
@@ -39,7 +41,6 @@ function* init(action : any) {
     yield put(setFormulari(formulari));
 
     const IDFormulario = yield select(IDForm);
-    console.log('xxID', IDFormulario);
 
     // controllo se è selezionato un reparto
     if (IDFormulario !== '0') {
@@ -56,13 +57,36 @@ function* init(action : any) {
 
           return domandaWithState;
         });
-
         const res = datiDomandeWithState.reduce((accumulator:any, currentValue:any) => {
           accumulator[Object.keys(currentValue)[0]] = currentValue[Object.keys(currentValue)[0]];
           return accumulator;
         }, {});
 
         yield put(setDomandeinObject(res));
+
+        // genero un nuovo parametro stato per le risposte
+        const datiRisposteDomandeWithState = datiDomande.map((domandaObj : any) => {
+          const resWithState = domandaObj.risposte.map((risposta :any) => {
+            const rispostaWithState = { [risposta.IDRisposta]: { ...risposta, stateText: true } };
+
+            return (rispostaWithState);
+          });
+          const result = resWithState.reduce((accumulator:any, currentValue:any) => {
+            accumulator[Object.keys(currentValue)[0]] = currentValue[Object.keys(currentValue)[0]];
+            return accumulator;
+          }, {});
+          const domandaWithState = { [domandaObj.IDDomanda]: result };
+
+          return domandaWithState;
+        });
+
+        const res2 = datiRisposteDomandeWithState.reduce((accumulator:any, currentValue:any) => {
+          accumulator[Object.keys(currentValue)[0]] = currentValue[Object.keys(currentValue)[0]];
+          return accumulator;
+        }, {});
+
+        yield put(setRisposteOfDomandaInObject(res2));
+
         // setto il tipo di formulario
         yield put(getFormType(selectedForm.tipo));
 
@@ -91,13 +115,14 @@ function* actionWatcher() {
   yield takeLatest('initUserRightsAUTAN', initUserRightsAUTAN);
   yield takeLatest('BUTTON_CONFIRM_CLICKED', confirmAddForm);
   yield takeLatest('BUTTON_CANCEL_CLICKED', cancelAddForm);
-  yield takeLatest('ADD_DOMANDA_IN_ARRAY', addDomandaInArray);
+  yield takeLatest('ADD_DOMANDA_IN_ARRAY', addDomandaTwoResInArray);
   yield takeLatest('BUTTON_ADD_CLICKED', clickAddButton);
   yield takeLatest('BUTTON_DELETE_OR_SAVE_CLICKED', clickDelOrSaveButton);
   yield takeLatest('ADD_RISPOSTA', addRes);
   yield takeLatest('DELETE_DOMANDA_FORM_PIU_RES', deleteDomandaPiuRes);
   yield takeLatest('ADD_RISULTATO', addResult);
   yield takeLatest('CHANGE_REPARTO', changeRep);
+  yield takeLatest('ADD_DOMANDA_MORE_RES_IN_ARRAY', addDomandaMoreResInArray);
 }
 export default function* rootSaga() {
   yield all([actionWatcher()]);

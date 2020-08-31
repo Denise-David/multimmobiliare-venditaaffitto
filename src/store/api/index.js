@@ -26,39 +26,23 @@ export const fetchRepartoFormByGUID = (GUID) => struttureFormReparti.find(
   { query: { actualWardGUID: GUID } },
 );
 
-// Aggiungi formulario
-export const addFormDueRisposte = (
-  nomeReparto, tipoForm,
-  idReparto, nomeForm,
-  domande, risposta1, risposta2,
-) => struttureFormReparti.create(
-  {
-    tipo: tipoForm,
-    actualWardGUID: idReparto,
-    Reparto: nomeReparto,
-    formulario: nomeForm,
-    Domande: domande,
-    Risposte: {
-      risposta1,
-      risposta2,
-    },
-
-  },
-);
-
 // Aggiungi formulario piu risposte
 export const addFormPiuRisposte = (
-  nomeReparto, tipoForm,
+  nomeReparto,
   idReparto, nomeForm,
-  domande, risultati,
+  domande, risultati, risposta1, risposta2,
 ) => struttureFormReparti.create(
   {
-    tipo: tipoForm,
     actualWardGUID: idReparto,
     Reparto: nomeReparto,
     formulario: nomeForm,
     Domande: domande,
     Risultati: risultati,
+    Risposte:
+    {
+      risposta1,
+      risposta2,
+    },
 
   },
 );

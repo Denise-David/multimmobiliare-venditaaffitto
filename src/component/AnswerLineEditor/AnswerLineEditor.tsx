@@ -15,7 +15,7 @@ import {
   setModifyRispostaUnclicked, modifyRisposta,
 } from '../../store/slice/risposteAddFormSlice';
 import { objectToArray } from '../../util';
-import { unsetIcons, setIcons } from '../../store/slice/addFormSlice';
+import { unsetIcons, setIcons, isBConfirmAddFormClicked } from '../../store/slice/addFormSlice';
 import { haveRepModifyRight } from '../../store/slice/rightsSlice';
 
 interface Props {id : string}
@@ -30,12 +30,13 @@ const AnswerLineEditor = ({ id }: Props) => {
   const rightRepModify = useSelector(haveRepModifyRight);
   const risposteOfDomanda = risposteOFDomandeObj[id] ? risposteOFDomandeObj[id] : {};
   const risposteArray = objectToArray(risposteOfDomanda);
+  const confirmAddForm = useSelector(isBConfirmAddFormClicked);
 
   const listItems = risposteArray ? risposteArray.map((rispostaArray : any) => {
     const { IDRisposta } = rispostaArray;
     return (
       <Grid key={rispostaArray.IDRisposta} container spacing={3}>
-        {rightRepModify
+        {rightRepModify || confirmAddForm
           ? (
             <>
               {' '}
@@ -85,7 +86,7 @@ const AnswerLineEditor = ({ id }: Props) => {
             </>
           ) : <></>}
 
-        <Grid item xs={12} sm={5} />
+        <Grid item xs={12} sm={7} />
         <Grid item xs={12} sm={4}>
           <TextField
             onChange={(event) => {

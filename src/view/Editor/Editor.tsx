@@ -10,7 +10,8 @@ import useStyles from './style';
 import HeaderEditor from '../../component/HeaderEditor/HeaderEditor';
 import QuestionsAndAnswersEditor from '../../component/QuestionsAndAnswersEditor/QuestionsAndAnswersEditor';
 import {
-  isButtonAddFormClicked, formType, setSelectedReparto, setConfirmEnabled,
+  isButtonAddFormClicked, setSelectedReparto, setConfirmEnabled,
+  isBConfirmAddFormClicked,
 } from '../../store/slice/addFormSlice';
 
 import QuestionsEditor from '../../component/QuestionsEditor/QuestionEditor';
@@ -30,6 +31,7 @@ const FormPaziente = () => {
 
   const addReparto = useSelector(isButtonAddFormClicked);
   const username = useSelector(user);
+  const confirmAddForm = useSelector(isBConfirmAddFormClicked);
   // Estraggo i reparti e li unisco in un unico array (da spostare nel saga magari)
   const doppiArrayRepartiCreate = useSelector(repartiCreate);
 
@@ -61,10 +63,35 @@ const FormPaziente = () => {
           {username}
         </Typography>
         <HeaderEditor />
-        {IDFormSelected !== '-1'
+        {IDFormSelected !== '-1' || confirmAddForm
           ? (
+
             <>
-              {' '}
+              {/* Tabelle Domande e risposte */}
+              <Grid container spacing={3}>
+                <Grid item xs={12} sm={8}>
+                  <Paper className={classes.marginTable}>
+
+                    <QuestionsAndAnswersEditor />
+                  </Paper>
+                  <Paper>
+                    <QuestionsEditor />
+                  </Paper>
+
+                </Grid>
+                <Grid item xs={12} sm={4}>
+                  <div className={classes.marginTable}>
+                    <ResultTableEditor />
+                  </div>
+                  <AnswersTableEditor />
+
+                </Grid>
+
+              </Grid>
+            </>
+
+          ) : (
+            <>
               {addReparto
                 ? (
                   <>
@@ -73,34 +100,9 @@ const FormPaziente = () => {
                     <DialogContent dividers>{listRepartiCreate}</DialogContent>
                   </>
 
-                ) : (
-                  <>
-                    {/* Tabelle Domande e risposte */}
-                    <Grid container spacing={3}>
-                      <Grid item xs={12} sm={8}>
-                        <Paper className={classes.marginTable}>
-
-                          <QuestionsAndAnswersEditor />
-                        </Paper>
-                        <Paper>
-                          <QuestionsEditor />
-                        </Paper>
-
-                      </Grid>
-                      <Grid item xs={12} sm={4}>
-                        <div className={classes.marginTable}>
-                          <ResultTableEditor />
-                        </div>
-                        <AnswersTableEditor />
-
-                      </Grid>
-
-                    </Grid>
-                  </>
-
-                )}
+                ) : <></> }
             </>
-          ) : <></>}
+          )}
       </div>
     </div>
 
