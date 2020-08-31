@@ -8,19 +8,21 @@ import { useSelector, useDispatch } from 'react-redux';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import EmptyResultLineEditor from '../EmptyResultLineEditor/EmptyResultLineEditor';
 import {
-  colDisable, disableAll, enableAll, risultati, setBModifyClicked,
+  colDisable, disableAll, enableAll, dataRisultati, setBModifyClicked,
   setBModifyUnclicked, deleteRisultato, modifyRisultato,
 } from '../../store/slice/risultatiAddFormSlice';
 import { objectToArray } from '../../util';
 import { haveRepModifyRight } from '../../store/slice/rightsSlice';
+import { isBConfirmAddFormClicked } from '../../store/slice/addFormSlice';
 
 const ResultLineEditor = () => {
   const dispatch = useDispatch();
 
-  const risultatiObject = useSelector(risultati);
+  const risultatiObject = useSelector(dataRisultati);
 
   const colorButton = useSelector(colDisable);
   const rightRepModify = useSelector(haveRepModifyRight);
+  const confirmAddForm = useSelector(isBConfirmAddFormClicked);
 
   const risultatiArray = objectToArray(risultatiObject);
   // eslint-disable-next-line no-useless-escape
@@ -33,7 +35,7 @@ const ResultLineEditor = () => {
     return (
     // eslint-disable-next-line react/jsx-key
       <Grid container spacing={3}>
-        {rightRepModify
+        {rightRepModify || confirmAddForm
           ? (
             <>
               {!oneForm.stateModify
@@ -72,7 +74,7 @@ const ResultLineEditor = () => {
                 )}
 
             </>
-          ) : <></>}
+          ) : <><Grid item xs={12} sm={2} /></>}
 
         <Grid item xs={12} sm={6}>
           <TextField

@@ -1,15 +1,15 @@
 import { call, select, put } from 'redux-saga/effects';
 import { v4 as uuidv4 } from 'uuid';
 import {
+  valueMin, valueMax, alertConfirmDelete, disableAll, result, addRisultato, dataRisultati,
+} from '../slice/risultatiAddFormSlice';
+import {
   risposteOfDomandaObject,
   valore, answer, risposta2 as Response2,
   risposta1 as response1, setAnswersInDomanda,
   resetAnswerValore, setAddRispostaUnclicked, deleteDomandeObject,
 } from '../slice/risposteAddFormSlice';
 import { resetRisultati } from '../slice/risultatiFormularioSlice';
-import {
-  valueMin, valueMax, alertConfirmDelete, disableAll, result, addRisultato,
-} from '../slice/risultatiAddFormSlice';
 
 import {
   domandaAddForm,
@@ -27,6 +27,7 @@ import {
 import { addFormPiuRisposte } from '../api';
 import { objectToArray } from '../../util';
 import { setInitialStateAction } from '../slice/initialStateSlice';
+import { resetIDForm, resetIDReparto } from '../slice/repartoDDLSlice';
 
 export default function* addFormulario() {
   const reparto = yield select(selectedReparto);
@@ -37,7 +38,8 @@ export default function* addFormulario() {
   const { risposta1 } = ris1;
   const ris2 = yield select(Response2);
   const { risposta2 } = ris2;
-  const resWithStatus = yield select(result);
+  const resWithStatus = yield select(dataRisultati);
+  console.log('xxxRES', resWithStatus);
   const risposteWithStatus = yield select(risposteOfDomandaObject);
 
   // creo un array con solo le domande senza lo stateText
@@ -60,16 +62,18 @@ export default function* addFormulario() {
   });
     // Creo Array con solo i risultati senza gli status
   const resWithStatusArray = objectToArray(resWithStatus);
+  console.log('xxxRES', resWithStatusArray);
 
   const risultati = resWithStatusArray.map((risultatoWithStatus : any) => {
     const {
-      IDRisultato, Risultato, ValoreMin, ValoreMax,
+      IDRisultato, risultato, valoreMin, valoreMax,
     } = risultatoWithStatus;
     return {
-      IDRisultato, Risultato, ValoreMin, ValoreMax,
+      IDRisultato, risultato, valoreMin, valoreMax,
     };
   });
-    // inserico Form piu risposte nel DB
+  console.log('xxxRES', risultati);
+  // inserico Form piu risposte nel DB
   yield call(addFormPiuRisposte, nomeReparto, idReparto,
     nomeForm, domande, risultati, risposta1, risposta2);
 
@@ -98,6 +102,9 @@ export function* clickAddButton() {
   yield put(setBAddFormClicked());
   yield put(setInitialStateAction());
   yield put(resetRisultati());
+  yield put(resetDomandeOfDomandeObject());
+  yield put(resetIDForm());
+  yield put(resetIDReparto());
 }
 export function* clickDelOrSaveButton() {
   yield put(alertConfirmDelete());

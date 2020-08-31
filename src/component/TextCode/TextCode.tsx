@@ -3,6 +3,7 @@ import TextField from '@material-ui/core/TextField';
 import { useDispatch, useSelector } from 'react-redux';
 import NumPad from 'react-numpad';
 import { getCodeValue, ValueCode } from '../../store/slice/CodeSlice';
+import { initFormulariReparto } from '../../store/slice/homePageLabel';
 
 const TextFieldCodice = () => {
   const dispatch = useDispatch();
@@ -10,6 +11,7 @@ const TextFieldCodice = () => {
 
   const getValueOnChange = (value : string) => {
     dispatch(getCodeValue(value));
+    dispatch(initFormulariReparto());
   };
   const muiTheme = {
     global: {
@@ -49,7 +51,7 @@ const TextFieldCodice = () => {
         id="outlined-basic"
         value={valueCode}
         label="Immetti codice"
-   //   onChange={getValueOnChange}
+
         fullWidth
         variant="outlined"
       />

@@ -2,13 +2,13 @@ import {
   all, takeLatest, call, put, select, takeEvery,
 } from 'redux-saga/effects';
 
-import { IDRepartoSelected, IDForm } from '../slice/repartoDDLSlice';
+import { IDRepartoSelected, IDForm, setRepartoSelected } from '../slice/repartoDDLSlice';
 import { setInitialStateAction, desetInitialStateAction } from '../slice/initialStateSlice';
 import addFormulario, {
   addDomandaTwoResInArray, clickAddButton,
   clickDelOrSaveButton, addRes, deleteDomandaPiuRes, addResult, addDomandaMoreResInArray,
 } from './addFormSagas';
-import { buttonSendCode } from '../slice/CodeSlice';
+import { buttonSendCode, ValueCode } from '../slice/CodeSlice';
 import getDataEtichetta, { sendDataPazienti } from './dialogFormPazienteSagas';
 import { buttonSendForm } from '../slice/patientFormSlice';
 import initPDFPatientData from './patientInfoPDFSagas';
@@ -20,10 +20,12 @@ import buttonSearch from './searchDoctorSagas';
 import { getFormType } from '../slice/addFormSlice';
 import initUserRightsAUTAN from './rightsUserSagas';
 import confirmAddForm, { changeRep, cancelAddForm } from './departmentChoiceEditorSagas';
-import fetchFormStructureByID, { fetchRepartoFormByGUID } from '../api';
+import fetchFormStructureByID, { fetchRepartoFormByGUID, getEtichettaDataByLabel } from '../api';
 import { setFormulari } from '../slice/rightsSlice';
 import { setDomandeinObject } from '../slice/domandeAddFormSlice';
 import { setRisposteOfDomandaInObject } from '../slice/risposteAddFormSlice';
+import { setRisultatiInObject } from '../slice/risultatiAddFormSlice';
+import { setRepartoGUID, setFormulariList } from '../slice/homePageLabel';
 
 function* init(action : any) {
   try {
@@ -87,6 +89,21 @@ function* init(action : any) {
 
         yield put(setRisposteOfDomandaInObject(res2));
 
+        // genero nuovo parametro risultati
+        const datiResWithState = selectedForm.Risultati.map((risultato:any) => {
+          const risultatoWithState = {
+            [risultato.IDRisultato]:
+             { ...risultato, stateModify: false },
+          };
+          return (risultatoWithState);
+        });
+
+        const res3 = datiResWithState.reduce((accumulator:any, currentValue:any) => {
+          accumulator[Object.keys(currentValue)[0]] = currentValue[Object.keys(currentValue)[0]];
+          return accumulator;
+        }, {});
+
+        yield put(setRisultatiInObject(res3));
         // setto il tipo di formulario
         yield put(getFormType(selectedForm.tipo));
 
@@ -102,8 +119,32 @@ function* init(action : any) {
   }
 }
 
+function* initRep(action : any) {
+  // prendo e setto il reparto dell'etichetta immessa
+  const label : string = yield select(ValueCode);
+
+  const dataEtichetta = yield call(getEtichettaDataByLabel, label);
+  const { data = {} } = dataEtichetta;
+  const { hcase = {} } = data;
+  const repartoGUID = hcase.actualWardGUID;
+  const { payload } = yield put(setRepartoGUID(repartoGUID));
+
+  // prendo i formulari del reparto
+  const form = yield call(fetchRepartoFormByGUID, payload);
+
+  // eslint-disable-next-line no-underscore-dangle
+  const formulari = form.data.map((formu : any) => {
+    const { formulario, _id } = formu;
+    const res = { formulario, _id };
+
+    return res;
+  });
+  yield put(setFormulariList(formulari));
+}
+
 function* actionWatcher() {
   yield takeLatest('INIT', init);
+  yield takeLatest('INIT_FORMULARI_REPARTO', initRep);
   yield takeLatest('BUTTON_SAVE_FORM_CLICKED', addFormulario);
   yield takeLatest('BUTTON_SAVE_FORM_CLICKED', cancelAddForm);
   yield takeEvery(buttonSendCode.type, getDataEtichetta);

@@ -7,6 +7,7 @@ import useStyles from './style';
 
 const ResultTableEditor = () => {
   const classes = useStyles();
+
   return (
     <div>
 

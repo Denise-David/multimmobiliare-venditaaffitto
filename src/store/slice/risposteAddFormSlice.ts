@@ -24,6 +24,10 @@ const risposteAddFormSlice = createSlice({
     risposteOfDomandaObject: {} as any,
   },
   reducers: {
+    resetRisposteTwoRisposte(state) {
+      state.risposta2.risposta2 = 'No';
+      state.risposta1.risposta1 = 'Si';
+    },
     setRisposteOfDomandaInObject(state, { payload }) {
       state.risposteOfDomandaObject = payload;
     },
@@ -148,6 +152,7 @@ export const {
   setAddRispostaUnclicked, setAnswer, setValore,
   setAnswersInDomanda, resetAnswerValore,
   deleteRisposta, deleteDomandeObject, setModifyRispostaClicked,
-  setModifyRispostaUnclicked, modifyRisposta, setRisposteOfDomandaInObject,
+  setModifyRispostaUnclicked, modifyRisposta,
+  setRisposteOfDomandaInObject, resetRisposteTwoRisposte,
 } = risposteAddFormSlice.actions;
 export default risposteAddFormSlice.reducer;

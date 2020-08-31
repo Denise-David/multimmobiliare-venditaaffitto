@@ -50,7 +50,7 @@ const QuestionsEditor = () => {
               <div className={classes.bordi}>
                 <span className={classes.bordi} />
                 <Grid container spacing={3}>
-                  {rightRepModify
+                  {rightRepModify || confirmAddReparto
                     ? (
                       <>
                         {' '}
@@ -105,7 +105,12 @@ const QuestionsEditor = () => {
                           )}
 
                       </>
-                    ) : <></>}
+                    ) : (
+                      <>
+                        {' '}
+                        <Grid item xs={12} sm={2} />
+                      </>
+                    )}
                   <Grid item xs={12} sm={10}>
 
                     <TextField
@@ -127,7 +132,12 @@ const QuestionsEditor = () => {
                 </Grid>
               </div>
             </Paper>
-          ) : <></>}
+          ) : (
+            <>
+              {' '}
+              <Grid item xs={12} sm={2} />
+            </>
+          )}
       </div>
     );
   });

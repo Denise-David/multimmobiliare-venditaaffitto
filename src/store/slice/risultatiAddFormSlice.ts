@@ -8,7 +8,7 @@ const risultatiAddFormSlice = createSlice({
 
     deleteActive: false as boolean | undefined,
     isDisable: false,
-    risultati: {} as any,
+    dataRisultati: {} as any,
     valueMin: 0 as number,
     valueMax: 0 as number,
     result: ''as string,
@@ -16,13 +16,19 @@ const risultatiAddFormSlice = createSlice({
     stateTextFieldAddRisultato: true as boolean,
   },
   reducers: {
+    setRisultatiInObject(state, { payload }) {
+      state.dataRisultati = payload;
+    },
+    resetDataRisultati(state) {
+      state.dataRisultati = {};
+    },
     modifyRisultato(state, { payload }) {
       const {
         IDRisultato, risultato, valoreMin, valoreMax,
       } = payload;
-      state.risultati[IDRisultato].risultato = risultato;
-      state.risultati[IDRisultato].valoreMin = valoreMin;
-      state.risultati[IDRisultato].valoreMax = valoreMax;
+      state.dataRisultati[IDRisultato].risultato = risultato;
+      state.dataRisultati[IDRisultato].valoreMin = valoreMin;
+      state.dataRisultati[IDRisultato].valoreMax = valoreMax;
     },
     resetRisultato(state) {
       state.result = '';
@@ -30,13 +36,13 @@ const risultatiAddFormSlice = createSlice({
       state.valueMin = 0;
     },
     deleteRisultato(state, { payload }) {
-      delete state.risultati[payload];
+      delete state.dataRisultati[payload];
     },
     setBModifyClicked(state, { payload }) {
-      state.risultati[payload].stateModify = true;
+      state.dataRisultati[payload].stateModify = true;
     },
     setBModifyUnclicked(state, { payload }) {
-      state.risultati[payload].stateModify = false;
+      state.dataRisultati[payload].stateModify = false;
     },
     setBAddResultClicked(state) {
       state.stateTextFieldAddRisultato = false;
@@ -55,7 +61,7 @@ const risultatiAddFormSlice = createSlice({
     },
     addRisultato(state, { payload }) {
       const { IDRisultato } = payload;
-      state.risultati[IDRisultato] = payload;
+      state.dataRisultati[IDRisultato] = payload;
     },
     // gestione alert
     alertConfirmDelete(state) {
@@ -80,12 +86,12 @@ export const addRisultatoClicked = () => ({
 // eslint-disable-next-line max-len
 export const textFieldStateAddRisultato = (state : State) => state.risultatiAddForm.stateTextFieldAddRisultato;
 export const valueMax = (state : State) => state.risultatiAddForm.valueMax;
-export const risultati = (state: State) => state.risultatiAddForm.risultati;
+export const dataRisultati = (state: State) => state.risultatiAddForm.dataRisultati;
 export const valueMin = (state: State) => state.risultatiAddForm.valueMin;
 export const result = (state: State) => state.risultatiAddForm.result;
 export const delActive = (state : State) => state.risultatiAddForm.deleteActive;
 export const isDisable = (state : State) => state.risultatiAddForm.isDisable;
-export const stateRisultato = (state : State) => state.risultatiAddForm.risultati;
+export const stateRisultato = (state : State) => state.risultatiAddForm.dataRisultati;
 export const colDisable = (state : State) => state.risultatiAddForm.colorButton;
 
 export const {
@@ -95,6 +101,7 @@ export const {
   setRisultato, setValoreMax, setValoreMin,
   addRisultato, setBAddResultClicked, setBAddResultUnclicked,
   setBModifyClicked, setBModifyUnclicked, deleteRisultato,
-  resetRisultato, modifyRisultato,
+  resetRisultato, modifyRisultato, resetDataRisultati,
+  setRisultatiInObject,
 } = risultatiAddFormSlice.actions;
 export default risultatiAddFormSlice.reducer;

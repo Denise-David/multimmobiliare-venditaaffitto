@@ -84,9 +84,14 @@ const AnswerLineEditor = ({ id }: Props) => {
                 )}
 
             </>
-          ) : <></>}
+          ) : (
+            <>
+              {' '}
+              <Grid item xs={12} sm={2} />
+            </>
+          )}
 
-        <Grid item xs={12} sm={7} />
+        <Grid item xs={12} sm={5} />
         <Grid item xs={12} sm={4}>
           <TextField
             onChange={(event) => {

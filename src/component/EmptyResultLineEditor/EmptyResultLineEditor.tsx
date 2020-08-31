@@ -11,7 +11,7 @@ import {
   setBAddResultUnclicked, addRisultatoClicked, disableAll, enableAll,
   result, valueMax, valueMin, resetRisultato,
 } from '../../store/slice/risultatiAddFormSlice';
-import { unsetIcons, setIcons } from '../../store/slice/addFormSlice';
+import { unsetIcons, setIcons, isBConfirmAddFormClicked } from '../../store/slice/addFormSlice';
 import { haveRepModifyRight } from '../../store/slice/rightsSlice';
 
 const EmptyResultLineEditor = () => {
@@ -25,13 +25,14 @@ const EmptyResultLineEditor = () => {
   // eslint-disable-next-line no-useless-escape
   const NON_DIGIT = '/[^\d]/g';
   const rightRepModify = useSelector(haveRepModifyRight);
+  const confirmAddForm = useSelector(isBConfirmAddFormClicked);
 
   return (
     <div>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={1} />
         <Grid item xs={12} sm={1}>
-          {rightRepModify
+          {rightRepModify || confirmAddForm
             ? (
               <>
                 {' '}

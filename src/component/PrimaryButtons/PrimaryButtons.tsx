@@ -22,7 +22,7 @@ import {
   setUserModifyRight, haveUserCreateRight, repartiDelete, haveRepDeleteRight,
   setRepartoDeleteRight, haveRepModifyRight, setRepartoModifyRight, repartiModify,
 } from '../../store/slice/rightsSlice';
-import { IDRepartoSelected } from '../../store/slice/repartoDDLSlice';
+import { IDRepartoSelected, IDForm } from '../../store/slice/repartoDDLSlice';
 
 const PrimaryButtons = () => {
   const classes = useStyles();
@@ -34,7 +34,7 @@ const PrimaryButtons = () => {
   const isSaveDisabled = useSelector(isBSaveDisabled);
   const disableActive = useSelector(isDisable);
   const colorButton = useSelector(colDisable);
-  const noRep = useSelector(initialID);
+  const noRep = useSelector(IDForm);
   const rightUser = useSelector(rightsUserAUTAN);
   const rightCreate = useSelector(haveUserCreateRight);
   const rightRepModify = useSelector(haveRepModifyRight);
@@ -119,7 +119,7 @@ const PrimaryButtons = () => {
                 <div>
                   {/* se add non è attivo e non è stato cliccato il
                    confirm add form e non è sel. un reparto */}
-                  {noRep === 0
+                  {noRep === '-1'
                     ? (
                       <>
                         {rightCreate

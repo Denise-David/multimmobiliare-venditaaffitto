@@ -17,6 +17,8 @@ import SummaryDialog from '../../component/SummaryDialog/SummaryDialog';
 import {
   getCodeValue, buttonSendCode, snackbarStatusBarcode, closeSnackbarBarcode,
 } from '../../store/slice/CodeSlice';
+import DropDownListFormulariBarcode from '../../component/DropDownListFormulariBarcode/DropDownListFormulariBarcode';
+import { formulariList } from '../../store/slice/homePageLabel';
 
 const Barcodepage = () => {
   const classes = useStyles();
@@ -30,6 +32,7 @@ const Barcodepage = () => {
     }
   }, [dispatch]);
 
+  const formList = useSelector(formulariList);
   const statusSnackbarBarcode = useSelector(snackbarStatusBarcode);
   return (
     <div className={classes.Content}>
@@ -47,6 +50,9 @@ const Barcodepage = () => {
       </div>
       <div className={classes.Margin}>Oppure</div>
       <div className={classes.Margin}><TextFieldCodice /></div>
+      {formList.length > 1
+        ? <div className={classes.Margin}><DropDownListFormulariBarcode /></div>
+        : <></>}
       <ButtonSend />
       <Snackbar
         open={statusSnackbarBarcode}

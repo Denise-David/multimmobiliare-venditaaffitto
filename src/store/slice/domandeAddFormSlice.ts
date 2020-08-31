@@ -66,8 +66,8 @@ const domandeAddFormSlice = createSlice({
       state.domandeObject[payload].stateText = true;
     },
     modifyDomandaInObjectDomande(state, { payload }) {
-      const { IDDomanda } = payload;
-      state.domandeObject[IDDomanda] = payload;
+      const { IDDomanda, Domanda } = payload;
+      state.domandeObject[IDDomanda].Domanda = Domanda;
     },
     deleteDomandaInObjectDomande(state, { payload }) {
       delete state.domandeObject[payload];
