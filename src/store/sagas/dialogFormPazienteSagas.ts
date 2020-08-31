@@ -8,7 +8,7 @@ import { newPatientInfo, getNewPatientInfo, getOldPatientInfo } from '../slice/p
 import { ValueCode, openSnackbarBarcode } from '../slice/CodeSlice';
 
 import {
-  getEtichettaData, fetchRepartoFormByGUID,
+  getEtichettaDataByLabel, fetchRepartoFormByGUID,
 } from '../api';
 import { setSummaryDialogOpen, setPatientData, setAnswersData } from '../slice/summaryDialogSlice';
 import { getRepartoInfo } from '../slice/patientFormPDFSlice';
@@ -18,7 +18,7 @@ export default function* getDataEtichetta() {
     // prendo tutti i dati dell'etichetta selezionata
     const label : string = yield select(ValueCode);
 
-    const dataEtichetta = yield call(getEtichettaData, label);
+    const dataEtichetta = yield call(getEtichettaDataByLabel, label);
     const { data = {} } = dataEtichetta;
     const { patient = {}, hcase = {} } = data;
     const { familyname = '', givenname = '', address = {} } = patient;
@@ -51,6 +51,7 @@ export default function* getDataEtichetta() {
 
     // prendo le domande del reparto selezionato
     const allDataReparto = yield call(fetchRepartoFormByGUID, repartoGUID);
+
     const datiDomande = allDataReparto.data[0].Domande;
     yield put(getDomandeReparto(datiDomande));
 
@@ -78,7 +79,7 @@ export function* sendDataPazienti() {
     const numRisposte : number = arrayAnswersData.length;
     const patientData = yield select(newPatientInfo);
     const etichettaNum = yield select(ValueCode);
-    const dataEtichetta = yield call(getEtichettaData, etichettaNum);
+    const dataEtichetta = yield call(getEtichettaDataByLabel, etichettaNum);
 
     const { data = {} } = dataEtichetta;
     const { hcase = {} } = data;

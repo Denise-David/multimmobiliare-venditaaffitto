@@ -9,6 +9,20 @@ const useStyles = makeStyles((theme: Theme) => ({
   bordiCard: {
     margin: theme.spacing(1),
   },
+  NavColor: {
+    background: theme.palette.primary.main,
+    padding: '2em',
+    marginBottom: theme.spacing(2),
+    borderRadius: '0.5em',
+  },
+
+  padding: {
+    padding: theme.spacing(3),
+  },
+
+  marginDivider: {
+    marginBottom: theme.spacing(3),
+  },
 
 }));
 export default useStyles;

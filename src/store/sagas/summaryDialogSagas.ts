@@ -1,6 +1,6 @@
 import { select, put, call } from 'redux-saga/effects';
 import { oldPatientInfo, newPatientInfo } from '../slice/patientDataSlice';
-import { addRisposteFormPazienti, getLastRisposteFormPazienti } from '../api';
+import { addRisposteFormPazienti } from '../api';
 import { risposte } from '../slice/patientFormSlice';
 import { setLastRisposta } from '../slice/returnDeviceSlice';
 

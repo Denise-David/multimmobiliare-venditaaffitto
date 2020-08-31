@@ -1,23 +1,55 @@
 import React, { useEffect } from 'react';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import AppBar from '@material-ui/core/AppBar';
+
 import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { DialogContent, MenuItem } from '@material-ui/core';
 import Nav from '../../component/Navbar/Navbar';
 import useStyles from './style';
-import DepartmentChoiceEditor from '../../component/DepartmentChoiceEditor/DepartmentChoiceEditor';
-import ResultLineEditor from '../../component/ResultLineEditor/ResultLineEditor';
+import HeaderEditor from '../../component/HeaderEditor/HeaderEditor';
 import QuestionsAndAnswersEditor from '../../component/QuestionsAndAnswersEditor/QuestionsAndAnswersEditor';
+import {
+  isButtonAddFormClicked, setSelectedReparto, setConfirmEnabled,
+  isBConfirmAddFormClicked,
+} from '../../store/slice/addFormSlice';
+
+import QuestionsEditor from '../../component/QuestionsEditor/QuestionEditor';
+import ResultTableEditor from '../../component/ResultTable/ResultTableEditor';
+import AnswersTableEditor from '../../component/AnswersTableEditor/AnswersTableEditor';
+import { user, repartiCreate } from '../../store/slice/rightsSlice';
+import { IDRepartoSelected, IDForm } from '../../store/slice/repartoDDLSlice';
 
 const FormPaziente = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch({ type: 'INIT' });
-  });
+    dispatch({ type: 'initUserRightsAUTAN' });
+  }, [dispatch]);
+  const IDFormSelected = useSelector(IDForm);
 
+  const addReparto = useSelector(isButtonAddFormClicked);
+  const username = useSelector(user);
+  const confirmAddForm = useSelector(isBConfirmAddFormClicked);
+  // Estraggo i reparti e li unisco in un unico array (da spostare nel saga magari)
+  const doppiArrayRepartiCreate = useSelector(repartiCreate);
+
+  const listRepartiCreate = doppiArrayRepartiCreate.map((Reparto : any) => {
+    const nomeReparto = Reparto.longname;
+    const idReparto = Reparto.unitid || Reparto.sermednodeid;
+    return (
+      <MenuItem
+        onClick={() => {
+          dispatch(setSelectedReparto({ nomeReparto, idReparto }));
+          dispatch(setConfirmEnabled());
+        }}
+        key={Reparto.unitid || Reparto.sermednodeid}
+      >
+        {Reparto.longname}
+      </MenuItem>
+    );
+  });
   return (
     <div>
 
@@ -28,63 +60,49 @@ const FormPaziente = () => {
           align="right"
           color="primary"
         >
-          NomeUtente
+          {username}
         </Typography>
-        <DepartmentChoiceEditor />
-        {/* Tabella Domande e risposte */}
-        <Grid container spacing={3}>
-          <Grid item xs={12} sm={8}>
-            <Paper>
-              <AppBar position="static" className={classes.NavColor}>
-                <Typography variant="h5" align="center">
-                  Domande e risposte
-                </Typography>
-              </AppBar>
-              <div className={classes.padding}>
+        <HeaderEditor />
+        {IDFormSelected !== '-1' || confirmAddForm
+          ? (
 
-                <div className={classes.marginDivider} />
-                <QuestionsAndAnswersEditor />
+            <>
+              {/* Tabelle Domande e risposte */}
+              <Grid container spacing={3}>
+                <Grid item xs={12} sm={8}>
+                  <Paper className={classes.marginTable}>
 
-              </div>
-            </Paper>
-          </Grid>
-          <Grid item xs={12} sm={4}>
-            {/* Tabella Risultati */}
-            <Paper>
-              <AppBar position="static" className={classes.NavColor}>
-                <Typography variant="h5" align="center">
-                  Risultati
-                </Typography>
-              </AppBar>
-              <div className={classes.padding}>
-                <div className={classes.marginDivider}>
-                  <Grid container>
-                    <Grid item xs={12} sm={1} />
-                    <Grid item xs={12} sm={1} />
-                    <Grid item xs={12} sm={6}>
-                      <Typography variant="subtitle1" align="center">
-                        Testo anamnesi
-                      </Typography>
-                    </Grid>
-                    <Grid item xs={12} sm={2}>
-                      <Typography variant="subtitle1" align="center">
-                        Valore min
-                      </Typography>
-                    </Grid>
-                    <Grid item xs={12} sm={2}>
-                      <Typography variant="subtitle1" align="center">
-                        Valore max
-                      </Typography>
-                    </Grid>
-                  </Grid>
-                  <Divider />
-                </div>
-                <ResultLineEditor />
-              </div>
-            </Paper>
-          </Grid>
+                    <QuestionsAndAnswersEditor />
+                  </Paper>
+                  <Paper>
+                    <QuestionsEditor />
+                  </Paper>
 
-        </Grid>
+                </Grid>
+                <Grid item xs={12} sm={4}>
+                  <div className={classes.marginTable}>
+                    <ResultTableEditor />
+                  </div>
+                  <AnswersTableEditor />
+
+                </Grid>
+
+              </Grid>
+            </>
+
+          ) : (
+            <>
+              {addReparto
+                ? (
+                  <>
+                    <Typography className={classes.background} variant="h5">Scegli il reparto</Typography>
+                    <br />
+                    <DialogContent dividers>{listRepartiCreate}</DialogContent>
+                  </>
+
+                ) : <></> }
+            </>
+          )}
       </div>
     </div>
 

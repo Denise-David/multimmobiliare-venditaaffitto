@@ -3,10 +3,12 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { useSelector, useDispatch } from 'react-redux';
 import { Select } from '@material-ui/core';
 import { State } from '../../store/store/store';
-import { Domanda, Risposta } from '../../store/slice/formSlice';
 import { getRisposta } from '../../store/slice/patientFormSlice';
 
 interface Props {idDomanda : string, domanda : string}
+export interface Domanda { ID : string, Domanda : string, Risposte : Risposta[],
+  stateModify: boolean}
+export interface Risposta { ID : string, risposta : string, valore : string}
 
 const DropDownListAnswersPatient = ({ idDomanda, domanda } : Props) => {
   const dispatch = useDispatch();
@@ -17,7 +19,6 @@ const DropDownListAnswersPatient = ({ idDomanda, domanda } : Props) => {
   };
   const risposte = useSelector(controlID);
   const answer = useSelector((state : State) => state.patientForm.risposte[idDomanda] || null);
-  console.log('xx answer', answer);
 
   // eslint-disable-next-line
   const listItems = risposte ? risposte.map((risposta : Risposta) => {
@@ -25,7 +26,6 @@ const DropDownListAnswersPatient = ({ idDomanda, domanda } : Props) => {
       <MenuItem key={risposta.ID} value={risposta.ID}>{risposta.risposta}</MenuItem>);
   }) : <></>;
 
-  // console.log('xxProva', risposte?.find((risposta : Risposta) => risposta.ID === value));
   return (
 
     <Select

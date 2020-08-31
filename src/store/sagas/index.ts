@@ -1,19 +1,14 @@
 import {
   all, takeLatest, call, put, select, takeEvery,
 } from 'redux-saga/effects';
-import { getRisultati } from '../slice/risultatiFormularioSlice';
-import fetchForm, { fetchAllForm } from '../api/index';
 
-import { domande, risultati } from '../slice/formSlice';
-
-import { formulariAction } from '../slice/formulariSlice';
-import { formID } from '../slice/repartoSlice';
-import {
-  initializeDomande, initializeRisultati, confirmRepartoAction,
-} from '../slice/editFormSlice';
+import { IDRepartoSelected, IDForm, setRepartoSelected } from '../slice/repartoDDLSlice';
 import { setInitialStateAction, desetInitialStateAction } from '../slice/initialStateSlice';
-import addReparto from './editFormSagas';
-import { buttonSendCode } from '../slice/CodeSlice';
+import addFormulario, {
+  addDomandaTwoResInArray, clickAddButton,
+  clickDelOrSaveButton, addRes, deleteDomandaPiuRes, addResult, addDomandaMoreResInArray,
+} from './addFormSagas';
+import { buttonSendCode, ValueCode } from '../slice/CodeSlice';
 import getDataEtichetta, { sendDataPazienti } from './dialogFormPazienteSagas';
 import { buttonSendForm } from '../slice/patientFormSlice';
 import initPDFPatientData from './patientInfoPDFSagas';
@@ -22,57 +17,97 @@ import setDataRisposteFormPaziente from './summaryDialogSagas';
 import { buttonSendConfirmClicked } from '../slice/summaryDialogSlice';
 import { buttonSearchClicked } from '../slice/searchDoctorSlice';
 import buttonSearch from './searchDoctorSagas';
+import { getFormType } from '../slice/addFormSlice';
+import initUserRightsAUTAN from './rightsUserSagas';
+import confirmAddForm, { changeRep, cancelAddForm } from './departmentChoiceEditorSagas';
+import fetchFormStructureByID, { fetchRepartoFormByGUID, getEtichettaDataByLabel } from '../api';
+import { setFormulari } from '../slice/rightsSlice';
+import { setDomandeinObject } from '../slice/domandeAddFormSlice';
+import { setRisposteOfDomandaInObject } from '../slice/risposteAddFormSlice';
+import { setRisultatiInObject } from '../slice/risultatiAddFormSlice';
+import { setRepartoGUID, setFormulariList } from '../slice/homePageLabel';
 
 function* init(action : any) {
   try {
-    const ID : string = yield select(formID);
+    const ID = yield select(IDRepartoSelected);
 
-    // prendo tutti i formulari
-    const allForm = yield call(fetchAllForm);
-    const datiFormulari = allForm.data;
+    // cerco i nome  e id dei formulari del reparto selezionato
+    const form = yield call(fetchRepartoFormByGUID, ID);
+    // eslint-disable-next-line no-underscore-dangle
+    const formulari = form.data.map((formu : any) => {
+      const { formulario, _id } = formu;
+      const res = { formulario, _id };
 
-    yield put(formulariAction(datiFormulari));
+      return res;
+    });
+    yield put(setFormulari(formulari));
 
-    // metodo che converte un array in un object
-    const arrayToObject = (array : any) => array.reduce((obj : any, item : any) => {
-    // eslint-disable-next-line no-param-reassign
-      obj[item.ID] = true;
-      return obj;
-    }, {});
+    const IDFormulario = yield select(IDForm);
 
     // controllo se è selezionato un reparto
-    if (ID !== '0') {
+    if (IDFormulario !== '0') {
       try {
-        // prendo i risultati del form ID selezionato
-        const ris = yield call(fetchForm, ID);
-        const datiRisultati = ris.Risultati;
-        yield put(risultati(datiRisultati));
+        // prendo il formulario ID
+        // eslint-disable-next-line no-underscore-dangle
+        const selectedForm = yield call(fetchFormStructureByID, IDFormulario);
 
-        // creo un array con indice ID Risultati e stato true
-        const initialStateRisultati = datiRisultati.map(
-          (risultato : any) => ({ ID: risultato.ID }),
-        );
-        const reduceRis = arrayToObject(initialStateRisultati);
-        // invio l'array
-        yield put(initializeRisultati(reduceRis));
+        const datiDomande = selectedForm.Domande;
 
-        // prendo le domande del form ID selezionato
-        const form = yield call(fetchForm, ID);
-        const datiDomande = form.Domande;
-        yield put(domande(datiDomande));
+        // genero un nuovo parametro stato
+        const datiDomandeWithState = datiDomande.map((domandaObj : any) => {
+          const domandaWithState = { [domandaObj.IDDomanda]: { ...domandaObj, stateText: true } };
 
-        // Creo un array con indice ID e stato true
-        const initialStateDomande = datiDomande.map(
-          (domanda : any) => ({ ID: domanda.ID }),
-        );
-        const reduce = arrayToObject(initialStateDomande);
-        // invio l'array
-        yield put(initializeDomande(reduce));
+          return domandaWithState;
+        });
+        const res = datiDomandeWithState.reduce((accumulator:any, currentValue:any) => {
+          accumulator[Object.keys(currentValue)[0]] = currentValue[Object.keys(currentValue)[0]];
+          return accumulator;
+        }, {});
 
-        // prendo il form ID selezionato
-        const formulario = yield call(fetchForm, ID);
-        const datiForm = formulario.data;
-        yield put(getRisultati(datiForm));
+        yield put(setDomandeinObject(res));
+
+        // genero un nuovo parametro stato per le risposte
+        const datiRisposteDomandeWithState = datiDomande.map((domandaObj : any) => {
+          const resWithState = domandaObj.risposte.map((risposta :any) => {
+            const rispostaWithState = { [risposta.IDRisposta]: { ...risposta, stateText: true } };
+
+            return (rispostaWithState);
+          });
+          const result = resWithState.reduce((accumulator:any, currentValue:any) => {
+            accumulator[Object.keys(currentValue)[0]] = currentValue[Object.keys(currentValue)[0]];
+            return accumulator;
+          }, {});
+          const domandaWithState = { [domandaObj.IDDomanda]: result };
+
+          return domandaWithState;
+        });
+
+        const res2 = datiRisposteDomandeWithState.reduce((accumulator:any, currentValue:any) => {
+          accumulator[Object.keys(currentValue)[0]] = currentValue[Object.keys(currentValue)[0]];
+          return accumulator;
+        }, {});
+
+        yield put(setRisposteOfDomandaInObject(res2));
+
+        // genero nuovo parametro risultati
+        const datiResWithState = selectedForm.Risultati.map((risultato:any) => {
+          const risultatoWithState = {
+            [risultato.IDRisultato]:
+             { ...risultato, stateModify: false },
+          };
+          return (risultatoWithState);
+        });
+
+        const res3 = datiResWithState.reduce((accumulator:any, currentValue:any) => {
+          accumulator[Object.keys(currentValue)[0]] = currentValue[Object.keys(currentValue)[0]];
+          return accumulator;
+        }, {});
+
+        yield put(setRisultatiInObject(res3));
+        // setto il tipo di formulario
+        yield put(getFormType(selectedForm.tipo));
+
+        // prendo tutti i form del reparto ID
 
         yield put(desetInitialStateAction());
       } catch (error) { console.log('errore', error); }
@@ -84,15 +119,51 @@ function* init(action : any) {
   }
 }
 
+function* initRep(action : any) {
+  // prendo e setto il reparto dell'etichetta immessa
+  const label : string = yield select(ValueCode);
+
+  const dataEtichetta = yield call(getEtichettaDataByLabel, label);
+  const { data = {} } = dataEtichetta;
+  const { hcase = {} } = data;
+  const repartoGUID = hcase.actualWardGUID;
+  const { payload } = yield put(setRepartoGUID(repartoGUID));
+
+  // prendo i formulari del reparto
+  const form = yield call(fetchRepartoFormByGUID, payload);
+
+  // eslint-disable-next-line no-underscore-dangle
+  const formulari = form.data.map((formu : any) => {
+    const { formulario, _id } = formu;
+    const res = { formulario, _id };
+
+    return res;
+  });
+  yield put(setFormulariList(formulari));
+}
+
 function* actionWatcher() {
   yield takeLatest('INIT', init);
-  yield takeLatest(confirmRepartoAction.type, addReparto);
+  yield takeLatest('INIT_FORMULARI_REPARTO', initRep);
+  yield takeLatest('BUTTON_SAVE_FORM_CLICKED', addFormulario);
+  yield takeLatest('BUTTON_SAVE_FORM_CLICKED', cancelAddForm);
   yield takeEvery(buttonSendCode.type, getDataEtichetta);
   yield takeLatest(buttonSendForm.type, sendDataPazienti);
   yield takeLatest('initPDFPatientData', initPDFPatientData);
   yield takeLatest('initPDFPatientAnswers', initPDFPatientAnswers);
   yield takeLatest(buttonSendConfirmClicked.type, setDataRisposteFormPaziente);
   yield takeLatest(buttonSearchClicked.type, buttonSearch);
+  yield takeLatest('initUserRightsAUTAN', initUserRightsAUTAN);
+  yield takeLatest('BUTTON_CONFIRM_CLICKED', confirmAddForm);
+  yield takeLatest('BUTTON_CANCEL_CLICKED', cancelAddForm);
+  yield takeLatest('ADD_DOMANDA_IN_ARRAY', addDomandaTwoResInArray);
+  yield takeLatest('BUTTON_ADD_CLICKED', clickAddButton);
+  yield takeLatest('BUTTON_DELETE_OR_SAVE_CLICKED', clickDelOrSaveButton);
+  yield takeLatest('ADD_RISPOSTA', addRes);
+  yield takeLatest('DELETE_DOMANDA_FORM_PIU_RES', deleteDomandaPiuRes);
+  yield takeLatest('ADD_RISULTATO', addResult);
+  yield takeLatest('CHANGE_REPARTO', changeRep);
+  yield takeLatest('ADD_DOMANDA_MORE_RES_IN_ARRAY', addDomandaMoreResInArray);
 }
 export default function* rootSaga() {
   yield all([actionWatcher()]);

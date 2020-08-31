@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     padding: theme.spacing(3),
   },
   NavColor: {
-    background: theme.palette.secondary.main,
+    background: theme.palette.primary.main,
     padding: '2em',
     marginBottom: theme.spacing(2),
     borderRadius: '0.5em',
@@ -27,6 +27,16 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   bordiCard: {
     margin: theme.spacing(),
+  },
+  background: {
+    background: theme.palette.primary.main,
+    color: 'White',
+    borderRadius: '0.2em',
+    padding: theme.spacing(1),
+
+  },
+  marginTable: {
+    marginBottom: theme.spacing(4),
   },
 
 }));

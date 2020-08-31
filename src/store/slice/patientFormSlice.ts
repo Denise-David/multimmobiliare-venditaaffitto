@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { State } from '../store/store';
-import { Domanda } from './formSlice';
+import { Domanda } from '../../component/DropDownListAnswersPatientForm/DropDownListAnswersPatientForm';
 
 const patientFormSlice = createSlice({
   name: 'patientForm',

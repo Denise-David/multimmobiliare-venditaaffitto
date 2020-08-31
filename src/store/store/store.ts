@@ -3,11 +3,10 @@ import createSagaMiddleware from 'redux-saga';
 import logger from 'redux-logger';
 import rootSaga from '../sagas';
 import loading from '../slice/loadingSlice';
-import formulari from '../slice/formulariSlice';
-import risForm from '../slice/risultatiFormularioSlice';
-import reparto from '../slice/repartoSlice';
-import editForm from '../slice/editFormSlice';
-import form from '../slice/formSlice';
+import risultatiFormulario from '../slice/risultatiFormularioSlice';
+import reparto from '../slice/repartoDDLSlice';
+import risultatiAddForm from '../slice/risultatiAddFormSlice';
+
 import initialState from '../slice/initialStateSlice';
 import code from '../slice/CodeSlice';
 import patientData from '../slice/patientDataSlice';
@@ -16,17 +15,21 @@ import patientInfoPDF from '../slice/patientFormPDFSlice';
 import summaryDialog from '../slice/summaryDialogSlice';
 import returnDevice from '../slice/returnDeviceSlice';
 import searchDoctor from '../slice/searchDoctorSlice';
+import addForm from '../slice/addFormSlice';
+import rights from '../slice/rightsSlice';
+import domandeAddForm from '../slice/domandeAddFormSlice';
+import risposteAddForm from '../slice/risposteAddFormSlice';
+import homePage from '../slice/homePageLabel';
 
 const sagaMiddleware = createSagaMiddleware();
 
 const store = configureStore({
   reducer: {
-    form,
+
     loading,
-    formulari,
-    risForm,
+    risultatiFormulario,
     reparto,
-    editForm,
+    risultatiAddForm,
     initialState,
     code,
     patientData,
@@ -35,6 +38,11 @@ const store = configureStore({
     summaryDialog,
     returnDevice,
     searchDoctor,
+    addForm,
+    rights,
+    domandeAddForm,
+    risposteAddForm,
+    homePage,
 
   },
 

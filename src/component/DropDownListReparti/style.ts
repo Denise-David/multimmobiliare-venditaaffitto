@@ -1,0 +1,58 @@
+// eslint-disable-next-line no-unused-vars
+import { makeStyles, Theme } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme:Theme) => ({
+
+  margin: {
+    marginBottom: theme.spacing(4),
+    marginTop: theme.spacing(4),
+  },
+  content: {
+    padding: theme.spacing(4),
+  },
+
+  root: {
+    flexGrow: 1,
+    padding: theme.spacing(3),
+  },
+  NavColor: {
+    background: theme.palette.secondary.main,
+    padding: '2em',
+    marginBottom: theme.spacing(2),
+    borderRadius: '0.5em',
+  },
+
+  padding: {
+    padding: theme.spacing(3),
+  },
+
+  marginDivider: {
+    marginBottom: theme.spacing(3),
+  },
+  button: {
+    margin: theme.spacing(2),
+  },
+  background: {
+    background: theme.palette.primary.main,
+    color: 'White',
+    borderRadius: '0.2em',
+    marginRight: theme.spacing(2),
+    padding: theme.spacing(2),
+
+  },
+  backRepartoFormulario: {
+    background: theme.palette.primary.main,
+    color: 'White',
+    padding: theme.spacing(2),
+  },
+  buttonAdd: {
+    marginTop: theme.spacing(-12),
+  },
+
+  ButtonDelSaveCanc: {
+
+    marginTop: theme.spacing(5),
+  },
+
+}));
+export default useStyles;

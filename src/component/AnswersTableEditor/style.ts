@@ -1,12 +1,8 @@
 // eslint-disable-next-line no-unused-vars
 import { makeStyles, Theme } from '@material-ui/core/styles';
 
-const useStyles = makeStyles((theme:Theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
 
-  margin: {
-    marginBottom: theme.spacing(4),
-    marginTop: theme.spacing(4),
-  },
   content: {
     padding: theme.spacing(4),
   },
@@ -16,7 +12,7 @@ const useStyles = makeStyles((theme:Theme) => ({
     padding: theme.spacing(3),
   },
   NavColor: {
-    background: theme.palette.secondary.main,
+    background: theme.palette.primary.main,
     padding: '2em',
     marginBottom: theme.spacing(2),
     borderRadius: '0.5em',
@@ -28,6 +24,12 @@ const useStyles = makeStyles((theme:Theme) => ({
 
   marginDivider: {
     marginBottom: theme.spacing(3),
+  },
+  bordiCard: {
+    margin: theme.spacing(),
+  },
+  marginTop: {
+    marginTop: theme.spacing(4),
   },
 
 }));

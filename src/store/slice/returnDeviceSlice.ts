@@ -20,7 +20,7 @@ const returnDeviceSlice = createSlice({
   },
 });
 
-export const lastRisposta = (state : State) => state.returnDevice.lastRisposta;
+export const lastRisposta = (state: State) => state.returnDevice.lastRisposta;
 export const returnDeviceIsOpen = (state : State) => state.returnDevice.returnDeviceIsOpen;
 export const {
   openReturnDeviceDialog,

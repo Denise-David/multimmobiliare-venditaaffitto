@@ -1,58 +1,101 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import TextField from '@material-ui/core/TextField';
 import { IconButton } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import { useSelector, useDispatch } from 'react-redux';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
-import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import {
-  risActive, addRispostaVuotaAction, isDisable, colDisable,
-} from '../../store/slice/editFormSlice';
+  isDisable, colDisable, enableAll, disableAll,
+} from '../../store/slice/risultatiAddFormSlice';
+import {
+  setAddRispostaClicked, stateAddedRisposta,
+  setAddRispostaUnclicked, setAnswer, setValore, addRisposta,
+  answer, valore,
+} from '../../store/slice/risposteAddFormSlice';
+import { setIcons, unsetIcons } from '../../store/slice/addFormSlice';
 
-const EmptyAnswerLineEditor = () => {
+interface Props{ IDDomanda: string}
+
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+const EmptyAnswerLineEditor = ({ IDDomanda }: Props) => {
   const dispatch = useDispatch();
+  const NON_DIGIT = '/[^d]/g';
+  useEffect(() => {
+    dispatch(setAddRispostaUnclicked(IDDomanda));
+  }, [dispatch, IDDomanda]);
 
   const colorButton = useSelector(colDisable);
   const disableActive = useSelector(isDisable);
-  const risultActive = useSelector(risActive);
-
-  const addRispostaDispatch = () => {
-    dispatch(addRispostaVuotaAction());
-  };
+  const stateTextField = useSelector(stateAddedRisposta);
+  const rispostaText = useSelector(answer);
+  const valoreText = useSelector(valore);
 
   return (
     <div>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={1} />
 
-        {risultActive
+        {stateTextField[IDDomanda]
           ? (
             <Grid item xs={12} sm={1}>
               <IconButton disabled={disableActive}>
-                <AddCircleOutlineIcon onClick={addRispostaDispatch} color={colorButton} />
+                <AddCircleOutlineIcon
+                  onClick={() => {
+                    dispatch(setAddRispostaClicked(IDDomanda));
+                    dispatch(unsetIcons());
+                    dispatch(disableAll());
+                  }}
+                  color={colorButton}
+                />
               </IconButton>
             </Grid>
 
           )
           : (
-            <div>
-              <IconButton onClick={addRispostaDispatch} color="primary">
-                <HighlightOffIcon />
-              </IconButton>
-              <IconButton onClick={addRispostaDispatch} color="primary">
+            <Grid item xs={12} sm={1}>
+              <IconButton
+                onClick={() => {
+                  dispatch(addRisposta(IDDomanda));
+                  dispatch(setIcons());
+                  dispatch(enableAll());
+                }}
+                color="primary"
+              >
                 <CheckCircleOutlineIcon />
               </IconButton>
-            </div>
+            </Grid>
           )}
 
         <Grid item xs={12} sm={1} />
         <Grid item xs={12} sm={4} />
         <Grid item xs={12} sm={4}>
-          <TextField disabled={risultActive} id="standard-basic" fullWidth />
+
+          <TextField
+            value={rispostaText[IDDomanda] || ''}
+            onChange={(event) => {
+              const { value } = event.target;
+              dispatch(setAnswer({ IDDomanda, value }));
+            }}
+            disabled={stateTextField[IDDomanda]}
+            id="standard-basic"
+            fullWidth
+          />
+
         </Grid>
         <Grid item xs={12} sm={1}>
-          <TextField disabled={risultActive} id="standard-basic" fullWidth />
+          <TextField
+            value={valoreText[IDDomanda] || ''}
+            onChange={(event) => {
+              const { value } = event.target;
+              // eslint-disable-next-line radix
+              const intValue = parseInt(value.toString().replace(NON_DIGIT, ''));
+              dispatch(setValore({ IDDomanda, intValue }));
+            }}
+            disabled={stateTextField[IDDomanda]}
+            id="standard-basic"
+            fullWidth
+          />
         </Grid>
       </Grid>
     </div>
