@@ -17,42 +17,44 @@ const MultipleChoiceLinePatient = () => {
   const domande = useSelector(repartoDomande);
   if (domande !== null) {
     const listItems = domande.map((domanda : any) => (
+      <>
+        {domanda.Tipo === 'a più risposte'
+          ? (
+            <ListItem divider key={domanda.ID}>
+              <Grid container>
+                <Grid item xs={12} sm={8}>
+                  <div className={classes.marginTop}>
+                    <Typography variant="subtitle1">{domanda.Domanda}</Typography>
+                  </div>
+                </Grid>
+                <Grid item xs={12} sm={4}>
+                  <FormControl variant="outlined" fullWidth className={classes.margin}>
+                    <InputLabel id="demo-simple-select-outlined-label"> </InputLabel>
 
-    /* eslint-disable */
-    <ListItem divider key={domanda.ID}>
-      <Grid container>
-        <Grid item xs={12} sm={8}>
-          <div className={classes.marginTop}>
-            <Typography variant="subtitle1">{domanda.Domanda}</Typography>
-          </div>
-        </Grid>
-        <Grid item xs={12} sm={4}>
-          <FormControl variant="outlined" fullWidth className={classes.margin}>
-            <InputLabel id="demo-simple-select-outlined-label"> </InputLabel>
-             
-            <DropDownListAnswersPatientForm idDomanda={domanda.ID} domanda={domanda.Domanda} />
-          </FormControl>
-        </Grid>
-      </Grid>
-    </ListItem>
-    
-  ));
-  return (
+                    <DropDownListAnswersPatientForm
+                      idDomanda={domanda.IDDomanda}
+                      domanda={domanda.Domanda}
+                    />
+                  </FormControl>
+                </Grid>
+              </Grid>
+            </ListItem>
+          ) : <></>}
+      </>
 
-    <div>{listItems}</div>
-
-  );
-  } else{
-  
+    ));
     return (
 
-      <div>
-        
-      </div>
-  
-    );
+      <div>{listItems}</div>
 
+    );
   }
+
+  return (
+
+    <div />
+
+  );
 };
 
 export default MultipleChoiceLinePatient;

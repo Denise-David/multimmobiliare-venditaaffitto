@@ -19,44 +19,50 @@ const BooleanLinePatientForm = () => {
     const idDomanda : string = question.IDDomanda;
     return (
       < >
-        <ListItem divider>
-          <Grid container>
-            <Grid item xs={12} sm={8} key={question.IDDomanda}>
-              <div className={classes.marginTop}>
-                <Typography variant="subtitle1">{question.Domanda}</Typography>
-              </div>
-            </Grid>
-            <Grid item xs={12} sm={4}>
-              <form className={classes.risposta}>
-                <FormControl component="fieldset">
-                  <RadioGroup
-                    aria-label="quiz"
-                    name="quiz"
-                    onChange={(event) => {
-                      const { value } = event.target;
-                      const valore = value;
-                      dispatch(getRisposta({ idDomanda, valore, domanda }));
-                    }}
-                  >
-                    <FormControlLabel
-                      value={booleanAnswers.risposta1}
-                      control={<Radio />}
-                      label={booleanAnswers.risposta1}
-                    />
-                    <FormControlLabel
-                      value={booleanAnswers.risposta2}
-                      control={<Radio />}
-                      label={booleanAnswers.risposta2}
-                    />
-                  </RadioGroup>
-                </FormControl>
-              </form>
-            </Grid>
-          </Grid>
-        </ListItem>
+        {question.Tipo === 'a due risposte'
+          ? (
+            <ListItem divider>
+
+              <Grid container>
+                <Grid item xs={12} sm={8} key={question.IDDomanda}>
+                  <div className={classes.marginTop}>
+                    <Typography variant="subtitle1">{question.Domanda}</Typography>
+                  </div>
+                </Grid>
+                <Grid item xs={12} sm={4}>
+                  <form className={classes.risposta}>
+                    <FormControl component="fieldset">
+                      <RadioGroup
+                        aria-label="quiz"
+                        name="quiz"
+                        onChange={(event) => {
+                          const { value } = event.target;
+                          const valore = value;
+                          dispatch(getRisposta({ idDomanda, valore, domanda }));
+                        }}
+                      >
+                        <FormControlLabel
+                          value={booleanAnswers.risposta1}
+                          control={<Radio />}
+                          label={booleanAnswers.risposta1}
+                        />
+                        <FormControlLabel
+                          value={booleanAnswers.risposta2}
+                          control={<Radio />}
+                          label={booleanAnswers.risposta2}
+                        />
+                      </RadioGroup>
+                    </FormControl>
+                  </form>
+                </Grid>
+              </Grid>
+
+            </ListItem>
+          ) : <></>}
       </>
     );
   });
+
   return (
 
     <>

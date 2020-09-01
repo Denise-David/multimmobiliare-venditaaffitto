@@ -88,12 +88,10 @@ const FormPaziente = () => {
           <Paper>
             <Typography className={classes.Titolo} variant="h5" align="center"> Si prega di rispondere alle seguenti domande </Typography>
           </Paper>
-          { formType === 'a più risposte'
-            ? (
-              <List>
-                <MultipleChoiceLinePatientForm />
-              </List>
-            ) : <BooleanLinePatientForm /> }
+          <List>
+            <MultipleChoiceLinePatientForm />
+          </List>
+          <BooleanLinePatientForm />
           <Snackbar
             open={statusSnackbar}
             autoHideDuration={4000}

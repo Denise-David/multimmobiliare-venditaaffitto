@@ -19,7 +19,7 @@ import addForm from '../slice/addFormSlice';
 import rights from '../slice/rightsSlice';
 import domandeAddForm from '../slice/domandeAddFormSlice';
 import risposteAddForm from '../slice/risposteAddFormSlice';
-import homePage from '../slice/homePageLabel';
+import homePage from '../slice/homePageLabelSlice';
 
 const sagaMiddleware = createSagaMiddleware();
 

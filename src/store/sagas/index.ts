@@ -25,7 +25,7 @@ import { setFormulari } from '../slice/rightsSlice';
 import { setDomandeinObject } from '../slice/domandeAddFormSlice';
 import { setRisposteOfDomandaInObject } from '../slice/risposteAddFormSlice';
 import { setRisultatiInObject } from '../slice/risultatiAddFormSlice';
-import { setRepartoGUID, setFormulariList } from '../slice/homePageLabel';
+import { setRepartoGUID, setFormulariList } from '../slice/homePageLabelSlice';
 
 function* init(action : any) {
   try {

@@ -18,7 +18,7 @@ import {
   getCodeValue, buttonSendCode, snackbarStatusBarcode, closeSnackbarBarcode,
 } from '../../store/slice/CodeSlice';
 import DropDownListFormulariBarcode from '../../component/DropDownListFormulariBarcode/DropDownListFormulariBarcode';
-import { formulariList } from '../../store/slice/homePageLabel';
+import { formulariList } from '../../store/slice/homePageLabelSlice';
 
 const Barcodepage = () => {
   const classes = useStyles();

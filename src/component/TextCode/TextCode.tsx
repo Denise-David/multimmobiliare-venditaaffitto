@@ -3,7 +3,7 @@ import TextField from '@material-ui/core/TextField';
 import { useDispatch, useSelector } from 'react-redux';
 import NumPad from 'react-numpad';
 import { getCodeValue, ValueCode } from '../../store/slice/CodeSlice';
-import { initFormulariReparto } from '../../store/slice/homePageLabel';
+import { initFormulariReparto } from '../../store/slice/homePageLabelSlice';
 
 const TextFieldCodice = () => {
   const dispatch = useDispatch();

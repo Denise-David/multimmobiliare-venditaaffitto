@@ -7,6 +7,7 @@ import { closeReturnDeviceDialog } from '../../store/slice/returnDeviceSlice';
 import { resetDomandeReparto, resetRisposte, resetBooleanAnswers } from '../../store/slice/patientFormSlice';
 import { resetAllData, setDisabledTrue } from '../../store/slice/patientDataSlice';
 import { resetCode } from '../../store/slice/CodeSlice';
+import { resetSelectedForm, resetRepartoGUID, resetFormList } from '../../store/slice/homePageLabelSlice';
 
 const ButtonReturnDevice = () => {
   const classes = useStyles();
@@ -20,6 +21,9 @@ const ButtonReturnDevice = () => {
     dispatch(resetBooleanAnswers());
     dispatch(setDisabledTrue());
     dispatch(resetCode());
+    dispatch(resetSelectedForm());
+    dispatch(resetRepartoGUID());
+    dispatch(resetFormList());
   };
 
   return (

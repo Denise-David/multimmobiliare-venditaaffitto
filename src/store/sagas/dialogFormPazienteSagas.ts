@@ -7,11 +7,12 @@ import { newPatientInfo, getNewPatientInfo, getOldPatientInfo } from '../slice/p
 
 import { ValueCode, openSnackbarBarcode } from '../slice/CodeSlice';
 
-import {
+import fetchFormStructureByID, {
   getEtichettaDataByLabel, fetchRepartoFormByGUID,
 } from '../api';
 import { setSummaryDialogOpen, setPatientData, setAnswersData } from '../slice/summaryDialogSlice';
 import { getRepartoInfo } from '../slice/patientFormPDFSlice';
+import { formSelected, formulariList } from '../slice/homePageLabelSlice';
 
 export default function* getDataEtichetta() {
   try {
@@ -46,22 +47,32 @@ export default function* getDataEtichetta() {
     yield put(getOldPatientInfo(patientInfo));
     yield put(getNewPatientInfo(patientInfo));
 
-    // Prendo il GUID reparto dell'etichetta delezionata
-    const repartoGUID = hcase.actualWardGUID;
+    // controllo se ha uno o più formulari
+    const form = yield select(formulariList);
+    if (form.length > 1) {
+      const IDForm = yield select(formSelected);
+      const dataForm = yield call(fetchFormStructureByID, IDForm);
 
-    // prendo le domande del reparto selezionato
-    const allDataReparto = yield call(fetchRepartoFormByGUID, repartoGUID);
+      // prendo le domande
+      const datiDomande = dataForm.Domande;
+      yield put(getDomandeReparto(datiDomande));
 
-    const datiDomande = allDataReparto.data[0].Domande;
-    yield put(getDomandeReparto(datiDomande));
+      // prendo risposte booleane
+      const booleanAnswers = dataForm.Risposte;
+      yield put(getBooleanAnswers(booleanAnswers));
+    } else {
+      // Prendo il GUID reparto dell'etichetta delezionata
+      const repartoGUID = hcase.actualWardGUID;
 
-    // prendo il tipo del formulario
-    const formType = allDataReparto.data[0].tipo;
-    yield put(getTipoFormulario(formType));
+      // prendo il o i formulari del reparto GUID
+      const allDataReparto = yield call(fetchRepartoFormByGUID, repartoGUID);
+      const datiDomande = allDataReparto.data[0].Domande;
+      yield put(getDomandeReparto(datiDomande));
 
-    // prendo risposte per formulario booleano
-    const booleanAnswers = allDataReparto.data[0].Risposte;
-    yield put(getBooleanAnswers(booleanAnswers));
+      // prendo risposte per formulario booleano
+      const booleanAnswers = allDataReparto.data[0].Risposte;
+      yield put(getBooleanAnswers(booleanAnswers));
+    }
 
     yield put(showPatientFormDialog());
   } catch (error) {
