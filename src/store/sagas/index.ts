@@ -26,6 +26,7 @@ import { setDomandeinObject } from '../slice/domandeAddFormSlice';
 import { setRisposteOfDomandaInObject } from '../slice/risposteAddFormSlice';
 import { setRisultatiInObject } from '../slice/risultatiAddFormSlice';
 import { setRepartoGUID, setFormulariList } from '../slice/homePageLabelSlice';
+import confirmDelForm from './deleteFormSagas';
 
 function* init(action : any) {
   try {
@@ -164,6 +165,7 @@ function* actionWatcher() {
   yield takeLatest('ADD_RISULTATO', addResult);
   yield takeLatest('CHANGE_REPARTO', changeRep);
   yield takeLatest('ADD_DOMANDA_MORE_RES_IN_ARRAY', addDomandaMoreResInArray);
+  yield takeLatest('CONFIRM_DELETE_FORM', confirmDelForm);
 }
 export default function* rootSaga() {
   yield all([actionWatcher()]);

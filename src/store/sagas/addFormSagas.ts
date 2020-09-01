@@ -39,8 +39,10 @@ export default function* addFormulario() {
   const ris2 = yield select(Response2);
   const { risposta2 } = ris2;
   const resWithStatus = yield select(dataRisultati);
-  console.log('xxxRES', resWithStatus);
   const risposteWithStatus = yield select(risposteOfDomandaObject);
+  console.log('xxdomandeAndStatus', domandeAndStatus);
+  console.log('xxResult', resWithStatus);
+  console.log('xxRes', risposteOfDomandaObject);
 
   // creo un array con solo le domande senza lo stateText
   const domandeAndStatusArray = objectToArray(domandeAndStatus);
@@ -62,7 +64,6 @@ export default function* addFormulario() {
   });
     // Creo Array con solo i risultati senza gli status
   const resWithStatusArray = objectToArray(resWithStatus);
-  console.log('xxxRES', resWithStatusArray);
 
   const risultati = resWithStatusArray.map((risultatoWithStatus : any) => {
     const {
@@ -72,7 +73,6 @@ export default function* addFormulario() {
       IDRisultato, risultato, valoreMin, valoreMax,
     };
   });
-  console.log('xxxRES', risultati);
   // inserico Form piu risposte nel DB
   yield call(addFormPiuRisposte, nomeReparto, idReparto,
     nomeForm, domande, risultati, risposta1, risposta2);

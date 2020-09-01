@@ -74,15 +74,20 @@ const FormPaziente = () => {
 
                     <QuestionsAndAnswersEditor />
                   </Paper>
-                  <Paper>
-                    <QuestionsEditor />
-                  </Paper>
-
                 </Grid>
                 <Grid item xs={12} sm={4}>
                   <div className={classes.marginTable}>
                     <ResultTableEditor />
                   </div>
+
+                </Grid>
+                <Grid item xs={12} sm={8}>
+                  <Paper>
+                    <QuestionsEditor />
+                  </Paper>
+                </Grid>
+                <Grid item xs={12} sm={4}>
+
                   <AnswersTableEditor />
 
                 </Grid>

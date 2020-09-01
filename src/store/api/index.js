@@ -84,3 +84,26 @@ export const getRepartiZAS = (zasAcronym) => axios.get(`/autoanamnesi/forwardCal
 
 // Cerco reparti ZAM
 export const getRepartiZAM = (zamAcronym) => axios.get(`/autoanamnesi/forwardCall/sermed?zamAcronym=${zamAcronym}`);
+
+// Modifica dati formulario
+export const modifyForm = (
+  IDForm, tipoForm, GUID, nomeReparto,
+  nomeForm, listDomande, listRisultati, risposta1, risposta2,
+) => struttureFormReparti.update(IDForm,
+  {
+    tipo: tipoForm,
+    actualWardGUID: GUID,
+    Reparto: nomeReparto,
+    formulario: nomeForm,
+    Domande: listDomande,
+    Risultati: listRisultati,
+    Risposte:
+    {
+      risposta1,
+      risposta2,
+    },
+
+  });
+
+// Elimina formulario
+export const deleteForm = (IDForm) => struttureFormReparti.remove(IDForm, {});

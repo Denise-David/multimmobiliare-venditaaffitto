@@ -5,7 +5,7 @@ import {
 import Grid from '@material-ui/core/Grid';
 import { useSelector, useDispatch } from 'react-redux';
 import useStyles from './style';
-import { resetIDReparto } from '../../store/slice/repartoDDLSlice';
+import { resetIDReparto, IDForm } from '../../store/slice/repartoDDLSlice';
 import {
   delActive, alertConfirmDelete, enableAll,
 } from '../../store/slice/risultatiAddFormSlice';
@@ -17,11 +17,13 @@ import {
   setNomeFormulario,
   setBSaveEnabled,
   setBSaveDisabled,
+  confirmDeleteForm,
 } from '../../store/slice/addFormSlice';
 import DropDownListFormulari from '../DropDownListFormulari/DropDownListFormulari';
 import PrimaryButtons from '../PrimaryButtons/PrimaryButtons';
 import RadioButtonTypeForm from '../RadioButtonTypeForm/RadioButtonTypeForm';
 import DropDownListReparti from '../DropDownListReparti/DropDownListReparti';
+import { deleteForm } from '../../store/api';
 
 const HeaderEditor = () => {
   const dispatch = useDispatch();
@@ -43,14 +45,6 @@ const HeaderEditor = () => {
     } else if (!value) {
       dispatch(setBSaveDisabled());
     }
-  };
-
-  const confirmDeleteDispatch = () => {
-    dispatch(resetRisultati());
-    dispatch(alertConfirmDelete());
-    dispatch(setInitialStateAction());
-    dispatch(resetIDReparto());
-    dispatch(enableAll());
   };
 
   // Dispatch pulsante annulla dell'alert
@@ -116,7 +110,7 @@ const HeaderEditor = () => {
         open={deleteActive}
         action={(
           <div>
-            <Button onClick={confirmDeleteDispatch} variant="contained" color="primary" size="small">
+            <Button onClick={() => dispatch(confirmDeleteForm())} variant="contained" color="primary" size="small">
               Conferma eliminazione
             </Button>
             &nbsp;&nbsp;
