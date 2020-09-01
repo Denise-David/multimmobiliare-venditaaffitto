@@ -18,7 +18,7 @@ import QuestionsEditor from '../../component/QuestionsEditor/QuestionEditor';
 import ResultTableEditor from '../../component/ResultTable/ResultTableEditor';
 import AnswersTableEditor from '../../component/AnswersTableEditor/AnswersTableEditor';
 import { user, repartiCreate } from '../../store/slice/rightsSlice';
-import { IDRepartoSelected, IDForm } from '../../store/slice/repartoDDLSlice';
+import { IDForm } from '../../store/slice/repartoDDLSlice';
 
 const FormPaziente = () => {
   const classes = useStyles();

@@ -13,10 +13,9 @@ import {
   isButtonAddFormClicked, buttonConfirmAddFormClicked,
   isConfirmDisabled, colButton, buttonCancelAddFormClicked,
   isBConfirmAddFormClicked, isBSaveDisabled,
-  buttonSaveFormClicked, buttonDeleteOrSaveClicked, buttonAddClicked,
+  buttonSaveFormClicked, buttonDeleteOrSaveClicked, buttonAddClicked, saveModifyForm,
 } from '../../store/slice/addFormSlice';
 import { isDisable, colDisable } from '../../store/slice/risultatiAddFormSlice';
-import { initialID } from '../../store/slice/initialStateSlice';
 import {
   rightsUserAUTAN, setUserCreateRight, setUserDeleteRight,
   setUserModifyRight, haveUserCreateRight, repartiDelete, haveRepDeleteRight,
@@ -165,7 +164,7 @@ const PrimaryButtons = () => {
                             ? (
                               <IconButton
                                 disabled={disableActive}
-                                onClick={() => dispatch(buttonDeleteOrSaveClicked())}
+                                onClick={() => dispatch(saveModifyForm())}
                               >
                                 <SaveIcon fontSize="large" color="primary" />
                               </IconButton>

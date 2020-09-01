@@ -1,7 +1,8 @@
 import { call, select, put } from 'redux-saga/effects';
 import { v4 as uuidv4 } from 'uuid';
 import {
-  valueMin, valueMax, alertConfirmDelete, disableAll, result, addRisultato, dataRisultati,
+  valueMin, valueMax, alertConfirmDelete,
+  disableAll, result, addRisultato, dataRisultati, resetDataRisultati,
 } from '../slice/risultatiAddFormSlice';
 import {
   risposteOfDomandaObject,
@@ -10,7 +11,6 @@ import {
   resetAnswerValore, setAddRispostaUnclicked, deleteDomandeObject,
 } from '../slice/risposteAddFormSlice';
 import { resetRisultati } from '../slice/risultatiFormularioSlice';
-
 import {
   domandaAddForm,
   domandeObject,
@@ -20,9 +20,8 @@ import {
   resetDomandeOfDomandeObject,
   setDomandaInObjectDomandeMoreRes,
 } from '../slice/domandeAddFormSlice';
-
 import {
-  selectedReparto, nomeFormulario, setBAddFormClicked,
+  selectedReparto, nomeFormulario, setBAddFormClicked, setBSaveDisabled,
 } from '../slice/addFormSlice';
 import { addFormPiuRisposte } from '../api';
 import { objectToArray } from '../../util';
@@ -40,9 +39,6 @@ export default function* addFormulario() {
   const { risposta2 } = ris2;
   const resWithStatus = yield select(dataRisultati);
   const risposteWithStatus = yield select(risposteOfDomandaObject);
-  console.log('xxdomandeAndStatus', domandeAndStatus);
-  console.log('xxResult', resWithStatus);
-  console.log('xxRes', risposteOfDomandaObject);
 
   // creo un array con solo le domande senza lo stateText
   const domandeAndStatusArray = objectToArray(domandeAndStatus);
@@ -77,7 +73,10 @@ export default function* addFormulario() {
   yield call(addFormPiuRisposte, nomeReparto, idReparto,
     nomeForm, domande, risultati, risposta1, risposta2);
 
+  yield put(resetDataRisultati());
+
   yield put(resetDomandeOfDomandeObject());
+  yield put(setBSaveDisabled());
 }
 
 export function* addDomandaTwoResInArray() {

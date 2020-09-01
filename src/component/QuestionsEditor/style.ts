@@ -32,6 +32,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   marginGenerico: {
     margin: theme.spacing(2),
   },
+  space: {
+    marginRight: theme.spacing(64),
+  },
 
 }));
 export default useStyles;

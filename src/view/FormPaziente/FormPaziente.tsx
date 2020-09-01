@@ -26,7 +26,7 @@ import TextFamilyDoctor from '../../component/TextFamilyDoctor/TextFamilyDoctor'
 import ButtonSendFormPaziente from '../../component/ButtonSendPatientForm/ButtonSendPatientForm';
 import { switchStateDisabled } from '../../store/slice/patientDataSlice';
 import TextCityName from '../../component/TextCityName/TextCityName';
-import { tipoForm, snackbarStatus, closeSnackbar } from '../../store/slice/patientFormSlice';
+import { snackbarStatus, closeSnackbar } from '../../store/slice/patientFormSlice';
 import BooleanLinePatientForm from '../../component/BooleanLinePatientForm/BooleanLinePatientForm';
 import TextCAP from '../../component/TextCAP/TextCityName';
 import SearchDoctorDialog from '../../component/SearchDoctorDialog/SearchDoctorDialog';
@@ -35,7 +35,6 @@ import { openDialogSearch } from '../../store/slice/searchDoctorSlice';
 const FormPaziente = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const formType = useSelector(tipoForm);
   const statusSnackbar = useSelector(snackbarStatus);
   function Alert(props: AlertProps) {
     // eslint-disable-next-line react/jsx-props-no-spreading

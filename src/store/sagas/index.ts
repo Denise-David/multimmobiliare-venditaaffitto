@@ -1,8 +1,9 @@
 import {
   all, takeLatest, call, put, select, takeEvery,
 } from 'redux-saga/effects';
+import { getFormType } from '../slice/addFormSlice';
 
-import { IDRepartoSelected, IDForm, setRepartoSelected } from '../slice/repartoDDLSlice';
+import { IDRepartoSelected, IDForm } from '../slice/repartoDDLSlice';
 import { setInitialStateAction, desetInitialStateAction } from '../slice/initialStateSlice';
 import addFormulario, {
   addDomandaTwoResInArray, clickAddButton,
@@ -17,7 +18,7 @@ import setDataRisposteFormPaziente from './summaryDialogSagas';
 import { buttonSendConfirmClicked } from '../slice/summaryDialogSlice';
 import { buttonSearchClicked } from '../slice/searchDoctorSlice';
 import buttonSearch from './searchDoctorSagas';
-import { getFormType } from '../slice/addFormSlice';
+
 import initUserRightsAUTAN from './rightsUserSagas';
 import confirmAddForm, { changeRep, cancelAddForm } from './departmentChoiceEditorSagas';
 import fetchFormStructureByID, { fetchRepartoFormByGUID, getEtichettaDataByLabel } from '../api';
@@ -27,6 +28,7 @@ import { setRisposteOfDomandaInObject } from '../slice/risposteAddFormSlice';
 import { setRisultatiInObject } from '../slice/risultatiAddFormSlice';
 import { setRepartoGUID, setFormulariList } from '../slice/homePageLabelSlice';
 import confirmDelForm from './deleteFormSagas';
+import saveModify from './modifyFormSagas';
 
 function* init(action : any) {
   try {
@@ -69,12 +71,12 @@ function* init(action : any) {
 
         // genero un nuovo parametro stato per le risposte
         const datiRisposteDomandeWithState = datiDomande.map((domandaObj : any) => {
-          const resWithState = domandaObj.risposte.map((risposta :any) => {
+          const resWithState = domandaObj.risposte?.map((risposta :any) => {
             const rispostaWithState = { [risposta.IDRisposta]: { ...risposta, stateText: true } };
 
             return (rispostaWithState);
           });
-          const result = resWithState.reduce((accumulator:any, currentValue:any) => {
+          const result = resWithState?.reduce((accumulator:any, currentValue:any) => {
             accumulator[Object.keys(currentValue)[0]] = currentValue[Object.keys(currentValue)[0]];
             return accumulator;
           }, {});
@@ -87,7 +89,6 @@ function* init(action : any) {
           accumulator[Object.keys(currentValue)[0]] = currentValue[Object.keys(currentValue)[0]];
           return accumulator;
         }, {});
-
         yield put(setRisposteOfDomandaInObject(res2));
 
         // genero nuovo parametro risultati
@@ -166,6 +167,7 @@ function* actionWatcher() {
   yield takeLatest('CHANGE_REPARTO', changeRep);
   yield takeLatest('ADD_DOMANDA_MORE_RES_IN_ARRAY', addDomandaMoreResInArray);
   yield takeLatest('CONFIRM_DELETE_FORM', confirmDelForm);
+  yield takeLatest('SAVE_MODIFY_FORM', saveModify);
 }
 export default function* rootSaga() {
   yield all([actionWatcher()]);

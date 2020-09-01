@@ -5,12 +5,10 @@ import {
 import Grid from '@material-ui/core/Grid';
 import { useSelector, useDispatch } from 'react-redux';
 import useStyles from './style';
-import { resetIDReparto, IDForm } from '../../store/slice/repartoDDLSlice';
+
 import {
   delActive, alertConfirmDelete, enableAll,
 } from '../../store/slice/risultatiAddFormSlice';
-import { setInitialStateAction } from '../../store/slice/initialStateSlice';
-import { resetRisultati } from '../../store/slice/risultatiFormularioSlice';
 import {
   isButtonAddFormClicked,
   isBConfirmAddFormClicked,
@@ -23,7 +21,6 @@ import DropDownListFormulari from '../DropDownListFormulari/DropDownListFormular
 import PrimaryButtons from '../PrimaryButtons/PrimaryButtons';
 import RadioButtonTypeForm from '../RadioButtonTypeForm/RadioButtonTypeForm';
 import DropDownListReparti from '../DropDownListReparti/DropDownListReparti';
-import { deleteForm } from '../../store/api';
 
 const HeaderEditor = () => {
   const dispatch = useDispatch();

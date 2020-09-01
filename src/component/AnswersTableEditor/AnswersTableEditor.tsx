@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
-  Paper, AppBar, Typography, Grid, TextField, IconButton,
+  Paper, AppBar, Typography, Grid, TextField, IconButton, Collapse,
 } from '@material-ui/core';
 import CreateIcon from '@material-ui/icons/Create';
 import { useDispatch, useSelector } from 'react-redux';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import useStyles from './style';
 import {
   getRisposta1, setBModifyRis1Clicked, risposta1, risposta2,
@@ -36,63 +38,87 @@ const AnswersTableEditor = () => {
   const colBCheckRis2 = useSelector(colorBCheckRis2);
   const bCheckRis2Disabled = useSelector(isBCheckRis2Disabled);
   const rightRepModify = useSelector(haveRepModifyRight);
+  const [expanded, setExpanded] = useState(true);
+
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
+
   return (
     <div>
 
       <Paper>
         <AppBar position="static" className={classes.NavColor}>
-          <Typography variant="h5" align="center">
-            Risposte
-          </Typography>
-        </AppBar>
-        <div className={classes.padding}>
-          <div className={classes.marginDivider}>
-            <Grid container>
-              <Grid item xs={12} sm={1} />
-              <Grid item xs={12} sm={1} />
-              <Grid item xs={12} sm={10}>
-                <Typography variant="subtitle1">
-                  Risposta di riferimento*
-                </Typography>
-              </Grid>
-              <Grid item xs={12} sm={2}>
-                {rightRepModify
-                  ? (
-                    <>
-                      {' '}
-                      {!bModifyRis1Clicked
-                        ? (
-                          <IconButton
-                            disabled={isIconEnabled}
-                            color={colButton}
-                            onClick={() => {
-                              dispatch(setBModifyRis1Clicked());
-                              dispatch(unsetIcons());
-                            }}
-                          >
-                            <CreateIcon />
-                          </IconButton>
-                        ) : (
-                          <IconButton
-                            disabled={bCheckRis1Disabled}
-                            color={colBCheckRis1}
-                            onClick={() => {
-                              dispatch(setBModifyRis1Unclicked());
-                              dispatch(setIcons());
-                            }}
-                          >
-                            <CheckCircleOutlineIcon />
-                          </IconButton>
-                        )}
+          {expanded
+            ? (
+              <Typography variant="h5" align="left">
+                <IconButton onClick={handleExpandClick} className={classes.space}>
+                  <ExpandLessIcon fontSize="large" color="secondary" />
+                </IconButton>
 
-                    </>
-                  ) : <></>}
-              </Grid>
-              <Grid item xs={12} sm={10}>
-                <TextField
-                  value={ris1.risposta1}
-                  disabled={ris1.stateText}
-                  onChange={
+                Risposte
+              </Typography>
+            )
+            : (
+              <Typography variant="h5" align="left">
+                <IconButton onClick={handleExpandClick} className={classes.space}>
+                  <ExpandMoreIcon fontSize="large" color="secondary" />
+                </IconButton>
+
+                Risposte
+              </Typography>
+            )}
+
+        </AppBar>
+        <Collapse in={expanded}>
+          <div className={classes.padding}>
+            <div className={classes.marginDivider}>
+              <Grid container>
+                <Grid item xs={12} sm={1} />
+                <Grid item xs={12} sm={1} />
+                <Grid item xs={12} sm={10}>
+                  <Typography variant="subtitle1">
+                    Risposta di riferimento*
+                  </Typography>
+                </Grid>
+                <Grid item xs={12} sm={2}>
+                  {rightRepModify
+                    ? (
+                      <>
+                        {' '}
+                        {!bModifyRis1Clicked
+                          ? (
+                            <IconButton
+                              disabled={isIconEnabled}
+                              color={colButton}
+                              onClick={() => {
+                                dispatch(setBModifyRis1Clicked());
+                                dispatch(unsetIcons());
+                              }}
+                            >
+                              <CreateIcon />
+                            </IconButton>
+                          ) : (
+                            <IconButton
+                              disabled={bCheckRis1Disabled}
+                              color={colBCheckRis1}
+                              onClick={() => {
+                                dispatch(setBModifyRis1Unclicked());
+                                dispatch(setIcons());
+                              }}
+                            >
+                              <CheckCircleOutlineIcon />
+                            </IconButton>
+                          )}
+
+                      </>
+                    ) : <></>}
+                </Grid>
+                <Grid item xs={12} sm={10}>
+                  <TextField
+                    value={ris1.risposta1}
+                    disabled={ris1.stateText}
+                    onChange={
                   (event) => {
                     const res1 = event.target.value;
                     dispatch(getRisposta1(res1));
@@ -103,56 +129,56 @@ const AnswersTableEditor = () => {
                     }
                   }
                 }
-                  fullWidth
-                  variant="outlined"
-                />
-              </Grid>
-              <Grid item xs={12} sm={1} />
-              <Grid item xs={12} sm={1} />
-              <Grid item xs={12} sm={10}>
-                <Typography variant="subtitle1">
-                  Risposta secondaria
-                </Typography>
-              </Grid>
-              <Grid item xs={12} sm={2}>
-                {rightRepModify
-                  ? (
-                    <>
-                      {' '}
-                      {!bModifyRis2Clicked
-                        ? (
-                          <IconButton
-                            disabled={isIconEnabled}
-                            color={colButton}
-                            onClick={() => {
-                              dispatch(setBModifyRis2Clicked());
-                              dispatch(unsetIcons());
-                            }}
-                          >
-                            <CreateIcon />
-                          </IconButton>
-                        ) : (
-                          <IconButton
-                            disabled={bCheckRis2Disabled}
-                            color={colBCheckRis2}
-                            onClick={() => {
-                              dispatch(setBModifyRis2Unclicked());
-                              dispatch(setIcons());
-                            }}
-                          >
-                            <CheckCircleOutlineIcon />
-                          </IconButton>
-                        )}
+                    fullWidth
+                    variant="outlined"
+                  />
+                </Grid>
+                <Grid item xs={12} sm={1} />
+                <Grid item xs={12} sm={1} />
+                <Grid item xs={12} sm={10}>
+                  <Typography variant="subtitle1">
+                    Risposta secondaria
+                  </Typography>
+                </Grid>
+                <Grid item xs={12} sm={2}>
+                  {rightRepModify
+                    ? (
+                      <>
+                        {' '}
+                        {!bModifyRis2Clicked
+                          ? (
+                            <IconButton
+                              disabled={isIconEnabled}
+                              color={colButton}
+                              onClick={() => {
+                                dispatch(setBModifyRis2Clicked());
+                                dispatch(unsetIcons());
+                              }}
+                            >
+                              <CreateIcon />
+                            </IconButton>
+                          ) : (
+                            <IconButton
+                              disabled={bCheckRis2Disabled}
+                              color={colBCheckRis2}
+                              onClick={() => {
+                                dispatch(setBModifyRis2Unclicked());
+                                dispatch(setIcons());
+                              }}
+                            >
+                              <CheckCircleOutlineIcon />
+                            </IconButton>
+                          )}
 
-                    </>
-                  ) : <></>}
-              </Grid>
-              <Grid item xs={12} sm={10}>
-                <TextField
-                  value={ris2.risposta2}
-                  disabled={ris2.stateText}
-                  defaultValue="No"
-                  onChange={
+                      </>
+                    ) : <></>}
+                </Grid>
+                <Grid item xs={12} sm={10}>
+                  <TextField
+                    value={ris2.risposta2}
+                    disabled={ris2.stateText}
+                    defaultValue="No"
+                    onChange={
                   (event) => {
                     const res2 = event.target.value;
                     dispatch(getRisposta2(res2));
@@ -163,19 +189,20 @@ const AnswersTableEditor = () => {
                     }
                   }
                 }
-                  fullWidth
-                  variant="outlined"
-                />
+                    fullWidth
+                    variant="outlined"
+                  />
+                </Grid>
               </Grid>
-            </Grid>
-            <Typography variant="body1" className={classes.marginTop}>
-              * La risposta di riferimento è la risposta interessata, cioè
-              la risposta di cui si visualizzerà la domanda, sotto forma di
-              affermazione.
-            </Typography>
-          </div>
+              <Typography variant="body1" className={classes.marginTop}>
+                * La risposta di riferimento è la risposta interessata, cioè
+                la risposta di cui si visualizzerà la domanda, sotto forma di
+                affermazione.
+              </Typography>
+            </div>
 
-        </div>
+          </div>
+        </Collapse>
       </Paper>
     </div>
   );

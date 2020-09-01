@@ -1,7 +1,7 @@
 import { call, select, put } from 'redux-saga/effects';
 import {
-  repartoDomande, showPatientFormDialog, getDomandeReparto, risposte,
-  getTipoFormulario, getBooleanAnswers, openSnackbar,
+  repartoDomande, showPatientFormDialog, getDomandeReparto,
+  risposte, getBooleanAnswers, openSnackbar,
 } from '../slice/patientFormSlice';
 import { newPatientInfo, getNewPatientInfo, getOldPatientInfo } from '../slice/patientDataSlice';
 
