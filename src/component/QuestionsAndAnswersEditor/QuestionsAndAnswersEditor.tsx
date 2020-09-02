@@ -78,7 +78,7 @@ const QuestionsAndAnswersEditor = () => {
                     </Grid>
                     <Grid item xs={12} sm={1} />
 
-                    <Grid item xs={12} sm={5}>
+                    <Grid item xs={12} sm={3}>
                       <Typography variant="subtitle1" align="center">
                         Domanda
                       </Typography>
@@ -94,6 +94,7 @@ const QuestionsAndAnswersEditor = () => {
                       </Typography>
                     </Grid>
                   </Grid>
+                  <Grid item xs={12} sm={2} />
                   <Divider />
 
                 </span>

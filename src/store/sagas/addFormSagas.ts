@@ -8,7 +8,8 @@ import {
   risposteOfDomandaObject,
   valore, answer, risposta2 as Response2,
   risposta1 as response1, setAnswersInDomanda,
-  resetAnswerValore, setAddRispostaUnclicked, deleteDomandeObject,
+  resetAnswerValore, typeAnswer, setAddRispostaUnclicked,
+  deleteDomandeObject, resetRisposteOfDomanda, setType,
 } from '../slice/risposteAddFormSlice';
 import { resetRisultati } from '../slice/risultatiFormularioSlice';
 import {
@@ -49,8 +50,12 @@ export default function* addFormulario() {
     if (domandaAndStatus.Tipo === 'a più risposte') {
       const risposteWithStatusArray = objectToArray(risposteWithStatus[IDDomanda]);
       const risposte = risposteWithStatusArray.map((rispostaWithStatus : any) => {
-        const { IDRisposta, Risposta, Valore } = rispostaWithStatus;
-        return { IDRisposta, Risposta, Valore };
+        const {
+          IDRisposta, Risposta, Valore, type,
+        } = rispostaWithStatus;
+        return {
+          IDRisposta, Risposta, Valore, type,
+        };
       });
       return {
         IDDomanda, Domanda, Tipo, risposte,
@@ -104,6 +109,8 @@ export function* clickAddButton() {
   yield put(resetDomandeOfDomandeObject());
   yield put(resetIDForm());
   yield put(resetIDReparto());
+  yield put(resetDataRisultati());
+  yield put(resetRisposteOfDomanda());
 }
 export function* clickDelOrSaveButton() {
   yield put(alertConfirmDelete());
@@ -121,16 +128,19 @@ export function* addRes(action:any) {
   const IDRisposta = uuidv4();
   const RispostaWithID = yield select(answer);
   const ValorewithID = yield select(valore);
+  const typeWithID = yield select(typeAnswer);
   const IDDomanda = action.payload;
+  const type = typeWithID[IDDomanda];
 
   const Risposta = RispostaWithID[IDDomanda];
   const Valore = ValorewithID[IDDomanda];
 
   yield put(setAnswersInDomanda({
-    IDDomanda, IDRisposta, Risposta, Valore,
+    IDDomanda, IDRisposta, Risposta, Valore, type,
   }));
   yield put(resetAnswerValore());
   yield put(setAddRispostaUnclicked(IDDomanda));
+  yield put(setType(IDDomanda));
 }
 
 export function* deleteDomandaPiuRes(action:any) {

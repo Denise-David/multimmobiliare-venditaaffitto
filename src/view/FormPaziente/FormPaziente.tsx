@@ -1,17 +1,14 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
-
 import List from '@material-ui/core/List';
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import CreateIcon from '@material-ui/icons/Create';
 import { useDispatch, useSelector } from 'react-redux';
 import { IconButton, Snackbar } from '@material-ui/core';
-
 import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 import SearchIcon from '@material-ui/icons/Search';
-
 import useStyles from './style';
 import Navbar from '../../component/Navbar/Navbar';
 import TextName from '../../component/TextName/TextName';
@@ -50,7 +47,7 @@ const FormPaziente = () => {
             <Typography variant="h5" align="center"> Dati personali </Typography>
             <Typography variant="subtitle2" align="center"> Se già compilato, siete pregati di controllare e aggiornare i dati </Typography>
             <div className={classes.center}>
-              <IconButton onClick={() => (dispatch(switchStateDisabled()))}>
+              <IconButton onClick={() => dispatch(switchStateDisabled())}>
                 <CreateIcon color="primary" fontSize="large" />
               </IconButton>
             </div>

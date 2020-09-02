@@ -28,6 +28,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   bordiCard: {
     margin: theme.spacing(),
   },
+  space: {
+    marginRight: theme.spacing(24),
+  },
 
 }));
 export default useStyles;

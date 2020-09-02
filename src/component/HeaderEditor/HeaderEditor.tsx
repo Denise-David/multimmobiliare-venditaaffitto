@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Button, Snackbar, Typography, TextField, Paper,
 } from '@material-ui/core';
@@ -16,11 +16,14 @@ import {
   setBSaveEnabled,
   setBSaveDisabled,
   confirmDeleteForm,
+  nomeFormulario,
 } from '../../store/slice/addFormSlice';
 import DropDownListFormulari from '../DropDownListFormulari/DropDownListFormulari';
 import PrimaryButtons from '../PrimaryButtons/PrimaryButtons';
 import RadioButtonTypeForm from '../RadioButtonTypeForm/RadioButtonTypeForm';
 import DropDownListReparti from '../DropDownListReparti/DropDownListReparti';
+import { haveRepModifyRight } from '../../store/slice/rightsSlice';
+import { IDForm } from '../../store/slice/repartoDDLSlice';
 
 const HeaderEditor = () => {
   const dispatch = useDispatch();
@@ -32,6 +35,9 @@ const HeaderEditor = () => {
   const deleteActive = useSelector(delActive);
 
   const bConfirmAddFormClicked = useSelector(isBConfirmAddFormClicked);
+  const modifyRight = useSelector(haveRepModifyRight);
+  const IDFormulario = useSelector(IDForm);
+  const nomeForm = useSelector(nomeFormulario);
 
   // Prendo il nome del form immesso dall'utente e controllo se è vuoto
   const getNomeForm = (event : React.ChangeEvent<{ value: unknown }>) => {
@@ -95,6 +101,19 @@ const HeaderEditor = () => {
                         <DropDownListFormulari />
                       </Paper>
                     </Grid>
+                    {modifyRight && IDFormulario !== '-1'
+                      ? (
+                        <TextField
+                          className={classes.tfNomeForm}
+                          fullWidth
+                          variant="outlined"
+                          value={nomeForm}
+                          onChange={(event) => {
+                            const { value } = event.target;
+                            dispatch(setNomeFormulario(value));
+                          }}
+                        />
+                      ) : <></>}
                   </>
                 )}
             </>

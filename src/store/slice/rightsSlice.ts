@@ -10,7 +10,7 @@ const rightsSlice = createSlice({
     repartiDelete: [] as any,
     repartiModify: [] as any,
     allReparti: [] as any,
-    formulari: [] as any,
+    formulariByReparto: [] as any,
     haveUserCreateRight: false as boolean,
     haveUserDeleteRight: false as boolean,
     haveUserModifyRight: false as boolean,
@@ -62,7 +62,7 @@ const rightsSlice = createSlice({
       state.allReparti = payload;
     },
     setFormulari(state, { payload }) {
-      state.formulari = payload;
+      state.formulariByReparto = payload;
     },
 
   },
@@ -73,7 +73,7 @@ export const haveRepDeleteRight = (state : State) => state.rights.haveRepDeleteR
 export const haveUserDeleteRight = (state : State) => state.rights.haveUserDeleteRight;
 export const haveUserModifyRight = (state : State) => state.rights.haveUserModifyRight;
 export const haveUserCreateRight = (state : State) => state.rights.haveUserCreateRight;
-export const formulariByReparto = (state : State) => state.rights.formulari;
+export const formulariByReparto = (state : State) => state.rights.formulariByReparto;
 export const allReparti = (state : State) => state.rights.allReparti;
 export const repartiDelete = (state : State) => state.rights.repartiDelete;
 export const repartiCreate = (state : State) => state.rights.repartiCreate;
