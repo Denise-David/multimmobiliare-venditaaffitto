@@ -31,6 +31,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   marginTop: {
     marginTop: theme.spacing(4),
   },
+  space: {
+    marginRight: theme.spacing(24),
+  },
 
 }));
 export default useStyles;

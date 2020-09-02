@@ -95,6 +95,9 @@ export const buttonDeleteOrSaveClicked = () => ({
 export const confirmDeleteForm = () => ({
   type: 'CONFIRM_DELETE_FORM',
 });
+export const saveModifyForm = () => ({
+  type: 'SAVE_MODIFY_FORM',
+});
 
 // eslint-disable-next-line max-len
 export const colorIcons = (state : State) => state.addForm.colorIcons;

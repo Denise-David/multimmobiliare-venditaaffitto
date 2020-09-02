@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import TextField from '@material-ui/core/TextField';
-import { IconButton } from '@material-ui/core';
+import {
+  IconButton, FormControlLabel, Checkbox, Typography,
+} from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import { useSelector, useDispatch } from 'react-redux';
@@ -11,7 +13,7 @@ import {
 import {
   setAddRispostaClicked, stateAddedRisposta,
   setAddRispostaUnclicked, setAnswer, setValore, addRisposta,
-  answer, valore,
+  answer, valore, setRispostaTipoData, setType, typeAnswer,
 } from '../../store/slice/risposteAddFormSlice';
 import { setIcons, unsetIcons } from '../../store/slice/addFormSlice';
 
@@ -25,6 +27,7 @@ const EmptyAnswerLineEditor = ({ IDDomanda }: Props) => {
     dispatch(setAddRispostaUnclicked(IDDomanda));
   }, [dispatch, IDDomanda]);
 
+  const typeRis = useSelector(typeAnswer);
   const colorButton = useSelector(colDisable);
   const disableActive = useSelector(isDisable);
   const stateTextField = useSelector(stateAddedRisposta);
@@ -38,19 +41,21 @@ const EmptyAnswerLineEditor = ({ IDDomanda }: Props) => {
 
         {stateTextField[IDDomanda]
           ? (
-            <Grid item xs={12} sm={1}>
-              <IconButton disabled={disableActive}>
-                <AddCircleOutlineIcon
-                  onClick={() => {
-                    dispatch(setAddRispostaClicked(IDDomanda));
-                    dispatch(unsetIcons());
-                    dispatch(disableAll());
-                  }}
-                  color={colorButton}
-                />
-              </IconButton>
-            </Grid>
+            <>
+              <Grid item xs={12} sm={1}>
+                <IconButton disabled={disableActive}>
+                  <AddCircleOutlineIcon
+                    onClick={() => {
+                      dispatch(setAddRispostaClicked(IDDomanda));
+                      dispatch(unsetIcons());
+                      dispatch(disableAll());
+                    }}
+                    color={colorButton}
+                  />
+                </IconButton>
+              </Grid>
 
+            </>
           )
           : (
             <Grid item xs={12} sm={1}>
@@ -66,37 +71,71 @@ const EmptyAnswerLineEditor = ({ IDDomanda }: Props) => {
               </IconButton>
             </Grid>
           )}
+        {typeRis[IDDomanda] !== 'data'
+          ? (
+            <>
+              <Grid item xs={12} sm={1} />
+              <Grid item xs={12} sm={2} />
+              <Grid item xs={12} sm={4}>
 
-        <Grid item xs={12} sm={1} />
-        <Grid item xs={12} sm={4} />
-        <Grid item xs={12} sm={4}>
+                <TextField
+                  value={rispostaText[IDDomanda] || ''}
+                  onChange={(event) => {
+                    const { value } = event.target;
+                    dispatch(setAnswer({ IDDomanda, value }));
+                  }}
+                  disabled={stateTextField[IDDomanda]}
+                  id="standard-basic"
+                  fullWidth
+                />
 
-          <TextField
-            value={rispostaText[IDDomanda] || ''}
-            onChange={(event) => {
-              const { value } = event.target;
-              dispatch(setAnswer({ IDDomanda, value }));
-            }}
-            disabled={stateTextField[IDDomanda]}
-            id="standard-basic"
-            fullWidth
-          />
+              </Grid>
+              <Grid item xs={12} sm={1}>
+                <TextField
+                  value={valoreText[IDDomanda] || ''}
+                  onChange={(event) => {
+                    const { value } = event.target;
+                    // eslint-disable-next-line radix
+                    const intValue = parseInt(value.toString().replace(NON_DIGIT, ''));
+                    dispatch(setValore({ IDDomanda, intValue }));
+                  }}
+                  disabled={stateTextField[IDDomanda]}
+                  id="standard-basic"
+                  fullWidth
+                />
+              </Grid>
+            </>
+          ) : (
+            <>
+              <Grid item xs={12} sm={1} />
+              <Grid item xs={12} sm={2} />
+              <Grid item xs={12} sm={5}><Typography variant="body1">Data: dd/mm/y</Typography></Grid>
+            </>
+          )}
+        {!stateTextField[IDDomanda]
+          ? (
+            <>
+              <Grid item xs={12} sm={1}>
+                <FormControlLabel
+                  control={(
+                    <Checkbox
+                      onClick={() => dispatch(setType(IDDomanda))}
+                    />
+          )}
+                  label="data"
+                />
+              </Grid>
+              <Grid item xs={12} sm={1}>
+                <FormControlLabel
+                  control={(
+                    <Checkbox />
+          )}
+                  label="libera"
+                />
+              </Grid>
+            </>
+          ) : <></>}
 
-        </Grid>
-        <Grid item xs={12} sm={1}>
-          <TextField
-            value={valoreText[IDDomanda] || ''}
-            onChange={(event) => {
-              const { value } = event.target;
-              // eslint-disable-next-line radix
-              const intValue = parseInt(value.toString().replace(NON_DIGIT, ''));
-              dispatch(setValore({ IDDomanda, intValue }));
-            }}
-            disabled={stateTextField[IDDomanda]}
-            id="standard-basic"
-            fullWidth
-          />
-        </Grid>
       </Grid>
     </div>
   );

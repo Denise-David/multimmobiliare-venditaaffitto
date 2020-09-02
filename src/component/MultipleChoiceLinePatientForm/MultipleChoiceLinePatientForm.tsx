@@ -17,10 +17,10 @@ const MultipleChoiceLinePatient = () => {
   const domande = useSelector(repartoDomande);
   if (domande !== null) {
     const listItems = domande.map((domanda : any) => (
-      <>
+      <div key={domanda.IDDomanda}>
         {domanda.Tipo === 'a più risposte'
           ? (
-            <ListItem divider key={domanda.ID}>
+            <ListItem divider>
               <Grid container>
                 <Grid item xs={12} sm={8}>
                   <div className={classes.marginTop}>
@@ -40,7 +40,7 @@ const MultipleChoiceLinePatient = () => {
               </Grid>
             </ListItem>
           ) : <></>}
-      </>
+      </div>
 
     ));
     return (

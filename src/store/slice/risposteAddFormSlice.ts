@@ -3,7 +3,7 @@ import { State } from '../store/store';
 
 interface rispostaUno { risposta1: string, stateText: boolean}
 interface rispostaDue { risposta2: string, stateText: boolean}
-interface rispostaMoreAnswers {IDRisposta: string, Risposta: string, Valore : number}
+interface rispostaMoreAnswers {IDRisposta: string, Risposta: string, Valore : number, type: 'normal'}
 interface risposteOfQuestion {[key:string] : rispostaMoreAnswers}
 
 const risposteAddFormSlice = createSlice({
@@ -22,8 +22,18 @@ const risposteAddFormSlice = createSlice({
     answer: {} as any,
     valore: {} as any,
     risposteOfDomandaObject: {} as any,
+    type: {} as any,
   },
   reducers: {
+    setRispostaTipoData(state, { payload }) {
+      const { IDDomanda, IDRisposta } = payload;
+      if (state.risposteOfDomandaObject[IDDomanda][IDRisposta].type === 'data') {
+        state.risposteOfDomandaObject[IDDomanda][IDRisposta].type = 'normal';
+      } else { state.risposteOfDomandaObject[IDDomanda][IDRisposta].type = 'data'; }
+    },
+    resetRisposteOfDomanda(state) {
+      state.risposteOfDomandaObject = {};
+    },
     resetRisposteTwoRisposte(state) {
       state.risposta2.risposta2 = 'No';
       state.risposta1.risposta1 = 'Si';
@@ -60,12 +70,12 @@ const risposteAddFormSlice = createSlice({
     setAnswersInDomanda(state, { payload }) {
       const stateModify = false;
       const {
-        IDDomanda, IDRisposta, Risposta, Valore,
+        IDDomanda, IDRisposta, Risposta, Valore, type,
       } = payload;
 
       const oldRisposte = state.risposteOfDomandaObject[IDDomanda] || {};
       oldRisposte[IDRisposta] = {
-        IDRisposta, Risposta, Valore, stateModify,
+        IDRisposta, Risposta, Valore, stateModify, type,
       };
       state.risposteOfDomandaObject[IDDomanda] = oldRisposte;
     },
@@ -76,6 +86,13 @@ const risposteAddFormSlice = createSlice({
     setValore(state, { payload }) {
       const { IDDomanda, intValue } = payload;
       state.valore[IDDomanda] = intValue;
+    },
+    setType(state, { payload }) {
+      if (state.type[payload] === 'data') {
+        state.type[payload] = 'normal';
+      } else {
+        state.type[payload] = 'data';
+      }
     },
     setAddRispostaClicked(state, { payload }) {
       state.stateAddRisposta[payload] = false;
@@ -143,6 +160,7 @@ export const isBModifyRis2Clicked = (state : State) => state.risposteAddForm.isB
 export const isBModifyRis1Clicked = (state : State) => state.risposteAddForm.isBModifyRis1Clicked;
 export const risposta2 = (state : State) => state.risposteAddForm.risposta2;
 export const risposta1 = (state : State) => state.risposteAddForm.risposta1;
+export const typeAnswer = (state: State) => state.risposteAddForm.type;
 export const {
   setBModifyRis1Clicked, getRisposta1, getRisposta2,
   setBModifyRis2Clicked, setBModifyRis1Unclicked,
@@ -154,5 +172,6 @@ export const {
   deleteRisposta, deleteDomandeObject, setModifyRispostaClicked,
   setModifyRispostaUnclicked, modifyRisposta,
   setRisposteOfDomandaInObject, resetRisposteTwoRisposte,
+  resetRisposteOfDomanda, setRispostaTipoData, setType,
 } = risposteAddFormSlice.actions;
 export default risposteAddFormSlice.reducer;

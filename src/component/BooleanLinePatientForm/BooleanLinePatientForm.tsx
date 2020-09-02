@@ -18,13 +18,13 @@ const BooleanLinePatientForm = () => {
     const domanda : string = question.Domanda;
     const idDomanda : string = question.IDDomanda;
     return (
-      < >
+      <div key={idDomanda}>
         {question.Tipo === 'a due risposte'
           ? (
             <ListItem divider>
 
               <Grid container>
-                <Grid item xs={12} sm={8} key={question.IDDomanda}>
+                <Grid item xs={12} sm={8}>
                   <div className={classes.marginTop}>
                     <Typography variant="subtitle1">{question.Domanda}</Typography>
                   </div>
@@ -59,7 +59,7 @@ const BooleanLinePatientForm = () => {
 
             </ListItem>
           ) : <></>}
-      </>
+      </div>
     );
   });
 

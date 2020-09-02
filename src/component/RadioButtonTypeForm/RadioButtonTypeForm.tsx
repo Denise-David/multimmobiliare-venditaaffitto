@@ -1,10 +1,10 @@
 import React from 'react';
 import {
-  Grid, Typography, RadioGroup, FormControlLabel, Radio, TextField,
+  Grid, Typography, TextField,
 } from '@material-ui/core';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import {
-  getFormType, setConfirmEnabled, selectedReparto, formType,
+  selectedReparto,
 } from '../../store/slice/addFormSlice';
 import useStyles from './style';
 

@@ -1,8 +1,13 @@
 import {
   all, takeLatest, call, put, select, takeEvery,
 } from 'redux-saga/effects';
+import { formulariByReparto, setFormulari } from '../slice/rightsSlice';
+import {
+  risposta1, setRisposteOfDomandaInObject, getRisposta2, getRisposta1,
+} from '../slice/risposteAddFormSlice';
+import { getFormType, setNomeFormulario } from '../slice/addFormSlice';
 
-import { IDRepartoSelected, IDForm, setRepartoSelected } from '../slice/repartoDDLSlice';
+import { IDRepartoSelected, IDForm } from '../slice/repartoDDLSlice';
 import { setInitialStateAction, desetInitialStateAction } from '../slice/initialStateSlice';
 import addFormulario, {
   addDomandaTwoResInArray, clickAddButton,
@@ -17,16 +22,17 @@ import setDataRisposteFormPaziente from './summaryDialogSagas';
 import { buttonSendConfirmClicked } from '../slice/summaryDialogSlice';
 import { buttonSearchClicked } from '../slice/searchDoctorSlice';
 import buttonSearch from './searchDoctorSagas';
-import { getFormType } from '../slice/addFormSlice';
+
 import initUserRightsAUTAN from './rightsUserSagas';
 import confirmAddForm, { changeRep, cancelAddForm } from './departmentChoiceEditorSagas';
 import fetchFormStructureByID, { fetchRepartoFormByGUID, getEtichettaDataByLabel } from '../api';
-import { setFormulari } from '../slice/rightsSlice';
+
 import { setDomandeinObject } from '../slice/domandeAddFormSlice';
-import { setRisposteOfDomandaInObject } from '../slice/risposteAddFormSlice';
+
 import { setRisultatiInObject } from '../slice/risultatiAddFormSlice';
 import { setRepartoGUID, setFormulariList } from '../slice/homePageLabelSlice';
 import confirmDelForm from './deleteFormSagas';
+import saveModify from './modifyFormSagas';
 
 function* init(action : any) {
   try {
@@ -54,6 +60,22 @@ function* init(action : any) {
 
         const datiDomande = selectedForm.Domande;
 
+        // prendo risultato1 e risultato 2
+        const ris1 = selectedForm.Risposte.risposta1;
+        const ris2 = selectedForm.Risposte.risposta2;
+
+        // setto il nome Formulario
+        const listForm = yield select(formulariByReparto);
+        // eslint-disable-next-line no-underscore-dangle
+        const findNameFormByID = (formSelected : any) => formSelected._id === IDFormulario;
+        const formSelected = listForm.find(findNameFormByID) ? listForm.find(findNameFormByID) : [];
+        const nomeForm = formSelected.formulario;
+        yield put(setNomeFormulario(nomeForm));
+
+        // inserisco nello state
+        yield put(getRisposta1(ris1));
+        yield put(getRisposta2(ris2));
+
         // genero un nuovo parametro stato
         const datiDomandeWithState = datiDomande.map((domandaObj : any) => {
           const domandaWithState = { [domandaObj.IDDomanda]: { ...domandaObj, stateText: true } };
@@ -69,12 +91,12 @@ function* init(action : any) {
 
         // genero un nuovo parametro stato per le risposte
         const datiRisposteDomandeWithState = datiDomande.map((domandaObj : any) => {
-          const resWithState = domandaObj.risposte.map((risposta :any) => {
+          const resWithState = domandaObj.risposte?.map((risposta :any) => {
             const rispostaWithState = { [risposta.IDRisposta]: { ...risposta, stateText: true } };
 
             return (rispostaWithState);
           });
-          const result = resWithState.reduce((accumulator:any, currentValue:any) => {
+          const result = resWithState?.reduce((accumulator:any, currentValue:any) => {
             accumulator[Object.keys(currentValue)[0]] = currentValue[Object.keys(currentValue)[0]];
             return accumulator;
           }, {});
@@ -87,7 +109,6 @@ function* init(action : any) {
           accumulator[Object.keys(currentValue)[0]] = currentValue[Object.keys(currentValue)[0]];
           return accumulator;
         }, {});
-
         yield put(setRisposteOfDomandaInObject(res2));
 
         // genero nuovo parametro risultati
@@ -105,8 +126,6 @@ function* init(action : any) {
         }, {});
 
         yield put(setRisultatiInObject(res3));
-        // setto il tipo di formulario
-        yield put(getFormType(selectedForm.tipo));
 
         // prendo tutti i form del reparto ID
 
@@ -166,6 +185,7 @@ function* actionWatcher() {
   yield takeLatest('CHANGE_REPARTO', changeRep);
   yield takeLatest('ADD_DOMANDA_MORE_RES_IN_ARRAY', addDomandaMoreResInArray);
   yield takeLatest('CONFIRM_DELETE_FORM', confirmDelForm);
+  yield takeLatest('SAVE_MODIFY_FORM', saveModify);
 }
 export default function* rootSaga() {
   yield all([actionWatcher()]);

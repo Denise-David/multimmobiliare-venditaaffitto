@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import { IconButton } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
@@ -8,8 +8,7 @@ import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import useStyles from './style';
 import {
-  setBAddDomandaClicked, isTextFieldNewDomandaDisabled,
-  isBAddDomandaClicked, setBAddDomandaUnclicked, setDomanda,
+  setBAddDomandaClicked, setBAddDomandaUnclicked, setDomanda,
   addDomandaInArray,
   question,
   resetDomanda,

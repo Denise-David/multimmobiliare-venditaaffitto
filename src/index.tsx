@@ -8,6 +8,8 @@ import {
   Switch,
   Route,
 } from 'react-router-dom';
+import { LocalizationProvider } from '@material-ui/pickers';
+import DateFnsUtils from '@material-ui/pickers/adapter/date-fns';
 import App from './view/Barcode/App';
 import store from './store/store/store';
 import * as serviceWorker from './serviceWorker';
@@ -47,44 +49,47 @@ const generateClassName = (rule : any, styleSheet : any) => {
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <StylesProvider generateClassName={generateClassName}>
-        <MuiThemeProvider theme={theme}>
+    {/* @ts-ignore */}
+    <LocalizationProvider dateAdapter={DateFnsUtils}>
+      <Provider store={store}>
+        <StylesProvider generateClassName={generateClassName}>
+          <MuiThemeProvider theme={theme}>
 
-          <CssBaseline />
-          <Router basename={process.env.REACT_APP_BASENAME}>
-            <Route path="/editor">
-              <Editor />
-            </Route>
-
-            <Switch>
-              <Route path="/form">
-                <FormPaziente />
+            <CssBaseline />
+            <Router basename={process.env.REACT_APP_BASENAME}>
+              <Route path="/editor">
+                <Editor />
               </Route>
 
-              <Route path="/home">
-                <App />
-              </Route>
+              <Switch>
+                <Route path="/form">
+                  <FormPaziente />
+                </Route>
 
-              <Route path="/pdfDatiPaziente">
-                <PDFPatientData />
-              </Route>
+                <Route path="/home">
+                  <App />
+                </Route>
 
-              <Route path="/pdfRispostePaziente">
-                <PDFPatientAnswers />
-              </Route>
+                <Route path="/pdfDatiPaziente">
+                  <PDFPatientData />
+                </Route>
 
-              <Route path="/QRCode">
-                <EtichettaQrCode />
-              </Route>
-            </Switch>
+                <Route path="/pdfRispostePaziente">
+                  <PDFPatientAnswers />
+                </Route>
 
-          </Router>
+                <Route path="/QRCode">
+                  <EtichettaQrCode />
+                </Route>
+              </Switch>
 
-        </MuiThemeProvider>
-      </StylesProvider>
+            </Router>
 
-    </Provider>
+          </MuiThemeProvider>
+        </StylesProvider>
+
+      </Provider>
+    </LocalizationProvider>
   </React.StrictMode>,
   // eslint-disable-next-line no-undef
   document.getElementById('root'),

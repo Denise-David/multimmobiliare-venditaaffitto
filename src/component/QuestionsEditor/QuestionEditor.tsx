@@ -1,19 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import CreateIcon from '@material-ui/icons/Create';
 import {
-  IconButton, Paper, Typography, AppBar, Switch,
+  IconButton, Paper, Typography, AppBar, Collapse,
 } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Grid from '@material-ui/core/Grid';
 import { useSelector, useDispatch } from 'react-redux';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 
-import EmptyAddQuestionMoreAnswers from '../EmptyAddQuestionMoreAnswers/EmptyAddQuestionMoreAnswers';
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import useStyles from './style';
 import {
   domandeObject, setBModifyDomandaClicked, setBModifyDomandaUnclicked,
   modifyDomandaInObjectDomande, deleteDomandaInObjectDomande,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   setBCheckDisabled, isBCheckDisabled, setBCheckEnabled, colorBCheck, domandaAddForm,
 } from '../../store/slice/domandeAddFormSlice';
 import { objectToArray } from '../../util';
@@ -22,6 +24,7 @@ import {
 } from '../../store/slice/addFormSlice';
 import { haveRepModifyRight } from '../../store/slice/rightsSlice';
 import EmptyAddQuestion2Answers from '../EmptyAddQuestion2Answers/EmptyAddQuestion2Answers';
+import TextFieldIntestazione from '../TextFieldIntestazione/TextFieldIntestazione';
 
 const QuestionsEditor = () => {
   const dispatch = useDispatch();
@@ -141,44 +144,47 @@ const QuestionsEditor = () => {
       </div>
     );
   });
+  const [expanded, setExpanded] = useState(true);
+
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
   return (
 
     <div>
+
       <AppBar position="static" className={classes.NavColor}>
-        <Typography variant="h5" align="center">
+        <Typography variant="h5" align="left">
+          {expanded
+            ? (
+              <IconButton onClick={handleExpandClick} className={classes.space}>
+                <ExpandLessIcon fontSize="large" color="secondary" />
+              </IconButton>
+            ) : (
+              <IconButton onClick={handleExpandClick} className={classes.space}>
+                <ExpandMoreIcon fontSize="large" color="secondary" />
+              </IconButton>
+            ) }
           Domande
         </Typography>
       </AppBar>
-      <div className={classes.padding}>
-        <div className={classes.marginDivider} />
+      <Collapse in={expanded}>
+        <div className={classes.padding}>
+          <div className={classes.marginDivider} />
 
-        <Grid container spacing={3}>
+          <TextFieldIntestazione />
 
-          <Grid item xs={12} sm={2}>
-            <Typography className={classes.spaceTopIntestazione} variant="body1" align="center">Intestazione*</Typography>
-          </Grid>
-          <Grid item xs={12} sm={9}>
-            <TextField fullWidth variant="outlined" />
-          </Grid>
-          <Grid item xs={12} sm={1}>
-            <Switch
-              className={classes.spaceTop}
-              name="checkedA"
-              inputProps={{ 'aria-label': 'secondary checkbox' }}
-            />
-          </Grid>
-
-        </Grid>
-
-        {listNewDomande}
-        {rightRepModify || confirmAddReparto
-          ? <EmptyAddQuestion2Answers /> : <></>}
-        <Typography className={classes.marginGenerico} variant="body1">
-          * L&apos;intestazione è quella porzione di testo che viene messa
-          all&apos;inizio di ogni domanda.
-        </Typography>
-      </div>
+          {listNewDomande}
+          {rightRepModify || confirmAddReparto
+            ? <EmptyAddQuestion2Answers /> : <></>}
+          <Typography className={classes.marginGenerico} variant="body1">
+            * L&apos;intestazione è quella porzione di testo che viene messa
+            all&apos;inizio di ogni domanda.
+          </Typography>
+        </div>
+      </Collapse>
     </div>
+
   );
 };
 

@@ -87,20 +87,19 @@ export const getRepartiZAM = (zamAcronym) => axios.get(`/autoanamnesi/forwardCal
 
 // Modifica dati formulario
 export const modifyForm = (
-  IDForm, tipoForm, GUID, nomeReparto,
-  nomeForm, listDomande, listRisultati, risposta1, risposta2,
-) => struttureFormReparti.update(IDForm,
+  IDFormulario, GUID, nomeReparto,
+  nomeForm, listDomandeAndRisposte, listRisultati, ris1, ris2,
+) => struttureFormReparti.update(IDFormulario,
   {
-    tipo: tipoForm,
     actualWardGUID: GUID,
     Reparto: nomeReparto,
     formulario: nomeForm,
-    Domande: listDomande,
+    Domande: listDomandeAndRisposte,
     Risultati: listRisultati,
     Risposte:
     {
-      risposta1,
-      risposta2,
+      ris1,
+      ris2,
     },
 
   });

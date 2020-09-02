@@ -11,8 +11,7 @@ import { resetIDReparto, resetIDForm } from '../slice/repartoDDLSlice';
 import { setInitialStateAction } from '../slice/initialStateSlice';
 import { resetDomandeOfDomandeObject } from '../slice/domandeAddFormSlice';
 import { unsetRepartoModifyRight } from '../slice/rightsSlice';
-import { resetRisultati } from '../slice/risultatiFormularioSlice';
-import { resetRisposteTwoRisposte } from '../slice/risposteAddFormSlice';
+import { resetRisposteTwoRisposte, resetRisposteOfDomanda } from '../slice/risposteAddFormSlice';
 // eslint-disable-next-line import/no-cycle
 
 export default function* confirmAddForm() {
@@ -51,4 +50,5 @@ export function* changeRep() {
   yield put(unsetRepartoModifyRight());
   yield put(resetDataRisultati());
   yield put(resetRisposteTwoRisposte());
+  yield put(resetRisposteOfDomanda());
 }

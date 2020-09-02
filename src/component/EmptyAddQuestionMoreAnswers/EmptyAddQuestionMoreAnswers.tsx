@@ -8,9 +8,9 @@ import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import useStyles from './style';
 import {
-  setBAddDomandaClicked, isTextFieldNewDomandaDisabled,
-  isBAddDomandaClicked, setBAddDomandaUnclicked, setDomanda,
-  addDomandaInArray,
+  setBAddDomandaClicked,
+  setBAddDomandaUnclicked, setDomanda,
+
   question,
   resetDomanda,
   colorBCheckAddDomanda,
