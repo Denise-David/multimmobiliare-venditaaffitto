@@ -5,17 +5,9 @@ import { makeStyles, Theme } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme:Theme) => ({
 
   margin: {
-    margin: theme.spacing(3),
+    margin: theme.spacing(2),
 
   },
-  marginTop: {
-    marginTop: theme.spacing(3),
 
-  },
-  datePicker: {
-    textAlign: 'right',
-    marginRight: theme.spacing(1),
-    marginBottom: theme.spacing(1),
-  },
 }));
 export default useStyles;

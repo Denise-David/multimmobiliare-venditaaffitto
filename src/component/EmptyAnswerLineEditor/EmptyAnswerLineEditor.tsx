@@ -13,7 +13,7 @@ import {
 import {
   setAddRispostaClicked, stateAddedRisposta,
   setAddRispostaUnclicked, setAnswer, setValore, addRisposta,
-  answer, valore, setRispostaTipoData, setType, typeAnswer,
+  answer, valore, setType, typeAnswer,
 } from '../../store/slice/risposteAddFormSlice';
 import { setIcons, unsetIcons } from '../../store/slice/addFormSlice';
 

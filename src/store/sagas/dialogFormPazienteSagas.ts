@@ -55,7 +55,11 @@ export default function* getDataEtichetta() {
 
       // prendo le domande
       const datiDomande = dataForm.Domande;
-      yield put(getDomandeReparto(datiDomande));
+      const listDomande = datiDomande.map((domanda : any) => {
+        const question = { ...domanda, normalType: false };
+        return question;
+      });
+      yield put(getDomandeReparto(listDomande));
 
       // prendo risposte booleane
       const booleanAnswers = dataForm.Risposte;

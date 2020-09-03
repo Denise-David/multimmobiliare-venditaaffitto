@@ -6,7 +6,7 @@ import FormControl from '@material-ui/core/FormControl';
 import { Typography, ListItem, Grid } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
 import useStyles from './style';
-import { repartoDomande, boolAnswers, getRisposta } from '../../store/slice/patientFormSlice';
+import { repartoDomande, boolAnswers, setRisposta } from '../../store/slice/patientFormSlice';
 
 const BooleanLinePatientForm = () => {
   const dispatch = useDispatch();
@@ -38,7 +38,7 @@ const BooleanLinePatientForm = () => {
                         onChange={(event) => {
                           const { value } = event.target;
                           const valore = value;
-                          dispatch(getRisposta({ idDomanda, valore, domanda }));
+                          dispatch(setRisposta({ idDomanda, valore, domanda }));
                         }}
                       >
                         <FormControlLabel
