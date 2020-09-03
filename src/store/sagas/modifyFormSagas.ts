@@ -1,7 +1,7 @@
 import { put, select, call } from 'redux-saga/effects';
 import { risposteOfDomandaObject, risposta2, risposta1 } from '../slice/risposteAddFormSlice';
 
-import { formulariByReparto, allReparti } from '../slice/rightsSlice';
+import { allReparti } from '../slice/rightsSlice';
 
 import { dataRisultati } from '../slice/risultatiAddFormSlice';
 import { domandeObject } from '../slice/domandeAddFormSlice';

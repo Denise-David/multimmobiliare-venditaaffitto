@@ -1,4 +1,3 @@
-import { DatePicker } from '@material-ui/pickers';
 // eslint-disable-next-line no-unused-vars
 import { makeStyles, Theme } from '@material-ui/core/styles';
 

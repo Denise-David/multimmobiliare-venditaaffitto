@@ -3,9 +3,9 @@ import {
 } from 'redux-saga/effects';
 import { formulariByReparto, setFormulari } from '../slice/rightsSlice';
 import {
-  risposta1, setRisposteOfDomandaInObject, getRisposta2, getRisposta1,
+  setRisposteOfDomandaInObject, getRisposta2, getRisposta1,
 } from '../slice/risposteAddFormSlice';
-import { getFormType, setNomeFormulario } from '../slice/addFormSlice';
+import { setNomeFormulario } from '../slice/addFormSlice';
 
 import { IDRepartoSelected, IDForm } from '../slice/repartoDDLSlice';
 import { setInitialStateAction, desetInitialStateAction } from '../slice/initialStateSlice';

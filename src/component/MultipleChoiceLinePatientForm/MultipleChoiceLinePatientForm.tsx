@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { MobileDatePicker } from '@material-ui/pickers';
 
 import { TextField } from '@material-ui/core';
-import { parse, parseISO, startOfToday } from 'date-fns';
+import { parseISO } from 'date-fns';
 import useStyles from './style';
 
 import DropDownListAnswersPatientForm, {
@@ -16,7 +16,7 @@ import DropDownListAnswersPatientForm, {
 } from '../DropDownListAnswersPatientForm/DropDownListAnswersPatientForm';
 
 import {
-  repartoDomande, setNormalTypePresent, setRisposta, resDate, setDate,
+  repartoDomande, setNormalTypePresent, resDate, setDate,
 } from '../../store/slice/patientFormSlice';
 
 const MultipleChoiceLinePatient = () => {
