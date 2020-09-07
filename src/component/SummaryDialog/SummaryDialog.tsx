@@ -44,8 +44,8 @@ const SummaryDialog = () => {
     )) : <></>;
 
     return (
-      <>
-        <Typography key={risposta.idDomanda} variant="subtitle1">
+      <div key={risposta.idDomanda}>
+        <Typography variant="subtitle1">
           <br />
           {' '}
           {risposta.domanda ? risposta.domanda : <></>}
@@ -65,7 +65,7 @@ const SummaryDialog = () => {
               </Typography>
             </div>
           ) : <></>}
-      </>
+      </div>
     );
   }) : <></>;
 
