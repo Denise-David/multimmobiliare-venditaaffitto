@@ -46,48 +46,31 @@ const AnswerLineEditor = ({ id }: Props) => {
               {!rispostaArray.stateModify
                 ? (
                   <>
-                    {rispostaArray.type !== 'data'
-                      ? (
-                        <>
-                          <Grid item xs={12} sm={1}>
-                            <IconButton
-                              onClick={() => {
-                                dispatch(unsetIcons());
-                                dispatch(disableAll());
-                                dispatch(setModifyRispostaClicked({ IDDomanda, IDRisposta }));
-                              }}
-                              disabled={disableActive}
-                            >
-                              <CreateIcon color={colorButton} />
-                            </IconButton>
-                          </Grid>
-                          <Grid item xs={12} sm={1}>
 
-                            <IconButton
-                              onClick={() => dispatch(deleteRisposta({ IDDomanda, IDRisposta }))}
-                              disabled={disableActive}
-                            >
-                              <DeleteIcon color={colorButton} />
-                            </IconButton>
-                          </Grid>
+                    <Grid item xs={12} sm={1}>
+                      <IconButton
+                        onClick={() => {
+                          dispatch(unsetIcons());
+                          dispatch(disableAll());
+                          dispatch(setModifyRispostaClicked({ IDDomanda, IDRisposta }));
+                        }}
+                        disabled={disableActive}
+                      >
+                        <CreateIcon color={colorButton} />
+                      </IconButton>
+                    </Grid>
+                    <Grid item xs={12} sm={1}>
 
-                        </>
-                      )
-                      : (
-                        <>
-                          <Grid item xs={12} sm={1} />
-                          <Grid item xs={12} sm={1}>
+                      <IconButton
+                        onClick={() => dispatch(deleteRisposta({ IDDomanda, IDRisposta }))}
+                        disabled={disableActive}
+                      >
+                        <DeleteIcon color={colorButton} />
+                      </IconButton>
+                    </Grid>
 
-                            <IconButton
-                              onClick={() => dispatch(deleteRisposta({ IDDomanda, IDRisposta }))}
-                              disabled={disableActive}
-                            >
-                              <DeleteIcon color={colorButton} />
-                            </IconButton>
-                          </Grid>
-                        </>
-                      )}
                   </>
+
                 ) : (
                   <>
 
@@ -149,10 +132,22 @@ const AnswerLineEditor = ({ id }: Props) => {
               </Grid>
             </>
           ) : (
-            <Grid item xs={12} sm={5}>
-              <Typography variant="body1">Data : dd/mm/y</Typography>
-              {' '}
-            </Grid>
+            <>
+              <Grid item xs={12} sm={4}>
+                <TextField
+                  onChange={(event) => {
+                    const risposta = event.target.value;
+                    dispatch(modifyRisposta({ IDDomanda, IDRisposta, risposta }));
+                  }}
+                  disabled={!rispostaArray.stateModify}
+                  id="standard-basic"
+                  value={rispostaArray.Risposta}
+                  fullWidth
+                />
+              </Grid>
+              <Grid item xs={12} sm={1} />
+
+            </>
           )}
         {rightRepModify || confirmAddForm
           ? (
