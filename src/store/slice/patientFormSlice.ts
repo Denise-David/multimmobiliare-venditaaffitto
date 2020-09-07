@@ -20,14 +20,19 @@ const patientFormSlice = createSlice({
   reducers: {
     setDate(state, { payload }) {
       const { idRisposta, idDomanda, domanda } = payload;
-      state.resDate[idDomanda] = { [idRisposta]: payload };
-      if (!state.risposte[idDomanda]) {
+      if (!state.resDate[idDomanda] && !state.risposte[idDomanda]) {
+        state.resDate[idDomanda] = { [idRisposta]: payload };
         state.risposte[idDomanda] = { date: state.resDate[idDomanda] };
-      }
+      } else
+      if (!state.resDate[idDomanda]) {
+        state.resDate[idDomanda] = { [idRisposta]: payload };
+      } else
       if (!state.risposte[idDomanda].idRisposta) {
         state.risposte[idDomanda] = { idRisposta, idDomanda, domanda };
         state.risposte[idDomanda].date = state.resDate[idDomanda];
-      } state.risposte[idDomanda].date = state.resDate[idDomanda];
+      }
+      state.resDate[idDomanda][idRisposta] = payload;
+      state.risposte[idDomanda].date = state.resDate[idDomanda];
     },
     setNormalTypePresent(state, { payload }) {
       if (state.domandeReparto[payload].normalType === false) {

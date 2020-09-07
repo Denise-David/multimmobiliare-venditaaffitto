@@ -6,8 +6,6 @@ export interface PatientData {familyname : string, givenname : string,
 cityName : string, mobile: string, streetName: string, streetNumber : string,
 doctor : Medico, familyDoctor : Medico, insuranceCoversName: string}
 
-export interface AnswersData { givenname:string, familyname:string, risposte:{[key: string] : { idDomanda : '', value: '', domanda: ''}}}
-
 const patientInfoPDFSlice = createSlice({
   name: 'patientInfoPDF',
   initialState:
@@ -16,7 +14,7 @@ const patientInfoPDFSlice = createSlice({
     ID: '' as string,
     oldPatientData: {} as PatientData,
     newPatientData: {} as PatientData,
-    patientAnswers: {} as AnswersData,
+    patientAnswers: [] as any,
     infoReparto: {} as any,
     sommaRisposte: 0 as number,
   },

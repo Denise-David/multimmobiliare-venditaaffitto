@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { Typography } from '@material-ui/core';
 import queryString from 'query-string';
 import { useDispatch, useSelector } from 'react-redux';
+import { format } from 'date-fns';
 import {
   setNumEtichetta, setIDFormRisposte, patientAnswers, infoReparto,
 } from '../../store/slice/patientFormPDFSlice';
@@ -24,39 +25,42 @@ const PDFPatientAnswers = () => {
   }, [dispatch]);
 
   const repartoInfo = useSelector(infoReparto);
-  const typeForm = repartoInfo.tipo;
-  const answersPatient = useSelector(patientAnswers);
 
-  const answersArray = answersPatient.risposte ? Object.keys(answersPatient.risposte).map((key) => {
-    const risposta = answersPatient.risposte[key];
-    return risposta;
-  }) : [];
+  const answersArray = useSelector(patientAnswers);
 
   let sommaRisposte = 0;
-
-  const listRisposte = answersArray ? answersArray.map((risposta :any) => {
+  // creo lista di risposte
+  const listRisposte = answersArray.risposte ? answersArray.risposte.map((risposta :any) => {
     const { domanda } = risposta;
     const noPuntoDiDomanda = domanda.substring(0, domanda.length - 1);
     sommaRisposte += risposta.valore;
-    if (typeForm === 'a più risposte') {
-      return (
+    // creo la lista di date
+    const arrayDate = risposta.date.map((data: any) => (
+      <Typography key={data.idRisposta}>
+        {data.testoData}
+        {': '}
+        {format(new Date(data.dataFormattata), 'dd.MM.yyyy')}
+      </Typography>
+    ));
+
+    return (
+      <>
         <div className={classes.cornice}>
           <Typography variant="body1">
             {risposta.domanda}
           </Typography>
           <Typography variant="body1" align="right">
             {risposta.testoRisposta}
+            {arrayDate}
           </Typography>
         </div>
-      );
-    }
-    return (
-      <>
+
         {risposta.value === repartoInfo.risposta1
           ? (
             <div className={classes.cornice}>
               <Typography variant="body1">
                 { noPuntoDiDomanda }
+                {arrayDate}
               </Typography>
             </div>
           ) : <></>}
@@ -100,9 +104,9 @@ const PDFPatientAnswers = () => {
         Risposte paziente
       </Typography>
       <Typography variant="h5" align="right">
-        {answersPatient.givenname}
+        {answersArray.givenname}
         {' '}
-        {answersPatient.familyname}
+        {answersArray.familyname}
       </Typography>
       <hr />
       {listRisposte}
