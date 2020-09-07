@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import CreateIcon from '@material-ui/icons/Create';
 import {
@@ -35,7 +35,7 @@ const AnswerLineEditor = ({ id }: Props) => {
   const confirmAddForm = useSelector(isBConfirmAddFormClicked);
 
   const listItems = risposteArray ? risposteArray.map((rispostaArray : any) => {
-    const { IDRisposta, type } = rispostaArray;
+    const { IDRisposta } = rispostaArray;
 
     return (
       <Grid key={rispostaArray.IDRisposta} container spacing={3}>

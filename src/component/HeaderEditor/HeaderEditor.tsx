@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import {
   Button, Snackbar, Typography, TextField, Paper,
 } from '@material-ui/core';

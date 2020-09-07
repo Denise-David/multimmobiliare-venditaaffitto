@@ -1,13 +1,14 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Dialog, Typography } from '@material-ui/core';
+import { format } from 'date-fns';
 import { dialogStatus, patientInfoData, answersPatientData } from '../../store/slice/summaryDialogSlice';
 import Nav from '../Navbar/Navbar';
 import useStyles from './style';
 import { infoReparto } from '../../store/slice/patientFormPDFSlice';
 import ButtonSendConfirmSummary from '../ButtonSendConfirmSummary/ButtonSendConfirmSummary';
 import ButtonSendCancelSummary from '../ButtonSendCancelSummary copy/ButtonSendCancelSummary';
-import { getStringMedico } from '../../util';
+import { getStringMedico, objectToArray } from '../../util';
 import { oldPatientInfo } from '../../store/slice/patientDataSlice';
 
 const SummaryDialog = () => {
@@ -24,23 +25,38 @@ const SummaryDialog = () => {
   }) : [];
 
   const listRisposte = answersArray ? answersArray.map((risposta :any) => {
-    if (repartoInfo.tipo === 'a più risposte') {
-      return (
-        <Typography key={risposta.idDomanda} variant="subtitle1">
+    const objDate = risposta.date ? risposta.date : [];
+    const arrayDate = objectToArray(objDate);
+    const noPuntoDiDomanda = risposta.domanda
+      ? risposta.domanda.substring(0, risposta.domanda.length - 1)
+      : <></>;
+    const listDate = arrayDate ? arrayDate.map((data:any) => (
+
+      <div key={data.idRisposta}>
+        <Typography variant="body1">
+          {data.testoData}
+          :
+          {' '}
+          {format(new Date(data.dataFormattata), 'dd.MM.yyyy')}
+        </Typography>
+      </div>
+
+    )) : <></>;
+
+    return (
+      <div key={risposta.idDomanda}>
+        <Typography variant="subtitle1">
           <br />
           {' '}
-          {risposta.domanda}
+          {risposta.domanda ? risposta.domanda : <></>}
           <br />
 
           {' '}
           {risposta.testoRisposta}
+          {listDate || <></>}
 
         </Typography>
-      );
-    }
-    const noPuntoDiDomanda = risposta.domanda.substring(0, risposta.domanda.length - 1);
-    return (
-      <>
+
         {risposta.valore === repartoInfo.risposta1
           ? (
             <div>
@@ -49,7 +65,7 @@ const SummaryDialog = () => {
               </Typography>
             </div>
           ) : <></>}
-      </>
+      </div>
     );
   }) : <></>;
 
@@ -292,6 +308,7 @@ const SummaryDialog = () => {
 
         <div>
           {listRisposte}
+
         </div>
         <div className={classes.button}>
           <ButtonSendConfirmSummary />

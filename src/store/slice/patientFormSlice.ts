@@ -15,8 +15,30 @@ const patientFormSlice = createSlice({
     boolAnswers: {} as any,
     snackbarStatus: false as boolean,
     dialogClose: false as boolean,
+    resDate: { } as any,
   },
   reducers: {
+    setDate(state, { payload }) {
+      const { idRisposta, idDomanda, domanda } = payload;
+      if (!state.resDate[idDomanda] && !state.risposte[idDomanda]) {
+        state.resDate[idDomanda] = { [idRisposta]: payload };
+        state.risposte[idDomanda] = { date: state.resDate[idDomanda] };
+      } else
+      if (!state.resDate[idDomanda]) {
+        state.resDate[idDomanda] = { [idRisposta]: payload };
+      } else
+      if (!state.risposte[idDomanda].idRisposta) {
+        state.risposte[idDomanda] = { idRisposta, idDomanda, domanda };
+        state.risposte[idDomanda].date = state.resDate[idDomanda];
+      }
+      state.resDate[idDomanda][idRisposta] = payload;
+      state.risposte[idDomanda].date = state.resDate[idDomanda];
+    },
+    setNormalTypePresent(state, { payload }) {
+      if (state.domandeReparto[payload].normalType === false) {
+        state.domandeReparto[payload].normalType = true;
+      }
+    },
     showPatientFormDialog(state) {
       state.open = !state.open;
     },
@@ -26,9 +48,16 @@ const patientFormSlice = createSlice({
     buttonSendForm(state) {
       state.isButtonClcked = true;
     },
-    getRisposta(state, { payload }) {
+    setRisposta(state, { payload }) {
       const { idDomanda } = payload;
+
+      if (!state.risposte[idDomanda]) {
+        state.risposte = { [idDomanda]: payload };
+      } else if (!state.risposte[idDomanda].date) {
+        state.risposte = { [idDomanda]: payload };
+      }
       state.risposte[idDomanda] = payload;
+      state.risposte[idDomanda].date = state.resDate[idDomanda];
     },
 
     getTipoFormulario(state, { payload }) {
@@ -58,6 +87,7 @@ const patientFormSlice = createSlice({
   },
 });
 
+export const resDate = (state : State) => state.patientForm.resDate;
 export const dialogClose = (state : State) => state.patientForm.dialogClose;
 export const snackbarStatus = (state : State) => state.patientForm.snackbarStatus;
 export const boolAnswers = (state : State) => state.patientForm.boolAnswers;
@@ -69,9 +99,11 @@ export const isOpen = (state:State) => state.patientForm.open;
 export const cancelCode = (state: State) => state.patientForm.cancelCode;
 export const {
   showPatientFormDialog, getDomandeReparto,
-  buttonSendForm, getRisposta,
+  buttonSendForm, setRisposta,
   getTipoFormulario, getBooleanAnswers, openSnackbar,
   closeSnackbar, closeDialogForm, resetDomandeReparto,
-  resetBooleanAnswers, resetRisposte,
+  resetBooleanAnswers, resetRisposte, setNormalTypePresent,
+  setDate,
+
 } = patientFormSlice.actions;
 export default patientFormSlice.reducer;
