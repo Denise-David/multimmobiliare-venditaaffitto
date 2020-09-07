@@ -13,6 +13,7 @@ import {
 } from '../../store/slice/risultatiAddFormSlice';
 import { unsetIcons, setIcons, isBConfirmAddFormClicked } from '../../store/slice/addFormSlice';
 import { haveRepModifyRight } from '../../store/slice/rightsSlice';
+import { setBCheckDisabled, setBCheckEnabled, isBCheckDisabled } from '../../store/slice/domandeAddFormSlice';
 
 const EmptyResultLineEditor = () => {
   const colorButton = useSelector(colDisable);
@@ -26,6 +27,7 @@ const EmptyResultLineEditor = () => {
   const NON_DIGIT = '/[^\d]/g';
   const rightRepModify = useSelector(haveRepModifyRight);
   const confirmAddForm = useSelector(isBConfirmAddFormClicked);
+  const bCheckDisabled = useSelector(isBCheckDisabled);
 
   return (
     <div>
@@ -43,6 +45,7 @@ const EmptyResultLineEditor = () => {
                         dispatch(unsetIcons());
                         dispatch(disableAll());
                         dispatch(setBAddResultClicked());
+                        dispatch(setBCheckDisabled());
                       }}
                       disabled={disableActive}
                     >
@@ -57,8 +60,11 @@ const EmptyResultLineEditor = () => {
                         dispatch(setIcons());
                         dispatch(resetRisultato());
                       }}
+                      disabled={bCheckDisabled}
+                      color="primary"
+
                     >
-                      <CheckCircleOutlineIcon color="primary" />
+                      <CheckCircleOutlineIcon />
                     </IconButton>
                   ) }
                 {' '}
@@ -72,6 +78,11 @@ const EmptyResultLineEditor = () => {
             disabled={textFieldState}
             onChange={(event) => {
               const { value } = event.target;
+              if (value === '' || valMin > valMax) {
+                dispatch(setBCheckDisabled());
+              } else if (bCheckDisabled === true && valMin <= valMax) {
+                dispatch(setBCheckEnabled());
+              }
               dispatch(setRisultato(value));
             }}
 
@@ -85,9 +96,24 @@ const EmptyResultLineEditor = () => {
             disabled={textFieldState}
             onChange={(event) => {
               const { value } = event.target;
+              if (value !== '') {
               // eslint-disable-next-line radix
-              const intVal = parseInt(value.toString().replace(NON_DIGIT, ''));
-              dispatch(setValoreMin(intVal));
+                const intVal = parseInt(value.toString().replace(NON_DIGIT, ''));
+                dispatch(setValoreMin(intVal));
+                if (intVal > valMax) {
+                  dispatch(setBCheckDisabled());
+                } else if (bCheckDisabled === true) {
+                  dispatch(setBCheckEnabled());
+                }
+              } else {
+                const intVal = 0;
+                dispatch(setValoreMin(intVal));
+                if (intVal > valMax) {
+                  dispatch(setBCheckDisabled());
+                } else if (bCheckDisabled === true) {
+                  dispatch(setBCheckEnabled());
+                }
+              }
             }}
 
             id="standard-basic"
@@ -101,9 +127,24 @@ const EmptyResultLineEditor = () => {
             disabled={textFieldState}
             onChange={(event) => {
               const { value } = event.target;
+              if (value !== '') {
               // eslint-disable-next-line radix
-              const intVal = parseInt(value.toString().replace(NON_DIGIT, ''));
-              dispatch(setValoreMax(intVal));
+                const intVal = parseInt(value.toString().replace(NON_DIGIT, ''));
+                dispatch(setValoreMax(intVal));
+                if (intVal < valMin) {
+                  dispatch(setBCheckDisabled());
+                } else if (bCheckDisabled === true) {
+                  dispatch(setBCheckEnabled());
+                }
+              } else {
+                const intVal = 0;
+                dispatch(setValoreMax(intVal));
+                if (intVal < valMin) {
+                  dispatch(setBCheckDisabled());
+                } else if (bCheckDisabled === true) {
+                  dispatch(setBCheckEnabled());
+                }
+              }
             }}
 
             id="standard-basic"

@@ -33,6 +33,7 @@ export function* cancelAddForm() {
   yield put(resetIDForm());
   yield put(setInitialStateAction());
   yield put(resetDomandeOfDomandeObject());
+  yield put(resetRisposteTwoRisposte());
   if (addReparto === true) {
     yield put(resetIDReparto());
   }

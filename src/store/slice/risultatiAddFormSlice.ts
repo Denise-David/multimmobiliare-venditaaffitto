@@ -26,9 +26,9 @@ const risultatiAddFormSlice = createSlice({
       const {
         IDRisultato, risultato, valoreMin, valoreMax,
       } = payload;
-      state.dataRisultati[IDRisultato].risultato = risultato;
-      state.dataRisultati[IDRisultato].valoreMin = valoreMin;
-      state.dataRisultati[IDRisultato].valoreMax = valoreMax;
+      state.dataRisultati[IDRisultato] = {
+        IDRisultato, valoreMax, valoreMin, risultato,
+      };
     },
     resetRisultato(state) {
       state.result = '';

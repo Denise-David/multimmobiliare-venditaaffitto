@@ -16,9 +16,16 @@ const rightsSlice = createSlice({
     haveUserModifyRight: false as boolean,
     haveRepDeleteRight: false as boolean,
     haveRepModifyRight: false as boolean,
+    ddlFormDisabled: true as boolean,
 
   },
   reducers: {
+    setDDLFormDisabled(state) {
+      state.ddlFormDisabled = true;
+    },
+    unsetDDLFormDisabled(state) {
+      state.ddlFormDisabled = false;
+    },
     unsetRepartoModifyRight(state) {
       state.haveRepModifyRight = false;
     },
@@ -68,6 +75,7 @@ const rightsSlice = createSlice({
   },
 });
 
+export const ddlFormDisabled = (state : State) => state.rights.ddlFormDisabled;
 export const haveRepModifyRight = (state : State) => state.rights.haveRepModifyRight;
 export const haveRepDeleteRight = (state : State) => state.rights.haveRepDeleteRight;
 export const haveUserDeleteRight = (state : State) => state.rights.haveUserDeleteRight;
@@ -84,6 +92,7 @@ export const {
   getUser, setRightsUserAUTAN, setRepartiCreate, setRepartiDelete,
   setAllReparti, setFormulari, setUserCreateRight, setUserDeleteRight,
   setUserModifyRight, unsetUserDeleteRight, setRepartoDeleteRight,
-  unsetRepartoDeleteRight, setRepartiModify, setRepartoModifyRight, unsetRepartoModifyRight,
+  unsetRepartoDeleteRight, setRepartiModify, setRepartoModifyRight,
+  unsetRepartoModifyRight, setDDLFormDisabled, unsetDDLFormDisabled,
 } = rightsSlice.actions;
 export default rightsSlice.reducer;

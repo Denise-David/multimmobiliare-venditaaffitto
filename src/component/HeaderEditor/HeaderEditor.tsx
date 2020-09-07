@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import useStyles from './style';
 
 import {
-  delActive, alertConfirmDelete, enableAll,
+  delActive, alertConfirmDelete, enableAll, isDisable,
 } from '../../store/slice/risultatiAddFormSlice';
 import {
   isButtonAddFormClicked,
@@ -38,6 +38,7 @@ const HeaderEditor = () => {
   const modifyRight = useSelector(haveRepModifyRight);
   const IDFormulario = useSelector(IDForm);
   const nomeForm = useSelector(nomeFormulario);
+  const disableActive = useSelector(isDisable);
 
   // Prendo il nome del form immesso dall'utente e controllo se è vuoto
   const getNomeForm = (event : React.ChangeEvent<{ value: unknown }>) => {
@@ -82,6 +83,7 @@ const HeaderEditor = () => {
                         fullWidth
                         variant="outlined"
                         autoFocus
+
                       />
                     </Grid>
                   </>
@@ -112,6 +114,7 @@ const HeaderEditor = () => {
                             const { value } = event.target;
                             dispatch(setNomeFormulario(value));
                           }}
+                          disabled={disableActive}
                         />
                       ) : <></>}
                   </>

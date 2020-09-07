@@ -13,12 +13,17 @@ export default function* setDataRisposteFormPaziente() {
 
     const risData = objectToArray(ansData);
     const answersData = risData.map((risposta : any) => {
+      console.log('xxRes', risposta);
       const {
-        idDomanda, domanda, testoRisposta, idRisposta,
+        idDomanda, domanda, testoRisposta, idRisposta, valore,
       } = risposta;
-      const date = objectToArray(risposta.date);
-      return {
-        idDomanda, domanda, testoRisposta, idRisposta, date,
+      if (risposta.date) {
+        const date = objectToArray(risposta.date);
+        return {
+          idDomanda, domanda, testoRisposta, idRisposta, date, valore,
+        };
+      } return {
+        idDomanda, domanda, testoRisposta, idRisposta, valore,
       };
     });
 

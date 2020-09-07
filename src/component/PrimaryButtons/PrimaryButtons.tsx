@@ -127,6 +127,7 @@ const PrimaryButtons = () => {
                               className={classes.buttonAdd}
                               onClick={() => dispatch(buttonAddClicked())}
                               color="primary"
+                              disabled={disableActive}
                             >
                               <AddIcon />
 
@@ -141,7 +142,12 @@ const PrimaryButtons = () => {
                           {/* se add non è attivo ed è selezionato il reparto */}
                           {rightCreate
                             ? (
-                              <Fab className={classes.buttonAdd} onClick={() => dispatch(buttonAddClicked())} color="primary">
+                              <Fab
+                                className={classes.buttonAdd}
+                                onClick={() => dispatch(buttonAddClicked())}
+                                color="primary"
+                                disabled={disableActive}
+                              >
                                 <AddIcon />
                               </Fab>
                             ) : <></>}
@@ -165,8 +171,9 @@ const PrimaryButtons = () => {
                               <IconButton
                                 disabled={disableActive}
                                 onClick={() => dispatch(saveModifyForm())}
+                                color="primary"
                               >
-                                <SaveIcon fontSize="large" color="primary" />
+                                <SaveIcon fontSize="large" />
                               </IconButton>
                             ) : <></>}
                           <IconButton

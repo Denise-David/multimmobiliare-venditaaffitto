@@ -6,8 +6,8 @@ import {
 } from '../slice/risultatiAddFormSlice';
 import {
   risposteOfDomandaObject,
-  valore, answer, risposta2 as Response2,
-  risposta1 as response1, setAnswersInDomanda,
+  valore, answer, ris2 as Response2,
+  ris1 as response1, setAnswersInDomanda,
   resetAnswerValore, typeAnswer, setAddRispostaUnclicked,
   deleteDomandeObject, resetRisposteOfDomanda, setType,
 } from '../slice/risposteAddFormSlice';

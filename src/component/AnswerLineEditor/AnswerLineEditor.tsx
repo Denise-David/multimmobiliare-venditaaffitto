@@ -2,7 +2,7 @@ import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import CreateIcon from '@material-ui/icons/Create';
 import {
-  IconButton, FormControlLabel, Checkbox, Typography,
+  IconButton, FormControlLabel, Checkbox,
 } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Grid from '@material-ui/core/Grid';
@@ -18,7 +18,8 @@ import {
 } from '../../store/slice/risposteAddFormSlice';
 import { objectToArray } from '../../util';
 import { unsetIcons, setIcons, isBConfirmAddFormClicked } from '../../store/slice/addFormSlice';
-import { haveRepModifyRight } from '../../store/slice/rightsSlice';
+import { haveRepModifyRight, unsetDDLFormDisabled, setDDLFormDisabled } from '../../store/slice/rightsSlice';
+import { setBCheckEnabled, setBCheckDisabled, isBCheckDisabled } from '../../store/slice/domandeAddFormSlice';
 
 interface Props {id : string}
 
@@ -33,6 +34,7 @@ const AnswerLineEditor = ({ id }: Props) => {
   const risposteOfDomanda = risposteOFDomandeObj[id] ? risposteOFDomandeObj[id] : {};
   const risposteArray = objectToArray(risposteOfDomanda);
   const confirmAddForm = useSelector(isBConfirmAddFormClicked);
+  const bCheckDisabled = useSelector(isBCheckDisabled);
 
   const listItems = risposteArray ? risposteArray.map((rispostaArray : any) => {
     const { IDRisposta } = rispostaArray;
@@ -52,6 +54,7 @@ const AnswerLineEditor = ({ id }: Props) => {
                         onClick={() => {
                           dispatch(unsetIcons());
                           dispatch(disableAll());
+                          dispatch(setDDLFormDisabled());
                           dispatch(setModifyRispostaClicked({ IDDomanda, IDRisposta }));
                         }}
                         disabled={disableActive}
@@ -79,10 +82,13 @@ const AnswerLineEditor = ({ id }: Props) => {
                         onClick={() => {
                           dispatch(setIcons());
                           dispatch(enableAll());
+                          dispatch(unsetDDLFormDisabled());
                           dispatch(setModifyRispostaUnclicked({ IDDomanda, IDRisposta }));
                         }}
+                        disabled={bCheckDisabled}
+                        color="primary"
                       >
-                        <CheckCircleOutlineIcon color="primary" />
+                        <CheckCircleOutlineIcon />
                       </IconButton>
                     </Grid>
                     <Grid item xs={12} sm={1} />
@@ -106,6 +112,12 @@ const AnswerLineEditor = ({ id }: Props) => {
                 <TextField
                   onChange={(event) => {
                     const risposta = event.target.value;
+                    if (risposta === '') {
+                      dispatch(setBCheckDisabled());
+                    } else if (bCheckDisabled === true) {
+                      dispatch(setBCheckEnabled());
+                    }
+
                     dispatch(modifyRisposta({ IDDomanda, IDRisposta, risposta }));
                   }}
                   disabled={!rispostaArray.stateModify}
@@ -118,11 +130,18 @@ const AnswerLineEditor = ({ id }: Props) => {
                 <TextField
                   onChange={(event) => {
                     const { value } = event.target;
+                    if (value !== '') {
                     // eslint-disable-next-line radix
-                    const valore = parseInt(value.toString().replace(NON_DIGIT, ''));
-                    dispatch(modifyRisposta({
-                      IDDomanda, IDRisposta, valore,
-                    }));
+                      const valore = parseInt(value.toString().replace(NON_DIGIT, ''));
+                      dispatch(modifyRisposta({
+                        IDDomanda, IDRisposta, valore,
+                      }));
+                    } else {
+                      const valore = '0';
+                      dispatch(modifyRisposta({
+                        IDDomanda, IDRisposta, valore,
+                      }));
+                    }
                   }}
                   disabled={!rispostaArray.stateModify}
                   id="standard-basic"

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import CreateIcon from '@material-ui/icons/Create';
 import { IconButton } from '@material-ui/core';
@@ -14,6 +14,7 @@ import {
 import { objectToArray } from '../../util';
 import { haveRepModifyRight } from '../../store/slice/rightsSlice';
 import { isBConfirmAddFormClicked } from '../../store/slice/addFormSlice';
+import { isBCheckDisabled, setBCheckEnabled, setBCheckDisabled } from '../../store/slice/domandeAddFormSlice';
 
 const ResultLineEditor = () => {
   const dispatch = useDispatch();
@@ -23,15 +24,17 @@ const ResultLineEditor = () => {
   const colorButton = useSelector(colDisable);
   const rightRepModify = useSelector(haveRepModifyRight);
   const confirmAddForm = useSelector(isBConfirmAddFormClicked);
+  const bCheckDisabled = useSelector(isBCheckDisabled);
 
   const risultatiArray = objectToArray(risultatiObject);
   // eslint-disable-next-line no-useless-escape
-  const NON_DIGIT = '/[^\d]/g';
+  const NON_DIGIT = '/[^d]/g';
 
   const listRisultati = risultatiArray ? risultatiArray.map((oneForm: any) => {
-    const {
-      IDRisultato,
+    let {
+      valoreMax, valoreMin, risultato,
     } = oneForm;
+    const { IDRisultato } = oneForm;
     return (
     // eslint-disable-next-line react/jsx-key
       <Grid container spacing={3}>
@@ -61,12 +64,15 @@ const ResultLineEditor = () => {
                 ) : (
                   <>
                     <Grid item xs={12} sm={2}>
-                      <IconButton onClick={() => {
-                        dispatch(enableAll());
-                        dispatch(setBModifyUnclicked(oneForm.IDRisultato));
-                      }}
+                      <IconButton
+                        onClick={() => {
+                          dispatch(enableAll());
+                          dispatch(setBModifyUnclicked(oneForm.IDRisultato));
+                        }}
+                        color="primary"
+                        disabled={bCheckDisabled}
                       >
-                        <CheckCircleOutlineIcon color="primary" />
+                        <CheckCircleOutlineIcon />
                       </IconButton>
                     </Grid>
                   </>
@@ -79,10 +85,16 @@ const ResultLineEditor = () => {
         <Grid item xs={12} sm={6}>
           <TextField
             onChange={(event) => {
-              const risultato = event.target.value;
+              risultato = event.target.value;
+              if (risultato === '' || valoreMin > valoreMax) {
+                dispatch(setBCheckDisabled());
+              } else if (bCheckDisabled === true && valoreMin <= valoreMax) {
+                dispatch(setBCheckEnabled());
+              }
               dispatch(modifyRisultato({
-                IDRisultato, risultato,
+                IDRisultato, risultato, valoreMin, valoreMax,
               }));
+              dispatch(setBModifyClicked(oneForm.IDRisultato));
             }}
             disabled={!oneForm.stateModify}
             id="standard-basic"
@@ -94,11 +106,30 @@ const ResultLineEditor = () => {
           <TextField
             onChange={(event) => {
               const { value } = event.target;
+              if (value !== '') {
               // eslint-disable-next-line radix
-              const valoreMin = parseInt(value.toString().replace(NON_DIGIT, ''));
-              dispatch(modifyRisultato({
-                IDRisultato, valoreMin,
-              }));
+                valoreMin = parseInt(value.toString().replace(NON_DIGIT, '0'));
+                dispatch(modifyRisultato({
+                  IDRisultato, valoreMin, valoreMax, risultato,
+                }));
+                dispatch(setBModifyClicked(oneForm.IDRisultato));
+                if (valoreMin > oneForm.valoreMax) {
+                  dispatch(setBCheckDisabled());
+                } else if (bCheckDisabled === true) {
+                  dispatch(setBCheckEnabled());
+                }
+              } else {
+                valoreMin = '0';
+                dispatch(modifyRisultato({
+                  IDRisultato, valoreMin, valoreMax, risultato,
+                }));
+                dispatch(setBModifyClicked(oneForm.IDRisultato));
+                if (valoreMin > oneForm.valoreMax) {
+                  dispatch(setBCheckDisabled());
+                } else if (bCheckDisabled === true) {
+                  dispatch(setBCheckEnabled());
+                }
+              }
             }}
             disabled={!oneForm.stateModify}
             id="standard-basic"
@@ -110,11 +141,30 @@ const ResultLineEditor = () => {
           <TextField
             onChange={(event) => {
               const { value } = event.target;
+              if (value !== '') {
               // eslint-disable-next-line radix
-              const valoreMax = parseInt(value.toString().replace(NON_DIGIT, ''));
-              dispatch(modifyRisultato({
-                IDRisultato, valoreMax,
-              }));
+                valoreMax = parseInt(value.toString().replace(NON_DIGIT, ''));
+                dispatch(modifyRisultato({
+                  IDRisultato, valoreMax, valoreMin, risultato,
+                }));
+                dispatch(setBModifyClicked(oneForm.IDRisultato));
+                if (valoreMax < oneForm.valoreMin) {
+                  dispatch(setBCheckDisabled());
+                } else if (bCheckDisabled === true) {
+                  dispatch(setBCheckEnabled());
+                }
+              } else {
+                valoreMax = '0';
+                dispatch(modifyRisultato({
+                  IDRisultato, valoreMax, valoreMin, risultato,
+                }));
+                dispatch(setBModifyClicked(oneForm.IDRisultato));
+                if (valoreMax < oneForm.valoreMin) {
+                  dispatch(setBCheckDisabled());
+                } else if (bCheckDisabled === true) {
+                  dispatch(setBCheckEnabled());
+                }
+              }
             }}
             disabled={!oneForm.stateModify}
             id="standard-basic"

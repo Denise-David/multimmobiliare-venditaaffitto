@@ -34,14 +34,15 @@ const PDFPatientAnswers = () => {
     const { domanda } = risposta;
     const noPuntoDiDomanda = domanda.substring(0, domanda.length - 1);
     sommaRisposte += risposta.valore;
+
     // creo la lista di date
-    const arrayDate = risposta.date.map((data: any) => (
+    const arrayDate = risposta.date ? risposta.date.map((data: any) => (
       <Typography key={data.idRisposta}>
         {data.testoData}
         {': '}
         {format(new Date(data.dataFormattata), 'dd.MM.yyyy')}
       </Typography>
-    ));
+    )) : <></>;
 
     return (
       <>
