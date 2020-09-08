@@ -20,6 +20,7 @@ import rights from '../slice/rightsSlice';
 import domandeAddForm from '../slice/domandeAddFormSlice';
 import risposteAddForm from '../slice/risposteAddFormSlice';
 import homePage from '../slice/homePageLabelSlice';
+import disableEnable from '../slice/disableEnableSlice';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -43,6 +44,7 @@ const store = configureStore({
     domandeAddForm,
     risposteAddForm,
     homePage,
+    disableEnable,
 
   },
 

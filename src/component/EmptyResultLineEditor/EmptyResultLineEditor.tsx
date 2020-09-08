@@ -6,17 +6,20 @@ import Grid from '@material-ui/core/Grid';
 import { useSelector, useDispatch } from 'react-redux';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import {
-  colDisable, isDisable, setRisultato, setValoreMin,
+  setRisultato, setValoreMin,
   setValoreMax, textFieldStateAddRisultato, setBAddResultClicked,
-  setBAddResultUnclicked, addRisultatoClicked, disableAll, enableAll,
+  setBAddResultUnclicked, addRisultatoClicked,
   result, valueMax, valueMin, resetRisultato,
 } from '../../store/slice/risultatiAddFormSlice';
-import { unsetIcons, setIcons, isBConfirmAddFormClicked } from '../../store/slice/addFormSlice';
+import { isBConfirmAddFormClicked } from '../../store/slice/addFormSlice';
 import { haveRepModifyRight } from '../../store/slice/rightsSlice';
+import { setBCheckDisabled, setBCheckEnabled, isBCheckDisabled } from '../../store/slice/domandeAddFormSlice';
+import {
+  isBModifyDelAddReturnDisabled, enableAll, disableAll,
+} from '../../store/slice/disableEnableSlice';
 
 const EmptyResultLineEditor = () => {
-  const colorButton = useSelector(colDisable);
-  const disableActive = useSelector(isDisable);
+  const iconsDisabled = useSelector(isBModifyDelAddReturnDisabled);
   const dispatch = useDispatch();
   const textFieldState = useSelector(textFieldStateAddRisultato);
   const res = useSelector(result);
@@ -26,6 +29,7 @@ const EmptyResultLineEditor = () => {
   const NON_DIGIT = '/[^\d]/g';
   const rightRepModify = useSelector(haveRepModifyRight);
   const confirmAddForm = useSelector(isBConfirmAddFormClicked);
+  const bCheckDisabled = useSelector(isBCheckDisabled);
 
   return (
     <div>
@@ -40,13 +44,14 @@ const EmptyResultLineEditor = () => {
                   ? (
                     <IconButton
                       onClick={() => {
-                        dispatch(unsetIcons());
                         dispatch(disableAll());
                         dispatch(setBAddResultClicked());
+                        dispatch(setBCheckDisabled());
                       }}
-                      disabled={disableActive}
+                      disabled={iconsDisabled}
+                      color="primary"
                     >
-                      <AddCircleOutlineIcon color={colorButton} />
+                      <AddCircleOutlineIcon />
                     </IconButton>
                   ) : (
                     <IconButton
@@ -54,11 +59,13 @@ const EmptyResultLineEditor = () => {
                         dispatch(setBAddResultUnclicked());
                         dispatch(addRisultatoClicked());
                         dispatch(enableAll());
-                        dispatch(setIcons());
                         dispatch(resetRisultato());
                       }}
+                      disabled={bCheckDisabled}
+                      color="primary"
+
                     >
-                      <CheckCircleOutlineIcon color="primary" />
+                      <CheckCircleOutlineIcon />
                     </IconButton>
                   ) }
                 {' '}
@@ -72,6 +79,11 @@ const EmptyResultLineEditor = () => {
             disabled={textFieldState}
             onChange={(event) => {
               const { value } = event.target;
+              if (value === '' || valMin > valMax) {
+                dispatch(setBCheckDisabled());
+              } else if (bCheckDisabled === true && valMin <= valMax) {
+                dispatch(setBCheckEnabled());
+              }
               dispatch(setRisultato(value));
             }}
 
@@ -85,9 +97,24 @@ const EmptyResultLineEditor = () => {
             disabled={textFieldState}
             onChange={(event) => {
               const { value } = event.target;
+              if (value !== '') {
               // eslint-disable-next-line radix
-              const intVal = parseInt(value.toString().replace(NON_DIGIT, ''));
-              dispatch(setValoreMin(intVal));
+                const intVal = parseInt(value.toString().replace(NON_DIGIT, ''));
+                dispatch(setValoreMin(intVal));
+                if (intVal > valMax) {
+                  dispatch(setBCheckDisabled());
+                } else if (bCheckDisabled === true) {
+                  dispatch(setBCheckEnabled());
+                }
+              } else {
+                const intVal = 0;
+                dispatch(setValoreMin(intVal));
+                if (intVal > valMax) {
+                  dispatch(setBCheckDisabled());
+                } else if (bCheckDisabled === true) {
+                  dispatch(setBCheckEnabled());
+                }
+              }
             }}
 
             id="standard-basic"
@@ -101,9 +128,24 @@ const EmptyResultLineEditor = () => {
             disabled={textFieldState}
             onChange={(event) => {
               const { value } = event.target;
+              if (value !== '') {
               // eslint-disable-next-line radix
-              const intVal = parseInt(value.toString().replace(NON_DIGIT, ''));
-              dispatch(setValoreMax(intVal));
+                const intVal = parseInt(value.toString().replace(NON_DIGIT, ''));
+                dispatch(setValoreMax(intVal));
+                if (intVal < valMin) {
+                  dispatch(setBCheckDisabled());
+                } else if (bCheckDisabled === true) {
+                  dispatch(setBCheckEnabled());
+                }
+              } else {
+                const intVal = 0;
+                dispatch(setValoreMax(intVal));
+                if (intVal < valMin) {
+                  dispatch(setBCheckDisabled());
+                } else if (bCheckDisabled === true) {
+                  dispatch(setBCheckEnabled());
+                }
+              }
             }}
 
             id="standard-basic"

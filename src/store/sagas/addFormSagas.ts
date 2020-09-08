@@ -2,12 +2,12 @@ import { call, select, put } from 'redux-saga/effects';
 import { v4 as uuidv4 } from 'uuid';
 import {
   valueMin, valueMax, alertConfirmDelete,
-  disableAll, result, addRisultato, dataRisultati, resetDataRisultati,
+  result, addRisultato, dataRisultati, resetDataRisultati,
 } from '../slice/risultatiAddFormSlice';
 import {
   risposteOfDomandaObject,
-  valore, answer, risposta2 as Response2,
-  risposta1 as response1, setAnswersInDomanda,
+  valore, answer, ris2 as Response2,
+  ris1 as response1, setAnswersInDomanda,
   resetAnswerValore, typeAnswer, setAddRispostaUnclicked,
   deleteDomandeObject, resetRisposteOfDomanda, setType,
 } from '../slice/risposteAddFormSlice';
@@ -22,12 +22,13 @@ import {
   setDomandaInObjectDomandeMoreRes,
 } from '../slice/domandeAddFormSlice';
 import {
-  selectedReparto, nomeFormulario, setBAddFormClicked, setBSaveDisabled,
+  selectedReparto, nomeFormulario, setBAddFormClicked,
 } from '../slice/addFormSlice';
 import { addFormPiuRisposte } from '../api';
 import { objectToArray } from '../../util';
 import { setInitialStateAction } from '../slice/initialStateSlice';
 import { resetIDForm, resetIDReparto } from '../slice/repartoDDLSlice';
+import { setBSaveDisabled, setBModifyDelAddReturnDisabled } from '../slice/disableEnableSlice';
 
 export default function* addFormulario() {
   const reparto = yield select(selectedReparto);
@@ -114,7 +115,7 @@ export function* clickAddButton() {
 }
 export function* clickDelOrSaveButton() {
   yield put(alertConfirmDelete());
-  yield put(disableAll());
+  yield put(setBModifyDelAddReturnDisabled());
 }
 
 export function* addDomandaMoreAnswers() {

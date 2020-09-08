@@ -1,5 +1,5 @@
 import { put, select, call } from 'redux-saga/effects';
-import { risposteOfDomandaObject, risposta2, risposta1 } from '../slice/risposteAddFormSlice';
+import { risposteOfDomandaObject, ris2, ris1 } from '../slice/risposteAddFormSlice';
 
 import { allReparti } from '../slice/rightsSlice';
 
@@ -52,11 +52,13 @@ export default function* saveModify() {
       };
     });
     const listRisultati = objectToArray(objRisultati);
-    const ris1 = yield select(risposta1);
-    const ris2 = yield select(risposta2);
+    const ans1 = yield select(ris1);
+    const ans2 = yield select(ris2);
+    const { risposta1 } = ans1;
+    const { risposta2 } = ans2;
 
     yield call(modifyForm, IDFormulario, GUID, nomeReparto,
-      nomeForm, listDomandeAndRisposte, listRisultati, ris1, ris2);
+      nomeForm, listDomandeAndRisposte, listRisultati, risposta1, risposta2);
 
     yield put(buttonCancelAddFormClicked());
   } catch (error) {

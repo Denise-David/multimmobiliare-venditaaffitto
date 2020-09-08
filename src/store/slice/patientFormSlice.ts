@@ -50,12 +50,6 @@ const patientFormSlice = createSlice({
     },
     setRisposta(state, { payload }) {
       const { idDomanda } = payload;
-
-      if (!state.risposte[idDomanda]) {
-        state.risposte = { [idDomanda]: payload };
-      } else if (!state.risposte[idDomanda].date) {
-        state.risposte = { [idDomanda]: payload };
-      }
       state.risposte[idDomanda] = payload;
       state.risposte[idDomanda].date = state.resDate[idDomanda];
     },

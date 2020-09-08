@@ -8,30 +8,35 @@ import { useSelector, useDispatch } from 'react-redux';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import EmptyResultLineEditor from '../EmptyResultLineEditor/EmptyResultLineEditor';
 import {
-  colDisable, disableAll, enableAll, dataRisultati, setBModifyClicked,
+  dataRisultati, setBModifyClicked,
   setBModifyUnclicked, deleteRisultato, modifyRisultato,
 } from '../../store/slice/risultatiAddFormSlice';
 import { objectToArray } from '../../util';
 import { haveRepModifyRight } from '../../store/slice/rightsSlice';
 import { isBConfirmAddFormClicked } from '../../store/slice/addFormSlice';
+import { isBCheckDisabled, setBCheckEnabled, setBCheckDisabled } from '../../store/slice/domandeAddFormSlice';
+import {
+  setBModifyDelAddReturnDisabled, setBModifyDelAddReturnEnabled, enableAll, disableAll,
+} from '../../store/slice/disableEnableSlice';
 
 const ResultLineEditor = () => {
   const dispatch = useDispatch();
 
   const risultatiObject = useSelector(dataRisultati);
 
-  const colorButton = useSelector(colDisable);
   const rightRepModify = useSelector(haveRepModifyRight);
   const confirmAddForm = useSelector(isBConfirmAddFormClicked);
+  const bCheckDisabled = useSelector(isBCheckDisabled);
 
   const risultatiArray = objectToArray(risultatiObject);
   // eslint-disable-next-line no-useless-escape
-  const NON_DIGIT = '/[^\d]/g';
+  const NON_DIGIT = '/[^d]/g';
 
   const listRisultati = risultatiArray ? risultatiArray.map((oneForm: any) => {
-    const {
-      IDRisultato,
+    let {
+      valoreMax, valoreMin, risultato,
     } = oneForm;
+    const { IDRisultato } = oneForm;
     return (
     // eslint-disable-next-line react/jsx-key
       <Grid container spacing={3}>
@@ -48,25 +53,32 @@ const ResultLineEditor = () => {
                           dispatch(disableAll());
                           dispatch(setBModifyClicked(oneForm.IDRisultato));
                         }}
+                        color="primary"
                       >
-                        <CreateIcon color={colorButton} />
+                        <CreateIcon />
                       </IconButton>
                     </Grid>
                     <Grid item xs={12} sm={1}>
-                      <IconButton onClick={() => dispatch(deleteRisultato(oneForm.IDRisultato))}>
-                        <DeleteIcon color={colorButton} />
+                      <IconButton
+                        color="primary"
+                        onClick={() => dispatch(deleteRisultato(oneForm.IDRisultato))}
+                      >
+                        <DeleteIcon />
                       </IconButton>
                     </Grid>
                   </>
                 ) : (
                   <>
                     <Grid item xs={12} sm={2}>
-                      <IconButton onClick={() => {
-                        dispatch(enableAll());
-                        dispatch(setBModifyUnclicked(oneForm.IDRisultato));
-                      }}
+                      <IconButton
+                        onClick={() => {
+                          dispatch(enableAll());
+                          dispatch(setBModifyUnclicked(oneForm.IDRisultato));
+                        }}
+                        color="primary"
+                        disabled={bCheckDisabled}
                       >
-                        <CheckCircleOutlineIcon color="primary" />
+                        <CheckCircleOutlineIcon />
                       </IconButton>
                     </Grid>
                   </>
@@ -79,10 +91,16 @@ const ResultLineEditor = () => {
         <Grid item xs={12} sm={6}>
           <TextField
             onChange={(event) => {
-              const risultato = event.target.value;
+              risultato = event.target.value;
+              if (risultato === '' || valoreMin > valoreMax) {
+                dispatch(setBCheckDisabled());
+              } else if (bCheckDisabled === true && valoreMin <= valoreMax) {
+                dispatch(setBCheckEnabled());
+              }
               dispatch(modifyRisultato({
-                IDRisultato, risultato,
+                IDRisultato, risultato, valoreMin, valoreMax,
               }));
+              dispatch(setBModifyClicked(oneForm.IDRisultato));
             }}
             disabled={!oneForm.stateModify}
             id="standard-basic"
@@ -94,11 +112,30 @@ const ResultLineEditor = () => {
           <TextField
             onChange={(event) => {
               const { value } = event.target;
+              if (value !== '') {
               // eslint-disable-next-line radix
-              const valoreMin = parseInt(value.toString().replace(NON_DIGIT, ''));
-              dispatch(modifyRisultato({
-                IDRisultato, valoreMin,
-              }));
+                valoreMin = parseInt(value.toString().replace(NON_DIGIT, '0'));
+                dispatch(modifyRisultato({
+                  IDRisultato, valoreMin, valoreMax, risultato,
+                }));
+                dispatch(setBModifyClicked(oneForm.IDRisultato));
+                if (valoreMin > oneForm.valoreMax) {
+                  dispatch(setBCheckDisabled());
+                } else if (bCheckDisabled === true) {
+                  dispatch(setBCheckEnabled());
+                }
+              } else {
+                valoreMin = '0';
+                dispatch(modifyRisultato({
+                  IDRisultato, valoreMin, valoreMax, risultato,
+                }));
+                dispatch(setBModifyClicked(oneForm.IDRisultato));
+                if (valoreMin > oneForm.valoreMax) {
+                  dispatch(setBCheckDisabled());
+                } else if (bCheckDisabled === true) {
+                  dispatch(setBCheckEnabled());
+                }
+              }
             }}
             disabled={!oneForm.stateModify}
             id="standard-basic"
@@ -110,11 +147,30 @@ const ResultLineEditor = () => {
           <TextField
             onChange={(event) => {
               const { value } = event.target;
+              if (value !== '') {
               // eslint-disable-next-line radix
-              const valoreMax = parseInt(value.toString().replace(NON_DIGIT, ''));
-              dispatch(modifyRisultato({
-                IDRisultato, valoreMax,
-              }));
+                valoreMax = parseInt(value.toString().replace(NON_DIGIT, ''));
+                dispatch(modifyRisultato({
+                  IDRisultato, valoreMax, valoreMin, risultato,
+                }));
+                dispatch(setBModifyClicked(oneForm.IDRisultato));
+                if (valoreMax < oneForm.valoreMin) {
+                  dispatch(setBCheckDisabled());
+                } else if (bCheckDisabled === true) {
+                  dispatch(setBCheckEnabled());
+                }
+              } else {
+                valoreMax = '0';
+                dispatch(modifyRisultato({
+                  IDRisultato, valoreMax, valoreMin, risultato,
+                }));
+                dispatch(setBModifyClicked(oneForm.IDRisultato));
+                if (valoreMax < oneForm.valoreMin) {
+                  dispatch(setBCheckDisabled());
+                } else if (bCheckDisabled === true) {
+                  dispatch(setBCheckEnabled());
+                }
+              }
             }}
             disabled={!oneForm.stateModify}
             id="standard-basic"

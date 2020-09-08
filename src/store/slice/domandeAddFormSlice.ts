@@ -7,6 +7,7 @@ export interface domandaAddForm {
   IDDomanda : string,
    Domanda : string,
    stateText : boolean,
+   openCard: boolean,
     Risposte? : []}
 
 const domandeAddFormSlice = createSlice({
@@ -22,6 +23,9 @@ const domandeAddFormSlice = createSlice({
     colorBCheckAddDomanda: 'default' as 'primary' | 'default' |'inherit' | 'secondary' | 'default' | undefined,
   },
   reducers: {
+    openCloseDomandaCard(state, { payload }) {
+      state.domandeObject[payload].openCard = !state.domandeObject[payload].openCard;
+    },
     setDomandeinObject(state, { payload }) {
       state.domandeObject = payload;
     },
@@ -124,7 +128,7 @@ export const {
   setBCheckEnabled, setBCheckAddDomandaDisabled,
   setBCheckAddDomandaEnabled, resetDomandaByIDDomanda, setDomandaInObjectDomandeMoreRes,
   setDomandeinObject,
-  resetDomandeOfDomandeObject,
+  resetDomandeOfDomandeObject, openCloseDomandaCard,
 
 } = domandeAddFormSlice.actions;
 export default domandeAddFormSlice.reducer;

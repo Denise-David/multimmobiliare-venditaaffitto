@@ -1,23 +1,19 @@
 import React from 'react';
 import { FormControl, Select, MenuItem } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
-import { formulariByReparto } from '../../store/slice/rightsSlice';
-import { setFormularioSelected, IDForm, IDRepartoSelected } from '../../store/slice/repartoDDLSlice';
+import {
+  formulariByReparto,
+} from '../../store/slice/rightsSlice';
+import { setFormularioSelected, IDForm } from '../../store/slice/repartoDDLSlice';
+import { isDDLFormDisabled } from '../../store/slice/disableEnableSlice';
 
 const DropDownListFormulari = () => {
   const formulari = useSelector(formulariByReparto);
   const dispatch = useDispatch();
   const IDFormulario = useSelector(IDForm);
-  const IDRep = useSelector(IDRepartoSelected);
+  const ddlDisabled = useSelector(isDDLFormDisabled);
 
   // attivo la DDL formulari solo se c'è un valore nella DDL reparti
-  let disabled = true;
-
-  if (IDRep === '-1') {
-    disabled = true;
-  } else {
-    disabled = false;
-  }
 
   const listForm = formulari.map((formulario : any) => (
     // eslint-disable-next-line no-underscore-dangle
@@ -38,7 +34,7 @@ const DropDownListFormulari = () => {
         <Select
           defaultValue={-1}
           autoWidth
-          disabled={disabled}
+          disabled={ddlDisabled}
           // eslint-disable-next-line no-underscore-dangle
           value={IDFormulario}
           onChange={getValueOnChange}

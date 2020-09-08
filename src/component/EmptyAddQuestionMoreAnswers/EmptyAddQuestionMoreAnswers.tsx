@@ -19,15 +19,15 @@ import {
   setBCheckAddDomandaEnabled,
   addDomandaMoreResInArray,
 } from '../../store/slice/domandeAddFormSlice';
+import { colorIcons } from '../../store/slice/addFormSlice';
 import {
-  isIconsDisabled, unsetIcons, setIcons, colorIcons,
-} from '../../store/slice/addFormSlice';
-import { disableAll, enableAll } from '../../store/slice/risultatiAddFormSlice';
+  isBModifyDelAddReturnDisabled, enableAll, disableAll,
+} from '../../store/slice/disableEnableSlice';
 
 const EmptyAddQuestionMoreAnswers = () => {
   const dispatch = useDispatch();
   const valoreTextField = useSelector(question);
-  const isIconEnabled = useSelector(isIconsDisabled);
+  const isIconEnabled = useSelector(isBModifyDelAddReturnDisabled);
   const colButton = useSelector(colorIcons);
   const classes = useStyles();
   const colBCheck = useSelector(colorBCheckAddDomanda);
@@ -47,7 +47,6 @@ const EmptyAddQuestionMoreAnswers = () => {
                   disabled={isIconEnabled}
                   onClick={() => {
                     dispatch(setBAddDomandaClicked());
-                    dispatch(unsetIcons());
                     dispatch(disableAll());
                     setShowTextField(!showTextField);
                   }}
@@ -67,8 +66,8 @@ const EmptyAddQuestionMoreAnswers = () => {
                   color={colBCheck}
                   onClick={() => {
                     dispatch(addDomandaMoreResInArray());
-                    dispatch(setIcons());
                     dispatch(enableAll());
+
                     setShowTextField(!showTextField);
                   }}
 
@@ -80,7 +79,6 @@ const EmptyAddQuestionMoreAnswers = () => {
                   onClick={() => {
                     dispatch(setBAddDomandaUnclicked());
                     dispatch(resetDomanda());
-                    dispatch(setIcons());
                     dispatch(enableAll());
                     setShowTextField(!showTextField);
                   }}

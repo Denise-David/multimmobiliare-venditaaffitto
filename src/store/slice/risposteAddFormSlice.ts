@@ -9,9 +9,9 @@ interface risposteOfQuestion {[key:string] : rispostaMoreAnswers}
 const risposteAddFormSlice = createSlice({
   name: 'risposteAddForm',
   initialState: {
-    risposta1: { risposta1: 'Si', stateText: true } as rispostaUno,
+    ris1: { risposta1: 'Si', stateText: true } as rispostaUno,
     isTextFieldRispostaDisabled: true as boolean,
-    risposta2: { risposta2: 'No', stateText: true } as rispostaDue,
+    ris2: { risposta2: 'No', stateText: true } as rispostaDue,
     isBModifyRis1Clicked: false as boolean,
     isBModifyRis2Clicked: false as boolean,
     isBCheckRis1Disabled: false as boolean,
@@ -25,6 +25,9 @@ const risposteAddFormSlice = createSlice({
     type: {} as any,
   },
   reducers: {
+    resetRispostaType(state, { payload }) {
+      state.type[payload] = 'normal';
+    },
     setRispostaTipoData(state, { payload }) {
       const { IDDomanda, IDRisposta } = payload;
       if (state.risposteOfDomandaObject[IDDomanda][IDRisposta].type === 'data') {
@@ -35,8 +38,8 @@ const risposteAddFormSlice = createSlice({
       state.risposteOfDomandaObject = {};
     },
     resetRisposteTwoRisposte(state) {
-      state.risposta2.risposta2 = 'No';
-      state.risposta1.risposta1 = 'Si';
+      state.ris2.risposta2 = 'No';
+      state.ris1.risposta1 = 'Si';
     },
     setRisposteOfDomandaInObject(state, { payload }) {
       state.risposteOfDomandaObject = payload;
@@ -101,25 +104,25 @@ const risposteAddFormSlice = createSlice({
       state.stateAddRisposta[payload] = true;
     },
     setBModifyRis1Clicked(state) {
-      state.risposta1.stateText = false;
+      state.ris1.stateText = false;
       state.isBModifyRis1Clicked = true;
     },
     getRisposta1(state, { payload }) {
-      state.risposta1.risposta1 = payload;
+      state.ris1.risposta1 = payload;
     },
     setBModifyRis1Unclicked(state) {
-      state.risposta1.stateText = true;
+      state.ris1.stateText = true;
       state.isBModifyRis1Clicked = false;
     },
     getRisposta2(state, { payload }) {
-      state.risposta2.risposta2 = payload;
+      state.ris2.risposta2 = payload;
     },
     setBModifyRis2Clicked(state) {
-      state.risposta2.stateText = false;
+      state.ris2.stateText = false;
       state.isBModifyRis2Clicked = true;
     },
     setBModifyRis2Unclicked(state) {
-      state.risposta2.stateText = true;
+      state.ris2.stateText = true;
       state.isBModifyRis2Clicked = false;
     },
     setBCheckRisposta1Disabled(state) {
@@ -158,8 +161,8 @@ export const isBCheckRis1Disabled = (state : State) => state.risposteAddForm.isB
 export const colorBCheckRis1 = (state : State) => state.risposteAddForm.colorBCheckRis1;
 export const isBModifyRis2Clicked = (state : State) => state.risposteAddForm.isBModifyRis2Clicked;
 export const isBModifyRis1Clicked = (state : State) => state.risposteAddForm.isBModifyRis1Clicked;
-export const risposta2 = (state : State) => state.risposteAddForm.risposta2;
-export const risposta1 = (state : State) => state.risposteAddForm.risposta1;
+export const ris2 = (state : State) => state.risposteAddForm.ris2;
+export const ris1 = (state : State) => state.risposteAddForm.ris1;
 export const typeAnswer = (state: State) => state.risposteAddForm.type;
 export const {
   setBModifyRis1Clicked, getRisposta1, getRisposta2,
@@ -173,5 +176,6 @@ export const {
   setModifyRispostaUnclicked, modifyRisposta,
   setRisposteOfDomandaInObject, resetRisposteTwoRisposte,
   resetRisposteOfDomanda, setRispostaTipoData, setType,
+  resetRispostaType,
 } = risposteAddFormSlice.actions;
 export default risposteAddFormSlice.reducer;

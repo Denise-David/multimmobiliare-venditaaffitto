@@ -19,6 +19,7 @@ const rightsSlice = createSlice({
 
   },
   reducers: {
+
     unsetRepartoModifyRight(state) {
       state.haveRepModifyRight = false;
     },
@@ -84,6 +85,7 @@ export const {
   getUser, setRightsUserAUTAN, setRepartiCreate, setRepartiDelete,
   setAllReparti, setFormulari, setUserCreateRight, setUserDeleteRight,
   setUserModifyRight, unsetUserDeleteRight, setRepartoDeleteRight,
-  unsetRepartoDeleteRight, setRepartiModify, setRepartoModifyRight, unsetRepartoModifyRight,
+  unsetRepartoDeleteRight, setRepartiModify, setRepartoModifyRight,
+  unsetRepartoModifyRight,
 } = rightsSlice.actions;
 export default rightsSlice.reducer;
