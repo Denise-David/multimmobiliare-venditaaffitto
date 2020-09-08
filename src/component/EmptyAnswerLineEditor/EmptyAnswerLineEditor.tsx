@@ -8,15 +8,12 @@ import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import { useSelector, useDispatch } from 'react-redux';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import {
-  isDisable, colDisable, enableAll, disableAll,
-} from '../../store/slice/risultatiAddFormSlice';
-import {
   setAddRispostaClicked, stateAddedRisposta,
   setAddRispostaUnclicked, setAnswer, setValore, addRisposta,
   answer, valore, setType, typeAnswer, resetRispostaType,
 } from '../../store/slice/risposteAddFormSlice';
-import { setIcons, unsetIcons } from '../../store/slice/addFormSlice';
 import { setBCheckDisabled, setBCheckEnabled, isBCheckDisabled } from '../../store/slice/domandeAddFormSlice';
+import { isBModifyDelAddReturnDisabled, enableAll, disableAll } from '../../store/slice/disableEnableSlice';
 
 interface Props{ IDDomanda: string}
 
@@ -29,7 +26,7 @@ const EmptyAnswerLineEditor = ({ IDDomanda }: Props) => {
   }, [dispatch, IDDomanda]);
 
   const typeRis = useSelector(typeAnswer);
-  const disableActive = useSelector(isDisable);
+  const iconsDisabled = useSelector(isBModifyDelAddReturnDisabled);
   const stateTextField = useSelector(stateAddedRisposta);
   const rispostaText = useSelector(answer);
   const valoreText = useSelector(valore);
@@ -45,10 +42,9 @@ const EmptyAnswerLineEditor = ({ IDDomanda }: Props) => {
             <>
               <Grid item xs={12} sm={1}>
                 <IconButton
-                  disabled={disableActive}
+                  disabled={iconsDisabled}
                   onClick={() => {
                     dispatch(setAddRispostaClicked(IDDomanda));
-                    dispatch(unsetIcons());
                     dispatch(disableAll());
                     dispatch(setBCheckDisabled());
                   }}
@@ -65,7 +61,6 @@ const EmptyAnswerLineEditor = ({ IDDomanda }: Props) => {
               <IconButton
                 onClick={() => {
                   dispatch(addRisposta(IDDomanda));
-                  dispatch(setIcons());
                   dispatch(enableAll());
                   dispatch(resetRispostaType(IDDomanda));
                 }}

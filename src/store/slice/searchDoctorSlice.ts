@@ -10,7 +10,7 @@ const searchDoctorSlice = createSlice({
     mediciTrovati: {} as any,
     buttonSearchClick: false as boolean,
     dialogSearchStatus: false as boolean,
-    name: '' as string,
+    nomeCognomeDottoreScelto: '' as string,
     buttonSearchStatus: true as boolean,
   },
   reducers: {
@@ -28,7 +28,7 @@ const searchDoctorSlice = createSlice({
     },
     openDialogSearch(state, { payload }) {
       state.dialogSearchStatus = true;
-      state.name = payload;
+      state.nomeCognomeDottoreScelto = payload;
     },
     closeDialogSearch(state) {
       state.dialogSearchStatus = false;
@@ -46,7 +46,8 @@ const searchDoctorSlice = createSlice({
 });
 
 export const buttonSearchStatus = (state : State) => state.searchDoctor.buttonSearchStatus;
-export const nameSearch = (state : State) => state.searchDoctor.name;
+// eslint-disable-next-line max-len
+export const nomeCognomeDottoreScelto = (state : State) => state.searchDoctor.nomeCognomeDottoreScelto;
 export const dialogSearchStatus = (state : State) => state.searchDoctor.dialogSearchStatus;
 export const mediciTrovati = (state : State) => state.searchDoctor.mediciTrovati;
 export const cognomeMedico = (state : State) => state.searchDoctor.cognomeMedico;

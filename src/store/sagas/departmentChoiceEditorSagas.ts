@@ -1,6 +1,6 @@
 import { put, select } from 'redux-saga/effects';
 import {
-  enableAll, resetDataRisultati,
+  resetDataRisultati,
 } from '../slice/risultatiAddFormSlice';
 import {
   resetFormType, resetSelectedReparto, setConfirmDisabled,
@@ -12,11 +12,12 @@ import { setInitialStateAction } from '../slice/initialStateSlice';
 import { resetDomandeOfDomandeObject } from '../slice/domandeAddFormSlice';
 import { unsetRepartoModifyRight } from '../slice/rightsSlice';
 import { resetRisposteTwoRisposte, resetRisposteOfDomanda } from '../slice/risposteAddFormSlice';
+import { setBModifyDelAddReturnDisabled, setBModifyDelAddReturnEnabled } from '../slice/disableEnableSlice';
 // eslint-disable-next-line import/no-cycle
 
 export default function* confirmAddForm() {
   yield put(setConfirmDisabled());
-  yield put(enableAll());
+  yield put(setBModifyDelAddReturnEnabled());
   yield put(setBAddFormUnclicked());
   yield put(setBConfirmAddFormClicked());
 }
@@ -24,7 +25,7 @@ export default function* confirmAddForm() {
 export function* cancelAddForm() {
   const addReparto = yield select(isButtonAddFormClicked);
   yield put(setBAddFormUnclicked());
-  yield put(enableAll());
+  yield put(setBModifyDelAddReturnEnabled());
   yield put(resetFormType());
   yield put(resetSelectedReparto());
   yield put(setConfirmDisabled());
@@ -40,7 +41,7 @@ export function* cancelAddForm() {
 }
 export function* changeRep() {
   yield put(setBAddFormUnclicked());
-  yield put(enableAll());
+  yield put(setBModifyDelAddReturnEnabled());
   yield put(resetFormType());
   yield put(resetSelectedReparto());
   yield put(setConfirmDisabled());

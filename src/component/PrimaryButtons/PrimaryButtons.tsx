@@ -12,16 +12,16 @@ import useStyles from './style';
 import {
   isButtonAddFormClicked, buttonConfirmAddFormClicked,
   isConfirmDisabled, colButton, buttonCancelAddFormClicked,
-  isBConfirmAddFormClicked, isBSaveDisabled,
+  isBConfirmAddFormClicked,
   buttonSaveFormClicked, buttonDeleteOrSaveClicked, buttonAddClicked, saveModifyForm,
 } from '../../store/slice/addFormSlice';
-import { isDisable, colDisable } from '../../store/slice/risultatiAddFormSlice';
 import {
   rightsUserAUTAN, setUserCreateRight, setUserDeleteRight,
   setUserModifyRight, haveUserCreateRight, repartiDelete, haveRepDeleteRight,
   setRepartoDeleteRight, haveRepModifyRight, setRepartoModifyRight, repartiModify,
 } from '../../store/slice/rightsSlice';
 import { IDRepartoSelected, IDForm } from '../../store/slice/repartoDDLSlice';
+import { isBSaveDisabled, isBModifyDelAddReturnDisabled, enableAll } from '../../store/slice/disableEnableSlice';
 
 const PrimaryButtons = () => {
   const classes = useStyles();
@@ -31,8 +31,8 @@ const PrimaryButtons = () => {
   const buttonColor = useSelector(colButton);
   const bConfirmAddFormClicked = useSelector(isBConfirmAddFormClicked);
   const isSaveDisabled = useSelector(isBSaveDisabled);
-  const disableActive = useSelector(isDisable);
-  const colorButton = useSelector(colDisable);
+  const iconsDisabled = useSelector(isBModifyDelAddReturnDisabled);
+
   const noRep = useSelector(IDForm);
   const rightUser = useSelector(rightsUserAUTAN);
   const rightCreate = useSelector(haveUserCreateRight);
@@ -76,7 +76,9 @@ const PrimaryButtons = () => {
           <div>
             {/* se il pulsante add è attivo */}
             <IconButton
-              onClick={() => dispatch(buttonConfirmAddFormClicked())}
+              onClick={() => {
+                dispatch(buttonConfirmAddFormClicked());
+              }}
               disabled={confirmDisabled}
             >
               <CheckCircleOutlineIcon fontSize="large" color={buttonColor} />
@@ -106,12 +108,13 @@ const PrimaryButtons = () => {
                   </IconButton>
 
                   <IconButton
-                    disabled={disableActive}
+                    disabled={iconsDisabled}
                     onClick={
                         () => dispatch(buttonCancelAddFormClicked())
                         }
+                    color="primary"
                   >
-                    <KeyboardReturnIcon fontSize="large" color={colorButton} />
+                    <KeyboardReturnIcon fontSize="large" />
                   </IconButton>
                 </div>
               ) : (
@@ -127,7 +130,7 @@ const PrimaryButtons = () => {
                               className={classes.buttonAdd}
                               onClick={() => dispatch(buttonAddClicked())}
                               color="primary"
-                              disabled={disableActive}
+                              disabled={iconsDisabled}
                             >
                               <AddIcon />
 
@@ -146,7 +149,7 @@ const PrimaryButtons = () => {
                                 className={classes.buttonAdd}
                                 onClick={() => dispatch(buttonAddClicked())}
                                 color="primary"
-                                disabled={disableActive}
+                                disabled={iconsDisabled}
                               >
                                 <AddIcon />
                               </Fab>
@@ -156,12 +159,13 @@ const PrimaryButtons = () => {
                           {rightRepDelete
                             ? (
                               <IconButton
-                                disabled={disableActive}
+                                disabled={iconsDisabled}
                                 onClick={() => dispatch(buttonDeleteOrSaveClicked())}
+                                color="primary"
                               >
                                 <DeleteIcon
                                   fontSize="large"
-                                  color={colorButton}
+
                                 />
                               </IconButton>
                             ) : <></>}
@@ -169,7 +173,7 @@ const PrimaryButtons = () => {
 
                             ? (
                               <IconButton
-                                disabled={disableActive}
+                                disabled={iconsDisabled}
                                 onClick={() => dispatch(saveModifyForm())}
                                 color="primary"
                               >
@@ -177,12 +181,14 @@ const PrimaryButtons = () => {
                               </IconButton>
                             ) : <></>}
                           <IconButton
-                            disabled={disableActive}
+                            disabled={iconsDisabled}
                             onClick={
                         () => dispatch(buttonCancelAddFormClicked())
+
                         }
+                            color="primary"
                           >
-                            <KeyboardReturnIcon fontSize="large" color={colorButton} />
+                            <KeyboardReturnIcon fontSize="large" />
                           </IconButton>
                         </div>
                       </div>

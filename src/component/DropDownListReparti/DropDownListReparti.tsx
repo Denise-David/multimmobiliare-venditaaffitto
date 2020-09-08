@@ -1,12 +1,12 @@
 import React from 'react';
 import { FormControl, Select, MenuItem } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
-import { isDisable } from '../../store/slice/risultatiAddFormSlice';
 import { IDRepartoSelected, setRepartoSelected, changeReparto } from '../../store/slice/repartoDDLSlice';
-import { allReparti, unsetRepartoDeleteRight, unsetDDLFormDisabled } from '../../store/slice/rightsSlice';
+import { allReparti, unsetRepartoDeleteRight } from '../../store/slice/rightsSlice';
+import { isBModifyDelAddReturnDisabled, setDDLFormEnabled } from '../../store/slice/disableEnableSlice';
 
 const DropDownListReparti = () => {
-  const disableActive = useSelector(isDisable);
+  const iconsDisabled = useSelector(isBModifyDelAddReturnDisabled);
   const IDReparto = useSelector(IDRepartoSelected);
   const allRep = useSelector(allReparti);
   const dispatch = useDispatch();
@@ -18,7 +18,7 @@ const DropDownListReparti = () => {
     dispatch(unsetRepartoDeleteRight());
     dispatch(changeReparto());
     if (value !== '-1') {
-      dispatch(unsetDDLFormDisabled());
+      dispatch(setDDLFormEnabled());
     }
   };
 
@@ -36,7 +36,7 @@ const DropDownListReparti = () => {
     <div>
       {/* se non è cliccato nulla */}
 
-      <FormControl disabled={disableActive} variant="outlined" fullWidth>
+      <FormControl disabled={iconsDisabled} variant="outlined" fullWidth>
         <Select
           defaultValue={-1}
           value={IDReparto}

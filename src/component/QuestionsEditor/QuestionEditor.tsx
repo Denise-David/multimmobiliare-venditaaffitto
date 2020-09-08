@@ -20,11 +20,14 @@ import {
 } from '../../store/slice/domandeAddFormSlice';
 import { objectToArray } from '../../util';
 import {
-  isIconsDisabled, unsetIcons, colorIcons, setIcons, isBConfirmAddFormClicked,
+  colorIcons, isBConfirmAddFormClicked,
 } from '../../store/slice/addFormSlice';
 import { haveRepModifyRight } from '../../store/slice/rightsSlice';
 import EmptyAddQuestion2Answers from '../EmptyAddQuestion2Answers/EmptyAddQuestion2Answers';
 import TextFieldIntestazione from '../TextFieldIntestazione/TextFieldIntestazione';
+import {
+  isBModifyDelAddReturnDisabled, disableAll, enableAll,
+} from '../../store/slice/disableEnableSlice';
 
 const QuestionsEditor = () => {
   const dispatch = useDispatch();
@@ -32,7 +35,7 @@ const QuestionsEditor = () => {
   const classes = useStyles();
   const DomandeAddFormObj = useSelector(domandeObject);
   const domandeAddFormArray = objectToArray(DomandeAddFormObj);
-  const iconsModifyAndDeleteDisabled = useSelector(isIconsDisabled);
+  const iconsDisabled = useSelector(isBModifyDelAddReturnDisabled);
   const colButton = useSelector(colorIcons);
   const bCheckDisabled = useSelector(isBCheckDisabled);
   const colBCheck = useSelector(colorBCheck);
@@ -63,10 +66,10 @@ const QuestionsEditor = () => {
                               <Grid item xs={12} sm={1}>
                                 <IconButton
                                   color={colButton}
-                                  disabled={iconsModifyAndDeleteDisabled}
+                                  disabled={iconsDisabled}
                                   onClick={() => {
                                     dispatch(setBModifyDomandaClicked(domandaAddForm.IDDomanda));
-                                    dispatch(unsetIcons());
+                                    dispatch(disableAll());
                                   }}
                                 >
                                   <CreateIcon />
@@ -75,7 +78,7 @@ const QuestionsEditor = () => {
                               <Grid item xs={12} sm={1}>
                                 <IconButton
                                   color={colButton}
-                                  disabled={iconsModifyAndDeleteDisabled}
+                                  disabled={iconsDisabled}
                                   onClick={
                         () => dispatch(deleteDomandaInObjectDomande(IDDomanda))
                       }
@@ -94,7 +97,7 @@ const QuestionsEditor = () => {
                                     onClick={
                             () => {
                               dispatch(setBModifyDomandaUnclicked(domandaAddForm.IDDomanda));
-                              dispatch(setIcons());
+                              dispatch(enableAll());
                             }
                           }
                                   >

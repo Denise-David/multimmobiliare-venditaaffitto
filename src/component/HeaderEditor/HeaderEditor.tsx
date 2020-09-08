@@ -7,14 +7,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import useStyles from './style';
 
 import {
-  delActive, alertConfirmDelete, enableAll, isDisable,
+  delActive, alertConfirmDelete,
 } from '../../store/slice/risultatiAddFormSlice';
 import {
   isButtonAddFormClicked,
   isBConfirmAddFormClicked,
   setNomeFormulario,
-  setBSaveEnabled,
-  setBSaveDisabled,
   confirmDeleteForm,
   nomeFormulario,
 } from '../../store/slice/addFormSlice';
@@ -24,6 +22,7 @@ import RadioButtonTypeForm from '../RadioButtonTypeForm/RadioButtonTypeForm';
 import DropDownListReparti from '../DropDownListReparti/DropDownListReparti';
 import { haveRepModifyRight } from '../../store/slice/rightsSlice';
 import { IDForm } from '../../store/slice/repartoDDLSlice';
+import { setBSaveEnabled, isBModifyDelAddReturnDisabled, setBModifyDelAddReturnEnabled } from '../../store/slice/disableEnableSlice';
 
 const HeaderEditor = () => {
   const dispatch = useDispatch();
@@ -38,7 +37,7 @@ const HeaderEditor = () => {
   const modifyRight = useSelector(haveRepModifyRight);
   const IDFormulario = useSelector(IDForm);
   const nomeForm = useSelector(nomeFormulario);
-  const disableActive = useSelector(isDisable);
+  const iconsDisabled = useSelector(isBModifyDelAddReturnDisabled);
 
   // Prendo il nome del form immesso dall'utente e controllo se è vuoto
   const getNomeForm = (event : React.ChangeEvent<{ value: unknown }>) => {
@@ -47,13 +46,13 @@ const HeaderEditor = () => {
     if (value) {
       dispatch(setBSaveEnabled());
     } else if (!value) {
-      dispatch(setBSaveDisabled());
+      dispatch(setBSaveEnabled());
     }
   };
 
   // Dispatch pulsante annulla dell'alert
   const cancelDeleteDispatch = () => {
-    dispatch(enableAll());
+    dispatch(setBModifyDelAddReturnEnabled());
     dispatch(alertConfirmDelete());
   };
 
@@ -114,7 +113,7 @@ const HeaderEditor = () => {
                             const { value } = event.target;
                             dispatch(setNomeFormulario(value));
                           }}
-                          disabled={disableActive}
+                          disabled={iconsDisabled}
                         />
                       ) : <></>}
                   </>

@@ -19,20 +19,19 @@ import {
 } from '../../store/slice/risposteAddFormSlice';
 import {
 } from '../../store/slice/domandeAddFormSlice';
-import {
-  unsetIcons, setIcons, isIconsDisabled, colorIcons, setBSaveDisabled, setBSaveEnabled,
-} from '../../store/slice/addFormSlice';
-import { haveRepModifyRight, unsetDDLFormDisabled, setDDLFormDisabled } from '../../store/slice/rightsSlice';
+import { haveRepModifyRight } from '../../store/slice/rightsSlice';
 import confirmAddForm from '../../store/sagas/departmentChoiceEditorSagas';
-import { enableAll, disableAll } from '../../store/slice/risultatiAddFormSlice';
+
+import {
+  isBModifyDelAddReturnDisabled, disableAll, enableAll,
+} from '../../store/slice/disableEnableSlice';
 
 const AnswersTableEditor = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const ans1 = useSelector(ris1);
   const ans2 = useSelector(ris2);
-  const isIconEnabled = useSelector(isIconsDisabled);
-  const colButton = useSelector(colorIcons);
+  const iconsDisabled = useSelector(isBModifyDelAddReturnDisabled);
   const bModifyRis1Clicked = useSelector(isBModifyRis1Clicked);
   const bModifyRis2Clicked = useSelector(isBModifyRis2Clicked);
   const colBCheckRis1 = useSelector(colorBCheckRis1);
@@ -92,14 +91,11 @@ const AnswersTableEditor = () => {
                         {!bModifyRis1Clicked
                           ? (
                             <IconButton
-                              disabled={isIconEnabled}
-                              color={colButton}
+                              disabled={iconsDisabled}
+                              color="primary"
                               onClick={() => {
                                 dispatch(setBModifyRis1Clicked());
-                                dispatch(unsetIcons());
-                                dispatch(setBSaveDisabled());
                                 dispatch(disableAll());
-                                dispatch(setDDLFormDisabled());
                               }}
                             >
                               <CreateIcon />
@@ -110,10 +106,7 @@ const AnswersTableEditor = () => {
                               color={colBCheckRis1}
                               onClick={() => {
                                 dispatch(setBModifyRis1Unclicked());
-                                dispatch(setIcons());
                                 dispatch(enableAll());
-                                dispatch(setBSaveEnabled());
-                                dispatch(unsetDDLFormDisabled());
                               }}
                             >
                               <CheckCircleOutlineIcon />
@@ -157,14 +150,11 @@ const AnswersTableEditor = () => {
                         {!bModifyRis2Clicked
                           ? (
                             <IconButton
-                              disabled={isIconEnabled}
-                              color={colButton}
+                              disabled={iconsDisabled}
+                              color="primary"
                               onClick={() => {
                                 dispatch(setBModifyRis2Clicked());
-                                dispatch(unsetIcons());
                                 dispatch(disableAll());
-                                dispatch(setBSaveDisabled());
-                                dispatch(setDDLFormDisabled());
                               }}
                             >
                               <CreateIcon />
@@ -175,10 +165,7 @@ const AnswersTableEditor = () => {
                               color={colBCheckRis2}
                               onClick={() => {
                                 dispatch(setBModifyRis2Unclicked());
-                                dispatch(setIcons());
                                 dispatch(enableAll());
-                                dispatch(setBSaveEnabled());
-                                dispatch(unsetDDLFormDisabled());
                               }}
                             >
                               <CheckCircleOutlineIcon />

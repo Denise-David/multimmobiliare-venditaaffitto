@@ -11,9 +11,7 @@ const addFormSlice = createSlice({
     isConfirmDisabled: true as boolean,
     isBConfirmAddFormClicked: false as boolean,
     colorButton: 'disabled' as 'inherit' | 'disabled' | 'primary' | 'action' | 'secondary' | 'error' | undefined,
-    isBSaveDisabled: true as boolean,
     nomeFormulario: '' as string,
-    isIconsDisabled: false as boolean,
     colorIcons: 'primary' as 'inherit' | 'default' | 'primary' | 'secondary' | undefined,
   },
   reducers: {
@@ -50,24 +48,8 @@ const addFormSlice = createSlice({
     setBConfirmAddFormUnclicked(state) {
       state.isBConfirmAddFormClicked = false;
     },
-    setBSaveDisabled(state) {
-      state.isBSaveDisabled = true;
-      state.colorButton = 'disabled';
-    },
-    setBSaveEnabled(state) {
-      state.isBSaveDisabled = false;
-      state.colorButton = 'primary';
-    },
     setNomeFormulario(state, { payload }) {
       state.nomeFormulario = payload;
-    },
-    unsetIcons(state) {
-      state.isIconsDisabled = true;
-      state.colorIcons = 'default';
-    },
-    setIcons(state) {
-      state.isIconsDisabled = false;
-      state.colorIcons = 'primary';
     },
 
   },
@@ -101,7 +83,6 @@ export const saveModifyForm = () => ({
 
 // eslint-disable-next-line max-len
 export const colorIcons = (state : State) => state.addForm.colorIcons;
-export const isBSaveDisabled = (state : State) => state.addForm.isBSaveDisabled;
 export const nomeFormulario = (state : State) => state.addForm.nomeFormulario;
 export const isBConfirmAddFormClicked = (state : State) => state.addForm.isBConfirmAddFormClicked;
 export const isButtonAddFormClicked = (state : State) => state.addForm.isButtonAddFormClicked;
@@ -109,12 +90,10 @@ export const colButton = (state : State) => state.addForm.colorButton;
 export const isConfirmDisabled = (state : State) => state.addForm.isConfirmDisabled;
 export const selectedReparto = (state : State) => state.addForm.selectedReparto;
 export const formType = (state : State) => state.addForm.formType;
-export const isIconsDisabled = (state : State) => state.addForm.isIconsDisabled;
 export const {
   getFormType, setSelectedReparto, setConfirmEnabled,
   resetFormType, resetSelectedReparto, setConfirmDisabled,
   setBAddFormClicked, setBAddFormUnclicked, setBConfirmAddFormClicked,
-  setBConfirmAddFormUnclicked, setNomeFormulario, setBSaveEnabled,
-  setBSaveDisabled, setIcons, unsetIcons,
+  setBConfirmAddFormUnclicked, setNomeFormulario,
 } = addFormSlice.actions;
 export default addFormSlice.reducer;

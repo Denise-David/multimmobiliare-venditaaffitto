@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import CreateIcon from '@material-ui/icons/Create';
 import { IconButton } from '@material-ui/core';
@@ -8,20 +8,22 @@ import { useSelector, useDispatch } from 'react-redux';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import EmptyResultLineEditor from '../EmptyResultLineEditor/EmptyResultLineEditor';
 import {
-  colDisable, disableAll, enableAll, dataRisultati, setBModifyClicked,
+  dataRisultati, setBModifyClicked,
   setBModifyUnclicked, deleteRisultato, modifyRisultato,
 } from '../../store/slice/risultatiAddFormSlice';
 import { objectToArray } from '../../util';
 import { haveRepModifyRight } from '../../store/slice/rightsSlice';
 import { isBConfirmAddFormClicked } from '../../store/slice/addFormSlice';
 import { isBCheckDisabled, setBCheckEnabled, setBCheckDisabled } from '../../store/slice/domandeAddFormSlice';
+import {
+  setBModifyDelAddReturnDisabled, setBModifyDelAddReturnEnabled, enableAll, disableAll,
+} from '../../store/slice/disableEnableSlice';
 
 const ResultLineEditor = () => {
   const dispatch = useDispatch();
 
   const risultatiObject = useSelector(dataRisultati);
 
-  const colorButton = useSelector(colDisable);
   const rightRepModify = useSelector(haveRepModifyRight);
   const confirmAddForm = useSelector(isBConfirmAddFormClicked);
   const bCheckDisabled = useSelector(isBCheckDisabled);
@@ -51,13 +53,17 @@ const ResultLineEditor = () => {
                           dispatch(disableAll());
                           dispatch(setBModifyClicked(oneForm.IDRisultato));
                         }}
+                        color="primary"
                       >
-                        <CreateIcon color={colorButton} />
+                        <CreateIcon />
                       </IconButton>
                     </Grid>
                     <Grid item xs={12} sm={1}>
-                      <IconButton onClick={() => dispatch(deleteRisultato(oneForm.IDRisultato))}>
-                        <DeleteIcon color={colorButton} />
+                      <IconButton
+                        color="primary"
+                        onClick={() => dispatch(deleteRisultato(oneForm.IDRisultato))}
+                      >
+                        <DeleteIcon />
                       </IconButton>
                     </Grid>
                   </>

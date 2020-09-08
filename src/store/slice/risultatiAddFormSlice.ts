@@ -7,12 +7,10 @@ const risultatiAddFormSlice = createSlice({
   {
 
     deleteActive: false as boolean | undefined,
-    isDisable: false,
     dataRisultati: {} as any,
     valueMin: 0 as number,
     valueMax: 0 as number,
     result: ''as string,
-    colorButton: 'primary' as 'inherit' | 'disabled' | 'primary' | 'action' | 'secondary' | 'error' | undefined,
     stateTextFieldAddRisultato: true as boolean,
   },
   reducers: {
@@ -67,14 +65,6 @@ const risultatiAddFormSlice = createSlice({
     alertConfirmDelete(state) {
       state.deleteActive = !state.deleteActive;
     },
-    disableAll(state) {
-      state.isDisable = true;
-      state.colorButton = 'disabled';
-    },
-    enableAll(state) {
-      state.isDisable = false;
-      state.colorButton = 'primary';
-    },
 
   },
 });
@@ -90,14 +80,11 @@ export const dataRisultati = (state: State) => state.risultatiAddForm.dataRisult
 export const valueMin = (state: State) => state.risultatiAddForm.valueMin;
 export const result = (state: State) => state.risultatiAddForm.result;
 export const delActive = (state : State) => state.risultatiAddForm.deleteActive;
-export const isDisable = (state : State) => state.risultatiAddForm.isDisable;
 export const stateRisultato = (state : State) => state.risultatiAddForm.dataRisultati;
-export const colDisable = (state : State) => state.risultatiAddForm.colorButton;
 
 export const {
 
-  enableAll,
-  alertConfirmDelete, disableAll,
+  alertConfirmDelete,
   setRisultato, setValoreMax, setValoreMin,
   addRisultato, setBAddResultClicked, setBAddResultUnclicked,
   setBModifyClicked, setBModifyUnclicked, deleteRisultato,

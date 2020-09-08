@@ -6,18 +6,20 @@ import Grid from '@material-ui/core/Grid';
 import { useSelector, useDispatch } from 'react-redux';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import {
-  colDisable, isDisable, setRisultato, setValoreMin,
+  setRisultato, setValoreMin,
   setValoreMax, textFieldStateAddRisultato, setBAddResultClicked,
-  setBAddResultUnclicked, addRisultatoClicked, disableAll, enableAll,
+  setBAddResultUnclicked, addRisultatoClicked,
   result, valueMax, valueMin, resetRisultato,
 } from '../../store/slice/risultatiAddFormSlice';
-import { unsetIcons, setIcons, isBConfirmAddFormClicked } from '../../store/slice/addFormSlice';
+import { isBConfirmAddFormClicked } from '../../store/slice/addFormSlice';
 import { haveRepModifyRight } from '../../store/slice/rightsSlice';
 import { setBCheckDisabled, setBCheckEnabled, isBCheckDisabled } from '../../store/slice/domandeAddFormSlice';
+import {
+  isBModifyDelAddReturnDisabled, enableAll, disableAll,
+} from '../../store/slice/disableEnableSlice';
 
 const EmptyResultLineEditor = () => {
-  const colorButton = useSelector(colDisable);
-  const disableActive = useSelector(isDisable);
+  const iconsDisabled = useSelector(isBModifyDelAddReturnDisabled);
   const dispatch = useDispatch();
   const textFieldState = useSelector(textFieldStateAddRisultato);
   const res = useSelector(result);
@@ -42,14 +44,14 @@ const EmptyResultLineEditor = () => {
                   ? (
                     <IconButton
                       onClick={() => {
-                        dispatch(unsetIcons());
                         dispatch(disableAll());
                         dispatch(setBAddResultClicked());
                         dispatch(setBCheckDisabled());
                       }}
-                      disabled={disableActive}
+                      disabled={iconsDisabled}
+                      color="primary"
                     >
-                      <AddCircleOutlineIcon color={colorButton} />
+                      <AddCircleOutlineIcon />
                     </IconButton>
                   ) : (
                     <IconButton
@@ -57,7 +59,6 @@ const EmptyResultLineEditor = () => {
                         dispatch(setBAddResultUnclicked());
                         dispatch(addRisultatoClicked());
                         dispatch(enableAll());
-                        dispatch(setIcons());
                         dispatch(resetRisultato());
                       }}
                       disabled={bCheckDisabled}

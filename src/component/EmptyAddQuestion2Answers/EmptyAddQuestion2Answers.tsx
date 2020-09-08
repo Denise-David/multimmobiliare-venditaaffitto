@@ -18,15 +18,13 @@ import {
   setBCheckAddDomandaEnabled,
 } from '../../store/slice/domandeAddFormSlice';
 import {
-  isIconsDisabled, unsetIcons, setIcons, colorIcons,
-} from '../../store/slice/addFormSlice';
-import { disableAll, enableAll } from '../../store/slice/risultatiAddFormSlice';
+  isBModifyDelAddReturnDisabled, disableAll, enableAll,
+} from '../../store/slice/disableEnableSlice';
 
 const EmptyAddQuestion2Answers = () => {
   const dispatch = useDispatch();
   const valoreTextField = useSelector(question);
-  const isIconEnabled = useSelector(isIconsDisabled);
-  const colButton = useSelector(colorIcons);
+  const iconsDisabled = useSelector(isBModifyDelAddReturnDisabled);
   const classes = useStyles();
   const colBCheck = useSelector(colorBCheckAddDomanda);
   const bCheckDisabled = useSelector(isBCheckAddDomandaDisabled);
@@ -41,11 +39,11 @@ const EmptyAddQuestion2Answers = () => {
             <>
               <Grid item xs={12} sm={1}>
                 <IconButton
-                  color={colButton}
-                  disabled={isIconEnabled}
+                  color="primary"
+                  disabled={iconsDisabled}
                   onClick={() => {
                     dispatch(setBAddDomandaClicked());
-                    dispatch(unsetIcons());
+                    dispatch(setBCheckAddDomandaDisabled());
                     dispatch(disableAll());
                     setShowTextField(!showTextField);
                   }}
@@ -65,7 +63,7 @@ const EmptyAddQuestion2Answers = () => {
                   color={colBCheck}
                   onClick={() => {
                     dispatch(addDomandaInArray());
-                    dispatch(setIcons());
+                    dispatch(setBCheckAddDomandaEnabled());
                     dispatch(enableAll());
                     setShowTextField(!showTextField);
                   }}
@@ -78,7 +76,6 @@ const EmptyAddQuestion2Answers = () => {
                   onClick={() => {
                     dispatch(setBAddDomandaUnclicked());
                     dispatch(resetDomanda());
-                    dispatch(setIcons());
                     dispatch(enableAll());
                     setShowTextField(!showTextField);
                   }}

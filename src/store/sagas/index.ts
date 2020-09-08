@@ -33,6 +33,7 @@ import { setRisultatiInObject } from '../slice/risultatiAddFormSlice';
 import { setRepartoGUID, setFormulariList } from '../slice/homePageLabelSlice';
 import confirmDelForm from './deleteFormSagas';
 import saveModify from './modifyFormSagas';
+import allDisabled, { allEnabled } from './disableEnableSagas';
 
 function* init(action : any) {
   try {
@@ -186,6 +187,8 @@ function* actionWatcher() {
   yield takeLatest('ADD_DOMANDA_MORE_RES_IN_ARRAY', addDomandaMoreResInArray);
   yield takeLatest('CONFIRM_DELETE_FORM', confirmDelForm);
   yield takeLatest('SAVE_MODIFY_FORM', saveModify);
+  yield takeLatest('DISABLE_ALL', allDisabled);
+  yield takeLatest('ENABLE_ALL', allEnabled);
 }
 export default function* rootSaga() {
   yield all([actionWatcher()]);

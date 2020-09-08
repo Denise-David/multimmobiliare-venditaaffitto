@@ -10,23 +10,23 @@ import { useSelector, useDispatch } from 'react-redux';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 
 import {
-  colDisable, isDisable, disableAll, enableAll,
-} from '../../store/slice/risultatiAddFormSlice';
-import {
   risposteOfDomandaObject, deleteRisposta, setModifyRispostaClicked,
   setModifyRispostaUnclicked, modifyRisposta, setRispostaTipoData,
 } from '../../store/slice/risposteAddFormSlice';
 import { objectToArray } from '../../util';
-import { unsetIcons, setIcons, isBConfirmAddFormClicked } from '../../store/slice/addFormSlice';
-import { haveRepModifyRight, unsetDDLFormDisabled, setDDLFormDisabled } from '../../store/slice/rightsSlice';
+import { isBConfirmAddFormClicked } from '../../store/slice/addFormSlice';
+import { haveRepModifyRight } from '../../store/slice/rightsSlice';
 import { setBCheckEnabled, setBCheckDisabled, isBCheckDisabled } from '../../store/slice/domandeAddFormSlice';
+import {
+  setBModifyDelAddReturnDisabled, setBModifyDelAddReturnEnabled,
+  isBModifyDelAddReturnDisabled, setDDLFormDisabled, setDDLFormEnabled, disableAll, enableAll,
+} from '../../store/slice/disableEnableSlice';
 
 interface Props {id : string}
 
 const AnswerLineEditor = ({ id }: Props) => {
   const dispatch = useDispatch();
-  const colorButton = useSelector(colDisable);
-  const disableActive = useSelector(isDisable);
+  const iconsDisabled = useSelector(isBModifyDelAddReturnDisabled);
   const risposteOFDomandeObj = useSelector(risposteOfDomandaObject);
   const IDDomanda = id;
   const NON_DIGIT = '/[^d]/g';
@@ -52,23 +52,23 @@ const AnswerLineEditor = ({ id }: Props) => {
                     <Grid item xs={12} sm={1}>
                       <IconButton
                         onClick={() => {
-                          dispatch(unsetIcons());
                           dispatch(disableAll());
-                          dispatch(setDDLFormDisabled());
                           dispatch(setModifyRispostaClicked({ IDDomanda, IDRisposta }));
                         }}
-                        disabled={disableActive}
+                        disabled={iconsDisabled}
+                        color="primary"
                       >
-                        <CreateIcon color={colorButton} />
+                        <CreateIcon />
                       </IconButton>
                     </Grid>
                     <Grid item xs={12} sm={1}>
 
                       <IconButton
                         onClick={() => dispatch(deleteRisposta({ IDDomanda, IDRisposta }))}
-                        disabled={disableActive}
+                        disabled={iconsDisabled}
+                        color="primary"
                       >
-                        <DeleteIcon color={colorButton} />
+                        <DeleteIcon />
                       </IconButton>
                     </Grid>
 
@@ -80,9 +80,7 @@ const AnswerLineEditor = ({ id }: Props) => {
                     <Grid item xs={12} sm={1}>
                       <IconButton
                         onClick={() => {
-                          dispatch(setIcons());
                           dispatch(enableAll());
-                          dispatch(unsetDDLFormDisabled());
                           dispatch(setModifyRispostaUnclicked({ IDDomanda, IDRisposta }));
                         }}
                         disabled={bCheckDisabled}

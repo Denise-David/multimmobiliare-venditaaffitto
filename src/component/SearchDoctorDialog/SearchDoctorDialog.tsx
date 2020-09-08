@@ -10,7 +10,7 @@ import {
   getNomeMedico, getCognomeMedico,
   mediciTrovati, buttonSearchClicked,
   dialogSearchStatus, closeDialogSearch,
-  nameSearch, resetMedici, nomeMedico, cognomeMedico,
+  nomeCognomeDottoreScelto, resetMedici, nomeMedico, cognomeMedico,
   setButtonSearchEnable, setButtonSearchDisabled, buttonSearchStatus,
 } from '../../store/slice/searchDoctorSlice';
 import { changePatientValue } from '../../store/slice/patientDataSlice';
@@ -20,7 +20,7 @@ const SearchDoctorDialog = () => {
   const dispatch = useDispatch();
   const listaMedici = useSelector(mediciTrovati);
   const statusDialogSearch = useSelector(dialogSearchStatus);
-  const name = useSelector(nameSearch);
+  const name = useSelector(nomeCognomeDottoreScelto);
   const doctorName = useSelector(nomeMedico);
   const doctorLastname = useSelector(cognomeMedico);
   const stateButton = useSelector(buttonSearchStatus);
