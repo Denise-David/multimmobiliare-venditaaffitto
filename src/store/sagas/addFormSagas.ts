@@ -11,7 +11,6 @@ import {
   resetAnswerValore, typeAnswer, setAddRispostaUnclicked,
   deleteDomandeObject, resetRisposteOfDomanda, setType,
 } from '../slice/risposteAddFormSlice';
-import { resetRisultati } from '../slice/risultatiFormularioSlice';
 import {
   domandaAddForm,
   domandeObject,
@@ -26,8 +25,7 @@ import {
 } from '../slice/addFormSlice';
 import { addFormPiuRisposte } from '../api';
 import { objectToArray } from '../../util';
-import { setInitialStateAction } from '../slice/initialStateSlice';
-import { resetIDForm, resetIDReparto } from '../slice/repartoDDLSlice';
+import { resetIDForm, resetIDReparto } from '../slice/ddlEditorFormAndRepartiSlice';
 import { setBSaveDisabled, setBModifyDelAddReturnDisabled } from '../slice/disableEnableSlice';
 
 export default function* addFormulario() {
@@ -105,8 +103,7 @@ export function* addDomandaMoreResInArray() {
 
 export function* clickAddButton() {
   yield put(setBAddFormClicked());
-  yield put(setInitialStateAction());
-  yield put(resetRisultati());
+
   yield put(resetDomandeOfDomandeObject());
   yield put(resetIDForm());
   yield put(resetIDReparto());

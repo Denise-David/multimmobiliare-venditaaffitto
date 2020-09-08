@@ -21,7 +21,7 @@ import PrimaryButtons from '../PrimaryButtons/PrimaryButtons';
 import RadioButtonTypeForm from '../RadioButtonTypeForm/RadioButtonTypeForm';
 import DropDownListReparti from '../DropDownListReparti/DropDownListReparti';
 import { haveRepModifyRight } from '../../store/slice/rightsSlice';
-import { IDForm } from '../../store/slice/repartoDDLSlice';
+import { IDForm } from '../../store/slice/ddlEditorFormAndRepartiSlice';
 import { setBSaveEnabled, isBModifyDelAddReturnDisabled, setBModifyDelAddReturnEnabled } from '../../store/slice/disableEnableSlice';
 
 const HeaderEditor = () => {

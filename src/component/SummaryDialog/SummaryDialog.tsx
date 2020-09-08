@@ -2,20 +2,21 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Dialog, Typography } from '@material-ui/core';
 import { format } from 'date-fns';
-import { dialogStatus, patientInfoData, answersPatientData } from '../../store/slice/summaryDialogSlice';
 import Nav from '../Navbar/Navbar';
 import useStyles from './style';
 import { infoReparto } from '../../store/slice/patientFormPDFSlice';
 import ButtonSendConfirmSummary from '../ButtonSendConfirmSummary/ButtonSendConfirmSummary';
 import ButtonSendCancelSummary from '../ButtonSendCancelSummary copy/ButtonSendCancelSummary';
 import { getStringMedico, objectToArray } from '../../util';
-import { oldPatientInfo } from '../../store/slice/patientDataSlice';
+import { oldPatientInfo, newPatientInfo } from '../../store/slice/patientDataSlice';
+import { dialogSummaryOpen } from '../../store/slice/dialogSlice';
+import { risposte } from '../../store/slice/patientFormSlice';
 
 const SummaryDialog = () => {
-  const statusDialog = useSelector(dialogStatus);
-  const dataPatient = useSelector(patientInfoData);
+  const statusDialog = useSelector(dialogSummaryOpen);
+  const dataPatient = useSelector(newPatientInfo);
   const oldDataPatient = useSelector(oldPatientInfo);
-  const dataAnswers = useSelector(answersPatientData);
+  const dataAnswers = useSelector(risposte);
   const repartoInfo = useSelector(infoReparto);
   const classes = useStyles();
 

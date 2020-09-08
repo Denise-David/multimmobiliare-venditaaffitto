@@ -9,17 +9,17 @@ import useStyles from './style';
 import {
   getNomeMedico, getCognomeMedico,
   mediciTrovati, buttonSearchClicked,
-  dialogSearchStatus, closeDialogSearch,
   nomeCognomeDottoreScelto, resetMedici, nomeMedico, cognomeMedico,
   setButtonSearchEnable, setButtonSearchDisabled, buttonSearchStatus,
 } from '../../store/slice/searchDoctorSlice';
 import { changePatientValue } from '../../store/slice/patientDataSlice';
+import { dialogSearchOpen, closeDialogSearch } from '../../store/slice/dialogSlice';
 
 const SearchDoctorDialog = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const listaMedici = useSelector(mediciTrovati);
-  const statusDialogSearch = useSelector(dialogSearchStatus);
+  const statusDialogSearch = useSelector(dialogSearchOpen);
   const name = useSelector(nomeCognomeDottoreScelto);
   const doctorName = useSelector(nomeMedico);
   const doctorLastname = useSelector(cognomeMedico);

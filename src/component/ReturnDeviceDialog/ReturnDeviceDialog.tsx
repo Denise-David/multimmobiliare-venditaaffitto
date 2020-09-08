@@ -4,12 +4,13 @@ import { useSelector } from 'react-redux';
 import useStyles from './style';
 import Nav from '../Navbar/Navbar';
 import ButtonReturnDevice from '../ButtonReturnDevice/ButtonReturnDevice';
-import { returnDeviceIsOpen } from '../../store/slice/returnDeviceSlice';
+
 import ButtonOpenPDFDataPatient from '../ButtonOpenPDFDataPatient/ButtonOpenPDFDataPatient';
 import ButtonOpenPDFFormPatient from '../ButtonOpenPDFFormPatient/ButtonOpenPDFFormPatient';
+import { dialogReturnDeviceOpen } from '../../store/slice/dialogSlice';
 
 const ReturnDeviceDialog = () => {
-  const isOpen = useSelector(returnDeviceIsOpen);
+  const isOpen = useSelector(dialogReturnDeviceOpen);
   const classes = useStyles();
 
   return (

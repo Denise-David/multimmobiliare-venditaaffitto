@@ -20,7 +20,7 @@ import {
   setUserModifyRight, haveUserCreateRight, repartiDelete, haveRepDeleteRight,
   setRepartoDeleteRight, haveRepModifyRight, setRepartoModifyRight, repartiModify,
 } from '../../store/slice/rightsSlice';
-import { IDRepartoSelected, IDForm } from '../../store/slice/repartoDDLSlice';
+import { IDRepartoSelected, IDForm } from '../../store/slice/ddlEditorFormAndRepartiSlice';
 import { isBSaveDisabled, isBModifyDelAddReturnDisabled, enableAll } from '../../store/slice/disableEnableSlice';
 
 const PrimaryButtons = () => {

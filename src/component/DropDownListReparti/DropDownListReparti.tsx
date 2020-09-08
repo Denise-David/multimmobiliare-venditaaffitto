@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormControl, Select, MenuItem } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
-import { IDRepartoSelected, setRepartoSelected, changeReparto } from '../../store/slice/repartoDDLSlice';
+import { IDRepartoSelected, setRepartoSelected, changeReparto } from '../../store/slice/ddlEditorFormAndRepartiSlice';
 import { allReparti, unsetRepartoDeleteRight } from '../../store/slice/rightsSlice';
 import { isBModifyDelAddReturnDisabled, setDDLFormEnabled } from '../../store/slice/disableEnableSlice';
 

@@ -7,19 +7,17 @@ import {
 } from '../slice/risposteAddFormSlice';
 import { setNomeFormulario } from '../slice/addFormSlice';
 
-import { IDRepartoSelected, IDForm } from '../slice/repartoDDLSlice';
-import { setInitialStateAction, desetInitialStateAction } from '../slice/initialStateSlice';
+import { IDRepartoSelected, IDForm } from '../slice/ddlEditorFormAndRepartiSlice';
 import addFormulario, {
   addDomandaTwoResInArray, clickAddButton,
   clickDelOrSaveButton, addRes, deleteDomandaPiuRes, addResult, addDomandaMoreResInArray,
 } from './addFormSagas';
-import { buttonSendCode, ValueCode } from '../slice/CodeSlice';
+import { buttonSendCode, ValueCode } from '../slice/labelCodeSlice';
 import getDataEtichetta, { sendDataPazienti } from './dialogFormPazienteSagas';
 import { buttonSendForm } from '../slice/patientFormSlice';
 import initPDFPatientData from './patientInfoPDFSagas';
 import initPDFPatientAnswers from './patientAnswersPDFSagas';
 import setDataRisposteFormPaziente from './summaryDialogSagas';
-import { buttonSendConfirmClicked } from '../slice/summaryDialogSlice';
 import { buttonSearchClicked } from '../slice/searchDoctorSlice';
 import buttonSearch from './searchDoctorSagas';
 
@@ -34,6 +32,7 @@ import { setRepartoGUID, setFormulariList } from '../slice/homePageLabelSlice';
 import confirmDelForm from './deleteFormSagas';
 import saveModify from './modifyFormSagas';
 import allDisabled, { allEnabled } from './disableEnableSagas';
+import { closeDialogSummaryAndSave } from '../slice/dialogSlice';
 
 function* init(action : any) {
   try {
@@ -129,11 +128,7 @@ function* init(action : any) {
         yield put(setRisultatiInObject(res3));
 
         // prendo tutti i form del reparto ID
-
-        yield put(desetInitialStateAction());
       } catch (error) { console.log('errore', error); }
-    } else {
-      yield put(setInitialStateAction());
     }
   } catch (error) {
     console.log('error', error);
@@ -172,7 +167,7 @@ function* actionWatcher() {
   yield takeLatest(buttonSendForm.type, sendDataPazienti);
   yield takeLatest('initPDFPatientData', initPDFPatientData);
   yield takeLatest('initPDFPatientAnswers', initPDFPatientAnswers);
-  yield takeLatest(buttonSendConfirmClicked.type, setDataRisposteFormPaziente);
+  yield takeLatest(closeDialogSummaryAndSave.type, setDataRisposteFormPaziente);
   yield takeLatest(buttonSearchClicked.type, buttonSearch);
   yield takeLatest('initUserRightsAUTAN', initUserRightsAUTAN);
   yield takeLatest('BUTTON_CONFIRM_CLICKED', confirmAddForm);

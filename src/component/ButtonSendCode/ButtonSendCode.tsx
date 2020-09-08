@@ -2,7 +2,7 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import { useDispatch } from 'react-redux';
 import useStyles from './style';
-import { buttonSendCode } from '../../store/slice/CodeSlice';
+import { buttonSendCode } from '../../store/slice/labelCodeSlice';
 
 const ButtonSendCode = () => {
   const dispatch = useDispatch();

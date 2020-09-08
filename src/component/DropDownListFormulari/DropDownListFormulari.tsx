@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
   formulariByReparto,
 } from '../../store/slice/rightsSlice';
-import { setFormularioSelected, IDForm } from '../../store/slice/repartoDDLSlice';
+import { setFormularioSelected, IDForm } from '../../store/slice/ddlEditorFormAndRepartiSlice';
 import { isDDLFormDisabled } from '../../store/slice/disableEnableSlice';
 
 const DropDownListFormulari = () => {

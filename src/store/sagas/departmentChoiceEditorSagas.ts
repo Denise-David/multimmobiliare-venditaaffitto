@@ -7,12 +7,11 @@ import {
   isButtonAddFormClicked, setBAddFormUnclicked, setBConfirmAddFormClicked,
   setBConfirmAddFormUnclicked,
 } from '../slice/addFormSlice';
-import { resetIDReparto, resetIDForm } from '../slice/repartoDDLSlice';
-import { setInitialStateAction } from '../slice/initialStateSlice';
+import { resetIDReparto, resetIDForm } from '../slice/ddlEditorFormAndRepartiSlice';
 import { resetDomandeOfDomandeObject } from '../slice/domandeAddFormSlice';
 import { unsetRepartoModifyRight } from '../slice/rightsSlice';
 import { resetRisposteTwoRisposte, resetRisposteOfDomanda } from '../slice/risposteAddFormSlice';
-import { setBModifyDelAddReturnDisabled, setBModifyDelAddReturnEnabled } from '../slice/disableEnableSlice';
+import { setBModifyDelAddReturnEnabled } from '../slice/disableEnableSlice';
 // eslint-disable-next-line import/no-cycle
 
 export default function* confirmAddForm() {
@@ -32,7 +31,7 @@ export function* cancelAddForm() {
   yield put(setBConfirmAddFormUnclicked());
   yield put(resetIDReparto());
   yield put(resetIDForm());
-  yield put(setInitialStateAction());
+
   yield put(resetDomandeOfDomandeObject());
   yield put(resetRisposteTwoRisposte());
   if (addReparto === true) {
@@ -47,7 +46,7 @@ export function* changeRep() {
   yield put(setConfirmDisabled());
   yield put(setBConfirmAddFormUnclicked());
   yield put(resetIDForm());
-  yield put(setInitialStateAction());
+
   yield put(resetDomandeOfDomandeObject());
   yield put(unsetRepartoModifyRight());
   yield put(resetDataRisultati());

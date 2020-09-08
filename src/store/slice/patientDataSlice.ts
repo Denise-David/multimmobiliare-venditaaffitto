@@ -5,7 +5,7 @@ const patientDataSlice = createSlice({
   name: 'patientData',
   initialState: {
     newPatientInfo: { } as any | null,
-    isDisable: true,
+    isDisable: true as boolean,
     oldPatientInfo: {} as any | null,
   },
   reducers: {

@@ -7,7 +7,7 @@ import { dataRisultati } from '../slice/risultatiAddFormSlice';
 import { domandeObject } from '../slice/domandeAddFormSlice';
 import {
   IDRepartoSelected, IDForm,
-} from '../slice/repartoDDLSlice';
+} from '../slice/ddlEditorFormAndRepartiSlice';
 
 import { modifyForm } from '../api';
 import { objectToArray } from '../../util';

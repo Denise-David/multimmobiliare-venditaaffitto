@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { State } from '../store/store';
 
-const repartoDDLSlice = createSlice({
-  name: 'reparto',
+const ddlEditorFormAndRepartiSlice = createSlice({
+  name: 'ddlEditorFormAndReparti',
   initialState: {
     IDRepartoSelected: '-1' as string,
     IDForm: '-1' as string,
@@ -27,10 +27,10 @@ export const changeReparto = () => ({
 
 });
 
-export const IDRepartoSelected = (state : State) => state.reparto.IDRepartoSelected;
-export const IDForm = (state : State) => state.reparto.IDForm;
+export const IDRepartoSelected = (state : State) => state.ddlEditorFormAndReparti.IDRepartoSelected;
+export const IDForm = (state : State) => state.ddlEditorFormAndReparti.IDForm;
 export const {
   setRepartoSelected,
   setFormularioSelected, resetIDForm, resetIDReparto,
-} = repartoDDLSlice.actions;
-export default repartoDDLSlice.reducer;
+} = ddlEditorFormAndRepartiSlice.actions;
+export default ddlEditorFormAndRepartiSlice.reducer;
