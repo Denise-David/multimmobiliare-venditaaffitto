@@ -18,13 +18,16 @@ import { isBConfirmAddFormClicked } from '../../store/slice/addFormSlice';
 import { haveRepModifyRight } from '../../store/slice/rightsSlice';
 import { setBCheckEnabled, setBCheckDisabled, isBCheckDisabled } from '../../store/slice/domandeAddFormSlice';
 import {
-  setBModifyDelAddReturnDisabled, setBModifyDelAddReturnEnabled,
-  isBModifyDelAddReturnDisabled, setDDLFormDisabled, setDDLFormEnabled, disableAll, enableAll,
+
+  isBModifyDelAddReturnDisabled, disableAll, enableAll,
 } from '../../store/slice/disableEnableSlice';
 
+// eslint-disable-next-line max-len
 interface Props {id : string}
 
-const AnswerLineEditor = ({ id }: Props) => {
+const AnswerLineEditor = ({
+  id,
+}: Props) => {
   const dispatch = useDispatch();
   const iconsDisabled = useSelector(isBModifyDelAddReturnDisabled);
   const risposteOFDomandeObj = useSelector(risposteOfDomandaObject);
@@ -81,7 +84,11 @@ const AnswerLineEditor = ({ id }: Props) => {
                       <IconButton
                         onClick={() => {
                           dispatch(enableAll());
-                          dispatch(setModifyRispostaUnclicked({ IDDomanda, IDRisposta }));
+                          dispatch(setModifyRispostaUnclicked({
+                            IDDomanda,
+                            IDRisposta,
+
+                          }));
                         }}
                         disabled={bCheckDisabled}
                         color="primary"
@@ -116,7 +123,9 @@ const AnswerLineEditor = ({ id }: Props) => {
                       dispatch(setBCheckEnabled());
                     }
 
-                    dispatch(modifyRisposta({ IDDomanda, IDRisposta, risposta }));
+                    dispatch(modifyRisposta({
+                      IDDomanda, IDRisposta, risposta,
+                    }));
                   }}
                   disabled={!rispostaArray.stateModify}
                   id="standard-basic"

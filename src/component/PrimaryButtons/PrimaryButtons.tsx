@@ -11,7 +11,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import useStyles from './style';
 import {
   isButtonAddFormClicked, buttonConfirmAddFormClicked,
-  isConfirmDisabled, colButton, buttonCancelAddFormClicked,
+  isConfirmDisabled, buttonCancelAddFormClicked,
   isBConfirmAddFormClicked,
   buttonSaveFormClicked, buttonDeleteOrSaveClicked, buttonAddClicked, saveModifyForm,
 } from '../../store/slice/addFormSlice';
@@ -21,14 +21,13 @@ import {
   setRepartoDeleteRight, haveRepModifyRight, setRepartoModifyRight, repartiModify,
 } from '../../store/slice/rightsSlice';
 import { IDRepartoSelected, IDForm } from '../../store/slice/ddlEditorFormAndRepartiSlice';
-import { isBSaveDisabled, isBModifyDelAddReturnDisabled, enableAll } from '../../store/slice/disableEnableSlice';
+import { isBSaveDisabled, isBModifyDelAddReturnDisabled } from '../../store/slice/disableEnableSlice';
 
 const PrimaryButtons = () => {
   const classes = useStyles();
   const addReparto = useSelector(isButtonAddFormClicked);
   const dispatch = useDispatch();
   const confirmDisabled = useSelector(isConfirmDisabled);
-  const buttonColor = useSelector(colButton);
   const bConfirmAddFormClicked = useSelector(isBConfirmAddFormClicked);
   const isSaveDisabled = useSelector(isBSaveDisabled);
   const iconsDisabled = useSelector(isBModifyDelAddReturnDisabled);
@@ -80,8 +79,9 @@ const PrimaryButtons = () => {
                 dispatch(buttonConfirmAddFormClicked());
               }}
               disabled={confirmDisabled}
+              color="primary"
             >
-              <CheckCircleOutlineIcon fontSize="large" color={buttonColor} />
+              <CheckCircleOutlineIcon fontSize="large" />
             </IconButton>
             <IconButton
 

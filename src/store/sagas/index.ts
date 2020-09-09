@@ -1,24 +1,23 @@
 import {
   all, takeLatest, call, put, select, takeEvery,
 } from 'redux-saga/effects';
+import { setNomeFormulario } from '../slice/addFormSlice';
 import { formulariByReparto, setFormulari } from '../slice/rightsSlice';
 import {
   setRisposteOfDomandaInObject, getRisposta2, getRisposta1,
 } from '../slice/risposteAddFormSlice';
-import { setNomeFormulario } from '../slice/addFormSlice';
 
 import { IDRepartoSelected, IDForm } from '../slice/ddlEditorFormAndRepartiSlice';
 import addFormulario, {
   addDomandaTwoResInArray, clickAddButton,
   clickDelOrSaveButton, addRes, deleteDomandaPiuRes, addResult, addDomandaMoreResInArray,
 } from './addFormSagas';
-import { buttonSendCode, ValueCode } from '../slice/labelCodeSlice';
+import { ValueCode } from '../slice/labelCodeSlice';
 import getDataEtichetta, { sendDataPazienti } from './dialogFormPazienteSagas';
-import { buttonSendForm } from '../slice/patientFormSlice';
 import initPDFPatientData from './patientInfoPDFSagas';
 import initPDFPatientAnswers from './patientAnswersPDFSagas';
 import setDataRisposteFormPaziente from './summaryDialogSagas';
-import { buttonSearchClicked } from '../slice/searchDoctorSlice';
+
 import buttonSearch from './searchDoctorSagas';
 
 import initUserRightsAUTAN from './rightsUserSagas';
@@ -163,12 +162,12 @@ function* actionWatcher() {
   yield takeLatest('INIT_FORMULARI_REPARTO', initRep);
   yield takeLatest('BUTTON_SAVE_FORM_CLICKED', addFormulario);
   yield takeLatest('BUTTON_SAVE_FORM_CLICKED', cancelAddForm);
-  yield takeEvery(buttonSendCode.type, getDataEtichetta);
-  yield takeLatest(buttonSendForm.type, sendDataPazienti);
+  yield takeEvery('BUTTON_SEND_CODE', getDataEtichetta);
+  yield takeLatest('BUTTON_SEND_FORM', sendDataPazienti);
   yield takeLatest('initPDFPatientData', initPDFPatientData);
   yield takeLatest('initPDFPatientAnswers', initPDFPatientAnswers);
   yield takeLatest(closeDialogSummaryAndSave.type, setDataRisposteFormPaziente);
-  yield takeLatest(buttonSearchClicked.type, buttonSearch);
+  yield takeLatest('BUTTON_SEARCH_CLICKED', buttonSearch);
   yield takeLatest('initUserRightsAUTAN', initUserRightsAUTAN);
   yield takeLatest('BUTTON_CONFIRM_CLICKED', confirmAddForm);
   yield takeLatest('BUTTON_CANCEL_CLICKED', cancelAddForm);

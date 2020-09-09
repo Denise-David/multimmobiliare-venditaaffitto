@@ -16,7 +16,6 @@ const patientInfoPDFSlice = createSlice({
     newPatientData: {} as PatientData,
     patientAnswers: [] as any,
     infoReparto: {} as any,
-    sommaRisposte: 0 as number,
     lastFormID: '' as string,
   },
   reducers: {

@@ -10,15 +10,10 @@ const risposteAddFormSlice = createSlice({
   name: 'risposteAddForm',
   initialState: {
     ris1: { risposta1: 'Si', stateText: true } as rispostaUno,
-    isTextFieldRispostaDisabled: true as boolean,
     ris2: { risposta2: 'No', stateText: true } as rispostaDue,
     isBModifyRis1Clicked: false as boolean,
     isBModifyRis2Clicked: false as boolean,
-    isBCheckRis1Disabled: false as boolean,
-    isBCheckRis2Disabled: false as boolean,
-    colorBCheckRis1: 'primary' as 'primary' | 'default' |'inherit' | 'secondary' | 'default' | undefined,
-    colorBCheckRis2: 'primary' as 'primary' | 'default' |'inherit' | 'secondary' | 'default' | undefined,
-    stateAddRisposta: { } as {[key:string]:boolean},
+    addRispostaInDomanda: { } as {[key:string]:boolean},
     answer: {} as any,
     valore: {} as any,
     risposteOfDomandaObject: {} as any,
@@ -98,10 +93,10 @@ const risposteAddFormSlice = createSlice({
       }
     },
     setAddRispostaClicked(state, { payload }) {
-      state.stateAddRisposta[payload] = false;
+      state.addRispostaInDomanda[payload] = false;
     },
     setAddRispostaUnclicked(state, { payload }) {
-      state.stateAddRisposta[payload] = true;
+      state.addRispostaInDomanda[payload] = true;
     },
     setBModifyRis1Clicked(state) {
       state.ris1.stateText = false;
@@ -125,22 +120,6 @@ const risposteAddFormSlice = createSlice({
       state.ris2.stateText = true;
       state.isBModifyRis2Clicked = false;
     },
-    setBCheckRisposta1Disabled(state) {
-      state.isBCheckRis1Disabled = true;
-      state.colorBCheckRis1 = 'default';
-    },
-    setBCheckRisposta1Enabled(state) {
-      state.isBCheckRis1Disabled = false;
-      state.colorBCheckRis1 = 'primary';
-    },
-    setBCheckRisposta2Disabled(state) {
-      state.isBCheckRis2Disabled = true;
-      state.colorBCheckRis2 = 'default';
-    },
-    setBCheckRisposta2Enabled(state) {
-      state.isBCheckRis2Disabled = false;
-      state.colorBCheckRis2 = 'primary';
-    },
 
   },
 });
@@ -154,11 +133,7 @@ export const addRisposta = (payload : any) => ({
 export const risposteOfDomandaObject = (state : State) => state.risposteAddForm.risposteOfDomandaObject;
 export const answer = (state : State) => state.risposteAddForm.answer;
 export const valore = (state : State) => state.risposteAddForm.valore;
-export const stateAddedRisposta = (state : State) => state.risposteAddForm.stateAddRisposta;
-export const isBCheckRis2Disabled = (state : State) => state.risposteAddForm.isBCheckRis2Disabled;
-export const colorBCheckRis2 = (state : State) => state.risposteAddForm.colorBCheckRis2;
-export const isBCheckRis1Disabled = (state : State) => state.risposteAddForm.isBCheckRis1Disabled;
-export const colorBCheckRis1 = (state : State) => state.risposteAddForm.colorBCheckRis1;
+export const stateAddedRisposta = (state : State) => state.risposteAddForm.addRispostaInDomanda;
 export const isBModifyRis2Clicked = (state : State) => state.risposteAddForm.isBModifyRis2Clicked;
 export const isBModifyRis1Clicked = (state : State) => state.risposteAddForm.isBModifyRis1Clicked;
 export const ris2 = (state : State) => state.risposteAddForm.ris2;
@@ -167,9 +142,7 @@ export const typeAnswer = (state: State) => state.risposteAddForm.type;
 export const {
   setBModifyRis1Clicked, getRisposta1, getRisposta2,
   setBModifyRis2Clicked, setBModifyRis1Unclicked,
-  setBModifyRis2Unclicked, setBCheckRisposta1Disabled,
-  setBCheckRisposta1Enabled, setBCheckRisposta2Disabled,
-  setBCheckRisposta2Enabled, setAddRispostaClicked,
+  setBModifyRis2Unclicked, setAddRispostaClicked,
   setAddRispostaUnclicked, setAnswer, setValore,
   setAnswersInDomanda, resetAnswerValore,
   deleteRisposta, deleteDomandeObject, setModifyRispostaClicked,

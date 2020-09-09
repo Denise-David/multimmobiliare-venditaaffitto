@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import CreateIcon from '@material-ui/icons/Create';
 import {
-  IconButton, Typography, Divider, AppBar, Collapse, Card,
+  IconButton, Typography, AppBar, Collapse, Card, Menu, MenuItem, Checkbox,
 } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Grid from '@material-ui/core/Grid';
@@ -11,10 +11,12 @@ import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import { v4 as uuidv4 } from 'uuid';
 import AnswerLineEditor from '../AnswerLineEditor/AnswerLineEditor';
 import EmptyAnswerLineEditor from '../EmptyAnswerLineEditor/EmptyAnswerLineEditor';
 import EmptyAddQuestionMoreAnswers from '../EmptyAddQuestionMoreAnswers/EmptyAddQuestionMoreAnswers';
-
+import HeaderDomandaMoreAnswers from '../HeaderDomandaMoreAnswers/HeaderDomandaMoreAnswers';
 import useStyles from './style';
 import {
   domandeObject, deleteDomandaFormPiuRes,
@@ -26,6 +28,8 @@ import { objectToArray } from '../../util';
 import { isBConfirmAddFormClicked } from '../../store/slice/addFormSlice';
 import { haveRepModifyRight } from '../../store/slice/rightsSlice';
 import { isBModifyDelAddReturnDisabled, enableAll, disableAll } from '../../store/slice/disableEnableSlice';
+import { risposteTutteUguali, setRisposteTutteUguali } from '../../store/slice/menuDomandeERisposteSlice';
+import HeaderRisposteMoreAnswers from '../HeaderRisposteMoreAnswers/HeaderRisposteMoreAnswers';
 
 const QuestionsAndAnswersEditor = () => {
   const dispatch = useDispatch();
@@ -38,9 +42,19 @@ const QuestionsAndAnswersEditor = () => {
   const rightRepModify = useSelector(haveRepModifyRight);
   const confirmAddFormClicked = useSelector(isBConfirmAddFormClicked);
   const bCheckDisabled = useSelector(isBCheckDisabled);
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  const risTutteUguali = useSelector(risposteTutteUguali);
 
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   // vista domande da aggiunta nuovo form
-  const listDomandeAdded = arrayDomandeAdded.map((domanda : any) => {
+  const listDomandeAdded = arrayDomandeAdded.map((domanda : any, index) => {
     const { IDDomanda } = domanda;
 
     return (
@@ -48,144 +62,167 @@ const QuestionsAndAnswersEditor = () => {
       <div key={domanda.ID}>
         {domanda.Tipo === 'a più risposte'
           ? (
-            <Card className={classes.bordiCard} elevation={3}>
-              <div className={classes.bordi}>
-                <span className={classes.bordi}>
-                  <Grid container>
-                    <Grid item xs={12} sm={1} />
-                    <Grid item xs={12} sm={1} />
 
-                    <Grid item xs={12} sm={3}>
-                      <Typography variant="subtitle1" align="center">
-                        Domanda
-                      </Typography>
-                    </Grid>
-                    <Grid item xs={12} sm={4}>
-                      <Typography variant="subtitle1" align="center">
-                        Risposte
-                      </Typography>
-                    </Grid>
-                    <Grid item xs={12} sm={1}>
-                      <Typography variant="subtitle1" align="center">
-                        Valore
-                      </Typography>
-                    </Grid>
-                  </Grid>
-                  <Grid item xs={12} sm={2} />
-                  <Divider />
+            <>
+              {' '}
+              {risTutteUguali
+                ? (
+                  <>
+                    {index === 0
+                      ? (
+                        <Card className={classes.bordiCardRisposte}>
+                          <div className={classes.bordi}>
+                            <HeaderRisposteMoreAnswers />
+                            <AnswerLineEditor
+                              id={domanda.IDDomanda}
 
-                </span>
+                            />
+                            {rightRepModify || confirmAddFormClicked
+                              ? <EmptyAnswerLineEditor IDDomanda={domanda.IDDomanda} /> : <></>}
+                          </div>
+                        </Card>
+                      ) : <></>}
 
-                <Grid container spacing={3}>
-                  {rightRepModify || confirmAddFormClicked
-                    ? (
-                      <>
-                        {' '}
-                        {domanda.stateText
-                          ? (
-                            < >
+                  </>
+                )
 
-                              <Grid item xs={12} sm={2}>
-                                <div>
-                                  <IconButton
-                                    onClick={
+                : <></>}
+              <Card className={classes.bordiCard} elevation={3}>
+                <div className={classes.bordi}>
+                  <HeaderDomandaMoreAnswers />
+                  <Grid container spacing={3}>
+                    {/* bottoni domanda */}
+                    {rightRepModify || confirmAddFormClicked
+                      ? (
+                        <>
+                          {' '}
+                          {domanda.stateText
+                            ? (
+                              < >
+
+                                <Grid item xs={12} sm={2}>
+                                  <div>
+                                    {risTutteUguali ? <></>
+                                      : (
+                                        <IconButton
+                                          onClick={
                             () => dispatch(openCloseDomandaCard(domanda.IDDomanda))
 }
-                                    color="secondary"
-                                  >
-                                    {domanda.openCard
-                                      ? <ExpandMoreIcon /> : <ExpandLessIcon />}
-                                  </IconButton>
+                                          color="secondary"
+                                        >
+                                          {domanda.openCard
+                                            ? <ExpandMoreIcon /> : <ExpandLessIcon />}
+                                        </IconButton>
+                                      ) }
 
-                                  <IconButton
-                                    disabled={iconsDisabled}
-                                    onClick={() => {
-                                      dispatch(setBModifyDomandaClicked(domanda.IDDomanda));
-                                      dispatch(disableAll());
-                                    }}
-                                    color="primary"
-                                  >
-                                    <CreateIcon />
-                                  </IconButton>
+                                    <IconButton
+                                      disabled={iconsDisabled}
+                                      onClick={() => {
+                                        dispatch(setBModifyDomandaClicked(domanda.IDDomanda));
+                                        dispatch(disableAll());
+                                      }}
+                                      color="primary"
+                                    >
+                                      <CreateIcon />
+                                    </IconButton>
 
-                                  <IconButton
-                                    onClick={
+                                    <IconButton
+                                      onClick={
                                     () => dispatch(deleteDomandaFormPiuRes(domanda.IDDomanda))
                                     }
-                                    disabled={iconsDisabled}
+                                      disabled={iconsDisabled}
+                                      color="primary"
+                                    >
+                                      <DeleteIcon />
+                                    </IconButton>
+                                  </div>
+                                </Grid>
+                              </ >
+                            ) : (
+                              < >
+
+                                <Grid item xs={12} sm={1}>
+                                  <IconButton
+                                    onClick={() => {
+                                      dispatch(setBModifyDomandaUnclicked(domanda.IDDomanda));
+                                      dispatch(enableAll());
+                                    }}
+                                    disabled={bCheckDisabled}
                                     color="primary"
                                   >
-                                    <DeleteIcon />
+                                    <CheckCircleOutlineIcon />
                                   </IconButton>
-                                </div>
-                              </Grid>
-                            </ >
-                          ) : (
-                            < >
+                                </Grid>
+                                <Grid item xs={12} sm={1} />
 
-                              <Grid item xs={12} sm={1}>
-                                <IconButton
-                                  onClick={() => {
-                                    dispatch(setBModifyDomandaUnclicked(domanda.IDDomanda));
-                                    dispatch(enableAll());
-                                  }}
-                                  disabled={bCheckDisabled}
-                                  color="primary"
-                                >
-                                  <CheckCircleOutlineIcon />
-                                </IconButton>
-                              </Grid>
-                              <Grid item xs={12} sm={1} />
+                              </ >
+                            ) }
+                        </>
+                      ) : (
+                        (
+                          <>
+                            {risTutteUguali
+                              ? <></> : (
+                                <>
+                                  {' '}
+                                  {' '}
 
-                            </ >
-                          ) }
-                      </>
-                    ) : (
-                      <>
-                        {' '}
-                        {' '}
-                        {/* <TextFieldIntestazione /> */}
-                        <Grid item xs={12} sm={2}>
-                          <IconButton
-                            onClick={
+                                  <Grid item xs={12} sm={2}>
+                                    <IconButton
+                                      onClick={
                             () => dispatch(openCloseDomandaCard(domanda.IDDomanda))
 }
-                            color="secondary"
-                          >
-                            {domanda.openCard
-                              ? <ExpandMoreIcon /> : <ExpandLessIcon />}
-                          </IconButton>
-                        </Grid>
-                      </>
-                    )}
+                                      color="secondary"
+                                    >
+                                      {domanda.openCard
+                                        ? <ExpandMoreIcon /> : <ExpandLessIcon />}
+                                    </IconButton>
+                                  </Grid>
+                                </>
+                              )}
+                            {' '}
 
-                  <Grid item xs={12} sm={9}>
-                    <TextField
-                      disabled={domanda.stateText}
-                      value={domanda.Domanda}
-                      fullWidth
-                      onChange={(event) => {
-                        const question = event.target.value;
-                        if (question === '') {
-                          dispatch(setBCheckDisabled());
-                        } else if (bCheckDisabled === true) {
-                          dispatch(setBCheckEnabled());
-                        }
-                        dispatch(modifyDomandaInObjectDomande(
-                          { IDDomanda, question },
-                        ));
-                      }}
-                    />
+                          </>
+                        )
+                      )}
+                    {/* Text Field domanda */}
+                    <Grid item xs={12} sm={9}>
+                      <TextField
+                        disabled={domanda.stateText}
+                        value={domanda.Domanda}
+                        fullWidth
+                        onChange={(event) => {
+                          const question = event.target.value;
+                          if (question === '') {
+                            dispatch(setBCheckDisabled());
+                          } else if (bCheckDisabled === true) {
+                            dispatch(setBCheckEnabled());
+                          }
+                          dispatch(modifyDomandaInObjectDomande(
+                            { IDDomanda, question },
+                          ));
+                        }}
+                      />
+
+                    </Grid>
                   </Grid>
-                </Grid>
-                <Collapse in={!domanda.openCard}>
+                  {risTutteUguali ? <></>
+                    : (
+                      <Collapse in={!domanda.openCard}>
 
-                  <AnswerLineEditor id={domanda.IDDomanda} />
-                  {rightRepModify || confirmAddFormClicked
-                    ? <EmptyAnswerLineEditor IDDomanda={domanda.IDDomanda} /> : <></>}
-                </Collapse>
-              </div>
-            </Card>
+                        <AnswerLineEditor
+                          id={domanda.IDDomanda}
+
+                        />
+                        {rightRepModify || confirmAddFormClicked
+                          ? <EmptyAnswerLineEditor IDDomanda={domanda.IDDomanda} /> : <></>}
+                      </Collapse>
+                    )}
+                </div>
+              </Card>
+              {' '}
+
+            </>
           ) : <></>}
 
       </div>
@@ -214,6 +251,35 @@ const QuestionsAndAnswersEditor = () => {
               </IconButton>
             ) }
           Domande e risposte
+          <IconButton
+            className={classes.spaceleft}
+            color="secondary"
+            onClick={handleClick}
+          >
+            <MoreVertIcon />
+          </IconButton>
+          <Menu
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
+
+          >
+            <MenuItem onClick={() => {
+              dispatch(setRisposteTutteUguali());
+              handleClose();
+            }}
+            >
+              imposta risposte tutte uguali
+              <Checkbox
+                checked={risTutteUguali}
+                onChange={() => {
+                  dispatch(setRisposteTutteUguali());
+                  handleClose();
+                }}
+                inputProps={{ 'aria-label': 'primary checkbox' }}
+              />
+            </MenuItem>
+          </Menu>
         </Typography>
       </AppBar>
       <Collapse in={expanded}>

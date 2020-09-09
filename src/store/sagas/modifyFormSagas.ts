@@ -9,7 +9,7 @@ import {
   IDRepartoSelected, IDForm,
 } from '../slice/ddlEditorFormAndRepartiSlice';
 
-import { modifyForm } from '../api';
+import { updateForm } from '../api';
 import { objectToArray } from '../../util';
 import { buttonCancelAddFormClicked, nomeFormulario } from '../slice/addFormSlice';
 
@@ -57,7 +57,7 @@ export default function* saveModify() {
     const { risposta1 } = ans1;
     const { risposta2 } = ans2;
 
-    yield call(modifyForm, IDFormulario, GUID, nomeReparto,
+    yield call(updateForm, IDFormulario, GUID, nomeReparto,
       nomeForm, listDomandeAndRisposte, listRisultati, risposta1, risposta2);
 
     yield put(buttonCancelAddFormClicked());

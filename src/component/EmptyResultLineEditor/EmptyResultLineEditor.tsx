@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import { IconButton } from '@material-ui/core';
@@ -7,8 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import {
   setRisultato, setValoreMin,
-  setValoreMax, textFieldStateAddRisultato, setBAddResultClicked,
-  setBAddResultUnclicked, addRisultatoClicked,
+  setValoreMax, addRisultatoClicked,
   result, valueMax, valueMin, resetRisultato,
 } from '../../store/slice/risultatiAddFormSlice';
 import { isBConfirmAddFormClicked } from '../../store/slice/addFormSlice';
@@ -21,7 +20,6 @@ import {
 const EmptyResultLineEditor = () => {
   const iconsDisabled = useSelector(isBModifyDelAddReturnDisabled);
   const dispatch = useDispatch();
-  const textFieldState = useSelector(textFieldStateAddRisultato);
   const res = useSelector(result);
   const valMin = useSelector(valueMin);
   const valMax = useSelector(valueMax);
@@ -30,6 +28,7 @@ const EmptyResultLineEditor = () => {
   const rightRepModify = useSelector(haveRepModifyRight);
   const confirmAddForm = useSelector(isBConfirmAddFormClicked);
   const bCheckDisabled = useSelector(isBCheckDisabled);
+  const [textFieldDisabled, setTextField] = useState(true);
 
   return (
     <div>
@@ -40,13 +39,13 @@ const EmptyResultLineEditor = () => {
             ? (
               <>
                 {' '}
-                {textFieldState
+                {textFieldDisabled
                   ? (
                     <IconButton
                       onClick={() => {
                         dispatch(disableAll());
-                        dispatch(setBAddResultClicked());
                         dispatch(setBCheckDisabled());
+                        setTextField(!textFieldDisabled);
                       }}
                       disabled={iconsDisabled}
                       color="primary"
@@ -56,10 +55,10 @@ const EmptyResultLineEditor = () => {
                   ) : (
                     <IconButton
                       onClick={() => {
-                        dispatch(setBAddResultUnclicked());
                         dispatch(addRisultatoClicked());
                         dispatch(enableAll());
                         dispatch(resetRisultato());
+                        setTextField(textFieldDisabled);
                       }}
                       disabled={bCheckDisabled}
                       color="primary"
@@ -76,7 +75,7 @@ const EmptyResultLineEditor = () => {
         <Grid item xs={12} sm={6}>
           <TextField
             value={res}
-            disabled={textFieldState}
+            disabled={textFieldDisabled}
             onChange={(event) => {
               const { value } = event.target;
               if (value === '' || valMin > valMax) {
@@ -94,7 +93,7 @@ const EmptyResultLineEditor = () => {
         <Grid item xs={12} sm={2}>
           <TextField
             value={valMin}
-            disabled={textFieldState}
+            disabled={textFieldDisabled}
             onChange={(event) => {
               const { value } = event.target;
               if (value !== '') {
@@ -125,7 +124,7 @@ const EmptyResultLineEditor = () => {
           <TextField
 
             value={valMax}
-            disabled={textFieldState}
+            disabled={textFieldDisabled}
             onChange={(event) => {
               const { value } = event.target;
               if (value !== '') {

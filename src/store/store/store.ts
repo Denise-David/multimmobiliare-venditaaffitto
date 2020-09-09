@@ -18,6 +18,7 @@ import homePage from '../slice/homePageLabelSlice';
 import disableEnable from '../slice/disableEnableSlice';
 import dialog from '../slice/dialogSlice';
 import snackbar from '../slice/snackbarSlice';
+import menuDomandeERisposte from '../slice/menuDomandeERisposteSlice';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -39,6 +40,7 @@ const store = configureStore({
     risultatiAddForm,
     dialog,
     snackbar,
+    menuDomandeERisposte,
 
   },
 

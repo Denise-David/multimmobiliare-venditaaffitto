@@ -12,10 +12,7 @@ import {
   getRisposta1, setBModifyRis1Clicked, ris1, ris2,
   setBModifyRis2Clicked, isBModifyRis1Clicked,
   setBModifyRis1Unclicked, setBModifyRis2Unclicked,
-  isBModifyRis2Clicked, getRisposta2, isBCheckRis1Disabled,
-  colorBCheckRis1, setBCheckRisposta1Disabled,
-  setBCheckRisposta1Enabled, setBCheckRisposta2Disabled, setBCheckRisposta2Enabled,
-  colorBCheckRis2, isBCheckRis2Disabled,
+  isBModifyRis2Clicked, getRisposta2,
 } from '../../store/slice/risposteAddFormSlice';
 import {
 } from '../../store/slice/domandeAddFormSlice';
@@ -34,13 +31,11 @@ const AnswersTableEditor = () => {
   const iconsDisabled = useSelector(isBModifyDelAddReturnDisabled);
   const bModifyRis1Clicked = useSelector(isBModifyRis1Clicked);
   const bModifyRis2Clicked = useSelector(isBModifyRis2Clicked);
-  const colBCheckRis1 = useSelector(colorBCheckRis1);
-  const bCheckRis1Disabled = useSelector(isBCheckRis1Disabled);
-  const colBCheckRis2 = useSelector(colorBCheckRis2);
-  const bCheckRis2Disabled = useSelector(isBCheckRis2Disabled);
   const rightRepModify = useSelector(haveRepModifyRight);
   const [expanded, setExpanded] = useState(true);
   const addFormConfirm = useSelector(confirmAddForm);
+  const [bCheck1Disabled, setBCheck1] = useState(false);
+  const [bCheck2Disabled, setBCheck2] = useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -102,8 +97,8 @@ const AnswersTableEditor = () => {
                             </IconButton>
                           ) : (
                             <IconButton
-                              disabled={bCheckRis1Disabled}
-                              color={colBCheckRis1}
+                              disabled={bCheck1Disabled}
+                              color="primary"
                               onClick={() => {
                                 dispatch(setBModifyRis1Unclicked());
                                 dispatch(enableAll());
@@ -125,9 +120,9 @@ const AnswersTableEditor = () => {
                     const res1 = event.target.value;
                     dispatch(getRisposta1(res1));
                     if (res1 === '') {
-                      dispatch(setBCheckRisposta1Disabled());
-                    } else if (bCheckRis1Disabled === true) {
-                      dispatch(setBCheckRisposta1Enabled());
+                      setBCheck1(!bCheck1Disabled);
+                    } else if (bCheck1Disabled === true) {
+                      setBCheck1(!bCheck1Disabled);
                     }
                   }
                 }
@@ -161,8 +156,8 @@ const AnswersTableEditor = () => {
                             </IconButton>
                           ) : (
                             <IconButton
-                              disabled={bCheckRis2Disabled}
-                              color={colBCheckRis2}
+                              disabled={bCheck2Disabled}
+                              color="primary"
                               onClick={() => {
                                 dispatch(setBModifyRis2Unclicked());
                                 dispatch(enableAll());
@@ -185,9 +180,9 @@ const AnswersTableEditor = () => {
                     const res2 = event.target.value;
                     dispatch(getRisposta2(res2));
                     if (res2 === '') {
-                      dispatch(setBCheckRisposta2Disabled());
-                    } else if (bCheckRis2Disabled === true) {
-                      dispatch(setBCheckRisposta2Enabled());
+                      setBCheck2(!bCheck2Disabled);
+                    } else if (bCheck2Disabled === true) {
+                      setBCheck2(!bCheck2Disabled);
                     }
                   }
                 }

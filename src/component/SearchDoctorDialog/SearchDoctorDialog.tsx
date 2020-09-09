@@ -9,8 +9,7 @@ import useStyles from './style';
 import {
   getNomeMedico, getCognomeMedico,
   mediciTrovati, buttonSearchClicked,
-  nomeCognomeDottoreScelto, resetMedici, nomeMedico, cognomeMedico,
-  setButtonSearchEnable, setButtonSearchDisabled, buttonSearchStatus,
+  tipoDottoreScelto, resetMedici, nomeMedico, cognomeMedico,
 } from '../../store/slice/searchDoctorSlice';
 import { changePatientValue } from '../../store/slice/patientDataSlice';
 import { dialogSearchOpen, closeDialogSearch } from '../../store/slice/dialogSlice';
@@ -20,21 +19,12 @@ const SearchDoctorDialog = () => {
   const dispatch = useDispatch();
   const listaMedici = useSelector(mediciTrovati);
   const statusDialogSearch = useSelector(dialogSearchOpen);
-  const name = useSelector(nomeCognomeDottoreScelto);
+  const name = useSelector(tipoDottoreScelto);
   const doctorName = useSelector(nomeMedico);
   const doctorLastname = useSelector(cognomeMedico);
-  const stateButton = useSelector(buttonSearchStatus);
-
   const lunghezzaNome = doctorName.value ? doctorName.value.length : 0;
   const lunghezzaCognome = doctorLastname.value ? doctorLastname.value.length : 0;
-
-  if (lunghezzaNome + lunghezzaCognome > 2 && stateButton === true) {
-    dispatch(setButtonSearchEnable());
-  }
-
-  if (lunghezzaNome + lunghezzaCognome < 2 && stateButton !== true) {
-    dispatch(setButtonSearchDisabled());
-  }
+  const disabledSearchButton = lunghezzaNome + lunghezzaCognome < 3;
 
   const listaMediciArray = listaMedici ? Object.keys(listaMedici).map((key) => {
     const medico = listaMedici[key];
@@ -98,7 +88,7 @@ const SearchDoctorDialog = () => {
             />
             <br />
             <Button
-              disabled={stateButton}
+              disabled={disabledSearchButton}
               className={classes.button}
               variant="contained"
               color="primary"

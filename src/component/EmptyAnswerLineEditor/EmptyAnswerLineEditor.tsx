@@ -126,6 +126,7 @@ const EmptyAnswerLineEditor = ({ IDDomanda }: Props) => {
                   value={rispostaText[IDDomanda] || ''}
                   onChange={(event) => {
                     const { value } = event.target;
+                    dispatch(setAnswer({ IDDomanda, value }));
                   }}
                   disabled={stateTextField[IDDomanda]}
                   id="standard-basic"

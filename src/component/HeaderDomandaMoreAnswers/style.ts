@@ -29,10 +29,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   spaceleft: {
     marginLeft: theme.spacing(57),
   },
-  bordiCardRisposte: {
-    margin: theme.spacing(1),
-    marginBottom: theme.spacing(10),
-  },
 
 }));
 export default useStyles;

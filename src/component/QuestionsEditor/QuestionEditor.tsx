@@ -16,11 +16,11 @@ import {
   domandeObject, setBModifyDomandaClicked, setBModifyDomandaUnclicked,
   modifyDomandaInObjectDomande, deleteDomandaInObjectDomande,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  setBCheckDisabled, isBCheckDisabled, setBCheckEnabled, colorBCheck, domandaAddForm,
+  setBCheckDisabled, isBCheckDisabled, setBCheckEnabled, domandaAddForm,
 } from '../../store/slice/domandeAddFormSlice';
 import { objectToArray } from '../../util';
 import {
-  colorIcons, isBConfirmAddFormClicked,
+  isBConfirmAddFormClicked,
 } from '../../store/slice/addFormSlice';
 import { haveRepModifyRight } from '../../store/slice/rightsSlice';
 import EmptyAddQuestion2Answers from '../EmptyAddQuestion2Answers/EmptyAddQuestion2Answers';
@@ -36,9 +36,7 @@ const QuestionsEditor = () => {
   const DomandeAddFormObj = useSelector(domandeObject);
   const domandeAddFormArray = objectToArray(DomandeAddFormObj);
   const iconsDisabled = useSelector(isBModifyDelAddReturnDisabled);
-  const colButton = useSelector(colorIcons);
   const bCheckDisabled = useSelector(isBCheckDisabled);
-  const colBCheck = useSelector(colorBCheck);
   const rightRepModify = useSelector(haveRepModifyRight);
   const confirmAddReparto = useSelector(isBConfirmAddFormClicked);
 
@@ -46,6 +44,7 @@ const QuestionsEditor = () => {
   const listNewDomande = domandeAddFormArray.map((domandaAddForm : domandaAddForm, index : any) => {
     const { IDDomanda } = domandaAddForm;
     const { Tipo } = domandaAddForm;
+    console.log('xxDom', domandaAddForm);
 
     return (
 
@@ -65,7 +64,7 @@ const QuestionsEditor = () => {
                             < >
                               <Grid item xs={12} sm={1}>
                                 <IconButton
-                                  color={colButton}
+                                  color="primary"
                                   disabled={iconsDisabled}
                                   onClick={() => {
                                     dispatch(setBModifyDomandaClicked(domandaAddForm.IDDomanda));
@@ -77,7 +76,7 @@ const QuestionsEditor = () => {
                               </Grid>
                               <Grid item xs={12} sm={1}>
                                 <IconButton
-                                  color={colButton}
+                                  color="primary"
                                   disabled={iconsDisabled}
                                   onClick={
                         () => dispatch(deleteDomandaInObjectDomande(IDDomanda))
@@ -93,7 +92,7 @@ const QuestionsEditor = () => {
                                 <Grid item xs={12} sm={2}>
                                   <IconButton
                                     disabled={bCheckDisabled}
-                                    color={colBCheck}
+                                    color="primary"
                                     onClick={
                             () => {
                               dispatch(setBModifyDomandaUnclicked(domandaAddForm.IDDomanda));
@@ -178,6 +177,7 @@ const QuestionsEditor = () => {
           <TextFieldIntestazione />
 
           {listNewDomande}
+
           {rightRepModify || confirmAddReparto
             ? <EmptyAddQuestion2Answers /> : <></>}
           <Typography className={classes.marginGenerico} variant="body1">

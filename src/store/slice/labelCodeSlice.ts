@@ -6,15 +6,11 @@ const labelCodeSlice = createSlice({
   initialState:
   {
     Code: '' as string,
-    ButtonSend: false as boolean,
 
   },
   reducers: {
     getCodeValue(state, { payload }) {
       state.Code = payload;
-    },
-    buttonSendCode(state) {
-      state.ButtonSend = true;
     },
     resetCode(state) {
       state.Code = '';
@@ -23,8 +19,13 @@ const labelCodeSlice = createSlice({
   },
 });
 
+export const buttonSendCode = () => ({
+  type: 'BUTTON_SEND_CODE',
+
+});
+
 export const ValueCode = (state : State) => state.labelCode.Code;
 export const {
-  getCodeValue, buttonSendCode, resetCode,
+  getCodeValue, resetCode,
 } = labelCodeSlice.actions;
 export default labelCodeSlice.reducer;

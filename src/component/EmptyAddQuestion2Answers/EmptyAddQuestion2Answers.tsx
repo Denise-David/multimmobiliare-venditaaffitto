@@ -12,7 +12,7 @@ import {
   addDomandaInArray,
   question,
   resetDomanda,
-  colorBCheckAddDomanda,
+
   isBCheckAddDomandaDisabled,
   setBCheckAddDomandaDisabled,
   setBCheckAddDomandaEnabled,
@@ -26,7 +26,6 @@ const EmptyAddQuestion2Answers = () => {
   const valoreTextField = useSelector(question);
   const iconsDisabled = useSelector(isBModifyDelAddReturnDisabled);
   const classes = useStyles();
-  const colBCheck = useSelector(colorBCheckAddDomanda);
   const bCheckDisabled = useSelector(isBCheckAddDomandaDisabled);
   const [showTextField, setShowTextField] = useState(false);
 
@@ -60,7 +59,7 @@ const EmptyAddQuestion2Answers = () => {
               <Grid item xs={12} sm={2}>
                 <IconButton
                   disabled={bCheckDisabled}
-                  color={colBCheck}
+                  color="primary"
                   onClick={() => {
                     dispatch(addDomandaInArray());
                     dispatch(setBCheckAddDomandaEnabled());

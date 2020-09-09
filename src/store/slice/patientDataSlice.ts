@@ -5,7 +5,7 @@ const patientDataSlice = createSlice({
   name: 'patientData',
   initialState: {
     newPatientInfo: { } as any | null,
-    isDisable: true as boolean,
+    textFieldDisabled: true as boolean,
     oldPatientInfo: {} as any | null,
   },
   reducers: {
@@ -20,10 +20,10 @@ const patientDataSlice = createSlice({
       state.newPatientInfo[name] = value;
     },
     switchStateDisabled(state) {
-      state.isDisable = !state.isDisable;
+      state.textFieldDisabled = !state.textFieldDisabled;
     },
     setDisabledTrue(state) {
-      state.isDisable = true;
+      state.textFieldDisabled = true;
     },
     resetAllData(state) {
       state.newPatientInfo = {};
@@ -32,7 +32,7 @@ const patientDataSlice = createSlice({
 });
 
 export const oldPatientInfo = (state : State) => state.patientData.oldPatientInfo;
-export const isDisable = (state : State) => state.patientData.isDisable;
+export const textFieldDisabled = (state : State) => state.patientData.textFieldDisabled;
 export const newPatientInfo = (state : State) => state.patientData.newPatientInfo;
 export const {
   getNewPatientInfo,

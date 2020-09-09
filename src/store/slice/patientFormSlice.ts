@@ -7,7 +7,6 @@ const patientFormSlice = createSlice({
   initialState:
   {
     domandeReparto: [] as Domanda[],
-    isButtonClcked: false,
     risposte: {} as any,
     boolAnswers: {} as any,
     resDate: { } as any,
@@ -37,9 +36,6 @@ const patientFormSlice = createSlice({
     getDomandeReparto(state, { payload }) {
       state.domandeReparto = payload;
     },
-    buttonSendForm(state) {
-      state.isButtonClcked = true;
-    },
     setRisposta(state, { payload }) {
       const { idDomanda } = payload;
       state.risposte[idDomanda] = payload;
@@ -60,14 +56,18 @@ const patientFormSlice = createSlice({
   },
 });
 
+export const buttonSendForm = () => ({
+  type: 'BUTTON_SEND_FORM',
+
+});
+
 export const resDate = (state : State) => state.patientForm.resDate;
 export const boolAnswers = (state : State) => state.patientForm.boolAnswers;
 export const risposte = (state : State) => state.patientForm.risposte;
 export const repartoDomande = (state: State) => state.patientForm.domandeReparto;
-export const isClicked = (state : State) => state.patientForm.isButtonClcked;
 export const {
   getDomandeReparto,
-  buttonSendForm, setRisposta, getBooleanAnswers,
+  setRisposta, getBooleanAnswers,
   resetDomandeReparto,
   resetBooleanAnswers, resetRisposte, setNormalTypePresent,
   setDate,

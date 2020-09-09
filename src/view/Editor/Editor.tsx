@@ -67,7 +67,7 @@ const FormPaziente = () => {
           ? (
 
             <>
-              {/* Tabelle Domande e risposte */}
+              {/* Tabella Domande e risposte */}
               <Grid container spacing={3}>
                 <Grid item xs={12} sm={8}>
                   <Paper className={classes.marginTable}>

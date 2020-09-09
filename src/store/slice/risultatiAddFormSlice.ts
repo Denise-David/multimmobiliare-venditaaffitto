@@ -5,13 +5,10 @@ const risultatiAddFormSlice = createSlice({
   name: 'risultatiAddForm',
   initialState:
   {
-
-    deleteActive: false as boolean | undefined,
     dataRisultati: {} as any,
     valueMin: 0 as number,
     valueMax: 0 as number,
     result: ''as string,
-    stateTextFieldAddRisultato: true as boolean,
   },
   reducers: {
     setRisultatiInObject(state, { payload }) {
@@ -42,12 +39,6 @@ const risultatiAddFormSlice = createSlice({
     setBModifyUnclicked(state, { payload }) {
       state.dataRisultati[payload].stateModify = false;
     },
-    setBAddResultClicked(state) {
-      state.stateTextFieldAddRisultato = false;
-    },
-    setBAddResultUnclicked(state) {
-      state.stateTextFieldAddRisultato = true;
-    },
     setRisultato(state, { payload }) {
       state.result = payload;
     },
@@ -61,10 +52,6 @@ const risultatiAddFormSlice = createSlice({
       const { IDRisultato } = payload;
       state.dataRisultati[IDRisultato] = payload;
     },
-    // gestione alert
-    alertConfirmDelete(state) {
-      state.deleteActive = !state.deleteActive;
-    },
 
   },
 });
@@ -73,20 +60,16 @@ export const addRisultatoClicked = () => ({
   type: 'ADD_RISULTATO',
 });
 
-// eslint-disable-next-line max-len
-export const textFieldStateAddRisultato = (state : State) => state.risultatiAddForm.stateTextFieldAddRisultato;
 export const valueMax = (state : State) => state.risultatiAddForm.valueMax;
 export const dataRisultati = (state: State) => state.risultatiAddForm.dataRisultati;
 export const valueMin = (state: State) => state.risultatiAddForm.valueMin;
 export const result = (state: State) => state.risultatiAddForm.result;
-export const delActive = (state : State) => state.risultatiAddForm.deleteActive;
 export const stateRisultato = (state : State) => state.risultatiAddForm.dataRisultati;
 
 export const {
 
-  alertConfirmDelete,
   setRisultato, setValoreMax, setValoreMin,
-  addRisultato, setBAddResultClicked, setBAddResultUnclicked,
+  addRisultato,
   setBModifyClicked, setBModifyUnclicked, deleteRisultato,
   resetRisultato, modifyRisultato, resetDataRisultati,
   setRisultatiInObject,

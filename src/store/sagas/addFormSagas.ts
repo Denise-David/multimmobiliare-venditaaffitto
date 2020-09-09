@@ -1,7 +1,7 @@
 import { call, select, put } from 'redux-saga/effects';
 import { v4 as uuidv4 } from 'uuid';
 import {
-  valueMin, valueMax, alertConfirmDelete,
+  valueMin, valueMax,
   result, addRisultato, dataRisultati, resetDataRisultati,
 } from '../slice/risultatiAddFormSlice';
 import {
@@ -27,6 +27,7 @@ import { addFormPiuRisposte } from '../api';
 import { objectToArray } from '../../util';
 import { resetIDForm, resetIDReparto } from '../slice/ddlEditorFormAndRepartiSlice';
 import { setBSaveDisabled, setBModifyDelAddReturnDisabled } from '../slice/disableEnableSlice';
+import { openCloseSnackbarConfirmDelete } from '../slice/snackbarSlice';
 
 export default function* addFormulario() {
   const reparto = yield select(selectedReparto);
@@ -111,7 +112,7 @@ export function* clickAddButton() {
   yield put(resetRisposteOfDomanda());
 }
 export function* clickDelOrSaveButton() {
-  yield put(alertConfirmDelete());
+  yield put(openCloseSnackbarConfirmDelete());
   yield put(setBModifyDelAddReturnDisabled());
 }
 

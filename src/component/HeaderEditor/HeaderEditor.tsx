@@ -5,10 +5,6 @@ import {
 import Grid from '@material-ui/core/Grid';
 import { useSelector, useDispatch } from 'react-redux';
 import useStyles from './style';
-
-import {
-  delActive, alertConfirmDelete,
-} from '../../store/slice/risultatiAddFormSlice';
 import {
   isButtonAddFormClicked,
   isBConfirmAddFormClicked,
@@ -23,6 +19,7 @@ import DropDownListReparti from '../DropDownListReparti/DropDownListReparti';
 import { haveRepModifyRight } from '../../store/slice/rightsSlice';
 import { IDForm } from '../../store/slice/ddlEditorFormAndRepartiSlice';
 import { setBSaveEnabled, isBModifyDelAddReturnDisabled, setBModifyDelAddReturnEnabled } from '../../store/slice/disableEnableSlice';
+import { snackbarConfirmDeleteOpen, openCloseSnackbarConfirmDelete } from '../../store/slice/snackbarSlice';
 
 const HeaderEditor = () => {
   const dispatch = useDispatch();
@@ -31,7 +28,7 @@ const HeaderEditor = () => {
   const classes = useStyles();
   const addReparto = useSelector(isButtonAddFormClicked);
 
-  const deleteActive = useSelector(delActive);
+  const deleteActive = useSelector(snackbarConfirmDeleteOpen);
 
   const bConfirmAddFormClicked = useSelector(isBConfirmAddFormClicked);
   const modifyRight = useSelector(haveRepModifyRight);
@@ -53,7 +50,7 @@ const HeaderEditor = () => {
   // Dispatch pulsante annulla dell'alert
   const cancelDeleteDispatch = () => {
     dispatch(setBModifyDelAddReturnEnabled());
-    dispatch(alertConfirmDelete());
+    dispatch(openCloseSnackbarConfirmDelete());
   };
 
   return (

@@ -16,7 +16,7 @@ import { haveRepModifyRight } from '../../store/slice/rightsSlice';
 import { isBConfirmAddFormClicked } from '../../store/slice/addFormSlice';
 import { isBCheckDisabled, setBCheckEnabled, setBCheckDisabled } from '../../store/slice/domandeAddFormSlice';
 import {
-  setBModifyDelAddReturnDisabled, setBModifyDelAddReturnEnabled, enableAll, disableAll,
+  enableAll, disableAll,
 } from '../../store/slice/disableEnableSlice';
 
 const ResultLineEditor = () => {
