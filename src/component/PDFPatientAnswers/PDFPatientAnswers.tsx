@@ -25,7 +25,6 @@ const PDFPatientAnswers = () => {
   }, [dispatch]);
 
   const repartoInfo = useSelector(infoReparto);
-
   const answersArray = useSelector(patientAnswers);
 
   let sommaRisposte = 0;

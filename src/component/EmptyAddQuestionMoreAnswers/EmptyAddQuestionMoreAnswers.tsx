@@ -8,15 +8,9 @@ import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import useStyles from './style';
 import {
-  setBAddDomandaClicked,
-  setBAddDomandaUnclicked, setDomanda,
-
-  question,
-  resetDomanda,
-  isBCheckAddDomandaDisabled,
-  setBCheckAddDomandaDisabled,
-  setBCheckAddDomandaEnabled,
-  addDomandaMoreResInArray,
+  setBAddDomandaClicked, setBAddDomandaUnclicked, setDomanda,
+  question, resetDomanda, isBCheckAddDomandaDisabled, setBCheckAddDomandaDisabled,
+  setBCheckAddDomandaEnabled, addDomandaMoreResInArray,
 } from '../../store/slice/domandeAddFormSlice';
 import {
   isBModifyDelAddReturnDisabled, enableAll, disableAll,

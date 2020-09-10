@@ -6,7 +6,6 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import Grid from '@material-ui/core/Grid';
 import { useSelector, useDispatch } from 'react-redux';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
-import EmptyResultLineEditor from '../EmptyResultLineEditor/EmptyResultLineEditor';
 import {
   dataRisultati, setBModifyClicked,
   setBModifyUnclicked, deleteRisultato, modifyRisultato,
@@ -184,7 +183,6 @@ const ResultLineEditor = () => {
   return (
     <div>
       {listRisultati}
-      <EmptyResultLineEditor />
 
     </div>
   );

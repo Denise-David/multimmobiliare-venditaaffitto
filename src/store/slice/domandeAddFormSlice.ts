@@ -19,8 +19,12 @@ const domandeAddFormSlice = createSlice({
     domandeObject: {} as {[key:string]:domandaAddForm},
     isBCheckDisabled: false as boolean,
     isBCheckAddDomandaDisabled: true as boolean,
+    expandedTable: true as boolean,
   },
   reducers: {
+    expandTable(state) {
+      state.expandedTable = !state.expandedTable;
+    },
     openCloseDomandaCard(state, { payload }) {
       state.domandeObject[payload].openCard = !state.domandeObject[payload].openCard;
     },
@@ -102,6 +106,7 @@ export const deleteDomandaFormPiuRes = (payload:any) => ({
   payload,
 });
 
+export const expandedTable = (state : State) => state.domandeAddForm.expandedTable;
 // eslint-disable-next-line max-len
 export const isBCheckAddDomandaDisabled = (state : State) => state.domandeAddForm.isBCheckAddDomandaDisabled;
 export const isBCheckDisabled = (state : State) => state.domandeAddForm.isBCheckDisabled;
@@ -118,7 +123,7 @@ export const {
   modifyDomandaInObjectDomande, deleteDomandaInObjectDomande, setBCheckDisabled,
   setBCheckEnabled, setBCheckAddDomandaDisabled,
   setBCheckAddDomandaEnabled, resetDomandaByIDDomanda, setDomandaInObjectDomandeMoreRes,
-  setDomandeinObject,
+  setDomandeinObject, expandTable,
   resetDomandeOfDomandeObject, openCloseDomandaCard,
 
 } = domandeAddFormSlice.actions;

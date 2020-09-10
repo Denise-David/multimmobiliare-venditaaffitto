@@ -18,8 +18,13 @@ const risposteAddFormSlice = createSlice({
     valore: {} as any,
     risposteOfDomandaObject: {} as any,
     type: {} as any,
+    tableTwoAnsExpanded: true as boolean,
+
   },
   reducers: {
+    setExpanded(state) {
+      state.tableTwoAnsExpanded = !state.tableTwoAnsExpanded;
+    },
     resetRispostaType(state, { payload }) {
       state.type[payload] = 'normal';
     },
@@ -129,6 +134,7 @@ export const addRisposta = (payload : any) => ({
   payload,
 });
 
+export const tableTwoAnsExpanded = (state : State) => state.risposteAddForm.tableTwoAnsExpanded;
 // eslint-disable-next-line max-len
 export const risposteOfDomandaObject = (state : State) => state.risposteAddForm.risposteOfDomandaObject;
 export const answer = (state : State) => state.risposteAddForm.answer;
@@ -149,6 +155,6 @@ export const {
   setModifyRispostaUnclicked, modifyRisposta,
   setRisposteOfDomandaInObject, resetRisposteTwoRisposte,
   resetRisposteOfDomanda, setRispostaTipoData, setType,
-  resetRispostaType,
+  resetRispostaType, setExpanded,
 } = risposteAddFormSlice.actions;
 export default risposteAddFormSlice.reducer;

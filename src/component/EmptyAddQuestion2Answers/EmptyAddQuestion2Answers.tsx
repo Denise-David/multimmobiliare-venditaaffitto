@@ -9,13 +9,8 @@ import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import useStyles from './style';
 import {
   setBAddDomandaClicked, setBAddDomandaUnclicked, setDomanda,
-  addDomandaInArray,
-  question,
-  resetDomanda,
-
-  isBCheckAddDomandaDisabled,
-  setBCheckAddDomandaDisabled,
-  setBCheckAddDomandaEnabled,
+  addDomandaInArray, question, resetDomanda,
+  isBCheckAddDomandaDisabled, setBCheckAddDomandaDisabled, setBCheckAddDomandaEnabled,
 } from '../../store/slice/domandeAddFormSlice';
 import {
   isBModifyDelAddReturnDisabled, disableAll, enableAll,

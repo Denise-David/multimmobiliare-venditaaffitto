@@ -1,5 +1,8 @@
-import { call, select, put } from 'redux-saga/effects';
+import {
+  call, select, put, all,
+} from 'redux-saga/effects';
 import { v4 as uuidv4 } from 'uuid';
+import { risposteTutteUguali } from '../slice/menuDomandeERisposteSlice';
 import {
   valueMin, valueMax,
   result, addRisultato, dataRisultati, resetDataRisultati,
@@ -124,19 +127,37 @@ export function* addDomandaMoreAnswers() {
   yield put(setBAddDomandaUnclicked());
 }
 export function* addRes(action:any) {
-  const IDRisposta = uuidv4();
+  const ansTutteUguali = yield select(risposteTutteUguali);
+  let IDRisposta = uuidv4();
   const RispostaWithID = yield select(answer);
   const ValorewithID = yield select(valore);
   const typeWithID = yield select(typeAnswer);
-  const IDDomanda = action.payload;
+  let IDDomanda = action.payload;
+  const IDPrimaDom = action.payload;
   const type = typeWithID[IDDomanda];
-
   const Risposta = RispostaWithID[IDDomanda];
   const Valore = ValorewithID[IDDomanda];
 
+  // Se è cliccato il risposte tutte uguali
+  if (ansTutteUguali === true) {
+    const listDomandeObj = yield select(domandeObject);
+    const listDomandeArr = objectToArray(listDomandeObj);
+    yield all(listDomandeArr.map((ques : any) => {
+      IDDomanda = ques.IDDomanda;
+      IDRisposta = uuidv4();
+      const setRes = put(setAnswersInDomanda({
+        IDDomanda, IDRisposta, Risposta, Valore, type,
+      }));
+      return setRes;
+    }));
+    yield put(resetAnswerValore());
+    yield put(setAddRispostaUnclicked(IDPrimaDom));
+    yield put(setType(IDPrimaDom));
+  }
   yield put(setAnswersInDomanda({
     IDDomanda, IDRisposta, Risposta, Valore, type,
   }));
+
   yield put(resetAnswerValore());
   yield put(setAddRispostaUnclicked(IDDomanda));
   yield put(setType(IDDomanda));

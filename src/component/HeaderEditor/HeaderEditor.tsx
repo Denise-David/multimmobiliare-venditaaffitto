@@ -6,15 +6,11 @@ import Grid from '@material-ui/core/Grid';
 import { useSelector, useDispatch } from 'react-redux';
 import useStyles from './style';
 import {
-  isButtonAddFormClicked,
   isBConfirmAddFormClicked,
-  setNomeFormulario,
-  confirmDeleteForm,
-  nomeFormulario,
+  setNomeFormulario, confirmDeleteForm, nomeFormulario,
 } from '../../store/slice/addFormSlice';
 import DropDownListFormulari from '../DropDownListFormulari/DropDownListFormulari';
 import PrimaryButtons from '../PrimaryButtons/PrimaryButtons';
-import RadioButtonTypeForm from '../RadioButtonTypeForm/RadioButtonTypeForm';
 import DropDownListReparti from '../DropDownListReparti/DropDownListReparti';
 import { haveRepModifyRight } from '../../store/slice/rightsSlice';
 import { IDForm } from '../../store/slice/ddlEditorFormAndRepartiSlice';
@@ -26,10 +22,7 @@ const HeaderEditor = () => {
 
   // recupero stati dagli slice
   const classes = useStyles();
-  const addReparto = useSelector(isButtonAddFormClicked);
-
   const deleteActive = useSelector(snackbarConfirmDeleteOpen);
-
   const bConfirmAddFormClicked = useSelector(isBConfirmAddFormClicked);
   const modifyRight = useSelector(haveRepModifyRight);
   const IDFormulario = useSelector(IDForm);
@@ -59,64 +52,56 @@ const HeaderEditor = () => {
       <Grid container>
         <PrimaryButtons />
         {/* se è cliccato il tasto add */}
-        {addReparto
-          ? (
-            <>
-              <RadioButtonTypeForm />
-            </>
-          )
-          : (
-            <>
-              {' '}
-              {bConfirmAddFormClicked
-                ? (
-                  <>
-                    {/* se è stato cliccato confirmAddForm */}
-                    <Grid item xs={12} sm={10}>
-                      <TextField
-                        onChange={getNomeForm}
-                        placeholder="Nome formulario"
-                        fullWidth
-                        variant="outlined"
-                        autoFocus
+        <>
+          {' '}
+          {bConfirmAddFormClicked
+            ? (
+              <>
+                {/* se è stato cliccato confirmAddForm */}
+                <Grid item xs={12} sm={10}>
+                  <TextField
+                    onChange={getNomeForm}
+                    placeholder="Nome formulario"
+                    fullWidth
+                    variant="outlined"
+                    autoFocus
+                  />
+                </Grid>
+              </>
+            ) : (
+              <>
+                {/* se non è cliccato nulla */}
+                <Grid item xs={12} sm={4}>
+                  <Paper>
+                    <Typography variant="h5" className={classes.backRepartoFormulario}>Reparto:</Typography>
+                    <DropDownListReparti />
+                  </Paper>
+                </Grid>
+                <Grid item xs={12} sm={1} />
+                <Grid item xs={12} sm={4}>
+                  <Paper>
+                    <Typography variant="h5" className={classes.backRepartoFormulario}>Formulario:</Typography>
+                    <DropDownListFormulari />
+                  </Paper>
+                </Grid>
+                {modifyRight && IDFormulario !== '-1'
+                  ? (
+                    <TextField
+                      className={classes.tfNomeForm}
+                      fullWidth
+                      variant="outlined"
+                      value={nomeForm}
+                      onChange={(event) => {
+                        const { value } = event.target;
+                        dispatch(setNomeFormulario(value));
+                      }}
+                      disabled={iconsDisabled}
+                    />
+                  ) : <></>}
+              </>
+            )}
+        </>
 
-                      />
-                    </Grid>
-                  </>
-                ) : (
-                  <>
-                    {/* se non è cliccato nulla */}
-                    <Grid item xs={12} sm={4}>
-                      <Paper>
-                        <Typography variant="h5" className={classes.backRepartoFormulario}>Reparto:</Typography>
-                        <DropDownListReparti />
-                      </Paper>
-                    </Grid>
-                    <Grid item xs={12} sm={1} />
-                    <Grid item xs={12} sm={4}>
-                      <Paper>
-                        <Typography variant="h5" className={classes.backRepartoFormulario}>Formulario:</Typography>
-                        <DropDownListFormulari />
-                      </Paper>
-                    </Grid>
-                    {modifyRight && IDFormulario !== '-1'
-                      ? (
-                        <TextField
-                          className={classes.tfNomeForm}
-                          fullWidth
-                          variant="outlined"
-                          value={nomeForm}
-                          onChange={(event) => {
-                            const { value } = event.target;
-                            dispatch(setNomeFormulario(value));
-                          }}
-                          disabled={iconsDisabled}
-                        />
-                      ) : <></>}
-                  </>
-                )}
-            </>
-          )}
       </Grid>
       {/* Alert per il delete del reparto */}
       <Snackbar

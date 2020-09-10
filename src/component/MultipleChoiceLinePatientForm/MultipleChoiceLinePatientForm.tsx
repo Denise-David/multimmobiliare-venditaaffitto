@@ -6,15 +6,11 @@ import Typography from '@material-ui/core/Typography';
 import ListItem from '@material-ui/core/ListItem';
 import { useSelector, useDispatch } from 'react-redux';
 import { MobileDatePicker } from '@material-ui/pickers';
-
 import { TextField } from '@material-ui/core';
 import { parseISO } from 'date-fns';
 import useStyles from './style';
-
-import DropDownListAnswersPatientForm, {
-  Risposta,
-} from '../DropDownListAnswersPatientForm/DropDownListAnswersPatientForm';
-
+import DropDownListAnswersPatientForm,
+{ Risposta } from '../DropDownListAnswersPatientForm/DropDownListAnswersPatientForm';
 import {
   repartoDomande, setNormalTypePresent, resDate, setDate,
 } from '../../store/slice/patientFormSlice';

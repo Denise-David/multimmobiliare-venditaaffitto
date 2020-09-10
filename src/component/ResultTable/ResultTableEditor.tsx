@@ -6,6 +6,7 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ResultLineEditor from '../ResultLineEditor/ResultLineEditor';
 import useStyles from './style';
+import EmptyResultLineEditor from '../EmptyResultLineEditor/EmptyResultLineEditor';
 
 const ResultTableEditor = () => {
   const classes = useStyles();
@@ -60,6 +61,7 @@ const ResultTableEditor = () => {
               <Divider />
             </div>
             <ResultLineEditor />
+            <EmptyResultLineEditor />
           </div>
         </Collapse>
       </Paper>
