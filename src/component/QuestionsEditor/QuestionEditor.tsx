@@ -1,20 +1,15 @@
 import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
-import CreateIcon from '@material-ui/icons/Create';
 import {
   IconButton, Paper, Typography, AppBar, Collapse,
 } from '@material-ui/core';
-import DeleteIcon from '@material-ui/icons/Delete';
 import Grid from '@material-ui/core/Grid';
 import { useSelector, useDispatch } from 'react-redux';
-import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
-
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import useStyles from './style';
 import {
-  domandeObject, setBModifyDomandaClicked, setBModifyDomandaUnclicked,
-  modifyDomandaInObjectDomande, deleteDomandaInObjectDomande,
+  domandeObject, modifyDomandaInObjectDomande,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   setBCheckDisabled, isBCheckDisabled, setBCheckEnabled, domandaAddForm,
 } from '../../store/slice/domandeAddFormSlice';
@@ -25,9 +20,7 @@ import {
 import { haveRepModifyRight } from '../../store/slice/rightsSlice';
 import EmptyAddQuestion2Answers from '../EmptyAddQuestion2Answers/EmptyAddQuestion2Answers';
 import TextFieldIntestazione from '../TextFieldIntestazione/TextFieldIntestazione';
-import {
-  isBModifyDelAddReturnDisabled, disableAll, enableAll,
-} from '../../store/slice/disableEnableSlice';
+import ButtonsQuestion from '../ButtonsQuestion/ButtonsQuestion';
 
 const QuestionsEditor = () => {
   const dispatch = useDispatch();
@@ -35,7 +28,6 @@ const QuestionsEditor = () => {
   const classes = useStyles();
   const DomandeAddFormObj = useSelector(domandeObject);
   const domandeAddFormArray = objectToArray(DomandeAddFormObj);
-  const iconsDisabled = useSelector(isBModifyDelAddReturnDisabled);
   const bCheckDisabled = useSelector(isBCheckDisabled);
   const rightRepModify = useSelector(haveRepModifyRight);
   const confirmAddReparto = useSelector(isBConfirmAddFormClicked);
@@ -44,7 +36,6 @@ const QuestionsEditor = () => {
   const listNewDomande = domandeAddFormArray.map((domandaAddForm : domandaAddForm, index : any) => {
     const { IDDomanda } = domandaAddForm;
     const { Tipo } = domandaAddForm;
-    console.log('xxDom', domandaAddForm);
 
     return (
 
@@ -55,67 +46,7 @@ const QuestionsEditor = () => {
               <div className={classes.bordi}>
                 <span className={classes.bordi} />
                 <Grid container spacing={3}>
-                  {rightRepModify || confirmAddReparto
-                    ? (
-                      <>
-                        {' '}
-                        { domandaAddForm.stateText
-                          ? (
-                            < >
-                              <Grid item xs={12} sm={1}>
-                                <IconButton
-                                  color="primary"
-                                  disabled={iconsDisabled}
-                                  onClick={() => {
-                                    dispatch(setBModifyDomandaClicked(domandaAddForm.IDDomanda));
-                                    dispatch(disableAll());
-                                  }}
-                                >
-                                  <CreateIcon />
-                                </IconButton>
-                              </Grid>
-                              <Grid item xs={12} sm={1}>
-                                <IconButton
-                                  color="primary"
-                                  disabled={iconsDisabled}
-                                  onClick={
-                        () => dispatch(deleteDomandaInObjectDomande(IDDomanda))
-                      }
-                                >
-                                  <DeleteIcon />
-                                </IconButton>
-                              </Grid>
-                            </ >
-                          ) : (
-                            <>
-                              < >
-                                <Grid item xs={12} sm={2}>
-                                  <IconButton
-                                    disabled={bCheckDisabled}
-                                    color="primary"
-                                    onClick={
-                            () => {
-                              dispatch(setBModifyDomandaUnclicked(domandaAddForm.IDDomanda));
-                              dispatch(enableAll());
-                            }
-                          }
-                                  >
-                                    <CheckCircleOutlineIcon />
-                                  </IconButton>
-                                </Grid>
-
-                              </ >
-
-                            </>
-                          )}
-
-                      </>
-                    ) : (
-                      <>
-                        {' '}
-                        <Grid item xs={12} sm={2} />
-                      </>
-                    )}
+                  <ButtonsQuestion domandaAddForm={domandaAddForm} />
                   <Grid item xs={12} sm={10}>
 
                     <TextField
@@ -154,7 +85,6 @@ const QuestionsEditor = () => {
   return (
 
     <div>
-
       <AppBar position="static" className={classes.NavColor}>
         <Typography variant="h5" align="left">
           {expanded
