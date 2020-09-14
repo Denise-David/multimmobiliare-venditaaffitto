@@ -3,10 +3,7 @@ import {
 } from 'redux-saga/effects';
 import { setNomeFormulario } from '../slice/addFormSlice';
 import { formulariByReparto, setFormulari } from '../slice/rightsSlice';
-import {
-  setRisposteOfDomandaInObject, getRisposta2, getRisposta1,
-} from '../slice/risposteAddFormSlice';
-
+import { setRisposteOfDomandaInObject, getRisposta2, getRisposta1 } from '../slice/risposteAddFormSlice';
 import { IDRepartoSelected, IDForm } from '../slice/ddlEditorFormAndRepartiSlice';
 import addFormulario, {
   addDomandaTwoResInArray, clickAddButton,
@@ -17,21 +14,18 @@ import getDataEtichetta, { sendDataPazienti } from './dialogFormPazienteSagas';
 import initPDFPatientData from './patientInfoPDFSagas';
 import initPDFPatientAnswers from './patientAnswersPDFSagas';
 import setDataRisposteFormPaziente from './summaryDialogSagas';
-
 import buttonSearch from './searchDoctorSagas';
-
 import initUserRightsAUTAN from './rightsUserSagas';
 import confirmAddForm, { changeRep, cancelAddForm } from './departmentChoiceEditorSagas';
 import fetchFormStructureByID, { fetchRepartoFormByGUID, getEtichettaDataByLabel } from '../api';
-
 import { setDomandeinObject } from '../slice/domandeAddFormSlice';
-
 import { setRisultatiInObject } from '../slice/risultatiAddFormSlice';
 import { setRepartoGUID, setFormulariList } from '../slice/homePageLabelSlice';
 import confirmDelForm from './deleteFormSagas';
 import saveModify from './modifyFormSagas';
 import allDisabled, { allEnabled } from './disableEnableSagas';
 import { closeDialogSummaryAndSave } from '../slice/dialogSlice';
+import { setDDLFormDisabled, setDDLFormEnabled } from '../slice/disableEnableSlice';
 
 function* init(action : any) {
   try {
@@ -47,6 +41,13 @@ function* init(action : any) {
       return res;
     });
     yield put(setFormulari(formulari));
+    yield put(setFormulariList(formulari));
+
+    if (formulari.length === 0) {
+      yield put(setDDLFormDisabled());
+    } else if (ID !== '-1' && formulari.length !== 0) {
+      yield put(setDDLFormEnabled());
+    }
 
     const IDFormulario = yield select(IDForm);
 
@@ -154,7 +155,6 @@ function* initRep(action : any) {
 
     return res;
   });
-  yield put(setFormulariList(formulari));
 }
 
 function* actionWatcher() {

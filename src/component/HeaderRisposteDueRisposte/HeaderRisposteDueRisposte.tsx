@@ -21,10 +21,8 @@ const HeaderRisposteDueRisposte = () => {
               ? <ExpandLessIcon fontSize="large" color="secondary" />
               : <ExpandMoreIcon fontSize="large" color="secondary" />}
           </IconButton>
-
           Risposte
         </Typography>
-        )
 
       </AppBar>
 

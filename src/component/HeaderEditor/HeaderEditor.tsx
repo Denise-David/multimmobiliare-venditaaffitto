@@ -14,7 +14,9 @@ import PrimaryButtons from '../PrimaryButtons/PrimaryButtons';
 import DropDownListReparti from '../DropDownListReparti/DropDownListReparti';
 import { haveRepModifyRight } from '../../store/slice/rightsSlice';
 import { IDForm } from '../../store/slice/ddlEditorFormAndRepartiSlice';
-import { setBSaveEnabled, isBModifyDelAddReturnDisabled, setBModifyDelAddReturnEnabled } from '../../store/slice/disableEnableSlice';
+import {
+  setBSaveEnabled, isBModifyDelAddReturnDisabled, setBModifyDelAddReturnEnabled, setBSaveDisabled,
+} from '../../store/slice/disableEnableSlice';
 import { snackbarConfirmDeleteOpen, openCloseSnackbarConfirmDelete } from '../../store/slice/snackbarSlice';
 import TextFieldRepartoAddForm from '../TextFieldRepartoAddForm/TextFieldRepartoAddForm';
 
@@ -38,7 +40,7 @@ const HeaderEditor = () => {
     if (value) {
       dispatch(setBSaveEnabled());
     } else if (!value) {
-      dispatch(setBSaveEnabled());
+      dispatch(setBSaveDisabled());
     }
   };
 

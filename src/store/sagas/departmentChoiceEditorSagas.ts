@@ -1,4 +1,6 @@
-import { put, select } from 'redux-saga/effects';
+import { call, put, select } from 'redux-saga/effects';
+import { IDRepartoSelected, resetIDReparto, resetIDForm } from '../slice/ddlEditorFormAndRepartiSlice';
+import { formulariByReparto, unsetRepartoModifyRight } from '../slice/rightsSlice';
 import {
   resetDataRisultati,
 } from '../slice/risultatiAddFormSlice';
@@ -7,11 +9,13 @@ import {
   isButtonAddFormClicked, setBAddFormUnclicked, setBConfirmAddFormClicked,
   setBConfirmAddFormUnclicked,
 } from '../slice/addFormSlice';
-import { resetIDReparto, resetIDForm } from '../slice/ddlEditorFormAndRepartiSlice';
+
 import { resetDomandeOfDomandeObject } from '../slice/domandeAddFormSlice';
-import { unsetRepartoModifyRight } from '../slice/rightsSlice';
+
 import { resetRisposteTwoRisposte, resetRisposteOfDomanda } from '../slice/risposteAddFormSlice';
-import { setBModifyDelAddReturnEnabled } from '../slice/disableEnableSlice';
+import { setBModifyDelAddReturnEnabled, setDDLFormDisabled, setDDLFormEnabled } from '../slice/disableEnableSlice';
+import { fetchRepartoFormByGUID } from '../api';
+import { repartoGUID, setFormulariList, setRepartoGUID } from '../slice/homePageLabelSlice';
 // eslint-disable-next-line import/no-cycle
 
 export default function* confirmAddForm() {
@@ -34,6 +38,7 @@ export function* cancelAddForm() {
 
   yield put(resetDomandeOfDomandeObject());
   yield put(resetRisposteTwoRisposte());
+  yield put(setDDLFormDisabled());
   if (addReparto === true) {
     yield put(resetIDReparto());
   }

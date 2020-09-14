@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Grid, IconButton, Fab,
+  Grid, IconButton,
 } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
@@ -18,7 +18,7 @@ import {
   setRepartoDeleteRight, setRepartoModifyRight, repartiModify,
 } from '../../store/slice/rightsSlice';
 import { IDRepartoSelected } from '../../store/slice/ddlEditorFormAndRepartiSlice';
-import { isBSaveDisabled, isBModifyDelAddReturnDisabled } from '../../store/slice/disableEnableSlice';
+import { isBSaveDisabled, isBModifyDelAddReturnDisabled, setBSaveDisabled } from '../../store/slice/disableEnableSlice';
 import PrimaryButtonsControlRep from '../PrimaryButtonsControlRep/PrimaryButtonsControlRep';
 
 const PrimaryButtons = () => {
@@ -69,6 +69,7 @@ const PrimaryButtons = () => {
             <IconButton
               onClick={() => {
                 dispatch(buttonConfirmAddFormClicked());
+                dispatch(setBSaveDisabled());
               }}
               disabled={confirmDisabled}
               color="primary"

@@ -99,10 +99,25 @@ export function* addDomandaTwoResInArray() {
 export function* addDomandaMoreResInArray() {
   const IDDomanda = uuidv4();
   const Domanda = yield select(question);
-
+  const listRisposte = yield select(risposteOfDomandaObject);
+  const ansTutteUguali = yield select(risposteTutteUguali);
   yield put(setDomandaInObjectDomandeMoreRes({ IDDomanda, Domanda }));
   yield put(setBAddDomandaUnclicked());
   yield put(resetDomanda());
+
+  if (ansTutteUguali === true) {
+    const listRisposteArray = objectToArray(listRisposte);
+    const listResPrimaDomanda = objectToArray(listRisposteArray[0]);
+    yield all(listResPrimaDomanda.map((res : any) => {
+      const IDRisposta = uuidv4();
+      const { Risposta, Valore, type } = res;
+      const setRes = put(setAnswersInDomanda({
+        IDDomanda, IDRisposta, Risposta, Valore, type,
+      }));
+      return setRes;
+    }));
+    yield put(resetAnswerValore());
+  }
 }
 
 export function* clickAddButton() {
