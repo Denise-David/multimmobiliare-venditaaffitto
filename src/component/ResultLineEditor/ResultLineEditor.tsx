@@ -1,33 +1,21 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
-import CreateIcon from '@material-ui/icons/Create';
-import { IconButton } from '@material-ui/core';
-import DeleteIcon from '@material-ui/icons/Delete';
 import Grid from '@material-ui/core/Grid';
 import { useSelector, useDispatch } from 'react-redux';
-import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
-import EmptyResultLineEditor from '../EmptyResultLineEditor/EmptyResultLineEditor';
-import {
-  dataRisultati, setBModifyClicked,
-  setBModifyUnclicked, deleteRisultato, modifyRisultato,
-} from '../../store/slice/risultatiAddFormSlice';
+import { dataRisultati, setBModifyClicked, modifyRisultato } from '../../store/slice/risultatiAddFormSlice';
 import { objectToArray } from '../../util';
 import { haveRepModifyRight } from '../../store/slice/rightsSlice';
 import { isBConfirmAddFormClicked } from '../../store/slice/addFormSlice';
 import { isBCheckDisabled, setBCheckEnabled, setBCheckDisabled } from '../../store/slice/domandeAddFormSlice';
-import {
-  setBModifyDelAddReturnDisabled, setBModifyDelAddReturnEnabled, enableAll, disableAll,
-} from '../../store/slice/disableEnableSlice';
+import ButtonResultLine from '../ButtonsResultLine/ButtonResultLine';
 
 const ResultLineEditor = () => {
   const dispatch = useDispatch();
 
   const risultatiObject = useSelector(dataRisultati);
-
   const rightRepModify = useSelector(haveRepModifyRight);
   const confirmAddForm = useSelector(isBConfirmAddFormClicked);
   const bCheckDisabled = useSelector(isBCheckDisabled);
-
   const risultatiArray = objectToArray(risultatiObject);
   // eslint-disable-next-line no-useless-escape
   const NON_DIGIT = '/[^d]/g';
@@ -43,48 +31,7 @@ const ResultLineEditor = () => {
         {rightRepModify || confirmAddForm
           ? (
             <>
-              {!oneForm.stateModify
-                ? (
-                  <>
-                    <Grid item xs={12} sm={1}>
-                      <IconButton
-
-                        onClick={() => {
-                          dispatch(disableAll());
-                          dispatch(setBModifyClicked(oneForm.IDRisultato));
-                        }}
-                        color="primary"
-                      >
-                        <CreateIcon />
-                      </IconButton>
-                    </Grid>
-                    <Grid item xs={12} sm={1}>
-                      <IconButton
-                        color="primary"
-                        onClick={() => dispatch(deleteRisultato(oneForm.IDRisultato))}
-                      >
-                        <DeleteIcon />
-                      </IconButton>
-                    </Grid>
-                  </>
-                ) : (
-                  <>
-                    <Grid item xs={12} sm={2}>
-                      <IconButton
-                        onClick={() => {
-                          dispatch(enableAll());
-                          dispatch(setBModifyUnclicked(oneForm.IDRisultato));
-                        }}
-                        color="primary"
-                        disabled={bCheckDisabled}
-                      >
-                        <CheckCircleOutlineIcon />
-                      </IconButton>
-                    </Grid>
-                  </>
-
-                )}
-
+              <ButtonResultLine oneForm={oneForm} />
             </>
           ) : <><Grid item xs={12} sm={2} /></>}
 
@@ -184,7 +131,6 @@ const ResultLineEditor = () => {
   return (
     <div>
       {listRisultati}
-      <EmptyResultLineEditor />
 
     </div>
   );

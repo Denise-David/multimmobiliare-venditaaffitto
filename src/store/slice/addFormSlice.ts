@@ -10,9 +10,8 @@ const addFormSlice = createSlice({
     selectedReparto: {} as any,
     isConfirmDisabled: true as boolean,
     isBConfirmAddFormClicked: false as boolean,
-    colorButton: 'disabled' as 'inherit' | 'disabled' | 'primary' | 'action' | 'secondary' | 'error' | undefined,
     nomeFormulario: '' as string,
-    colorIcons: 'primary' as 'inherit' | 'default' | 'primary' | 'secondary' | undefined,
+
   },
   reducers: {
     getFormType(state, { payload }) {
@@ -24,11 +23,9 @@ const addFormSlice = createSlice({
     },
     setConfirmDisabled(state) {
       state.isConfirmDisabled = true;
-      state.colorButton = 'disabled';
     },
     setConfirmEnabled(state) {
       state.isConfirmDisabled = false;
-      state.colorButton = 'primary';
     },
     resetFormType(state) {
       state.formType = '';
@@ -82,11 +79,10 @@ export const saveModifyForm = () => ({
 });
 
 // eslint-disable-next-line max-len
-export const colorIcons = (state : State) => state.addForm.colorIcons;
+
 export const nomeFormulario = (state : State) => state.addForm.nomeFormulario;
 export const isBConfirmAddFormClicked = (state : State) => state.addForm.isBConfirmAddFormClicked;
 export const isButtonAddFormClicked = (state : State) => state.addForm.isButtonAddFormClicked;
-export const colButton = (state : State) => state.addForm.colorButton;
 export const isConfirmDisabled = (state : State) => state.addForm.isConfirmDisabled;
 export const selectedReparto = (state : State) => state.addForm.selectedReparto;
 export const formType = (state : State) => state.addForm.formType;

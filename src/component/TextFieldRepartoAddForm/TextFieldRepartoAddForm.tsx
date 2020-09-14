@@ -8,7 +8,7 @@ import {
 } from '../../store/slice/addFormSlice';
 import useStyles from './style';
 
-const RadioButtonTypeForm = () => {
+const TextFieldRepartoAddForm = () => {
   const classes = useStyles();
   const repartoSelezionato = useSelector(selectedReparto);
   return (
@@ -28,4 +28,4 @@ const RadioButtonTypeForm = () => {
   );
 };
 
-export default RadioButtonTypeForm;
+export default TextFieldRepartoAddForm;

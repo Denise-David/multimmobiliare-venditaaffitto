@@ -8,18 +8,10 @@ import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import useStyles from './style';
 import {
-  setBAddDomandaClicked,
-  setBAddDomandaUnclicked, setDomanda,
-
-  question,
-  resetDomanda,
-  colorBCheckAddDomanda,
-  isBCheckAddDomandaDisabled,
-  setBCheckAddDomandaDisabled,
-  setBCheckAddDomandaEnabled,
-  addDomandaMoreResInArray,
+  setBAddDomandaClicked, setBAddDomandaUnclicked, setDomanda,
+  question, resetDomanda, isBCheckAddDomandaDisabled, setBCheckAddDomandaDisabled,
+  setBCheckAddDomandaEnabled, addDomandaMoreResInArray,
 } from '../../store/slice/domandeAddFormSlice';
-import { colorIcons } from '../../store/slice/addFormSlice';
 import {
   isBModifyDelAddReturnDisabled, enableAll, disableAll,
 } from '../../store/slice/disableEnableSlice';
@@ -28,9 +20,7 @@ const EmptyAddQuestionMoreAnswers = () => {
   const dispatch = useDispatch();
   const valoreTextField = useSelector(question);
   const isIconEnabled = useSelector(isBModifyDelAddReturnDisabled);
-  const colButton = useSelector(colorIcons);
   const classes = useStyles();
-  const colBCheck = useSelector(colorBCheckAddDomanda);
   const bCheckDisabled = useSelector(isBCheckAddDomandaDisabled);
   const [showTextField, setShowTextField] = useState(false);
 
@@ -43,7 +33,7 @@ const EmptyAddQuestionMoreAnswers = () => {
             <>
               <Grid item xs={12} sm={1}>
                 <IconButton
-                  color={colButton}
+                  color="primary"
                   disabled={isIconEnabled}
                   onClick={() => {
                     dispatch(setBAddDomandaClicked());
@@ -63,7 +53,7 @@ const EmptyAddQuestionMoreAnswers = () => {
               <Grid item xs={12} sm={2}>
                 <IconButton
                   disabled={bCheckDisabled}
-                  color={colBCheck}
+                  color="primary"
                   onClick={() => {
                     dispatch(addDomandaMoreResInArray());
                     dispatch(enableAll());

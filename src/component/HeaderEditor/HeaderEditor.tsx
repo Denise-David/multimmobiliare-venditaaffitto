@@ -5,39 +5,33 @@ import {
 import Grid from '@material-ui/core/Grid';
 import { useSelector, useDispatch } from 'react-redux';
 import useStyles from './style';
-
 import {
-  delActive, alertConfirmDelete,
-} from '../../store/slice/risultatiAddFormSlice';
-import {
-  isButtonAddFormClicked,
   isBConfirmAddFormClicked,
-  setNomeFormulario,
-  confirmDeleteForm,
-  nomeFormulario,
+  setNomeFormulario, confirmDeleteForm, nomeFormulario, isButtonAddFormClicked,
 } from '../../store/slice/addFormSlice';
 import DropDownListFormulari from '../DropDownListFormulari/DropDownListFormulari';
 import PrimaryButtons from '../PrimaryButtons/PrimaryButtons';
-import RadioButtonTypeForm from '../RadioButtonTypeForm/RadioButtonTypeForm';
 import DropDownListReparti from '../DropDownListReparti/DropDownListReparti';
 import { haveRepModifyRight } from '../../store/slice/rightsSlice';
-import { IDForm } from '../../store/slice/repartoDDLSlice';
-import { setBSaveEnabled, isBModifyDelAddReturnDisabled, setBModifyDelAddReturnEnabled } from '../../store/slice/disableEnableSlice';
+import { IDForm } from '../../store/slice/ddlEditorFormAndRepartiSlice';
+import {
+  setBSaveEnabled, isBModifyDelAddReturnDisabled, setBModifyDelAddReturnEnabled, setBSaveDisabled,
+} from '../../store/slice/disableEnableSlice';
+import { snackbarConfirmDeleteOpen, openCloseSnackbarConfirmDelete } from '../../store/slice/snackbarSlice';
+import TextFieldRepartoAddForm from '../TextFieldRepartoAddForm/TextFieldRepartoAddForm';
 
 const HeaderEditor = () => {
   const dispatch = useDispatch();
 
   // recupero stati dagli slice
   const classes = useStyles();
-  const addReparto = useSelector(isButtonAddFormClicked);
-
-  const deleteActive = useSelector(delActive);
-
+  const deleteActive = useSelector(snackbarConfirmDeleteOpen);
   const bConfirmAddFormClicked = useSelector(isBConfirmAddFormClicked);
   const modifyRight = useSelector(haveRepModifyRight);
   const IDFormulario = useSelector(IDForm);
   const nomeForm = useSelector(nomeFormulario);
   const iconsDisabled = useSelector(isBModifyDelAddReturnDisabled);
+  const bAddFormClicked = useSelector(isButtonAddFormClicked);
 
   // Prendo il nome del form immesso dall'utente e controllo se è vuoto
   const getNomeForm = (event : React.ChangeEvent<{ value: unknown }>) => {
@@ -46,14 +40,14 @@ const HeaderEditor = () => {
     if (value) {
       dispatch(setBSaveEnabled());
     } else if (!value) {
-      dispatch(setBSaveEnabled());
+      dispatch(setBSaveDisabled());
     }
   };
 
   // Dispatch pulsante annulla dell'alert
   const cancelDeleteDispatch = () => {
     dispatch(setBModifyDelAddReturnEnabled());
-    dispatch(alertConfirmDelete());
+    dispatch(openCloseSnackbarConfirmDelete());
   };
 
   return (
@@ -62,12 +56,8 @@ const HeaderEditor = () => {
       <Grid container>
         <PrimaryButtons />
         {/* se è cliccato il tasto add */}
-        {addReparto
-          ? (
-            <>
-              <RadioButtonTypeForm />
-            </>
-          )
+        {bAddFormClicked
+          ? <TextFieldRepartoAddForm />
           : (
             <>
               {' '}
@@ -82,7 +72,6 @@ const HeaderEditor = () => {
                         fullWidth
                         variant="outlined"
                         autoFocus
-
                       />
                     </Grid>
                   </>
@@ -120,6 +109,7 @@ const HeaderEditor = () => {
                 )}
             </>
           )}
+
       </Grid>
       {/* Alert per il delete del reparto */}
       <Snackbar

@@ -23,16 +23,17 @@ import TextFamilyDoctor from '../../component/TextFamilyDoctor/TextFamilyDoctor'
 import ButtonSendFormPaziente from '../../component/ButtonSendPatientForm/ButtonSendPatientForm';
 import { switchStateDisabled } from '../../store/slice/patientDataSlice';
 import TextCityName from '../../component/TextCityName/TextCityName';
-import { snackbarStatus, closeSnackbar } from '../../store/slice/patientFormSlice';
 import BooleanLinePatientForm from '../../component/BooleanLinePatientForm/BooleanLinePatientForm';
 import TextCAP from '../../component/TextCAP/TextCityName';
 import SearchDoctorDialog from '../../component/SearchDoctorDialog/SearchDoctorDialog';
-import { openDialogSearch } from '../../store/slice/searchDoctorSlice';
+import { setNomeCognomeDottoreScelto } from '../../store/slice/searchDoctorSlice';
+import { openDialogSearch } from '../../store/slice/dialogSlice';
+import { snackbarPatientAnswersOpen, closeSnackbarPatientAnswers } from '../../store/slice/snackbarSlice';
 
 const FormPaziente = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const statusSnackbar = useSelector(snackbarStatus);
+  const statusSnackbar = useSelector(snackbarPatientAnswersOpen);
   function Alert(props: AlertProps) {
     // eslint-disable-next-line react/jsx-props-no-spreading
     return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -67,13 +68,21 @@ const FormPaziente = () => {
             <TextPhone />
             <div className={classes.inline}>
               <IconButton>
-                <SearchIcon onClick={() => dispatch(openDialogSearch('familyDoctor'))} />
+                <SearchIcon onClick={() => {
+                  dispatch(openDialogSearch());
+                  dispatch(setNomeCognomeDottoreScelto('familyDoctor'));
+                }}
+                />
               </IconButton>
               <TextFamilyDoctor />
             </div>
             <div className={classes.inline}>
               <IconButton>
-                <SearchIcon onClick={() => dispatch(openDialogSearch('doctor'))} />
+                <SearchIcon onClick={() => {
+                  dispatch(openDialogSearch());
+                  dispatch(setNomeCognomeDottoreScelto('doctor'));
+                }}
+                />
               </IconButton>
               <TextDoctor />
             </div>
@@ -91,7 +100,7 @@ const FormPaziente = () => {
           <Snackbar
             open={statusSnackbar}
             autoHideDuration={4000}
-            onClose={() => dispatch(closeSnackbar())}
+            onClose={() => dispatch(closeSnackbarPatientAnswers())}
           >
             <Alert severity="warning">
               <Typography variant="body1">

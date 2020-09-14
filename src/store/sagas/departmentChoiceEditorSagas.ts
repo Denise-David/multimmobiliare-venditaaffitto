@@ -1,4 +1,6 @@
-import { put, select } from 'redux-saga/effects';
+import { call, put, select } from 'redux-saga/effects';
+import { IDRepartoSelected, resetIDReparto, resetIDForm } from '../slice/ddlEditorFormAndRepartiSlice';
+import { formulariByReparto, unsetRepartoModifyRight } from '../slice/rightsSlice';
 import {
   resetDataRisultati,
 } from '../slice/risultatiAddFormSlice';
@@ -7,12 +9,13 @@ import {
   isButtonAddFormClicked, setBAddFormUnclicked, setBConfirmAddFormClicked,
   setBConfirmAddFormUnclicked,
 } from '../slice/addFormSlice';
-import { resetIDReparto, resetIDForm } from '../slice/repartoDDLSlice';
-import { setInitialStateAction } from '../slice/initialStateSlice';
+
 import { resetDomandeOfDomandeObject } from '../slice/domandeAddFormSlice';
-import { unsetRepartoModifyRight } from '../slice/rightsSlice';
+
 import { resetRisposteTwoRisposte, resetRisposteOfDomanda } from '../slice/risposteAddFormSlice';
-import { setBModifyDelAddReturnDisabled, setBModifyDelAddReturnEnabled } from '../slice/disableEnableSlice';
+import { setBModifyDelAddReturnEnabled, setDDLFormDisabled, setDDLFormEnabled } from '../slice/disableEnableSlice';
+import { fetchRepartoFormByGUID } from '../api';
+import { repartoGUID, setFormulariList, setRepartoGUID } from '../slice/homePageLabelSlice';
 // eslint-disable-next-line import/no-cycle
 
 export default function* confirmAddForm() {
@@ -32,9 +35,10 @@ export function* cancelAddForm() {
   yield put(setBConfirmAddFormUnclicked());
   yield put(resetIDReparto());
   yield put(resetIDForm());
-  yield put(setInitialStateAction());
+
   yield put(resetDomandeOfDomandeObject());
   yield put(resetRisposteTwoRisposte());
+  yield put(setDDLFormDisabled());
   if (addReparto === true) {
     yield put(resetIDReparto());
   }
@@ -47,7 +51,7 @@ export function* changeRep() {
   yield put(setConfirmDisabled());
   yield put(setBConfirmAddFormUnclicked());
   yield put(resetIDForm());
-  yield put(setInitialStateAction());
+
   yield put(resetDomandeOfDomandeObject());
   yield put(unsetRepartoModifyRight());
   yield put(resetDataRisultati());

@@ -1,18 +1,19 @@
 import { call, select, put } from 'redux-saga/effects';
 import {
-  repartoDomande, showPatientFormDialog, getDomandeReparto,
-  risposte, getBooleanAnswers, openSnackbar,
+  repartoDomande, getDomandeReparto,
+  risposte, getBooleanAnswers,
 } from '../slice/patientFormSlice';
-import { newPatientInfo, getNewPatientInfo, getOldPatientInfo } from '../slice/patientDataSlice';
+import { getNewPatientInfo, getOldPatientInfo } from '../slice/patientDataSlice';
 
-import { ValueCode, openSnackbarBarcode } from '../slice/CodeSlice';
+import { ValueCode } from '../slice/labelCodeSlice';
 
 import fetchFormStructureByID, {
   getEtichettaDataByLabel, fetchRepartoFormByGUID,
 } from '../api';
-import { setSummaryDialogOpen, setPatientData, setAnswersData } from '../slice/summaryDialogSlice';
-import { getRepartoInfo } from '../slice/patientFormPDFSlice';
+
 import { formSelected, formulariList } from '../slice/homePageLabelSlice';
+import { openDialogSummary, openDialogFormPatient } from '../slice/dialogSlice';
+import { openSnackbarLabelPage, openSnackbarPatientAnswers } from '../slice/snackbarSlice';
 
 export default function* getDataEtichetta() {
   try {
@@ -78,10 +79,10 @@ export default function* getDataEtichetta() {
       yield put(getBooleanAnswers(booleanAnswers));
     }
 
-    yield put(showPatientFormDialog());
+    yield put(openDialogFormPatient());
   } catch (error) {
     console.log('errore', error);
-    yield put(openSnackbarBarcode());
+    yield put(openSnackbarLabelPage());
   }
 }
 
@@ -92,38 +93,14 @@ export function* sendDataPazienti() {
     const answersData = yield select(risposte);
     const arrayAnswersData = Object.keys(answersData);
     const numRisposte : number = arrayAnswersData.length;
-    const patientData = yield select(newPatientInfo);
-    const etichettaNum = yield select(ValueCode);
-    const dataEtichetta = yield call(getEtichettaDataByLabel, etichettaNum);
-
-    const { data = {} } = dataEtichetta;
-    const { hcase = {} } = data;
-    const { actualWardGUID = '' } = hcase;
-    const dataReparto = yield call(fetchRepartoFormByGUID, actualWardGUID);
-
-    const datiReparto = dataReparto.data;
-    const {
-      Reparto = '', Risposte = {}, tipo = '', Risultati = {},
-    } = datiReparto[0];
-    const { risposta1 = '' } = Risposte;
-
-    const infoReparto = {
-      Risultati,
-      Reparto,
-      tipo,
-      risposta1,
-    };
 
     // Se le risposte ricevute dal paziente sono uguali al numero di domande tot
     if (numDomande <= numRisposte) {
-      yield put(setSummaryDialogOpen());
-      yield put(setPatientData(patientData));
-      yield put(setAnswersData(answersData));
-      yield put(getRepartoInfo(infoReparto));
+      yield put(openDialogSummary());
 
       // yield put(addRisposteFormPazienti(patientData, answersData));
     } else {
-      yield put(openSnackbar());
+      yield put(openSnackbarPatientAnswers());
     }
   } catch (error) {
     console.log('errore', error);

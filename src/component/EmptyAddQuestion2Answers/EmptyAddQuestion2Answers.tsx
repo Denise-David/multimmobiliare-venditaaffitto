@@ -9,13 +9,8 @@ import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import useStyles from './style';
 import {
   setBAddDomandaClicked, setBAddDomandaUnclicked, setDomanda,
-  addDomandaInArray,
-  question,
-  resetDomanda,
-  colorBCheckAddDomanda,
-  isBCheckAddDomandaDisabled,
-  setBCheckAddDomandaDisabled,
-  setBCheckAddDomandaEnabled,
+  addDomandaInArray, question, resetDomanda,
+  isBCheckAddDomandaDisabled, setBCheckAddDomandaDisabled, setBCheckAddDomandaEnabled,
 } from '../../store/slice/domandeAddFormSlice';
 import {
   isBModifyDelAddReturnDisabled, disableAll, enableAll,
@@ -26,7 +21,6 @@ const EmptyAddQuestion2Answers = () => {
   const valoreTextField = useSelector(question);
   const iconsDisabled = useSelector(isBModifyDelAddReturnDisabled);
   const classes = useStyles();
-  const colBCheck = useSelector(colorBCheckAddDomanda);
   const bCheckDisabled = useSelector(isBCheckAddDomandaDisabled);
   const [showTextField, setShowTextField] = useState(false);
 
@@ -60,7 +54,7 @@ const EmptyAddQuestion2Answers = () => {
               <Grid item xs={12} sm={2}>
                 <IconButton
                   disabled={bCheckDisabled}
-                  color={colBCheck}
+                  color="primary"
                   onClick={() => {
                     dispatch(addDomandaInArray());
                     dispatch(setBCheckAddDomandaEnabled());

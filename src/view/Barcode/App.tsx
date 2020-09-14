@@ -15,10 +15,11 @@ import PatientFormDialog from '../../component/PatientFormDialog';
 import ReturnDeviceDialog from '../../component/ReturnDeviceDialog/ReturnDeviceDialog';
 import SummaryDialog from '../../component/SummaryDialog/SummaryDialog';
 import {
-  getCodeValue, buttonSendCode, snackbarStatusBarcode, closeSnackbarBarcode,
-} from '../../store/slice/CodeSlice';
+  getCodeValue, buttonSendCode,
+} from '../../store/slice/labelCodeSlice';
 import DropDownListFormulariBarcode from '../../component/DropDownListFormulariBarcode/DropDownListFormulariBarcode';
 import { formulariList } from '../../store/slice/homePageLabelSlice';
+import { closeSnackbarLabelPage, snackbarLabelOpen } from '../../store/slice/snackbarSlice';
 
 const Barcodepage = () => {
   const classes = useStyles();
@@ -33,7 +34,7 @@ const Barcodepage = () => {
   }, [dispatch]);
 
   const formList = useSelector(formulariList);
-  const statusSnackbarBarcode = useSelector(snackbarStatusBarcode);
+  const statusSnackbarBarcode = useSelector(snackbarLabelOpen);
   return (
     <div className={classes.Content}>
       <Navbar />
@@ -57,7 +58,7 @@ const Barcodepage = () => {
       <Snackbar
         open={statusSnackbarBarcode}
         autoHideDuration={2000}
-        onClose={() => dispatch(closeSnackbarBarcode())}
+        onClose={() => dispatch(closeSnackbarLabelPage())}
       >
         <Alert severity="warning">
           <Typography variant="body1">

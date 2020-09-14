@@ -1,9 +1,9 @@
 import React from 'react';
 import { FormControl, Select, MenuItem } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
-import { IDRepartoSelected, setRepartoSelected, changeReparto } from '../../store/slice/repartoDDLSlice';
+import { IDRepartoSelected, setRepartoSelected, changeReparto } from '../../store/slice/ddlEditorFormAndRepartiSlice';
 import { allReparti, unsetRepartoDeleteRight } from '../../store/slice/rightsSlice';
-import { isBModifyDelAddReturnDisabled, setDDLFormEnabled } from '../../store/slice/disableEnableSlice';
+import { isBModifyDelAddReturnDisabled } from '../../store/slice/disableEnableSlice';
 
 const DropDownListReparti = () => {
   const iconsDisabled = useSelector(isBModifyDelAddReturnDisabled);
@@ -17,9 +17,6 @@ const DropDownListReparti = () => {
     dispatch({ type: 'INIT' });
     dispatch(unsetRepartoDeleteRight());
     dispatch(changeReparto());
-    if (value !== '-1') {
-      dispatch(setDDLFormEnabled());
-    }
   };
 
   const listRep = allRep.map((reparto: any) => (

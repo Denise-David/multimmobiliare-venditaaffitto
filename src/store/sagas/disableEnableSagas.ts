@@ -1,4 +1,5 @@
-import { put } from 'redux-saga/effects';
+import { put, select } from 'redux-saga/effects';
+import { nomeFormulario, buttonConfirmAddFormClicked } from '../slice/addFormSlice';
 
 import {
   setBModifyDelAddReturnDisabled, setBSaveDisabled,
@@ -18,8 +19,14 @@ export default function* allDisabled() {
 
 export function* allEnabled() {
   try {
+    const confirmAddFormClicked = yield select(buttonConfirmAddFormClicked);
+    const nomeForm = yield select(nomeFormulario);
     yield put(setBModifyDelAddReturnEnabled());
-    yield put(setBSaveEnabled());
+    if (nomeForm !== '' && confirmAddFormClicked === true) {
+      yield put(setBSaveEnabled());
+    } else if (confirmAddFormClicked === false) {
+      yield put(setBSaveEnabled());
+    }
     yield put(setDDLFormEnabled());
   } catch (error) {
     console.log('errore', error);

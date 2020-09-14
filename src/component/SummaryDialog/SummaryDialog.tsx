@@ -2,20 +2,22 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Dialog, Typography } from '@material-ui/core';
 import { format } from 'date-fns';
-import { dialogStatus, patientInfoData, answersPatientData } from '../../store/slice/summaryDialogSlice';
 import Nav from '../Navbar/Navbar';
 import useStyles from './style';
 import { infoReparto } from '../../store/slice/patientFormPDFSlice';
 import ButtonSendConfirmSummary from '../ButtonSendConfirmSummary/ButtonSendConfirmSummary';
 import ButtonSendCancelSummary from '../ButtonSendCancelSummary copy/ButtonSendCancelSummary';
-import { getStringMedico, objectToArray } from '../../util';
-import { oldPatientInfo } from '../../store/slice/patientDataSlice';
+import { objectToArray } from '../../util';
+import { oldPatientInfo, newPatientInfo } from '../../store/slice/patientDataSlice';
+import { dialogSummaryOpen } from '../../store/slice/dialogSlice';
+import { risposte } from '../../store/slice/patientFormSlice';
+import PatientNoDoctorDataSummary from '../PatientNoDoctorDataSummary/PatientNoDoctorDataSummary';
 
 const SummaryDialog = () => {
-  const statusDialog = useSelector(dialogStatus);
-  const dataPatient = useSelector(patientInfoData);
+  const statusDialog = useSelector(dialogSummaryOpen);
+  const dataPatient = useSelector(newPatientInfo);
   const oldDataPatient = useSelector(oldPatientInfo);
-  const dataAnswers = useSelector(answersPatientData);
+  const dataAnswers = useSelector(risposte);
   const repartoInfo = useSelector(infoReparto);
   const classes = useStyles();
 
@@ -81,201 +83,9 @@ const SummaryDialog = () => {
           <hr />
         </Typography>
         <Typography className={classes.marginBottom} variant="subtitle1">
+          <PatientNoDoctorDataSummary />
+          <br />
 
-          {dataPatient.givenname === oldDataPatient.givenname
-            ? (
-              <>
-                Nome:
-                {' '}
-                { oldDataPatient.givenname}
-              </>
-            )
-            : (
-              <span className={classes.color}>
-                Nome:
-                {' '}
-                <span className={classes.oldData}>
-                  {oldDataPatient.givenname}
-                </span>
-                {' '}
-                Nuovo:
-                {' '}
-                {dataPatient.givenname}
-              </span>
-            )}
-          <br />
-          {dataPatient.familyname === oldDataPatient.familyname
-            ? (
-              <>
-                Cognome:
-                {' '}
-                { oldDataPatient.familyname}
-              </>
-            )
-            : (
-              <span className={classes.color}>
-                Cognome:
-                {' '}
-                <span className={classes.oldData}>
-                  {oldDataPatient.familyname}
-                </span>
-                {' '}
-                Nuovo:
-                {' '}
-                {dataPatient.familyname}
-              </span>
-            )}
-          <br />
-          {dataPatient.cityName === oldDataPatient.cityName
-            ? (
-              <>
-                Città:
-                {' '}
-                { oldDataPatient.cityName}
-              </>
-            )
-            : (
-              <span className={classes.color}>
-                Città:
-                {' '}
-                <span className={classes.oldData}>
-                  {oldDataPatient.cityName}
-                </span>
-                {' '}
-                Nuovo:
-                {' '}
-                {dataPatient.cityName}
-              </span>
-            )}
-          <br />
-          {dataPatient.streetName === oldDataPatient.streetName
-            ? (
-              <>
-                Via:
-                {' '}
-                { oldDataPatient.streetName}
-              </>
-            )
-            : (
-              <span className={classes.color}>
-                Via:
-                {' '}
-                <span className={classes.oldData}>
-                  {oldDataPatient.streetName}
-                </span>
-                {' '}
-                Nuovo:
-                {' '}
-                {dataPatient.streetName}
-              </span>
-            )}
-          <br />
-          {dataPatient.streetNumber === oldDataPatient.streetNumber
-            ? (
-              <>
-                Numero:
-                {' '}
-                { oldDataPatient.streetNumber}
-              </>
-            )
-            : (
-              <span className={classes.color}>
-                Numero:
-                {' '}
-                <span className={classes.oldData}>
-                  {oldDataPatient.streetNumber}
-                </span>
-                {' '}
-                Nuovo:
-                {' '}
-                {dataPatient.streetNumber}
-              </span>
-            )}
-          <br />
-          {dataPatient.mobile === oldDataPatient.mobile
-            ? (
-              <>
-                Telefono:
-                {' '}
-                { oldDataPatient.mobile}
-              </>
-            )
-            : (
-              <span className={classes.color}>
-                Telefono:
-                {' '}
-                <span className={classes.oldData}>
-                  {oldDataPatient.mobile}
-                </span>
-                {' '}
-                Nuovo:
-                {' '}
-                {dataPatient.mobile}
-              </span>
-            )}
-          <br />
-          {dataPatient.doctor
-            && (
-            <>
-              { getStringMedico(dataPatient.doctor)
-              === getStringMedico(oldDataPatient.doctor)
-                ? (
-                  <>
-                    <span>
-                      Medico inviante:
-                      {' '}
-                      {getStringMedico(oldDataPatient.doctor)}
-                    </span>
-
-                  </>
-                )
-                : (
-                  <span className={classes.color}>
-                    Medico inviante:
-                    {' '}
-                    <span className={classes.oldData}>
-                      {getStringMedico(oldDataPatient.doctor)}
-                    </span>
-                    {' '}
-                    Nuovo:
-                    {' '}
-                    {getStringMedico(dataPatient.doctor)}
-                  </span>
-                )}
-            </>
-            )}
-
-          <br />
-          {dataPatient.familyDoctor
-            && (
-            <>
-              { getStringMedico(dataPatient.familyDoctor)
-              === getStringMedico(oldDataPatient.familyDoctor)
-                ? (
-                  <>
-                    <span>
-                      Medico di famiglia:
-                      {' '}
-                      {getStringMedico(oldDataPatient.familyDoctor)}
-                    </span>
-
-                  </>
-                )
-                : (
-                  <span className={classes.color}>
-                    Medico di famiglia:
-                    {' '}
-                    <span className={classes.oldData}>
-                      {getStringMedico(oldDataPatient.familyDoctor)}
-                    </span>
-                    {' '}
-                    Nuovo:
-                    {' '}
-                    {getStringMedico(dataPatient.familyDoctor)}
-                  </span>
-                )}
-            </>
-            )}
           <br />
           {dataPatient.insuranceCoversName === oldDataPatient.insuranceCoversName
             ? (

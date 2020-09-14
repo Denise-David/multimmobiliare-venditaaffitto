@@ -1,45 +1,36 @@
 import React from 'react';
 import {
-  Grid, IconButton, Fab,
+  Grid, IconButton,
 } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import KeyboardReturnIcon from '@material-ui/icons/KeyboardReturn';
 import SaveIcon from '@material-ui/icons/Save';
-import AddIcon from '@material-ui/icons/Add';
-import DeleteIcon from '@material-ui/icons/Delete';
-import useStyles from './style';
 import {
   isButtonAddFormClicked, buttonConfirmAddFormClicked,
-  isConfirmDisabled, colButton, buttonCancelAddFormClicked,
+  isConfirmDisabled, buttonCancelAddFormClicked,
   isBConfirmAddFormClicked,
-  buttonSaveFormClicked, buttonDeleteOrSaveClicked, buttonAddClicked, saveModifyForm,
+  buttonSaveFormClicked,
 } from '../../store/slice/addFormSlice';
 import {
   rightsUserAUTAN, setUserCreateRight, setUserDeleteRight,
-  setUserModifyRight, haveUserCreateRight, repartiDelete, haveRepDeleteRight,
-  setRepartoDeleteRight, haveRepModifyRight, setRepartoModifyRight, repartiModify,
+  setUserModifyRight, repartiDelete,
+  setRepartoDeleteRight, setRepartoModifyRight, repartiModify,
 } from '../../store/slice/rightsSlice';
-import { IDRepartoSelected, IDForm } from '../../store/slice/repartoDDLSlice';
-import { isBSaveDisabled, isBModifyDelAddReturnDisabled, enableAll } from '../../store/slice/disableEnableSlice';
+import { IDRepartoSelected } from '../../store/slice/ddlEditorFormAndRepartiSlice';
+import { isBSaveDisabled, isBModifyDelAddReturnDisabled, setBSaveDisabled } from '../../store/slice/disableEnableSlice';
+import PrimaryButtonsControlRep from '../PrimaryButtonsControlRep/PrimaryButtonsControlRep';
 
 const PrimaryButtons = () => {
-  const classes = useStyles();
   const addReparto = useSelector(isButtonAddFormClicked);
   const dispatch = useDispatch();
   const confirmDisabled = useSelector(isConfirmDisabled);
-  const buttonColor = useSelector(colButton);
   const bConfirmAddFormClicked = useSelector(isBConfirmAddFormClicked);
   const isSaveDisabled = useSelector(isBSaveDisabled);
   const iconsDisabled = useSelector(isBModifyDelAddReturnDisabled);
-
-  const noRep = useSelector(IDForm);
   const rightUser = useSelector(rightsUserAUTAN);
-  const rightCreate = useSelector(haveUserCreateRight);
-  const rightRepModify = useSelector(haveRepModifyRight);
   const IDRepSelected = useSelector(IDRepartoSelected);
   const repDelete = useSelector(repartiDelete);
-  const rightRepDelete = useSelector(haveRepDeleteRight);
   const repModify = useSelector(repartiModify);
 
   // controllo i diritti che ha l'utente
@@ -78,10 +69,12 @@ const PrimaryButtons = () => {
             <IconButton
               onClick={() => {
                 dispatch(buttonConfirmAddFormClicked());
+                dispatch(setBSaveDisabled());
               }}
               disabled={confirmDisabled}
+              color="primary"
             >
-              <CheckCircleOutlineIcon fontSize="large" color={buttonColor} />
+              <CheckCircleOutlineIcon fontSize="large" />
             </IconButton>
             <IconButton
 
@@ -118,82 +111,9 @@ const PrimaryButtons = () => {
                   </IconButton>
                 </div>
               ) : (
-                <div>
-                  {/* se add non è attivo e non è stato cliccato il
-                   confirm add form e non è sel. un reparto */}
-                  {noRep === '-1'
-                    ? (
-                      <>
-                        {rightCreate
-                          ? (
-                            <Fab
-                              className={classes.buttonAdd}
-                              onClick={() => dispatch(buttonAddClicked())}
-                              color="primary"
-                              disabled={iconsDisabled}
-                            >
-                              <AddIcon />
 
-                            </Fab>
-                          ) : <></>}
+                <PrimaryButtonsControlRep />
 
-                      </>
-                    )
-                    : (
-                      <div>
-                        <div>
-                          {/* se add non è attivo ed è selezionato il reparto */}
-                          {rightCreate
-                            ? (
-                              <Fab
-                                className={classes.buttonAdd}
-                                onClick={() => dispatch(buttonAddClicked())}
-                                color="primary"
-                                disabled={iconsDisabled}
-                              >
-                                <AddIcon />
-                              </Fab>
-                            ) : <></>}
-                        </div>
-                        <div className={classes.ButtonDelSaveCanc}>
-                          {rightRepDelete
-                            ? (
-                              <IconButton
-                                disabled={iconsDisabled}
-                                onClick={() => dispatch(buttonDeleteOrSaveClicked())}
-                                color="primary"
-                              >
-                                <DeleteIcon
-                                  fontSize="large"
-
-                                />
-                              </IconButton>
-                            ) : <></>}
-                          {rightRepModify
-
-                            ? (
-                              <IconButton
-                                disabled={iconsDisabled}
-                                onClick={() => dispatch(saveModifyForm())}
-                                color="primary"
-                              >
-                                <SaveIcon fontSize="large" />
-                              </IconButton>
-                            ) : <></>}
-                          <IconButton
-                            disabled={iconsDisabled}
-                            onClick={
-                        () => dispatch(buttonCancelAddFormClicked())
-
-                        }
-                            color="primary"
-                          >
-                            <KeyboardReturnIcon fontSize="large" />
-                          </IconButton>
-                        </div>
-                      </div>
-                    )}
-                </div>
               )}
           </>
 

@@ -18,7 +18,7 @@ import QuestionsEditor from '../../component/QuestionsEditor/QuestionEditor';
 import ResultTableEditor from '../../component/ResultTable/ResultTableEditor';
 import AnswersTableEditor from '../../component/AnswersTableEditor/AnswersTableEditor';
 import { user, repartiCreate } from '../../store/slice/rightsSlice';
-import { IDForm } from '../../store/slice/repartoDDLSlice';
+import { IDForm } from '../../store/slice/ddlEditorFormAndRepartiSlice';
 
 const FormPaziente = () => {
   const classes = useStyles();
@@ -67,7 +67,7 @@ const FormPaziente = () => {
           ? (
 
             <>
-              {/* Tabelle Domande e risposte */}
+              {/* Tabella Domande e risposte */}
               <Grid container spacing={3}>
                 <Grid item xs={12} sm={8}>
                   <Paper className={classes.marginTable}>

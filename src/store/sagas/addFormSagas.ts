@@ -1,7 +1,10 @@
-import { call, select, put } from 'redux-saga/effects';
-import { v4 as uuidv4 } from 'uuid';
 import {
-  valueMin, valueMax, alertConfirmDelete,
+  call, select, put, all,
+} from 'redux-saga/effects';
+import { v4 as uuidv4 } from 'uuid';
+import { risposteTutteUguali } from '../slice/menuDomandeERisposteSlice';
+import {
+  valueMin, valueMax,
   result, addRisultato, dataRisultati, resetDataRisultati,
 } from '../slice/risultatiAddFormSlice';
 import {
@@ -11,7 +14,6 @@ import {
   resetAnswerValore, typeAnswer, setAddRispostaUnclicked,
   deleteDomandeObject, resetRisposteOfDomanda, setType,
 } from '../slice/risposteAddFormSlice';
-import { resetRisultati } from '../slice/risultatiFormularioSlice';
 import {
   domandaAddForm,
   domandeObject,
@@ -26,9 +28,9 @@ import {
 } from '../slice/addFormSlice';
 import { addFormPiuRisposte } from '../api';
 import { objectToArray } from '../../util';
-import { setInitialStateAction } from '../slice/initialStateSlice';
-import { resetIDForm, resetIDReparto } from '../slice/repartoDDLSlice';
+import { resetIDForm, resetIDReparto } from '../slice/ddlEditorFormAndRepartiSlice';
 import { setBSaveDisabled, setBModifyDelAddReturnDisabled } from '../slice/disableEnableSlice';
+import { openCloseSnackbarConfirmDelete } from '../slice/snackbarSlice';
 
 export default function* addFormulario() {
   const reparto = yield select(selectedReparto);
@@ -97,16 +99,30 @@ export function* addDomandaTwoResInArray() {
 export function* addDomandaMoreResInArray() {
   const IDDomanda = uuidv4();
   const Domanda = yield select(question);
-
+  const listRisposte = yield select(risposteOfDomandaObject);
+  const ansTutteUguali = yield select(risposteTutteUguali);
   yield put(setDomandaInObjectDomandeMoreRes({ IDDomanda, Domanda }));
   yield put(setBAddDomandaUnclicked());
   yield put(resetDomanda());
+
+  if (ansTutteUguali === true) {
+    const listRisposteArray = objectToArray(listRisposte);
+    const listResPrimaDomanda = objectToArray(listRisposteArray[0]);
+    yield all(listResPrimaDomanda.map((res : any) => {
+      const IDRisposta = uuidv4();
+      const { Risposta, Valore, type } = res;
+      const setRes = put(setAnswersInDomanda({
+        IDDomanda, IDRisposta, Risposta, Valore, type,
+      }));
+      return setRes;
+    }));
+    yield put(resetAnswerValore());
+  }
 }
 
 export function* clickAddButton() {
   yield put(setBAddFormClicked());
-  yield put(setInitialStateAction());
-  yield put(resetRisultati());
+
   yield put(resetDomandeOfDomandeObject());
   yield put(resetIDForm());
   yield put(resetIDReparto());
@@ -114,7 +130,7 @@ export function* clickAddButton() {
   yield put(resetRisposteOfDomanda());
 }
 export function* clickDelOrSaveButton() {
-  yield put(alertConfirmDelete());
+  yield put(openCloseSnackbarConfirmDelete());
   yield put(setBModifyDelAddReturnDisabled());
 }
 
@@ -126,19 +142,37 @@ export function* addDomandaMoreAnswers() {
   yield put(setBAddDomandaUnclicked());
 }
 export function* addRes(action:any) {
-  const IDRisposta = uuidv4();
+  const ansTutteUguali = yield select(risposteTutteUguali);
+  let IDRisposta = uuidv4();
   const RispostaWithID = yield select(answer);
   const ValorewithID = yield select(valore);
   const typeWithID = yield select(typeAnswer);
-  const IDDomanda = action.payload;
+  let IDDomanda = action.payload;
+  const IDPrimaDom = action.payload;
   const type = typeWithID[IDDomanda];
-
   const Risposta = RispostaWithID[IDDomanda];
   const Valore = ValorewithID[IDDomanda];
 
+  // Se è cliccato il risposte tutte uguali
+  if (ansTutteUguali === true) {
+    const listDomandeObj = yield select(domandeObject);
+    const listDomandeArr = objectToArray(listDomandeObj);
+    yield all(listDomandeArr.map((ques : any) => {
+      IDDomanda = ques.IDDomanda;
+      IDRisposta = uuidv4();
+      const setRes = put(setAnswersInDomanda({
+        IDDomanda, IDRisposta, Risposta, Valore, type,
+      }));
+      return setRes;
+    }));
+    yield put(resetAnswerValore());
+    yield put(setAddRispostaUnclicked(IDPrimaDom));
+    yield put(setType(IDPrimaDom));
+  }
   yield put(setAnswersInDomanda({
     IDDomanda, IDRisposta, Risposta, Valore, type,
   }));
+
   yield put(resetAnswerValore());
   yield put(setAddRispostaUnclicked(IDDomanda));
   yield put(setType(IDDomanda));

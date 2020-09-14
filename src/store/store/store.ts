@@ -2,18 +2,13 @@ import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
 import logger from 'redux-logger';
 import rootSaga from '../sagas';
-import loading from '../slice/loadingSlice';
-import risultatiFormulario from '../slice/risultatiFormularioSlice';
-import reparto from '../slice/repartoDDLSlice';
+import ddlEditorFormAndReparti from '../slice/ddlEditorFormAndRepartiSlice';
 import risultatiAddForm from '../slice/risultatiAddFormSlice';
 
-import initialState from '../slice/initialStateSlice';
-import code from '../slice/CodeSlice';
+import labelCode from '../slice/labelCodeSlice';
 import patientData from '../slice/patientDataSlice';
 import patientForm from '../slice/patientFormSlice';
 import patientInfoPDF from '../slice/patientFormPDFSlice';
-import summaryDialog from '../slice/summaryDialogSlice';
-import returnDevice from '../slice/returnDeviceSlice';
 import searchDoctor from '../slice/searchDoctorSlice';
 import addForm from '../slice/addFormSlice';
 import rights from '../slice/rightsSlice';
@@ -21,23 +16,20 @@ import domandeAddForm from '../slice/domandeAddFormSlice';
 import risposteAddForm from '../slice/risposteAddFormSlice';
 import homePage from '../slice/homePageLabelSlice';
 import disableEnable from '../slice/disableEnableSlice';
+import dialog from '../slice/dialogSlice';
+import snackbar from '../slice/snackbarSlice';
+import menuDomandeERisposte from '../slice/menuDomandeERisposteSlice';
 
 const sagaMiddleware = createSagaMiddleware();
 
 const store = configureStore({
   reducer: {
 
-    loading,
-    risultatiFormulario,
-    reparto,
-    risultatiAddForm,
-    initialState,
-    code,
+    ddlEditorFormAndReparti,
+    labelCode,
     patientData,
     patientForm,
     patientInfoPDF,
-    summaryDialog,
-    returnDevice,
     searchDoctor,
     addForm,
     rights,
@@ -45,6 +37,10 @@ const store = configureStore({
     risposteAddForm,
     homePage,
     disableEnable,
+    risultatiAddForm,
+    dialog,
+    snackbar,
+    menuDomandeERisposte,
 
   },
 

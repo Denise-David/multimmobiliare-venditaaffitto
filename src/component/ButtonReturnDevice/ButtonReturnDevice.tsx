@@ -3,11 +3,11 @@ import Button from '@material-ui/core/Button';
 
 import { useDispatch } from 'react-redux';
 import useStyles from './style';
-import { closeReturnDeviceDialog } from '../../store/slice/returnDeviceSlice';
 import { resetDomandeReparto, resetRisposte, resetBooleanAnswers } from '../../store/slice/patientFormSlice';
 import { resetAllData, setDisabledTrue } from '../../store/slice/patientDataSlice';
-import { resetCode } from '../../store/slice/CodeSlice';
+import { resetCode } from '../../store/slice/labelCodeSlice';
 import { resetSelectedForm, resetRepartoGUID, resetFormList } from '../../store/slice/homePageLabelSlice';
+import { closeReturnDeviceDialog } from '../../store/slice/dialogSlice';
 
 const ButtonReturnDevice = () => {
   const classes = useStyles();

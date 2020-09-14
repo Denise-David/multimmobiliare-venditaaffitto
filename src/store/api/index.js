@@ -86,7 +86,7 @@ export const getRepartiZAS = (zasAcronym) => axios.get(`/autoanamnesi/forwardCal
 export const getRepartiZAM = (zamAcronym) => axios.get(`/autoanamnesi/forwardCall/sermed?zamAcronym=${zamAcronym}`);
 
 // Modifica dati formulario
-export const modifyForm = (
+export const updateForm = (
   IDFormulario, GUID, nomeReparto,
   nomeForm, listDomandeAndRisposte, listRisultati, risposta1, risposta2,
 ) => struttureFormReparti.update(IDFormulario,

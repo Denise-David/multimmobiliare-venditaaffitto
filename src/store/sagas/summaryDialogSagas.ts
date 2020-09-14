@@ -2,8 +2,9 @@ import { select, put, call } from 'redux-saga/effects';
 import { oldPatientInfo, newPatientInfo } from '../slice/patientDataSlice';
 import { addRisposteFormPazienti } from '../api';
 import { risposte } from '../slice/patientFormSlice';
-import { setLastRisposta } from '../slice/returnDeviceSlice';
+
 import { objectToArray } from '../../util';
+import { setIDLastForm } from '../slice/patientFormPDFSlice';
 
 export default function* setDataRisposteFormPaziente() {
   try {
@@ -12,8 +13,8 @@ export default function* setDataRisposteFormPaziente() {
     const oldPatient = yield select(oldPatientInfo);
 
     const risData = objectToArray(ansData);
+
     const answersData = risData.map((risposta : any) => {
-      console.log('xxRes', risposta);
       const {
         idDomanda, domanda, testoRisposta, idRisposta, valore,
       } = risposta;
@@ -28,7 +29,8 @@ export default function* setDataRisposteFormPaziente() {
     });
 
     const res = yield call(addRisposteFormPazienti, oldPatient, patientData, answersData);
-    yield put(setLastRisposta(res));
+
+    yield put(setIDLastForm(res));
   } catch (error) {
     console.log('errore', error);
   }

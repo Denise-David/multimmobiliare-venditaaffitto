@@ -18,11 +18,13 @@ const domandeAddFormSlice = createSlice({
     Question: '' as string,
     domandeObject: {} as {[key:string]:domandaAddForm},
     isBCheckDisabled: false as boolean,
-    colorBCheck: 'primary' as 'primary' | 'default' |'inherit' | 'secondary' | 'default' | undefined,
     isBCheckAddDomandaDisabled: true as boolean,
-    colorBCheckAddDomanda: 'default' as 'primary' | 'default' |'inherit' | 'secondary' | 'default' | undefined,
+    expandedTable: true as boolean,
   },
   reducers: {
+    expandTable(state) {
+      state.expandedTable = !state.expandedTable;
+    },
     openCloseDomandaCard(state, { payload }) {
       state.domandeObject[payload].openCard = !state.domandeObject[payload].openCard;
     },
@@ -43,7 +45,6 @@ const domandeAddFormSlice = createSlice({
       state.isBAddDomandaclicked = false;
       state.isTextFieldNewDomandaDisabled = true;
       state.isBCheckAddDomandaDisabled = true;
-      state.colorBCheckAddDomanda = 'default';
     },
     setDomanda(state, { payload }) {
       state.Question = payload;
@@ -78,19 +79,15 @@ const domandeAddFormSlice = createSlice({
     },
     setBCheckDisabled(state) {
       state.isBCheckDisabled = true;
-      state.colorBCheck = 'default';
     },
     setBCheckEnabled(state) {
       state.isBCheckDisabled = false;
-      state.colorBCheck = 'primary';
     },
     setBCheckAddDomandaDisabled(state) {
       state.isBCheckAddDomandaDisabled = true;
-      state.colorBCheckAddDomanda = 'default';
     },
     setBCheckAddDomandaEnabled(state) {
       state.isBCheckAddDomandaDisabled = false;
-      state.colorBCheckAddDomanda = 'primary';
     },
 
   },
@@ -109,11 +106,10 @@ export const deleteDomandaFormPiuRes = (payload:any) => ({
   payload,
 });
 
+export const expandedTable = (state : State) => state.domandeAddForm.expandedTable;
 // eslint-disable-next-line max-len
 export const isBCheckAddDomandaDisabled = (state : State) => state.domandeAddForm.isBCheckAddDomandaDisabled;
-export const colorBCheckAddDomanda = (state : State) => state.domandeAddForm.colorBCheckAddDomanda;
 export const isBCheckDisabled = (state : State) => state.domandeAddForm.isBCheckDisabled;
-export const colorBCheck = (state : State) => state.domandeAddForm.colorBCheck;
 // eslint-disable-next-line max-len
 export const domandeObject = (state : State) => state.domandeAddForm.domandeObject;
 export const question = (state : State) => state.domandeAddForm.Question;
@@ -127,7 +123,7 @@ export const {
   modifyDomandaInObjectDomande, deleteDomandaInObjectDomande, setBCheckDisabled,
   setBCheckEnabled, setBCheckAddDomandaDisabled,
   setBCheckAddDomandaEnabled, resetDomandaByIDDomanda, setDomandaInObjectDomandeMoreRes,
-  setDomandeinObject,
+  setDomandeinObject, expandTable,
   resetDomandeOfDomandeObject, openCloseDomandaCard,
 
 } = domandeAddFormSlice.actions;
