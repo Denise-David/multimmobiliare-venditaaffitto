@@ -77,14 +77,14 @@ const MultipleChoiceLinePatient = () => {
                 <InputLabel id="demo-simple-select-outlined-label">
                   {' '}
                 </InputLabel>
-                {question.normalType === true
-                  ? (
-                    <DropDownListAnswersPatientForm
-                      idDomanda={question.IDDomanda}
-                      domanda={question.Domanda}
-                    />
-                  )
-                  : <></>}
+                {/* {question.normalType === true
+                  ? ( */}
+                <DropDownListAnswersPatientForm
+                  idDomanda={question.IDDomanda}
+                  domanda={question.Domanda}
+                />
+                {/* )
+                  : <></>} */}
               </FormControl>
               {listDatePicker}
             </Grid>

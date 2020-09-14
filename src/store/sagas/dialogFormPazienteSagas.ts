@@ -66,11 +66,10 @@ export default function* getDataEtichetta() {
       const booleanAnswers = dataForm.Risposte;
       yield put(getBooleanAnswers(booleanAnswers));
     } else {
-      // Prendo il GUID reparto dell'etichetta delezionata
-      const repartoGUID = hcase.actualWardGUID;
-
       // prendo il o i formulari del reparto GUID
-      const allDataReparto = yield call(fetchRepartoFormByGUID, repartoGUID);
+      const allDataReparto = yield call(
+        fetchRepartoFormByGUID, hcase.actualWardGUID || hcase.actualMedicalCategoryGUID,
+      );
       const datiDomande = allDataReparto.data[0].Domande;
       yield put(getDomandeReparto(datiDomande));
 

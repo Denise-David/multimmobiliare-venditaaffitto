@@ -40,7 +40,6 @@ export default function* addFormulario() {
   const listDomandeArray = objectToArray(listDom);
 
   if (atLeast2Res === false && listDomandeArray.length !== 0) {
-    console.log('xxprova');
     yield put(openSnackbarAtLeast2Res());
   } else {
     const reparto = yield select(selectedReparto);

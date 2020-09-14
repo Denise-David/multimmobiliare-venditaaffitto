@@ -142,8 +142,9 @@ function* initRep(action : any) {
   const dataEtichetta = yield call(getEtichettaDataByLabel, label);
   const { data = {} } = dataEtichetta;
   const { hcase = {} } = data;
-  const repartoGUID = hcase.actualWardGUID;
-  const { payload } = yield put(setRepartoGUID(repartoGUID));
+  const { payload } = yield put(
+    setRepartoGUID(hcase.actualWardGUID || hcase.actualMEdicalCategoryGUID),
+  );
 
   // prendo i formulari del reparto
   const form = yield call(fetchRepartoFormByGUID, payload);
