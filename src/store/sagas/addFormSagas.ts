@@ -2,6 +2,8 @@ import {
   call, select, put, all,
 } from 'redux-saga/effects';
 import { v4 as uuidv4 } from 'uuid';
+import startOfToday from 'date-fns/startOfToday';
+import { user } from '../slice/rightsSlice';
 import { risposteTutteUguali } from '../slice/menuDomandeERisposteSlice';
 import {
   valueMin, valueMax,
@@ -12,7 +14,7 @@ import {
   valore, answer, ris2 as Response2,
   ris1 as response1, setAnswersInDomanda,
   resetAnswerValore, typeAnswer, setAddRispostaUnclicked,
-  deleteDomandeObject, resetRisposteOfDomanda, setType,
+  deleteDomandeObject, resetRisposteOfDomanda, setType, resAtLeast2,
 } from '../slice/risposteAddFormSlice';
 import {
   domandaAddForm,
@@ -26,65 +28,78 @@ import {
 import {
   selectedReparto, nomeFormulario, setBAddFormClicked,
 } from '../slice/addFormSlice';
-import { addFormPiuRisposte } from '../api';
+import { addFormPiuRisposte, setNewStructure } from '../api';
 import { objectToArray } from '../../util';
 import { resetIDForm, resetIDReparto } from '../slice/ddlEditorFormAndRepartiSlice';
 import { setBSaveDisabled, setBModifyDelAddReturnDisabled } from '../slice/disableEnableSlice';
-import { openCloseSnackbarConfirmDelete } from '../slice/snackbarSlice';
+import { openCloseSnackbarConfirmDelete, openSnackbarAtLeast2Res } from '../slice/snackbarSlice';
 
 export default function* addFormulario() {
-  const reparto = yield select(selectedReparto);
-  const { idReparto, nomeReparto } = reparto;
-  const nomeForm = yield select(nomeFormulario);
-  const domandeAndStatus = yield select(domandeObject);
-  const ris1 = yield select(response1);
-  const { risposta1 } = ris1;
-  const ris2 = yield select(Response2);
-  const { risposta2 } = ris2;
-  const resWithStatus = yield select(dataRisultati);
-  const risposteWithStatus = yield select(risposteOfDomandaObject);
+  const atLeast2Res = yield select(resAtLeast2);
+  const listDom = yield select(domandeObject);
+  const listDomandeArray = objectToArray(listDom);
 
-  // creo un array con solo le domande senza lo stateText
-  const domandeAndStatusArray = objectToArray(domandeAndStatus);
+  if (atLeast2Res === false && listDomandeArray.length !== 0) {
+    console.log('xxprova');
+    yield put(openSnackbarAtLeast2Res());
+  } else {
+    const reparto = yield select(selectedReparto);
+    const { idReparto, nomeReparto } = reparto;
+    const nomeForm = yield select(nomeFormulario);
+    const domandeAndStatus = yield select(domandeObject);
+    const ris1 = yield select(response1);
+    const { risposta1 } = ris1;
+    const ris2 = yield select(Response2);
+    const { risposta2 } = ris2;
+    const resWithStatus = yield select(dataRisultati);
+    const risposteWithStatus = yield select(risposteOfDomandaObject);
 
-  // eslint-disable-next-line max-len
-  const domande = domandeAndStatusArray.map((domandaAndStatus: domandaAddForm) => {
-    const { IDDomanda, Domanda, Tipo } = domandaAndStatus;
-    if (domandaAndStatus.Tipo === 'a più risposte') {
-      const risposteWithStatusArray = objectToArray(risposteWithStatus[IDDomanda]);
-      const risposte = risposteWithStatusArray.map((rispostaWithStatus : any) => {
-        const {
-          IDRisposta, Risposta, Valore, type,
-        } = rispostaWithStatus;
+    // creo un array con solo le domande senza lo stateText
+    const domandeAndStatusArray = objectToArray(domandeAndStatus);
+
+    // eslint-disable-next-line max-len
+    const domande = domandeAndStatusArray.map((domandaAndStatus: domandaAddForm) => {
+      const { IDDomanda, Domanda, Tipo } = domandaAndStatus;
+      if (domandaAndStatus.Tipo === 'a più risposte') {
+        const risposteWithStatusArray = objectToArray(risposteWithStatus[IDDomanda]);
+        const risposte = risposteWithStatusArray.map((rispostaWithStatus : any) => {
+          const {
+            IDRisposta, Risposta, Valore, type,
+          } = rispostaWithStatus;
+          return {
+            IDRisposta, Risposta, Valore, type,
+          };
+        });
         return {
-          IDRisposta, Risposta, Valore, type,
+          IDDomanda, Domanda, Tipo, risposte,
         };
-      });
-      return {
-        IDDomanda, Domanda, Tipo, risposte,
-      };
-    }
-    return { IDDomanda, Domanda, Tipo };
-  });
+      }
+      return { IDDomanda, Domanda, Tipo };
+    });
     // Creo Array con solo i risultati senza gli status
-  const resWithStatusArray = objectToArray(resWithStatus);
+    const resWithStatusArray = objectToArray(resWithStatus);
 
-  const risultati = resWithStatusArray.map((risultatoWithStatus : any) => {
-    const {
-      IDRisultato, risultato, valoreMin, valoreMax,
-    } = risultatoWithStatus;
-    return {
-      IDRisultato, risultato, valoreMin, valoreMax,
-    };
-  });
-  // inserico Form piu risposte nel DB
-  yield call(addFormPiuRisposte, nomeReparto, idReparto,
-    nomeForm, domande, risultati, risposta1, risposta2);
+    const risultati = resWithStatusArray.map((risultatoWithStatus : any) => {
+      const {
+        IDRisultato, risultato, valoreMin, valoreMax,
+      } = risultatoWithStatus;
+      return {
+        IDRisultato, risultato, valoreMin, valoreMax,
+      };
+    });
+    // inserico Form piu risposte nel DB
+    yield call(addFormPiuRisposte, nomeReparto, idReparto,
+      nomeForm, domande, risultati, risposta1, risposta2);
+    const utente = yield select(user);
+    const date = startOfToday();
+    yield call(setNewStructure, nomeReparto, idReparto,
+      nomeForm, domande, risultati, risposta1, risposta2, utente, date);
 
-  yield put(resetDataRisultati());
+    yield put(resetDataRisultati());
 
-  yield put(resetDomandeOfDomandeObject());
-  yield put(setBSaveDisabled());
+    yield put(resetDomandeOfDomandeObject());
+    yield put(setBSaveDisabled());
+  }
 }
 
 export function* addDomandaTwoResInArray() {

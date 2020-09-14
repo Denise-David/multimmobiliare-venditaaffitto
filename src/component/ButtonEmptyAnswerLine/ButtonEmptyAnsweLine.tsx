@@ -5,7 +5,7 @@ import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import { isBModifyDelAddReturnDisabled, disableAll, enableAll } from '../../store/slice/disableEnableSlice';
 import {
-  setAddRispostaClicked, addRisposta, resetRispostaType, stateAddedRisposta,
+  setAddRispostaClicked, addRisposta, resetRispostaType, stateAddedRisposta, setResAtLeast2,
 } from '../../store/slice/risposteAddFormSlice';
 import { setBCheckDisabled, isBCheckDisabled } from '../../store/slice/domandeAddFormSlice';
 
@@ -43,6 +43,7 @@ const ButtonEmptyAnsweLine = ({ IDDomanda }:Props) => {
           dispatch(addRisposta(IDDomanda));
           dispatch(enableAll());
           dispatch(resetRispostaType(IDDomanda));
+          dispatch(setResAtLeast2());
         }}
         color="primary"
         disabled={bCheckDisabled}

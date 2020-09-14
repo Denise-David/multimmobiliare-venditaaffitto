@@ -149,7 +149,7 @@ function* initRep(action : any) {
   const form = yield call(fetchRepartoFormByGUID, payload);
 
   // eslint-disable-next-line no-underscore-dangle
-  const formulari = form.data.map((formu : any) => {
+  form.data.map((formu : any) => {
     const { formulario, _id } = formu;
     const res = { formulario, _id };
 

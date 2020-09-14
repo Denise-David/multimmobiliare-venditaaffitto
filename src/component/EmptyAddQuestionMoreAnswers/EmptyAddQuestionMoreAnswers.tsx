@@ -13,8 +13,9 @@ import {
   setBCheckAddDomandaEnabled, addDomandaMoreResInArray,
 } from '../../store/slice/domandeAddFormSlice';
 import {
-  isBModifyDelAddReturnDisabled, enableAll, disableAll,
+  isBModifyDelAddReturnDisabled, enableAll, disableAll, setBSaveDisabled,
 } from '../../store/slice/disableEnableSlice';
+import { unsetResAtLeast2 } from '../../store/slice/risposteAddFormSlice';
 
 const EmptyAddQuestionMoreAnswers = () => {
   const dispatch = useDispatch();
@@ -57,8 +58,8 @@ const EmptyAddQuestionMoreAnswers = () => {
                   onClick={() => {
                     dispatch(addDomandaMoreResInArray());
                     dispatch(enableAll());
-
                     setShowTextField(!showTextField);
+                    dispatch(unsetResAtLeast2());
                   }}
 
                 >
