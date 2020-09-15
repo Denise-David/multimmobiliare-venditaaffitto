@@ -12,7 +12,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   NavColor: {
     background: theme.palette.primary.main,
     padding: '2em',
-    marginBottom: theme.spacing(2),
     borderRadius: '0.5em',
   },
 

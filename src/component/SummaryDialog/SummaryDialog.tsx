@@ -12,6 +12,7 @@ import { oldPatientInfo, newPatientInfo } from '../../store/slice/patientDataSli
 import { dialogSummaryOpen } from '../../store/slice/dialogSlice';
 import { risposte } from '../../store/slice/patientFormSlice';
 import PatientNoDoctorDataSummary from '../PatientNoDoctorDataSummary/PatientNoDoctorDataSummary';
+import PatientDoctorDataSummary from '../PatientDoctorDataSummary/PatientDoctorDataSummary';
 
 const SummaryDialog = () => {
   const statusDialog = useSelector(dialogSummaryOpen);
@@ -85,7 +86,7 @@ const SummaryDialog = () => {
         <Typography className={classes.marginBottom} variant="subtitle1">
           <PatientNoDoctorDataSummary />
           <br />
-
+          <PatientDoctorDataSummary />
           <br />
           {dataPatient.insuranceCoversName === oldDataPatient.insuranceCoversName
             ? (

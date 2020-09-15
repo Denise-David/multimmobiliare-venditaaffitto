@@ -11,7 +11,7 @@ import {
   mediciTrovati, buttonSearchClicked,
   tipoDottoreScelto, resetMedici, nomeMedico, cognomeMedico,
 } from '../../store/slice/searchDoctorSlice';
-import { changePatientValue } from '../../store/slice/patientDataSlice';
+import { changePatientValue, unsetCheckboxDoctor, unsetCheckboxFamilyDoctor } from '../../store/slice/patientDataSlice';
 import { dialogSearchOpen, closeDialogSearch } from '../../store/slice/dialogSlice';
 
 const SearchDoctorDialog = () => {
@@ -47,6 +47,11 @@ const SearchDoctorDialog = () => {
           dispatch(changePatientValue({ name, value: medico }));
           dispatch(closeDialogSearch());
           dispatch(resetMedici());
+          if (name !== 'doctor') {
+            dispatch(unsetCheckboxFamilyDoctor());
+          } else if (name === 'doctor') {
+            dispatch(unsetCheckboxDoctor());
+          }
         }}
       >
         <Typography variant="body1">

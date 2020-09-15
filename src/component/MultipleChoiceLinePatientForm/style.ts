@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme:Theme) => ({
 
   },
   marginTop: {
-    marginTop: theme.spacing(3),
+    margin: theme.spacing(2),
 
   },
   datePicker: {

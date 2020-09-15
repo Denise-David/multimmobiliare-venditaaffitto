@@ -1,16 +1,18 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { oldPatientData, newPatientData } from '../../store/slice/patientFormPDFSlice';
+import { newPatientData, oldPatientData } from '../../store/slice/patientFormPDFSlice';
 import { getStringMedico } from '../../util';
 import useStyles from './style';
 
 const PatientDoctorData = () => {
   const oldDataPatient = useSelector(oldPatientData);
   const newDataPatient = useSelector(newPatientData);
+  console.log('xxold', oldDataPatient);
+  console.log('xxnew', newDataPatient);
   const classes = useStyles();
   return (
     <>
-      {oldDataPatient.familyDoctor
+      {(oldDataPatient.familyDoctor || newDataPatient.familyDoctor)
             && (
               <>
                 { getStringMedico(oldDataPatient.familyDoctor)
@@ -38,7 +40,7 @@ const PatientDoctorData = () => {
               </>
             )}
       <br />
-      {oldDataPatient.doctor
+      {(oldDataPatient.doctor || newDataPatient.doctor)
             && (
               <>
                 { getStringMedico(oldDataPatient.doctor)

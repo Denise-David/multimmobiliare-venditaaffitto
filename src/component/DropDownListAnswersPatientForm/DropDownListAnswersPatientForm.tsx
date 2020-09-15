@@ -25,7 +25,7 @@ const DropDownListAnswersPatient = ({ idDomanda, domanda } : Props) => {
 
   // eslint-disable-next-line
   const listItems = risposte ? risposte.map((risposta : Risposta) => {
-    if (risposta.type === 'normal') {
+    if (risposta.type === 'normal' || !risposta.type) {
       return (
         <MenuItem
           key={risposta.IDRisposta}

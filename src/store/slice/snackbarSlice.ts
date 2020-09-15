@@ -8,8 +8,23 @@ const snackbarSlice = createSlice({
     snackbarPatientAnswersOpen: false as boolean,
     snackbarConfirmDeleteOpen: false as boolean,
     snackbarAtLeast2ResOpen: false as boolean,
+    snackbarEmptyField: false as boolean,
+    snackbarFamilyDoctor: false as boolean,
+    snackbarDoctor: false as boolean,
   },
   reducers: {
+    closeSnackbarDoctor(state) {
+      state.snackbarDoctor = false;
+    },
+    openSnackbarDoctor(state) {
+      state.snackbarDoctor = true;
+    },
+    closeSnackbarFamilyDoctor(state) {
+      state.snackbarFamilyDoctor = false;
+    },
+    openSnackbarFamilyDoctor(state) {
+      state.snackbarFamilyDoctor = true;
+    },
     closeSnackbarLabelPage(state) {
       state.snackbarLabelOpen = false;
     },
@@ -17,10 +32,10 @@ const snackbarSlice = createSlice({
       state.snackbarLabelOpen = true;
     },
     closeSnackbarPatientAnswers(state) {
-      state.snackbarPatientAnswersOpen = true;
+      state.snackbarPatientAnswersOpen = false;
     },
     openSnackbarPatientAnswers(state) {
-      state.snackbarPatientAnswersOpen = false;
+      state.snackbarPatientAnswersOpen = true;
     },
     openCloseSnackbarConfirmDelete(state) {
       state.snackbarConfirmDeleteOpen = !state.snackbarConfirmDeleteOpen;
@@ -31,9 +46,18 @@ const snackbarSlice = createSlice({
     closeSnackbarAtLeast2Res(state) {
       state.snackbarAtLeast2ResOpen = false;
     },
+    openSnackbarFieldEmpty(state) {
+      state.snackbarEmptyField = true;
+    },
+    closeSnackbarFieldEmpty(state) {
+      state.snackbarEmptyField = false;
+    },
   },
 });
 
+export const snackbarDoctor = (state: State) => state.snackbar.snackbarDoctor;
+export const snackbarFamilyDoctor = (state: State) => state.snackbar.snackbarFamilyDoctor;
+export const snackbarEmptyField = (state : State) => state.snackbar.snackbarEmptyField;
 export const snackbarAtLeast2ResOpen = (state : State) => state.snackbar.snackbarAtLeast2ResOpen;
 export const snackbarConfirmDeleteOpen = (state :State) => state.snackbar.snackbarConfirmDeleteOpen;
 // eslint-disable-next-line max-len
@@ -42,6 +66,9 @@ export const snackbarLabelOpen = (state : State) => state.snackbar.snackbarLabel
 export const {
   closeSnackbarLabelPage, openSnackbarLabelPage,
   closeSnackbarPatientAnswers, openSnackbarPatientAnswers,
-  openCloseSnackbarConfirmDelete, openSnackbarAtLeast2Res, closeSnackbarAtLeast2Res,
+  openCloseSnackbarConfirmDelete, openSnackbarAtLeast2Res,
+  closeSnackbarAtLeast2Res, openSnackbarFieldEmpty, closeSnackbarFieldEmpty,
+  openSnackbarFamilyDoctor, closeSnackbarFamilyDoctor,
+  openSnackbarDoctor, closeSnackbarDoctor,
 } = snackbarSlice.actions;
 export default snackbarSlice.reducer;

@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   FormControlLabel, Checkbox,
 } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  risposteOfDomandaObject, setResAtLeast2, unsetResAtLeast2,
+  risposteOfDomandaObject, unsetResAtLeast2,
 } from '../../store/slice/risposteAddFormSlice';
 import { objectToArray } from '../../util';
 import { isBConfirmAddFormClicked } from '../../store/slice/addFormSlice';

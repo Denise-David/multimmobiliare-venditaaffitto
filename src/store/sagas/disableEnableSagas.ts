@@ -1,5 +1,5 @@
 import { put, select } from 'redux-saga/effects';
-import { isBConfirmAddFormClicked, nomeFormulario, buttonConfirmAddFormClicked } from '../slice/addFormSlice';
+import { isBConfirmAddFormClicked, nomeFormulario } from '../slice/addFormSlice';
 
 import {
   setBModifyDelAddReturnDisabled, setBSaveDisabled,

@@ -29,7 +29,7 @@ const patientFormSlice = createSlice({
       state.risposte[idDomanda].date = state.resDate[idDomanda];
     },
     setNormalTypePresent(state, { payload }) {
-      if (state.domandeReparto[payload].normalType === false) {
+      if (state.domandeReparto[payload].normalType !== true) {
         state.domandeReparto[payload].normalType = true;
       }
     },

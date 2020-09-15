@@ -24,7 +24,6 @@ const MultipleChoiceLinePatient = () => {
   if (!domande) {
     return <div />;
   }
-
   const listItems = domande.map((question: any, index) => {
     const { risposte } = question;
     const idDomanda = question.IDDomanda;
@@ -54,7 +53,9 @@ const MultipleChoiceLinePatient = () => {
           </div>
         );
       }
-      dispatch(setNormalTypePresent(index));
+      if (risposta.type === 'normal' && question.normalType !== true) {
+        dispatch(setNormalTypePresent(index));
+      }
       return <></>;
     });
 
@@ -77,14 +78,14 @@ const MultipleChoiceLinePatient = () => {
                 <InputLabel id="demo-simple-select-outlined-label">
                   {' '}
                 </InputLabel>
-                {/* {question.normalType === true
-                  ? ( */}
-                <DropDownListAnswersPatientForm
-                  idDomanda={question.IDDomanda}
-                  domanda={question.Domanda}
-                />
-                {/* )
-                  : <></>} */}
+                {question.normalType === true
+                  ? (
+                    <DropDownListAnswersPatientForm
+                      idDomanda={question.IDDomanda}
+                      domanda={question.Domanda}
+                    />
+                  )
+                  : <></>}
               </FormControl>
               {listDatePicker}
             </Grid>
