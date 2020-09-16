@@ -37,8 +37,8 @@ const EmptyAddQuestionMoreAnswers = () => {
                   color="primary"
                   disabled={isIconEnabled}
                   onClick={() => {
-                    dispatch(setBAddDomandaClicked());
                     dispatch(disableAll());
+                    dispatch(setBAddDomandaClicked());
                     setShowTextField(!showTextField);
                   }}
 
@@ -56,8 +56,8 @@ const EmptyAddQuestionMoreAnswers = () => {
                   disabled={bCheckDisabled}
                   color="primary"
                   onClick={() => {
-                    dispatch(addDomandaMoreResInArray());
                     dispatch(enableAll());
+                    dispatch(addDomandaMoreResInArray());
                     setShowTextField(!showTextField);
                     dispatch(unsetResAtLeast2());
                   }}

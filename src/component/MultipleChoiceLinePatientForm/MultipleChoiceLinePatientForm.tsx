@@ -12,13 +12,14 @@ import useStyles from './style';
 import DropDownListAnswersPatientForm,
 { Risposta } from '../DropDownListAnswersPatientForm/DropDownListAnswersPatientForm';
 import {
-  repartoDomande, setNormalTypePresent, resDate, setDate,
+  repartoDomande, setNormalTypePresent, resDate, setDate, intestazioneMoreAns,
 } from '../../store/slice/patientFormSlice';
 
 const MultipleChoiceLinePatient = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const dateAnswer = useSelector(resDate);
+  const intestazione = useSelector(intestazioneMoreAns);
 
   const domande = useSelector(repartoDomande);
   if (!domande) {
@@ -97,7 +98,18 @@ const MultipleChoiceLinePatient = () => {
       </div>
     );
   });
-  return <div>{listItems}</div>;
+
+  return (
+    <div>
+      {intestazione
+        ? (
+          <Typography variant="body1" align="center" className={classes.Intestazione}>
+            {intestazione}
+          </Typography>
+        ) : <></>}
+      {listItems}
+    </div>
+  );
 };
 
 export default MultipleChoiceLinePatient;

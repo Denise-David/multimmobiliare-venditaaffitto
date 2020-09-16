@@ -15,9 +15,6 @@ const struttureFormReparti = app.service('strutture_form_reparti');
 const risposteFormPazienti = app.service('risposte_form_pazienti');
 const historyEditor = app.service('history_editor');
 
-// prendi tutte le strutture formulari, filtrando quello di cui ho bisogno
-export const fetchAllFormStructure = () => struttureFormReparti.find({});
-
 // Prendi il formulario con tramite ID
 const fetchFormStructureByID = (ID) => struttureFormReparti.get(ID, {});
 export default fetchFormStructureByID;
@@ -31,7 +28,7 @@ export const fetchRepartoFormByGUID = (GUID) => struttureFormReparti.find(
 export const addFormPiuRisposte = (
   nomeReparto,
   idReparto, nomeForm,
-  domande, risultati, risposta1, risposta2,
+  domande, risultati, risposta1, risposta2, intestazioneMoreAns, intestazioneTwoAnswers,
 ) => struttureFormReparti.create(
   {
     actualWardGUID: idReparto,
@@ -39,6 +36,8 @@ export const addFormPiuRisposte = (
     formulario: nomeForm,
     Domande: domande,
     Risultati: risultati,
+    intestazionePiuRisposte: intestazioneMoreAns,
+    IntestazioneDueRisposte: intestazioneTwoAnswers,
     Risposte:
     {
       risposta1,
@@ -89,7 +88,8 @@ export const getRepartiZAM = (zamAcronym) => axios.get(`/autoanamnesi/forwardCal
 // Modifica dati formulario
 export const updateForm = (
   IDFormulario, GUID, nomeReparto,
-  nomeForm, listDomandeAndRisposte, listRisultati, risposta1, risposta2,
+  nomeForm, listDomandeAndRisposte, listRisultati, risposta1,
+  risposta2, intestazioneMoreAns, intestazioneTwoAnswers,
 ) => struttureFormReparti.update(IDFormulario,
   {
     actualWardGUID: GUID,
@@ -97,6 +97,8 @@ export const updateForm = (
     formulario: nomeForm,
     Domande: listDomandeAndRisposte,
     Risultati: listRisultati,
+    intestazionePiuRisposte: intestazioneMoreAns,
+    intestazioneDueRisposte: intestazioneTwoAnswers,
     Risposte:
     {
       risposta1,

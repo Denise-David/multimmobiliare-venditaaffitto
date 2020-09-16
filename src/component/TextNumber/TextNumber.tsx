@@ -14,7 +14,7 @@ const TextNumber = () => {
   const cancClicked = useSelector(cancelClicked);
 
   if (disabled === false) {
-    if (dataEtichetta.streetNumber === null && error === false) {
+    if (dataEtichetta.streetNumber === '' && error === false) {
       setError(!error);
       dispatch(setObligatoryFieldEmpty());
     }

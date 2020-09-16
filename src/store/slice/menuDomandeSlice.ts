@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { State } from '../store/store';
 
-const menuDomandeERisposteSlice = createSlice({
-  name: 'menuDomandeERisposte',
+const menuDomandeSlice = createSlice({
+  name: 'menuDomande',
   initialState: {
     risposteTutteUguali: false as boolean,
     intestazioneAttiva: false as boolean,
@@ -17,8 +17,8 @@ const menuDomandeERisposteSlice = createSlice({
   },
 });
 
-export const intestazioneAttiva = (state : State) => state.menuDomandeERisposte.intestazioneAttiva;
+export const intestazioneAttiva = (state : State) => state.menuDomande.intestazioneAttiva;
 // eslint-disable-next-line max-len
-export const risposteTutteUguali = (state : State) => state.menuDomandeERisposte.risposteTutteUguali;
-export const { setRisposteTutteUguali, setIntestazioneAttiva } = menuDomandeERisposteSlice.actions;
-export default menuDomandeERisposteSlice.reducer;
+export const risposteTutteUguali = (state : State) => state.menuDomande.risposteTutteUguali;
+export const { setRisposteTutteUguali, setIntestazioneAttiva } = menuDomandeSlice.actions;
+export default menuDomandeSlice.reducer;

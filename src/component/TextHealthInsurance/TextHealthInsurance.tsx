@@ -14,7 +14,7 @@ const TextCassaMalati = () => {
   const cancClicked = useSelector(cancelClicked);
 
   if (disabled === false) {
-    if (dataEtichetta.insuranceCoversName === null && error === false) {
+    if (dataEtichetta.insuranceCoversName === '' && error === false) {
       setError(!error);
       dispatch(setObligatoryFieldEmpty());
     }

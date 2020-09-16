@@ -23,7 +23,7 @@ import {
   setDomandaInObjectDomande,
   resetDomandaByIDDomanda,
   resetDomandeOfDomandeObject,
-  setDomandaInObjectDomandeMoreRes,
+  setDomandaInObjectDomandeMoreRes, intestazioneMoreAnswers, intestazioneTwoAns,
 } from '../slice/domandeAddFormSlice';
 import {
   selectedReparto, nomeFormulario, setBAddFormClicked,
@@ -52,6 +52,8 @@ export default function* addFormulario() {
     const { risposta2 } = ris2;
     const resWithStatus = yield select(dataRisultati);
     const risposteWithStatus = yield select(risposteOfDomandaObject);
+    const intestazioneMoreAns = yield select(intestazioneMoreAnswers);
+    const intestazioneTwoAnswers = yield select(intestazioneTwoAns);
 
     // creo un array con solo le domande senza lo stateText
     const domandeAndStatusArray = objectToArray(domandeAndStatus);
@@ -88,9 +90,11 @@ export default function* addFormulario() {
     });
     // inserico Form piu risposte nel DB
     yield call(addFormPiuRisposte, nomeReparto, idReparto,
-      nomeForm, domande, risultati, risposta1, risposta2);
+      nomeForm, domande, risultati, risposta1, risposta2,
+      intestazioneMoreAns, intestazioneTwoAnswers);
     const utente = yield select(user);
     const date = startOfToday();
+    // inserico il nuovo form nell history editor
     yield call(setNewStructure, nomeReparto, idReparto,
       nomeForm, domande, risultati, risposta1, risposta2, utente, date);
 

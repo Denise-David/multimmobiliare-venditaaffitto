@@ -14,7 +14,7 @@ const TextCAP = () => {
   const cancClicked = useSelector(cancelClicked);
 
   if (disabled === false) {
-    if (dataEtichetta.zip === null && error === false) {
+    if (dataEtichetta.zip === '' && error === false) {
       setError(!error);
       dispatch(setObligatoryFieldEmpty());
     }

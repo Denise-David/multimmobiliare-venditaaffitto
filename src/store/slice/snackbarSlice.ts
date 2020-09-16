@@ -11,8 +11,15 @@ const snackbarSlice = createSlice({
     snackbarEmptyField: false as boolean,
     snackbarFamilyDoctor: false as boolean,
     snackbarDoctor: false as boolean,
+    snackbarDatiPersonali: false as boolean,
   },
   reducers: {
+    closeSnackbarDatiPersonali(state) {
+      state.snackbarDatiPersonali = false;
+    },
+    openSnackbarDatiPersonali(state) {
+      state.snackbarDatiPersonali = true;
+    },
     closeSnackbarDoctor(state) {
       state.snackbarDoctor = false;
     },
@@ -55,6 +62,7 @@ const snackbarSlice = createSlice({
   },
 });
 
+export const snackbarDatiPersonali = (state:State) => state.snackbar.snackbarDatiPersonali;
 export const snackbarDoctor = (state: State) => state.snackbar.snackbarDoctor;
 export const snackbarFamilyDoctor = (state: State) => state.snackbar.snackbarFamilyDoctor;
 export const snackbarEmptyField = (state : State) => state.snackbar.snackbarEmptyField;
@@ -69,6 +77,7 @@ export const {
   openCloseSnackbarConfirmDelete, openSnackbarAtLeast2Res,
   closeSnackbarAtLeast2Res, openSnackbarFieldEmpty, closeSnackbarFieldEmpty,
   openSnackbarFamilyDoctor, closeSnackbarFamilyDoctor,
-  openSnackbarDoctor, closeSnackbarDoctor,
+  openSnackbarDoctor, closeSnackbarDoctor, openSnackbarDatiPersonali,
+  closeSnackbarDatiPersonali,
 } = snackbarSlice.actions;
 export default snackbarSlice.reducer;

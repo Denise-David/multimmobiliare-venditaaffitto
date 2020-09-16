@@ -8,22 +8,23 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { useDispatch, useSelector } from 'react-redux';
 import useStyles from './style';
 import {
-  setRisposteTutteUguali, risposteTutteUguali, setIntestazioneAttiva, intestazioneAttiva,
-} from '../../store/slice/menuDomandeERisposteSlice';
-import { resetRisposteOfDomanda } from '../../store/slice/risposteAddFormSlice';
-import { expandedTableMoreAnswers, expandTable, resetIntestazioneMoreAns } from '../../store/slice/domandeAddFormSlice';
+  setIntestazioneAttiva, intestazioneAttiva,
+} from '../../store/slice/menuDomandeSlice';
 
-const NavQuestionsAndAnswers = () => {
+import {
+  expandedTableQuestion, expandTableQuestion, resetIntestazioneTwoAns,
+} from '../../store/slice/domandeAddFormSlice';
+
+const NavQuestions = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const dispatch = useDispatch();
   const classes = useStyles();
-  const risTutteUguali = useSelector(risposteTutteUguali);
   const intestazione = useSelector(intestazioneAttiva);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
-  const expanded = useSelector(expandedTableMoreAnswers);
+  const expanded = useSelector(expandedTableQuestion);
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -42,11 +43,11 @@ const NavQuestionsAndAnswers = () => {
         <Grid item xs={8} sm={1}>
           {expanded
             ? (
-              <IconButton onClick={() => dispatch(expandTable())}>
+              <IconButton onClick={() => dispatch(expandTableQuestion())}>
                 <ExpandLessIcon fontSize="large" color="secondary" />
               </IconButton>
             ) : (
-              <IconButton onClick={() => dispatch(expandTable())}>
+              <IconButton onClick={() => dispatch(expandTableQuestion())}>
                 <ExpandMoreIcon fontSize="large" color="secondary" />
               </IconButton>
             ) }
@@ -55,7 +56,7 @@ const NavQuestionsAndAnswers = () => {
         <Grid item xs={8} sm={4}>
 
           <Typography variant="h5" align="center">
-            Domande a più risposte
+            Domande
           </Typography>
 
         </Grid>
@@ -75,31 +76,10 @@ const NavQuestionsAndAnswers = () => {
           onClose={handleClose}
         >
           <MenuItem onClick={() => {
-            dispatch(setRisposteTutteUguali());
-            handleClose();
-            if (!risTutteUguali) {
-              dispatch(resetRisposteOfDomanda());
-            }
-          }}
-          >
-            imposta risposte tutte uguali
-            <Checkbox
-              checked={risTutteUguali}
-              onChange={() => {
-                dispatch(setRisposteTutteUguali());
-                handleClose();
-                if (!risTutteUguali) {
-                  dispatch(resetRisposteOfDomanda());
-                }
-              }}
-              inputProps={{ 'aria-label': 'primary checkbox' }}
-            />
-          </MenuItem>
-          <MenuItem onClick={() => {
             dispatch(setIntestazioneAttiva());
             handleClose();
             if (intestazione) {
-              dispatch(resetIntestazioneMoreAns());
+              dispatch(resetIntestazioneTwoAns());
             }
           }}
           >
@@ -110,7 +90,7 @@ const NavQuestionsAndAnswers = () => {
                 dispatch(setIntestazioneAttiva());
                 handleClose();
                 if (intestazione) {
-                  dispatch(resetIntestazioneMoreAns());
+                  dispatch(resetIntestazioneTwoAns());
                 }
               }}
               inputProps={{ 'aria-label': 'primary checkbox' }}
@@ -123,4 +103,4 @@ const NavQuestionsAndAnswers = () => {
   );
 };
 
-export default NavQuestionsAndAnswers;
+export default NavQuestions;

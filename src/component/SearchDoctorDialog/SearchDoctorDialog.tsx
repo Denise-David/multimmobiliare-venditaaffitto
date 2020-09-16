@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-no-undef */
-import React from 'react';
+import React, { useState } from 'react';
 import Dialog from '@material-ui/core/Dialog';
 import {
   Button, TextField, Typography, MenuItem, DialogContent, DialogTitle,
@@ -24,7 +24,12 @@ const SearchDoctorDialog = () => {
   const doctorLastname = useSelector(cognomeMedico);
   const lunghezzaNome = doctorName.value ? doctorName.value.length : 0;
   const lunghezzaCognome = doctorLastname.value ? doctorLastname.value.length : 0;
-  const disabledSearchButton = lunghezzaNome + lunghezzaCognome < 3;
+  const [disabledSearchButton, setDisabled] = useState(true);
+  if (lunghezzaNome + lunghezzaCognome < 3 && disabledSearchButton === false) {
+    setDisabled(!disabledSearchButton);
+  } else if (lunghezzaNome + lunghezzaCognome >= 3 && disabledSearchButton === true) {
+    setDisabled(!disabledSearchButton);
+  }
 
   const listaMediciArray = listaMedici ? Object.keys(listaMedici).map((key) => {
     const medico = listaMedici[key];
@@ -47,6 +52,7 @@ const SearchDoctorDialog = () => {
           dispatch(changePatientValue({ name, value: medico }));
           dispatch(closeDialogSearch());
           dispatch(resetMedici());
+          setDisabled(!disabledSearchButton);
           if (name !== 'doctor') {
             dispatch(unsetCheckboxFamilyDoctor());
           } else if (name === 'doctor') {

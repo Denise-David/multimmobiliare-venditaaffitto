@@ -7,12 +7,14 @@ import { Typography, ListItem, Grid } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
 import useStyles from './style';
 import { repartoDomande, boolAnswers, setRisposta } from '../../store/slice/patientFormSlice';
+import { intestazioneTwoAns } from '../../store/slice/domandeAddFormSlice';
 
 const BooleanLinePatientForm = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const domande = useSelector(repartoDomande);
   const booleanAnswers = useSelector(boolAnswers);
+  const intestazione = useSelector(intestazioneTwoAns);
 
   const listItems = domande.map((question: any) => {
     const domanda : string = question.Domanda;
@@ -66,6 +68,12 @@ const BooleanLinePatientForm = () => {
   return (
 
     <>
+      {intestazione
+        ? (
+          <Typography variant="body1" align="center" className={classes.Intestazione}>
+            {intestazione}
+          </Typography>
+        ) : <></>}
       { listItems }
     </>
 

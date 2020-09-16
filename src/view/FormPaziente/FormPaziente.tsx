@@ -46,6 +46,7 @@ import {
 } from '../../store/slice/snackbarSlice';
 import SnackbarFamilyDoctor from '../../component/SnackbarFamilyDoctor/SnackbarFamilyDoctor';
 import SnackbarDoctor from '../../component/SnackbarDoctor/SnackbarDoctor';
+import SnackbarDatiPersonali from '../../component/SnackbarDatiPersonali/SnackbarDatiPersonali';
 
 const FormPaziente = () => {
   const classes = useStyles();
@@ -249,6 +250,7 @@ const FormPaziente = () => {
             <MultipleChoiceLinePatientForm />
           </List>
           <BooleanLinePatientForm />
+          <SnackbarDatiPersonali />
           <Snackbar
             open={statusSnackbar}
             autoHideDuration={4000}

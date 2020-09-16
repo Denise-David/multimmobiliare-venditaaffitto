@@ -4,6 +4,7 @@ import { IconButton } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import { useSelector, useDispatch } from 'react-redux';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import {
   addRisultatoClicked,
   resetRisultato,
@@ -27,45 +28,64 @@ const EmptyResultLineEditor = () => {
   return (
     <div>
       <Grid container spacing={3}>
-        <Grid item xs={12} sm={1} />
-        <Grid item xs={12} sm={1}>
-          {rightRepModify || confirmAddForm
-            ? (
-              <>
-                {' '}
-                {textFieldDisabled
-                  ? (
-                    <IconButton
-                      onClick={() => {
-                        dispatch(disableAll());
-                        dispatch(setBCheckDisabled());
-                        setTextField(!textFieldDisabled);
-                      }}
-                      disabled={iconsDisabled}
-                      color="primary"
-                    >
-                      <AddCircleOutlineIcon />
-                    </IconButton>
-                  ) : (
-                    <IconButton
-                      onClick={() => {
-                        dispatch(addRisultatoClicked());
-                        dispatch(enableAll());
-                        dispatch(resetRisultato());
-                        setTextField(textFieldDisabled);
-                      }}
-                      disabled={bCheckDisabled}
-                      color="primary"
 
-                    >
-                      <CheckCircleOutlineIcon />
-                    </IconButton>
-                  ) }
-                {' '}
+        {rightRepModify || confirmAddForm
+          ? (
+            <>
+              {' '}
+              {textFieldDisabled
+                ? (
+                  <>
+                    <Grid item xs={12} sm={1} />
+                    <Grid item xs={12} sm={1}>
+                      <IconButton
+                        onClick={() => {
+                          dispatch(disableAll());
+                          dispatch(setBCheckDisabled());
+                          setTextField(!textFieldDisabled);
+                        }}
+                        disabled={iconsDisabled}
+                        color="primary"
+                      >
+                        <AddCircleOutlineIcon />
+                      </IconButton>
+                    </Grid>
+                  </>
+                ) : (
+                  <>
+                    <Grid item xs={12} sm={1}>
+                      <IconButton
+                        onClick={() => {
+                          dispatch(addRisultatoClicked());
+                          dispatch(enableAll());
+                          dispatch(resetRisultato());
+                          setTextField(textFieldDisabled);
+                        }}
+                        disabled={bCheckDisabled}
+                        color="primary"
+                      >
+                        <CheckCircleOutlineIcon />
+                      </IconButton>
+                    </Grid>
+                    <Grid item xs={12} sm={1}>
+                      <IconButton
+                        color="primary"
+                        onClick={() => {
+                          dispatch(enableAll());
+                          dispatch(resetRisultato());
+                          setTextField(!textFieldDisabled);
+                        }}
+                      >
+                        <HighlightOffIcon />
+                      </IconButton>
+                    </Grid>
+                  </>
+                ) }
+              {' '}
 
-              </>
-            ) : <></>}
-        </Grid>
+            </>
+          ) : <></>}
+
         <TextFieldEmptyResultLine textFieldDisabled={textFieldDisabled} />
       </Grid>
     </div>

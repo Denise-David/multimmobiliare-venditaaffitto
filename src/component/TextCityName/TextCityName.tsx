@@ -14,7 +14,7 @@ const TextCityName = () => {
   const cancClicked = useSelector(cancelClicked);
 
   if (disabled === false) {
-    if (dataEtichetta.cityName === null && error === false) {
+    if (dataEtichetta.cityName === '' && error === false) {
       setError(!error);
       dispatch(setObligatoryFieldEmpty());
     }

@@ -11,7 +11,7 @@ import useStyles from './style';
 import {
   domandeObject, modifyDomandaInObjectDomande,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  setBCheckDisabled, isBCheckDisabled, setBCheckEnabled, domandaAddForm,
+  setBCheckDisabled, isBCheckDisabled, setBCheckEnabled, domandaAddForm, expandedTableQuestion,
 } from '../../store/slice/domandeAddFormSlice';
 import { objectToArray } from '../../util';
 import {
@@ -21,6 +21,8 @@ import { haveRepModifyRight } from '../../store/slice/rightsSlice';
 import EmptyAddQuestion2Answers from '../EmptyAddQuestion2Answers/EmptyAddQuestion2Answers';
 import TextFieldIntestazione from '../TextFieldIntestazione/TextFieldIntestazione';
 import ButtonsQuestion from '../ButtonsQuestion/ButtonsQuestion';
+import NavQuestions from '../NavQuestions/NavQuestions';
+import { intestazioneAttiva } from '../../store/slice/menuDomandeSlice';
 
 const QuestionsEditor = () => {
   const dispatch = useDispatch();
@@ -31,6 +33,8 @@ const QuestionsEditor = () => {
   const bCheckDisabled = useSelector(isBCheckDisabled);
   const rightRepModify = useSelector(haveRepModifyRight);
   const confirmAddReparto = useSelector(isBConfirmAddFormClicked);
+  const expanded = useSelector(expandedTableQuestion);
+  const intAttiva = useSelector(intestazioneAttiva);
 
   // eslint-disable-next-line no-shadow
   const listNewDomande = domandeAddFormArray.map((domandaAddForm : domandaAddForm, index : any) => {
@@ -77,43 +81,28 @@ const QuestionsEditor = () => {
       </div>
     );
   });
-  const [expanded, setExpanded] = useState(true);
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
   return (
 
     <div>
-      <AppBar position="static" className={classes.NavColor}>
-        <Typography variant="h5" align="left">
-          {expanded
-            ? (
-              <IconButton onClick={handleExpandClick} className={classes.space}>
-                <ExpandLessIcon fontSize="large" color="secondary" />
-              </IconButton>
-            ) : (
-              <IconButton onClick={handleExpandClick} className={classes.space}>
-                <ExpandMoreIcon fontSize="large" color="secondary" />
-              </IconButton>
-            ) }
-          Domande
-        </Typography>
-      </AppBar>
+      <NavQuestions />
       <Collapse in={expanded}>
         <div className={classes.padding}>
           <div className={classes.marginDivider} />
-
-          <TextFieldIntestazione />
+          {intAttiva
+            ? <TextFieldIntestazione /> : <></>}
 
           {listNewDomande}
 
           {rightRepModify || confirmAddReparto
             ? <EmptyAddQuestion2Answers /> : <></>}
-          <Typography className={classes.marginGenerico} variant="body1">
-            * L&apos;intestazione è quella porzione di testo che viene messa
-            all&apos;inizio di ogni domanda.
-          </Typography>
+          {intAttiva
+            ? (
+              <Typography className={classes.marginGenerico} variant="body1">
+                * L&apos;intestazione è quella porzione di testo che viene messa
+                all&apos;inizio di ogni domanda.
+              </Typography>
+            ) : <></>}
         </div>
       </Collapse>
     </div>

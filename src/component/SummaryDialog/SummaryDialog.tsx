@@ -30,8 +30,9 @@ const SummaryDialog = () => {
   const listRisposte = answersArray ? answersArray.map((risposta :any) => {
     const objDate = risposta.date ? risposta.date : [];
     const arrayDate = objectToArray(objDate);
+    const indexPuntoDomanda = risposta.domanda ? risposta.domanda.indexOf('?') : <></>;
     const noPuntoDiDomanda = risposta.domanda
-      ? risposta.domanda.substring(0, risposta.domanda.length - 1)
+      ? risposta.domanda.substring(0, indexPuntoDomanda - 1)
       : <></>;
     const listDate = arrayDate ? arrayDate.map((data:any) => (
 

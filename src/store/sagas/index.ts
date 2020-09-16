@@ -1,6 +1,7 @@
 import {
   all, takeLatest, call, put, select, takeEvery,
 } from 'redux-saga/effects';
+import { setRepartoGUID, setFormulariList } from '../slice/homePageLabelSlice';
 import { setNomeFormulario } from '../slice/addFormSlice';
 import { formulariByReparto, setFormulari } from '../slice/rightsSlice';
 import { setRisposteOfDomandaInObject, getRisposta2, getRisposta1 } from '../slice/risposteAddFormSlice';
@@ -20,7 +21,7 @@ import confirmAddForm, { changeRep, cancelAddForm } from './departmentChoiceEdit
 import fetchFormStructureByID, { fetchRepartoFormByGUID, getEtichettaDataByLabel } from '../api';
 import { setDomandeinObject } from '../slice/domandeAddFormSlice';
 import { setRisultatiInObject } from '../slice/risultatiAddFormSlice';
-import { setRepartoGUID, setFormulariList } from '../slice/homePageLabelSlice';
+
 import confirmDelForm from './deleteFormSagas';
 import saveModify from './modifyFormSagas';
 import allDisabled, { allEnabled } from './disableEnableSagas';
@@ -40,8 +41,8 @@ function* init(action : any) {
 
       return res;
     });
+
     yield put(setFormulari(formulari));
-    yield put(setFormulariList(formulari));
 
     if (formulari.length === 0) {
       yield put(setDDLFormDisabled());
@@ -143,11 +144,12 @@ function* initRep(action : any) {
   const { data = {} } = dataEtichetta;
   const { hcase = {} } = data;
   const { payload } = yield put(
-    setRepartoGUID(hcase.actualWardGUID || hcase.actualMEdicalCategoryGUID),
+    setRepartoGUID(hcase.actualMedicalCategoryGUID || hcase.actualWardGUID),
   );
 
   // prendo i formulari del reparto
   const form = yield call(fetchRepartoFormByGUID, payload);
+  yield put(setFormulariList(form.data));
 
   // eslint-disable-next-line no-underscore-dangle
   form.data.map((formu : any) => {

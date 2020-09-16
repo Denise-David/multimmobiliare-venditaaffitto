@@ -16,7 +16,7 @@ export default function* initPDFPatientAnswers(action : any) {
     const { actualWardGUID = '', actualMedicalCategoryGUID = '' } = hcase;
 
     const dataReparto = yield call(
-      fetchRepartoFormByGUID, actualWardGUID || actualMedicalCategoryGUID,
+      fetchRepartoFormByGUID, actualMedicalCategoryGUID || actualWardGUID,
     );
 
     const datiReparto = dataReparto.data;

@@ -10,8 +10,16 @@ const patientFormSlice = createSlice({
     risposte: {} as any,
     boolAnswers: {} as any,
     resDate: { } as any,
+    intestazioneMoreAnswers: '' as string,
+    intestazioneTwoAnswers: '' as string,
   },
   reducers: {
+    setIntestazioneMoreAns(state, { payload }) {
+      state.intestazioneMoreAnswers = payload;
+    },
+    setIntestazioneTwoAns(state, { payload }) {
+      state.intestazioneMoreAnswers = payload;
+    },
     setDate(state, { payload }) {
       const { idRisposta, idDomanda, domanda } = payload;
       if (!state.resDate[idDomanda] && !state.risposte[idDomanda]) {
@@ -61,6 +69,7 @@ export const buttonSendForm = () => ({
 
 });
 
+export const intestazioneMoreAns = (state:State) => state.patientForm.intestazioneMoreAnswers;
 export const resDate = (state : State) => state.patientForm.resDate;
 export const boolAnswers = (state : State) => state.patientForm.boolAnswers;
 export const risposte = (state : State) => state.patientForm.risposte;
@@ -70,7 +79,7 @@ export const {
   setRisposta, getBooleanAnswers,
   resetDomandeReparto,
   resetBooleanAnswers, resetRisposte, setNormalTypePresent,
-  setDate,
+  setDate, setIntestazioneMoreAns, setIntestazioneTwoAns,
 
 } = patientFormSlice.actions;
 export default patientFormSlice.reducer;

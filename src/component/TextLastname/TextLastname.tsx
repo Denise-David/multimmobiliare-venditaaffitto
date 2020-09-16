@@ -14,7 +14,7 @@ const TextLastname = () => {
   const cancClicked = useSelector(cancelClicked);
 
   if (disabled === false) {
-    if (dataEtichetta.familyname === null && error === false) {
+    if (dataEtichetta.familyname === '' && error === false) {
       setError(!error);
       dispatch(setObligatoryFieldEmpty());
     }
