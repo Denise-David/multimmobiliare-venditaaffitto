@@ -1,5 +1,6 @@
 import { put, select, call } from 'redux-saga/effects';
 import startOfToday from 'date-fns/startOfToday';
+import { groups } from '../slice/groupSlice';
 import {
   risposteOfDomandaObject, ris2, ris1, resAtLeast2,
 } from '../slice/risposteAddFormSlice';
@@ -45,7 +46,9 @@ export default function* saveModify() {
       const objRisposte = yield select(risposteOfDomandaObject);
 
       const listDomandeAndRisposte = listDomande.map((domanda : any) => {
-        const { IDDomanda, Domanda, Tipo } = domanda;
+        const {
+          IDDomanda, Domanda, Tipo, group,
+        } = domanda;
         if (Tipo === 'a più risposte') {
           const listRisposte = objectToArray(objRisposte[IDDomanda]);
           const risposte = listRisposte?.map((risposta : any) => {
@@ -57,12 +60,24 @@ export default function* saveModify() {
             };
           });
           return {
-            IDDomanda, Domanda, Tipo, risposte,
+            IDDomanda, Domanda, Tipo, risposte, group,
           };
         }
         return {
-          IDDomanda, Domanda, Tipo,
+          IDDomanda, Domanda, Tipo, group,
         };
+      });
+
+      listDomandeAndRisposte.sort((a, b) => {
+        const IDGroupA = a.group?.toUpperCase() ? a.group?.toUpperCase() : '';
+        const IDGroupB = b.group?.toUpperCase() ? b.group?.toUpperCase() : '';
+        if (IDGroupA < IDGroupB) {
+          return -1;
+        }
+        if (IDGroupA > IDGroupB) {
+          return 1;
+        }
+        return 0;
       });
       const listRisultati = objectToArray(objRisultati);
       const ans1 = yield select(ris1);
@@ -72,13 +87,14 @@ export default function* saveModify() {
       const utente = yield select(user);
       const date = startOfToday();
       const formulario = yield call(fetchFormStructureByID, IDFormulario);
+      const gruppi = yield select(groups);
 
       yield call(updateForm, IDFormulario, GUID, nomeReparto,
-        nomeForm, listDomandeAndRisposte, listRisultati, risposta1,
+        nomeForm, gruppi, listDomandeAndRisposte, listRisultati, risposta1,
         risposta2, intestazioneMoreAns, intestazioneTwoAnswers);
 
       yield call(setNewAndOldStructure, GUID, nomeReparto,
-        nomeForm, listDomandeAndRisposte, listRisultati, risposta1,
+        nomeForm, gruppi, listDomandeAndRisposte, listRisultati, risposta1,
         risposta2, date, formulario, utente);
       yield put(buttonCancelAddFormClicked());
     }

@@ -15,11 +15,12 @@ import {
 import { objectToArray } from '../../util';
 import { isBConfirmAddFormClicked } from '../../store/slice/addFormSlice';
 import { haveRepModifyRight } from '../../store/slice/rightsSlice';
-import { intestazioneAttiva, risposteTutteUguali } from '../../store/slice/menuDomandeERisposteSlice';
+import { intestazioneAttiva, raggruppaAttivo, risposteTutteUguali } from '../../store/slice/menuDomandeERisposteSlice';
 import HeaderRisposteMoreAnswers from '../HeaderRisposteMoreAnswers/HeaderRisposteMoreAnswers';
 import ButtonsQuestionsAndAnswers from '../ButtonsQuestionsAndAnswers/ButtonsQuestionsAndAnswers';
 import NavQuestionsAndAnswers from '../NavQuestionsAndAnswers/NavQuestionsAnsAnswers';
 import TextFieldIntestazioneQuesMoreAnswers from '../TextFieldIntestazioneQuesMoreAnswers/TextFieldIntestazioneQuesMoreAnsw';
+import DropDownListGroup from '../DropDownListGroup/DropDownListGroup';
 
 const QuestionsAndAnswersEditor = () => {
   const dispatch = useDispatch();
@@ -32,6 +33,7 @@ const QuestionsAndAnswersEditor = () => {
   const expanded = useSelector(expandedTableMoreAnswers);
   const risTutteUguali = useSelector(risposteTutteUguali);
   const intestazione = useSelector(intestazioneAttiva);
+  const group = useSelector(raggruppaAttivo);
 
   // vista domande da aggiunta nuovo form
   const listDomandeAdded = arrayDomandeAdded.map((domanda : any, index) => {
@@ -98,13 +100,19 @@ const QuestionsAndAnswersEditor = () => {
                         />
                         {rightRepModify || confirmAddFormClicked
                           ? <EmptyAnswerLineEditor IDDomanda={domanda.IDDomanda} /> : <></>}
+
                       </Collapse>
                     )}
+                </div>
+                <div className={classes.bordi}>
+                  {group
+                    ? <DropDownListGroup IDDomanda={domanda.IDDomanda} /> : <></>}
                 </div>
               </Card>
               {' '}
             </>
           ) : <></>}
+
       </div>
     );
   });

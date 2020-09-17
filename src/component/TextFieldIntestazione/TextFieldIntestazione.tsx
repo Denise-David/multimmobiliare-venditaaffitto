@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Grid, Typography, TextField, Switch,
+  Grid, Typography, TextField,
 } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import useStyles from './style';

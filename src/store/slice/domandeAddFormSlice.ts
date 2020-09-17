@@ -9,7 +9,8 @@ export interface domandaAddForm {
    Domanda : string,
    stateText : boolean,
    openCard: boolean,
-    Risposte? : []}
+    Risposte? : []
+  group? : string, }
 
 const domandeAddFormSlice = createSlice({
   name: 'domandeAddForm',
@@ -26,6 +27,10 @@ const domandeAddFormSlice = createSlice({
     intestazioneTwoAns: '' as string,
   },
   reducers: {
+    setGroupSelected(state, { payload }) {
+      const { value, IDDomanda } = payload;
+      state.domandeObject[IDDomanda].group = value;
+    },
     setIntestazioneMoreAns(state, { payload }) {
       state.intestazioneMoreAns = payload;
     },
@@ -147,6 +152,7 @@ export const {
   setDomandeinObject, expandTable, setIntestazioneTwoAns, resetIntestazioneTwoAns,
   resetDomandeOfDomandeObject, openCloseDomandaCard,
   setIntestazioneMoreAns, resetIntestazioneMoreAns, expandTableQuestion,
+  setGroupSelected,
 
 } = domandeAddFormSlice.actions;
 export default domandeAddFormSlice.reducer;

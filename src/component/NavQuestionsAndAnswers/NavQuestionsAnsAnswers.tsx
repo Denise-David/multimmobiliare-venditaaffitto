@@ -8,10 +8,12 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { useDispatch, useSelector } from 'react-redux';
 import useStyles from './style';
 import {
-  setRisposteTutteUguali, risposteTutteUguali, setIntestazioneAttiva, intestazioneAttiva,
+  setRisposteTutteUguali, risposteTutteUguali, setIntestazioneAttiva,
+  intestazioneAttiva, raggruppaAttivo, setGroupAttivi,
 } from '../../store/slice/menuDomandeERisposteSlice';
 import { resetRisposteOfDomanda } from '../../store/slice/risposteAddFormSlice';
 import { expandedTableMoreAnswers, expandTable, resetIntestazioneMoreAns } from '../../store/slice/domandeAddFormSlice';
+import { openDialogGroup } from '../../store/slice/dialogSlice';
 
 const NavQuestionsAndAnswers = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -20,6 +22,7 @@ const NavQuestionsAndAnswers = () => {
   const classes = useStyles();
   const risTutteUguali = useSelector(risposteTutteUguali);
   const intestazione = useSelector(intestazioneAttiva);
+  const group = useSelector(raggruppaAttivo);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -74,6 +77,7 @@ const NavQuestionsAndAnswers = () => {
           open={open}
           onClose={handleClose}
         >
+          <Grid container />
           <MenuItem onClick={() => {
             dispatch(setRisposteTutteUguali());
             handleClose();
@@ -82,18 +86,22 @@ const NavQuestionsAndAnswers = () => {
             }
           }}
           >
-            imposta risposte tutte uguali
-            <Checkbox
-              checked={risTutteUguali}
-              onChange={() => {
-                dispatch(setRisposteTutteUguali());
-                handleClose();
-                if (!risTutteUguali) {
-                  dispatch(resetRisposteOfDomanda());
-                }
-              }}
-              inputProps={{ 'aria-label': 'primary checkbox' }}
-            />
+            <Grid item xs={12} sm={2}>
+              <Checkbox
+                checked={risTutteUguali}
+                onChange={() => {
+                  dispatch(setRisposteTutteUguali());
+                  handleClose();
+                  if (!risTutteUguali) {
+                    dispatch(resetRisposteOfDomanda());
+                  }
+                }}
+                inputProps={{ 'aria-label': 'primary checkbox' }}
+              />
+            </Grid>
+            <Grid item xs={12} sm={10}>
+              imposta risposte tutte uguali
+            </Grid>
           </MenuItem>
           <MenuItem onClick={() => {
             dispatch(setIntestazioneAttiva());
@@ -103,7 +111,6 @@ const NavQuestionsAndAnswers = () => {
             }
           }}
           >
-            metti intestazione
             <Checkbox
               checked={intestazione}
               onClick={() => {
@@ -115,7 +122,45 @@ const NavQuestionsAndAnswers = () => {
               }}
               inputProps={{ 'aria-label': 'primary checkbox' }}
             />
+            metti intestazione
+
           </MenuItem>
+          <MenuItem onClick={() => {
+            dispatch(setGroupAttivi());
+            handleClose();
+            if (intestazione) {
+              dispatch(resetIntestazioneMoreAns());
+            }
+          }}
+          >
+            <Checkbox
+              checked={group}
+              onClick={() => {
+                dispatch(setGroupAttivi());
+                handleClose();
+                if (intestazione) {
+                  dispatch(resetIntestazioneMoreAns());
+                }
+              }}
+              inputProps={{ 'aria-label': 'primary checkbox' }}
+            />
+            raggruppa
+
+          </MenuItem>
+          <MenuItem
+            className={classes.menuItem}
+            onClick={() => {
+              dispatch(openDialogGroup());
+              handleClose();
+            }}
+          >
+
+            <Grid item xs={12} sm={2} />
+            <Grid item xs={12} sm={10}>
+              gestisci gruppi
+            </Grid>
+          </MenuItem>
+
         </Menu>
       </Grid>
     </AppBar>

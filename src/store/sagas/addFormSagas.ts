@@ -3,6 +3,7 @@ import {
 } from 'redux-saga/effects';
 import { v4 as uuidv4 } from 'uuid';
 import startOfToday from 'date-fns/startOfToday';
+import { groups } from '../slice/groupSlice';
 import { user } from '../slice/rightsSlice';
 import { risposteTutteUguali } from '../slice/menuDomandeERisposteSlice';
 import {
@@ -28,7 +29,7 @@ import {
 import {
   selectedReparto, nomeFormulario, setBAddFormClicked,
 } from '../slice/addFormSlice';
-import { addFormPiuRisposte, setNewStructure } from '../api';
+import { addForm, setNewStructure } from '../api';
 import { objectToArray } from '../../util';
 import { resetIDForm, resetIDReparto } from '../slice/ddlEditorFormAndRepartiSlice';
 import { setBSaveDisabled, setBModifyDelAddReturnDisabled } from '../slice/disableEnableSlice';
@@ -54,13 +55,16 @@ export default function* addFormulario() {
     const risposteWithStatus = yield select(risposteOfDomandaObject);
     const intestazioneMoreAns = yield select(intestazioneMoreAnswers);
     const intestazioneTwoAnswers = yield select(intestazioneTwoAns);
+    const gruppi = yield select(groups);
 
     // creo un array con solo le domande senza lo stateText
     const domandeAndStatusArray = objectToArray(domandeAndStatus);
 
     // eslint-disable-next-line max-len
     const domande = domandeAndStatusArray.map((domandaAndStatus: domandaAddForm) => {
-      const { IDDomanda, Domanda, Tipo } = domandaAndStatus;
+      const {
+        IDDomanda, Domanda, Tipo, group,
+      } = domandaAndStatus;
       if (domandaAndStatus.Tipo === 'a più risposte') {
         const risposteWithStatusArray = objectToArray(risposteWithStatus[IDDomanda]);
         const risposte = risposteWithStatusArray.map((rispostaWithStatus : any) => {
@@ -72,10 +76,21 @@ export default function* addFormulario() {
           };
         });
         return {
-          IDDomanda, Domanda, Tipo, risposte,
+          IDDomanda, Domanda, Tipo, risposte, group,
         };
       }
       return { IDDomanda, Domanda, Tipo };
+    });
+    domande.sort((a, b) => {
+      const IDGroupA = a.group?.toUpperCase() ? a.group?.toUpperCase() : '';
+      const IDGroupB = b.group?.toUpperCase() ? b.group?.toUpperCase() : '';
+      if (IDGroupA < IDGroupB) {
+        return -1;
+      }
+      if (IDGroupA > IDGroupB) {
+        return 1;
+      }
+      return 0;
     });
     // Creo Array con solo i risultati senza gli status
     const resWithStatusArray = objectToArray(resWithStatus);
@@ -89,14 +104,14 @@ export default function* addFormulario() {
       };
     });
     // inserico Form piu risposte nel DB
-    yield call(addFormPiuRisposte, nomeReparto, idReparto,
-      nomeForm, domande, risultati, risposta1, risposta2,
+    yield call(addForm, nomeReparto, idReparto,
+      nomeForm, gruppi, domande, risultati, risposta1, risposta2,
       intestazioneMoreAns, intestazioneTwoAnswers);
     const utente = yield select(user);
     const date = startOfToday();
     // inserico il nuovo form nell history editor
     yield call(setNewStructure, nomeReparto, idReparto,
-      nomeForm, domande, risultati, risposta1, risposta2, utente, date);
+      nomeForm, domande, gruppi, risultati, risposta1, risposta2, utente, date);
 
     yield put(resetDataRisultati());
 

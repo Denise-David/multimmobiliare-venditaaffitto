@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import {
-  IconButton, Paper, Typography, AppBar, Collapse,
+  Paper, Typography, Collapse,
 } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import { useSelector, useDispatch } from 'react-redux';
-import ExpandLessIcon from '@material-ui/icons/ExpandLess';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+
 import useStyles from './style';
 import {
   domandeObject, modifyDomandaInObjectDomande,

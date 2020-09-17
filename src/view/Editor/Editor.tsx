@@ -19,6 +19,7 @@ import ResultTableEditor from '../../component/ResultTable/ResultTableEditor';
 import AnswersTableEditor from '../../component/AnswersTableEditor/AnswersTableEditor';
 import { user, repartiCreate } from '../../store/slice/rightsSlice';
 import { IDForm } from '../../store/slice/ddlEditorFormAndRepartiSlice';
+import GroupDialog from '../../component/GroupDialog/GroupDialog';
 
 const FormPaziente = () => {
   const classes = useStyles();
@@ -63,6 +64,7 @@ const FormPaziente = () => {
           {username}
         </Typography>
         <HeaderEditor />
+        <GroupDialog />
         {IDFormSelected !== '-1' || confirmAddForm
           ? (
 

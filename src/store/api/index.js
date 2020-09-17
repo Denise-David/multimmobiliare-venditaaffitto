@@ -25,15 +25,16 @@ export const fetchRepartoFormByGUID = (GUID) => struttureFormReparti.find(
 );
 
 // Aggiungi formulario piu risposte
-export const addFormPiuRisposte = (
+export const addForm = (
   nomeReparto,
-  idReparto, nomeForm,
+  idReparto, nomeForm, gruppi,
   domande, risultati, risposta1, risposta2, intestazioneMoreAns, intestazioneTwoAnswers,
 ) => struttureFormReparti.create(
   {
     actualWardGUID: idReparto,
     Reparto: nomeReparto,
     formulario: nomeForm,
+    gruppi,
     Domande: domande,
     Risultati: risultati,
     intestazionePiuRisposte: intestazioneMoreAns,
@@ -89,12 +90,13 @@ export const getRepartiZAM = (zamAcronym) => axios.get(`/autoanamnesi/forwardCal
 export const updateForm = (
   IDFormulario, GUID, nomeReparto,
   nomeForm, listDomandeAndRisposte, listRisultati, risposta1,
-  risposta2, intestazioneMoreAns, intestazioneTwoAnswers,
+  risposta2, intestazioneMoreAns, intestazioneTwoAnswers, gruppi,
 ) => struttureFormReparti.update(IDFormulario,
   {
     actualWardGUID: GUID,
     Reparto: nomeReparto,
     formulario: nomeForm,
+    gruppi,
     Domande: listDomandeAndRisposte,
     Risultati: listRisultati,
     intestazionePiuRisposte: intestazioneMoreAns,
@@ -123,7 +125,7 @@ export const setOldStructure = (formulario, utente, date) => historyEditor.creat
 
 // per l'history quando creo un nuovo formulario
 export const setNewStructure = (nomeReparto,
-  GUID, nomeForm,
+  GUID, nomeForm, gruppi,
   domande, risultati, risposta1, risposta2, utente, date) => historyEditor.create(
 
   {
@@ -134,6 +136,7 @@ export const setNewStructure = (nomeReparto,
       actualWardGUID: GUID,
       Reparto: nomeReparto,
       formulario: nomeForm,
+      gruppi,
       Domande: domande,
       Risultati: risultati,
       Risposte:
@@ -147,7 +150,7 @@ export const setNewStructure = (nomeReparto,
 );
 
 // aggiungiamo all'history il nuovo e vecchio formulario quando si modifica
-export const setNewAndOldStructure = (GUID, nomeReparto,
+export const setNewAndOldStructure = (GUID, gruppi, nomeReparto,
   nomeForm, listDomandeAndRisposte, listRisultati,
   risposta1, risposta2, date, formulario, utente) => historyEditor.create(
 
@@ -161,6 +164,7 @@ export const setNewAndOldStructure = (GUID, nomeReparto,
       actualWardGUID: GUID,
       Reparto: nomeReparto,
       formulario: nomeForm,
+      gruppi,
       Domande: listDomandeAndRisposte,
       Risultati: listRisultati,
       Risposte:

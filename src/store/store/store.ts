@@ -20,6 +20,7 @@ import dialog from '../slice/dialogSlice';
 import snackbar from '../slice/snackbarSlice';
 import menuDomandeERisposte from '../slice/menuDomandeERisposteSlice';
 import menuDomande from '../slice/menuDomandeSlice';
+import group from '../slice/groupSlice';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -43,6 +44,7 @@ const store = configureStore({
     snackbar,
     menuDomandeERisposte,
     menuDomande,
+    group,
 
   },
 
