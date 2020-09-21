@@ -21,21 +21,36 @@ const ResultTableEditor = () => {
     <div>
 
       <Paper>
+
         <AppBar position="static" className={classes.NavColor}>
-          <Typography variant="h5" align="left">
-            {expanded
-              ? (
-                <IconButton onClick={handleExpandClick} className={classes.space}>
-                  <ExpandLessIcon fontSize="large" color="secondary" />
-                </IconButton>
-              ) : (
-                <IconButton onClick={handleExpandClick} className={classes.space}>
-                  <ExpandMoreIcon fontSize="large" color="secondary" />
-                </IconButton>
-              ) }
-            Risultati
-          </Typography>
+          <Grid
+            container
+            spacing={1}
+            direction="row"
+            justify="space-between"
+            alignItems="center"
+          >
+            <Grid item xs={4} sm={1}>
+              {expanded
+                ? (
+                  <IconButton onClick={handleExpandClick} className={classes.space}>
+                    <ExpandLessIcon fontSize="large" color="secondary" />
+                  </IconButton>
+                ) : (
+                  <IconButton onClick={handleExpandClick} className={classes.space}>
+                    <ExpandMoreIcon fontSize="large" color="secondary" />
+                  </IconButton>
+                ) }
+            </Grid>
+            <Grid item xs={4} sm={2}>
+              <Typography variant="h5" align="center">
+                Risultati
+              </Typography>
+            </Grid>
+            <Grid item xs={4} sm={1} />
+          </Grid>
         </AppBar>
+
         <Collapse in={expanded}>
           <div className={classes.padding}>
             <div className={classes.marginDivider}>

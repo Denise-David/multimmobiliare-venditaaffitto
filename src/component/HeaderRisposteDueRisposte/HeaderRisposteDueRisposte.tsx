@@ -1,5 +1,7 @@
 import React from 'react';
-import { AppBar, Typography, IconButton } from '@material-ui/core';
+import {
+  AppBar, Typography, IconButton, Grid,
+} from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import { useDispatch, useSelector } from 'react-redux';
@@ -14,16 +16,29 @@ const HeaderRisposteDueRisposte = () => {
   return (
     <>
       <AppBar position="static" className={classes.NavColor}>
+        <Grid
+          container
+          spacing={1}
+          direction="row"
+          justify="space-between"
+          alignItems="center"
+        >
+          <Grid item xs={4} sm={1}>
 
-        <Typography variant="h5" align="left">
-          <IconButton onClick={() => dispatch(setExpanded())} className={classes.space}>
-            {expanded
-              ? <ExpandLessIcon fontSize="large" color="secondary" />
-              : <ExpandMoreIcon fontSize="large" color="secondary" />}
-          </IconButton>
-          Risposte
-        </Typography>
+            <IconButton onClick={() => dispatch(setExpanded())} className={classes.space}>
+              {expanded
+                ? <ExpandLessIcon fontSize="large" color="secondary" />
+                : <ExpandMoreIcon fontSize="large" color="secondary" />}
+            </IconButton>
+          </Grid>
+          <Grid item xs={4} sm={2}>
+            <Typography variant="h5" align="center">
 
+              Risposte
+            </Typography>
+          </Grid>
+          <Grid item xs={4} sm={1} />
+        </Grid>
       </AppBar>
 
     </>
