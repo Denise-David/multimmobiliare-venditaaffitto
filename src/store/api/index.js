@@ -37,8 +37,7 @@ export const addForm = (
     gruppi,
     Domande: domande,
     Risultati: risultati,
-    intestazionePiuRisposte: intestazioneMoreAns,
-    IntestazioneDueRisposte: intestazioneTwoAnswers,
+    intestazione: intestazioneMoreAns,
     Risposte:
     {
       risposta1,
@@ -89,8 +88,8 @@ export const getRepartiZAM = (zamAcronym) => axios.get(`/autoanamnesi/forwardCal
 // Modifica dati formulario
 export const updateForm = (
   IDFormulario, GUID, nomeReparto,
-  nomeForm, listDomandeAndRisposte, listRisultati, risposta1,
-  risposta2, intestazioneMoreAns, intestazioneTwoAnswers, gruppi,
+  nomeForm, gruppi, listDomandeAndRisposte, listRisultati, risposta1,
+  risposta2, intestazioneMoreAns,
 ) => struttureFormReparti.update(IDFormulario,
   {
     actualWardGUID: GUID,
@@ -99,8 +98,7 @@ export const updateForm = (
     gruppi,
     Domande: listDomandeAndRisposte,
     Risultati: listRisultati,
-    intestazionePiuRisposte: intestazioneMoreAns,
-    intestazioneDueRisposte: intestazioneTwoAnswers,
+    intestazione: intestazioneMoreAns,
     Risposte:
     {
       risposta1,
@@ -150,8 +148,8 @@ export const setNewStructure = (nomeReparto,
 );
 
 // aggiungiamo all'history il nuovo e vecchio formulario quando si modifica
-export const setNewAndOldStructure = (GUID, gruppi, nomeReparto,
-  nomeForm, listDomandeAndRisposte, listRisultati,
+export const setNewAndOldStructure = (GUID, nomeReparto,
+  nomeForm, gruppi, listDomandeAndRisposte, listRisultati,
   risposta1, risposta2, date, formulario, utente) => historyEditor.create(
 
   {

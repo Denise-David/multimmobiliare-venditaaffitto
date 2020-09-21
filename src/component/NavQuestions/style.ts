@@ -32,6 +32,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     margin: theme.spacing(1),
     marginBottom: theme.spacing(10),
   },
+  menuItem: {
+    padding: theme.spacing(1.5),
+  },
 
 }));
 export default useStyles;

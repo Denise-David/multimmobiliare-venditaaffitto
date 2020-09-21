@@ -8,12 +8,14 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { useDispatch, useSelector } from 'react-redux';
 import useStyles from './style';
 import {
-  setIntestazioneAttiva, intestazioneAttiva,
+  setIntestazioneAttiva, intestazioneAttiva, setGroupAttivi, raggruppaAttivo,
 } from '../../store/slice/menuDomandeSlice';
 
 import {
-  expandedTableQuestion, expandTableQuestion, resetIntestazioneTwoAns,
+  expandedTableQuestion, expandTableQuestion, resetIntestazioneMoreAns,
 } from '../../store/slice/domandeAddFormSlice';
+import { openDialogGroup } from '../../store/slice/dialogSlice';
+import { intestazioneMoreAnsAttiva, setIntestazioneMoreAnsAttiva } from '../../store/slice/menuDomandeERisposteSlice';
 
 const NavQuestions = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -21,6 +23,8 @@ const NavQuestions = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const intestazione = useSelector(intestazioneAttiva);
+  const group = useSelector(raggruppaAttivo);
+  const intMoreAns = useSelector(intestazioneMoreAnsAttiva);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -77,24 +81,66 @@ const NavQuestions = () => {
         >
           <MenuItem onClick={() => {
             dispatch(setIntestazioneAttiva());
+            if (intMoreAns) {
+              dispatch(setIntestazioneMoreAnsAttiva());
+            }
             handleClose();
             if (intestazione) {
-              dispatch(resetIntestazioneTwoAns());
+              dispatch(resetIntestazioneMoreAns());
             }
           }}
           >
-            metti intestazione
             <Checkbox
               checked={intestazione}
               onClick={() => {
                 dispatch(setIntestazioneAttiva());
+                if (intMoreAns) {
+                  dispatch(setIntestazioneMoreAnsAttiva());
+                }
                 handleClose();
                 if (intestazione) {
-                  dispatch(resetIntestazioneTwoAns());
+                  dispatch(resetIntestazioneMoreAns());
                 }
               }}
               inputProps={{ 'aria-label': 'primary checkbox' }}
             />
+            metti intestazione
+
+          </MenuItem>
+          <MenuItem onClick={() => {
+            dispatch(setGroupAttivi());
+            handleClose();
+            if (intestazione) {
+              dispatch(resetIntestazioneMoreAns());
+            }
+          }}
+          >
+            <Checkbox
+              checked={group}
+              onClick={() => {
+                dispatch(setGroupAttivi());
+                handleClose();
+                if (intestazione) {
+                  dispatch(resetIntestazioneMoreAns());
+                }
+              }}
+              inputProps={{ 'aria-label': 'primary checkbox' }}
+            />
+            raggruppa
+
+          </MenuItem>
+          <MenuItem
+            className={classes.menuItem}
+            onClick={() => {
+              dispatch(openDialogGroup());
+              handleClose();
+            }}
+          >
+
+            <Grid item xs={12} sm={2} />
+            <Grid item xs={12} sm={10}>
+              gestisci gruppi
+            </Grid>
           </MenuItem>
         </Menu>
       </Grid>

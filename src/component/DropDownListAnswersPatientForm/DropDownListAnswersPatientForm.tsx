@@ -6,8 +6,9 @@ import { State } from '../../store/store/store';
 import { setRisposta } from '../../store/slice/patientFormSlice';
 
 interface Props {idDomanda : string, domanda : string}
-export interface Domanda { IDDomanda : string, Domanda : string, risposte : Risposta[],
-  stateModify: boolean, Tipo: string, normalType : boolean}
+export interface Domanda { IDDomanda : string, Domanda : string,
+   risposte : Risposta[],
+  stateModify: boolean, Tipo: string, normalType : boolean, group : string}
 export interface Risposta { IDRisposta : string, Risposta : string, Valore : string, type : string}
 
 const DropDownListAnswersPatient = ({ idDomanda, domanda } : Props) => {

@@ -24,7 +24,6 @@ const domandeAddFormSlice = createSlice({
     expandedTableMoreAnswers: true as boolean,
     intestazioneMoreAns: '' as string,
     expandedTableQuestion: true as boolean,
-    intestazioneTwoAns: '' as string,
   },
   reducers: {
     setGroupSelected(state, { payload }) {
@@ -36,12 +35,6 @@ const domandeAddFormSlice = createSlice({
     },
     resetIntestazioneMoreAns(state) {
       state.intestazioneMoreAns = '';
-    },
-    setIntestazioneTwoAns(state, { payload }) {
-      state.intestazioneTwoAns = payload;
-    },
-    resetIntestazioneTwoAns(state) {
-      state.intestazioneTwoAns = '';
     },
     expandTable(state) {
       state.expandedTableMoreAnswers = !state.expandedTableMoreAnswers;
@@ -130,7 +123,6 @@ export const deleteDomandaFormPiuRes = (payload:any) => ({
   payload,
 });
 
-export const intestazioneTwoAns = (state: State) => state.domandeAddForm.intestazioneTwoAns;
 export const expandedTableQuestion = (state: State) => state.domandeAddForm.expandedTableQuestion;
 export const intestazioneMoreAnswers = (state: State) => state.domandeAddForm.intestazioneMoreAns;
 export const expandedTableMoreAnswers = (state : State) => state.domandeAddForm.expandedTableMoreAnswers;
@@ -149,7 +141,7 @@ export const {
   setBCheckEnabled, setBCheckAddDomandaDisabled,
   setBCheckAddDomandaEnabled, resetDomandaByIDDomanda,
   setDomandaInObjectDomandeMoreRes,
-  setDomandeinObject, expandTable, setIntestazioneTwoAns, resetIntestazioneTwoAns,
+  setDomandeinObject, expandTable,
   resetDomandeOfDomandeObject, openCloseDomandaCard,
   setIntestazioneMoreAns, resetIntestazioneMoreAns, expandTableQuestion,
   setGroupSelected,

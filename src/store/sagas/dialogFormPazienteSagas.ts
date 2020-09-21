@@ -2,7 +2,7 @@ import { call, select, put } from 'redux-saga/effects';
 import { textFieldDisabled, getNewPatientInfo, getOldPatientInfo } from '../slice/patientDataSlice';
 import {
   repartoDomande, getDomandeReparto,
-  risposte, getBooleanAnswers, setIntestazioneMoreAns,
+  risposte, getBooleanAnswers, setIntestazioneMoreAns, setGruppi,
 } from '../slice/patientFormSlice';
 
 import { ValueCode } from '../slice/labelCodeSlice';
@@ -14,7 +14,6 @@ import fetchFormStructureByID, {
 import { formSelected, formulariList } from '../slice/homePageLabelSlice';
 import { openDialogSummary, openDialogFormPatient } from '../slice/dialogSlice';
 import { openSnackbarDatiPersonali, openSnackbarLabelPage, openSnackbarPatientAnswers } from '../slice/snackbarSlice';
-import { setIntestazioneTwoAns } from '../slice/domandeAddFormSlice';
 
 export default function* getDataEtichetta() {
   try {
@@ -66,8 +65,9 @@ export default function* getDataEtichetta() {
       // prendo risposte booleane
       const booleanAnswers = dataForm.Risposte;
       yield put(getBooleanAnswers(booleanAnswers));
-      yield put(setIntestazioneMoreAns(dataForm.intestazionePiuRisposte));
-      yield put(setIntestazioneTwoAns(dataForm.intestazioneDueRisposte));
+      yield put(setIntestazioneMoreAns(dataForm.intestazione));
+
+      yield put(setGruppi(dataForm.gruppi));
     } else {
       // prendo il o i formulari del reparto GUID
       const allDataReparto = yield call(
@@ -81,7 +81,7 @@ export default function* getDataEtichetta() {
       yield put(getBooleanAnswers(booleanAnswers));
 
       yield put(setIntestazioneMoreAns(allDataReparto.data[0].intestazionePiuRisposte));
-      yield put(setIntestazioneTwoAns(allDataReparto.data[0].intestazioneDueRisposte));
+      yield put(setGruppi(allDataReparto.data[0].gruppi));
     }
 
     yield put(openDialogFormPatient());

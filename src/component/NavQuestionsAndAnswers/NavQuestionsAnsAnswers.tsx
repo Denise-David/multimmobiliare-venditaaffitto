@@ -8,20 +8,22 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { useDispatch, useSelector } from 'react-redux';
 import useStyles from './style';
 import {
-  setRisposteTutteUguali, risposteTutteUguali, setIntestazioneAttiva,
-  intestazioneAttiva, raggruppaAttivo, setGroupAttivi,
+  setRisposteTutteUguali, risposteTutteUguali, setIntestazioneMoreAnsAttiva,
+  intestazioneMoreAnsAttiva, raggruppaAttivo, setGroupAttivi,
 } from '../../store/slice/menuDomandeERisposteSlice';
 import { resetRisposteOfDomanda } from '../../store/slice/risposteAddFormSlice';
 import { expandedTableMoreAnswers, expandTable, resetIntestazioneMoreAns } from '../../store/slice/domandeAddFormSlice';
 import { openDialogGroup } from '../../store/slice/dialogSlice';
+import { intestazioneAttiva, setIntestazioneAttiva } from '../../store/slice/menuDomandeSlice';
 
 const NavQuestionsAndAnswers = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const dispatch = useDispatch();
   const classes = useStyles();
+  const intTwoAns = useSelector(intestazioneAttiva);
   const risTutteUguali = useSelector(risposteTutteUguali);
-  const intestazione = useSelector(intestazioneAttiva);
+  const intestazione = useSelector(intestazioneMoreAnsAttiva);
   const group = useSelector(raggruppaAttivo);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -104,7 +106,11 @@ const NavQuestionsAndAnswers = () => {
             </Grid>
           </MenuItem>
           <MenuItem onClick={() => {
-            dispatch(setIntestazioneAttiva());
+            dispatch(setIntestazioneMoreAnsAttiva());
+            if (intTwoAns) {
+              dispatch(setIntestazioneAttiva());
+            }
+
             handleClose();
             if (intestazione) {
               dispatch(resetIntestazioneMoreAns());
@@ -114,7 +120,11 @@ const NavQuestionsAndAnswers = () => {
             <Checkbox
               checked={intestazione}
               onClick={() => {
-                dispatch(setIntestazioneAttiva());
+                dispatch(setIntestazioneMoreAnsAttiva());
+                if (intTwoAns) {
+                  dispatch(setIntestazioneAttiva());
+                }
+
                 handleClose();
                 if (intestazione) {
                   dispatch(resetIntestazioneMoreAns());

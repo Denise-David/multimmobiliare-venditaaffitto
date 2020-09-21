@@ -34,7 +34,6 @@ import {
   unsetCheckboxDoctor, unsetCheckboxFamilyDoctor,
 } from '../../store/slice/patientDataSlice';
 import TextCityName from '../../component/TextCityName/TextCityName';
-import BooleanLinePatientForm from '../../component/BooleanLinePatientForm/BooleanLinePatientForm';
 import TextCAP from '../../component/TextCAP/TextCityName';
 import SearchDoctorDialog from '../../component/SearchDoctorDialog/SearchDoctorDialog';
 import { setNomeCognomeDottoreScelto } from '../../store/slice/searchDoctorSlice';
@@ -249,7 +248,7 @@ const FormPaziente = () => {
           <List>
             <MultipleChoiceLinePatientForm />
           </List>
-          <BooleanLinePatientForm />
+
           <SnackbarDatiPersonali />
           <Snackbar
             open={statusSnackbar}

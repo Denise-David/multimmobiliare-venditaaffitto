@@ -18,10 +18,11 @@ import {
 } from '../../store/slice/addFormSlice';
 import { haveRepModifyRight } from '../../store/slice/rightsSlice';
 import EmptyAddQuestion2Answers from '../EmptyAddQuestion2Answers/EmptyAddQuestion2Answers';
-import TextFieldIntestazione from '../TextFieldIntestazione/TextFieldIntestazione';
 import ButtonsQuestion from '../ButtonsQuestion/ButtonsQuestion';
 import NavQuestions from '../NavQuestions/NavQuestions';
-import { intestazioneAttiva } from '../../store/slice/menuDomandeSlice';
+import { intestazioneAttiva, raggruppaAttivo } from '../../store/slice/menuDomandeSlice';
+import DropDownListGroup from '../DropDownListGroup/DropDownListGroup';
+import TextFieldIntestazioneQuesMoreAnswers from '../TextFieldIntestazioneQuesMoreAnswers/TextFieldIntestazioneQuesMoreAnsw';
 
 const QuestionsEditor = () => {
   const dispatch = useDispatch();
@@ -34,6 +35,7 @@ const QuestionsEditor = () => {
   const confirmAddReparto = useSelector(isBConfirmAddFormClicked);
   const expanded = useSelector(expandedTableQuestion);
   const intAttiva = useSelector(intestazioneAttiva);
+  const group = useSelector(raggruppaAttivo);
 
   // eslint-disable-next-line no-shadow
   const listNewDomande = domandeAddFormArray.map((domandaAddForm : domandaAddForm, index : any) => {
@@ -70,6 +72,15 @@ const QuestionsEditor = () => {
                   </Grid>
                 </Grid>
               </div>
+
+              {group
+                ? (
+                  <div className={classes.bordi}>
+                    {' '}
+                    <DropDownListGroup IDDomanda={domandaAddForm.IDDomanda} />
+                  </div>
+                ) : <></>}
+
             </Paper>
           ) : (
             <>
@@ -89,7 +100,7 @@ const QuestionsEditor = () => {
         <div className={classes.padding}>
           <div className={classes.marginDivider} />
           {intAttiva
-            ? <TextFieldIntestazione /> : <></>}
+            ? <TextFieldIntestazioneQuesMoreAnswers /> : <></>}
 
           {listNewDomande}
 

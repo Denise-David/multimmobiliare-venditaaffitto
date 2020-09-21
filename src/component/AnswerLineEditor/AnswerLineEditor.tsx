@@ -28,7 +28,7 @@ const AnswerLineEditor = ({ id }: Props) => {
   const numRisposte = risposteArray.length;
 
   const listItems = risposteArray ? risposteArray.map((rispostaArray : any, index) => {
-    if (numRisposte < 2) {
+    if (numRisposte < 1) {
       dispatch(unsetResAtLeast2());
     }
     return (

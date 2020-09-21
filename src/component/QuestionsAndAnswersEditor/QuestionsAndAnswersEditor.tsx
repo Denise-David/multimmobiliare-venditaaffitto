@@ -15,12 +15,13 @@ import {
 import { objectToArray } from '../../util';
 import { isBConfirmAddFormClicked } from '../../store/slice/addFormSlice';
 import { haveRepModifyRight } from '../../store/slice/rightsSlice';
-import { intestazioneAttiva, raggruppaAttivo, risposteTutteUguali } from '../../store/slice/menuDomandeERisposteSlice';
+import { raggruppaAttivo, risposteTutteUguali } from '../../store/slice/menuDomandeERisposteSlice';
 import HeaderRisposteMoreAnswers from '../HeaderRisposteMoreAnswers/HeaderRisposteMoreAnswers';
 import ButtonsQuestionsAndAnswers from '../ButtonsQuestionsAndAnswers/ButtonsQuestionsAndAnswers';
 import NavQuestionsAndAnswers from '../NavQuestionsAndAnswers/NavQuestionsAnsAnswers';
 import TextFieldIntestazioneQuesMoreAnswers from '../TextFieldIntestazioneQuesMoreAnswers/TextFieldIntestazioneQuesMoreAnsw';
 import DropDownListGroup from '../DropDownListGroup/DropDownListGroup';
+import { intestazioneAttiva } from '../../store/slice/menuDomandeSlice';
 
 const QuestionsAndAnswersEditor = () => {
   const dispatch = useDispatch();

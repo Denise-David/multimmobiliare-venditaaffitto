@@ -16,11 +16,22 @@ const useStyles = makeStyles((theme:Theme) => ({
     marginRight: theme.spacing(1),
     marginBottom: theme.spacing(1),
   },
+  group: {
+    outlineStyle: 'solid',
+    outlineWidth: '1px',
+    padding: theme.spacing(1),
+    margin: theme.spacing(1),
+  },
   Intestazione: {
     outlineStyle: 'solid',
     outlineWidth: '1px',
     padding: theme.spacing(1),
     margin: theme.spacing(1),
+    background: 'lightgrey',
+  },
+  risposta: {
+    textAlign: 'right',
+
   },
 }));
 export default useStyles;

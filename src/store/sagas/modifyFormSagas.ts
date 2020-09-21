@@ -8,7 +8,7 @@ import {
 import { allReparti, user } from '../slice/rightsSlice';
 
 import { dataRisultati } from '../slice/risultatiAddFormSlice';
-import { domandeObject, intestazioneMoreAnswers, intestazioneTwoAns } from '../slice/domandeAddFormSlice';
+import { domandeObject, intestazioneMoreAnswers } from '../slice/domandeAddFormSlice';
 import {
   IDRepartoSelected, IDForm,
 } from '../slice/ddlEditorFormAndRepartiSlice';
@@ -31,7 +31,6 @@ export default function* saveModify() {
       const GUID = yield select(IDRepartoSelected);
       const listRep = yield select(allReparti);
       const intestazioneMoreAns = yield select(intestazioneMoreAnswers);
-      const intestazioneTwoAnswers = yield select(intestazioneTwoAns);
 
       // trovo il nome del reparto in base al formuario selezionato
       const findNameByID = (rep : any) => rep.sermednodeid === GUID || rep.unitid === GUID;
@@ -91,7 +90,7 @@ export default function* saveModify() {
 
       yield call(updateForm, IDFormulario, GUID, nomeReparto,
         nomeForm, gruppi, listDomandeAndRisposte, listRisultati, risposta1,
-        risposta2, intestazioneMoreAns, intestazioneTwoAnswers);
+        risposta2, intestazioneMoreAns);
 
       yield call(setNewAndOldStructure, GUID, nomeReparto,
         nomeForm, gruppi, listDomandeAndRisposte, listRisultati, risposta1,
