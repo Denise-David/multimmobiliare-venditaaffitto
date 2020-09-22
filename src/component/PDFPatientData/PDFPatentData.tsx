@@ -2,9 +2,10 @@ import React, { useEffect } from 'react';
 import { Typography } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
 import queryString from 'query-string';
-import { setIDFormRisposte, oldPatientData, newPatientData } from '../../store/slice/patientFormPDFSlice';
+import { setIDFormRisposte, newPatientData, oldPatientData } from '../../store/slice/patientFormPDFSlice';
 import useStyles from './style';
 import PatientNoDoctorData from '../PatientNoDoctorData/PatientNoDoctorData';
+import PatientDoctorData from '../PatientDoctorData/PatientDoctorData';
 
 const PDFPatientData = () => {
   const dispatch = useDispatch();
@@ -33,8 +34,9 @@ const PDFPatientData = () => {
       </Typography>
       <PatientNoDoctorData />
       <br />
-      <Typography variant="subtitle1">
 
+      <Typography variant="subtitle1">
+        <PatientDoctorData />
         <br />
         Cassa malati :
         {' '}

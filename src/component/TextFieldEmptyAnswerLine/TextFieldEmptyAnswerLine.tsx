@@ -71,6 +71,11 @@ const TextFieldEmptyAnswerLine = ({ IDDomanda }:Props) => {
           value={rispostaText[IDDomanda] || ''}
           onChange={(event) => {
             const { value } = event.target;
+            if (value === '') {
+              dispatch(setBCheckDisabled());
+            } else if (bCheckDisabled === true) {
+              dispatch(setBCheckEnabled());
+            }
             dispatch(setAnswer({ IDDomanda, value }));
           }}
           disabled={stateTextField[IDDomanda]}

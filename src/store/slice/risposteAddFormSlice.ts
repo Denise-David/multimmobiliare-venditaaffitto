@@ -19,9 +19,16 @@ const risposteAddFormSlice = createSlice({
     risposteOfDomandaObject: {} as any,
     type: {} as any,
     tableTwoAnsExpanded: true as boolean,
+    resAtLeast2: true as boolean,
 
   },
   reducers: {
+    setResAtLeast2(state) {
+      state.resAtLeast2 = true;
+    },
+    unsetResAtLeast2(state) {
+      state.resAtLeast2 = false;
+    },
     setExpanded(state) {
       state.tableTwoAnsExpanded = !state.tableTwoAnsExpanded;
     },
@@ -134,6 +141,7 @@ export const addRisposta = (payload : any) => ({
   payload,
 });
 
+export const resAtLeast2 = (state: State) => state.risposteAddForm.resAtLeast2;
 export const tableTwoAnsExpanded = (state : State) => state.risposteAddForm.tableTwoAnsExpanded;
 // eslint-disable-next-line max-len
 export const risposteOfDomandaObject = (state : State) => state.risposteAddForm.risposteOfDomandaObject;
@@ -155,6 +163,7 @@ export const {
   setModifyRispostaUnclicked, modifyRisposta,
   setRisposteOfDomandaInObject, resetRisposteTwoRisposte,
   resetRisposteOfDomanda, setRispostaTipoData, setType,
+  setResAtLeast2, unsetResAtLeast2,
   resetRispostaType, setExpanded,
 } = risposteAddFormSlice.actions;
 export default risposteAddFormSlice.reducer;

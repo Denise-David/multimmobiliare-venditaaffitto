@@ -19,6 +19,7 @@ import {
 } from '../../store/slice/disableEnableSlice';
 import { snackbarConfirmDeleteOpen, openCloseSnackbarConfirmDelete } from '../../store/slice/snackbarSlice';
 import TextFieldRepartoAddForm from '../TextFieldRepartoAddForm/TextFieldRepartoAddForm';
+import SnackbarAtLeast2Res from '../SnackbarAtLeast2Res/SnackbarAtLeast2Res';
 
 const HeaderEditor = () => {
   const dispatch = useDispatch();
@@ -128,6 +129,7 @@ const HeaderEditor = () => {
           </div>
           )}
       />
+      <SnackbarAtLeast2Res />
     </div>
   );
 };

@@ -10,8 +10,26 @@ const patientFormSlice = createSlice({
     risposte: {} as any,
     boolAnswers: {} as any,
     resDate: { } as any,
+    intestazioneMoreAnswers: '' as string,
+    intestazioneTwoAnswers: '' as string,
+    gruppi: [] as any[],
   },
   reducers: {
+    setRispostaLibera(state, { payload }) {
+      const { idDomanda, value } = payload;
+      if (state.risposte[idDomanda]) {
+        state.risposte[idDomanda].testoLibero = value;
+      } else { state.risposte[idDomanda] = { testoLibero: value }; }
+    },
+    setGruppi(state, { payload }) {
+      state.gruppi = payload;
+    },
+    setIntestazioneMoreAns(state, { payload }) {
+      state.intestazioneMoreAnswers = payload;
+    },
+    setIntestazioneTwoAns(state, { payload }) {
+      state.intestazioneMoreAnswers = payload;
+    },
     setDate(state, { payload }) {
       const { idRisposta, idDomanda, domanda } = payload;
       if (!state.resDate[idDomanda] && !state.risposte[idDomanda]) {
@@ -29,7 +47,7 @@ const patientFormSlice = createSlice({
       state.risposte[idDomanda].date = state.resDate[idDomanda];
     },
     setNormalTypePresent(state, { payload }) {
-      if (state.domandeReparto[payload].normalType === false) {
+      if (state.domandeReparto[payload].normalType !== true) {
         state.domandeReparto[payload].normalType = true;
       }
     },
@@ -37,8 +55,19 @@ const patientFormSlice = createSlice({
       state.domandeReparto = payload;
     },
     setRisposta(state, { payload }) {
-      const { idDomanda } = payload;
-      state.risposte[idDomanda] = payload;
+      const {
+        idDomanda, valore, domanda, testoRisposta, idRisposta,
+      } = payload;
+      if (state.risposte[idDomanda]) {
+        if (state.risposte[idDomanda].testoLibero) {
+          const { testoLibero } = state.risposte[idDomanda];
+          state.risposte[idDomanda] = {
+            idDomanda, valore, domanda, testoRisposta, idRisposta, testoLibero,
+          };
+          state.risposte[idDomanda].date = state.resDate[idDomanda];
+        } else { state.risposte[idDomanda] = payload; }
+        state.risposte[idDomanda].date = state.resDate[idDomanda];
+      } else { state.risposte[idDomanda] = payload; }
       state.risposte[idDomanda].date = state.resDate[idDomanda];
     },
     getBooleanAnswers(state, { payload }) {
@@ -61,6 +90,8 @@ export const buttonSendForm = () => ({
 
 });
 
+export const groups = (state : State) => state.patientForm.gruppi;
+export const intestazioneMoreAns = (state:State) => state.patientForm.intestazioneMoreAnswers;
 export const resDate = (state : State) => state.patientForm.resDate;
 export const boolAnswers = (state : State) => state.patientForm.boolAnswers;
 export const risposte = (state : State) => state.patientForm.risposte;
@@ -70,7 +101,8 @@ export const {
   setRisposta, getBooleanAnswers,
   resetDomandeReparto,
   resetBooleanAnswers, resetRisposte, setNormalTypePresent,
-  setDate,
+  setDate, setIntestazioneMoreAns, setIntestazioneTwoAns,
+  setGruppi, setRispostaLibera,
 
 } = patientFormSlice.actions;
 export default patientFormSlice.reducer;

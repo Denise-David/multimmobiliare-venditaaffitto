@@ -15,6 +15,7 @@ import {
 import {
   isBModifyDelAddReturnDisabled, enableAll, disableAll,
 } from '../../store/slice/disableEnableSlice';
+import { unsetResAtLeast2 } from '../../store/slice/risposteAddFormSlice';
 
 const EmptyAddQuestionMoreAnswers = () => {
   const dispatch = useDispatch();
@@ -36,8 +37,8 @@ const EmptyAddQuestionMoreAnswers = () => {
                   color="primary"
                   disabled={isIconEnabled}
                   onClick={() => {
-                    dispatch(setBAddDomandaClicked());
                     dispatch(disableAll());
+                    dispatch(setBAddDomandaClicked());
                     setShowTextField(!showTextField);
                   }}
 
@@ -55,10 +56,10 @@ const EmptyAddQuestionMoreAnswers = () => {
                   disabled={bCheckDisabled}
                   color="primary"
                   onClick={() => {
-                    dispatch(addDomandaMoreResInArray());
                     dispatch(enableAll());
-
+                    dispatch(addDomandaMoreResInArray());
                     setShowTextField(!showTextField);
+                    dispatch(unsetResAtLeast2());
                   }}
 
                 >

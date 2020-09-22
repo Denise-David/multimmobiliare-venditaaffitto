@@ -12,7 +12,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   NavColor: {
     background: theme.palette.primary.main,
     padding: '2em',
-    marginBottom: theme.spacing(2),
     borderRadius: '0.5em',
   },
 
@@ -23,14 +22,18 @@ const useStyles = makeStyles((theme: Theme) => ({
   marginDivider: {
     marginBottom: theme.spacing(3),
   },
-  spaceTop: {
-    marginTop: theme.spacing(1),
+  space: {
+    marginRight: theme.spacing(57),
   },
-  spaceTopIntestazione: {
-    marginTop: theme.spacing(2),
+  spaceleft: {
+    marginLeft: theme.spacing(57),
   },
-  marginGenerico: {
-    margin: theme.spacing(2),
+  bordiCardRisposte: {
+    margin: theme.spacing(1),
+    marginBottom: theme.spacing(10),
+  },
+  menuItem: {
+    padding: theme.spacing(1.5),
   },
 
 }));

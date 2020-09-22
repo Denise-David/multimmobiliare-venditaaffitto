@@ -8,9 +8,11 @@ export interface Medico {
 
 // eslint-disable-next-line import/prefer-default-export
 export function getStringMedico(medico: Medico): string {
-  return `${medico.givenname || medico.firstname || ''} ${
-    medico.familyname || medico.lastname || ''
-  }, ${medico.city || ''}`;
+  if (medico) {
+    return `${medico.givenname || medico.firstname || ''} ${
+      medico.familyname || medico.lastname || ''
+    }, ${medico.city || ''}`;
+  } return '';
 }
 
 export function extractAndMergeArray(array : any[]) {

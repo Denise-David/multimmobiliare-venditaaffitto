@@ -12,7 +12,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   NavColor: {
     background: theme.palette.primary.main,
     padding: '2em',
-    marginBottom: theme.spacing(2),
     borderRadius: '0.5em',
   },
 
@@ -32,6 +31,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   bordiCardRisposte: {
     margin: theme.spacing(1),
     marginBottom: theme.spacing(10),
+  },
+  menuItem: {
+    padding: theme.spacing(1.5),
   },
 
 }));

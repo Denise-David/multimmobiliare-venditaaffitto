@@ -10,15 +10,19 @@ import HeaderDomandaMoreAnswers from '../HeaderDomandaMoreAnswers/HeaderDomandaM
 import useStyles from './style';
 import {
   domandeObject, modifyDomandaInObjectDomande, setBCheckDisabled,
-  setBCheckEnabled, isBCheckDisabled, expandedTable,
+  setBCheckEnabled, isBCheckDisabled, expandedTableMoreAnswers,
 } from '../../store/slice/domandeAddFormSlice';
 import { objectToArray } from '../../util';
 import { isBConfirmAddFormClicked } from '../../store/slice/addFormSlice';
 import { haveRepModifyRight } from '../../store/slice/rightsSlice';
-import { risposteTutteUguali } from '../../store/slice/menuDomandeERisposteSlice';
+import {
+  raggruppaAttivo, risposteTutteUguali, intestazioneMoreAnsAttiva,
+} from '../../store/slice/menuDomandeERisposteSlice';
 import HeaderRisposteMoreAnswers from '../HeaderRisposteMoreAnswers/HeaderRisposteMoreAnswers';
 import ButtonsQuestionsAndAnswers from '../ButtonsQuestionsAndAnswers/ButtonsQuestionsAndAnswers';
 import NavQuestionsAndAnswers from '../NavQuestionsAndAnswers/NavQuestionsAnsAnswers';
+import TextFieldIntestazioneQuesMoreAnswers from '../TextFieldIntestazioneQuesMoreAnswers/TextFieldIntestazioneQuesMoreAnsw';
+import DropDownListGroup from '../DropDownListGroup/DropDownListGroup';
 
 const QuestionsAndAnswersEditor = () => {
   const dispatch = useDispatch();
@@ -28,8 +32,10 @@ const QuestionsAndAnswersEditor = () => {
   const rightRepModify = useSelector(haveRepModifyRight);
   const confirmAddFormClicked = useSelector(isBConfirmAddFormClicked);
   const bCheckDisabled = useSelector(isBCheckDisabled);
-  const expanded = useSelector(expandedTable);
+  const expanded = useSelector(expandedTableMoreAnswers);
   const risTutteUguali = useSelector(risposteTutteUguali);
+  const intestazione = useSelector(intestazioneMoreAnsAttiva);
+  const group = useSelector(raggruppaAttivo);
 
   // vista domande da aggiunta nuovo form
   const listDomandeAdded = arrayDomandeAdded.map((domanda : any, index) => {
@@ -96,19 +102,27 @@ const QuestionsAndAnswersEditor = () => {
                         />
                         {rightRepModify || confirmAddFormClicked
                           ? <EmptyAnswerLineEditor IDDomanda={domanda.IDDomanda} /> : <></>}
+
                       </Collapse>
                     )}
+                </div>
+                <div className={classes.bordi}>
+                  {group
+                    ? <DropDownListGroup IDDomanda={domanda.IDDomanda} /> : <></>}
                 </div>
               </Card>
               {' '}
             </>
           ) : <></>}
+
       </div>
     );
   });
   return (
     <div>
       <NavQuestionsAndAnswers />
+      {intestazione
+        ? <TextFieldIntestazioneQuesMoreAnswers /> : <></>}
       <Collapse in={expanded}>
         <div className={classes.padding}>
           <div className={classes.marginDivider} />

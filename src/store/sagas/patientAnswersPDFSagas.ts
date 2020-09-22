@@ -13,9 +13,11 @@ export default function* initPDFPatientAnswers(action : any) {
 
     const { data = {} } = dataEtichetta;
     const { hcase = {} } = data;
-    const { actualWardGUID = '' } = hcase;
+    const { actualWardGUID = '', actualMedicalCategoryGUID = '' } = hcase;
 
-    const dataReparto = yield call(fetchRepartoFormByGUID, actualWardGUID);
+    const dataReparto = yield call(
+      fetchRepartoFormByGUID, actualMedicalCategoryGUID || actualWardGUID,
+    );
 
     const datiReparto = dataReparto.data;
     const {

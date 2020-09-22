@@ -3,9 +3,9 @@ import {
   FormControlLabel, Checkbox,
 } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
-  risposteOfDomandaObject,
+  risposteOfDomandaObject, unsetResAtLeast2,
 } from '../../store/slice/risposteAddFormSlice';
 import { objectToArray } from '../../util';
 import { isBConfirmAddFormClicked } from '../../store/slice/addFormSlice';
@@ -18,54 +18,61 @@ import CheckboxDataAnswerLine from '../CheckboxDataAnswerLine/CheckboxDataAnswer
 interface Props {id : string}
 
 const AnswerLineEditor = ({ id }: Props) => {
+  const dispatch = useDispatch();
   const risposteOFDomandeObj = useSelector(risposteOfDomandaObject);
   const IDDomanda = id;
   const rightRepModify = useSelector(haveRepModifyRight);
   const risposteOfDomanda = risposteOFDomandeObj[id] ? risposteOFDomandeObj[id] : {};
   const risposteArray = objectToArray(risposteOfDomanda);
   const confirmAddForm = useSelector(isBConfirmAddFormClicked);
+  const numRisposte = risposteArray.length;
 
-  const listItems = risposteArray ? risposteArray.map((rispostaArray : any) => (
-    <Grid key={rispostaArray.IDRisposta} container spacing={3}>
-      {rightRepModify || confirmAddForm
-        ? (
-          <ButtonAnswerLine
-            rispostaArray={rispostaArray}
-            id={IDDomanda}
-            IDRisposta={rispostaArray.IDRisposta}
-          />
-        ) : (
-          <>
-            {' '}
-            <Grid item xs={12} sm={2} />
-          </>
-        )}
-      <Grid item xs={12} sm={3} />
-      <TextFieldAnswerLine
-        rispostaArray={rispostaArray}
-        id={IDDomanda}
-        IDRisposta={rispostaArray.IDRisposta}
-      />
-      {rightRepModify || confirmAddForm
-        ? (
-          <>
-            <Grid item xs={12} sm={1}>
-              <CheckboxDataAnswerLine
-                rispostaArray={rispostaArray}
-                id={IDDomanda}
-                IDRisposta={rispostaArray.IDRisposta}
-              />
-            </Grid>
-            <Grid item xs={12} sm={1}>
-              <FormControlLabel
-                control={<Checkbox name="checkedA" />}
-                label="libera"
-              />
-            </Grid>
-          </>
-        ) : <></>}
-    </Grid>
-  )) : <></>;
+  const listItems = risposteArray ? risposteArray.map((rispostaArray : any, index) => {
+    if (numRisposte < 1) {
+      dispatch(unsetResAtLeast2());
+    }
+    return (
+      <Grid key={rispostaArray.IDRisposta} container spacing={3}>
+        {rightRepModify || confirmAddForm
+          ? (
+            <ButtonAnswerLine
+              rispostaArray={rispostaArray}
+              id={IDDomanda}
+              IDRisposta={rispostaArray.IDRisposta}
+            />
+          ) : (
+            <>
+              {' '}
+              <Grid item xs={12} sm={2} />
+            </>
+          )}
+        <Grid item xs={12} sm={3} />
+        <TextFieldAnswerLine
+          rispostaArray={rispostaArray}
+          id={IDDomanda}
+          IDRisposta={rispostaArray.IDRisposta}
+        />
+        {rightRepModify || confirmAddForm
+          ? (
+            <>
+              <Grid item xs={12} sm={1}>
+                <CheckboxDataAnswerLine
+                  rispostaArray={rispostaArray}
+                  id={IDDomanda}
+                  IDRisposta={rispostaArray.IDRisposta}
+                />
+              </Grid>
+              <Grid item xs={12} sm={1}>
+                <FormControlLabel
+                  control={<Checkbox name="checkedA" />}
+                  label="libera"
+                />
+              </Grid>
+            </>
+          ) : <></>}
+      </Grid>
+    );
+  }) : <></>;
 
   return (
     <div>

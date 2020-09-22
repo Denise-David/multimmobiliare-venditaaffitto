@@ -1,6 +1,7 @@
 import {
   all, takeLatest, call, put, select, takeEvery,
 } from 'redux-saga/effects';
+import { setRepartoGUID, setFormulariList } from '../slice/homePageLabelSlice';
 import { setNomeFormulario } from '../slice/addFormSlice';
 import { formulariByReparto, setFormulari } from '../slice/rightsSlice';
 import { setRisposteOfDomandaInObject, getRisposta2, getRisposta1 } from '../slice/risposteAddFormSlice';
@@ -18,17 +19,22 @@ import buttonSearch from './searchDoctorSagas';
 import initUserRightsAUTAN from './rightsUserSagas';
 import confirmAddForm, { changeRep, cancelAddForm } from './departmentChoiceEditorSagas';
 import fetchFormStructureByID, { fetchRepartoFormByGUID, getEtichettaDataByLabel } from '../api';
-import { setDomandeinObject } from '../slice/domandeAddFormSlice';
+import { setDomandeinObject, setIntestazioneMoreAns } from '../slice/domandeAddFormSlice';
 import { setRisultatiInObject } from '../slice/risultatiAddFormSlice';
-import { setRepartoGUID, setFormulariList } from '../slice/homePageLabelSlice';
+
 import confirmDelForm from './deleteFormSagas';
 import saveModify from './modifyFormSagas';
 import allDisabled, { allEnabled } from './disableEnableSagas';
 import { closeDialogSummaryAndSave } from '../slice/dialogSlice';
 import { setDDLFormDisabled, setDDLFormEnabled } from '../slice/disableEnableSlice';
+import { setGroupsArray } from '../slice/groupSlice';
+import { resetMenuMoreAns, setGroupAttivi, setIntestazioneMoreAnsAttiva } from '../slice/menuDomandeERisposteSlice';
+import { resetMenuTwoAns } from '../slice/menuDomandeSlice';
 
 function* init(action : any) {
   try {
+    yield put(resetMenuMoreAns());
+    yield put(resetMenuTwoAns());
     const ID = yield select(IDRepartoSelected);
 
     // cerco i nome  e id dei formulari del reparto selezionato
@@ -40,8 +46,8 @@ function* init(action : any) {
 
       return res;
     });
+
     yield put(setFormulari(formulari));
-    yield put(setFormulariList(formulari));
 
     if (formulari.length === 0) {
       yield put(setDDLFormDisabled());
@@ -71,6 +77,19 @@ function* init(action : any) {
         const formSelected = listForm.find(findNameFormByID) ? listForm.find(findNameFormByID) : [];
         const nomeForm = formSelected.formulario;
         yield put(setNomeFormulario(nomeForm));
+        // setto i gruppi
+
+        if (selectedForm.gruppi.length !== 0) {
+          yield put(setGroupsArray(selectedForm.gruppi));
+
+          yield put(setGroupAttivi());
+        }
+
+        if (selectedForm.intestazione !== '') {
+        // setto l'intestazione
+          yield put(setIntestazioneMoreAns(selectedForm.intestazione));
+          yield put(setIntestazioneMoreAnsAttiva());
+        }
 
         // inserisco nello state
         yield put(getRisposta1(ris1));
@@ -142,14 +161,16 @@ function* initRep(action : any) {
   const dataEtichetta = yield call(getEtichettaDataByLabel, label);
   const { data = {} } = dataEtichetta;
   const { hcase = {} } = data;
-  const repartoGUID = hcase.actualWardGUID;
-  const { payload } = yield put(setRepartoGUID(repartoGUID));
+  const { payload } = yield put(
+    setRepartoGUID(hcase.actualMedicalCategoryGUID || hcase.actualWardGUID),
+  );
 
   // prendo i formulari del reparto
   const form = yield call(fetchRepartoFormByGUID, payload);
+  yield put(setFormulariList(form.data));
 
   // eslint-disable-next-line no-underscore-dangle
-  const formulari = form.data.map((formu : any) => {
+  form.data.map((formu : any) => {
     const { formulario, _id } = formu;
     const res = { formulario, _id };
 

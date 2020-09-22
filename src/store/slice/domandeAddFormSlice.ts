@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { createSlice } from '@reduxjs/toolkit';
 
 import { State } from '../store/store';
@@ -8,7 +9,8 @@ export interface domandaAddForm {
    Domanda : string,
    stateText : boolean,
    openCard: boolean,
-    Risposte? : []}
+    Risposte? : []
+  group? : string, }
 
 const domandeAddFormSlice = createSlice({
   name: 'domandeAddForm',
@@ -19,11 +21,26 @@ const domandeAddFormSlice = createSlice({
     domandeObject: {} as {[key:string]:domandaAddForm},
     isBCheckDisabled: false as boolean,
     isBCheckAddDomandaDisabled: true as boolean,
-    expandedTable: true as boolean,
+    expandedTableMoreAnswers: true as boolean,
+    intestazioneMoreAns: '' as string,
+    expandedTableQuestion: true as boolean,
   },
   reducers: {
+    setGroupSelected(state, { payload }) {
+      const { value, IDDomanda } = payload;
+      state.domandeObject[IDDomanda].group = value;
+    },
+    setIntestazioneMoreAns(state, { payload }) {
+      state.intestazioneMoreAns = payload;
+    },
+    resetIntestazioneMoreAns(state) {
+      state.intestazioneMoreAns = '';
+    },
     expandTable(state) {
-      state.expandedTable = !state.expandedTable;
+      state.expandedTableMoreAnswers = !state.expandedTableMoreAnswers;
+    },
+    expandTableQuestion(state) {
+      state.expandedTableQuestion = !state.expandedTableQuestion;
     },
     openCloseDomandaCard(state, { payload }) {
       state.domandeObject[payload].openCard = !state.domandeObject[payload].openCard;
@@ -106,25 +123,28 @@ export const deleteDomandaFormPiuRes = (payload:any) => ({
   payload,
 });
 
-export const expandedTable = (state : State) => state.domandeAddForm.expandedTable;
-// eslint-disable-next-line max-len
+export const expandedTableQuestion = (state: State) => state.domandeAddForm.expandedTableQuestion;
+export const intestazioneMoreAnswers = (state: State) => state.domandeAddForm.intestazioneMoreAns;
+export const expandedTableMoreAnswers = (state : State) => state.domandeAddForm.expandedTableMoreAnswers;
 export const isBCheckAddDomandaDisabled = (state : State) => state.domandeAddForm.isBCheckAddDomandaDisabled;
 export const isBCheckDisabled = (state : State) => state.domandeAddForm.isBCheckDisabled;
-// eslint-disable-next-line max-len
 export const domandeObject = (state : State) => state.domandeAddForm.domandeObject;
 export const question = (state : State) => state.domandeAddForm.Question;
 export const isBAddDomandaClicked = (state : State) => state.domandeAddForm.isBAddDomandaclicked;
-// eslint-disable-next-line max-len
 export const isTextFieldNewDomandaDisabled = (state : State) => state.domandeAddForm.isTextFieldNewDomandaDisabled;
 export const {
   setBAddDomandaClicked, setBAddDomandaUnclicked,
   setDomanda, setDomandaInObjectDomandeTwoRes: setDomandaInObjectDomande, resetDomanda,
   setBModifyDomandaClicked, setBModifyDomandaUnclicked,
-  modifyDomandaInObjectDomande, deleteDomandaInObjectDomande, setBCheckDisabled,
+  modifyDomandaInObjectDomande, deleteDomandaInObjectDomande,
+  setBCheckDisabled,
   setBCheckEnabled, setBCheckAddDomandaDisabled,
-  setBCheckAddDomandaEnabled, resetDomandaByIDDomanda, setDomandaInObjectDomandeMoreRes,
+  setBCheckAddDomandaEnabled, resetDomandaByIDDomanda,
+  setDomandaInObjectDomandeMoreRes,
   setDomandeinObject, expandTable,
   resetDomandeOfDomandeObject, openCloseDomandaCard,
+  setIntestazioneMoreAns, resetIntestazioneMoreAns, expandTableQuestion,
+  setGroupSelected,
 
 } = domandeAddFormSlice.actions;
 export default domandeAddFormSlice.reducer;

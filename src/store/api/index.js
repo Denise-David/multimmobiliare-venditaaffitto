@@ -13,9 +13,7 @@ app.configure(restClient.axios(axios));
 // Connect to the service
 const struttureFormReparti = app.service('strutture_form_reparti');
 const risposteFormPazienti = app.service('risposte_form_pazienti');
-
-// prendi tutte le strutture formulari, filtrando quello di cui ho bisogno
-export const fetchAllFormStructure = () => struttureFormReparti.find({});
+const historyEditor = app.service('history_editor');
 
 // Prendi il formulario con tramite ID
 const fetchFormStructureByID = (ID) => struttureFormReparti.get(ID, {});
@@ -27,17 +25,19 @@ export const fetchRepartoFormByGUID = (GUID) => struttureFormReparti.find(
 );
 
 // Aggiungi formulario piu risposte
-export const addFormPiuRisposte = (
+export const addForm = (
   nomeReparto,
-  idReparto, nomeForm,
-  domande, risultati, risposta1, risposta2,
+  idReparto, nomeForm, gruppi,
+  domande, risultati, risposta1, risposta2, intestazioneMoreAns, intestazioneTwoAnswers,
 ) => struttureFormReparti.create(
   {
     actualWardGUID: idReparto,
     Reparto: nomeReparto,
     formulario: nomeForm,
+    gruppi,
     Domande: domande,
     Risultati: risultati,
+    intestazione: intestazioneMoreAns,
     Risposte:
     {
       risposta1,
@@ -88,14 +88,17 @@ export const getRepartiZAM = (zamAcronym) => axios.get(`/autoanamnesi/forwardCal
 // Modifica dati formulario
 export const updateForm = (
   IDFormulario, GUID, nomeReparto,
-  nomeForm, listDomandeAndRisposte, listRisultati, risposta1, risposta2,
+  nomeForm, gruppi, listDomandeAndRisposte, listRisultati, risposta1,
+  risposta2, intestazioneMoreAns,
 ) => struttureFormReparti.update(IDFormulario,
   {
     actualWardGUID: GUID,
     Reparto: nomeReparto,
     formulario: nomeForm,
+    gruppi,
     Domande: listDomandeAndRisposte,
     Risultati: listRisultati,
+    intestazione: intestazioneMoreAns,
     Risposte:
     {
       risposta1,
@@ -106,3 +109,67 @@ export const updateForm = (
 
 // Elimina formulario
 export const deleteForm = (IDForm) => struttureFormReparti.remove(IDForm, {});
+
+// settiamo la vecchia struttura del formulario prima di eliminarla
+export const setOldStructure = (formulario, utente, date) => historyEditor.create(
+  {
+    data: date,
+    user: utente,
+    type: 'delete',
+    oldStructure: formulario,
+  },
+
+);
+
+// per l'history quando creo un nuovo formulario
+export const setNewStructure = (nomeReparto,
+  GUID, nomeForm, gruppi,
+  domande, risultati, risposta1, risposta2, utente, date) => historyEditor.create(
+
+  {
+    data: date,
+    user: utente,
+    type: 'create',
+    newStructure: {
+      actualWardGUID: GUID,
+      Reparto: nomeReparto,
+      formulario: nomeForm,
+      gruppi,
+      Domande: domande,
+      Risultati: risultati,
+      Risposte:
+      {
+        risposta1,
+        risposta2,
+      },
+
+    },
+  },
+);
+
+// aggiungiamo all'history il nuovo e vecchio formulario quando si modifica
+export const setNewAndOldStructure = (GUID, nomeReparto,
+  nomeForm, gruppi, listDomandeAndRisposte, listRisultati,
+  risposta1, risposta2, date, formulario, utente) => historyEditor.create(
+
+  {
+    data: date,
+    user: utente,
+    type: 'modify',
+
+    oldStructure: formulario,
+    newStructure: {
+      actualWardGUID: GUID,
+      Reparto: nomeReparto,
+      formulario: nomeForm,
+      gruppi,
+      Domande: listDomandeAndRisposte,
+      Risultati: listRisultati,
+      Risposte:
+      {
+        risposta1,
+        risposta2,
+      },
+    },
+  },
+);

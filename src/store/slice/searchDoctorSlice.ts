@@ -25,6 +25,8 @@ const searchDoctorSlice = createSlice({
     },
     resetMedici(state) {
       state.mediciTrovati = {};
+      state.cognomeMedico = { value: '' };
+      state.nomeMedico = { value: '' };
     },
   },
 });

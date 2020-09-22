@@ -1,9 +1,9 @@
 import { call, select, put } from 'redux-saga/effects';
+import { textFieldDisabled, getNewPatientInfo, getOldPatientInfo } from '../slice/patientDataSlice';
 import {
   repartoDomande, getDomandeReparto,
-  risposte, getBooleanAnswers,
+  risposte, getBooleanAnswers, setIntestazioneMoreAns, setGruppi,
 } from '../slice/patientFormSlice';
-import { getNewPatientInfo, getOldPatientInfo } from '../slice/patientDataSlice';
 
 import { ValueCode } from '../slice/labelCodeSlice';
 
@@ -13,7 +13,7 @@ import fetchFormStructureByID, {
 
 import { formSelected, formulariList } from '../slice/homePageLabelSlice';
 import { openDialogSummary, openDialogFormPatient } from '../slice/dialogSlice';
-import { openSnackbarLabelPage, openSnackbarPatientAnswers } from '../slice/snackbarSlice';
+import { openSnackbarDatiPersonali, openSnackbarLabelPage, openSnackbarPatientAnswers } from '../slice/snackbarSlice';
 
 export default function* getDataEtichetta() {
   try {
@@ -65,18 +65,23 @@ export default function* getDataEtichetta() {
       // prendo risposte booleane
       const booleanAnswers = dataForm.Risposte;
       yield put(getBooleanAnswers(booleanAnswers));
-    } else {
-      // Prendo il GUID reparto dell'etichetta delezionata
-      const repartoGUID = hcase.actualWardGUID;
+      yield put(setIntestazioneMoreAns(dataForm.intestazione));
 
+      yield put(setGruppi(dataForm.gruppi));
+    } else {
       // prendo il o i formulari del reparto GUID
-      const allDataReparto = yield call(fetchRepartoFormByGUID, repartoGUID);
+      const allDataReparto = yield call(
+        fetchRepartoFormByGUID, hcase.actualMedicalCategoryGUID || hcase.actualWardGUID,
+      );
       const datiDomande = allDataReparto.data[0].Domande;
       yield put(getDomandeReparto(datiDomande));
 
       // prendo risposte per formulario booleano
       const booleanAnswers = allDataReparto.data[0].Risposte;
       yield put(getBooleanAnswers(booleanAnswers));
+
+      yield put(setIntestazioneMoreAns(allDataReparto.data[0].intestazionePiuRisposte));
+      yield put(setGruppi(allDataReparto.data[0].gruppi));
     }
 
     yield put(openDialogFormPatient());
@@ -93,12 +98,15 @@ export function* sendDataPazienti() {
     const answersData = yield select(risposte);
     const arrayAnswersData = Object.keys(answersData);
     const numRisposte : number = arrayAnswersData.length;
+    const checkOrCancelClicked = yield select(textFieldDisabled);
 
     // Se le risposte ricevute dal paziente sono uguali al numero di domande tot
-    if (numDomande <= numRisposte) {
+    if (numDomande <= numRisposte && checkOrCancelClicked) {
       yield put(openDialogSummary());
 
       // yield put(addRisposteFormPazienti(patientData, answersData));
+    } else if (!checkOrCancelClicked) {
+      yield put(openSnackbarDatiPersonali());
     } else {
       yield put(openSnackbarPatientAnswers());
     }

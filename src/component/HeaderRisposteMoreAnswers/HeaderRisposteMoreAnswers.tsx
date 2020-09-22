@@ -10,7 +10,6 @@ const HeaderRisposteMoreAnswers = () => {
       <Grid container>
         <Grid item xs={12} sm={1} />
         <Grid item xs={12} sm={1} />
-
         <Grid item xs={12} sm={3} />
         <Grid item xs={12} sm={4}>
           <Typography variant="subtitle1" align="center">

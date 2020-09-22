@@ -27,7 +27,7 @@ const EmptyAnswerLineEditor = ({ IDDomanda }: Props) => {
   return (
     <div>
       <Grid container spacing={3}>
-        <Grid item xs={12} sm={1} />
+
         <ButtonEmptyAnsweLine IDDomanda={IDDomanda} />
         <TextFieldEmptyAnswerLine IDDomanda={IDDomanda} />
         {!stateTextField[IDDomanda]
