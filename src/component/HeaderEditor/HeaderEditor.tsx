@@ -54,8 +54,13 @@ const HeaderEditor = () => {
   return (
 
     <div className={classes.margin}>
-      <Grid container>
-        <PrimaryButtons />
+      <Grid
+        container
+        direction="row"
+        justify="space-between"
+        alignItems="flex-start"
+      >
+
         {/* se è cliccato il tasto add */}
         {bAddFormClicked
           ? <TextFieldRepartoAddForm />
@@ -79,6 +84,7 @@ const HeaderEditor = () => {
                 ) : (
                   <>
                     {/* se non è cliccato nulla */}
+
                     <Grid item xs={12} sm={4}>
                       <Paper>
                         <Typography variant="h5" className={classes.backRepartoFormulario}>Reparto:</Typography>
@@ -92,24 +98,27 @@ const HeaderEditor = () => {
                         <DropDownListFormulari />
                       </Paper>
                     </Grid>
-                    {modifyRight && IDFormulario !== '-1'
-                      ? (
-                        <TextField
-                          className={classes.tfNomeForm}
-                          fullWidth
-                          variant="outlined"
-                          value={nomeForm}
-                          onChange={(event) => {
-                            const { value } = event.target;
-                            dispatch(setNomeFormulario(value));
-                          }}
-                          disabled={iconsDisabled}
-                        />
-                      ) : <></>}
+                    <Grid item xs={12} sm={1} />
+
                   </>
                 )}
             </>
           )}
+        <PrimaryButtons />
+        {modifyRight && IDFormulario !== '-1'
+          ? (
+            <TextField
+              className={classes.tfNomeForm}
+              fullWidth
+              variant="outlined"
+              value={nomeForm}
+              onChange={(event) => {
+                const { value } = event.target;
+                dispatch(setNomeFormulario(value));
+              }}
+              disabled={iconsDisabled}
+            />
+          ) : <></>}
 
       </Grid>
       {/* Alert per il delete del reparto */}

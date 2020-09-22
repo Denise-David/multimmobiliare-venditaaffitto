@@ -33,6 +33,12 @@ const useStyles = makeStyles((theme: Theme) => ({
     margin: theme.spacing(1),
     marginBottom: theme.spacing(10),
   },
+  paper: {
+    padding: theme.spacing(4),
+  },
+  marginBottom: {
+    marginBottom: theme.spacing(2),
+  },
 
 }));
 export default useStyles;

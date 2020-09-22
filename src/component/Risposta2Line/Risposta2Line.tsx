@@ -28,6 +28,26 @@ const Risposta2Line = () => {
           Risposta secondaria
         </Typography>
       </Grid>
+      <Grid item xs={12} sm={10}>
+        <TextField
+          value={ans2.risposta2}
+          disabled={ans2.stateText}
+          defaultValue="No"
+          onChange={
+    (event) => {
+      const res2 = event.target.value;
+      dispatch(getRisposta2(res2));
+      if (res2 === '') {
+        setBCheck2(!bCheck2Disabled);
+      } else if (bCheck2Disabled === true) {
+        setBCheck2(!bCheck2Disabled);
+      }
+    }
+  }
+          fullWidth
+          variant="outlined"
+        />
+      </Grid>
       <Grid item xs={12} sm={2}>
         {/* Bottoni */}
         {rightRepModify || addFormConfirm
@@ -63,26 +83,7 @@ const Risposta2Line = () => {
           ) : <></>}
       </Grid>
       {/* TextField */}
-      <Grid item xs={12} sm={10}>
-        <TextField
-          value={ans2.risposta2}
-          disabled={ans2.stateText}
-          defaultValue="No"
-          onChange={
-    (event) => {
-      const res2 = event.target.value;
-      dispatch(getRisposta2(res2));
-      if (res2 === '') {
-        setBCheck2(!bCheck2Disabled);
-      } else if (bCheck2Disabled === true) {
-        setBCheck2(!bCheck2Disabled);
-      }
-    }
-  }
-          fullWidth
-          variant="outlined"
-        />
-      </Grid>
+
     </>
   );
 };

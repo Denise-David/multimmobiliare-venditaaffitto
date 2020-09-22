@@ -21,54 +21,49 @@ const ButtonEmptyAnsweLine = ({ IDDomanda }:Props) => {
   if (stateTextField[IDDomanda]) {
     return (
       <>
-        <Grid item xs={12} sm={1} />
-        <Grid item xs={12} sm={1}>
-          <IconButton
-            disabled={iconsDisabled}
-            onClick={() => {
-              dispatch(setAddRispostaClicked(IDDomanda));
-              dispatch(disableAll());
-              dispatch(setBCheckDisabled());
-            }}
-            color="primary"
-          >
-            <AddCircleOutlineIcon />
-          </IconButton>
-        </Grid>
+
+        <IconButton
+          disabled={iconsDisabled}
+          onClick={() => {
+            dispatch(setAddRispostaClicked(IDDomanda));
+            dispatch(disableAll());
+            dispatch(setBCheckDisabled());
+          }}
+          color="primary"
+        >
+          <AddCircleOutlineIcon />
+        </IconButton>
 
       </>
     );
   }
   return (
-    <>
-      <Grid item xs={12} sm={1}>
-        <IconButton
-          onClick={() => {
-            dispatch(addRisposta(IDDomanda));
-            dispatch(enableAll());
-            dispatch(resetRispostaType(IDDomanda));
-            dispatch(setResAtLeast2());
-          }}
-          color="primary"
-          disabled={bCheckDisabled}
-        >
-          <CheckCircleOutlineIcon />
-        </IconButton>
-      </Grid>
-      <Grid item xs={12} sm={1}>
-        <IconButton
-          color="primary"
-          onClick={() => {
-            dispatch(enableAll());
-            dispatch(setAddRispostaUnclicked(IDDomanda));
-            dispatch(resetRispostaType(IDDomanda));
-            dispatch(resetAnswerValore());
-          }}
-        >
-          <HighlightOffIcon />
-        </IconButton>
-      </Grid>
-    </>
+    <span>
+      <IconButton
+        onClick={() => {
+          dispatch(addRisposta(IDDomanda));
+          dispatch(enableAll());
+          dispatch(resetRispostaType(IDDomanda));
+          dispatch(setResAtLeast2());
+        }}
+        color="primary"
+        disabled={bCheckDisabled}
+      >
+        <CheckCircleOutlineIcon />
+      </IconButton>
+      <IconButton
+        color="primary"
+        onClick={() => {
+          dispatch(enableAll());
+          dispatch(setAddRispostaUnclicked(IDDomanda));
+          dispatch(resetRispostaType(IDDomanda));
+          dispatch(resetAnswerValore());
+        }}
+      >
+        <HighlightOffIcon />
+      </IconButton>
+
+    </span>
   );
 };
 

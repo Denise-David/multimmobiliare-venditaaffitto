@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  FormControlLabel, Checkbox,
+  FormControlLabel, Checkbox, Card,
 } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import { useDispatch, useSelector } from 'react-redux';
@@ -32,21 +32,14 @@ const AnswerLineEditor = ({ id }: Props) => {
       dispatch(unsetResAtLeast2());
     }
     return (
-      <Grid key={rispostaArray.IDRisposta} container spacing={3}>
-        {rightRepModify || confirmAddForm
-          ? (
-            <ButtonAnswerLine
-              rispostaArray={rispostaArray}
-              id={IDDomanda}
-              IDRisposta={rispostaArray.IDRisposta}
-            />
-          ) : (
-            <>
-              {' '}
-              <Grid item xs={12} sm={2} />
-            </>
-          )}
-        <Grid item xs={12} sm={3} />
+      <Grid
+        key={rispostaArray.IDRisposta}
+        container
+        direction="row"
+        justify="space-between"
+        alignItems="center"
+      >
+
         <TextFieldAnswerLine
           rispostaArray={rispostaArray}
           id={IDDomanda}
@@ -70,13 +63,29 @@ const AnswerLineEditor = ({ id }: Props) => {
               </Grid>
             </>
           ) : <></>}
+        {rightRepModify || confirmAddForm
+          ? (
+
+            <ButtonAnswerLine
+              rispostaArray={rispostaArray}
+              id={IDDomanda}
+              IDRisposta={rispostaArray.IDRisposta}
+            />
+
+          ) : (
+            <>
+
+            </>
+          )}
       </Grid>
     );
   }) : <></>;
 
   return (
     <div>
+
       {listItems}
+
     </div>
 
   );

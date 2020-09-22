@@ -41,6 +41,7 @@ const ButtonResultLine = ({ oneForm } : Props) => {
   }
   return (
     <>
+
       <Grid item xs={12} sm={2}>
         <IconButton
           onClick={() => {
@@ -53,6 +54,7 @@ const ButtonResultLine = ({ oneForm } : Props) => {
           <CheckCircleOutlineIcon />
         </IconButton>
       </Grid>
+      UFFA
     </>
 
   );

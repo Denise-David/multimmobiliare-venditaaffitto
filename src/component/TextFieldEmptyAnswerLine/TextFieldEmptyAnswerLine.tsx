@@ -19,9 +19,8 @@ const TextFieldEmptyAnswerLine = ({ IDDomanda }:Props) => {
   if (typeRis[IDDomanda] !== 'data') {
     return (
       <>
-        <Grid item xs={12} sm={1} />
-        <Grid item xs={12} sm={2} />
-        <Grid item xs={12} sm={4}>
+
+        <Grid item xs={12} sm={7}>
 
           <TextField
             value={rispostaText[IDDomanda] || ''}
@@ -63,9 +62,7 @@ const TextFieldEmptyAnswerLine = ({ IDDomanda }:Props) => {
   }
   return (
     <>
-      <Grid item xs={12} sm={1} />
-      <Grid item xs={12} sm={2} />
-      <Grid item xs={12} sm={4}>
+      <Grid item xs={12} sm={7}>
 
         <TextField
           value={rispostaText[IDDomanda] || ''}

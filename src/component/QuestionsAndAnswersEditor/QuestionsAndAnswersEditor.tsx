@@ -1,6 +1,8 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
-import { Collapse, Card } from '@material-ui/core';
+import {
+  Collapse, Card, Paper, Divider,
+} from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import { useSelector, useDispatch } from 'react-redux';
 import AnswerLineEditor from '../AnswerLineEditor/AnswerLineEditor';
@@ -23,6 +25,7 @@ import ButtonsQuestionsAndAnswers from '../ButtonsQuestionsAndAnswers/ButtonsQue
 import NavQuestionsAndAnswers from '../NavQuestionsAndAnswers/NavQuestionsAnsAnswers';
 import TextFieldIntestazioneQuesMoreAnswers from '../TextFieldIntestazioneQuesMoreAnswers/TextFieldIntestazioneQuesMoreAnsw';
 import DropDownListGroup from '../DropDownListGroup/DropDownListGroup';
+import HeaderAnsMoreAns from '../HeaderAnsMoreAns/HeaderAnsMoreAns';
 
 const QuestionsAndAnswersEditor = () => {
   const dispatch = useDispatch();
@@ -55,13 +58,14 @@ const QuestionsAndAnswersEditor = () => {
                       ? (
                         <Card className={classes.bordiCardRisposte}>
                           <div className={classes.bordi}>
-                            <HeaderRisposteMoreAnswers />
+                            <HeaderAnsMoreAns />
+
                             <AnswerLineEditor
                               id={domanda.IDDomanda}
-
                             />
                             {rightRepModify || confirmAddFormClicked
                               ? <EmptyAnswerLineEditor IDDomanda={domanda.IDDomanda} /> : <></>}
+
                           </div>
                         </Card>
                       ) : <></>}
@@ -73,9 +77,9 @@ const QuestionsAndAnswersEditor = () => {
                   <HeaderDomandaMoreAnswers />
                   <Grid container spacing={3}>
                     {/* bottoni domanda */}
-                    <ButtonsQuestionsAndAnswers domanda={domanda} />
+
                     {/* Text Field domanda */}
-                    <Grid item xs={12} sm={9}>
+                    <Grid item xs={12} sm={10}>
                       <TextField
                         disabled={domanda.stateText}
                         value={domanda.Domanda}
@@ -92,11 +96,17 @@ const QuestionsAndAnswersEditor = () => {
                           ));
                         }}
                       />
+
                     </Grid>
+                    <ButtonsQuestionsAndAnswers domanda={domanda} />
                   </Grid>
                   {risTutteUguali ? <></>
                     : (
                       <Collapse in={!domanda.openCard}>
+
+                        <div className={classes.marginBottom}>
+                          <HeaderAnsMoreAns />
+                        </div>
                         <AnswerLineEditor
                           id={domanda.IDDomanda}
                         />
@@ -121,14 +131,16 @@ const QuestionsAndAnswersEditor = () => {
   return (
     <div>
       <NavQuestionsAndAnswers />
-      {intestazione
-        ? <TextFieldIntestazioneQuesMoreAnswers /> : <></>}
+
       <Collapse in={expanded}>
+        {intestazione
+          ? <TextFieldIntestazioneQuesMoreAnswers /> : <></>}
+        {rightRepModify || confirmAddFormClicked
+          ? <EmptyAddQuestionMoreAnswers /> : <></>}
         <div className={classes.padding}>
           <div className={classes.marginDivider} />
           {listDomandeAdded}
-          {rightRepModify || confirmAddFormClicked
-            ? <EmptyAddQuestionMoreAnswers /> : <></>}
+
         </div>
       </Collapse>
     </div>

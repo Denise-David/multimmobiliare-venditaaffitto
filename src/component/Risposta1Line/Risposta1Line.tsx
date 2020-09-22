@@ -22,10 +22,32 @@ const Risposta1Line = () => {
   const dispatch = useDispatch();
   return (
     <>
+
+      <Typography
+        variant="subtitle1"
+        align="left"
+      >
+        Risposta di riferimento*
+      </Typography>
+
       <Grid item xs={12} sm={10}>
-        <Typography variant="subtitle1">
-          Risposta di riferimento*
-        </Typography>
+        <TextField
+          value={ans1.risposta1}
+          disabled={ans1.stateText}
+          onChange={
+    (event) => {
+      const res1 = event.target.value;
+      dispatch(getRisposta1(res1));
+      if (res1 === '') {
+        setBCheck1(!bCheck1Disabled);
+      } else if (bCheck1Disabled === true) {
+        setBCheck1(!bCheck1Disabled);
+      }
+    }
+  }
+          fullWidth
+          variant="outlined"
+        />
       </Grid>
       <Grid item xs={12} sm={2}>
         {rightRepModify || addFormConfirm
@@ -60,25 +82,7 @@ const Risposta1Line = () => {
             </>
           ) : <></>}
       </Grid>
-      <Grid item xs={12} sm={10}>
-        <TextField
-          value={ans1.risposta1}
-          disabled={ans1.stateText}
-          onChange={
-    (event) => {
-      const res1 = event.target.value;
-      dispatch(getRisposta1(res1));
-      if (res1 === '') {
-        setBCheck1(!bCheck1Disabled);
-      } else if (bCheck1Disabled === true) {
-        setBCheck1(!bCheck1Disabled);
-      }
-    }
-  }
-          fullWidth
-          variant="outlined"
-        />
-      </Grid>
+
     </>
   );
 };

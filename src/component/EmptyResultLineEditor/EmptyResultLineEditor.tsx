@@ -32,6 +32,7 @@ const EmptyResultLineEditor = () => {
         {rightRepModify || confirmAddForm
           ? (
             <>
+              <TextFieldEmptyResultLine textFieldDisabled={textFieldDisabled} />
               {' '}
               {textFieldDisabled
                 ? (
@@ -59,7 +60,7 @@ const EmptyResultLineEditor = () => {
                           dispatch(addRisultatoClicked());
                           dispatch(enableAll());
                           dispatch(resetRisultato());
-                          setTextField(textFieldDisabled);
+                          setTextField(!textFieldDisabled);
                         }}
                         disabled={bCheckDisabled}
                         color="primary"
@@ -86,7 +87,6 @@ const EmptyResultLineEditor = () => {
             </>
           ) : <></>}
 
-        <TextFieldEmptyResultLine textFieldDisabled={textFieldDisabled} />
       </Grid>
     </div>
   );

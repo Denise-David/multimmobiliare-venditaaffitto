@@ -26,11 +26,9 @@ const AnswersTableEditor = () => {
         <div className={classes.padding}>
           <div className={classes.marginDivider}>
             <Grid container>
-              <Grid item xs={12} sm={1} />
-              <Grid item xs={12} sm={1} />
+
               <Risposta1Line />
-              <Grid item xs={12} sm={1} />
-              <Grid item xs={12} sm={1} />
+
               <Risposta2Line />
             </Grid>
             <Typography variant="body1" className={classes.marginTop}>

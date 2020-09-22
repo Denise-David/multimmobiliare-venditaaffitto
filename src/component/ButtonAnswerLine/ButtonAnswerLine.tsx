@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, IconButton } from '@material-ui/core';
+import { Grid, IconButton, Typography } from '@material-ui/core';
 import CreateIcon from '@material-ui/icons/Create';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { useDispatch, useSelector } from 'react-redux';
@@ -20,55 +20,52 @@ const ButtonAnswerLine = ({ rispostaArray, id, IDRisposta } : Props) => {
 
   if (!rispostaArray.stateModify) {
     return (
-      <>
+      <span>
         {/* Bottone Modifica */}
-        <Grid item xs={12} sm={1}>
-          <IconButton
-            onClick={() => {
-              dispatch(disableAll());
-              dispatch(setModifyRispostaClicked({ IDDomanda, IDRisposta }));
-            }}
-            disabled={iconsDisabled}
-            color="primary"
-          >
-            <CreateIcon />
-          </IconButton>
-        </Grid>
+
+        <IconButton
+          onClick={() => {
+            dispatch(disableAll());
+            dispatch(setModifyRispostaClicked({ IDDomanda, IDRisposta }));
+          }}
+          disabled={iconsDisabled}
+          color="primary"
+        >
+          <CreateIcon />
+        </IconButton>
+
         {/* Bottone Elimina */}
-        <Grid item xs={12} sm={1}>
 
-          <IconButton
-            onClick={() => dispatch(deleteRisposta({ IDDomanda, IDRisposta }))}
-            disabled={iconsDisabled}
-            color="primary"
-          >
-            <DeleteIcon />
-          </IconButton>
-        </Grid>
+        <IconButton
+          onClick={() => dispatch(deleteRisposta({ IDDomanda, IDRisposta }))}
+          disabled={iconsDisabled}
+          color="primary"
+        >
+          <DeleteIcon />
+        </IconButton>
 
-      </>
+      </span>
 
     );
   } return (
     <>
       {/* Bottone Check */}
-      <Grid item xs={12} sm={1}>
-        <IconButton
-          onClick={() => {
-            dispatch(enableAll());
-            dispatch(setModifyRispostaUnclicked({
-              IDDomanda,
-              IDRisposta,
+      <IconButton disabled />
+      <IconButton
+        onClick={() => {
+          dispatch(enableAll());
+          dispatch(setModifyRispostaUnclicked({
+            IDDomanda,
+            IDRisposta,
 
-            }));
-          }}
-          disabled={bCheckDisabled}
-          color="primary"
-        >
-          <CheckCircleOutlineIcon />
-        </IconButton>
-      </Grid>
-      <Grid item xs={12} sm={1} />
+          }));
+        }}
+        disabled={bCheckDisabled}
+        color="primary"
+      >
+        <CheckCircleOutlineIcon />
+      </IconButton>
+
     </>
   );
 };

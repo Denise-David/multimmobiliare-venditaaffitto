@@ -15,7 +15,7 @@ const TextFieldAnswerLine = ({ rispostaArray, id, IDRisposta } : Props) => {
       <>
         {' '}
         {/* TextField testo risposta */}
-        <Grid item xs={12} sm={4}>
+        <Grid item xs={12} sm={7}>
           <TextField
             onChange={(event) => {
               const risposta = event.target.value;
@@ -36,6 +36,7 @@ const TextFieldAnswerLine = ({ rispostaArray, id, IDRisposta } : Props) => {
           />
         </Grid>
         {/* TextField valore risposta con filtro solo numeri */}
+
         <Grid item xs={12} sm={1}>
           <TextField
             onChange={(event) => {
@@ -65,7 +66,7 @@ const TextFieldAnswerLine = ({ rispostaArray, id, IDRisposta } : Props) => {
   return (
     <>
       {/* TextField testo Data */}
-      <Grid item xs={12} sm={4}>
+      <Grid item xs={12} sm={7}>
         <TextField
           onChange={(event) => {
             const risposta = event.target.value;

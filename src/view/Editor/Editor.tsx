@@ -58,7 +58,7 @@ const FormPaziente = () => {
       <div className={classes.root}>
         <Typography
           variant="subtitle1"
-          align="right"
+          align="left"
           color="primary"
         >
           {username}

@@ -26,9 +26,14 @@ const EmptyAnswerLineEditor = ({ IDDomanda }: Props) => {
 
   return (
     <div>
-      <Grid container spacing={3}>
+      <Grid
 
-        <ButtonEmptyAnsweLine IDDomanda={IDDomanda} />
+        container
+        direction="row"
+        justify="space-between"
+        alignItems="flex-start"
+      >
+
         <TextFieldEmptyAnswerLine IDDomanda={IDDomanda} />
         {!stateTextField[IDDomanda]
           ? (
@@ -52,7 +57,13 @@ const EmptyAnswerLineEditor = ({ IDDomanda }: Props) => {
                 />
               </Grid>
             </>
-          ) : <></>}
+          ) : (
+            <>
+              {' '}
+              <Grid item xs={12} sm={3} />
+            </>
+          )}
+        <ButtonEmptyAnsweLine IDDomanda={IDDomanda} />
 
       </Grid>
     </div>

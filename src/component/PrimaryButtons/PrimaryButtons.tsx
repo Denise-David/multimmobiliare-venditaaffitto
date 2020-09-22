@@ -60,7 +60,7 @@ const PrimaryButtons = () => {
   });
 
   return (
-    <Grid item xs={12} sm={2}>
+    <>
       {/* Pulsanti accanto al dropDownList scelta reparto */}
       {addReparto
         ? (
@@ -118,7 +118,7 @@ const PrimaryButtons = () => {
           </>
 
         )}
-    </Grid>
+    </>
 
   );
 };

@@ -28,12 +28,6 @@ const ResultLineEditor = () => {
     return (
     // eslint-disable-next-line react/jsx-key
       <Grid container spacing={3}>
-        {rightRepModify || confirmAddForm
-          ? (
-            <>
-              <ButtonResultLine oneForm={oneForm} />
-            </>
-          ) : <><Grid item xs={12} sm={2} /></>}
 
         <Grid item xs={12} sm={6}>
           <TextField
@@ -125,6 +119,12 @@ const ResultLineEditor = () => {
             fullWidth
           />
         </Grid>
+        {rightRepModify || confirmAddForm
+          ? (
+            <>
+              <ButtonResultLine oneForm={oneForm} />
+            </>
+          ) : <><Grid item xs={12} sm={2} /></>}
       </Grid>
     );
   }) : <></>;

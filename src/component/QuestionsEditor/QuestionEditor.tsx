@@ -51,7 +51,7 @@ const QuestionsEditor = () => {
               <div className={classes.bordi}>
                 <span className={classes.bordi} />
                 <Grid container spacing={3}>
-                  <ButtonsQuestion domandaAddForm={domandaAddForm} />
+
                   <Grid item xs={12} sm={10}>
 
                     <TextField
@@ -70,6 +70,7 @@ const QuestionsEditor = () => {
                     />
 
                   </Grid>
+                  <ButtonsQuestion domandaAddForm={domandaAddForm} />
                 </Grid>
               </div>
 
@@ -101,11 +102,11 @@ const QuestionsEditor = () => {
           <div className={classes.marginDivider} />
           {intAttiva
             ? <TextFieldIntestazioneQuesMoreAnswers /> : <></>}
+          {rightRepModify || confirmAddReparto
+            ? <EmptyAddQuestion2Answers /> : <></>}
 
           {listNewDomande}
 
-          {rightRepModify || confirmAddReparto
-            ? <EmptyAddQuestion2Answers /> : <></>}
           {intAttiva
             ? (
               <Typography className={classes.marginGenerico} variant="body1">

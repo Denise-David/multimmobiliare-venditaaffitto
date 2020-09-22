@@ -31,6 +31,7 @@ const EmptyAddQuestion2Answers = () => {
         {!showTextField
           ? (
             <>
+              <Grid item xs={12} sm={10} />
               <Grid item xs={12} sm={1}>
                 <IconButton
                   color="primary"
@@ -51,6 +52,23 @@ const EmptyAddQuestion2Answers = () => {
             </>
           ) : (
             <>
+              <Grid item xs={12} sm={10}>
+                <TextField
+
+                  value={valoreTextField}
+                  onChange={(event) => {
+                    const { value } = event.target;
+                    dispatch(setDomanda(value));
+                    if (value === '') {
+                      dispatch(setBCheckAddDomandaDisabled());
+                    } else if (bCheckDisabled === true) {
+                      dispatch(setBCheckAddDomandaEnabled());
+                    }
+                  }}
+                  id="standard-basic"
+                  fullWidth
+                />
+              </Grid>
               <Grid item xs={12} sm={2}>
                 <IconButton
                   disabled={bCheckDisabled}
@@ -77,23 +95,7 @@ const EmptyAddQuestion2Answers = () => {
                   <HighlightOffIcon />
                 </IconButton>
               </Grid>
-              <Grid item xs={12} sm={10}>
-                <TextField
-                  error={bCheckDisabled}
-                  value={valoreTextField}
-                  onChange={(event) => {
-                    const { value } = event.target;
-                    dispatch(setDomanda(value));
-                    if (value === '') {
-                      dispatch(setBCheckAddDomandaDisabled());
-                    } else if (bCheckDisabled === true) {
-                      dispatch(setBCheckAddDomandaEnabled());
-                    }
-                  }}
-                  id="standard-basic"
-                  fullWidth
-                />
-              </Grid>
+
             </>
           )}
 
