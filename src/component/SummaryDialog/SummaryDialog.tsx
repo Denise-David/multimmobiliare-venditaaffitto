@@ -4,13 +4,12 @@ import { Dialog, Typography } from '@material-ui/core';
 import { format } from 'date-fns';
 import Nav from '../Navbar/Navbar';
 import useStyles from './style';
-import { infoReparto } from '../../store/slice/patientFormPDFSlice';
 import ButtonSendConfirmSummary from '../ButtonSendConfirmSummary/ButtonSendConfirmSummary';
 import ButtonSendCancelSummary from '../ButtonSendCancelSummary copy/ButtonSendCancelSummary';
 import { objectToArray } from '../../util';
 import { oldPatientInfo, newPatientInfo } from '../../store/slice/patientDataSlice';
 import { dialogSummaryOpen } from '../../store/slice/dialogSlice';
-import { risposte } from '../../store/slice/patientFormSlice';
+import { boolAnswers, risposte } from '../../store/slice/patientFormSlice';
 import PatientNoDoctorDataSummary from '../PatientNoDoctorDataSummary/PatientNoDoctorDataSummary';
 import PatientDoctorDataSummary from '../PatientDoctorDataSummary/PatientDoctorDataSummary';
 
@@ -19,7 +18,7 @@ const SummaryDialog = () => {
   const dataPatient = useSelector(newPatientInfo);
   const oldDataPatient = useSelector(oldPatientInfo);
   const dataAnswers = useSelector(risposte);
-  const repartoInfo = useSelector(infoReparto);
+  const boolAns = useSelector(boolAnswers);
   const classes = useStyles();
 
   const answersArray = dataAnswers ? Object.keys(dataAnswers).map((key) => {
@@ -30,10 +29,10 @@ const SummaryDialog = () => {
   const listRisposte = answersArray ? answersArray.map((risposta :any) => {
     const objDate = risposta.date ? risposta.date : [];
     const arrayDate = objectToArray(objDate);
-    const indexPuntoDomanda = risposta.domanda ? risposta.domanda.indexOf('?') : <></>;
-    const noPuntoDiDomanda = risposta.domanda
+    const indexPuntoDomanda = risposta.domanda ? risposta.domanda.indexOf('?') : -1;
+    const noPuntoDiDomanda = indexPuntoDomanda !== -1
       ? risposta.domanda.substring(0, indexPuntoDomanda - 1)
-      : <></>;
+      : risposta.domanda;
     const listDate = arrayDate ? arrayDate.map((data:any) => (
 
       <div key={data.idRisposta}>
@@ -46,29 +45,40 @@ const SummaryDialog = () => {
       </div>
 
     )) : <></>;
-
     return (
       <div key={risposta.idDomanda}>
-        <Typography variant="subtitle1">
-          <br />
-          {' '}
-          {risposta.domanda ? risposta.domanda : <></>}
-          <br />
-
-          {' '}
-          {risposta.testoRisposta}
-          {listDate || <></>}
-
-        </Typography>
-
-        {risposta.valore === repartoInfo.risposta1
+        {risposta.idRisposta
           ? (
-            <div>
-              <Typography variant="body1">
-                { noPuntoDiDomanda }
+            <>
+              <Typography variant="subtitle1">
+                <br />
+                {' '}
+                {risposta.domanda ? risposta.domanda : <></>}
+                <br />
+
+                {' '}
+                {risposta.testoLibero ? risposta.testoLibero : <></>}
+                {' '}
+                {risposta.testoRisposta}
+                {listDate || <></>}
               </Typography>
-            </div>
-          ) : <></>}
+            </>
+          )
+          : (
+            <>
+
+              {risposta.valore === boolAns.risposta1
+                ? (
+                  <div>
+                    <Typography variant="body1">
+                      { noPuntoDiDomanda }
+                      {' '}
+                      {risposta.testoLibero ? risposta.testoLibero : <></>}
+                    </Typography>
+                  </div>
+                ) : <></>}
+            </>
+          )}
       </div>
     );
   }) : <></>;

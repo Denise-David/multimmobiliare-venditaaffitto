@@ -33,5 +33,8 @@ const useStyles = makeStyles((theme:Theme) => ({
     textAlign: 'right',
 
   },
+  marginLeft: {
+    marginLeft: theme.spacing(1),
+  },
 }));
 export default useStyles;

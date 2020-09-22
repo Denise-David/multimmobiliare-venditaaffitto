@@ -2,13 +2,14 @@ import React from 'react';
 import {
   Grid, Typography, TextField,
 } from '@material-ui/core';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import useStyles from './style';
-import { setIntestazioneMoreAns } from '../../store/slice/domandeAddFormSlice';
+import { setIntestazioneMoreAns, intestazioneMoreAnswers } from '../../store/slice/domandeAddFormSlice';
 
 const TextFieldIntestazioneQuesMoreAnswers = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
+  const int = useSelector(intestazioneMoreAnswers);
   return (
     <div className={classes.spaceTopIntestazione}>
       <Grid container spacing={3}>
@@ -23,6 +24,7 @@ const TextFieldIntestazioneQuesMoreAnswers = () => {
             }}
             fullWidth
             variant="outlined"
+            value={int}
           />
         </Grid>
         <Grid item xs={12} sm={1} />

@@ -9,6 +9,12 @@ const groupSlice = createSlice({
     groupSelectedIndex: -1 as number,
   },
   reducers: {
+    resetGroups(state) {
+      state.groups = [];
+    },
+    setGroupsArray(state, { payload }) {
+      state.groups = payload;
+    },
     setNewGroup(state, { payload }) {
       state.groupName = payload;
     },
@@ -42,6 +48,6 @@ export const groupName = (state:State) => state.group.groupName;
 export const {
   setNewGroup, setGroupInGroups, resetGroupName,
   setGroupSelectedIndex, deleteGroup, modifyGroup, setModifyGroup,
-  resetSelectedIndex,
+  resetSelectedIndex, setGroupsArray, resetGroups,
 } = groupSlice.actions;
 export default groupSlice.reducer;

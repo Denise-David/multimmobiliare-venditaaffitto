@@ -16,15 +16,15 @@ export default function* setDataRisposteFormPaziente() {
 
     const answersData = risData.map((risposta : any) => {
       const {
-        idDomanda, domanda, testoRisposta, idRisposta, valore,
+        idDomanda, domanda, testoRisposta, idRisposta, valore, testoLibero,
       } = risposta;
       if (risposta.date) {
         const date = objectToArray(risposta.date);
         return {
-          idDomanda, domanda, testoRisposta, idRisposta, date, valore,
+          idDomanda, domanda, testoRisposta, idRisposta, date, valore, testoLibero,
         };
       } return {
-        idDomanda, domanda, testoRisposta, idRisposta, valore,
+        idDomanda, domanda, testoRisposta, idRisposta, valore, testoLibero,
       };
     });
 

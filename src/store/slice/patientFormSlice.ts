@@ -15,6 +15,12 @@ const patientFormSlice = createSlice({
     gruppi: [] as any[],
   },
   reducers: {
+    setRispostaLibera(state, { payload }) {
+      const { idDomanda, value } = payload;
+      if (state.risposte[idDomanda]) {
+        state.risposte[idDomanda].testoLibero = value;
+      } else { state.risposte[idDomanda] = { testoLibero: value }; }
+    },
     setGruppi(state, { payload }) {
       state.gruppi = payload;
     },
@@ -49,8 +55,19 @@ const patientFormSlice = createSlice({
       state.domandeReparto = payload;
     },
     setRisposta(state, { payload }) {
-      const { idDomanda } = payload;
-      state.risposte[idDomanda] = payload;
+      const {
+        idDomanda, valore, domanda, testoRisposta, idRisposta,
+      } = payload;
+      if (state.risposte[idDomanda]) {
+        if (state.risposte[idDomanda].testoLibero) {
+          const { testoLibero } = state.risposte[idDomanda];
+          state.risposte[idDomanda] = {
+            idDomanda, valore, domanda, testoRisposta, idRisposta, testoLibero,
+          };
+          state.risposte[idDomanda].date = state.resDate[idDomanda];
+        } else { state.risposte[idDomanda] = payload; }
+        state.risposte[idDomanda].date = state.resDate[idDomanda];
+      } else { state.risposte[idDomanda] = payload; }
       state.risposte[idDomanda].date = state.resDate[idDomanda];
     },
     getBooleanAnswers(state, { payload }) {
@@ -85,7 +102,7 @@ export const {
   resetDomandeReparto,
   resetBooleanAnswers, resetRisposte, setNormalTypePresent,
   setDate, setIntestazioneMoreAns, setIntestazioneTwoAns,
-  setGruppi,
+  setGruppi, setRispostaLibera,
 
 } = patientFormSlice.actions;
 export default patientFormSlice.reducer;

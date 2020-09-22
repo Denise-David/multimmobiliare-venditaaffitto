@@ -30,8 +30,10 @@ const PDFPatientAnswers = () => {
   let sommaRisposte = 0;
   // creo lista di risposte
   const listRisposte = answersArray.risposte ? answersArray.risposte.map((risposta :any) => {
-    const { domanda } = risposta;
-    const noPuntoDiDomanda = domanda.substring(0, domanda.length - 1);
+    const indexPuntoDomanda = risposta.domanda ? risposta.domanda.indexOf('?') : -1;
+    const noPuntoDiDomanda = indexPuntoDomanda !== -1
+      ? risposta.domanda.substring(0, indexPuntoDomanda - 1)
+      : risposta.domanda;
     sommaRisposte += risposta.valore;
 
     // creo la lista di date
@@ -45,25 +47,35 @@ const PDFPatientAnswers = () => {
 
     return (
       <>
-        <div className={classes.cornice}>
-          <Typography variant="body1">
-            {risposta.domanda}
-          </Typography>
-          <Typography variant="body1" align="right">
-            {risposta.testoRisposta}
-            {arrayDate}
-          </Typography>
-        </div>
-
-        {risposta.value === repartoInfo.risposta1
+        {risposta.idRisposta
           ? (
             <div className={classes.cornice}>
+
               <Typography variant="body1">
-                { noPuntoDiDomanda }
+                {risposta.domanda}
+                {' '}
+                {risposta.testoLibero ? risposta.testoLibero : <></>}
+              </Typography>
+              <Typography variant="body1" align="right">
+                {risposta.testoRisposta}
                 {arrayDate}
               </Typography>
             </div>
-          ) : <></>}
+          ) : (
+            <>
+              {risposta.valore === repartoInfo.risposta1
+                ? (
+                  <div className={classes.cornice}>
+                    <Typography variant="body1">
+                      { noPuntoDiDomanda }
+                      {' '}
+                      {risposta.testoLibero ? risposta.testoLibero : <></>}
+
+                    </Typography>
+                  </div>
+                ) : <></>}
+            </>
+          )}
       </>
     );
   }) : <></>;

@@ -37,7 +37,7 @@ const GroupDialog = () => {
   }
 
   // eslint-disable-next-line max-len
-  const listGroups = groupsList.map((gruppo:any, index:number) => {
+  const listGroups = !groupsList ? <></> : groupsList.map((gruppo:any, index:number) => {
     if (index === IDSelected) {
       return (
         <MenuItem

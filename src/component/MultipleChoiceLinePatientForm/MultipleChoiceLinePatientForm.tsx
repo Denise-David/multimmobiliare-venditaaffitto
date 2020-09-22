@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Grid from '@material-ui/core/Grid';
@@ -15,7 +15,7 @@ import DropDownListAnswersPatientForm,
 { Risposta } from '../DropDownListAnswersPatientForm/DropDownListAnswersPatientForm';
 import {
   repartoDomande, setNormalTypePresent, resDate, setDate, intestazioneMoreAns,
-  groups, setRisposta, boolAnswers,
+  groups, setRisposta, boolAnswers, setRispostaLibera,
 } from '../../store/slice/patientFormSlice';
 
 const MultipleChoiceLinePatient = () => {
@@ -23,7 +23,6 @@ const MultipleChoiceLinePatient = () => {
   const dispatch = useDispatch();
   const dateAnswer = useSelector(resDate);
   const intestazione = useSelector(intestazioneMoreAns);
-  const [dividerEnable, setDivider] = useState(false);
   const gruppi = useSelector(groups);
   const booleanAnswers = useSelector(boolAnswers);
 
@@ -31,15 +30,14 @@ const MultipleChoiceLinePatient = () => {
   if (!domande) {
     return <div />;
   }
-  if ((gruppi === undefined || gruppi.length === 0) && dividerEnable === false) {
-    setDivider(!dividerEnable);
-  }
+
   const listItems = domande.map((question: any, index) => {
     const dividerPresent = index !== 0 ? domande[index - 1].group !== question.group : false;
 
     const { risposte } = question;
     const idDomanda = question.IDDomanda;
     const domanda = question.Domanda;
+
     const groupSelected = gruppi ? gruppi.find((ID) => ID.id === question.group) : {};
     if (!risposte) {
       return (
@@ -68,12 +66,31 @@ const MultipleChoiceLinePatient = () => {
               </>
             ) }
 
-          <ListItem divider>
-
-            <Grid container>
+          <ListItem
+            divider
+          >
+            <Grid
+              container
+              direction="row"
+              justify="center"
+              alignItems="center"
+            >
               <Grid item xs={12} sm={8}>
                 <div className={classes.marginTop}>
-                  <Typography variant="subtitle1">{question.Domanda}</Typography>
+                  <Typography variant="subtitle1">
+                    {question.Domanda}
+                    {!question.libera || question.libera === false
+                      ? <></> : (
+                        <TextField
+                          onChange={(event) => {
+                            const { value } = event.target;
+                            dispatch(setRispostaLibera({ idDomanda, value }));
+                          }}
+                          className={classes.marginLeft}
+                          variant="outlined"
+                        />
+                      )}
+                  </Typography>
                 </div>
               </Grid>
               <Grid item xs={12} sm={4}>
@@ -85,7 +102,9 @@ const MultipleChoiceLinePatient = () => {
                       onChange={(event) => {
                         const { value } = event.target;
                         const valore = value;
-                        dispatch(setRisposta({ idDomanda, valore, domanda }));
+                        dispatch(setRisposta({
+                          idDomanda, valore, domanda,
+                        }));
                       }}
                     >
                       <FormControlLabel
@@ -143,8 +162,6 @@ const MultipleChoiceLinePatient = () => {
         {dividerPresent && groupSelected !== undefined
           ? (
             <>
-              {' '}
-              <Divider />
               <Typography variant="body1" align="center" className={classes.group}>
                 {groupSelected.name}
               </Typography>
@@ -163,12 +180,28 @@ const MultipleChoiceLinePatient = () => {
 
             </>
           ) }
-        <ListItem divider={dividerEnable}>
+        <ListItem divider>
           <Grid container>
             <Grid item xs={12} sm={7}>
               <div className={classes.marginTop}>
-                <Typography variant="subtitle1">{question.Domanda}</Typography>
+                <Typography variant="subtitle1">
+                  {question.Domanda}
+                  {' '}
+
+                  {!question.libera || question.libera === false
+                    ? <></> : (
+                      <TextField
+                        onChange={(event) => {
+                          const { value } = event.target;
+                          dispatch(setRispostaLibera({ idDomanda, value }));
+                        }}
+                        className={classes.marginLeft}
+                        variant="outlined"
+                      />
+                    )}
+                </Typography>
               </div>
+
             </Grid>
             <Grid item xs={12} sm={5}>
               {/* {counter > 0 ? ( */}

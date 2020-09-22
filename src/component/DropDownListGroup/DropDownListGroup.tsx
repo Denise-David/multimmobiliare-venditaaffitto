@@ -12,7 +12,6 @@ const DropDownListGroup = ({ IDDomanda }: Props) => {
   const ddlDisabled = useSelector(isDDLFormDisabled);
   const groupsList = useSelector(groups);
   const DomandeObj = useSelector(domandeObject);
-  const IDGroup = DomandeObj.group;
 
   // attivo la DDL formulari solo se c'è un valore nella DDL reparti
 
@@ -36,7 +35,7 @@ const DropDownListGroup = ({ IDDomanda }: Props) => {
           autoWidth
           disabled={ddlDisabled}
           // eslint-disable-next-line no-underscore-dangle
-          value={IDGroup}
+          value={DomandeObj[IDDomanda].group}
           onChange={getValueOnChange}
         >
           <MenuItem value={-1}>

@@ -18,6 +18,11 @@ const menuDomandeSlice = createSlice({
     setGroupAttivi(state) {
       state.raggruppaAttivo = !state.raggruppaAttivo;
     },
+    resetMenuTwoAns(state) {
+      state.risposteTutteUguali = false;
+      state.intestazioneAttiva = false;
+      state.raggruppaAttivo = false;
+    },
   },
 });
 
@@ -27,6 +32,6 @@ export const intestazioneAttiva = (state : State) => state.menuDomande.intestazi
 export const risposteTutteUguali = (state : State) => state.menuDomande.risposteTutteUguali;
 export const {
   setRisposteTutteUguali, setIntestazioneAttiva,
-  setGroupAttivi,
+  setGroupAttivi, resetMenuTwoAns,
 } = menuDomandeSlice.actions;
 export default menuDomandeSlice.reducer;
