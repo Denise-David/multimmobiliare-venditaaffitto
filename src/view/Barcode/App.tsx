@@ -24,6 +24,7 @@ import { closeSnackbarLabelPage, snackbarLabelOpen } from '../../store/slice/sna
 const Barcodepage = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
+
   useEffect(() => {
     // eslint-disable-next-line no-restricted-globals
     const parsed = queryString.parse(location.search);

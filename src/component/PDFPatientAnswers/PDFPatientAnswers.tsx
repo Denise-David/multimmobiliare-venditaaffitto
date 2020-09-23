@@ -32,7 +32,7 @@ const PDFPatientAnswers = () => {
   const listRisposte = answersArray.risposte ? answersArray.risposte.map((risposta :any) => {
     const indexPuntoDomanda = risposta.domanda ? risposta.domanda.indexOf('?') : -1;
     const noPuntoDiDomanda = indexPuntoDomanda !== -1
-      ? risposta.domanda.substring(0, indexPuntoDomanda - 1)
+      ? risposta.domanda.substring(0, indexPuntoDomanda)
       : risposta.domanda;
     sommaRisposte += risposta.valore;
 

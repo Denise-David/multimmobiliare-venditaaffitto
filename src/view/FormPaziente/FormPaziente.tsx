@@ -1,7 +1,6 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
-import List from '@material-ui/core/List';
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import CreateIcon from '@material-ui/icons/Create';
@@ -63,7 +62,7 @@ const FormPaziente = () => {
     // eslint-disable-next-line react/jsx-props-no-spreading
     return <MuiAlert elevation={6} variant="filled" {...props} />;
   }
-
+  console.log('xxDialog');
   return (
     <div>
       <Navbar />
@@ -245,10 +244,13 @@ const FormPaziente = () => {
           <Paper>
             <Typography className={classes.Titolo} variant="h5" align="center"> Si prega di rispondere alle seguenti domande </Typography>
           </Paper>
-          <List>
-            <MultipleChoiceLinePatientForm />
-          </List>
 
+          <MultipleChoiceLinePatientForm />
+          <div className={classes.margini}>
+            <Typography variant="inherit">
+              *domanda obbligatoria
+            </Typography>
+          </div>
           <SnackbarDatiPersonali />
           <Snackbar
             open={statusSnackbar}

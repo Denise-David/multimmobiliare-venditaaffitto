@@ -76,5 +76,8 @@ const useStyles = makeStyles((theme: Theme) => ({
   bordi: {
     margin: theme.spacing(3),
   },
+  margini: {
+    margin: theme.spacing(3),
+  },
 }));
 export default useStyles;

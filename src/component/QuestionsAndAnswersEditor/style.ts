@@ -7,7 +7,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     margin: theme.spacing(4),
   },
   bordiCard: {
-    margin: theme.spacing(1),
+    margin: theme.spacing(4),
   },
   NavColor: {
     background: theme.palette.primary.main,
@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginBottom: theme.spacing(10),
   },
   paper: {
-    padding: theme.spacing(4),
+    padding: theme.spacing(5),
   },
   marginBottom: {
     marginBottom: theme.spacing(2),

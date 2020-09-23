@@ -23,6 +23,7 @@ const TextFieldEmptyAnswerLine = ({ IDDomanda }:Props) => {
         <Grid item xs={12} sm={7}>
 
           <TextField
+            placeholder="risposta"
             value={rispostaText[IDDomanda] || ''}
             onChange={(event) => {
               const { value } = event.target;
@@ -40,6 +41,7 @@ const TextFieldEmptyAnswerLine = ({ IDDomanda }:Props) => {
         </Grid>
         <Grid item xs={12} sm={1}>
           <TextField
+            placeholder="valore"
             value={valoreText[IDDomanda] || ''}
             onChange={(event) => {
               const { value } = event.target;

@@ -3,7 +3,9 @@ import Button from '@material-ui/core/Button';
 
 import { useDispatch } from 'react-redux';
 import useStyles from './style';
-import { resetDomandeReparto, resetRisposte, resetBooleanAnswers } from '../../store/slice/patientFormSlice';
+import {
+  resetDomandeReparto, resetRisposte, resetBooleanAnswers, resetNoFacoltative,
+} from '../../store/slice/patientFormSlice';
 import { resetAllData, setDisabledTrue } from '../../store/slice/patientDataSlice';
 import { resetCode } from '../../store/slice/labelCodeSlice';
 import { resetSelectedForm, resetRepartoGUID, resetFormList } from '../../store/slice/homePageLabelSlice';
@@ -24,6 +26,7 @@ const ButtonReturnDevice = () => {
     dispatch(resetSelectedForm());
     dispatch(resetRepartoGUID());
     dispatch(resetFormList());
+    dispatch(resetNoFacoltative());
   };
 
   return (

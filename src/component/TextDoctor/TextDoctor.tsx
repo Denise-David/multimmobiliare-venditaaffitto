@@ -13,6 +13,7 @@ const TextLastname = () => {
   const dispatch = useDispatch();
   const [error, setError] = useState(false);
   const cancClicked = useSelector(cancelClicked);
+  console.log('xxDoctor');
 
   if (disabled === false) {
     if (dataEtichetta.doctor === null && error === false) {

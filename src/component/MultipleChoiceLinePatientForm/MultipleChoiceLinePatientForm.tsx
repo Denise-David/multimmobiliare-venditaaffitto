@@ -15,7 +15,7 @@ import DropDownListAnswersPatientForm,
 { Risposta } from '../DropDownListAnswersPatientForm/DropDownListAnswersPatientForm';
 import {
   repartoDomande, setNormalTypePresent, resDate, setDate, intestazioneMoreAns,
-  groups, setRisposta, boolAnswers, setRispostaLibera,
+  groups, setRisposta, boolAnswers, setRispostaLibera, setDomandaNoFacoltativa,
 } from '../../store/slice/patientFormSlice';
 
 const MultipleChoiceLinePatient = () => {
@@ -25,8 +25,8 @@ const MultipleChoiceLinePatient = () => {
   const intestazione = useSelector(intestazioneMoreAns);
   const gruppi = useSelector(groups);
   const booleanAnswers = useSelector(boolAnswers);
-
   const domande = useSelector(repartoDomande);
+
   if (!domande) {
     return <div />;
   }
@@ -37,11 +37,15 @@ const MultipleChoiceLinePatient = () => {
     const { risposte } = question;
     const idDomanda = question.IDDomanda;
     const domanda = question.Domanda;
+    if (question.facoltativa === false || question.facoltativa === undefined) {
+      dispatch(setDomandaNoFacoltativa(question.IDDomanda));
+    }
 
     const groupSelected = gruppi ? gruppi.find((ID) => ID.id === question.group) : {};
     if (!risposte) {
       return (
-        <>
+        <div key={idDomanda}>
+
           {dividerPresent && groupSelected !== undefined
             ? (
               <>
@@ -79,6 +83,7 @@ const MultipleChoiceLinePatient = () => {
                 <div className={classes.marginTop}>
                   <Typography variant="subtitle1">
                     {question.Domanda}
+                    {(!question.facoltativa || question.facoltativa === false) ? '*' : <></>}
                     {!question.libera || question.libera === false
                       ? <></> : (
                         <TextField
@@ -124,7 +129,7 @@ const MultipleChoiceLinePatient = () => {
             </Grid>
 
           </ListItem>
-        </>
+        </div>
       );
     }
     // mappo le risposte con una data
@@ -156,7 +161,6 @@ const MultipleChoiceLinePatient = () => {
       }
       return <></>;
     });
-
     return (
       <div key={question.IDDomanda}>
         {dividerPresent && groupSelected !== undefined
@@ -186,6 +190,7 @@ const MultipleChoiceLinePatient = () => {
               <div className={classes.marginTop}>
                 <Typography variant="subtitle1">
                   {question.Domanda}
+                  {(!question.facoltativa || question.facoltativa === false) ? '*' : <></>}
                   {' '}
 
                   {!question.libera || question.libera === false
@@ -204,7 +209,7 @@ const MultipleChoiceLinePatient = () => {
 
             </Grid>
             <Grid item xs={12} sm={5}>
-              {/* {counter > 0 ? ( */}
+
               <FormControl
                 variant="outlined"
                 fullWidth

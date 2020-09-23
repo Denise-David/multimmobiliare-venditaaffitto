@@ -5,11 +5,15 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import useStyles from './style';
 import { setIntestazioneMoreAns, intestazioneMoreAnswers } from '../../store/slice/domandeAddFormSlice';
+import { haveRepModifyRight } from '../../store/slice/rightsSlice';
+import confirmAddForm from '../../store/sagas/departmentChoiceEditorSagas';
 
 const TextFieldIntestazioneQuesMoreAnswers = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const int = useSelector(intestazioneMoreAnswers);
+  const rightMod = useSelector(haveRepModifyRight);
+  const confirmClicked = useSelector(confirmAddForm);
   return (
     <div className={classes.spaceTopIntestazione}>
       <Grid container spacing={3}>
@@ -18,6 +22,7 @@ const TextFieldIntestazioneQuesMoreAnswers = () => {
         </Grid>
         <Grid item xs={12} sm={9}>
           <TextField
+            disabled={!rightMod || !confirmClicked}
             onChange={(event) => {
               const { value } = event.target;
               dispatch(setIntestazioneMoreAns(value));

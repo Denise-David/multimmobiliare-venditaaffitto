@@ -1,7 +1,7 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import {
-  Collapse, Card, Paper, Divider,
+  Collapse, Card,
 } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import { useSelector, useDispatch } from 'react-redux';
@@ -20,7 +20,6 @@ import { haveRepModifyRight } from '../../store/slice/rightsSlice';
 import {
   raggruppaAttivo, risposteTutteUguali, intestazioneMoreAnsAttiva,
 } from '../../store/slice/menuDomandeERisposteSlice';
-import HeaderRisposteMoreAnswers from '../HeaderRisposteMoreAnswers/HeaderRisposteMoreAnswers';
 import ButtonsQuestionsAndAnswers from '../ButtonsQuestionsAndAnswers/ButtonsQuestionsAndAnswers';
 import NavQuestionsAndAnswers from '../NavQuestionsAndAnswers/NavQuestionsAnsAnswers';
 import TextFieldIntestazioneQuesMoreAnswers from '../TextFieldIntestazioneQuesMoreAnswers/TextFieldIntestazioneQuesMoreAnsw';
@@ -76,7 +75,6 @@ const QuestionsAndAnswersEditor = () => {
                 <div className={classes.bordi}>
                   <HeaderDomandaMoreAnswers />
                   <Grid container spacing={3}>
-                    {/* bottoni domanda */}
 
                     {/* Text Field domanda */}
                     <Grid item xs={12} sm={10}>
@@ -133,12 +131,12 @@ const QuestionsAndAnswersEditor = () => {
       <NavQuestionsAndAnswers />
 
       <Collapse in={expanded}>
-        {intestazione
-          ? <TextFieldIntestazioneQuesMoreAnswers /> : <></>}
-        {rightRepModify || confirmAddFormClicked
-          ? <EmptyAddQuestionMoreAnswers /> : <></>}
         <div className={classes.padding}>
-          <div className={classes.marginDivider} />
+          {intestazione
+            ? <TextFieldIntestazioneQuesMoreAnswers /> : <></>}
+          {rightRepModify || confirmAddFormClicked
+            ? <EmptyAddQuestionMoreAnswers /> : <></>}
+
           {listDomandeAdded}
 
         </div>

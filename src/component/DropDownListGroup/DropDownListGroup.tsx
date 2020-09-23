@@ -4,6 +4,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { isDDLFormDisabled } from '../../store/slice/disableEnableSlice';
 import { groups } from '../../store/slice/groupSlice';
 import { domandeObject, setGroupSelected } from '../../store/slice/domandeAddFormSlice';
+import { haveRepModifyRight } from '../../store/slice/rightsSlice';
+import confirmAddForm from '../../store/sagas/departmentChoiceEditorSagas';
 
 interface Props {IDDomanda : string}
 
@@ -12,6 +14,8 @@ const DropDownListGroup = ({ IDDomanda }: Props) => {
   const ddlDisabled = useSelector(isDDLFormDisabled);
   const groupsList = useSelector(groups);
   const DomandeObj = useSelector(domandeObject);
+  const rightMod = useSelector(haveRepModifyRight);
+  const confirmClicked = useSelector(confirmAddForm);
 
   // attivo la DDL formulari solo se c'è un valore nella DDL reparti
 
@@ -33,7 +37,7 @@ const DropDownListGroup = ({ IDDomanda }: Props) => {
         <Select
           defaultValue={-1}
           autoWidth
-          disabled={ddlDisabled}
+          disabled={ddlDisabled || (!rightMod && !confirmClicked)}
           // eslint-disable-next-line no-underscore-dangle
           value={DomandeObj[IDDomanda].group}
           onChange={getValueOnChange}

@@ -31,7 +31,7 @@ const SummaryDialog = () => {
     const arrayDate = objectToArray(objDate);
     const indexPuntoDomanda = risposta.domanda ? risposta.domanda.indexOf('?') : -1;
     const noPuntoDiDomanda = indexPuntoDomanda !== -1
-      ? risposta.domanda.substring(0, indexPuntoDomanda - 1)
+      ? risposta.domanda.substring(0, indexPuntoDomanda)
       : risposta.domanda;
     const listDate = arrayDate ? arrayDate.map((data:any) => (
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  FormControlLabel, Checkbox, Card,
+  FormControlLabel, Checkbox,
 } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import { useDispatch, useSelector } from 'react-redux';

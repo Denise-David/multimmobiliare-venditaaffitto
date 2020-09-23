@@ -15,6 +15,8 @@ import { resetRisposteOfDomanda } from '../../store/slice/risposteAddFormSlice';
 import { expandedTableMoreAnswers, expandTable, resetIntestazioneMoreAns } from '../../store/slice/domandeAddFormSlice';
 import { openDialogGroup } from '../../store/slice/dialogSlice';
 import { intestazioneAttiva, setIntestazioneAttiva } from '../../store/slice/menuDomandeSlice';
+import { haveRepModifyRight } from '../../store/slice/rightsSlice';
+import confirmAddForm from '../../store/sagas/departmentChoiceEditorSagas';
 
 const NavQuestionsAndAnswers = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -25,6 +27,8 @@ const NavQuestionsAndAnswers = () => {
   const risTutteUguali = useSelector(risposteTutteUguali);
   const intestazione = useSelector(intestazioneMoreAnsAttiva);
   const group = useSelector(raggruppaAttivo);
+  const rightMod = useSelector(haveRepModifyRight);
+  const confirmClicked = useSelector(confirmAddForm);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -64,15 +68,17 @@ const NavQuestionsAndAnswers = () => {
           </Typography>
 
         </Grid>
-
-        <Grid item xs={8} sm={1}>
-          <IconButton
-            color="secondary"
-            onClick={handleClick}
-          >
-            <MoreVertIcon />
-          </IconButton>
-        </Grid>
+        {rightMod || confirmClicked
+          ? (
+            <Grid item xs={8} sm={1}>
+              <IconButton
+                color="secondary"
+                onClick={handleClick}
+              >
+                <MoreVertIcon />
+              </IconButton>
+            </Grid>
+          ) : <Grid item xs={8} sm={1} />}
 
         <Menu
           anchorEl={anchorEl}

@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Grid, IconButton,
+  IconButton,
 } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';

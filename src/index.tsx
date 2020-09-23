@@ -49,6 +49,7 @@ const generateClassName = (rule : any, styleSheet : any) => {
 
 ReactDOM.render(
   <React.StrictMode>
+
     {/* @ts-ignore */}
     <LocalizationProvider dateAdapter={DateFnsUtils}>
       <Provider store={store}>
@@ -90,6 +91,7 @@ ReactDOM.render(
 
       </Provider>
     </LocalizationProvider>
+
   </React.StrictMode>,
   // eslint-disable-next-line no-undef
   document.getElementById('root'),

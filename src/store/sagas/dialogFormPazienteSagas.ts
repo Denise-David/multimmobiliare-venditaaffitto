@@ -1,19 +1,23 @@
-import { call, select, put } from 'redux-saga/effects';
-import { textFieldDisabled, getNewPatientInfo, getOldPatientInfo } from '../slice/patientDataSlice';
 import {
-  repartoDomande, getDomandeReparto,
+  call, select, put,
+} from 'redux-saga/effects';
+import {
+  openDialogSummary, openDialogFormPatient,
+} from '../slice/dialogSlice';
+import {
+  noFacoltative, getDomandeReparto,
   risposte, getBooleanAnswers, setIntestazioneMoreAns, setGruppi,
 } from '../slice/patientFormSlice';
-
+import { textFieldDisabled, getNewPatientInfo, getOldPatientInfo } from '../slice/patientDataSlice';
 import { ValueCode } from '../slice/labelCodeSlice';
-
 import fetchFormStructureByID, {
   getEtichettaDataByLabel, fetchRepartoFormByGUID,
 } from '../api';
-
 import { formSelected, formulariList } from '../slice/homePageLabelSlice';
-import { openDialogSummary, openDialogFormPatient } from '../slice/dialogSlice';
-import { openSnackbarDatiPersonali, openSnackbarLabelPage, openSnackbarPatientAnswers } from '../slice/snackbarSlice';
+import {
+  openSnackbarDatiPersonali, openSnackbarLabelPage,
+  openSnackbarPatientAnswers,
+} from '../slice/snackbarSlice';
 
 export default function* getDataEtichetta() {
   try {
@@ -93,23 +97,28 @@ export default function* getDataEtichetta() {
 
 export function* sendDataPazienti() {
   try {
-    const domande = yield select(repartoDomande);
-    const numDomande : number = domande.length;
     const answersData = yield select(risposte);
-    const arrayAnswersData = Object.keys(answersData);
-    const numRisposte : number = arrayAnswersData.length;
+    const noFacol = yield select(noFacoltative);
     const checkOrCancelClicked = yield select(textFieldDisabled);
+    let risAll = true;
 
+    const response = noFacol.map((idDomanda: string) => {
+      if (answersData[idDomanda] === undefined && risAll === true) {
+        risAll = false;
+        return (risAll);
+      } risAll = true;
+      return risAll;
+    });
+
+    const answersAll = response.includes(false);
     // Se le risposte ricevute dal paziente sono uguali al numero di domande tot
-    if (numDomande <= numRisposte && checkOrCancelClicked) {
+    if (checkOrCancelClicked && !answersAll) {
       yield put(openDialogSummary());
-
       // yield put(addRisposteFormPazienti(patientData, answersData));
     } else if (!checkOrCancelClicked) {
       yield put(openSnackbarDatiPersonali());
-    } else {
-      yield put(openSnackbarPatientAnswers());
     }
+    yield put(openSnackbarPatientAnswers());
   } catch (error) {
     console.log('errore', error);
   }

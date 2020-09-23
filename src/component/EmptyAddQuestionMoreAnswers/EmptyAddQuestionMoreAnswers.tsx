@@ -27,7 +27,12 @@ const EmptyAddQuestionMoreAnswers = () => {
 
   return (
     <div className={classes.marginGenerico}>
-      <Grid container spacing={3}>
+      <Grid
+        container
+        direction="row"
+        justify="space-between"
+        alignItems="center"
+      >
 
         {!showTextField
           ? (
@@ -47,7 +52,6 @@ const EmptyAddQuestionMoreAnswers = () => {
                   <AddCircleOutlineIcon />
                 </IconButton>
               </Grid>
-              <Grid item xs={12} sm={1} />
 
             </>
           ) : (
@@ -70,7 +74,7 @@ const EmptyAddQuestionMoreAnswers = () => {
                   fullWidth
                 />
               </Grid>
-              <Grid item xs={12} sm={2}>
+              <Grid item xs={12} sm={1}>
                 <IconButton
                   disabled={bCheckDisabled}
                   color="primary"
