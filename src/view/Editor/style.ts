@@ -38,6 +38,15 @@ const useStyles = makeStyles((theme: Theme) => ({
   marginTable: {
     marginBottom: theme.spacing(4),
   },
+  center: {
+    display: 'block',
+    marginRight: 'auto',
+    marginLeft: 'auto',
+
+  },
+  tfNomeForm: {
+    margin: theme.spacing(4),
+  },
 
 }));
 export default useStyles;

@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { State } from '../store/store';
-import { Domanda } from '../../component/DropDownListAnswersPatientForm/DropDownListAnswersPatientForm';
+import { Domanda } from '../../component/Autoanamnesi/PatientFormDialog/LinePatientForm/LineMoreAnswers/DropDownListAnswersPatientForm/DropDownListAnswersPatientForm';
 
 const patientFormSlice = createSlice({
   name: 'patientForm',
@@ -9,12 +9,21 @@ const patientFormSlice = createSlice({
     domandeReparto: [] as Domanda[],
     risposte: {} as any,
     boolAnswers: {} as any,
-    resDate: { } as any,
+    resDate: {} as any,
     intestazioneMoreAnswers: '' as string,
-    intestazioneTwoAnswers: '' as string,
     gruppi: [] as any[],
+    noFacoltative: [] as any[],
+
   },
   reducers: {
+    resetNoFacoltative(state) {
+      state.noFacoltative = [];
+    },
+    setDomandaNoFacoltativa(state, { payload }) {
+      if (!state.noFacoltative.includes(payload)) {
+        state.noFacoltative.push(payload);
+      }
+    },
     setRispostaLibera(state, { payload }) {
       const { idDomanda, value } = payload;
       if (state.risposte[idDomanda]) {
@@ -90,6 +99,7 @@ export const buttonSendForm = () => ({
 
 });
 
+export const noFacoltative = (state: State) => state.patientForm.noFacoltative;
 export const groups = (state : State) => state.patientForm.gruppi;
 export const intestazioneMoreAns = (state:State) => state.patientForm.intestazioneMoreAnswers;
 export const resDate = (state : State) => state.patientForm.resDate;
@@ -98,11 +108,10 @@ export const risposte = (state : State) => state.patientForm.risposte;
 export const repartoDomande = (state: State) => state.patientForm.domandeReparto;
 export const {
   getDomandeReparto,
-  setRisposta, getBooleanAnswers,
-  resetDomandeReparto,
+  setRisposta, getBooleanAnswers, resetDomandeReparto,
   resetBooleanAnswers, resetRisposte, setNormalTypePresent,
   setDate, setIntestazioneMoreAns, setIntestazioneTwoAns,
-  setGruppi, setRispostaLibera,
+  setGruppi, setRispostaLibera, setDomandaNoFacoltativa, resetNoFacoltative,
 
 } = patientFormSlice.actions;
 export default patientFormSlice.reducer;

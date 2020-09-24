@@ -30,9 +30,11 @@ import { setDDLFormDisabled, setDDLFormEnabled } from '../slice/disableEnableSli
 import { setGroupsArray } from '../slice/groupSlice';
 import { resetMenuMoreAns, setGroupAttivi, setIntestazioneMoreAnsAttiva } from '../slice/menuDomandeERisposteSlice';
 import { resetMenuTwoAns } from '../slice/menuDomandeSlice';
+import { setIsLoaded, setIsLoading } from '../slice/loadingSlice';
 
 function* init(action : any) {
   try {
+    yield put(setIsLoading());
     yield put(resetMenuMoreAns());
     yield put(resetMenuTwoAns());
     const ID = yield select(IDRepartoSelected);
@@ -149,6 +151,7 @@ function* init(action : any) {
         // prendo tutti i form del reparto ID
       } catch (error) { console.log('errore', error); }
     }
+    yield put(setIsLoaded());
   } catch (error) {
     console.log('error', error);
   }

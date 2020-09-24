@@ -10,12 +10,11 @@ import {
   setBConfirmAddFormUnclicked,
 } from '../slice/addFormSlice';
 
-import { domandeObject, resetDomandeOfDomandeObject, resetIntestazioneMoreAns } from '../slice/domandeAddFormSlice';
+import { resetDomandeOfDomandeObject, resetIntestazioneMoreAns } from '../slice/domandeAddFormSlice';
 
-import { resetRisposteTwoRisposte, resetRisposteOfDomanda, resAtLeast2 } from '../slice/risposteAddFormSlice';
+import { resetRisposteTwoRisposte, resetRisposteOfDomanda } from '../slice/risposteAddFormSlice';
 import { setBModifyDelAddReturnEnabled, setDDLFormDisabled } from '../slice/disableEnableSlice';
-import { objectToArray } from '../../util';
-import { openSnackbarAtLeast2Res } from '../slice/snackbarSlice';
+
 import { resetGroups } from '../slice/groupSlice';
 import { resetMenuMoreAns } from '../slice/menuDomandeERisposteSlice';
 import { resetMenuTwoAns } from '../slice/menuDomandeSlice';
@@ -27,34 +26,31 @@ export default function* confirmAddForm() {
   yield put(setBModifyDelAddReturnEnabled());
   yield put(setBAddFormUnclicked());
   yield put(setBConfirmAddFormClicked());
+  yield put(resetMenuMoreAns());
+  yield put(resetMenuTwoAns());
 }
 
 export function* cancelAddForm() {
-  const atLeast2Res = yield select(resAtLeast2);
-  const listDom = yield select(domandeObject);
-  const listDomandeArray = objectToArray(listDom);
-  if (atLeast2Res === false && listDomandeArray.length !== 0) {
-    yield put(openSnackbarAtLeast2Res());
-  } else {
-    const addReparto = yield select(isButtonAddFormClicked);
-    yield put(setBAddFormUnclicked());
-    yield put(setBModifyDelAddReturnEnabled());
-    yield put(resetFormType());
-    yield put(resetSelectedReparto());
-    yield put(setConfirmDisabled());
-    yield put(setBConfirmAddFormUnclicked());
+  const addReparto = yield select(isButtonAddFormClicked);
+  yield put(resetMenuMoreAns());
+  yield put(resetMenuTwoAns());
+  yield put(setBAddFormUnclicked());
+  yield put(setBModifyDelAddReturnEnabled());
+  yield put(resetFormType());
+  yield put(resetSelectedReparto());
+  yield put(setConfirmDisabled());
+  yield put(setBConfirmAddFormUnclicked());
+  yield put(resetIDReparto());
+  yield put(resetIDForm());
+  yield put(resetIntestazioneMoreAns());
+  yield put(resetDomandeOfDomandeObject());
+  yield put(resetRisposteTwoRisposte());
+  yield put(setDDLFormDisabled());
+  yield put(resetGroups());
+  yield put(resetMenuMoreAns());
+  yield put(resetMenuTwoAns());
+  if (addReparto === true) {
     yield put(resetIDReparto());
-    yield put(resetIDForm());
-    yield put(resetIntestazioneMoreAns());
-    yield put(resetDomandeOfDomandeObject());
-    yield put(resetRisposteTwoRisposte());
-    yield put(setDDLFormDisabled());
-    yield put(resetGroups());
-    yield put(resetMenuMoreAns());
-    yield put(resetMenuTwoAns());
-    if (addReparto === true) {
-      yield put(resetIDReparto());
-    }
   }
 }
 export function* changeRep() {

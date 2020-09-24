@@ -7,8 +7,12 @@ const groupSlice = createSlice({
     groupName: '' as string,
     groups: [] as any,
     groupSelectedIndex: -1 as number,
+    isListGroupsDisabled: false as boolean,
   },
   reducers: {
+    disableListGroups(state) {
+      state.isListGroupsDisabled = !state.isListGroupsDisabled;
+    },
     resetGroups(state) {
       state.groups = [];
     },
@@ -42,12 +46,13 @@ const groupSlice = createSlice({
   },
 });
 
+export const isListGroupsDisabled = (state : State) => state.group.isListGroupsDisabled;
 export const groupSelectedIndex = (state: State) => state.group.groupSelectedIndex;
 export const groups = (state:State) => state.group.groups;
 export const groupName = (state:State) => state.group.groupName;
 export const {
   setNewGroup, setGroupInGroups, resetGroupName,
   setGroupSelectedIndex, deleteGroup, modifyGroup, setModifyGroup,
-  resetSelectedIndex, setGroupsArray, resetGroups,
+  resetSelectedIndex, setGroupsArray, resetGroups, disableListGroups,
 } = groupSlice.actions;
 export default groupSlice.reducer;

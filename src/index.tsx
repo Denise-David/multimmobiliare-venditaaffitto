@@ -14,11 +14,10 @@ import App from './view/Barcode/App';
 import store from './store/store/store';
 import * as serviceWorker from './serviceWorker';
 import theme from './theme';
-import FormPaziente from './view/FormPaziente/FormPaziente';
 import Editor from './view/Editor/Editor';
-import PDFPatientData from './component/PDFPatientData/PDFPatentData';
-import PDFPatientAnswers from './component/PDFPatientAnswers/PDFPatientAnswers';
-import EtichettaQrCode from './component/EtichettaQRCode/EtichettaQrCode';
+import PDFPatientData from './component/Autoanamnesi/PDFPatientData/PDFPatentData';
+import PDFPatientAnswers from './component/Autoanamnesi/PDFPatientAnswers/PDFPatientAnswers';
+import EtichettaQrCode from './component/Autoanamnesi/EtichettaQRCode/EtichettaQrCode';
 
 // const escapeRegex = /([[\].#*$><+~=|^:(),"'`\s])/g;
 let classCounter = 0;
@@ -49,6 +48,7 @@ const generateClassName = (rule : any, styleSheet : any) => {
 
 ReactDOM.render(
   <React.StrictMode>
+
     {/* @ts-ignore */}
     <LocalizationProvider dateAdapter={DateFnsUtils}>
       <Provider store={store}>
@@ -62,9 +62,6 @@ ReactDOM.render(
               </Route>
 
               <Switch>
-                <Route path="/form">
-                  <FormPaziente />
-                </Route>
 
                 <Route path="/home">
                   <App />
@@ -90,6 +87,7 @@ ReactDOM.render(
 
       </Provider>
     </LocalizationProvider>
+
   </React.StrictMode>,
   // eslint-disable-next-line no-undef
   document.getElementById('root'),
