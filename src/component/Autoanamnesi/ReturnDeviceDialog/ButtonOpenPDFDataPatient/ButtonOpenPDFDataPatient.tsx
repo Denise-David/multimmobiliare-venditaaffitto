@@ -11,7 +11,7 @@ const ButtonOpenPDFDataPatient = () => {
 
   const buttonFineDispatch = () => {
     // eslint-disable-next-line no-underscore-dangle
-    window.open(`http://localhost:3000/pdfDatiPaziente?ID=${lastIDForm}`);
+    window.open(`http://gecodev.eoc.ch/autoanamnesi-client/pdfDatiPaziente?ID=${lastIDForm}`);
   };
 
   return (

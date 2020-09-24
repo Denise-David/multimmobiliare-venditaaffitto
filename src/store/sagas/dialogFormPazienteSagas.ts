@@ -1,6 +1,7 @@
 import {
   call, select, put,
 } from 'redux-saga/effects';
+import { setIsLoaded, setIsLoading } from '../slice/loadingSlice';
 import {
   openDialogSummary, openDialogFormPatient,
 } from '../slice/dialogSlice';
@@ -21,6 +22,7 @@ import {
 
 export default function* getDataEtichetta() {
   try {
+    yield put(setIsLoading());
     // prendo tutti i dati dell'etichetta selezionata
     const label : string = yield select(ValueCode);
 
@@ -87,7 +89,7 @@ export default function* getDataEtichetta() {
       yield put(setIntestazioneMoreAns(allDataReparto.data[0].intestazionePiuRisposte));
       yield put(setGruppi(allDataReparto.data[0].gruppi));
     }
-
+    yield put(setIsLoaded());
     yield put(openDialogFormPatient());
   } catch (error) {
     console.log('errore', error);

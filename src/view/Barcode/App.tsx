@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import {
-  CardContent, Typography, Card, Snackbar,
+  CardContent, Typography, Snackbar, CircularProgress, Paper,
 } from '@material-ui/core';
 import CropFreeIcon from '@material-ui/icons/CropFree';
 import queryString from 'query-string';
@@ -20,10 +20,12 @@ import {
 import DropDownListFormulariBarcode from '../../component/Autoanamnesi/DropDownListFormulariBarcode/DropDownListFormulariBarcode';
 import { formulariList } from '../../store/slice/homePageLabelSlice';
 import { closeSnackbarLabelPage, snackbarLabelOpen } from '../../store/slice/snackbarSlice';
+import { isLoading } from '../../store/slice/loadingSlice';
 
 const Barcodepage = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const loading = useSelector(isLoading);
 
   useEffect(() => {
     // eslint-disable-next-line no-restricted-globals
@@ -38,9 +40,10 @@ const Barcodepage = () => {
   const statusSnackbarBarcode = useSelector(snackbarLabelOpen);
   return (
     <div className={classes.Content}>
+
       <Navbar />
       <div className={classes.Card}>
-        <Card>
+        <Paper>
           <CardContent className={classes.Center}>
             <Typography variant="h4"> Scannerizza Barcode </Typography>
             <div>
@@ -48,14 +51,23 @@ const Barcodepage = () => {
             </div>
             <CameraButton />
           </CardContent>
-        </Card>
+
+        </Paper>
       </div>
       <div className={classes.Margin}>Oppure</div>
       <div className={classes.Margin}><TextFieldCodice /></div>
       {formList.length > 1
         ? <div className={classes.Margin}><DropDownListFormulariBarcode /></div>
         : <></>}
+
       <ButtonSend />
+      {loading
+        ? (
+          <div>
+            <CircularProgress disableShrink />
+            {' '}
+          </div>
+        ) : <></>}
       <Snackbar
         open={statusSnackbarBarcode}
         autoHideDuration={2000}
@@ -70,6 +82,7 @@ const Barcodepage = () => {
       <PatientFormDialog />
       <ReturnDeviceDialog />
       <SummaryDialog />
+
     </div>
 
   );

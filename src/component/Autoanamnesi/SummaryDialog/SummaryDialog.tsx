@@ -71,6 +71,7 @@ const SummaryDialog = () => {
                 ? (
                   <div>
                     <Typography variant="body1">
+                      <br />
                       { noPuntoDiDomanda }
                       {' '}
                       {risposta.testoLibero ? risposta.testoLibero : <></>}

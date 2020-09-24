@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import FormControl from '@material-ui/core/FormControl';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -22,9 +22,20 @@ const MultipleChoiceLinePatient = () => {
   const booleanAnswers = useSelector(boolAnswers);
   const domande = useSelector(repartoDomande);
 
+  useEffect(() => {
+    // eslint-disable-next-line array-callback-return
+    domande.map((question: any) => {
+    // controllo se la domanda è facoltativa
+      if (question.facoltativa === false || question.facoltativa === undefined) {
+        dispatch(setDomandaNoFacoltativa(question.IDDomanda));
+      }
+    });
+  }, [dispatch, domande]);
+
   if (!domande) {
     return <div />;
   }
+
   // crea lista domande e eseguo controlli
   const listItems = domande.map((question: any, index) => {
     // controllo se la domanda precendente ha lo stesso gruppo o no
@@ -33,10 +44,6 @@ const MultipleChoiceLinePatient = () => {
     const { risposte } = question;
     const idDomanda = question.IDDomanda;
     const domanda = question.Domanda;
-    // controllo se la domanda è facoltativa
-    if (question.facoltativa === false || question.facoltativa === undefined) {
-      dispatch(setDomandaNoFacoltativa(question.IDDomanda));
-    }
 
     // setto il gruppo attuale
     const groupSelected = gruppi ? gruppi.find((ID) => ID.id === question.group) : {};

@@ -13,7 +13,7 @@ const ButtonOpenPDFFormPatient = () => {
 
   const buttonFineDispatch = () => {
     // eslint-disable-next-line no-underscore-dangle
-    window.open(`http://localhost:3000/pdfRispostePaziente?etichetta=${etichetta}&ID=${lastIDForm}`);
+    window.open(`http://gecodev.eoc.ch/autoanamnesi-client/pdfRispostePaziente?etichetta=${etichetta}&ID=${lastIDForm}`);
   };
 
   return (
