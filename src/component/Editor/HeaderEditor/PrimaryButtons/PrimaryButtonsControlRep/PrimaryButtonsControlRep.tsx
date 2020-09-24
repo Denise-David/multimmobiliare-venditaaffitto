@@ -29,15 +29,18 @@ const PrimaryButtonsControlRep = () => {
           <>
             {rightCreate
               ? (
-                <Fab
-                  className={classes.buttonAdd}
-                  onClick={() => dispatch(buttonAddClicked())}
-                  color="primary"
-                  disabled={iconsDisabled}
-                >
-                  <AddIcon />
+                <>
+                  <Fab
+                    className={classes.buttonAdd}
+                    onClick={() => dispatch(buttonAddClicked())}
+                    color="primary"
+                    disabled={iconsDisabled}
+                  >
+                    <AddIcon />
 
-                </Fab>
+                  </Fab>
+
+                </>
               ) : <></>}
 
           </>
@@ -48,14 +51,17 @@ const PrimaryButtonsControlRep = () => {
               {/* se add non è attivo ed è selezionato il reparto */}
               {rightCreate
                 ? (
-                  <Fab
-                    className={classes.buttonAdd}
-                    onClick={() => dispatch(buttonAddClicked())}
-                    color="primary"
-                    disabled={iconsDisabled}
-                  >
-                    <AddIcon />
-                  </Fab>
+                  <>
+                    <Fab
+                      className={classes.buttonAdd}
+                      onClick={() => dispatch(buttonAddClicked())}
+                      color="primary"
+                      disabled={iconsDisabled}
+                    >
+                      <AddIcon />
+                    </Fab>
+
+                  </>
                 ) : <></>}
             </div>
             <div className={classes.ButtonDelSaveCanc}>
@@ -85,9 +91,9 @@ const PrimaryButtonsControlRep = () => {
               <IconButton
                 disabled={iconsDisabled}
                 onClick={
-    () => dispatch(buttonCancelAddFormClicked())
+                  () => dispatch(buttonCancelAddFormClicked())
 
-    }
+                   }
                 color="primary"
               >
                 <KeyboardReturnIcon fontSize="large" />

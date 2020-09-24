@@ -4,23 +4,25 @@ import Grid from '@material-ui/core/Grid';
 
 import Typography from '@material-ui/core/Typography';
 import { useDispatch, useSelector } from 'react-redux';
-import { CircularProgress, DialogContent, MenuItem } from '@material-ui/core';
+import {
+  CircularProgress, DialogContent, MenuItem, TextField,
+} from '@material-ui/core';
 import Nav from '../../component/Navbar/Navbar';
 import useStyles from './style';
 import HeaderEditor from '../../component/Editor/HeaderEditor/HeaderEditor';
 import QuestionsAndAnswersEditor from '../../component/Editor/QuestionsAndAnswersEditor/QuestionsAndAnswersEditor';
 import {
   isButtonAddFormClicked, setSelectedReparto, setConfirmEnabled,
-  isBConfirmAddFormClicked,
+  isBConfirmAddFormClicked, nomeFormulario, setNomeFormulario,
 } from '../../store/slice/addFormSlice';
-
 import QuestionsEditor from '../../component/Editor/QuestionsEditor/QuestionEditor';
 import ResultTableEditor from '../../component/Editor/ResultTable/ResultTableEditor';
 import AnswersTableEditor from '../../component/Editor/AnswersTableEditor/AnswersTableEditor';
-import { user, repartiCreate } from '../../store/slice/rightsSlice';
+import { user, repartiCreate, haveRepModifyRight } from '../../store/slice/rightsSlice';
 import { IDForm } from '../../store/slice/ddlEditorFormAndRepartiSlice';
 import GroupDialog from '../../component/Editor/GroupDialog/GroupDialog';
 import { isLoaded, isLoading } from '../../store/slice/loadingSlice';
+import { isBModifyDelAddReturnDisabled } from '../../store/slice/disableEnableSlice';
 
 const FormPaziente = () => {
   const classes = useStyles();
@@ -32,6 +34,10 @@ const FormPaziente = () => {
   const IDFormSelected = useSelector(IDForm);
   const loaded = useSelector(isLoaded);
   const loading = useSelector(isLoading);
+  const modifyRight = useSelector(haveRepModifyRight);
+  const IDFormulario = useSelector(IDForm);
+  const nomeForm = useSelector(nomeFormulario);
+  const iconsDisabled = useSelector(isBModifyDelAddReturnDisabled);
 
   const addReparto = useSelector(isButtonAddFormClicked);
   const username = useSelector(user);
@@ -86,6 +92,22 @@ const FormPaziente = () => {
                 ? (
 
                   <>
+                    {modifyRight && IDFormulario !== '-1'
+                      ? (
+                        <div className={classes.tfNomeForm}>
+                          <TextField
+
+                            fullWidth
+                            variant="outlined"
+                            value={nomeForm}
+                            onChange={(event) => {
+                              const { value } = event.target;
+                              dispatch(setNomeFormulario(value));
+                            }}
+                            disabled={iconsDisabled}
+                          />
+                        </div>
+                      ) : <></>}
                     {/* Tabella Domande e risposte */}
                     <Grid container spacing={3}>
                       <Grid item xs={12} sm={8}>

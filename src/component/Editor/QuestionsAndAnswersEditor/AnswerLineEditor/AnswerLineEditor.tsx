@@ -1,7 +1,4 @@
 import React from 'react';
-import {
-  FormControlLabel, Checkbox,
-} from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -55,12 +52,7 @@ const AnswerLineEditor = ({ id }: Props) => {
                   IDRisposta={rispostaArray.IDRisposta}
                 />
               </Grid>
-              <Grid item xs={12} sm={1}>
-                <FormControlLabel
-                  control={<Checkbox name="checkedA" />}
-                  label="libera"
-                />
-              </Grid>
+
             </>
           ) : <></>}
         {rightRepModify || confirmAddForm

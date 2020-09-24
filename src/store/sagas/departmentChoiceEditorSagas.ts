@@ -26,6 +26,8 @@ export default function* confirmAddForm() {
   yield put(setBModifyDelAddReturnEnabled());
   yield put(setBAddFormUnclicked());
   yield put(setBConfirmAddFormClicked());
+  yield put(resetMenuMoreAns());
+  yield put(resetMenuTwoAns());
 }
 
 export function* cancelAddForm() {

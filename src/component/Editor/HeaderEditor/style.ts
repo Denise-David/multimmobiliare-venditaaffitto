@@ -53,9 +53,6 @@ const useStyles = makeStyles((theme:Theme) => ({
 
     marginTop: theme.spacing(5),
   },
-  tfNomeForm: {
-    marginTop: theme.spacing(4),
-  },
 
 }));
 export default useStyles;

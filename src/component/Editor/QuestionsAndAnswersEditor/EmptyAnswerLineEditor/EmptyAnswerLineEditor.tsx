@@ -11,12 +11,15 @@ import {
 } from '../../../../store/slice/risposteAddFormSlice';
 import ButtonEmptyAnsweLine from './ButtonEmptyAnswerLine/ButtonEmptyAnsweLine';
 import TextFieldEmptyAnswerLine from './TextFieldEmptyAnswerLine/TextFieldEmptyAnswerLine';
+import useStyles from './style';
 
 interface Props{ IDDomanda: string}
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const EmptyAnswerLineEditor = ({ IDDomanda }: Props) => {
   const dispatch = useDispatch();
+
+  const classes = useStyles();
 
   useEffect(() => {
     dispatch(setAddRispostaUnclicked(IDDomanda));
@@ -25,7 +28,7 @@ const EmptyAnswerLineEditor = ({ IDDomanda }: Props) => {
   const stateTextField = useSelector(stateAddedRisposta);
 
   return (
-    <div>
+    <div className={classes.margin}>
       <Grid
 
         container
@@ -48,19 +51,11 @@ const EmptyAnswerLineEditor = ({ IDDomanda }: Props) => {
                   label="data"
                 />
               </Grid>
-              <Grid item xs={12} sm={1}>
-                <FormControlLabel
-                  control={(
-                    <Checkbox />
-          )}
-                  label="libera"
-                />
-              </Grid>
+
             </>
           ) : (
             <>
-              {' '}
-              <Grid item xs={12} sm={3} />
+
             </>
           )}
         <ButtonEmptyAnsweLine IDDomanda={IDDomanda} />

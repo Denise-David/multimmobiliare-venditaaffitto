@@ -39,26 +39,29 @@ const TextFieldEmptyAnswerLine = ({ IDDomanda }:Props) => {
             fullWidth
           />
         </Grid>
-        <Grid item xs={12} sm={1}>
-          <TextField
-            placeholder="valore"
-            value={valoreText[IDDomanda] || ''}
-            onChange={(event) => {
-              const { value } = event.target;
-              if (value !== '') {
-              // eslint-disable-next-line radix
-                const intValue = parseInt(value.toString().replace(NON_DIGIT, '0'));
-                dispatch(setValore({ IDDomanda, intValue }));
-              } else {
-                const intValue = '0';
-                dispatch(setValore({ IDDomanda, intValue }));
-              }
-            }}
-            disabled={stateTextField[IDDomanda]}
-            id="standard-basic"
-            fullWidth
-          />
-        </Grid>
+        {!stateTextField[IDDomanda]
+          ? (
+            <Grid item xs={12} sm={1}>
+              <TextField
+                placeholder="valore"
+                value={valoreText[IDDomanda] || ''}
+                onChange={(event) => {
+                  const { value } = event.target;
+                  if (value !== '') {
+                    // eslint-disable-next-line radix
+                    const intValue = parseInt(value.toString().replace(NON_DIGIT, '0'));
+                    dispatch(setValore({ IDDomanda, intValue }));
+                  } else {
+                    const intValue = '0';
+                    dispatch(setValore({ IDDomanda, intValue }));
+                  }
+                }}
+                disabled={stateTextField[IDDomanda]}
+                id="standard-basic"
+                fullWidth
+              />
+            </Grid>
+          ) : <></>}
       </>
     );
   }
@@ -67,6 +70,7 @@ const TextFieldEmptyAnswerLine = ({ IDDomanda }:Props) => {
       <Grid item xs={12} sm={7}>
 
         <TextField
+          placeholder="testo data"
           value={rispostaText[IDDomanda] || ''}
           onChange={(event) => {
             const { value } = event.target;

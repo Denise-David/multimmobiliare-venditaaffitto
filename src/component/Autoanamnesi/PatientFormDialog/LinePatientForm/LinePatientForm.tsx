@@ -45,7 +45,8 @@ const MultipleChoiceLinePatient = () => {
       return (
         <div key={idDomanda}>
           {/* Se la domanda ha un gruppo diverso, e il gruppo è presente  */}
-          { gruppoDiverso && groupSelected !== undefined
+          { (gruppoDiverso && groupSelected !== undefined)
+          || (index === 0 && groupSelected !== undefined)
             ? (
               <>
                 <Typography variant="body1" align="center" className={classes.group}>
