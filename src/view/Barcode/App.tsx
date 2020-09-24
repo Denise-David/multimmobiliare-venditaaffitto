@@ -6,18 +6,18 @@ import CropFreeIcon from '@material-ui/icons/CropFree';
 import queryString from 'query-string';
 import { useDispatch, useSelector } from 'react-redux';
 import Alert from '@material-ui/lab/Alert';
-import ButtonSend from '../../component/ButtonSendCode/ButtonSendCode';
-import TextFieldCodice from '../../component/TextCode/TextCode';
+import ButtonSend from '../../component/Autoanamnesi/ButtonSendCode/ButtonSendCode';
+import TextFieldCodice from '../../component/Autoanamnesi/TextCode/TextCode';
 import useStyles from './style';
 import Navbar from '../../component/Navbar/Navbar';
-import CameraButton from '../../component/CameraButton/CameraButton';
-import PatientFormDialog from '../../component/PatientFormDialog';
-import ReturnDeviceDialog from '../../component/ReturnDeviceDialog/ReturnDeviceDialog';
-import SummaryDialog from '../../component/SummaryDialog/SummaryDialog';
+import CameraButton from '../../component/Autoanamnesi/CameraButton/CameraButton';
+import PatientFormDialog from '../../component/Autoanamnesi/PatientFormDialog';
+import ReturnDeviceDialog from '../../component/Autoanamnesi/ReturnDeviceDialog/ReturnDeviceDialog';
+import SummaryDialog from '../../component/Autoanamnesi/SummaryDialog/SummaryDialog';
 import {
   getCodeValue, buttonSendCode,
 } from '../../store/slice/labelCodeSlice';
-import DropDownListFormulariBarcode from '../../component/DropDownListFormulariBarcode/DropDownListFormulariBarcode';
+import DropDownListFormulariBarcode from '../../component/Autoanamnesi/DropDownListFormulariBarcode/DropDownListFormulariBarcode';
 import { formulariList } from '../../store/slice/homePageLabelSlice';
 import { closeSnackbarLabelPage, snackbarLabelOpen } from '../../store/slice/snackbarSlice';
 

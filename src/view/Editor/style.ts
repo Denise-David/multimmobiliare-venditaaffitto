@@ -38,6 +38,12 @@ const useStyles = makeStyles((theme: Theme) => ({
   marginTable: {
     marginBottom: theme.spacing(4),
   },
+  center: {
+    display: 'block',
+    marginRight: 'auto',
+    marginLeft: 'auto',
+
+  },
 
 }));
 export default useStyles;

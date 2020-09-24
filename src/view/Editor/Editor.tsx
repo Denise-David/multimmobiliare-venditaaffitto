@@ -4,22 +4,23 @@ import Grid from '@material-ui/core/Grid';
 
 import Typography from '@material-ui/core/Typography';
 import { useDispatch, useSelector } from 'react-redux';
-import { DialogContent, MenuItem } from '@material-ui/core';
+import { CircularProgress, DialogContent, MenuItem } from '@material-ui/core';
 import Nav from '../../component/Navbar/Navbar';
 import useStyles from './style';
-import HeaderEditor from '../../component/HeaderEditor/HeaderEditor';
-import QuestionsAndAnswersEditor from '../../component/QuestionsAndAnswersEditor/QuestionsAndAnswersEditor';
+import HeaderEditor from '../../component/Editor/HeaderEditor/HeaderEditor';
+import QuestionsAndAnswersEditor from '../../component/Editor/QuestionsAndAnswersEditor/QuestionsAndAnswersEditor';
 import {
   isButtonAddFormClicked, setSelectedReparto, setConfirmEnabled,
   isBConfirmAddFormClicked,
 } from '../../store/slice/addFormSlice';
 
-import QuestionsEditor from '../../component/QuestionsEditor/QuestionEditor';
-import ResultTableEditor from '../../component/ResultTable/ResultTableEditor';
-import AnswersTableEditor from '../../component/AnswersTableEditor/AnswersTableEditor';
+import QuestionsEditor from '../../component/Editor/QuestionsEditor/QuestionEditor';
+import ResultTableEditor from '../../component/Editor/ResultTable/ResultTableEditor';
+import AnswersTableEditor from '../../component/Editor/AnswersTableEditor/AnswersTableEditor';
 import { user, repartiCreate } from '../../store/slice/rightsSlice';
 import { IDForm } from '../../store/slice/ddlEditorFormAndRepartiSlice';
-import GroupDialog from '../../component/GroupDialog/GroupDialog';
+import GroupDialog from '../../component/Editor/GroupDialog/GroupDialog';
+import { isLoaded, isLoading } from '../../store/slice/loadingSlice';
 
 const FormPaziente = () => {
   const classes = useStyles();
@@ -29,6 +30,8 @@ const FormPaziente = () => {
     dispatch({ type: 'initUserRightsAUTAN' });
   }, [dispatch]);
   const IDFormSelected = useSelector(IDForm);
+  const loaded = useSelector(isLoaded);
+  const loading = useSelector(isLoading);
 
   const addReparto = useSelector(isButtonAddFormClicked);
   const username = useSelector(user);
@@ -65,49 +68,65 @@ const FormPaziente = () => {
         </Typography>
         <HeaderEditor />
         <GroupDialog />
-        {IDFormSelected !== '-1' || confirmAddForm
+
+        {!loaded && loading && IDFormSelected !== '-1'
           ? (
-
+            <Grid
+              container
+              direction="row"
+              justify="center"
+              alignItems="center"
+            >
+              <CircularProgress disableShrink />
+            </Grid>
+          )
+          : (
             <>
-              {/* Tabella Domande e risposte */}
-              <Grid container spacing={3}>
-                <Grid item xs={12} sm={8}>
-                  <Paper className={classes.marginTable}>
-
-                    <QuestionsAndAnswersEditor />
-                  </Paper>
-                </Grid>
-                <Grid item xs={12} sm={4}>
-                  <div className={classes.marginTable}>
-                    <ResultTableEditor />
-                  </div>
-
-                </Grid>
-                <Grid item xs={12} sm={8}>
-                  <Paper>
-                    <QuestionsEditor />
-                  </Paper>
-                </Grid>
-                <Grid item xs={12} sm={4}>
-
-                  <AnswersTableEditor />
-
-                </Grid>
-
-              </Grid>
-            </>
-
-          ) : (
-            <>
-              {addReparto
+              {IDFormSelected !== '-1' || confirmAddForm
                 ? (
+
                   <>
-                    <Typography className={classes.background} variant="h5">Scegli il reparto</Typography>
-                    <br />
-                    <DialogContent dividers>{listRepartiCreate}</DialogContent>
+                    {/* Tabella Domande e risposte */}
+                    <Grid container spacing={3}>
+                      <Grid item xs={12} sm={8}>
+                        <Paper className={classes.marginTable}>
+
+                          <QuestionsAndAnswersEditor />
+                        </Paper>
+                      </Grid>
+                      <Grid item xs={12} sm={4}>
+                        <div className={classes.marginTable}>
+                          <ResultTableEditor />
+                        </div>
+
+                      </Grid>
+                      <Grid item xs={12} sm={8}>
+                        <Paper>
+                          <QuestionsEditor />
+                        </Paper>
+                      </Grid>
+                      <Grid item xs={12} sm={4}>
+
+                        <AnswersTableEditor />
+
+                      </Grid>
+
+                    </Grid>
                   </>
 
-                ) : <></> }
+                ) : (
+                  <>
+                    {addReparto
+                      ? (
+                        <>
+                          <Typography className={classes.background} variant="h5">Scegli il reparto</Typography>
+                          <br />
+                          <DialogContent dividers>{listRepartiCreate}</DialogContent>
+                        </>
+
+                      ) : <></> }
+                  </>
+                )}
             </>
           )}
       </div>

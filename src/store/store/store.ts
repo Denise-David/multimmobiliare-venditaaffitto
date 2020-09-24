@@ -21,6 +21,7 @@ import snackbar from '../slice/snackbarSlice';
 import menuDomandeERisposte from '../slice/menuDomandeERisposteSlice';
 import menuDomande from '../slice/menuDomandeSlice';
 import group from '../slice/groupSlice';
+import loading from '../slice/loadingSlice';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -45,7 +46,7 @@ const store = configureStore({
     menuDomandeERisposte,
     menuDomande,
     group,
-
+    loading,
   },
 
   middleware: [sagaMiddleware, logger, ...getDefaultMiddleware()],
