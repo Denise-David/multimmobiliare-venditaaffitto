@@ -63,7 +63,7 @@ export default function* addFormulario() {
     // eslint-disable-next-line max-len
     const domande = domandeAndStatusArray.map((domandaAndStatus: domandaAddForm) => {
       const {
-        IDDomanda, Domanda, Tipo, group,
+        IDDomanda, Domanda, Tipo, group, facoltativa, libera,
       } = domandaAndStatus;
       if (domandaAndStatus.Tipo === 'a più risposte') {
         const risposteWithStatusArray = objectToArray(risposteWithStatus[IDDomanda]);
@@ -76,11 +76,11 @@ export default function* addFormulario() {
           };
         });
         return {
-          IDDomanda, Domanda, Tipo, risposte, group,
+          IDDomanda, Domanda, Tipo, risposte, group, facoltativa, libera,
         };
       }
       return {
-        IDDomanda, Domanda, Tipo, group,
+        IDDomanda, Domanda, Tipo, group, facoltativa, libera,
       };
     });
     domande.sort((a, b) => {

@@ -10,7 +10,9 @@ export interface domandaAddForm {
    stateText : boolean,
    openCard: boolean,
     Risposte? : []
-  group? : string, }
+  group? : string,
+facoltativa: boolean
+libera:boolean}
 
 const domandeAddFormSlice = createSlice({
   name: 'domandeAddForm',
@@ -24,8 +26,15 @@ const domandeAddFormSlice = createSlice({
     expandedTableMoreAnswers: true as boolean,
     intestazioneMoreAns: '' as string,
     expandedTableQuestion: true as boolean,
+
   },
   reducers: {
+    setDomandaLibera(state, { payload }) {
+      state.domandeObject[payload].libera = !state.domandeObject[payload].libera;
+    },
+    setDomandaFacoltativa(state, { payload }) {
+      state.domandeObject[payload].facoltativa = !state.domandeObject[payload].facoltativa;
+    },
     setGroupSelected(state, { payload }) {
       const { value, IDDomanda } = payload;
       state.domandeObject[IDDomanda].group = value;
@@ -144,7 +153,7 @@ export const {
   setDomandeinObject, expandTable,
   resetDomandeOfDomandeObject, openCloseDomandaCard,
   setIntestazioneMoreAns, resetIntestazioneMoreAns, expandTableQuestion,
-  setGroupSelected,
+  setGroupSelected, setDomandaFacoltativa, setDomandaLibera,
 
 } = domandeAddFormSlice.actions;
 export default domandeAddFormSlice.reducer;
