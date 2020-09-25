@@ -119,8 +119,7 @@ export function* sendDataPazienti() {
       // yield put(addRisposteFormPazienti(patientData, answersData));
     } else if (!checkOrCancelClicked) {
       yield put(openSnackbarDatiPersonali());
-    }
-    yield put(openSnackbarPatientAnswers());
+    } else if (answersAll) yield put(openSnackbarPatientAnswers());
   } catch (error) {
     console.log('errore', error);
   }

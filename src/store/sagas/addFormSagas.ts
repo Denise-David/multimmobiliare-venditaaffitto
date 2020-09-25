@@ -3,6 +3,10 @@ import {
 } from 'redux-saga/effects';
 import { v4 as uuidv4 } from 'uuid';
 import startOfToday from 'date-fns/startOfToday';
+import {
+  buttonCancelAddFormClicked,
+  selectedReparto, nomeFormulario, setBAddFormClicked,
+} from '../slice/addFormSlice';
 import { groups } from '../slice/groupSlice';
 import { user } from '../slice/rightsSlice';
 import { risposteTutteUguali } from '../slice/menuDomandeERisposteSlice';
@@ -26,16 +30,16 @@ import {
   resetDomandeOfDomandeObject,
   setDomandaInObjectDomandeMoreRes, intestazioneMoreAnswers,
 } from '../slice/domandeAddFormSlice';
-import {
-  selectedReparto, nomeFormulario, setBAddFormClicked,
-} from '../slice/addFormSlice';
+
 import { addForm, setNewStructure } from '../api';
 import { objectToArray } from '../../util';
 import { resetIDForm, resetIDReparto } from '../slice/ddlEditorFormAndRepartiSlice';
 import { setBSaveDisabled, setBModifyDelAddReturnDisabled } from '../slice/disableEnableSlice';
 import { openCloseSnackbarConfirmDelete, openSnackbarAtLeast2Res } from '../slice/snackbarSlice';
+import { setIsLoaded, setIsLoading } from '../slice/loadingSlice';
 
 export default function* addFormulario() {
+  yield put(setIsLoading());
   const atLeast2Res = yield select(resAtLeast2);
   const listDom = yield select(domandeObject);
   const listDomandeArray = objectToArray(listDom);
@@ -63,7 +67,7 @@ export default function* addFormulario() {
     // eslint-disable-next-line max-len
     const domande = domandeAndStatusArray.map((domandaAndStatus: domandaAddForm) => {
       const {
-        IDDomanda, Domanda, Tipo, group,
+        IDDomanda, Domanda, Tipo, group, facoltativa, libera,
       } = domandaAndStatus;
       if (domandaAndStatus.Tipo === 'a più risposte') {
         const risposteWithStatusArray = objectToArray(risposteWithStatus[IDDomanda]);
@@ -76,11 +80,11 @@ export default function* addFormulario() {
           };
         });
         return {
-          IDDomanda, Domanda, Tipo, risposte, group,
+          IDDomanda, Domanda, Tipo, risposte, group, facoltativa, libera,
         };
       }
       return {
-        IDDomanda, Domanda, Tipo, group,
+        IDDomanda, Domanda, Tipo, group, facoltativa, libera,
       };
     });
     domande.sort((a, b) => {
@@ -119,7 +123,9 @@ export default function* addFormulario() {
 
     yield put(resetDomandeOfDomandeObject());
     yield put(setBSaveDisabled());
+    yield put(buttonCancelAddFormClicked());
   }
+  yield put(setIsLoaded());
 }
 
 export function* addDomandaTwoResInArray() {

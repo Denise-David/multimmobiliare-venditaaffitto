@@ -46,7 +46,7 @@ export default function* saveModify() {
 
       const listDomandeAndRisposte = listDomande.map((domanda : any) => {
         const {
-          IDDomanda, Domanda, Tipo, group,
+          IDDomanda, Domanda, Tipo, group, facoltativa, libera,
         } = domanda;
         if (Tipo === 'a più risposte') {
           const listRisposte = objectToArray(objRisposte[IDDomanda]);
@@ -59,11 +59,11 @@ export default function* saveModify() {
             };
           });
           return {
-            IDDomanda, Domanda, Tipo, risposte, group,
+            IDDomanda, Domanda, Tipo, risposte, group, facoltativa, libera,
           };
         }
         return {
-          IDDomanda, Domanda, Tipo, group,
+          IDDomanda, Domanda, Tipo, group, facoltativa, libera,
         };
       });
 

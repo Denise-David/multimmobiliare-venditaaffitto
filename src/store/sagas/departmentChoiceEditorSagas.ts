@@ -28,6 +28,7 @@ export default function* confirmAddForm() {
   yield put(setBConfirmAddFormClicked());
   yield put(resetMenuMoreAns());
   yield put(resetMenuTwoAns());
+  yield put(resetIntestazioneMoreAns());
 }
 
 export function* cancelAddForm() {

@@ -72,7 +72,7 @@ const QuestionsAndAnswersEditor = () => {
                 : <></>}
               <Card className={classes.bordiCard} elevation={3}>
                 <div className={classes.bordi}>
-                  <HeaderDomandaMoreAnswers />
+                  <HeaderDomandaMoreAnswers IDDomanda={IDDomanda} domanda={domanda} />
                   <Grid container spacing={3}>
 
                     {/* Text Field domanda */}

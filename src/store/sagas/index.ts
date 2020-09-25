@@ -4,7 +4,9 @@ import {
 import { setRepartoGUID, setFormulariList } from '../slice/homePageLabelSlice';
 import { setNomeFormulario } from '../slice/addFormSlice';
 import { formulariByReparto, setFormulari } from '../slice/rightsSlice';
-import { setRisposteOfDomandaInObject, getRisposta2, getRisposta1 } from '../slice/risposteAddFormSlice';
+import {
+  setRisposteOfDomandaInObject, getRisposta2, getRisposta1, setResAtLeast2,
+} from '../slice/risposteAddFormSlice';
 import { IDRepartoSelected, IDForm } from '../slice/ddlEditorFormAndRepartiSlice';
 import addFormulario, {
   addDomandaTwoResInArray, clickAddButton,
@@ -35,6 +37,7 @@ import { setIsLoaded, setIsLoading } from '../slice/loadingSlice';
 function* init(action : any) {
   try {
     yield put(setIsLoading());
+    yield put(setResAtLeast2());
     yield put(resetMenuMoreAns());
     yield put(resetMenuTwoAns());
     const ID = yield select(IDRepartoSelected);
@@ -185,7 +188,6 @@ function* actionWatcher() {
   yield takeLatest('INIT', init);
   yield takeLatest('INIT_FORMULARI_REPARTO', initRep);
   yield takeLatest('BUTTON_SAVE_FORM_CLICKED', addFormulario);
-  yield takeLatest('BUTTON_SAVE_FORM_CLICKED', cancelAddForm);
   yield takeEvery('BUTTON_SEND_CODE', getDataEtichetta);
   yield takeLatest('BUTTON_SEND_FORM', sendDataPazienti);
   yield takeLatest('initPDFPatientData', initPDFPatientData);
