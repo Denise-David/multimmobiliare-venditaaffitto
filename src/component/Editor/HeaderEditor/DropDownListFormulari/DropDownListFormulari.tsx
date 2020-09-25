@@ -35,7 +35,7 @@ const DropDownListFormulari = () => {
           value={IDFormulario}
           onChange={getValueOnChange}
         >
-          <MenuItem value={-1}>
+          <MenuItem disabled value={-1}>
             Seleziona Formulario
           </MenuItem>
           {listForm}

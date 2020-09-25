@@ -82,6 +82,7 @@ const FormPaziente = () => {
               direction="row"
               justify="center"
               alignItems="center"
+              className={classes.marginTop}
             >
               <CircularProgress disableShrink />
             </Grid>

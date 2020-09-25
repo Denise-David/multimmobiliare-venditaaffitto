@@ -72,7 +72,6 @@ const TextFieldEmptyResultLine = ({ textFieldDisabled } : Props) => {
       </Grid>
       <Grid item xs={12} sm={2}>
         <TextField
-
           value={valMax}
           disabled={textFieldDisabled}
           onChange={(event) => {

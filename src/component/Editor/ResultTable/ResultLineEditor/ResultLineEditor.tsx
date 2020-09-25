@@ -31,6 +31,7 @@ const ResultLineEditor = () => {
 
         <Grid item xs={12} sm={6}>
           <TextField
+
             onChange={(event) => {
               risultato = event.target.value;
               if (risultato === '' || valoreMin > valoreMax) {

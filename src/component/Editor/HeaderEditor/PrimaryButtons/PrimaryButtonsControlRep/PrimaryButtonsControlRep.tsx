@@ -80,13 +80,15 @@ const PrimaryButtonsControlRep = () => {
               {rightRepModify
 
                 ? (
-                  <IconButton
-                    disabled={iconsDisabled}
-                    onClick={() => dispatch(saveModifyForm())}
-                    color="primary"
-                  >
-                    <SaveIcon fontSize="large" />
-                  </IconButton>
+                  <>
+                    <IconButton
+                      disabled={iconsDisabled}
+                      onClick={() => dispatch(saveModifyForm())}
+                      color="primary"
+                    >
+                      <SaveIcon fontSize="large" />
+                    </IconButton>
+                  </>
                 ) : <></>}
               <IconButton
                 disabled={iconsDisabled}

@@ -1,5 +1,7 @@
-import React from 'react';
-import { IconButton, Grid } from '@material-ui/core';
+import React, { useState } from 'react';
+import {
+  IconButton, Grid, FormControlLabel, Checkbox,
+} from '@material-ui/core';
 import CreateIcon from '@material-ui/icons/Create';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,7 +11,7 @@ import { isBModifyDelAddReturnDisabled, disableAll, enableAll } from '../../../.
 import { isBConfirmAddFormClicked } from '../../../../store/slice/addFormSlice';
 import {
   deleteDomandaInObjectDomande, setBModifyDomandaClicked,
-  setBModifyDomandaUnclicked, isBCheckDisabled,
+  setBModifyDomandaUnclicked, isBCheckDisabled, setDomandaFacoltativa, setDomandaLibera,
 } from '../../../../store/slice/domandeAddFormSlice';
 
 interface Props{ domandaAddForm: any}
@@ -20,6 +22,15 @@ const ButtonsQuestion = ({ domandaAddForm }: Props) => {
   const iconsDisabled = useSelector(isBModifyDelAddReturnDisabled);
   const bCheckDisabled = useSelector(isBCheckDisabled);
   const dispatch = useDispatch();
+  const rightMod = useSelector(haveRepModifyRight);
+  const confirmClicked = useSelector(isBConfirmAddFormClicked);
+  const [disabled, setDisabled] = useState(false);
+
+  if ((rightMod || confirmClicked) && disabled === true) {
+    setDisabled(!disabled);
+  } else if ((!rightMod && !confirmClicked) && disabled === false) {
+    setDisabled(!disabled);
+  }
   return (
     <>
       {rightRepModify || confirmAddReparto
@@ -29,29 +40,48 @@ const ButtonsQuestion = ({ domandaAddForm }: Props) => {
             { domandaAddForm.stateText
               ? (
                 < >
-                  <Grid item xs={12} sm={1}>
-                    <IconButton
-                      color="primary"
-                      disabled={iconsDisabled}
-                      onClick={() => {
-                        dispatch(setBModifyDomandaClicked(domandaAddForm.IDDomanda));
-                        dispatch(disableAll());
-                      }}
-                    >
-                      <CreateIcon />
-                    </IconButton>
-                  </Grid>
-                  <Grid item xs={12} sm={1}>
-                    <IconButton
-                      color="primary"
-                      disabled={iconsDisabled}
-                      onClick={
+
+                  <IconButton
+                    color="primary"
+                    disabled={iconsDisabled}
+                    onClick={() => {
+                      dispatch(setBModifyDomandaClicked(domandaAddForm.IDDomanda));
+                      dispatch(disableAll());
+                    }}
+                  >
+                    <CreateIcon />
+                  </IconButton>
+
+                  <IconButton
+                    color="primary"
+                    disabled={iconsDisabled}
+                    onClick={
             () => dispatch(deleteDomandaInObjectDomande(domandaAddForm.IDDomanda))
           }
-                    >
-                      <DeleteIcon />
-                    </IconButton>
-                  </Grid>
+                  >
+                    <DeleteIcon />
+                  </IconButton>
+
+                  <FormControlLabel
+                    control={(
+                      <Checkbox
+                        disabled={disabled}
+                        checked={domandaAddForm.facoltativa}
+                        onChange={() => dispatch(setDomandaFacoltativa(domandaAddForm.IDDomanda))}
+                      />
+        )}
+                    label="facoltativa"
+                  />
+                  <FormControlLabel
+                    control={(
+                      <Checkbox
+                        disabled={disabled}
+                        checked={domandaAddForm.libera}
+                        onChange={() => dispatch(setDomandaLibera(domandaAddForm.IDDomanda))}
+                      />
+        )}
+                    label="libera"
+                  />
                 </ >
               ) : (
                 <>
@@ -70,6 +100,26 @@ const ButtonsQuestion = ({ domandaAddForm }: Props) => {
                         <CheckCircleOutlineIcon />
                       </IconButton>
                     </Grid>
+                    <FormControlLabel
+                      control={(
+                        <Checkbox
+                          disabled={disabled}
+                          checked={domandaAddForm.facoltativa}
+                          onChange={() => dispatch(setDomandaFacoltativa(domandaAddForm.IDDomanda))}
+                        />
+        )}
+                      label="facoltativa"
+                    />
+                    <FormControlLabel
+                      control={(
+                        <Checkbox
+                          disabled={disabled}
+                          checked={domandaAddForm.libera}
+                          onChange={() => dispatch(setDomandaLibera(domandaAddForm.IDDomanda))}
+                        />
+        )}
+                      label="libera"
+                    />
 
                   </ >
 
@@ -80,7 +130,26 @@ const ButtonsQuestion = ({ domandaAddForm }: Props) => {
         ) : (
           <>
             {' '}
-            <Grid item xs={12} sm={2} />
+            <FormControlLabel
+              control={(
+                <Checkbox
+                  disabled={disabled}
+                  checked={domandaAddForm.facoltativa}
+                  onChange={() => dispatch(setDomandaFacoltativa(domandaAddForm.IDDomanda))}
+                />
+        )}
+              label="facoltativa"
+            />
+            <FormControlLabel
+              control={(
+                <Checkbox
+                  disabled={disabled}
+                  checked={domandaAddForm.libera}
+                  onChange={() => dispatch(setDomandaLibera(domandaAddForm.IDDomanda))}
+                />
+        )}
+              label="libera"
+            />
           </>
         )}
     </>
