@@ -97,13 +97,6 @@ const NavQuestionsAndAnswers = () => {
             <Grid item xs={12} sm={2}>
               <Checkbox
                 checked={risTutteUguali}
-                onChange={() => {
-                  dispatch(setRisposteTutteUguali());
-                  handleClose();
-                  if (!risTutteUguali) {
-                    dispatch(resetRisposteOfDomanda());
-                  }
-                }}
                 inputProps={{ 'aria-label': 'primary checkbox' }}
               />
             </Grid>
@@ -125,17 +118,6 @@ const NavQuestionsAndAnswers = () => {
           >
             <Checkbox
               checked={intestazione}
-              onClick={() => {
-                dispatch(setIntestazioneMoreAnsAttiva());
-                if (intTwoAns) {
-                  dispatch(setIntestazioneAttiva());
-                }
-
-                handleClose();
-                if (intestazione) {
-                  dispatch(resetIntestazioneMoreAns());
-                }
-              }}
               inputProps={{ 'aria-label': 'primary checkbox' }}
             />
             metti intestazione
@@ -148,10 +130,6 @@ const NavQuestionsAndAnswers = () => {
           >
             <Checkbox
               checked={group}
-              onClick={() => {
-                dispatch(setGroupAttivi());
-                handleClose();
-              }}
               inputProps={{ 'aria-label': 'primary checkbox' }}
             />
             raggruppa

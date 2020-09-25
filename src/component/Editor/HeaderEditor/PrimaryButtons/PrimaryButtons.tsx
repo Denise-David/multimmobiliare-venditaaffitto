@@ -33,6 +33,23 @@ const PrimaryButtons = () => {
   // controllo i diritti che ha l'utente
   // eslint-disable-next-line array-callback-return
   rightUser.map((scope: any) => {
+    if (scope.id === 6997) {
+      dispatch(setRepartoModifyRight());
+      // eslint-disable-next-line array-callback-return
+      repModify.map((reparto:any) => {
+        if (IDRepSelected === reparto.unitid || IDRepSelected === reparto.sermednodeid) {
+          dispatch(setRepartoModifyRight());
+        }
+      });
+      dispatch(setRepartoDeleteRight());
+      // eslint-disable-next-line array-callback-return
+      repDelete.map((reparto:any) => {
+        if (IDRepSelected === reparto.unitid || IDRepSelected === reparto.sermednodeid) {
+          dispatch(setRepartoDeleteRight());
+        }
+      });
+      dispatch(setUserCreateRight());
+    }
     if (scope.id === 6856) {
       dispatch(setUserCreateRight());
     } // diritto delete

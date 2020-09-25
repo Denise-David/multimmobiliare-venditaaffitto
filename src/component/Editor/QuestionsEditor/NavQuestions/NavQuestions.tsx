@@ -98,16 +98,6 @@ const NavQuestions = () => {
             >
               <Checkbox
                 checked={intestazione}
-                onClick={() => {
-                  dispatch(setIntestazioneAttiva());
-                  if (intMoreAns) {
-                    dispatch(setIntestazioneMoreAnsAttiva());
-                  }
-                  handleClose();
-                  if (intestazione) {
-                    dispatch(resetIntestazioneMoreAns());
-                  }
-                }}
                 inputProps={{ 'aria-label': 'primary checkbox' }}
               />
               metti intestazione
@@ -116,17 +106,10 @@ const NavQuestions = () => {
             <MenuItem onClick={() => {
               dispatch(setGroupAttivi());
               handleClose();
-              if (intestazione) {
-                dispatch(resetIntestazioneMoreAns());
-              }
             }}
             >
               <Checkbox
                 checked={group}
-                onClick={() => {
-                  dispatch(setGroupAttivi());
-                  handleClose();
-                }}
                 inputProps={{ 'aria-label': 'primary checkbox' }}
               />
               raggruppa
