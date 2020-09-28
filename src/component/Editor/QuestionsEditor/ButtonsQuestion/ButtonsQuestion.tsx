@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {
-  IconButton, Grid, FormControlLabel, Checkbox,
+  IconButton, FormControlLabel, Checkbox,
 } from '@material-ui/core';
 import CreateIcon from '@material-ui/icons/Create';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -11,7 +11,8 @@ import { isBModifyDelAddReturnDisabled, disableAll, enableAll } from '../../../.
 import { isBConfirmAddFormClicked } from '../../../../store/slice/addFormSlice';
 import {
   deleteDomandaInObjectDomande, setBModifyDomandaClicked,
-  setBModifyDomandaUnclicked, isBCheckDisabled, setDomandaFacoltativa, setDomandaLibera,
+  setBModifyDomandaUnclicked, isBCheckDisabled,
+  setDomandaFacoltativa, setDomandaLibera, setBCheckEnabled,
 } from '../../../../store/slice/domandeAddFormSlice';
 
 interface Props{ domandaAddForm: any}
@@ -47,6 +48,7 @@ const ButtonsQuestion = ({ domandaAddForm }: Props) => {
                     onClick={() => {
                       dispatch(setBModifyDomandaClicked(domandaAddForm.IDDomanda));
                       dispatch(disableAll());
+                      dispatch(setBCheckEnabled());
                     }}
                   >
                     <CreateIcon />
@@ -86,20 +88,20 @@ const ButtonsQuestion = ({ domandaAddForm }: Props) => {
               ) : (
                 <>
                   < >
-                    <Grid item xs={12} sm={2}>
-                      <IconButton
-                        disabled={bCheckDisabled}
-                        color="primary"
-                        onClick={
+
+                    <IconButton
+                      disabled={bCheckDisabled}
+                      color="primary"
+                      onClick={
                 () => {
                   dispatch(setBModifyDomandaUnclicked(domandaAddForm.IDDomanda));
                   dispatch(enableAll());
                 }
               }
-                      >
-                        <CheckCircleOutlineIcon />
-                      </IconButton>
-                    </Grid>
+                    >
+                      <CheckCircleOutlineIcon />
+                    </IconButton>
+
                     <FormControlLabel
                       control={(
                         <Checkbox

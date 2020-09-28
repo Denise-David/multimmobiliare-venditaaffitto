@@ -12,7 +12,7 @@ import HeaderDomandaMoreAnswers from './HeaderDomandaMoreAnswers/HeaderDomandaMo
 import useStyles from './style';
 import {
   domandeObject, modifyDomandaInObjectDomande, setBCheckDisabled,
-  setBCheckEnabled, isBCheckDisabled, expandedTableMoreAnswers,
+  setBCheckEnabled, isBCheckDisabled, expandedTableMoreAnswers, setBModifyDomandaUnclicked,
 } from '../../../store/slice/domandeAddFormSlice';
 import { objectToArray } from '../../../util';
 import { isBConfirmAddFormClicked } from '../../../store/slice/addFormSlice';
@@ -25,6 +25,7 @@ import NavQuestionsAndAnswers from './NavQuestionsAndAnswers/NavQuestionsAnsAnsw
 import TextFieldIntestazioneQuesMoreAnswers from '../TextFieldIntestazioneQuesMoreAnswers/TextFieldIntestazioneQuesMoreAnsw';
 import DropDownListGroup from '../DropDownListGroup/DropDownListGroup';
 import HeaderAnsMoreAns from './HeaderAnsMoreAns/HeaderAnsMoreAns';
+import { enableAll } from '../../../store/slice/disableEnableSlice';
 
 const QuestionsAndAnswersEditor = () => {
   const dispatch = useDispatch();
@@ -78,6 +79,12 @@ const QuestionsAndAnswersEditor = () => {
                     {/* Text Field domanda */}
                     <Grid item xs={12} sm={10}>
                       <TextField
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' && !bCheckDisabled) {
+                            dispatch(setBModifyDomandaUnclicked(domanda.IDDomanda));
+                            dispatch(enableAll());
+                          }
+                        }}
                         disabled={domanda.stateText}
                         value={domanda.Domanda}
                         fullWidth

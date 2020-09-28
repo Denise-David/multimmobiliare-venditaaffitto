@@ -2,17 +2,14 @@ import { put, select, call } from 'redux-saga/effects';
 import startOfToday from 'date-fns/startOfToday';
 import { groups } from '../slice/groupSlice';
 import {
-  risposteOfDomandaObject, ris2, ris1, resAtLeast2,
+  risposteOfDomandaObject, ris2, ris1,
 } from '../slice/risposteAddFormSlice';
-
 import { allReparti, user } from '../slice/rightsSlice';
-
 import { dataRisultati } from '../slice/risultatiAddFormSlice';
 import { domandeObject, intestazioneMoreAnswers } from '../slice/domandeAddFormSlice';
 import {
   IDRepartoSelected, IDForm,
 } from '../slice/ddlEditorFormAndRepartiSlice';
-
 import fetchFormStructureByID, { setNewAndOldStructure, updateForm } from '../api';
 import { objectToArray } from '../../util';
 import { buttonCancelAddFormClicked, nomeFormulario } from '../slice/addFormSlice';
@@ -20,11 +17,24 @@ import { openSnackbarAtLeast2Res } from '../slice/snackbarSlice';
 
 export default function* saveModify() {
   try {
-    const atLeast2Res = yield select(resAtLeast2);
-    const listDom = yield select(domandeObject);
-    const listDomandeArray = objectToArray(listDom);
+    const objDomande = yield select(domandeObject);
+    const objRisultati = yield select(dataRisultati);
+    const listDomande = objectToArray(objDomande);
+    const objRisposte = yield select(risposteOfDomandaObject);
+    let atLeast1Res = true;
+    const response = listDomande.map((domanda : any) => {
+      if ((objRisposte[domanda.IDDomanda] === undefined
+        || Object.keys(objRisposte[domanda.IDDomanda]).length === 0) && atLeast1Res === true
+        && domanda.Tipo === 'a più risposte') {
+        atLeast1Res = false;
 
-    if (atLeast2Res === false && listDomandeArray.length !== 0) {
+        return atLeast1Res;
+      } atLeast1Res = true;
+      return atLeast1Res;
+    });
+
+    const atLeast = response.includes(false);
+    if (atLeast) {
       yield put(openSnackbarAtLeast2Res());
     } else {
       const IDFormulario = yield select(IDForm);
@@ -38,12 +48,6 @@ export default function* saveModify() {
       const nomeReparto = repSelected.longname;
 
       const nomeForm = yield select(nomeFormulario);
-
-      const objDomande = yield select(domandeObject);
-      const objRisultati = yield select(dataRisultati);
-      const listDomande = objectToArray(objDomande);
-      const objRisposte = yield select(risposteOfDomandaObject);
-
       const listDomandeAndRisposte = listDomande.map((domanda : any) => {
         const {
           IDDomanda, Domanda, Tipo, group, facoltativa, libera,

@@ -32,6 +32,12 @@ const Risposta1Line = () => {
       {/* campo */}
       <Grid item xs={12} sm={10}>
         <TextField
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' && !bCheck1Disabled) {
+              dispatch(setBModifyRis1Unclicked());
+              dispatch(enableAll());
+            }
+          }}
           value={ans1.risposta1}
           disabled={ans1.stateText}
           onChange={

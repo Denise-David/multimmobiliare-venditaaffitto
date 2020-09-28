@@ -9,8 +9,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import useStyles from './style';
 import {
   domandeObject, modifyDomandaInObjectDomande,
+
+  setBCheckDisabled, isBCheckDisabled, setBCheckEnabled,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  setBCheckDisabled, isBCheckDisabled, setBCheckEnabled, domandaAddForm, expandedTableQuestion,
+  domandaAddForm, expandedTableQuestion, setBModifyDomandaUnclicked,
 } from '../../../store/slice/domandeAddFormSlice';
 import { objectToArray } from '../../../util';
 import {
@@ -23,6 +25,7 @@ import NavQuestions from './NavQuestions/NavQuestions';
 import { intestazioneAttiva, raggruppaAttivo } from '../../../store/slice/menuDomandeSlice';
 import DropDownListGroup from '../DropDownListGroup/DropDownListGroup';
 import TextFieldIntestazioneQuesMoreAnswers from '../TextFieldIntestazioneQuesMoreAnswers/TextFieldIntestazioneQuesMoreAnsw';
+import { enableAll } from '../../../store/slice/disableEnableSlice';
 
 const QuestionsEditor = () => {
   const dispatch = useDispatch();
@@ -52,9 +55,15 @@ const QuestionsEditor = () => {
                 <span className={classes.bordi} />
                 <Grid container spacing={3}>
 
-                  <Grid item xs={12} sm={9}>
+                  <Grid item xs={12} sm={8}>
 
                     <TextField
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' && !bCheckDisabled) {
+                          dispatch(setBModifyDomandaUnclicked(domandaAddForm.IDDomanda));
+                          dispatch(enableAll());
+                        }
+                      }}
                       disabled={domandaAddForm.stateText}
                       value={domandaAddForm.Domanda}
                       fullWidth

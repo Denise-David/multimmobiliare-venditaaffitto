@@ -5,7 +5,7 @@ import { setRepartoGUID, setFormulariList } from '../slice/homePageLabelSlice';
 import { setNomeFormulario } from '../slice/addFormSlice';
 import { formulariByReparto, setFormulari } from '../slice/rightsSlice';
 import {
-  setRisposteOfDomandaInObject, getRisposta2, getRisposta1, setResAtLeast2,
+  setRisposteOfDomandaInObject, getRisposta2, getRisposta1,
 } from '../slice/risposteAddFormSlice';
 import { IDRepartoSelected, IDForm } from '../slice/ddlEditorFormAndRepartiSlice';
 import addFormulario, {
@@ -37,7 +37,7 @@ import { setIsLoaded, setIsLoading } from '../slice/loadingSlice';
 function* init(action : any) {
   try {
     yield put(setIsLoading());
-    yield put(setResAtLeast2());
+
     yield put(resetMenuMoreAns());
     yield put(resetMenuTwoAns());
     const ID = yield select(IDRepartoSelected);

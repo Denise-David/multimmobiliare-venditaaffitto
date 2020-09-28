@@ -4,19 +4,14 @@ import {
 } from '@material-ui/core';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { useSelector } from 'react-redux';
 import ResultLineEditor from './ResultLineEditor/ResultLineEditor';
 import useStyles from './style';
 import EmptyResultLineEditor from './EmptyResultLineEditor/EmptyResultLineEditor';
-import { haveRepModifyRight } from '../../../store/slice/rightsSlice';
-import { isBConfirmAddFormClicked } from '../../../store/slice/addFormSlice';
 
 const ResultTableEditor = () => {
   const classes = useStyles();
 
   const [expanded, setExpanded] = useState(true);
-  const rightMod = useSelector(haveRepModifyRight);
-  const confirmClicked = useSelector(isBConfirmAddFormClicked);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -57,33 +52,32 @@ const ResultTableEditor = () => {
         </AppBar>
 
         <Collapse in={expanded}>
-          {rightMod || confirmClicked
-            ? (
-              <div className={classes.padding}>
-                <div className={classes.marginDivider}>
-                  <Grid container>
-                    <Grid item xs={12} sm={6}>
-                      <Typography variant="subtitle1" align="center">
-                        Testo anamnesi
-                      </Typography>
-                    </Grid>
-                    <Grid item xs={12} sm={2}>
-                      <Typography variant="subtitle1" align="center">
-                        Valore min
-                      </Typography>
-                    </Grid>
-                    <Grid item xs={12} sm={2}>
-                      <Typography variant="subtitle1" align="center">
-                        Valore max
-                      </Typography>
-                    </Grid>
-                  </Grid>
-                  <Divider />
-                </div>
-                <ResultLineEditor />
-                <EmptyResultLineEditor />
-              </div>
-            ) : <></>}
+
+          <div className={classes.padding}>
+            <div className={classes.marginDivider}>
+              <Grid container>
+                <Grid item xs={12} sm={6}>
+                  <Typography variant="subtitle1" align="center">
+                    Testo anamnesi
+                  </Typography>
+                </Grid>
+                <Grid item xs={12} sm={2}>
+                  <Typography variant="subtitle1" align="center">
+                    Valore min
+                  </Typography>
+                </Grid>
+                <Grid item xs={12} sm={2}>
+                  <Typography variant="subtitle1" align="center">
+                    Valore max
+                  </Typography>
+                </Grid>
+              </Grid>
+              <Divider />
+            </div>
+            <ResultLineEditor />
+            <EmptyResultLineEditor />
+          </div>
+
         </Collapse>
       </Paper>
     </div>

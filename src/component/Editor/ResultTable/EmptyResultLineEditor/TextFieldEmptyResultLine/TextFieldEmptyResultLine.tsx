@@ -3,35 +3,36 @@ import { TextField, Grid } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   valueMin, valueMax, result, setRisultato,
-  setValoreMin, setValoreMax,
+  setValoreMin, setValoreMax, addRisultatoClicked,
+  resetRisultato, setButtonDisabled, setButtonEnabled, buttonDisabled,
 } from '../../../../../store/slice/risultatiAddFormSlice';
-import {
-  setBCheckDisabled, setBCheckEnabled,
-  isBCheckDisabled,
-} from '../../../../../store/slice/domandeAddFormSlice';
 
-interface Props{textFieldDisabled: boolean}
-
-const TextFieldEmptyResultLine = ({ textFieldDisabled } : Props) => {
+const TextFieldEmptyResultLine = () => {
   const res = useSelector(result);
   const dispatch = useDispatch();
   const valMin = useSelector(valueMin);
   const valMax = useSelector(valueMax);
-  const bCheckDisabled = useSelector(isBCheckDisabled);
+  const bCheckDisabled = useSelector(buttonDisabled);
   // eslint-disable-next-line no-useless-escape
   const NON_DIGIT = '/[^\d]/g';
   return (
     <>
       <Grid item xs={12} sm={6}>
         <TextField
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' && !bCheckDisabled) {
+              dispatch(addRisultatoClicked());
+              dispatch(resetRisultato());
+              dispatch(setButtonDisabled());
+            }
+          }}
           value={res}
-          disabled={textFieldDisabled}
           onChange={(event) => {
             const { value } = event.target;
             if (value === '' || valMin > valMax) {
-              dispatch(setBCheckDisabled());
+              dispatch(setButtonDisabled());
             } else if (bCheckDisabled === true && valMin <= valMax) {
-              dispatch(setBCheckEnabled());
+              dispatch(setButtonEnabled());
             }
             dispatch(setRisultato(value));
           }}
@@ -42,8 +43,14 @@ const TextFieldEmptyResultLine = ({ textFieldDisabled } : Props) => {
       </Grid>
       <Grid item xs={12} sm={2}>
         <TextField
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' && !bCheckDisabled) {
+              dispatch(addRisultatoClicked());
+              dispatch(resetRisultato());
+            }
+          }}
           value={valMin}
-          disabled={textFieldDisabled}
+
           onChange={(event) => {
             const { value } = event.target;
             if (value !== '') {
@@ -51,17 +58,17 @@ const TextFieldEmptyResultLine = ({ textFieldDisabled } : Props) => {
               const intVal = parseInt(value.toString().replace(NON_DIGIT, ''));
               dispatch(setValoreMin(intVal));
               if (intVal > valMax) {
-                dispatch(setBCheckDisabled());
+                dispatch(setButtonDisabled());
               } else if (bCheckDisabled === true) {
-                dispatch(setBCheckEnabled());
+                dispatch(setButtonEnabled());
               }
             } else {
               const intVal = 0;
               dispatch(setValoreMin(intVal));
               if (intVal > valMax) {
-                dispatch(setBCheckDisabled());
+                dispatch(setButtonDisabled());
               } else if (bCheckDisabled === true) {
-                dispatch(setBCheckEnabled());
+                dispatch(setButtonEnabled());
               }
             }
           }}
@@ -72,8 +79,14 @@ const TextFieldEmptyResultLine = ({ textFieldDisabled } : Props) => {
       </Grid>
       <Grid item xs={12} sm={2}>
         <TextField
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' && !bCheckDisabled) {
+              dispatch(addRisultatoClicked());
+              dispatch(resetRisultato());
+            }
+          }}
           value={valMax}
-          disabled={textFieldDisabled}
+
           onChange={(event) => {
             const { value } = event.target;
             if (value !== '') {
@@ -81,17 +94,17 @@ const TextFieldEmptyResultLine = ({ textFieldDisabled } : Props) => {
               const intVal = parseInt(value.toString().replace(NON_DIGIT, ''));
               dispatch(setValoreMax(intVal));
               if (intVal < valMin) {
-                dispatch(setBCheckDisabled());
+                dispatch(setButtonDisabled());
               } else if (bCheckDisabled === true) {
-                dispatch(setBCheckEnabled());
+                dispatch(setButtonEnabled());
               }
             } else {
               const intVal = 0;
               dispatch(setValoreMax(intVal));
               if (intVal < valMin) {
-                dispatch(setBCheckDisabled());
+                dispatch(setButtonDisabled());
               } else if (bCheckDisabled === true) {
-                dispatch(setBCheckEnabled());
+                dispatch(setButtonEnabled());
               }
             }
           }}

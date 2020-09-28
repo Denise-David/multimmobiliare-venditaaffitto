@@ -2,7 +2,8 @@ import React from 'react';
 import { Grid, TextField } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { setBCheckDisabled, setBCheckEnabled, isBCheckDisabled } from '../../../../../store/slice/domandeAddFormSlice';
-import { modifyRisposta } from '../../../../../store/slice/risposteAddFormSlice';
+import { modifyRisposta, setModifyRispostaUnclicked } from '../../../../../store/slice/risposteAddFormSlice';
+import { enableAll } from '../../../../../store/slice/disableEnableSlice';
 
 interface Props{rispostaArray : any, id: string, IDRisposta: string}
 const TextFieldAnswerLine = ({ rispostaArray, id, IDRisposta } : Props) => {
@@ -17,6 +18,16 @@ const TextFieldAnswerLine = ({ rispostaArray, id, IDRisposta } : Props) => {
         {/* TextField testo risposta */}
         <Grid item xs={12} sm={7}>
           <TextField
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && !bCheckDisabled) {
+                dispatch(enableAll());
+                dispatch(setModifyRispostaUnclicked({
+                  IDDomanda,
+                  IDRisposta,
+
+                }));
+              }
+            }}
             onChange={(event) => {
               const risposta = event.target.value;
               if (risposta === '') {
@@ -39,6 +50,16 @@ const TextFieldAnswerLine = ({ rispostaArray, id, IDRisposta } : Props) => {
 
         <Grid item xs={12} sm={1}>
           <TextField
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                dispatch(enableAll());
+                dispatch(setModifyRispostaUnclicked({
+                  IDDomanda,
+                  IDRisposta,
+
+                }));
+              }
+            }}
             onChange={(event) => {
               const { value } = event.target;
               if (value !== '') {
@@ -68,6 +89,16 @@ const TextFieldAnswerLine = ({ rispostaArray, id, IDRisposta } : Props) => {
       {/* TextField testo Data */}
       <Grid item xs={12} sm={7}>
         <TextField
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' && !bCheckDisabled) {
+              dispatch(enableAll());
+              dispatch(setModifyRispostaUnclicked({
+                IDDomanda,
+                IDRisposta,
+
+              }));
+            }
+          }}
           onChange={(event) => {
             const risposta = event.target.value;
             dispatch(modifyRisposta({ IDDomanda, IDRisposta, risposta }));
