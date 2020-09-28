@@ -84,8 +84,9 @@ const GroupDialog = () => {
                 color="primary"
                 className={classes.margin}
               >
-                ELIMINA
-
+                <Typography variant="body1">
+                  ELIMINA
+                </Typography>
               </Button>
               <Button
                 disabled={disabledMod}
@@ -122,7 +123,9 @@ const GroupDialog = () => {
                 color="primary"
                 className={classes.margin}
               >
-                AGGIUNGI
+                <Typography variant="body1">
+                  AGGIUNGI
+                </Typography>
               </Button>
             </div>
           </Grid>
