@@ -5,7 +5,7 @@ import { isBCheckDisabled } from '../../../../../store/slice/domandeAddFormSlice
 import {
   setAnswer, setValore, typeAnswer, valore, answer,
   setAddRispostaClicked, setAddRispostaUnclicked, addRisposta,
-  resetRispostaType,
+  resetRispostaType, stateAddedRisposta,
 } from '../../../../../store/slice/risposteAddFormSlice';
 
 interface Props{ IDDomanda: string}
@@ -16,6 +16,7 @@ const TextFieldEmptyAnswerLine = ({ IDDomanda }:Props) => {
   const typeRis = useSelector(typeAnswer);
   const rispostaText = useSelector(answer);
   const valoreText = useSelector(valore);
+  const stateTextField = useSelector(stateAddedRisposta);
   const NON_DIGIT = '/[^0-9]/g';
   if (typeRis[IDDomanda] !== 'data') {
     return (
@@ -26,7 +27,7 @@ const TextFieldEmptyAnswerLine = ({ IDDomanda }:Props) => {
           <TextField
 
             onKeyDown={(e) => {
-              if (e.key === 'Enter') {
+              if (e.key === 'Enter' && !stateTextField[IDDomanda]) {
                 dispatch(addRisposta(IDDomanda));
                 dispatch(resetRispostaType(IDDomanda));
               }
@@ -51,7 +52,7 @@ const TextFieldEmptyAnswerLine = ({ IDDomanda }:Props) => {
         <Grid item xs={12} sm={1}>
           <TextField
             onKeyDown={(e) => {
-              if (e.key === 'Enter') {
+              if (e.key === 'Enter' && !stateTextField[IDDomanda]) {
                 dispatch(addRisposta(IDDomanda));
                 dispatch(resetRispostaType(IDDomanda));
               }
@@ -83,7 +84,7 @@ const TextFieldEmptyAnswerLine = ({ IDDomanda }:Props) => {
 
         <TextField
           onKeyDown={(e) => {
-            if (e.key === 'Enter') {
+            if (e.key === 'Enter' && !stateTextField[IDDomanda]) {
               dispatch(addRisposta(IDDomanda));
               dispatch(resetRispostaType(IDDomanda));
             }

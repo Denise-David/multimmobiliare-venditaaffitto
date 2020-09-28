@@ -8,7 +8,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import {
   openCloseDomandaCard, setBModifyDomandaClicked,
-  deleteDomandaFormPiuRes, setBModifyDomandaUnclicked, isBCheckDisabled,
+  deleteDomandaFormPiuRes, setBModifyDomandaUnclicked, isBCheckDisabled, setBCheckEnabled,
 } from '../../../../store/slice/domandeAddFormSlice';
 import { isBModifyDelAddReturnDisabled, disableAll, enableAll } from '../../../../store/slice/disableEnableSlice';
 import { risposteTutteUguali } from '../../../../store/slice/menuDomandeERisposteSlice';
@@ -56,6 +56,7 @@ const ButtonsQuestionsAndAnswers = ({ domanda } : Props) => {
                         onClick={() => {
                           dispatch(setBModifyDomandaClicked(domanda.IDDomanda));
                           dispatch(disableAll());
+                          dispatch(setBCheckEnabled());
                         }}
                         color="primary"
                       >

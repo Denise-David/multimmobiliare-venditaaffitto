@@ -32,6 +32,12 @@ const Risposta2Line = () => {
       {/* campo */}
       <Grid item xs={12} sm={10}>
         <TextField
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' && !bCheck2Disabled) {
+              dispatch(setBModifyRis2Unclicked());
+              dispatch(enableAll());
+            }
+          }}
           value={ans2.risposta2}
           disabled={ans2.stateText}
           defaultValue="No"

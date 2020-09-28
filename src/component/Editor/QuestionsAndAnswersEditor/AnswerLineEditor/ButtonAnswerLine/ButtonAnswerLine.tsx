@@ -8,7 +8,7 @@ import {
   disableAll, isBModifyDelAddReturnDisabled, enableAll,
 } from '../../../../../store/slice/disableEnableSlice';
 import { setModifyRispostaClicked, deleteRisposta, setModifyRispostaUnclicked } from '../../../../../store/slice/risposteAddFormSlice';
-import { isBCheckDisabled } from '../../../../../store/slice/domandeAddFormSlice';
+import { isBCheckDisabled, setBCheckEnabled } from '../../../../../store/slice/domandeAddFormSlice';
 
 interface Props{rispostaArray : any, id: string, IDRisposta: string}
 
@@ -20,13 +20,14 @@ const ButtonAnswerLine = ({ rispostaArray, id, IDRisposta } : Props) => {
 
   if (!rispostaArray.stateModify) {
     return (
-      <>
+      <span>
         {/* Bottone Modifica */}
 
         <IconButton
           onClick={() => {
             dispatch(disableAll());
             dispatch(setModifyRispostaClicked({ IDDomanda, IDRisposta }));
+            dispatch(setBCheckEnabled());
           }}
           disabled={iconsDisabled}
           color="primary"
@@ -44,11 +45,11 @@ const ButtonAnswerLine = ({ rispostaArray, id, IDRisposta } : Props) => {
           <DeleteIcon />
         </IconButton>
 
-      </>
+      </span>
 
     );
   } return (
-    <>
+    <span>
       {/* Bottone Check */}
       <IconButton disabled />
       <IconButton disabled />
@@ -67,7 +68,7 @@ const ButtonAnswerLine = ({ rispostaArray, id, IDRisposta } : Props) => {
         <CheckCircleOutlineIcon />
       </IconButton>
 
-    </>
+    </span>
   );
 };
 

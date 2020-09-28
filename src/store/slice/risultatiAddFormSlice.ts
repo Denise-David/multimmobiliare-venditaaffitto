@@ -9,8 +9,15 @@ const risultatiAddFormSlice = createSlice({
     valueMin: 0 as number,
     valueMax: 0 as number,
     result: ''as string,
+    buttonDisabled: true as boolean,
   },
   reducers: {
+    setButtonDisabled(state) {
+      state.buttonDisabled = true;
+    },
+    setButtonEnabled(state) {
+      state.buttonDisabled = false;
+    },
     setRisultatiInObject(state, { payload }) {
       state.dataRisultati = payload;
     },
@@ -60,6 +67,7 @@ export const addRisultatoClicked = () => ({
   type: 'ADD_RISULTATO',
 });
 
+export const buttonDisabled = (state: State) => state.risultatiAddForm.buttonDisabled;
 export const valueMax = (state : State) => state.risultatiAddForm.valueMax;
 export const dataRisultati = (state: State) => state.risultatiAddForm.dataRisultati;
 export const valueMin = (state: State) => state.risultatiAddForm.valueMin;
@@ -72,6 +80,6 @@ export const {
   addRisultato,
   setBModifyClicked, setBModifyUnclicked, deleteRisultato,
   resetRisultato, modifyRisultato, resetDataRisultati,
-  setRisultatiInObject,
+  setRisultatiInObject, setButtonDisabled, setButtonEnabled,
 } = risultatiAddFormSlice.actions;
 export default risultatiAddFormSlice.reducer;

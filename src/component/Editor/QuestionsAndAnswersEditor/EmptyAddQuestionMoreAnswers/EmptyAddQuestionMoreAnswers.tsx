@@ -35,7 +35,7 @@ const EmptyAddQuestionMoreAnswers = () => {
           <Grid item xs={12} sm={10}>
             <TextField
               onKeyDown={(e) => {
-                if (e.key === 'Enter') {
+                if (e.key === 'Enter' && !bCheckDisabled) {
                   dispatch(enableAll());
                   dispatch(addDomandaMoreResInArray());
                   setShowTextField(!showTextField);

@@ -6,7 +6,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteRisultato, setBModifyClicked, setBModifyUnclicked } from '../../../../../store/slice/risultatiAddFormSlice';
 import { disableAll, enableAll } from '../../../../../store/slice/disableEnableSlice';
-import { isBCheckDisabled } from '../../../../../store/slice/domandeAddFormSlice';
+import { isBCheckDisabled, setBCheckEnabled } from '../../../../../store/slice/domandeAddFormSlice';
 
 interface Props{oneForm: any}
 
@@ -22,6 +22,7 @@ const ButtonResultLine = ({ oneForm } : Props) => {
             onClick={() => {
               dispatch(disableAll());
               dispatch(setBModifyClicked(oneForm.IDRisultato));
+              dispatch(setBCheckEnabled());
             }}
             color="primary"
           >
@@ -54,7 +55,7 @@ const ButtonResultLine = ({ oneForm } : Props) => {
           <CheckCircleOutlineIcon />
         </IconButton>
       </Grid>
-      UFFA
+
     </>
 
   );

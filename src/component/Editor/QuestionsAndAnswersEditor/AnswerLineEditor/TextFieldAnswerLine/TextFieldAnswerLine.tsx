@@ -19,7 +19,7 @@ const TextFieldAnswerLine = ({ rispostaArray, id, IDRisposta } : Props) => {
         <Grid item xs={12} sm={7}>
           <TextField
             onKeyDown={(e) => {
-              if (e.key === 'Enter') {
+              if (e.key === 'Enter' && !bCheckDisabled) {
                 dispatch(enableAll());
                 dispatch(setModifyRispostaUnclicked({
                   IDDomanda,
@@ -90,7 +90,7 @@ const TextFieldAnswerLine = ({ rispostaArray, id, IDRisposta } : Props) => {
       <Grid item xs={12} sm={7}>
         <TextField
           onKeyDown={(e) => {
-            if (e.key === 'Enter') {
+            if (e.key === 'Enter' && !bCheckDisabled) {
               dispatch(enableAll());
               dispatch(setModifyRispostaUnclicked({
                 IDDomanda,

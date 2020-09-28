@@ -6,18 +6,19 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import {
   addRisultatoClicked,
+  buttonDisabled,
   resetRisultato,
 } from '../../../../store/slice/risultatiAddFormSlice';
 import { isBConfirmAddFormClicked } from '../../../../store/slice/addFormSlice';
 import { haveRepModifyRight } from '../../../../store/slice/rightsSlice';
-import { setBCheckDisabled, isBCheckDisabled } from '../../../../store/slice/domandeAddFormSlice';
+import { setBCheckDisabled } from '../../../../store/slice/domandeAddFormSlice';
 import TextFieldEmptyResultLine from './TextFieldEmptyResultLine/TextFieldEmptyResultLine';
 
 const EmptyResultLineEditor = () => {
   const dispatch = useDispatch();
   const rightRepModify = useSelector(haveRepModifyRight);
   const confirmAddForm = useSelector(isBConfirmAddFormClicked);
-  const bCheckDisabled = useSelector(isBCheckDisabled);
+  const bCheckDisabled = useSelector(buttonDisabled);
 
   return (
     <div>

@@ -2,12 +2,15 @@ import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import { useSelector, useDispatch } from 'react-redux';
-import { dataRisultati, setBModifyClicked, modifyRisultato } from '../../../../store/slice/risultatiAddFormSlice';
+import {
+  dataRisultati, setBModifyClicked, modifyRisultato, setBModifyUnclicked,
+} from '../../../../store/slice/risultatiAddFormSlice';
 import { objectToArray } from '../../../../util';
 import { haveRepModifyRight } from '../../../../store/slice/rightsSlice';
 import { isBConfirmAddFormClicked } from '../../../../store/slice/addFormSlice';
 import { isBCheckDisabled, setBCheckEnabled, setBCheckDisabled } from '../../../../store/slice/domandeAddFormSlice';
 import ButtonResultLine from './ButtonsResultLine/ButtonResultLine';
+import { enableAll } from '../../../../store/slice/disableEnableSlice';
 
 const ResultLineEditor = () => {
   const dispatch = useDispatch();
@@ -31,6 +34,12 @@ const ResultLineEditor = () => {
 
         <Grid item xs={12} sm={6}>
           <TextField
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && !bCheckDisabled) {
+                dispatch(enableAll());
+                dispatch(setBModifyUnclicked(oneForm.IDRisultato));
+              }
+            }}
 
             onChange={(event) => {
               risultato = event.target.value;
@@ -52,6 +61,12 @@ const ResultLineEditor = () => {
         </Grid>
         <Grid item xs={12} sm={2}>
           <TextField
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && !bCheckDisabled) {
+                dispatch(enableAll());
+                dispatch(setBModifyUnclicked(oneForm.IDRisultato));
+              }
+            }}
             onChange={(event) => {
               const { value } = event.target;
               if (value !== '') {
@@ -87,6 +102,12 @@ const ResultLineEditor = () => {
         </Grid>
         <Grid item xs={12} sm={2}>
           <TextField
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && !bCheckDisabled) {
+                dispatch(enableAll());
+                dispatch(setBModifyUnclicked(oneForm.IDRisultato));
+              }
+            }}
             onChange={(event) => {
               const { value } = event.target;
               if (value !== '') {
