@@ -4,7 +4,7 @@ import { Fab, IconButton } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
 import SaveIcon from '@material-ui/icons/Save';
-import KeyboardReturnIcon from '@material-ui/icons/KeyboardReturn';
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import { haveRepDeleteRight, haveRepModifyRight, haveUserCreateRight } from '../../../../../store/slice/rightsSlice';
 import {
   buttonAddClicked, buttonDeleteOrSaveClicked, saveModifyForm, buttonCancelAddFormClicked,
@@ -98,7 +98,7 @@ const PrimaryButtonsControlRep = () => {
                    }
                 color="primary"
               >
-                <KeyboardReturnIcon fontSize="large" />
+                <HighlightOffIcon fontSize="large" />
               </IconButton>
             </div>
           </div>

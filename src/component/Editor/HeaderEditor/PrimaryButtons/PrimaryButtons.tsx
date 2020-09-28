@@ -2,8 +2,8 @@ import React from 'react';
 import { IconButton } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
-import KeyboardReturnIcon from '@material-ui/icons/KeyboardReturn';
 import SaveIcon from '@material-ui/icons/Save';
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import {
   isButtonAddFormClicked, buttonConfirmAddFormClicked,
   isConfirmDisabled, buttonCancelAddFormClicked,
@@ -94,7 +94,7 @@ const PrimaryButtons = () => {
 
               onClick={() => dispatch(buttonCancelAddFormClicked())}
             >
-              <KeyboardReturnIcon fontSize="large" color="primary" />
+              <HighlightOffIcon fontSize="large" color="primary" />
             </IconButton>
           </div>
         )
@@ -121,7 +121,7 @@ const PrimaryButtons = () => {
                         }
                     color="primary"
                   >
-                    <KeyboardReturnIcon fontSize="large" />
+                    <HighlightOffIcon fontSize="large" />
                   </IconButton>
                 </div>
               ) : (
