@@ -3,16 +3,14 @@ import { TextField, Grid } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   valueMin, valueMax, result, setRisultato,
-  setValoreMin, setValoreMax,
+  setValoreMin, setValoreMax, addRisultatoClicked, resetRisultato,
 } from '../../../../../store/slice/risultatiAddFormSlice';
 import {
   setBCheckDisabled, setBCheckEnabled,
   isBCheckDisabled,
 } from '../../../../../store/slice/domandeAddFormSlice';
 
-interface Props{textFieldDisabled: boolean}
-
-const TextFieldEmptyResultLine = ({ textFieldDisabled } : Props) => {
+const TextFieldEmptyResultLine = () => {
   const res = useSelector(result);
   const dispatch = useDispatch();
   const valMin = useSelector(valueMin);
@@ -24,8 +22,14 @@ const TextFieldEmptyResultLine = ({ textFieldDisabled } : Props) => {
     <>
       <Grid item xs={12} sm={6}>
         <TextField
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              dispatch(addRisultatoClicked());
+              dispatch(resetRisultato());
+              dispatch(setBCheckDisabled());
+            }
+          }}
           value={res}
-          disabled={textFieldDisabled}
           onChange={(event) => {
             const { value } = event.target;
             if (value === '' || valMin > valMax) {
@@ -42,8 +46,14 @@ const TextFieldEmptyResultLine = ({ textFieldDisabled } : Props) => {
       </Grid>
       <Grid item xs={12} sm={2}>
         <TextField
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              dispatch(addRisultatoClicked());
+              dispatch(resetRisultato());
+            }
+          }}
           value={valMin}
-          disabled={textFieldDisabled}
+
           onChange={(event) => {
             const { value } = event.target;
             if (value !== '') {
@@ -72,8 +82,14 @@ const TextFieldEmptyResultLine = ({ textFieldDisabled } : Props) => {
       </Grid>
       <Grid item xs={12} sm={2}>
         <TextField
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              dispatch(addRisultatoClicked());
+              dispatch(resetRisultato());
+            }
+          }}
           value={valMax}
-          disabled={textFieldDisabled}
+
           onChange={(event) => {
             const { value } = event.target;
             if (value !== '') {

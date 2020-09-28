@@ -21,14 +21,18 @@ const domandeAddFormSlice = createSlice({
     isTextFieldNewDomandaDisabled: true as boolean,
     Question: '' as string,
     domandeObject: {} as {[key:string]:domandaAddForm},
-    isBCheckDisabled: false as boolean,
+    isBCheckDisabled: true as boolean,
     isBCheckAddDomandaDisabled: true as boolean,
     expandedTableMoreAnswers: true as boolean,
     intestazioneMoreAns: '' as string,
     expandedTableQuestion: true as boolean,
+    questionTwoAns: '' as string,
 
   },
   reducers: {
+    setDomandaTwoAns(state, { payload }) {
+      state.questionTwoAns = payload;
+    },
     setDomandaLibera(state, { payload }) {
       state.domandeObject[payload].libera = !state.domandeObject[payload].libera;
     },
@@ -89,6 +93,7 @@ const domandeAddFormSlice = createSlice({
     },
     resetDomanda(state) {
       state.Question = '';
+      state.questionTwoAns = '';
     },
     setBModifyDomandaClicked(state, { payload }) {
       state.domandeObject[payload].stateText = false;
@@ -132,6 +137,7 @@ export const deleteDomandaFormPiuRes = (payload:any) => ({
   payload,
 });
 
+export const questionTwoAns = (state: State) => state.domandeAddForm.questionTwoAns;
 export const expandedTableQuestion = (state: State) => state.domandeAddForm.expandedTableQuestion;
 export const intestazioneMoreAnswers = (state: State) => state.domandeAddForm.intestazioneMoreAns;
 export const expandedTableMoreAnswers = (state : State) => state.domandeAddForm.expandedTableMoreAnswers;
@@ -153,7 +159,7 @@ export const {
   setDomandeinObject, expandTable,
   resetDomandeOfDomandeObject, openCloseDomandaCard,
   setIntestazioneMoreAns, resetIntestazioneMoreAns, expandTableQuestion,
-  setGroupSelected, setDomandaFacoltativa, setDomandaLibera,
+  setGroupSelected, setDomandaFacoltativa, setDomandaLibera, setDomandaTwoAns,
 
 } = domandeAddFormSlice.actions;
 export default domandeAddFormSlice.reducer;

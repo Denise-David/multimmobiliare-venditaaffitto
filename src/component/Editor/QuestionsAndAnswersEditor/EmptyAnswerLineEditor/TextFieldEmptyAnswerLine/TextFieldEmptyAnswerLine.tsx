@@ -1,9 +1,11 @@
 import React from 'react';
 import { Grid, TextField } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
-import { setBCheckDisabled, setBCheckEnabled, isBCheckDisabled } from '../../../../../store/slice/domandeAddFormSlice';
+import { isBCheckDisabled } from '../../../../../store/slice/domandeAddFormSlice';
 import {
-  setAnswer, setValore, stateAddedRisposta, typeAnswer, valore, answer,
+  setAnswer, setValore, typeAnswer, valore, answer,
+  setAddRispostaClicked, setAddRispostaUnclicked, addRisposta,
+  resetRispostaType,
 } from '../../../../../store/slice/risposteAddFormSlice';
 
 interface Props{ IDDomanda: string}
@@ -11,7 +13,6 @@ interface Props{ IDDomanda: string}
 const TextFieldEmptyAnswerLine = ({ IDDomanda }:Props) => {
   const dispatch = useDispatch();
   const bCheckDisabled = useSelector(isBCheckDisabled);
-  const stateTextField = useSelector(stateAddedRisposta);
   const typeRis = useSelector(typeAnswer);
   const rispostaText = useSelector(answer);
   const valoreText = useSelector(valore);
@@ -23,45 +24,56 @@ const TextFieldEmptyAnswerLine = ({ IDDomanda }:Props) => {
         <Grid item xs={12} sm={7}>
 
           <TextField
+
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                dispatch(addRisposta(IDDomanda));
+                dispatch(resetRispostaType(IDDomanda));
+              }
+            }}
             placeholder="risposta"
             value={rispostaText[IDDomanda] || ''}
             onChange={(event) => {
               const { value } = event.target;
               if (value === '') {
-                dispatch(setBCheckDisabled());
-              } else if (bCheckDisabled === true) {
-                dispatch(setBCheckEnabled());
+                dispatch(setAddRispostaUnclicked(IDDomanda));
+              } else {
+                dispatch(setAddRispostaClicked(IDDomanda));
               }
               dispatch(setAnswer({ IDDomanda, value }));
             }}
-            disabled={stateTextField[IDDomanda]}
+
             id="standard-basic"
             fullWidth
           />
         </Grid>
-        {!stateTextField[IDDomanda]
-          ? (
-            <Grid item xs={12} sm={1}>
-              <TextField
-                placeholder="valore"
-                value={valoreText[IDDomanda] || ''}
-                onChange={(event) => {
-                  const { value } = event.target;
-                  if (value !== '') {
-                    // eslint-disable-next-line radix
-                    const intValue = parseInt(value.toString().replace(NON_DIGIT, '0'));
-                    dispatch(setValore({ IDDomanda, intValue }));
-                  } else {
-                    const intValue = '0';
-                    dispatch(setValore({ IDDomanda, intValue }));
-                  }
-                }}
-                disabled={stateTextField[IDDomanda]}
-                id="standard-basic"
-                fullWidth
-              />
-            </Grid>
-          ) : <></>}
+
+        <Grid item xs={12} sm={1}>
+          <TextField
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                dispatch(addRisposta(IDDomanda));
+                dispatch(resetRispostaType(IDDomanda));
+              }
+            }}
+            placeholder="valore"
+            value={valoreText[IDDomanda] || ''}
+            onChange={(event) => {
+              const { value } = event.target;
+              if (value !== '') {
+                // eslint-disable-next-line radix
+                const intValue = parseInt(value.toString().replace(NON_DIGIT, '0'));
+                dispatch(setValore({ IDDomanda, intValue }));
+              } else {
+                const intValue = '0';
+                dispatch(setValore({ IDDomanda, intValue }));
+              }
+            }}
+            id="standard-basic"
+            fullWidth
+          />
+        </Grid>
+
       </>
     );
   }
@@ -70,18 +82,23 @@ const TextFieldEmptyAnswerLine = ({ IDDomanda }:Props) => {
       <Grid item xs={12} sm={7}>
 
         <TextField
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              dispatch(addRisposta(IDDomanda));
+              dispatch(resetRispostaType(IDDomanda));
+            }
+          }}
           placeholder="testo data"
           value={rispostaText[IDDomanda] || ''}
           onChange={(event) => {
             const { value } = event.target;
             if (value === '') {
-              dispatch(setBCheckDisabled());
+              dispatch(setAddRispostaUnclicked(IDDomanda));
             } else if (bCheckDisabled === true) {
-              dispatch(setBCheckEnabled());
+              dispatch(setAddRispostaClicked(IDDomanda));
             }
             dispatch(setAnswer({ IDDomanda, value }));
           }}
-          disabled={stateTextField[IDDomanda]}
           id="standard-basic"
           fullWidth
         />

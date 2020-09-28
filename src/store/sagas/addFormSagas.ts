@@ -4,6 +4,17 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 import startOfToday from 'date-fns/startOfToday';
 import {
+  questionTwoAns,
+  domandaAddForm,
+  domandeObject,
+  question, setBAddDomandaUnclicked, resetDomanda,
+  setDomandaInObjectDomande,
+  resetDomandaByIDDomanda,
+  resetDomandeOfDomandeObject,
+  setDomandaInObjectDomandeMoreRes, intestazioneMoreAnswers,
+} from '../slice/domandeAddFormSlice';
+import { openCloseSnackbarConfirmDelete, openSnackbarAtLeast2Res } from '../slice/snackbarSlice';
+import {
   buttonCancelAddFormClicked,
   selectedReparto, nomeFormulario, setBAddFormClicked,
 } from '../slice/addFormSlice';
@@ -19,50 +30,52 @@ import {
   valore, answer, ris2 as Response2,
   ris1 as response1, setAnswersInDomanda,
   resetAnswerValore, typeAnswer, setAddRispostaUnclicked,
-  deleteDomandeObject, resetRisposteOfDomanda, setType, resAtLeast2,
+  deleteDomandeObject, resetRisposteOfDomanda, setType,
 } from '../slice/risposteAddFormSlice';
-import {
-  domandaAddForm,
-  domandeObject,
-  question, setBAddDomandaUnclicked, resetDomanda,
-  setDomandaInObjectDomande,
-  resetDomandaByIDDomanda,
-  resetDomandeOfDomandeObject,
-  setDomandaInObjectDomandeMoreRes, intestazioneMoreAnswers,
-} from '../slice/domandeAddFormSlice';
 
 import { addForm, setNewStructure } from '../api';
 import { objectToArray } from '../../util';
 import { resetIDForm, resetIDReparto } from '../slice/ddlEditorFormAndRepartiSlice';
 import { setBSaveDisabled, setBModifyDelAddReturnDisabled } from '../slice/disableEnableSlice';
-import { openCloseSnackbarConfirmDelete, openSnackbarAtLeast2Res } from '../slice/snackbarSlice';
+
 import { setIsLoaded, setIsLoading } from '../slice/loadingSlice';
 
 export default function* addFormulario() {
   yield put(setIsLoading());
-  const atLeast2Res = yield select(resAtLeast2);
-  const listDom = yield select(domandeObject);
-  const listDomandeArray = objectToArray(listDom);
 
-  if (atLeast2Res === false && listDomandeArray.length !== 0) {
+  const domandeAndStatus = yield select(domandeObject);
+  const risposteWithStatus = yield select(risposteOfDomandaObject);
+  const domandeAndStatusArray = objectToArray(domandeAndStatus);
+  let atLeast1Res = true;
+
+  const response = domandeAndStatusArray.map((domanda : any) => {
+    if ((risposteWithStatus[domanda.IDDomanda] === undefined
+      || Object.keys(risposteWithStatus[domanda.IDDomanda]).length === 0) && atLeast1Res === true
+       && domanda.Tipo === 'a più risposte') {
+      atLeast1Res = false;
+      return (atLeast1Res);
+    } atLeast1Res = true;
+    return atLeast1Res;
+  });
+
+  const atLeast = response.includes(false);
+
+  if (atLeast) {
     yield put(openSnackbarAtLeast2Res());
   } else {
     const reparto = yield select(selectedReparto);
     const { idReparto, nomeReparto } = reparto;
     const nomeForm = yield select(nomeFormulario);
-    const domandeAndStatus = yield select(domandeObject);
+    const gruppi = yield select(groups);
     const ris1 = yield select(response1);
     const { risposta1 } = ris1;
     const ris2 = yield select(Response2);
     const { risposta2 } = ris2;
     const resWithStatus = yield select(dataRisultati);
-    const risposteWithStatus = yield select(risposteOfDomandaObject);
+
     const intestazioneMoreAns = yield select(intestazioneMoreAnswers);
 
-    const gruppi = yield select(groups);
-
     // creo un array con solo le domande senza lo stateText
-    const domandeAndStatusArray = objectToArray(domandeAndStatus);
 
     // eslint-disable-next-line max-len
     const domande = domandeAndStatusArray.map((domandaAndStatus: domandaAddForm) => {
@@ -124,13 +137,14 @@ export default function* addFormulario() {
     yield put(resetDomandeOfDomandeObject());
     yield put(setBSaveDisabled());
     yield put(buttonCancelAddFormClicked());
+
+    yield put(setIsLoaded());
   }
-  yield put(setIsLoaded());
 }
 
 export function* addDomandaTwoResInArray() {
   const IDDomanda = uuidv4();
-  const Domanda = yield select(question);
+  const Domanda = yield select(questionTwoAns);
 
   yield put(setDomandaInObjectDomande({ IDDomanda, Domanda }));
   yield put(setBAddDomandaUnclicked());

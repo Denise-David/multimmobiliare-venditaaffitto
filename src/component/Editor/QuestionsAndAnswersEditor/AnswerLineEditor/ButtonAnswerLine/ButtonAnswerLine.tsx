@@ -20,7 +20,7 @@ const ButtonAnswerLine = ({ rispostaArray, id, IDRisposta } : Props) => {
 
   if (!rispostaArray.stateModify) {
     return (
-      <span>
+      <>
         {/* Bottone Modifica */}
 
         <IconButton
@@ -44,12 +44,13 @@ const ButtonAnswerLine = ({ rispostaArray, id, IDRisposta } : Props) => {
           <DeleteIcon />
         </IconButton>
 
-      </span>
+      </>
 
     );
   } return (
     <>
       {/* Bottone Check */}
+      <IconButton disabled />
       <IconButton disabled />
       <IconButton
         onClick={() => {

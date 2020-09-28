@@ -52,7 +52,7 @@ const QuestionsEditor = () => {
                 <span className={classes.bordi} />
                 <Grid container spacing={3}>
 
-                  <Grid item xs={12} sm={9}>
+                  <Grid item xs={12} sm={8}>
 
                     <TextField
                       disabled={domandaAddForm.stateText}
