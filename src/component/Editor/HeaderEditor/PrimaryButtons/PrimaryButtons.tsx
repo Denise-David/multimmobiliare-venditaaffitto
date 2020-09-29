@@ -61,7 +61,7 @@ const PrimaryButtons = () => {
         }
       });
     }
-    if (scope.id === 'AUTAN_MODIFY') {
+    if (scope.code === 'AUTAN_MODIFY') {
       dispatch(setUserModifyRight());
       // eslint-disable-next-line array-callback-return
       repModify.map((reparto:any) => {
