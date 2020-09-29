@@ -28,7 +28,7 @@ export default function* initUserRightsAUTAN() {
 
     if (haveRightCreate === true) {
       // filtro solo il diritto CREATE
-      const findCreate = (right : any) => right.id === 6856;
+      const findCreate = (right : any) => right.code === 'AUTAN_CREATE';
       const rightCreate = data.find(findCreate);
       // filtro gli scope del Create
       const scopesCreate = rightCreate.scopes;
@@ -52,7 +52,7 @@ export default function* initUserRightsAUTAN() {
     }
     if (haveRightDelete === true) {
       // filtro solo il diritto DELETE
-      const findDelete = (right : any) => right.id === 6876;
+      const findDelete = (right : any) => right.code === 'AUTAN_DELETE';
       const rightDelete = data.find(findDelete);
 
       // filtro gli scope del delete
@@ -78,7 +78,7 @@ export default function* initUserRightsAUTAN() {
 
     if (haveRightModify === true) {
       // filtro solo il diritto MODIFY
-      const findModify = (right : any) => right.id === 6916;
+      const findModify = (right : any) => right.code === 'AUTAN_MODIFY';
       const rightModify = data.find(findModify);
 
       // filtro gli scope del modify
