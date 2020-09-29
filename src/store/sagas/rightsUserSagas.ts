@@ -113,7 +113,8 @@ export default function* initUserRightsAUTAN() {
     const arrayNoDuplicate = uniqBy(arrayAllReparti.map((reparto : any) => ({
       ...reparto, ID: reparto.unitid || reparto.sermednodeid,
     })), 'ID');
-      // li metto su un a variabile
+
+    // li metto su un a variabile
     yield put(setAllReparti(arrayNoDuplicate));
   } catch (error) {
     console.log(error);

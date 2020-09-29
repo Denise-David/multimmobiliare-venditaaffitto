@@ -8,7 +8,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { useDispatch, useSelector } from 'react-redux';
 import useStyles from './style';
 import {
-  setIntestazioneAttiva, intestazioneAttiva, setGroupAttivi, raggruppaAttivo,
+  setIntestazioneAttiva, intestazioneAttiva, setGroupAttiviTwoAns, raggruppaAttivo,
 } from '../../../../store/slice/menuDomandeSlice';
 import {
   expandedTableQuestion, expandTableQuestion, resetIntestazioneMoreAns,
@@ -104,7 +104,7 @@ const NavQuestions = () => {
 
             </MenuItem>
             <MenuItem onClick={() => {
-              dispatch(setGroupAttivi());
+              dispatch(setGroupAttiviTwoAns());
               handleClose();
             }}
             >

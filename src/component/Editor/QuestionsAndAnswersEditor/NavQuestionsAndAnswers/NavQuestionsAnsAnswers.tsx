@@ -12,7 +12,9 @@ import {
   intestazioneMoreAnsAttiva, raggruppaAttivo, setGroupAttivi,
 } from '../../../../store/slice/menuDomandeERisposteSlice';
 import { resetRisposteOfDomanda } from '../../../../store/slice/risposteAddFormSlice';
-import { expandedTableMoreAnswers, expandTable, resetIntestazioneMoreAns } from '../../../../store/slice/domandeAddFormSlice';
+import {
+  domandeObject, expandedTableMoreAnswers, expandTable, resetIntestazioneMoreAns,
+} from '../../../../store/slice/domandeAddFormSlice';
 import { openDialogGroup } from '../../../../store/slice/dialogSlice';
 import { intestazioneAttiva, setIntestazioneAttiva } from '../../../../store/slice/menuDomandeSlice';
 import { haveRepModifyRight } from '../../../../store/slice/rightsSlice';
@@ -29,6 +31,7 @@ const NavQuestionsAndAnswers = () => {
   const group = useSelector(raggruppaAttivo);
   const rightMod = useSelector(haveRepModifyRight);
   const confirmClicked = useSelector(isBConfirmAddFormClicked);
+  const domande = useSelector(domandeObject);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -86,24 +89,27 @@ const NavQuestionsAndAnswers = () => {
           onClose={handleClose}
         >
           <Grid container />
-          <MenuItem onClick={() => {
-            dispatch(setRisposteTutteUguali());
-            handleClose();
-            if (!risTutteUguali) {
-              dispatch(resetRisposteOfDomanda());
-            }
-          }}
-          >
-            <Grid item xs={12} sm={2}>
-              <Checkbox
-                checked={risTutteUguali}
-                inputProps={{ 'aria-label': 'primary checkbox' }}
-              />
-            </Grid>
-            <Grid item xs={12} sm={10}>
-              imposta risposte tutte uguali
-            </Grid>
-          </MenuItem>
+          {Object.keys(domande).length !== 0
+            ? (
+              <MenuItem onClick={() => {
+                dispatch(setRisposteTutteUguali());
+                handleClose();
+                if (!risTutteUguali) {
+                  dispatch(resetRisposteOfDomanda());
+                }
+              }}
+              >
+                <Grid item xs={12} sm={2}>
+                  <Checkbox
+                    checked={risTutteUguali}
+                    inputProps={{ 'aria-label': 'primary checkbox' }}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={10}>
+                  imposta risposte tutte uguali
+                </Grid>
+              </MenuItem>
+            ) : <></>}
           <MenuItem onClick={() => {
             dispatch(setIntestazioneMoreAnsAttiva());
             if (intTwoAns) {

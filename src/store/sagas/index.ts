@@ -31,7 +31,7 @@ import { closeDialogSummaryAndSave } from '../slice/dialogSlice';
 import { setDDLFormDisabled, setDDLFormEnabled } from '../slice/disableEnableSlice';
 import { setGroupsArray } from '../slice/groupSlice';
 import { resetMenuMoreAns, setGroupAttivi, setIntestazioneMoreAnsAttiva } from '../slice/menuDomandeERisposteSlice';
-import { resetMenuTwoAns } from '../slice/menuDomandeSlice';
+import { resetMenuTwoAns, setGroupAttiviTwoAns } from '../slice/menuDomandeSlice';
 import { setIsLoaded, setIsLoading } from '../slice/loadingSlice';
 
 function* init(action : any) {
@@ -88,6 +88,7 @@ function* init(action : any) {
           yield put(setGroupsArray(selectedForm.gruppi));
 
           yield put(setGroupAttivi());
+          yield put(setGroupAttiviTwoAns());
         }
 
         if (selectedForm.intestazione !== '') {
@@ -175,7 +176,6 @@ function* initRep(action : any) {
   const form = yield call(fetchRepartoFormByGUID, payload);
   yield put(setFormulariList(form.data));
 
-  // eslint-disable-next-line no-underscore-dangle
   form.data.map((formu : any) => {
     const { formulario, _id } = formu;
     const res = { formulario, _id };

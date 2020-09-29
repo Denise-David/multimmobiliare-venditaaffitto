@@ -9,12 +9,6 @@ import {
   isConfirmDisabled, buttonCancelAddFormClicked,
   isBConfirmAddFormClicked, buttonSaveFormClicked,
 } from '../../../../store/slice/addFormSlice';
-import {
-  rightsUserAUTAN, setUserCreateRight, setUserDeleteRight,
-  setUserModifyRight, repartiDelete,
-  setRepartoDeleteRight, setRepartoModifyRight, repartiModify,
-} from '../../../../store/slice/rightsSlice';
-import { IDRepartoSelected } from '../../../../store/slice/ddlEditorFormAndRepartiSlice';
 import { isBSaveDisabled, isBModifyDelAddReturnDisabled, setBSaveDisabled } from '../../../../store/slice/disableEnableSlice';
 import PrimaryButtonsControlRep from './PrimaryButtonsControlRep/PrimaryButtonsControlRep';
 
@@ -25,52 +19,6 @@ const PrimaryButtons = () => {
   const bConfirmAddFormClicked = useSelector(isBConfirmAddFormClicked);
   const isSaveDisabled = useSelector(isBSaveDisabled);
   const iconsDisabled = useSelector(isBModifyDelAddReturnDisabled);
-  const rightUser = useSelector(rightsUserAUTAN);
-  const IDRepSelected = useSelector(IDRepartoSelected);
-  const repDelete = useSelector(repartiDelete);
-  const repModify = useSelector(repartiModify);
-
-  // eslint-disable-next-line array-callback-return
-  rightUser.map((scope: any) => {
-    if (scope.code === 'AUTAN_ALL') {
-      dispatch(setRepartoModifyRight());
-      // eslint-disable-next-line array-callback-return
-      repModify.map((reparto:any) => {
-        if (IDRepSelected === reparto.unitid || IDRepSelected === reparto.sermednodeid) {
-          dispatch(setRepartoModifyRight());
-        }
-      });
-      dispatch(setRepartoDeleteRight());
-      // eslint-disable-next-line array-callback-return
-      repDelete.map((reparto:any) => {
-        if (IDRepSelected === reparto.unitid || IDRepSelected === reparto.sermednodeid) {
-          dispatch(setRepartoDeleteRight());
-        }
-      });
-      dispatch(setUserCreateRight());
-    }
-    if (scope.code === 'AUTAN_CREATE') {
-      dispatch(setUserCreateRight());
-    } // diritto delete
-    if (scope.code === 'AUTAN_DELETE') {
-      dispatch(setUserDeleteRight());
-      // eslint-disable-next-line array-callback-return
-      repDelete.map((reparto:any) => {
-        if (IDRepSelected === reparto.unitid || IDRepSelected === reparto.sermednodeid) {
-          dispatch(setRepartoDeleteRight());
-        }
-      });
-    }
-    if (scope.code === 'AUTAN_MODIFY') {
-      dispatch(setUserModifyRight());
-      // eslint-disable-next-line array-callback-return
-      repModify.map((reparto:any) => {
-        if (IDRepSelected === reparto.unitid || IDRepSelected === reparto.sermednodeid) {
-          dispatch(setRepartoModifyRight());
-        }
-      });
-    }
-  });
 
   return (
     <>

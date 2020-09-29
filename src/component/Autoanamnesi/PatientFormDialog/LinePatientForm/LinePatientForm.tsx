@@ -24,7 +24,7 @@ const MultipleChoiceLinePatient = () => {
 
   useEffect(() => {
     // eslint-disable-next-line array-callback-return
-    domande.map((question: any) => {
+    domande.forEach((question: any) => {
     // controllo se la domanda è facoltativa
       if (question.facoltativa === false || question.facoltativa === undefined) {
         dispatch(setDomandaNoFacoltativa(question.IDDomanda));

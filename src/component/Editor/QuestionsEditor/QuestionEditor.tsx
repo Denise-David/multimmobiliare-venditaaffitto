@@ -1,11 +1,12 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import {
-  Paper, Typography, Collapse,
+  Typography, Collapse,
 } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import { useSelector, useDispatch } from 'react-redux';
 
+import Card from '@material-ui/core/Card/Card';
 import useStyles from './style';
 import {
   domandeObject, modifyDomandaInObjectDomande,
@@ -50,7 +51,7 @@ const QuestionsEditor = () => {
       <div key={domandaAddForm.IDDomanda}>
         { Tipo === 'a due risposte'
           ? (
-            <Paper className={classes.bordiCard} elevation={3}>
+            <Card className={classes.bordiCard} elevation={3}>
               <div className={classes.bordi}>
                 <span className={classes.bordi} />
                 <Grid container spacing={3}>
@@ -83,15 +84,13 @@ const QuestionsEditor = () => {
                 </Grid>
               </div>
 
-              {group
-                ? (
-                  <div className={classes.bordi}>
-                    {' '}
-                    <DropDownListGroup IDDomanda={domandaAddForm.IDDomanda} />
-                  </div>
-                ) : <></>}
+              <div className={classes.bordi}>
+                {group
+                  ? (<DropDownListGroup IDDomanda={domandaAddForm.IDDomanda} />
+                  ) : <></>}
+              </div>
 
-            </Paper>
+            </Card>
           ) : (
             <>
               {' '}
