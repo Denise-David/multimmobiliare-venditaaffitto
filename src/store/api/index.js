@@ -28,7 +28,7 @@ export const fetchRepartoFormByGUID = (GUID) => struttureFormReparti.find(
 export const addForm = (
   nomeReparto,
   idReparto, nomeForm, gruppi,
-  domande, risultati, risposta1, risposta2, intestazioneMoreAns, intestazioneTwoAnswers,
+  domande, risultati, risposta1, risposta2, intestazioneMoreAns,
 ) => struttureFormReparti.create(
   {
     actualWardGUID: idReparto,

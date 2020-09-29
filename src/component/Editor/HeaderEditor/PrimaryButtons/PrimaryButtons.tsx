@@ -30,10 +30,9 @@ const PrimaryButtons = () => {
   const repDelete = useSelector(repartiDelete);
   const repModify = useSelector(repartiModify);
 
-  // controllo i diritti che ha l'utente
   // eslint-disable-next-line array-callback-return
   rightUser.map((scope: any) => {
-    if (scope.id === 6997) {
+    if (scope.code === 'AUTAN_ALL') {
       dispatch(setRepartoModifyRight());
       // eslint-disable-next-line array-callback-return
       repModify.map((reparto:any) => {
@@ -50,10 +49,10 @@ const PrimaryButtons = () => {
       });
       dispatch(setUserCreateRight());
     }
-    if (scope.id === 6856) {
+    if (scope.code === 'AUTAN_CREATE') {
       dispatch(setUserCreateRight());
     } // diritto delete
-    if (scope.id === 6876) {
+    if (scope.code === 'AUTAN_DELETE') {
       dispatch(setUserDeleteRight());
       // eslint-disable-next-line array-callback-return
       repDelete.map((reparto:any) => {
@@ -62,7 +61,7 @@ const PrimaryButtons = () => {
         }
       });
     }
-    if (scope.id === 6916) {
+    if (scope.id === 'AUTAN_MODIFY') {
       dispatch(setUserModifyRight());
       // eslint-disable-next-line array-callback-return
       repModify.map((reparto:any) => {
