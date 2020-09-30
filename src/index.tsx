@@ -18,6 +18,7 @@ import Editor from './view/Editor/Editor';
 import PDFPatientData from './component/Autoanamnesi/PDFPatientData/PDFPatentData';
 import PDFPatientAnswers from './component/Autoanamnesi/PDFPatientAnswers/PDFPatientAnswers';
 import EtichettaQrCode from './component/Autoanamnesi/EtichettaQRCode/EtichettaQrCode';
+import HomepageNoLabel from './view/HomepageNoLabel/HomepageNoLabel';
 
 // const escapeRegex = /([[\].#*$><+~=|^:(),"'`\s])/g;
 let classCounter = 0;
@@ -62,6 +63,11 @@ ReactDOM.render(
               </Route>
 
               <Switch>
+                <Route path="/homeNoLabel
+              "
+                >
+                  <HomepageNoLabel />
+                </Route>
 
                 <Route path="/home">
                   <App />
