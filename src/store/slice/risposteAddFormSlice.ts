@@ -15,7 +15,7 @@ const risposteAddFormSlice = createSlice({
     isBModifyRis2Clicked: false as boolean,
     addRispostaInDomanda: { } as {[key:string]:boolean},
     answer: {} as any,
-    valore: {} as any,
+    valore: { IDDomanda: 0 } as any,
     risposteOfDomandaObject: {} as any,
     type: {} as any,
     tableTwoAnsExpanded: true as boolean,

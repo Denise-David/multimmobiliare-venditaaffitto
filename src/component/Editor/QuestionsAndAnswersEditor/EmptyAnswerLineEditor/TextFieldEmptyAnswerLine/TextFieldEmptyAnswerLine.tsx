@@ -17,7 +17,8 @@ const TextFieldEmptyAnswerLine = ({ IDDomanda }:Props) => {
   const rispostaText = useSelector(answer);
   const valoreText = useSelector(valore);
   const stateTextField = useSelector(stateAddedRisposta);
-  const NON_DIGIT = '/[^0-9]/g';
+  // eslint-disable-next-line no-useless-escape
+  const NON_DIGIT = '/[^\d]/g';
   if (typeRis[IDDomanda] !== 'data') {
     return (
       <>
@@ -58,7 +59,7 @@ const TextFieldEmptyAnswerLine = ({ IDDomanda }:Props) => {
               }
             }}
             placeholder="valore"
-            value={valoreText[IDDomanda] || ''}
+            value={valoreText[IDDomanda] || 0}
             onChange={(event) => {
               const { value } = event.target;
               if (value !== '') {

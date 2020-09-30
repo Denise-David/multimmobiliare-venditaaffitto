@@ -55,18 +55,21 @@ const QuestionsAndAnswersEditor = () => {
                   <>
                     {index === 0
                       ? (
-                        <Card className={classes.bordiCardRisposte}>
-                          <div className={classes.bordi}>
-                            <HeaderAnsMoreAns />
+                        <>
+                          <Card className={classes.bordiCardRisposte}>
+                            <div className={classes.bordi}>
+                              <HeaderAnsMoreAns />
 
-                            <AnswerLineEditor
-                              id={domanda.IDDomanda}
-                            />
-                            {rightRepModify || confirmAddFormClicked
-                              ? <EmptyAnswerLineEditor IDDomanda={domanda.IDDomanda} /> : <></>}
+                              <AnswerLineEditor
+                                id={domanda.IDDomanda}
+                              />
+                              {rightRepModify || confirmAddFormClicked
+                                ? <EmptyAnswerLineEditor IDDomanda={domanda.IDDomanda} /> : <></>}
 
-                          </div>
-                        </Card>
+                            </div>
+                          </Card>
+                          <EmptyAddQuestionMoreAnswers />
+                        </>
                       ) : <></>}
                   </>
                 )
@@ -140,7 +143,7 @@ const QuestionsAndAnswersEditor = () => {
         <div className={classes.padding}>
           {intestazione
             ? <TextFieldIntestazioneQuesMoreAnswers /> : <></>}
-          {rightRepModify || confirmAddFormClicked
+          {(rightRepModify || confirmAddFormClicked) && !risTutteUguali
             ? <EmptyAddQuestionMoreAnswers /> : <></>}
 
           {listDomandeAdded}

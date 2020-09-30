@@ -4,10 +4,10 @@ import { makeStyles, Theme } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme: Theme) => ({
 
   bordi: {
-    margin: theme.spacing(4),
+    margin: theme.spacing(2),
   },
   bordiCard: {
-    margin: theme.spacing(4),
+    margin: theme.spacing(2),
   },
   NavColor: {
     background: theme.palette.primary.main,
@@ -30,8 +30,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginLeft: theme.spacing(57),
   },
   bordiCardRisposte: {
-    margin: theme.spacing(1),
+    margin: theme.spacing(2),
     marginBottom: theme.spacing(10),
+    marginTop: theme.spacing(5),
   },
   paper: {
     padding: theme.spacing(5),

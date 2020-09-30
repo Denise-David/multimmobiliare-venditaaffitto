@@ -59,7 +59,7 @@ const TextFieldEmptyResultLine = () => {
               dispatch(setValoreMin(intVal));
               if (intVal > valMax) {
                 dispatch(setButtonDisabled());
-              } else if (bCheckDisabled === true) {
+              } else if (bCheckDisabled === true && res !== '') {
                 dispatch(setButtonEnabled());
               }
             } else {
@@ -67,7 +67,7 @@ const TextFieldEmptyResultLine = () => {
               dispatch(setValoreMin(intVal));
               if (intVal > valMax) {
                 dispatch(setButtonDisabled());
-              } else if (bCheckDisabled === true) {
+              } else if (bCheckDisabled === true && res !== '') {
                 dispatch(setButtonEnabled());
               }
             }
@@ -95,7 +95,7 @@ const TextFieldEmptyResultLine = () => {
               dispatch(setValoreMax(intVal));
               if (intVal < valMin) {
                 dispatch(setButtonDisabled());
-              } else if (bCheckDisabled === true) {
+              } else if (bCheckDisabled === true && res !== '') {
                 dispatch(setButtonEnabled());
               }
             } else {
@@ -103,7 +103,7 @@ const TextFieldEmptyResultLine = () => {
               dispatch(setValoreMax(intVal));
               if (intVal < valMin) {
                 dispatch(setButtonDisabled());
-              } else if (bCheckDisabled === true) {
+              } else if (bCheckDisabled === true && res !== '') {
                 dispatch(setButtonEnabled());
               }
             }
