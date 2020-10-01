@@ -19,6 +19,7 @@ import PDFPatientData from './component/Autoanamnesi/PDFPatientData/PDFPatentDat
 import PDFPatientAnswers from './component/Autoanamnesi/PDFPatientAnswers/PDFPatientAnswers';
 import EtichettaQrCode from './component/Autoanamnesi/EtichettaQRCode/EtichettaQrCode';
 import HomepageNoLabel from './view/HomepageNoLabel/HomepageNoLabel';
+import InterfacciaAmministrativa from './view/InterfacciaAmministrativa/InterfacciaAmministrativa';
 
 // const escapeRegex = /([[\].#*$><+~=|^:(),"'`\s])/g;
 let classCounter = 0;
@@ -82,6 +83,11 @@ ReactDOM.render(
                 <Route path="/QRCode">
                   <EtichettaQrCode />
                 </Route>
+
+                <Route path="/interfacciaAmministrativa">
+                  <InterfacciaAmministrativa />
+                </Route>
+
               </Switch>
 
             </Router>
