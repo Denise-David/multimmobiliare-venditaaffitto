@@ -13,7 +13,7 @@ import addFormulario, {
   clickDelOrSaveButton, addRes, deleteDomandaPiuRes, addResult, addDomandaMoreResInArray,
 } from './addFormSagas';
 import { ValueCode } from '../slice/labelCodeSlice';
-import getDataEtichetta, { sendDataPazienti } from './dialogFormPazienteSagas';
+import getDataEtichetta, { sendDataPazienti, sendOpenForm } from './dialogFormPazienteSagas';
 import initPDFPatientData from './patientInfoPDFSagas';
 import initPDFPatientAnswers from './patientAnswersPDFSagas';
 import setDataRisposteFormPaziente from './summaryDialogSagas';
@@ -33,6 +33,7 @@ import { setGroupsArray } from '../slice/groupSlice';
 import { resetMenuMoreAns, setGroupAttivi, setIntestazioneMoreAnsAttiva } from '../slice/menuDomandeERisposteSlice';
 import { resetMenuTwoAns, setGroupAttiviTwoAns } from '../slice/menuDomandeSlice';
 import { setIsLoaded, setIsLoading } from '../slice/loadingSlice';
+import initHomeNoLabel from './homepageNoLabelSagas';
 
 function* init(action : any) {
   try {
@@ -186,6 +187,7 @@ function* initRep(action : any) {
 
 function* actionWatcher() {
   yield takeLatest('INIT', init);
+  yield takeLatest('INIT_HOME_NO_LABEL', initHomeNoLabel);
   yield takeLatest('INIT_FORMULARI_REPARTO', initRep);
   yield takeLatest('BUTTON_SAVE_FORM_CLICKED', addFormulario);
   yield takeEvery('BUTTON_SEND_CODE', getDataEtichetta);
@@ -209,6 +211,7 @@ function* actionWatcher() {
   yield takeLatest('SAVE_MODIFY_FORM', saveModify);
   yield takeLatest('DISABLE_ALL', allDisabled);
   yield takeLatest('ENABLE_ALL', allEnabled);
+  yield takeLatest('OPEN_FORM', sendOpenForm);
 }
 export default function* rootSaga() {
   yield all([actionWatcher()]);

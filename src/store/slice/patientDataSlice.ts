@@ -13,8 +13,15 @@ const patientDataSlice = createSlice({
     checkboxDoctor: false as boolean,
     fieldFamilyDoctorEmpty: false as boolean,
     fieldDoctorEmpty: false as boolean,
+    birthdayDate: '' as string | null,
   },
   reducers: {
+    setBirthdayDate(state, { payload }) {
+      state.birthdayDate = payload;
+    },
+    resetBirthday(state) {
+      state.birthdayDate = null;
+    },
     unsetCancelClicked(state) {
       state.cancelClicked = false;
     },
@@ -89,6 +96,7 @@ const patientDataSlice = createSlice({
   },
 });
 
+export const birthdayDate = (state : State) => state.patientData.birthdayDate;
 export const fieldDoctorEmpty = (state: State) => state.patientData.fieldDoctorEmpty;
 export const fieldFamilyDoctorEmpty = (state: State) => state.patientData.fieldFamilyDoctorEmpty;
 export const checkboxDoctor = (state : State) => state.patientData.checkboxDoctor;
@@ -108,7 +116,7 @@ export const {
   setNoDoctor, setNoFamilyDoctor, setCheckboxFamilyDoctor,
   unsetCheckboxFamilyDoctor, setCheckboxDoctor, unsetCheckboxDoctor,
   setFieldFDoctorEmpty, setFieldFamilyDoctorEmpty, unsetFieldDoctorEmpty,
-  unsetFieldFamilyDoctorEmpty, unsetCancelClicked,
+  unsetFieldFamilyDoctorEmpty, unsetCancelClicked, setBirthdayDate, resetBirthday,
 
 } = patientDataSlice.actions;
 export default patientDataSlice.reducer;
