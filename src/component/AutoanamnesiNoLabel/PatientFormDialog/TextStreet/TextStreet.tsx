@@ -26,7 +26,7 @@ const TextLastname = () => {
     <TextField
       fullWidth
       disabled={disabled}
-      label="*Via"
+      label="Via"
       value={dataEtichetta.streetName || ''}
       error={error}
       onChange={(event) => {

@@ -1,43 +1,72 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import {
-  CardContent, Typography, Snackbar, CircularProgress, Paper,
+  CardContent, Typography, CircularProgress, Paper, TextField,
+  MenuItem, DialogContent,
 } from '@material-ui/core';
-import CropFreeIcon from '@material-ui/icons/CropFree';
-import queryString from 'query-string';
 import { useDispatch, useSelector } from 'react-redux';
-import Alert from '@material-ui/lab/Alert';
 import ButtonSend from '../../component/AutoanamnesiNoLabel/ButtonSendCode/ButtonSendCode';
-import TextFieldCodice from '../../component/AutoanamnesiNoLabel/TextCode/TextCode';
 import useStyles from './style';
 import Navbar from '../../component/Navbar/Navbar';
-import CameraButton from '../../component/AutoanamnesiNoLabel/CameraButton/CameraButton';
 import PatientFormDialog from '../../component/AutoanamnesiNoLabel/PatientFormDialog';
 import ReturnDeviceDialog from '../../component/AutoanamnesiNoLabel/ReturnDeviceDialog/ReturnDeviceDialog';
 import SummaryDialog from '../../component/AutoanamnesiNoLabel/SummaryDialog/SummaryDialog';
-import {
-  getCodeValue, buttonSendCode,
-} from '../../store/slice/labelCodeSlice';
-import DropDownListFormulariBarcode from '../../component/AutoanamnesiNoLabel/DropDownListFormulariBarcode/DropDownListFormulariBarcode';
-import { formulariList } from '../../store/slice/homePageLabelSlice';
-import { closeSnackbarLabelPage, snackbarLabelOpen } from '../../store/slice/snackbarSlice';
+
 import { isLoading } from '../../store/slice/loadingSlice';
+import {
+  formSelectedIndex,
+  listRisultati, repartoCercato, setFormCercato,
+  setFormSelectedID, setFormSelectedIndex, setRepCercato,
+} from '../../store/slice/homepageNoLabelSlice';
 
 const HomepageNoLabel = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const loading = useSelector(isLoading);
+  const listResult = useSelector(listRisultati);
+  const selectedIndex = useSelector(formSelectedIndex);
+  const rep = useSelector(repartoCercato);
 
-  useEffect(() => {
-    // eslint-disable-next-line no-restricted-globals
-    const parsed = queryString.parse(location.search);
-    if (parsed.etichetta) {
-      dispatch(getCodeValue(parsed.etichetta));
-      dispatch(buttonSendCode());
+  const list = listResult.map((res : any, index:number) => {
+    if (index === selectedIndex) {
+      return (
+        <MenuItem
+     // eslint-disable-next-line no-underscore-dangle
+          key={res._id}
+          value={index}
+          className={classes.selected}
+          onClick={() => {
+            dispatch(setFormSelectedIndex(index));
+            // eslint-disable-next-line no-underscore-dangle
+            dispatch(setFormSelectedID(res._id));
+          }}
+        >
+          {res.Reparto}
+          ,
+          {' '}
+          {' '}
+          {res.formulario}
+        </MenuItem>
+      );
     }
-  }, [dispatch]);
-
-  const formList = useSelector(formulariList);
-  const statusSnackbarBarcode = useSelector(snackbarLabelOpen);
+    return (
+      <MenuItem
+// eslint-disable-next-line no-underscore-dangle
+        key={res._id}
+        value={index}
+        onClick={() => {
+          dispatch(setFormSelectedIndex(index));
+          // eslint-disable-next-line no-underscore-dangle
+          dispatch(setFormSelectedID(res._id));
+        }}
+      >
+        {res.Reparto}
+        ,
+        {' '}
+        {' '}
+        {res.formulario}
+      </MenuItem>
+    );
+  });
   return (
     <div className={classes.Content}>
 
@@ -45,20 +74,33 @@ const HomepageNoLabel = () => {
       <div className={classes.Card}>
         <Paper>
           <CardContent className={classes.Center}>
-            <Typography variant="h4"> Scannerizza Barcode </Typography>
-            <div>
-              <CropFreeIcon color="secondary" style={{ fontSize: 150, margin: 30 }} />
-            </div>
-            <CameraButton />
+            <Typography variant="h4"> Cerca il reparto o il formulario </Typography>
           </CardContent>
 
         </Paper>
+
       </div>
-      <div className={classes.Margin}>Oppure</div>
-      <div className={classes.Margin}><TextFieldCodice /></div>
-      {formList.length > 1
-        ? <div className={classes.Margin}><DropDownListFormulariBarcode /></div>
-        : <></>}
+      <div className={classes.Margin}>
+        <TextField
+          value={rep}
+          onChange={(event) => {
+            const { value } = event.target;
+            dispatch(setRepCercato(value));
+            dispatch(setFormCercato(value));
+            dispatch({ type: 'INIT_HOME_NO_LABEL' });
+          }}
+          fullWidth
+          variant="outlined"
+        />
+
+      </div>
+      <div className={classes.Margin}>
+        <DialogContent className={classes.listGroup} dividers>
+
+          {list}
+
+        </DialogContent>
+      </div>
 
       <ButtonSend />
       {loading
@@ -68,17 +110,7 @@ const HomepageNoLabel = () => {
             {' '}
           </div>
         ) : <></>}
-      <Snackbar
-        open={statusSnackbarBarcode}
-        autoHideDuration={2000}
-        onClose={() => dispatch(closeSnackbarLabelPage())}
-      >
-        <Alert severity="warning">
-          <Typography variant="body1">
-            Codice immesso errato
-          </Typography>
-        </Alert>
-      </Snackbar>
+
       <PatientFormDialog />
       <ReturnDeviceDialog />
       <SummaryDialog />

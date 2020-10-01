@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -12,15 +12,18 @@ const TextLastname = () => {
   const dispatch = useDispatch();
   const [error, setError] = useState(false);
   const cancClicked = useSelector(cancelClicked);
+  useEffect(() => {
+    dispatch(setObligatoryFieldEmpty());
+  }, [dispatch]);
 
   if (disabled === false) {
-    if (dataEtichetta.familyname === '' && error === false) {
+    if ((dataEtichetta.familyname === '' || !dataEtichetta.familyname) && error === false) {
       setError(!error);
       dispatch(setObligatoryFieldEmpty());
     }
   } else if (cancClicked === true && error === true) {
     setError(!error);
-    dispatch(unsetObligatoryFieldEmpty());
+    dispatch(setObligatoryFieldEmpty());
   }
 
   return (

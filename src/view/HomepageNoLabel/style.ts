@@ -29,6 +29,14 @@ const useStyles = makeStyles((theme:Theme) => ({
     marginRight: 'auto',
     marginLeft: 'auto',
   },
+  listGroup: {
+    maxHeight: '300px',
+    height: '300px',
+    margin: theme.spacing(2),
+  },
 
+  selected: {
+    backgroundColor: theme.palette.secondary.main,
+  },
 }));
 export default useStyles;

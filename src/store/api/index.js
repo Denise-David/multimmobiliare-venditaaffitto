@@ -15,6 +15,15 @@ const struttureFormReparti = app.service('strutture_form_reparti');
 const risposteFormPazienti = app.service('risposte_form_pazienti');
 const historyEditor = app.service('history_editor');
 
+// Prendi tutti i formulari
+export const getAllForm = (form, rep) => struttureFormReparti.find({
+  query: {
+    formulario: { $search: form },
+    Reparto: { $search: rep },
+
+  },
+});
+
 // Prendi il formulario con tramite ID
 const fetchFormStructureByID = (ID) => struttureFormReparti.get(ID, {});
 export default fetchFormStructureByID;
@@ -173,3 +182,5 @@ export const setNewAndOldStructure = (GUID, nomeReparto,
     },
   },
 );
+
+// noLabel

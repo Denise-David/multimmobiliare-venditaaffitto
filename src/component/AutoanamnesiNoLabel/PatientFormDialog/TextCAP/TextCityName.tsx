@@ -27,7 +27,7 @@ const TextCAP = () => {
     <TextField
       fullWidth
       disabled={disabled}
-      label="*CAP"
+      label="CAP"
       value={dataEtichetta.zip || ''}
       error={error}
       onChange={(event) => {

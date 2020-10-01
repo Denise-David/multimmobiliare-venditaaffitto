@@ -1,12 +1,10 @@
 import React from 'react';
 import { Dialog, Typography } from '@material-ui/core';
 import { useSelector } from 'react-redux';
+import QRCode from 'qrcode.react';
 import useStyles from './style';
 import Nav from '../../Navbar/Navbar';
 import ButtonReturnDevice from './ButtonReturnDevice/ButtonReturnDevice';
-
-import ButtonOpenPDFDataPatient from './ButtonOpenPDFDataPatient/ButtonOpenPDFDataPatient';
-import ButtonOpenPDFFormPatient from './ButtonOpenPDFFormPatient/ButtonOpenPDFFormPatient';
 import { dialogReturnDeviceOpen } from '../../../store/slice/dialogSlice';
 
 const ReturnDeviceDialog = () => {
@@ -18,14 +16,15 @@ const ReturnDeviceDialog = () => {
       <Nav />
       <div className={classes.marginDialog}>
         <Typography className={classes.margin} variant="h4" align="center">
-          Ritorni cortesemente l&apos;apparecchio al personale amministrativo
+          Mostri cortesemente l&apos;apparecchio al personale amministrativo
         </Typography>
         <Typography variant="h4" align="center" color="primary">
           Grazie!
         </Typography>
+        <div className={classes.center}>
+          <QRCode value={`${window.location.host}/home?etichetta=4153656`} />
+        </div>
         <ButtonReturnDevice />
-        <ButtonOpenPDFDataPatient />
-        <ButtonOpenPDFFormPatient />
       </div>
 
     </Dialog>

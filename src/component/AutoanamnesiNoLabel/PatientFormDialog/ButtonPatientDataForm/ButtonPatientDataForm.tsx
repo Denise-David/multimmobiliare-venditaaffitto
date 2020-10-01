@@ -7,6 +7,7 @@ import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import { openSnackbarDoctor, openSnackbarFamilyDoctor, openSnackbarFieldEmpty } from '../../../../store/slice/snackbarSlice';
 import {
   fieldDoctorEmpty, fieldFamilyDoctorEmpty, obligatoryFieldEmpty,
+  resetBirthday,
   resetNewPatientInfo, switchStateDisabled, textFieldDisabled,
   unsetCancelClicked, unsetCheckboxDoctor, unsetCheckboxFamilyDoctor,
 } from '../../../../store/slice/patientDataSlice';
@@ -49,6 +50,7 @@ const ButtonPatientDataForm = () => {
         dispatch(resetNewPatientInfo());
         dispatch(unsetCheckboxDoctor());
         dispatch(unsetCheckboxFamilyDoctor());
+        dispatch(resetBirthday());
       }}
       >
         <HighlightOffIcon color="primary" fontSize="large" />

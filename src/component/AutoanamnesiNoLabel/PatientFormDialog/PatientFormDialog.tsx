@@ -44,6 +44,7 @@ import SnackbarFamilyDoctor from './SnackbarFamilyDoctor/SnackbarFamilyDoctor';
 import SnackbarDoctor from './SnackbarDoctor/SnackbarDoctor';
 import SnackbarDatiPersonali from './SnackbarDatiPersonali/SnackbarDatiPersonali';
 import ButtonPatientDataForm from './ButtonPatientDataForm/ButtonPatientDataForm';
+import TextBirthday from './TextBirthday/TextBirthday';
 
 const PatientFormDialog = () => {
   const open = useSelector(dialogFormPatientOpen);
@@ -80,7 +81,7 @@ const PatientFormDialog = () => {
               >
                 <Alert severity="warning">
                   <Typography variant="body1">
-                    Ci sono dei campi obbligatori vuoti!
+                    Ci sono dei dati personali obbligatori vuoti!
                   </Typography>
                 </Alert>
               </Snackbar>
@@ -93,6 +94,7 @@ const PatientFormDialog = () => {
                 <TextName />
                 <TextLastname />
               </div>
+              <TextBirthday />
               <div className={classes.inline}>
                 <TextStreet />
                 <TextNumber />

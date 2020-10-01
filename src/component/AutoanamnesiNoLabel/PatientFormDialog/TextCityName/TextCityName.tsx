@@ -28,7 +28,7 @@ const TextCityName = () => {
       fullWidth
       disabled={disabled}
       error={error}
-      label="*Residenza"
+      label="Residenza"
       value={dataEtichetta.cityName || ''}
       onChange={(event) => {
         const { value } = event.target;

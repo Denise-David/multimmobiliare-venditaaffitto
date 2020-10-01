@@ -27,7 +27,7 @@ const TextCassaMalati = () => {
     <TextField
       fullWidth
       disabled={disabled}
-      label="*Cassa malati"
+      label="Cassa malati"
       value={dataEtichetta.insuranceCoversName || ''}
       error={error}
       onChange={(event) => {

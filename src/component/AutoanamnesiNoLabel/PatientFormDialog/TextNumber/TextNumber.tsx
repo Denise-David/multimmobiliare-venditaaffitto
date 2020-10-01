@@ -28,7 +28,7 @@ const TextNumber = () => {
       disabled={disabled}
       style={{ marginLeft: 8 }}
       error={error}
-      label="*n°"
+      label="n°"
       value={dataEtichetta.streetNumber || ''}
       onChange={(event) => {
         const { value } = event.target;

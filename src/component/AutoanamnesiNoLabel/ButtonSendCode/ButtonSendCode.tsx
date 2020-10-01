@@ -2,14 +2,14 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import { useDispatch } from 'react-redux';
 import useStyles from './style';
-import { buttonSendCode } from '../../../store/slice/labelCodeSlice';
+import { openForm } from '../../../store/slice/homepageNoLabelSlice';
 
 const ButtonSendCode = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
 
   const handleClickOpen = () => {
-    dispatch(buttonSendCode());
+    dispatch(openForm());
   };
 
   return (

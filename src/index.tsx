@@ -63,9 +63,7 @@ ReactDOM.render(
               </Route>
 
               <Switch>
-                <Route path="/homeNoLabel
-              "
-                >
+                <Route path="/homeNoLabel">
                   <HomepageNoLabel />
                 </Route>
 

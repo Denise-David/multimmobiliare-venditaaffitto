@@ -7,7 +7,7 @@ import useStyles from './style';
 import ButtonSendConfirmSummary from './ButtonSendConfirmSummary/ButtonSendConfirmSummary';
 import ButtonSendCancelSummary from './ButtonSendCancelSummary/ButtonSendCancelSummary';
 import { objectToArray } from '../../../util';
-import { oldPatientInfo, newPatientInfo } from '../../../store/slice/patientDataSlice';
+import { newPatientInfo } from '../../../store/slice/patientDataSlice';
 import { dialogSummaryOpen } from '../../../store/slice/dialogSlice';
 import { boolAnswers, risposte } from '../../../store/slice/patientFormSlice';
 import PatientNoDoctorDataSummary from './PatientNoDoctorDataSummary/PatientNoDoctorDataSummary';
@@ -16,7 +16,6 @@ import PatientDoctorDataSummary from './PatientDoctorDataSummary/PatientDoctorDa
 const SummaryDialog = () => {
   const statusDialog = useSelector(dialogSummaryOpen);
   const dataPatient = useSelector(newPatientInfo);
-  const oldDataPatient = useSelector(oldPatientInfo);
   const dataAnswers = useSelector(risposte);
   const boolAns = useSelector(boolAnswers);
   const classes = useStyles();
@@ -100,27 +99,13 @@ const SummaryDialog = () => {
           <br />
           <PatientDoctorDataSummary />
           <br />
-          {dataPatient.insuranceCoversName === oldDataPatient.insuranceCoversName
-            ? (
-              <>
-                Cassa malati:
-                {' '}
-                { dataPatient.insuranceCoversName}
-              </>
-            )
-            : (
-              <span className={classes.color}>
-                Cassa malati:
-                {' '}
-                <span className={classes.oldData}>
-                  {oldDataPatient.insuranceCoversName}
-                </span>
-                {' '}
-                Nuovo:
-                {' '}
-                {dataPatient.insuranceCoversName}
-              </span>
-            )}
+
+          <>
+            Cassa malati:
+            {' '}
+            { dataPatient.insuranceCoversName}
+          </>
+
           <br />
 
         </Typography>

@@ -1,6 +1,9 @@
 import {
   call, select, put,
 } from 'redux-saga/effects';
+import {
+  obligatoryFieldEmpty, textFieldDisabled, getNewPatientInfo, getOldPatientInfo,
+} from '../slice/patientDataSlice';
 import { setIsLoaded, setIsLoading } from '../slice/loadingSlice';
 import {
   openDialogSummary, openDialogFormPatient,
@@ -9,16 +12,17 @@ import {
   noFacoltative, getDomandeReparto,
   risposte, getBooleanAnswers, setIntestazioneMoreAns, setGruppi,
 } from '../slice/patientFormSlice';
-import { textFieldDisabled, getNewPatientInfo, getOldPatientInfo } from '../slice/patientDataSlice';
+
 import { ValueCode } from '../slice/labelCodeSlice';
 import fetchFormStructureByID, {
   getEtichettaDataByLabel, fetchRepartoFormByGUID,
 } from '../api';
 import { formSelected, formulariList } from '../slice/homePageLabelSlice';
 import {
-  openSnackbarDatiPersonali, openSnackbarLabelPage,
+  openSnackbarDatiPersonali, openSnackbarFieldEmpty, openSnackbarLabelPage,
   openSnackbarPatientAnswers,
 } from '../slice/snackbarSlice';
+import { formSelectedID } from '../slice/homepageNoLabelSlice';
 
 export default function* getDataEtichetta() {
   try {
@@ -97,13 +101,35 @@ export default function* getDataEtichetta() {
   }
 }
 
+export function* sendOpenForm() {
+  yield put(setIsLoading());
+  const IDForm = yield select(formSelectedID);
+  const dataForm = yield call(fetchFormStructureByID, IDForm);
+  // prendo le domande
+  const datiDomande = dataForm.Domande;
+  const listDomande = datiDomande.map((domanda : any) => {
+    const question = { ...domanda, normalType: false };
+    return question;
+  });
+  yield put(getDomandeReparto(listDomande));
+
+  // prendo risposte booleane
+  const booleanAnswers = dataForm.Risposte;
+  yield put(getBooleanAnswers(booleanAnswers));
+  yield put(setIntestazioneMoreAns(dataForm.intestazione));
+
+  yield put(setGruppi(dataForm.gruppi));
+
+  yield put(openDialogFormPatient());
+  yield put(setIsLoaded());
+}
 export function* sendDataPazienti() {
   try {
+    const obbFieldEmpty = yield select(obligatoryFieldEmpty);
     const answersData = yield select(risposte);
     const noFacol = yield select(noFacoltative);
     const checkOrCancelClicked = yield select(textFieldDisabled);
     let risAll = true;
-
     const response = noFacol.map((idDomanda: string) => {
       if (answersData[idDomanda] === undefined && risAll === true) {
         risAll = false;
@@ -114,12 +140,14 @@ export function* sendDataPazienti() {
 
     const answersAll = response.includes(false);
     // Se le risposte ricevute dal paziente sono uguali al numero di domande tot
-    if (checkOrCancelClicked && !answersAll) {
+    if (checkOrCancelClicked && !answersAll && !obbFieldEmpty) {
       yield put(openDialogSummary());
       // yield put(addRisposteFormPazienti(patientData, answersData));
     } else if (!checkOrCancelClicked) {
       yield put(openSnackbarDatiPersonali());
-    } else if (answersAll) yield put(openSnackbarPatientAnswers());
+    } else if (answersAll) { yield put(openSnackbarPatientAnswers()); } else if (obbFieldEmpty) {
+      yield put(openSnackbarFieldEmpty());
+    }
   } catch (error) {
     console.log('errore', error);
   }

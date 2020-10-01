@@ -22,6 +22,7 @@ import menuDomandeERisposte from '../slice/menuDomandeERisposteSlice';
 import menuDomande from '../slice/menuDomandeSlice';
 import group from '../slice/groupSlice';
 import loading from '../slice/loadingSlice';
+import homepageNoLabel from '../slice/homepageNoLabelSlice';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -47,6 +48,7 @@ const store = configureStore({
     menuDomande,
     group,
     loading,
+    homepageNoLabel,
   },
 
   middleware: [sagaMiddleware, logger, ...getDefaultMiddleware()],
