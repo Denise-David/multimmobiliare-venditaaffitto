@@ -1,24 +1,17 @@
 // eslint-disable-next-line no-unused-vars
 import { makeStyles, Theme } from '@material-ui/core/styles';
-
+// eslint-disable-next-line no-unused-vars
 const useStyles = makeStyles((theme: Theme) => ({
 
   padding: {
-    padding: theme.spacing(2),
-    textAlign: 'center',
-
-  },
-  paddingGeneral: {
     padding: theme.spacing(4),
 
   },
-  margin: {
-    margin: theme.spacing(1),
+  width: {
+    minWidth: '500px',
   },
-  listGroup: {
-    maxHeight: '700px',
-    height: '700px',
-    margin: theme.spacing(2),
+  margin: {
+    marginBottom: theme.spacing(2),
   },
 }));
 export default useStyles;

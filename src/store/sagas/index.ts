@@ -34,6 +34,7 @@ import { resetMenuMoreAns, setGroupAttivi, setIntestazioneMoreAnsAttiva } from '
 import { resetMenuTwoAns, setGroupAttiviTwoAns } from '../slice/menuDomandeSlice';
 import { setIsLoaded, setIsLoading } from '../slice/loadingSlice';
 import initHomeNoLabel from './homepageNoLabelSagas';
+import initInterfaccia from './interfacciaAmministrativaSagas';
 
 function* init(action : any) {
   try {
@@ -186,6 +187,7 @@ function* initRep(action : any) {
 }
 
 function* actionWatcher() {
+  yield takeLatest('INIT_INTERFACCIA', initInterfaccia);
   yield takeLatest('INIT', init);
   yield takeLatest('INIT_HOME_NO_LABEL', initHomeNoLabel);
   yield takeLatest('INIT_FORMULARI_REPARTO', initRep);

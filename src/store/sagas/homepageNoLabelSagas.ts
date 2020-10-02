@@ -3,14 +3,14 @@ import {
   repartoCercato, formularioCercato, setList, resetList, resetSelectedIndex,
 } from '../slice/homepageNoLabelSlice';
 
-import { getAllForm } from '../api';
+import { searchForm } from '../api';
 
 export default function* initHomeNoLabel() {
   try {
     const rep = yield select(repartoCercato);
     const form = yield select(formularioCercato);
-    const allFormForm = yield call(getAllForm, form, '');
-    const allFormRep = yield call(getAllForm, '', rep);
+    const allFormForm = yield call(searchForm, form, '');
+    const allFormRep = yield call(searchForm, '', rep);
 
     if (rep.length > 2) {
       const allForm = allFormForm.data.concat(allFormRep.data);

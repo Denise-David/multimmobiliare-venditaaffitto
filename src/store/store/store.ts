@@ -23,6 +23,7 @@ import menuDomande from '../slice/menuDomandeSlice';
 import group from '../slice/groupSlice';
 import loading from '../slice/loadingSlice';
 import homepageNoLabel from '../slice/homepageNoLabelSlice';
+import interfacciaAmm from '../slice/interfacciaAmmSlice';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -49,6 +50,7 @@ const store = configureStore({
     group,
     loading,
     homepageNoLabel,
+    interfacciaAmm,
   },
 
   middleware: [sagaMiddleware, logger, ...getDefaultMiddleware()],

@@ -9,8 +9,15 @@ const dialogSlice = createSlice({
     dialogSearchOpen: false as boolean,
     dialogFormPatientOpen: false as boolean,
     dialogGroupOpen: false as boolean,
+    dialogLabel: false as boolean,
   },
   reducers: {
+    openDialogLabel(state) {
+      state.dialogLabel = true;
+    },
+    closeDialogLabel(state) {
+      state.dialogLabel = false;
+    },
     openDialogGroup(state) {
       state.dialogGroupOpen = true;
     },
@@ -47,6 +54,7 @@ const dialogSlice = createSlice({
   },
 });
 
+export const dialogLabel = (state : State) => state.dialog.dialogLabel;
 export const dialogGroupOpen = (state : State) => state.dialog.dialogGroupOpen;
 export const dialogFormPatientOpen = (state : State) => state.dialog.dialogFormPatientOpen;
 export const dialogSearchOpen = (state : State) => state.dialog.dialogSearchOpen;
@@ -58,5 +66,6 @@ export const {
   closeReturnDeviceDialog, openDialogSearch, closeDialogSearch,
   closeDialogFormPatient,
   openDialogFormPatient, openDialogGroup, closeDialogGroup,
+  openDialogLabel, closeDialogLabel,
 } = dialogSlice.actions;
 export default dialogSlice.reducer;

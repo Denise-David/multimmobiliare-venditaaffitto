@@ -15,8 +15,15 @@ const struttureFormReparti = app.service('strutture_form_reparti');
 const risposteFormPazienti = app.service('risposte_form_pazienti');
 const historyEditor = app.service('history_editor');
 
+// PRendi formulari csenza etichetta
+export const fetchFormNoLabel = () => risposteFormPazienti.find({
+  query: {
+    etichetta: '',
+  },
+});
+
 // Prendi tutti i formulari
-export const getAllForm = (form, rep) => struttureFormReparti.find({
+export const searchForm = (form, rep) => struttureFormReparti.find({
   query: {
     formulario: { $search: form },
     Reparto: { $search: rep },
@@ -62,12 +69,20 @@ export const getEtichettaDataByLabel = (labelNumber) => axios.get(`/autoanamnesi
 // Aggiungi formulario risposte paziente
 
 export const addRisposteFormPazienti = (
+  GUIDReparto,
+  reparto,
+  formulario,
+  etichetta,
   oldPaziente,
   paziente,
   risposte,
 ) => risposteFormPazienti.create(
 
   {
+    GUIDReparto,
+    reparto,
+    formulario,
+    etichetta,
     oldPaziente,
     paziente,
     risposte,
@@ -140,6 +155,7 @@ export const setNewStructure = (nomeReparto,
     user: utente,
     type: 'create',
     newStructure: {
+
       actualWardGUID: GUID,
       Reparto: nomeReparto,
       formulario: nomeForm,
