@@ -8,6 +8,8 @@ import { openDialogLabel } from '../../../store/slice/dialogSlice';
 import {
   familynameCercato, formNoLabel, nameCercato, setSelected,
 } from '../../../store/slice/interfacciaAmmSlice';
+import SnackbarEtichettaInesistente from '../SnackbarEtichettaInesistente/SnackbarEtichettaInesistente';
+
 import useStyles from './style';
 
 const FormularioLine = () => {
@@ -22,10 +24,12 @@ const FormularioLine = () => {
     const nomeCognome = `${form.paziente.givenname} ${form.paziente.familyname}`;
     const { reparto } = form;
     const { formulario } = form;
+    const IDForm = form._id;
     if (nome.includes(nomeCercato.toLowerCase())
      && cognome.includes(cognomeCercato.toLowerCase())) {
       return (
         <>
+          <SnackbarEtichettaInesistente />
           <Divider />
 
           <div className={classes.margin}>
@@ -42,8 +46,11 @@ const FormularioLine = () => {
           </div>
           <div className={classes.margin}>
             <Button
+              color="primary"
               onClick={() => {
-                dispatch(setSelected({ nomeCognome, formulario, reparto }));
+                dispatch(setSelected({
+                  nomeCognome, formulario, reparto, IDForm,
+                }));
                 dispatch(openDialogLabel());
               }}
               variant="contained"

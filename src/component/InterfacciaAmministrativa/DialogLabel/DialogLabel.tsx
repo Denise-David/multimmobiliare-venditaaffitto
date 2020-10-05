@@ -5,7 +5,9 @@ import {
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { closeDialogLabel, dialogLabel } from '../../../store/slice/dialogSlice';
-import { patientSelected, repSelected, formSelected } from '../../../store/slice/interfacciaAmmSlice';
+import {
+  patientSelected, repSelected, formSelected, setLabel, label,
+} from '../../../store/slice/interfacciaAmmSlice';
 import useStyles from './style';
 
 const DialogLabel = () => {
@@ -15,6 +17,8 @@ const DialogLabel = () => {
   const patient = useSelector(patientSelected);
   const rep = useSelector(repSelected);
   const form = useSelector(formSelected);
+  const NON_DIGIT = '/[^d]/g';
+  const etichetta = useSelector(label);
 
   return (
     <Dialog open={open} onClose={() => dispatch(closeDialogLabel())}>
@@ -41,12 +45,34 @@ const DialogLabel = () => {
           </div>
 
           <Typography variant="h6" color="primary" align="center">Etichetta:</Typography>
-          <TextField fullWidth variant="outlined" />
+          <TextField
+            value={etichetta}
+            onChange={(event) => {
+              const { value } = event.target;
+              if (value !== '') {
+              // eslint-disable-next-line radix
+                const valore = parseInt(value.toString().replace(NON_DIGIT, ''));
+                dispatch(setLabel(valore));
+              } else {
+                const valore = 0;
+                dispatch(setLabel(valore));
+              }
+            }}
+            fullWidth
+            variant="outlined"
+          />
 
-          <div className={classes.margin}>
-            <Button variant="contained">Aggiungi</Button>
-          </div>
         </Grid>
+        <div className={classes.button}>
+          <Button
+            onClick={() => dispatch({ type: 'AGGIUNGI_ETICHETTA' })}
+            color="primary"
+            variant="contained"
+          >
+            Aggiungi
+
+          </Button>
+        </div>
       </div>
     </Dialog>
   );

@@ -34,7 +34,7 @@ import { resetMenuMoreAns, setGroupAttivi, setIntestazioneMoreAnsAttiva } from '
 import { resetMenuTwoAns, setGroupAttiviTwoAns } from '../slice/menuDomandeSlice';
 import { setIsLoaded, setIsLoading } from '../slice/loadingSlice';
 import initHomeNoLabel from './homepageNoLabelSagas';
-import initInterfaccia from './interfacciaAmministrativaSagas';
+import initInterfaccia, { aggiungiEtichetta } from './interfacciaAmministrativaSagas';
 
 function* init(action : any) {
   try {
@@ -214,6 +214,7 @@ function* actionWatcher() {
   yield takeLatest('DISABLE_ALL', allDisabled);
   yield takeLatest('ENABLE_ALL', allEnabled);
   yield takeLatest('OPEN_FORM', sendOpenForm);
+  yield takeLatest('AGGIUNGI_ETICHETTA', aggiungiEtichetta);
 }
 export default function* rootSaga() {
   yield all([actionWatcher()]);

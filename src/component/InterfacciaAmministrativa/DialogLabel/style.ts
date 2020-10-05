@@ -13,5 +13,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   margin: {
     marginBottom: theme.spacing(2),
   },
+  button: {
+    margin: theme.spacing(4),
+    textAlign: 'center',
+  },
 }));
 export default useStyles;
