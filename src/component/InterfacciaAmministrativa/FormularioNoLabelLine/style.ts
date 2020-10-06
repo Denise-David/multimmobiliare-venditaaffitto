@@ -8,7 +8,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     textAlign: 'center',
   },
   margin: {
-    margin: theme.spacing(2),
+    margin: theme.spacing(1),
+  },
+  right: {
+    textAlign: 'right',
   },
 }));
 export default useStyles;

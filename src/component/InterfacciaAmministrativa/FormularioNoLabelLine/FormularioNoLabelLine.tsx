@@ -1,16 +1,18 @@
 /* eslint-disable no-underscore-dangle */
 import {
-  Button, Divider, Typography,
+  Button, Divider, Grid, IconButton, Typography,
 } from '@material-ui/core';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { openDialogLabel } from '../../../store/slice/dialogSlice';
+import DeleteIcon from '@material-ui/icons/Delete';
+import { closeAndFilterDialog, openDialogLabel } from '../../../store/slice/dialogSlice';
 import {
+  DeleteAnsForm,
   familynameCercato, formNoLabel, nameCercato, setSelected,
 } from '../../../store/slice/interfacciaAmmSlice';
-import SnackbarEtichettaInesistente from '../SnackbarEtichettaInesistente/SnackbarEtichettaInesistente';
 
 import useStyles from './style';
+import SnackbarEtichettaInesistente from '../SnackbarEtichettaInesistente/SnackbarEtichettaInesistente';
 
 const FormularioLine = () => {
   const noLabelForm = useSelector(formNoLabel);
@@ -25,23 +27,42 @@ const FormularioLine = () => {
     const { reparto } = form;
     const { formulario } = form;
     const IDForm = form._id;
+
     if (nome.includes(nomeCercato.toLowerCase())
      && cognome.includes(cognomeCercato.toLowerCase())) {
       return (
         <>
-          <SnackbarEtichettaInesistente />
           <Divider />
-
+          <SnackbarEtichettaInesistente />
           <div className={classes.margin}>
             <Typography variant="body1" key={form._id}>
-              {form.reparto}
-              {' '}
-              {form.formulario}
-              {' '}
-              {form.paziente.givenname}
-              {' '}
-              {form.paziente.familyname}
+              <Grid
+                container
+                direction="row"
+                justify="space-between"
+                alignItems="center"
+              >
+                {form.reparto}
+                {' '}
+                {form.formulario}
+                {' '}
+                {form.paziente.givenname}
+                {' '}
+                {form.paziente.familyname}
+                <span className={classes.right}>
+                  <IconButton color="primary">
+                    <DeleteIcon
+                      onClick={() => {
+                        dispatch(DeleteAnsForm(IDForm));
+                        dispatch(closeAndFilterDialog());
+                        dispatch({ type: 'INIT_INTERFACCIA' });
+                      }}
+                      style={{ fontSize: 30 }}
+                    />
+                  </IconButton>
+                </span>
 
+              </Grid>
             </Typography>
           </div>
           <div className={classes.margin}>

@@ -8,6 +8,7 @@ import {
   Switch,
   Route,
 } from 'react-router-dom';
+import '@fortawesome/fontawesome-pro/js/all';
 import { LocalizationProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@material-ui/pickers/adapter/date-fns';
 import App from './view/Barcode/App';

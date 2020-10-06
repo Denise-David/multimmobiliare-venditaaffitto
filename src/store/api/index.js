@@ -22,6 +22,14 @@ export const fetchFormNoLabel = () => risposteFormPazienti.find({
   },
 });
 
+export const fetchFormWithLabel = () => risposteFormPazienti.find({
+  query: {
+    etichetta: { $nin: [''] },
+  },
+});
+
+export const deleteAnswersForm = (ID) => risposteFormPazienti.remove(ID, {});
+
 // Prendi tutti i formulari
 export const searchForm = (form, rep) => struttureFormReparti.find({
   query: {

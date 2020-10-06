@@ -1,13 +1,16 @@
 import { put, call, select } from 'redux-saga/effects';
+import {
+  filtro,
+  IDFormSelected, label, resetLabel, setFormNoLabel, setFormWithLabel,
+} from '../slice/interfacciaAmmSlice';
 
 import {
-  addLabelToRispostePaziente, fetchFormNoLabel,
+  addLabelToRispostePaziente, deleteAnswersForm, fetchFormNoLabel,
+  fetchFormWithLabel,
   getEtichettaDataByLabel, getRisposteFormPazientiByID,
 } from '../api';
-import { closeDialogLabel } from '../slice/dialogSlice';
-import {
-  IDFormSelected, label, resetLabel, setFormNoLabel,
-} from '../slice/interfacciaAmmSlice';
+import { closeDialogFiltro, closeDialogLabel } from '../slice/dialogSlice';
+
 import { openSnackbarEtichettaInesistente } from '../slice/snackbarSlice';
 
 export default function* initInterfaccia() {
@@ -36,5 +39,28 @@ export function* aggiungiEtichetta() {
   } catch (error) {
     console.log('errore', error);
     yield put(openSnackbarEtichettaInesistente());
+  }
+}
+
+export function* filter() {
+  try {
+    const filterForm = yield select(filtro);
+    if (filterForm === 'Con etichetta' || filterForm === 'Tutti') {
+      const formWithLabel = yield call(fetchFormWithLabel);
+      yield put(setFormWithLabel(formWithLabel.data));
+    }
+
+    yield put(closeDialogFiltro());
+  } catch (error) {
+    console.log('errore', error);
+  }
+}
+
+export function* deleteFormAns(action:any) {
+  try {
+    const IDForm = action.payload;
+    yield call(deleteAnswersForm, IDForm);
+  } catch (error) {
+    console.log('errore', error);
   }
 }

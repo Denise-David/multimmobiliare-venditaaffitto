@@ -1,6 +1,7 @@
 import {
   all, takeLatest, call, put, select, takeEvery,
 } from 'redux-saga/effects';
+import initInterfaccia, { filter, aggiungiEtichetta, deleteFormAns } from './interfacciaAmministrativaSagas';
 import { setRepartoGUID, setFormulariList } from '../slice/homePageLabelSlice';
 import { setNomeFormulario } from '../slice/addFormSlice';
 import { formulariByReparto, setFormulari } from '../slice/rightsSlice';
@@ -34,9 +35,8 @@ import { resetMenuMoreAns, setGroupAttivi, setIntestazioneMoreAnsAttiva } from '
 import { resetMenuTwoAns, setGroupAttiviTwoAns } from '../slice/menuDomandeSlice';
 import { setIsLoaded, setIsLoading } from '../slice/loadingSlice';
 import initHomeNoLabel from './homepageNoLabelSagas';
-import initInterfaccia, { aggiungiEtichetta } from './interfacciaAmministrativaSagas';
 
-function* init(action : any) {
+function* init() {
   try {
     yield put(setIsLoading());
 
@@ -163,7 +163,7 @@ function* init(action : any) {
   }
 }
 
-function* initRep(action : any) {
+function* initRep() {
   // prendo e setto il reparto dell'etichetta immessa
   const label : string = yield select(ValueCode);
 
@@ -215,6 +215,8 @@ function* actionWatcher() {
   yield takeLatest('ENABLE_ALL', allEnabled);
   yield takeLatest('OPEN_FORM', sendOpenForm);
   yield takeLatest('AGGIUNGI_ETICHETTA', aggiungiEtichetta);
+  yield takeLatest('CLOSE_AND_FILTER_DIALOG', filter);
+  yield takeLatest('DELETE_ANS_FORM', deleteFormAns);
 }
 export default function* rootSaga() {
   yield all([actionWatcher()]);
