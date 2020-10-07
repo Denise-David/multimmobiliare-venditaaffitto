@@ -99,14 +99,14 @@ export const addRisposteFormPazienti = (
 );
 // add etichetta risposte form pazienti
 export const addLabelToRispostePaziente = (
-  IDForm, risposte, etichetta,
+  IDForm, risposte, etichetta, patientInfo,
 ) => risposteFormPazienti.update(IDForm,
   {
     etichetta,
     GUIDReparto: risposte.GUIDReparto,
     reparto: risposte.reparto,
     formulario: risposte.formulario,
-    oldPaziente: risposte.oldPaziente,
+    oldPaziente: patientInfo,
     paziente: risposte.paziente,
     risposte: risposte.risposte,
   });

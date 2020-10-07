@@ -43,9 +43,9 @@ const FormularioLine = () => {
                 alignItems="center"
               >
                 {form.reparto}
-                {' '}
+                {' / '}
                 {form.formulario}
-                {' '}
+                {' / '}
                 {form.paziente.givenname}
                 {' '}
                 {form.paziente.familyname}

@@ -12,7 +12,7 @@ const PatientNoDoctorData = () => {
     <Typography variant="subtitle1">
       Nome :&nbsp;
       {oldDataPatient.givenname}
-      { oldDataPatient.givenname === newDataPatient.givenname ? <></>
+      { oldDataPatient.givenname.toLowerCase() === newDataPatient.givenname.toLowerCase() ? <></>
         : (
           <span className={classes.spazio}>
             NUOVO Nome :
@@ -24,7 +24,7 @@ const PatientNoDoctorData = () => {
       Cognome :
       {' '}
       {oldDataPatient.familyname}
-      { oldDataPatient.familyname === newDataPatient.familyname ? <></>
+      { oldDataPatient.familyname.toLowerCase() === newDataPatient.familyname.toLowerCase() ? <></>
         : (
           <span className={classes.spazio}>
             NUOVO Cognome :
@@ -37,7 +37,7 @@ const PatientNoDoctorData = () => {
       Città :
       {' '}
       {oldDataPatient.cityName}
-      { oldDataPatient.cityName === newDataPatient.cityName ? <></>
+      { oldDataPatient.cityName.toLowerCase() === newDataPatient.cityName.toLowerCase() ? <></>
         : (
           <span className={classes.spazio}>
             NUOVA Città :
@@ -50,7 +50,7 @@ const PatientNoDoctorData = () => {
       Via :
       {' '}
       {oldDataPatient.streetName}
-      { oldDataPatient.streetName === newDataPatient.streetName ? <></>
+      { oldDataPatient.streetName.toLowerCase() === newDataPatient.streetName.toLowerCase() ? <></>
         : (
           <span className={classes.spazio}>
             NUOVA Via:
@@ -60,7 +60,7 @@ const PatientNoDoctorData = () => {
         ) }
       <br />
 
-      { oldDataPatient.streetNumber === newDataPatient.streetNumber ? (
+      { oldDataPatient.streetNumber.toLowerCase() === newDataPatient.streetNumber.toLowerCase() ? (
         <>
           Numero :
           {' '}
@@ -84,7 +84,7 @@ const PatientNoDoctorData = () => {
       Telefono :
       {' '}
       {oldDataPatient.mobile}
-      { oldDataPatient.mobile === newDataPatient.mobile ? <></>
+      {oldDataPatient.mobile.toLowerCase() === newDataPatient.mobile.toLowerCase() ? <></>
         : (
           <span className={classes.spazio}>
             NUOVO Telefono :

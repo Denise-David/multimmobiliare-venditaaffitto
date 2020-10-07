@@ -1,17 +1,19 @@
 /* eslint-disable no-underscore-dangle */
 import {
-  Button, Divider, Grid, IconButton, Typography,
+  Divider, Grid, IconButton, Typography,
 } from '@material-ui/core';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { closeAndFilterDialog, openDialogLabel } from '../../../store/slice/dialogSlice';
+import { closeAndFilterDialog } from '../../../store/slice/dialogSlice';
 import {
   DeleteAnsForm,
-  familynameCercato, formWithLabel, nameCercato, setSelected,
+  familynameCercato, formWithLabel, nameCercato,
 } from '../../../store/slice/interfacciaAmmSlice';
 import SnackbarEtichettaInesistente from '../SnackbarEtichettaInesistente/SnackbarEtichettaInesistente';
 import useStyles from './style';
+import ButtonOpenPDFDataPatient from './ButtonOpenPDFDataPatient/ButtonOpenPDFDataPatient';
+import ButtonOpenPDFFormPatient from './ButtonOpenPDFFormPatient/ButtonOpenPDFFormPatient';
 
 const FormularioLabelLine = () => {
   const labelForm = useSelector(formWithLabel);
@@ -22,9 +24,6 @@ const FormularioLabelLine = () => {
   const listForm = labelForm.map((form : any) => {
     const nome : string = form.paziente.givenname.toLowerCase();
     const cognome :string = form.paziente.familyname.toLowerCase();
-    const nomeCognome = `${form.paziente.givenname} ${form.paziente.familyname}`;
-    const { reparto } = form;
-    const { formulario } = form;
     const IDForm = form._id;
 
     if (nome.includes(nomeCercato.toLowerCase())
@@ -43,9 +42,9 @@ const FormularioLabelLine = () => {
                 alignItems="center"
               >
                 {form.reparto}
-                {' '}
+                {' / '}
                 {form.formulario}
-                {' '}
+                {' / '}
                 {form.paziente.givenname}
                 {' '}
                 {form.paziente.familyname}
@@ -66,35 +65,9 @@ const FormularioLabelLine = () => {
           </div>
           <span>
             <div>
-              <Button
-                className={classes.margin}
-                color="primary"
-                onClick={() => {
-                  dispatch(setSelected({
-                    nomeCognome, formulario, reparto, IDForm,
-                  }));
-                  dispatch(openDialogLabel());
-                }}
-                variant="contained"
-              >
-                PDF dati paziente
+              <ButtonOpenPDFFormPatient etichetta={form.etichetta} IDForm={form._id} />
 
-              </Button>
-
-              <Button
-                className={classes.margin}
-                color="primary"
-                onClick={() => {
-                  dispatch(setSelected({
-                    nomeCognome, formulario, reparto, IDForm,
-                  }));
-                  dispatch(openDialogLabel());
-                }}
-                variant="contained"
-              >
-                PDF risposte paziente
-
-              </Button>
+              <ButtonOpenPDFDataPatient IDForm={form._id} />
             </div>
           </span>
 

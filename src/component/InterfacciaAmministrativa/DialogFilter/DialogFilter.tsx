@@ -9,7 +9,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import { useDispatch, useSelector } from 'react-redux';
 import useStyles from './style';
 import { filtro, setFiltro } from '../../../store/slice/interfacciaAmmSlice';
-import { closeAndFilterDialog, dialogFiltro } from '../../../store/slice/dialogSlice';
+import { closeAndFilterDialog, closeDialogFiltro, dialogFiltro } from '../../../store/slice/dialogSlice';
 
 const DialogFilter = () => {
   const filter = useSelector(filtro);
@@ -18,12 +18,12 @@ const DialogFilter = () => {
   const open = useSelector(dialogFiltro);
   return (
 
-    <Dialog open={open} onClose={() => dispatch(closeAndFilterDialog())}>
+    <Dialog open={open} onClose={() => dispatch(closeDialogFiltro())}>
       <AppBar position="static" color="primary">
 
         <Toolbar>
           <IconButton>
-            <CloseIcon className={classes.color} />
+            <CloseIcon className={classes.color} onClick={() => dispatch(closeDialogFiltro())} />
           </IconButton>
         </Toolbar>
       </AppBar>
@@ -33,6 +33,7 @@ const DialogFilter = () => {
           onChange={(event) => {
             const { value } = event.target;
             dispatch(setFiltro(value));
+            dispatch(closeAndFilterDialog());
           }}
           value={filter}
           name="gender1"

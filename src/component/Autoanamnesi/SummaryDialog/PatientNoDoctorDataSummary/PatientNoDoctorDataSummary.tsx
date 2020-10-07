@@ -140,7 +140,7 @@ const PatientNoDoctorDataSummary = () => {
             {dataPatient.mobile}
           </span>
         )}
-      ;
+
     </>
   );
 };
