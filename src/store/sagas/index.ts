@@ -2,7 +2,7 @@ import {
   all, takeLatest, call, put, select, takeEvery,
 } from 'redux-saga/effects';
 import initInterfaccia, { filter, aggiungiEtichetta, deleteFormAns } from './interfacciaAmministrativaSagas';
-import { setRepartoGUID, setFormulariList } from '../slice/homePageLabelSlice';
+import { setRepartoGUID, setFormulariList, setReparto } from '../slice/homePageLabelSlice';
 import { setNomeFormulario } from '../slice/addFormSlice';
 import { formulariByReparto, setFormulari } from '../slice/rightsSlice';
 import {
@@ -172,7 +172,9 @@ function* initRep() {
   const { hcase = {} } = data;
   const { payload } = yield put(
     setRepartoGUID(hcase.actualMedicalCategoryGUID || hcase.actualWardGUID),
+
   );
+  yield put(setReparto(hcase.actualWardName));
 
   // prendo i formulari del reparto
   const form = yield call(fetchRepartoFormByGUID, payload);

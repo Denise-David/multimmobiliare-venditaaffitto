@@ -7,8 +7,12 @@ const homePageSlice = createSlice({
     repartoGUID: null as number | null,
     formulariList: [] as any,
     formSelected: '-1' as string,
+    reparto: '' as string,
   },
   reducers: {
+    setReparto(state, { payload }) {
+      state.reparto = payload;
+    },
     setRepartoGUID(state, { payload }) {
       state.repartoGUID = payload;
     },
@@ -27,6 +31,9 @@ const homePageSlice = createSlice({
     resetFormList(state) {
       state.formulariList = [];
     },
+    resetReparto(state) {
+      state.reparto = '';
+    },
   },
 });
 
@@ -34,11 +41,13 @@ export const initFormulariReparto = () => ({
   type: 'INIT_FORMULARI_REPARTO',
 
 });
+export const reparto = (state: State) => state.homePage.reparto;
 export const formSelected = (state: State) => state.homePage.formSelected;
 export const formulariList = (state : State) => state.homePage.formulariList;
 export const repartoGUID = (state : State) => state.homePage.repartoGUID;
 export const {
   setRepartoGUID, setFormulariList, setSelectedForm,
   resetSelectedForm, resetRepartoGUID, resetFormList,
+  setReparto, resetReparto,
 } = homePageSlice.actions;
 export default homePageSlice.reducer;

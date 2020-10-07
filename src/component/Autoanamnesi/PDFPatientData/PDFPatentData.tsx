@@ -20,6 +20,8 @@ const PDFPatientData = () => {
   }, [dispatch]);
   const oldDataPatient = useSelector(oldPatientData);
   const newDataPatient = useSelector(newPatientData);
+  console.log('xxnew', newDataPatient);
+  console.log('xxold', oldDataPatient);
 
   return (
     <div className={classes.margini}>

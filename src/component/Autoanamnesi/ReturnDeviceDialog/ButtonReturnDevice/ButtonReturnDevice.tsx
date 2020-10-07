@@ -8,7 +8,9 @@ import {
 } from '../../../../store/slice/patientFormSlice';
 import { resetAllData, setDisabledTrue } from '../../../../store/slice/patientDataSlice';
 import { resetCode } from '../../../../store/slice/labelCodeSlice';
-import { resetSelectedForm, resetRepartoGUID, resetFormList } from '../../../../store/slice/homePageLabelSlice';
+import {
+  resetSelectedForm, resetRepartoGUID, resetFormList, resetReparto,
+} from '../../../../store/slice/homePageLabelSlice';
 import { closeReturnDeviceDialog } from '../../../../store/slice/dialogSlice';
 
 const ButtonReturnDevice = () => {
@@ -27,6 +29,7 @@ const ButtonReturnDevice = () => {
     dispatch(resetRepartoGUID());
     dispatch(resetFormList());
     dispatch(resetNoFacoltative());
+    dispatch(resetReparto());
   };
 
   return (

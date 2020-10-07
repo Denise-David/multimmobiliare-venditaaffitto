@@ -7,6 +7,8 @@ import useStyles from './style';
 const PatientNoDoctorData = () => {
   const oldDataPatient = useSelector(oldPatientData);
   const newDataPatient = useSelector(newPatientData);
+  console.log('XXnew', newDataPatient);
+  console.log('XXOld', oldDataPatient);
   const classes = useStyles();
   return (
     <Typography variant="subtitle1">

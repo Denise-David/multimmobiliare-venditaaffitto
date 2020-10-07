@@ -1,4 +1,9 @@
+/* eslint-disable no-underscore-dangle */
 import { select, put, call } from 'redux-saga/effects';
+import {
+  formulariList, repartoGUID, formSelected, reparto,
+} from '../slice/homePageLabelSlice';
+
 import { listRisultati, formSelectedID } from '../slice/homepageNoLabelSlice';
 
 import { oldPatientInfo, newPatientInfo } from '../slice/patientDataSlice';
@@ -17,11 +22,17 @@ export default function* setDataRisposteFormPaziente() {
     const etichetta = yield select(ValueCode);
     const resultForm = yield select(listRisultati);
     const formID = yield select(formSelectedID);
+    const IDSelectedForm = yield select(formSelected);
+    const GUID = yield select(repartoGUID);
+    const nomeRep = yield select(reparto);
+    const listForm = yield select(formulariList);
 
-    // eslint-disable-next-line no-underscore-dangle
     const form = resultForm.find((ID: any) => ID._id === formID);
+    const nomeForm = listForm.find((ID:any) => ID._id === IDSelectedForm);
 
-    const { formulario, Reparto, actualWardGUID } = form;
+    const formulario = form ? form.formulario : nomeForm.formulario;
+    const Reparto = form ? form.Reparto : nomeRep;
+    const actualWardGUID = form ? form.actualWardGUID : GUID;
 
     const risData = objectToArray(ansData);
 
