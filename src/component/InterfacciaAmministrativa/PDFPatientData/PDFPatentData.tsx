@@ -38,18 +38,28 @@ const PDFPatientData = () => {
       <Typography variant="subtitle1">
         <PatientDoctorData />
         <br />
-        Cassa malati :
-        {' '}
-        {oldDataPatient.insuranceCoversName}
-        { oldDataPatient.insuranceCoversName.toLowerCase()
-         === newDataPatient.insuranceCoversName.toLowerCase() ? <></>
-          : (
-            <span className={classes.spazio}>
-              NUOVA Cassa malati :
-              {' '}
-              { newDataPatient.insuranceCoversName}
-            </span>
 
+        { (oldDataPatient.insuranceCoversName.toLowerCase()
+         === newDataPatient.insuranceCoversName.toLowerCase())
+         || (oldDataPatient.insuranceCoversName && !newDataPatient.insuranceCoversName) ? (
+           <>
+
+             Cassa malati :
+             {' '}
+             {oldDataPatient.insuranceCoversName}
+           </>
+          )
+          : (
+            <span className={classes.color}>
+              Cassa malati :
+              {' '}
+              {oldDataPatient.insuranceCoversName}
+              <span className={classes.spazio}>
+                NUOVA Cassa malati :
+                {' '}
+                { newDataPatient.insuranceCoversName}
+              </span>
+            </span>
           ) }
 
       </Typography>

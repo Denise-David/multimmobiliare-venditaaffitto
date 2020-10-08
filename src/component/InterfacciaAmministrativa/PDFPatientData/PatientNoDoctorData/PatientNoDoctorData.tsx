@@ -11,7 +11,7 @@ const PatientNoDoctorData = () => {
   return (
     <Typography variant="subtitle1">
 
-      { (oldDataPatient.givenname === newDataPatient.givenname)
+      { (oldDataPatient.givenname.toLowerCase() === newDataPatient.givenname.toLowerCase())
         ? (
           <>
             {' '}
@@ -32,7 +32,7 @@ const PatientNoDoctorData = () => {
         ) }
       <br />
 
-      { (oldDataPatient.familyname === newDataPatient.familyname)
+      { (oldDataPatient.familyname.toLowerCase() === newDataPatient.familyname.toLowerCase())
         ? (
           <>
             Cognome :
@@ -54,8 +54,8 @@ const PatientNoDoctorData = () => {
         ) }
       <br />
 
-      { (oldDataPatient.cityName === newDataPatient.cityName)
-       || (!oldDataPatient.cityName && newDataPatient.cityName === '')
+      { (oldDataPatient.cityName.toLowerCase() === newDataPatient.cityName.toLowerCase())
+       || (oldDataPatient.cityName && !newDataPatient.cityName)
         ? (
           <>
             {' '}
@@ -79,8 +79,8 @@ const PatientNoDoctorData = () => {
         ) }
       <br />
 
-      { (oldDataPatient.streetName === newDataPatient.streetName)
-       || (!oldDataPatient.streetName && newDataPatient.streetName === '')
+      { (oldDataPatient.streetName.toLowerCase() === newDataPatient.streetName.toLowerCase())
+       || (oldDataPatient.streetName && !newDataPatient.streetName)
         ? (
           <>
             {' '}
@@ -103,8 +103,8 @@ const PatientNoDoctorData = () => {
         ) }
       <br />
 
-      { (oldDataPatient.streetNumber === newDataPatient.streetNumber)
-       || (!oldDataPatient.streetNumber && newDataPatient.streetNumber === '') ? (
+      { (oldDataPatient.streetNumber.toLowerCase() === newDataPatient.streetNumber.toLowerCase())
+       || (oldDataPatient.streetNumber && !newDataPatient.streetNumber) ? (
          <>
            Numero :
            {' '}
@@ -126,8 +126,8 @@ const PatientNoDoctorData = () => {
         ) }
       <br />
 
-      { (oldDataPatient.mobile === newDataPatient.mobile)
-       || (!oldDataPatient.mobile && newDataPatient.mobile === '')
+      { (oldDataPatient.mobile.toLowerCase() === newDataPatient.mobile.toLowerCase())
+       || (oldDataPatient.mobile && !newDataPatient.mobile)
         ? (
           <>
             {' '}
