@@ -12,37 +12,53 @@ const PatientNoDoctorData = () => {
     <Typography variant="subtitle1">
       Nome :&nbsp;
       {oldDataPatient.givenname}
-      { oldDataPatient.givenname.toLowerCase() === newDataPatient.givenname.toLowerCase() ? <></>
+      { (oldDataPatient.givenname === newDataPatient.givenname)
+      || (oldDataPatient.givenname === null && newDataPatient.givenname === '') ? <></>
         : (
-          <span className={classes.spazio}>
-            NUOVO Nome :
-            {' '}
-            { newDataPatient.givenname }
+          <span className={classes.color}>
+            Nome :&nbsp;
+            {oldDataPatient.givenname}
+            <span className={classes.spazio}>
+              NUOVO Nome :
+              {' '}
+              { newDataPatient.givenname }
+            </span>
           </span>
         ) }
       <br />
       Cognome :
       {' '}
       {oldDataPatient.familyname}
-      { oldDataPatient.familyname.toLowerCase() === newDataPatient.familyname.toLowerCase() ? <></>
+      { (oldDataPatient.familyname === newDataPatient.familyname)
+       || (oldDataPatient.familyname === null && newDataPatient.familyname === '') ? <></>
         : (
-          <span className={classes.spazio}>
-            NUOVO Cognome :
+          <span className={classes.color}>
+            Cognome :
             {' '}
-            { newDataPatient.familyname}
+            {oldDataPatient.familyname}
+            <span className={classes.spazio}>
+              NUOVO Cognome :
+              {' '}
+              { newDataPatient.familyname}
+            </span>
           </span>
-
         ) }
       <br />
       Città :
       {' '}
       {oldDataPatient.cityName}
-      { oldDataPatient.cityName.toLowerCase() === newDataPatient.cityName.toLowerCase() ? <></>
+      { (oldDataPatient.cityName === newDataPatient.cityName)
+       || (oldDataPatient.cityName === null && newDataPatient.cityName === '') ? <></>
         : (
-          <span className={classes.spazio}>
-            NUOVA Città :
+          <span className={classes.color}>
+            Città :
             {' '}
-            { newDataPatient.cityName}
+            {oldDataPatient.cityName}
+            <span className={classes.spazio}>
+              NUOVA Città :
+              {' '}
+              { newDataPatient.cityName}
+            </span>
           </span>
 
         ) }
@@ -50,23 +66,30 @@ const PatientNoDoctorData = () => {
       Via :
       {' '}
       {oldDataPatient.streetName}
-      { oldDataPatient.streetName.toLowerCase() === newDataPatient.streetName.toLowerCase() ? <></>
+      { (oldDataPatient.streetName === newDataPatient.streetName)
+       || (oldDataPatient.streetName === null && newDataPatient.streetName === '') ? <></>
         : (
-          <span className={classes.spazio}>
-            NUOVA Via:
+          <span className={classes.color}>
+            Via :
             {' '}
-            { newDataPatient.streetName}
+            {oldDataPatient.streetName}
+            <span className={classes.spazio}>
+              NUOVA Via:
+              {' '}
+              { newDataPatient.streetName}
+            </span>
           </span>
         ) }
       <br />
 
-      { oldDataPatient.streetNumber.toLowerCase() === newDataPatient.streetNumber.toLowerCase() ? (
-        <>
-          Numero :
-          {' '}
-          {oldDataPatient.streetNumber}
-        </>
-      )
+      { (oldDataPatient.streetNumber === newDataPatient.streetNumber)
+       || (oldDataPatient.streetNumber === null && newDataPatient.streetNumber === '') ? (
+         <>
+           Numero :
+           {' '}
+           {oldDataPatient.streetNumber}
+         </>
+        )
         : (
           <span className={classes.color}>
             Numero :
@@ -84,12 +107,18 @@ const PatientNoDoctorData = () => {
       Telefono :
       {' '}
       {oldDataPatient.mobile}
-      {oldDataPatient.mobile.toLowerCase() === newDataPatient.mobile.toLowerCase() ? <></>
+      { (oldDataPatient.mobile === newDataPatient.mobile)
+       || (oldDataPatient.mobile === null && newDataPatient.mobile === '') ? <></>
         : (
-          <span className={classes.spazio}>
-            NUOVO Telefono :
+          <span className={classes.color}>
+            Telefono :
             {' '}
-            { newDataPatient.mobile}
+            {oldDataPatient.mobile}
+            <span className={classes.spazio}>
+              NUOVO Telefono :
+              {' '}
+              { newDataPatient.mobile}
+            </span>
           </span>
 
         ) }

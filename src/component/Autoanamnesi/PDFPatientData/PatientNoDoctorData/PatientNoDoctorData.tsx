@@ -7,8 +7,6 @@ import useStyles from './style';
 const PatientNoDoctorData = () => {
   const oldDataPatient = useSelector(oldPatientData);
   const newDataPatient = useSelector(newPatientData);
-  console.log('XXnew', newDataPatient);
-  console.log('XXOld', oldDataPatient);
   const classes = useStyles();
   return (
     <Typography variant="subtitle1">
@@ -16,10 +14,14 @@ const PatientNoDoctorData = () => {
       {oldDataPatient.givenname}
       { oldDataPatient.givenname === newDataPatient.givenname ? <></>
         : (
-          <span className={classes.spazio}>
-            NUOVO Nome :
-            {' '}
-            { newDataPatient.givenname }
+          <span className={classes.color}>
+            Nome :&nbsp;
+            {oldDataPatient.givenname}
+            <span className={classes.spazio}>
+              NUOVO Nome :
+              {' '}
+              { newDataPatient.givenname }
+            </span>
           </span>
         ) }
       <br />
@@ -28,12 +30,16 @@ const PatientNoDoctorData = () => {
       {oldDataPatient.familyname}
       { oldDataPatient.familyname === newDataPatient.familyname ? <></>
         : (
-          <span className={classes.spazio}>
-            NUOVO Cognome :
+          <span className={classes.color}>
+            Cognome :
             {' '}
-            { newDataPatient.familyname}
+            {oldDataPatient.familyname}
+            <span className={classes.spazio}>
+              NUOVO Cognome :
+              {' '}
+              { newDataPatient.familyname}
+            </span>
           </span>
-
         ) }
       <br />
       Città :
@@ -41,10 +47,15 @@ const PatientNoDoctorData = () => {
       {oldDataPatient.cityName}
       { oldDataPatient.cityName === newDataPatient.cityName ? <></>
         : (
-          <span className={classes.spazio}>
-            NUOVA Città :
+          <span className={classes.color}>
+            Città :
             {' '}
-            { newDataPatient.cityName}
+            {oldDataPatient.cityName}
+            <span className={classes.spazio}>
+              NUOVA Città :
+              {' '}
+              { newDataPatient.cityName}
+            </span>
           </span>
 
         ) }
@@ -54,10 +65,15 @@ const PatientNoDoctorData = () => {
       {oldDataPatient.streetName}
       { oldDataPatient.streetName === newDataPatient.streetName ? <></>
         : (
-          <span className={classes.spazio}>
-            NUOVA Via:
+          <span className={classes.color}>
+            Via :
             {' '}
-            { newDataPatient.streetName}
+            {oldDataPatient.streetName}
+            <span className={classes.spazio}>
+              NUOVA Via:
+              {' '}
+              { newDataPatient.streetName}
+            </span>
           </span>
         ) }
       <br />
@@ -88,10 +104,15 @@ const PatientNoDoctorData = () => {
       {oldDataPatient.mobile}
       { oldDataPatient.mobile === newDataPatient.mobile ? <></>
         : (
-          <span className={classes.spazio}>
-            NUOVO Telefono :
+          <span className={classes.color}>
+            Telefono :
             {' '}
-            { newDataPatient.mobile}
+            {oldDataPatient.mobile}
+            <span className={classes.spazio}>
+              NUOVO Telefono :
+              {' '}
+              { newDataPatient.mobile}
+            </span>
           </span>
 
         ) }

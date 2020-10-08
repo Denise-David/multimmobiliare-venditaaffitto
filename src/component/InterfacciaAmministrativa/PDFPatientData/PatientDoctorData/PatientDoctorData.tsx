@@ -10,61 +10,61 @@ const PatientDoctorData = () => {
   const classes = useStyles();
   return (
     <>
-      {(oldDataPatient.familyDoctor || newDataPatient.familyDoctor)
-            && (
-              <>
-                { getStringMedico(oldDataPatient.familyDoctor).toLowerCase()
+
+      <>
+        Medico di famiglia :
+        {' '}
+        {getStringMedico(oldDataPatient.familyDoctor)}
+        { getStringMedico(oldDataPatient.familyDoctor).toLowerCase()
                 === getStringMedico(newDataPatient.familyDoctor).toLowerCase()
-                  ? (
-                    <>
-                      Medico di famiglia :
-                      {' '}
-                      {getStringMedico(oldDataPatient.familyDoctor)}
-                    </>
-                  )
-                  : (
-                    <span className={classes.color}>
-                      Medico di famiglia :
-                      {' '}
-                      {getStringMedico(oldDataPatient.familyDoctor)}
-                      <span className={classes.spazio}>
-                        NUOVO Medico di famiglia :
-                        {' '}
-                        { getStringMedico(newDataPatient.familyDoctor)}
-                      </span>
-                    </span>
+          ? (
+            <>
 
-                  ) }
-              </>
-            )}
+            </>
+          )
+          : (
+            <span className={classes.color}>
+              Medico di famiglia :
+              {' '}
+              {getStringMedico(oldDataPatient.familyDoctor)}
+              <span className={classes.spazio}>
+                NUOVO Medico di famiglia :
+                {' '}
+                { getStringMedico(newDataPatient.familyDoctor)}
+              </span>
+            </span>
+
+          ) }
+      </>
+
       <br />
-      {(oldDataPatient.doctor || newDataPatient.doctor)
-            && (
-              <>
-                { getStringMedico(oldDataPatient.doctor).toLowerCase()
-                === getStringMedico(newDataPatient.doctor).toLowerCase()
-                  ? (
-                    <>
-                      Medico inviante :
-                      {' '}
-                      {getStringMedico(oldDataPatient.doctor)}
-                    </>
-                  )
-                  : (
-                    <span className={classes.color}>
-                      Medico inviante :
-                      {' '}
-                      {getStringMedico(oldDataPatient.doctor)}
-                      <span className={classes.spazio}>
-                        NUOVO Medico inviante :
-                        {' '}
-                        { getStringMedico(newDataPatient.doctor)}
-                      </span>
-                    </span>
 
-                  ) }
-              </>
-            )}
+      <>
+        Medico inviante :
+        {' '}
+        {getStringMedico(oldDataPatient.doctor)}
+        { getStringMedico(oldDataPatient.doctor).toLowerCase()
+                === getStringMedico(newDataPatient.doctor).toLowerCase()
+          ? (
+            <>
+
+            </>
+          )
+          : (
+            <span className={classes.color}>
+              Medico inviante :
+              {' '}
+              {getStringMedico(oldDataPatient.doctor)}
+              <span className={classes.spazio}>
+                NUOVO Medico inviante :
+                {' '}
+                { getStringMedico(newDataPatient.doctor)}
+              </span>
+            </span>
+
+          ) }
+      </>
+
     </>
   );
 };
