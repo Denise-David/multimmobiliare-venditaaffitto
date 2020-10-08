@@ -11,7 +11,7 @@ const PatientNoDoctorData = () => {
   return (
     <Typography variant="subtitle1">
 
-      { oldDataPatient.givenname.toLowerCase() === newDataPatient.givenname.toLowerCase()
+      { oldDataPatient.givenname === newDataPatient.givenname
         ? (
           <>
             {' '}
@@ -32,7 +32,7 @@ const PatientNoDoctorData = () => {
         ) }
       <br />
 
-      { oldDataPatient.familyname.toLowerCase() === newDataPatient.familyname.toLowerCase()
+      { oldDataPatient.familyname === newDataPatient.familyname
         ? (
           <>
             {' '}
@@ -55,7 +55,7 @@ const PatientNoDoctorData = () => {
         ) }
       <br />
 
-      { oldDataPatient.cityName.toLowerCase() === newDataPatient.cityName.toLowerCase()
+      { oldDataPatient.cityName === newDataPatient.cityName
         ? (
           <>
             Città :
@@ -78,7 +78,7 @@ const PatientNoDoctorData = () => {
         ) }
       <br />
 
-      { oldDataPatient.streetName.toLowerCase() === newDataPatient.streetName.toLowerCase()
+      { oldDataPatient.streetName === newDataPatient.streetName
         ? (
           <>
             {' '}
@@ -101,7 +101,7 @@ const PatientNoDoctorData = () => {
         ) }
       <br />
 
-      { oldDataPatient.streetNumber.toLowerCase() === newDataPatient.streetNumber.toLowerCase() ? (
+      { oldDataPatient.streetNumber === newDataPatient.streetNumber ? (
         <>
           Numero :
           {' '}
@@ -123,7 +123,7 @@ const PatientNoDoctorData = () => {
         ) }
       <br />
 
-      { oldDataPatient.mobile.toLowerCase() === newDataPatient.mobile.toLowerCase()
+      { oldDataPatient.mobile === newDataPatient.mobile
         ? (
           <>
             {' '}

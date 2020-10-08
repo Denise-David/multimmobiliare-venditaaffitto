@@ -13,8 +13,8 @@ const PatientDoctorData = () => {
 
       <>
 
-        { getStringMedico(oldDataPatient.familyDoctor).toLowerCase()
-                === getStringMedico(newDataPatient.familyDoctor).toLowerCase()
+        { getStringMedico(oldDataPatient.familyDoctor)
+                === getStringMedico(newDataPatient.familyDoctor)
           ? (
             <>
               Medico di famiglia :
@@ -41,8 +41,8 @@ const PatientDoctorData = () => {
 
       <>
 
-        { getStringMedico(oldDataPatient.doctor).toLowerCase()
-                === getStringMedico(newDataPatient.doctor).toLowerCase()
+        { getStringMedico(oldDataPatient.doctor)
+                === getStringMedico(newDataPatient.doctor)
           ? (
             <>
               Medico inviante :
