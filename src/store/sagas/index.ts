@@ -1,7 +1,8 @@
 import {
   all, takeLatest, call, put, select, takeEvery,
 } from 'redux-saga/effects';
-import { setRepartoGUID, setFormulariList } from '../slice/homePageLabelSlice';
+import initInterfaccia, { filter, aggiungiEtichetta, deleteFormAns } from './interfacciaAmministrativaSagas';
+import { setRepartoGUID, setFormulariList, setReparto } from '../slice/homePageLabelSlice';
 import { setNomeFormulario } from '../slice/addFormSlice';
 import { formulariByReparto, setFormulari } from '../slice/rightsSlice';
 import {
@@ -35,7 +36,7 @@ import { resetMenuTwoAns, setGroupAttiviTwoAns } from '../slice/menuDomandeSlice
 import { setIsLoaded, setIsLoading } from '../slice/loadingSlice';
 import initHomeNoLabel from './homepageNoLabelSagas';
 
-function* init(action : any) {
+function* init() {
   try {
     yield put(setIsLoading());
 
@@ -162,7 +163,7 @@ function* init(action : any) {
   }
 }
 
-function* initRep(action : any) {
+function* initRep() {
   // prendo e setto il reparto dell'etichetta immessa
   const label : string = yield select(ValueCode);
 
@@ -171,7 +172,9 @@ function* initRep(action : any) {
   const { hcase = {} } = data;
   const { payload } = yield put(
     setRepartoGUID(hcase.actualMedicalCategoryGUID || hcase.actualWardGUID),
+
   );
+  yield put(setReparto(hcase.actualWardName));
 
   // prendo i formulari del reparto
   const form = yield call(fetchRepartoFormByGUID, payload);
@@ -186,6 +189,7 @@ function* initRep(action : any) {
 }
 
 function* actionWatcher() {
+  yield takeLatest('INIT_INTERFACCIA', initInterfaccia);
   yield takeLatest('INIT', init);
   yield takeLatest('INIT_HOME_NO_LABEL', initHomeNoLabel);
   yield takeLatest('INIT_FORMULARI_REPARTO', initRep);
@@ -212,6 +216,9 @@ function* actionWatcher() {
   yield takeLatest('DISABLE_ALL', allDisabled);
   yield takeLatest('ENABLE_ALL', allEnabled);
   yield takeLatest('OPEN_FORM', sendOpenForm);
+  yield takeLatest('AGGIUNGI_ETICHETTA', aggiungiEtichetta);
+  yield takeLatest('CLOSE_AND_FILTER_DIALOG', filter);
+  yield takeLatest('DELETE_ANS_FORM', deleteFormAns);
 }
 export default function* rootSaga() {
   yield all([actionWatcher()]);

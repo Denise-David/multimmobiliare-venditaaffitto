@@ -41,7 +41,8 @@ const PDFPatientData = () => {
         Cassa malati :
         {' '}
         {oldDataPatient.insuranceCoversName}
-        { oldDataPatient.insuranceCoversName === newDataPatient.insuranceCoversName ? <></>
+        { oldDataPatient.insuranceCoversName.toLowerCase()
+         === newDataPatient.insuranceCoversName.toLowerCase() ? <></>
           : (
             <span className={classes.spazio}>
               NUOVA Cassa malati :

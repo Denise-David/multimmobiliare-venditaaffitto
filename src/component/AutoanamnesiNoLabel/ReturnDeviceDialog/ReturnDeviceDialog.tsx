@@ -6,10 +6,12 @@ import useStyles from './style';
 import Nav from '../../Navbar/Navbar';
 import ButtonReturnDevice from './ButtonReturnDevice/ButtonReturnDevice';
 import { dialogReturnDeviceOpen } from '../../../store/slice/dialogSlice';
+import { lastFormID } from '../../../store/slice/patientFormPDFSlice';
 
 const ReturnDeviceDialog = () => {
   const isOpen = useSelector(dialogReturnDeviceOpen);
   const classes = useStyles();
+  const IDFormRes = useSelector(lastFormID);
 
   return (
     <Dialog fullScreen open={isOpen}>
@@ -22,7 +24,7 @@ const ReturnDeviceDialog = () => {
           Grazie!
         </Typography>
         <div className={classes.center}>
-          <QRCode value={`${window.location.host}/home?etichetta=4153656`} />
+          <QRCode value={IDFormRes} />
         </div>
         <ButtonReturnDevice />
       </div>

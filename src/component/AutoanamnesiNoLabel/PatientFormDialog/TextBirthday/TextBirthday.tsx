@@ -1,29 +1,28 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable no-param-reassign */
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import { useSelector, useDispatch } from 'react-redux';
 import { MobileDatePicker } from '@material-ui/pickers';
 
 import parseISO from 'date-fns/parseISO';
 import {
-  newPatientInfo, textFieldDisabled,
+  textFieldDisabled,
   cancelClicked, setObligatoryFieldEmpty, unsetObligatoryFieldEmpty, birthdayDate, setBirthdayDate,
 } from '../../../../store/slice/patientDataSlice';
 
 const TextBirthday = () => {
   const disabled = useSelector(textFieldDisabled);
   const dispatch = useDispatch();
-  const [error, setError] = useState(false);
   const cancClicked = useSelector(cancelClicked);
   const birthday = useSelector(birthdayDate);
 
   if (disabled === false) {
-    if (!birthday && error === false) {
+    if (!birthday) {
       dispatch(setObligatoryFieldEmpty());
     }
-  } else if (cancClicked === true && error === true) {
+  } else if (cancClicked === true) {
     dispatch(unsetObligatoryFieldEmpty());
   }
 

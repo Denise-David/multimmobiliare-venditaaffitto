@@ -122,6 +122,7 @@ export default function* addFormulario() {
         IDRisultato, risultato, valoreMin, valoreMax,
       };
     });
+
     // inserico Form piu risposte nel DB
     yield call(addForm, nomeReparto, idReparto,
       nomeForm, gruppi, domande, risultati, risposta1, risposta2,

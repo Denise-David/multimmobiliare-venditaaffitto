@@ -15,8 +15,23 @@ const struttureFormReparti = app.service('strutture_form_reparti');
 const risposteFormPazienti = app.service('risposte_form_pazienti');
 const historyEditor = app.service('history_editor');
 
+// PRendi formulari csenza etichetta
+export const fetchFormNoLabel = () => risposteFormPazienti.find({
+  query: {
+    etichetta: '',
+  },
+});
+
+export const fetchFormWithLabel = () => risposteFormPazienti.find({
+  query: {
+    etichetta: { $nin: [''] },
+  },
+});
+
+export const deleteAnswersForm = (ID) => risposteFormPazienti.remove(ID, {});
+
 // Prendi tutti i formulari
-export const getAllForm = (form, rep) => struttureFormReparti.find({
+export const searchForm = (form, rep) => struttureFormReparti.find({
   query: {
     formulario: { $search: form },
     Reparto: { $search: rep },
@@ -62,18 +77,39 @@ export const getEtichettaDataByLabel = (labelNumber) => axios.get(`/autoanamnesi
 // Aggiungi formulario risposte paziente
 
 export const addRisposteFormPazienti = (
+  GUIDReparto,
+  reparto,
+  formulario,
+  etichetta,
   oldPaziente,
   paziente,
   risposte,
 ) => risposteFormPazienti.create(
 
   {
+    GUIDReparto,
+    reparto,
+    formulario,
+    etichetta,
     oldPaziente,
     paziente,
     risposte,
   },
 
 );
+// add etichetta risposte form pazienti
+export const addLabelToRispostePaziente = (
+  IDForm, risposte, etichetta, patientInfo,
+) => risposteFormPazienti.update(IDForm,
+  {
+    etichetta,
+    GUIDReparto: risposte.GUIDReparto,
+    reparto: risposte.reparto,
+    formulario: risposte.formulario,
+    oldPaziente: patientInfo,
+    paziente: risposte.paziente,
+    risposte: risposte.risposte,
+  });
 
 // prendo le risposte dei pazienti tramite ID
 export const getRisposteFormPazientiByID = (ID) => risposteFormPazienti.get(ID, {});
@@ -140,6 +176,7 @@ export const setNewStructure = (nomeReparto,
     user: utente,
     type: 'create',
     newStructure: {
+
       actualWardGUID: GUID,
       Reparto: nomeReparto,
       formulario: nomeForm,

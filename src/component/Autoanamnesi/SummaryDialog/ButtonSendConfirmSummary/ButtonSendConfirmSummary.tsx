@@ -10,6 +10,7 @@ const ButtonSendConfirmSummary = () => {
   const classes = useStyles();
 
   const handleClickOpen = () => {
+    console.log('PASSA?');
     dispatch(closeDialogSummaryAndSave());
     dispatch(closeDialogFormPatient());
     dispatch(openReturnDeviceDialog());
