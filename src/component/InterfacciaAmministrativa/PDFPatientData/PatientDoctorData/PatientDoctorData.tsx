@@ -12,14 +12,14 @@ const PatientDoctorData = () => {
     <>
 
       <>
-        Medico di famiglia :
-        {' '}
-        {getStringMedico(oldDataPatient.familyDoctor)}
+
         { getStringMedico(oldDataPatient.familyDoctor).toLowerCase()
                 === getStringMedico(newDataPatient.familyDoctor).toLowerCase()
           ? (
             <>
-
+              Medico di famiglia :
+              {' '}
+              {getStringMedico(oldDataPatient.familyDoctor)}
             </>
           )
           : (
@@ -40,14 +40,14 @@ const PatientDoctorData = () => {
       <br />
 
       <>
-        Medico inviante :
-        {' '}
-        {getStringMedico(oldDataPatient.doctor)}
+
         { getStringMedico(oldDataPatient.doctor).toLowerCase()
                 === getStringMedico(newDataPatient.doctor).toLowerCase()
           ? (
             <>
-
+              Medico inviante :
+              {' '}
+              {getStringMedico(oldDataPatient.doctor)}
             </>
           )
           : (

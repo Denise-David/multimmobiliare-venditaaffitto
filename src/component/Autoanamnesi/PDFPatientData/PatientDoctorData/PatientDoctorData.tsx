@@ -12,14 +12,14 @@ const PatientDoctorData = () => {
     <>
 
       <>
-        Medico di famiglia :
-        {' '}
-        {getStringMedico(oldDataPatient.familyDoctor)}
+
         { getStringMedico(oldDataPatient.familyDoctor)
                 === getStringMedico(newDataPatient.familyDoctor)
           ? (
             <>
-
+              Medico di famiglia :
+              {' '}
+              {getStringMedico(oldDataPatient.familyDoctor)}
             </>
           )
           : (
@@ -40,14 +40,14 @@ const PatientDoctorData = () => {
       <br />
 
       <>
-        Medico inviante :
-        {' '}
-        {getStringMedico(oldDataPatient.doctor)}
+
         { getStringMedico(oldDataPatient.doctor)
                 === getStringMedico(newDataPatient.doctor)
           ? (
             <>
-
+              Medico inviante :
+              {' '}
+              {getStringMedico(oldDataPatient.doctor)}
             </>
           )
           : (
