@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Typography } from '@material-ui/core';
-import { oldPatientData, newPatientData } from '../../../../store/slice/patientFormPDFSlice';
+import { oldPatientData, newPatientData } from '../../../store/slice/patientFormPDFSlice';
 import useStyles from './style';
 
 const PatientNoDoctorData = () => {
@@ -55,7 +55,8 @@ const PatientNoDoctorData = () => {
         ) }
       <br />
 
-      { oldDataPatient.cityName === newDataPatient.cityName
+      { (oldDataPatient.cityName === newDataPatient.cityName)
+      || !newDataPatient.cityName
         ? (
           <>
             Città :
@@ -79,6 +80,7 @@ const PatientNoDoctorData = () => {
       <br />
 
       { oldDataPatient.streetName === newDataPatient.streetName
+      || !newDataPatient.streetName
         ? (
           <>
             {' '}
@@ -101,13 +103,14 @@ const PatientNoDoctorData = () => {
         ) }
       <br />
 
-      { oldDataPatient.streetNumber === newDataPatient.streetNumber ? (
+      { (oldDataPatient.streetNumber === newDataPatient.streetNumber)
+      || !newDataPatient.streetNumber ? (
         <>
           Numero :
           {' '}
           {oldDataPatient.streetNumber}
         </>
-      )
+        )
         : (
           <span className={classes.color}>
             Numero :
@@ -123,7 +126,8 @@ const PatientNoDoctorData = () => {
         ) }
       <br />
 
-      { oldDataPatient.mobile === newDataPatient.mobile
+      { (oldDataPatient.mobile === newDataPatient.mobile)
+       || !newDataPatient.mobile
         ? (
           <>
             {' '}

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { newPatientData, oldPatientData } from '../../../../store/slice/patientFormPDFSlice';
-import { getStringMedico } from '../../../../util';
+import { newPatientData, oldPatientData } from '../../../store/slice/patientFormPDFSlice';
+import { getStringMedico } from '../../../util';
 import useStyles from './style';
 
 const PatientDoctorData = () => {

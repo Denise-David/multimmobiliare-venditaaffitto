@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { format } from 'date-fns';
 import {
   setNumEtichetta, setIDFormRisposte, patientAnswers, infoReparto,
-} from '../../../store/slice/patientFormPDFSlice';
+} from '../../store/slice/patientFormPDFSlice';
 import useStyles from './style';
 
 const PDFPatientAnswers = () => {

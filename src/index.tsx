@@ -16,8 +16,8 @@ import store from './store/store/store';
 import * as serviceWorker from './serviceWorker';
 import theme from './theme';
 import Editor from './view/Editor/Editor';
-import PDFPatientData from './component/Autoanamnesi/PDFPatientData/PDFPatentData';
-import PDFPatientAnswers from './component/Autoanamnesi/PDFPatientAnswers/PDFPatientAnswers';
+import PDFPatientData from './component/PDFPatientData/PDFPatentData';
+import PDFPatientAnswers from './component/PDFPatientAnswers/PDFPatientAnswers';
 import EtichettaQrCode from './component/Autoanamnesi/EtichettaQRCode/EtichettaQrCode';
 import HomepageNoLabel from './view/HomepageNoLabel/HomepageNoLabel';
 import InterfacciaAmministrativa from './view/InterfacciaAmministrativa/InterfacciaAmministrativa';
@@ -28,25 +28,7 @@ let classCounter = 0;
 const generateClassName = (rule : any, styleSheet : any) => {
   classCounter += 1;
 
-  // if (process.env.NODE_ENV === 'production') {
-  //   console.log('classCounter');
   return `c${classCounter}`;
-  // }
-
-  // if (styleSheet && styleSheet.options.classNamePrefix) {
-  //   let prefix = styleSheet.options.classNamePrefix;
-  //   // Sanitize the string as will be used to prefix the generated class name.
-  //   prefix = prefix.replace(escapeRegex, '-');
-  //   console.log('prefix', prefix);
-
-  //   if (prefix.match(/^Mui/)) {
-  //     return `${prefix}-${rule.key}`;
-  //   }
-  //   console.log('prefix-rulekey-classCounter');
-  //   return `${prefix}-${rule.key}-${classCounter}`;
-  // }
-  // console.log('rulekey-classCounter');
-  // return `${rule.key}-${classCounter}`;
 };
 
 ReactDOM.render(

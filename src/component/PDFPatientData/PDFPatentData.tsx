@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Typography } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
 import queryString from 'query-string';
-import { setIDFormRisposte, newPatientData, oldPatientData } from '../../../store/slice/patientFormPDFSlice';
+import { setIDFormRisposte, newPatientData, oldPatientData } from '../../store/slice/patientFormPDFSlice';
 import useStyles from './style';
 import PatientNoDoctorData from './PatientNoDoctorData/PatientNoDoctorData';
 import PatientDoctorData from './PatientDoctorData/PatientDoctorData';
@@ -39,15 +39,15 @@ const PDFPatientData = () => {
         <PatientDoctorData />
         <br />
 
-        { (oldDataPatient.insuranceCoversName.toLowerCase()
-         === newDataPatient.insuranceCoversName.toLowerCase())
-         || (oldDataPatient.insuranceCoversName && !newDataPatient.insuranceCoversName) ? (
-           <>
+        { (oldDataPatient.insuranceCoversName === newDataPatient.insuranceCoversName)
+        || !newDataPatient.insuranceCoversName
+          ? (
+            <>
 
-             Cassa malati :
-             {' '}
-             {oldDataPatient.insuranceCoversName}
-           </>
+              Cassa malati :
+              {' '}
+              {oldDataPatient.insuranceCoversName}
+            </>
           )
           : (
             <span className={classes.color}>
@@ -60,6 +60,7 @@ const PDFPatientData = () => {
                 { newDataPatient.insuranceCoversName}
               </span>
             </span>
+
           ) }
 
       </Typography>
