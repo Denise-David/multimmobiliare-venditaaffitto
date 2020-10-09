@@ -92,6 +92,7 @@ const patientDataSlice = createSlice({
     },
     resetAllData(state) {
       state.newPatientInfo = {};
+      state.birthdayDate = '';
     },
   },
 });

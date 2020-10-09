@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import useStyles from './style';
 import { closeReturnDeviceDialog } from '../../../../store/slice/dialogSlice';
 import { resetCercato, resetList } from '../../../../store/slice/homepageNoLabelSlice';
+import { resetAllData } from '../../../../store/slice/patientDataSlice';
 
 const ButtonReturnDevice = () => {
   const classes = useStyles();
@@ -14,6 +15,7 @@ const ButtonReturnDevice = () => {
     dispatch(closeReturnDeviceDialog());
     dispatch(resetCercato());
     dispatch(resetList());
+    dispatch(resetAllData());
   };
 
   return (
