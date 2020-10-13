@@ -1,5 +1,6 @@
-/* eslint-disable max-len */
 import { createSlice } from '@reduxjs/toolkit';
+import { rispostaType } from './risposteAddFormSlice';
+/* eslint-disable max-len */
 
 import { State } from '../store/store';
 
@@ -7,12 +8,13 @@ export interface domandaType {
   Tipo: string,
   IDDomanda : string,
    Domanda : string,
-   stateText : boolean,
-   openCard: boolean,
-    risposte? : [],
+   stateText ?: boolean,
+   openCard?: boolean,
+    risposte? : rispostaType[],
+    normalType?:boolean,
   group? : string,
-facoltativa: boolean
-libera:boolean}
+facoltativa?: boolean
+libera?:boolean}
 
 const domandeAddFormSlice = createSlice({
   name: 'domandeAddForm',

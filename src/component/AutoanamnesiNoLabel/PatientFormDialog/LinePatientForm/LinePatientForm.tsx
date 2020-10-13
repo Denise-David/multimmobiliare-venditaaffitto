@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 import FormControl from '@material-ui/core/FormControl';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -13,8 +13,9 @@ import {
   groups, setRisposta, boolAnswers, setRispostaLibera, setDomandaNoFacoltativa,
 } from '../../../../store/slice/patientFormSlice';
 import LineMoreAnswers from './LineMoreAnswers/LineMoreAnswers';
+import { domandaType } from '../../../../store/slice/domandeAddFormSlice';
 
-const MultipleChoiceLinePatient = () => {
+const MultipleChoiceLinePatient = ():ReactElement => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const intestazione = useSelector(intestazioneMoreAns);
@@ -24,7 +25,7 @@ const MultipleChoiceLinePatient = () => {
 
   useEffect(() => {
     // eslint-disable-next-line array-callback-return
-    domande.forEach((question: any) => {
+    domande.forEach((question: domandaType) => {
     // controllo se la domanda è facoltativa
       if (question.facoltativa === false || question.facoltativa === undefined) {
         dispatch(setDomandaNoFacoltativa(question.IDDomanda));
@@ -37,7 +38,7 @@ const MultipleChoiceLinePatient = () => {
   }
 
   // crea lista domande e eseguo controlli
-  const listItems = domande.map((question: any, index) => {
+  const listItems = domande.map((question: domandaType, index) => {
     // controllo se la domanda precendente ha lo stesso gruppo o no
     const gruppoDiverso = index !== 0 ? domande[index - 1].group !== question.group : false;
 
@@ -79,9 +80,9 @@ const MultipleChoiceLinePatient = () => {
                   <Typography variant="subtitle1">
                     {question.Domanda}
                     {/* Controllo se la domanda è facoltativa */}
-                    {(!question.facoltativa || question.facoltativa === false) ? '*' : <></>}
+                    {!question.facoltativa ? '*' : <></>}
                     {/* Controllo se la domanda è di tipo libera */}
-                    {!question.libera || question.libera === false
+                    {!question.libera
                       ? <></>
                       : (
                         <TextField

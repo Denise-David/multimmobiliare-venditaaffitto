@@ -6,7 +6,7 @@ interface rispostaDue { risposta2: string, stateText: boolean}
 export interface rispostaType {
   IDRisposta:string,
 Risposta:string,
-stateText:boolean,
+stateText?:boolean,
 stateModify:boolean,
 type:string,
 Valore:number}
@@ -23,10 +23,10 @@ const risposteAddFormSlice = createSlice({
     isBModifyRis1Clicked: false as boolean,
     isBModifyRis2Clicked: false as boolean,
     addRispostaInDomanda: { } as {[key:string]:boolean},
-    answer: {} as any,
-    valore: { IDDomanda: 0 } as any,
-    risposteOfDomandaObject: {} as any,
-    type: {} as any,
+    answer: {} as {[index:string]:string},
+    valore: { } as {[index:string]:number},
+    risposteOfDomandaObject: {} as {[index:string]:{[index:string]:rispostaType}},
+    type: {} as {[index:string]:string},
     tableTwoAnsExpanded: true as boolean,
 
   },
@@ -139,22 +139,28 @@ const risposteAddFormSlice = createSlice({
   },
 });
 
-export const addRisposta = (payload : any) => ({
+export const addRisposta = (payload : string):{payload:string, type:string} => ({
   type: 'ADD_RISPOSTA',
   payload,
 });
 
-export const tableTwoAnsExpanded = (state : State) => state.risposteAddForm.tableTwoAnsExpanded;
-// eslint-disable-next-line max-len
-export const risposteOfDomandaObject = (state : State) => state.risposteAddForm.risposteOfDomandaObject;
-export const answer = (state : State) => state.risposteAddForm.answer;
-export const valore = (state : State) => state.risposteAddForm.valore;
-export const stateAddedRisposta = (state : State) => state.risposteAddForm.addRispostaInDomanda;
-export const isBModifyRis2Clicked = (state : State) => state.risposteAddForm.isBModifyRis2Clicked;
-export const isBModifyRis1Clicked = (state : State) => state.risposteAddForm.isBModifyRis1Clicked;
-export const ris2 = (state : State) => state.risposteAddForm.ris2;
-export const ris1 = (state : State) => state.risposteAddForm.ris1;
-export const typeAnswer = (state: State) => state.risposteAddForm.type;
+export const
+  tableTwoAnsExpanded = (state : State):boolean => state.risposteAddForm.tableTwoAnsExpanded;
+export const
+  risposteOfDomandaObject = (state : State):
+{[index:string]:{[indey:string]:rispostaType}} => state.risposteAddForm.risposteOfDomandaObject;
+export const answer = (state : State):{[index:string]:string} => state.risposteAddForm.answer;
+export const valore = (state : State):{[index:string]:number} => state.risposteAddForm.valore;
+export const
+  stateAddedRisposta = (state : State):
+  {[key:string]:boolean} => state.risposteAddForm.addRispostaInDomanda;
+export const
+  isBModifyRis2Clicked = (state : State):boolean => state.risposteAddForm.isBModifyRis2Clicked;
+export const
+  isBModifyRis1Clicked = (state : State):boolean => state.risposteAddForm.isBModifyRis1Clicked;
+export const ris2 = (state : State):rispostaDue => state.risposteAddForm.ris2;
+export const ris1 = (state : State) :rispostaUno => state.risposteAddForm.ris1;
+export const typeAnswer = (state: State):{[index:string]:string} => state.risposteAddForm.type;
 export const {
   setBModifyRis1Clicked, getRisposta1, getRisposta2,
   setBModifyRis2Clicked, setBModifyRis1Unclicked,

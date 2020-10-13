@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-key */
-import React, { useEffect } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 import { Typography } from '@material-ui/core';
 import queryString from 'query-string';
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,8 +8,10 @@ import {
   setNumEtichetta, setIDFormRisposte, patientAnswers, infoReparto,
 } from '../../store/slice/patientFormPDFSlice';
 import useStyles from './style';
+import { dataType, rispostaPazienteType } from '../../store/slice/patientFormSlice';
+import { resultType } from '../../store/slice/risultatiAddFormSlice';
 
-const PDFPatientAnswers = () => {
+const PDFPatientAnswers = ():ReactElement => {
   // eslint-disable-next-line no-restricted-globals
   const parsedText = queryString.parse(location.search);
   const dispatch = useDispatch();
@@ -29,59 +31,60 @@ const PDFPatientAnswers = () => {
 
   let sommaRisposte = 0;
   // creo lista di risposte
-  const listRisposte = answersArray.risposte ? answersArray.risposte.map((risposta :any) => {
-    const indexPuntoDomanda = risposta.domanda ? risposta.domanda.indexOf('?') : -1;
-    const noPuntoDiDomanda = indexPuntoDomanda !== -1
-      ? risposta.domanda.substring(0, indexPuntoDomanda)
-      : risposta.domanda;
-    sommaRisposte += risposta.valore;
+  const listRisposte = answersArray.risposte
+    ? answersArray.risposte.map((risposta :rispostaPazienteType) => {
+      const indexPuntoDomanda = risposta.domanda ? risposta.domanda.indexOf('?') : -1;
+      const noPuntoDiDomanda = indexPuntoDomanda !== -1
+        ? risposta.domanda.substring(0, indexPuntoDomanda)
+        : risposta.domanda;
+      sommaRisposte += parseInt(risposta.valore, 10);
 
-    // creo la lista di date
-    const arrayDate = risposta.date ? risposta.date.map((data: any) => (
-      <Typography key={data.idRisposta}>
-        {data.testoData}
-        {': '}
-        {format(new Date(data.dataFormattata), 'dd.MM.yyyy')}
-      </Typography>
-    )) : <></>;
+      // creo la lista di date
+      const arrayDate = risposta.date ? risposta.date.map((data: dataType) => (
+        <Typography key={data.idRisposta}>
+          {data.testoData}
+          {': '}
+          {format(new Date(data.dataFormattata), 'dd.MM.yyyy')}
+        </Typography>
+      )) : <></>;
 
-    return (
-      <>
-        {risposta.idRisposta
-          ? (
-            <div className={classes.cornice}>
+      return (
+        <>
+          {risposta.idRisposta
+            ? (
+              <div className={classes.cornice}>
 
-              <Typography variant="body1">
-                {risposta.domanda}
-                {' '}
-                {risposta.testoLibero ? risposta.testoLibero : <></>}
-              </Typography>
-              <Typography variant="body1" align="right">
-                {risposta.testoRisposta}
-                {arrayDate}
-              </Typography>
-            </div>
-          ) : (
-            <>
-              {risposta.valore === repartoInfo.risposta1
-                ? (
-                  <div className={classes.cornice}>
-                    <Typography variant="body1">
-                      { noPuntoDiDomanda }
-                      {' '}
-                      {risposta.testoLibero ? risposta.testoLibero : <></>}
+                <Typography variant="body1">
+                  {risposta.domanda}
+                  {' '}
+                  {risposta.testoLibero ? risposta.testoLibero : <></>}
+                </Typography>
+                <Typography variant="body1" align="right">
+                  {risposta.testoRisposta}
+                  {arrayDate}
+                </Typography>
+              </div>
+            ) : (
+              <>
+                {risposta.valore === repartoInfo.risposta1
+                  ? (
+                    <div className={classes.cornice}>
+                      <Typography variant="body1">
+                        { noPuntoDiDomanda }
+                        {' '}
+                        {risposta.testoLibero ? risposta.testoLibero : <></>}
 
-                    </Typography>
-                  </div>
-                ) : <></>}
-            </>
-          )}
-      </>
-    );
-  }) : <></>;
+                      </Typography>
+                    </div>
+                  ) : <></>}
+              </>
+            )}
+        </>
+      );
+    }) : <></>;
   // creo lista risultati
   const risultatiArray = repartoInfo.Risultati;
-  const listRisultati = risultatiArray ? risultatiArray.map((risultato :any) => {
+  const listRisultati = risultatiArray ? risultatiArray.map((risultato :resultType) => {
     // Seleziono risultato risultante in base alla somma dei valori delle risposte
     if (sommaRisposte >= risultato.valoreMin && sommaRisposte <= risultato.valoreMax) {
       return (

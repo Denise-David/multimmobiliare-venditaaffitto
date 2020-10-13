@@ -11,6 +11,7 @@
     "plugin:@typescript-eslint/recommended"
   ],
   "rules": {
+    "no-console":["error", { "allow": ["warn", "error"] }],
     "linebreak-style": 0,
     "react/jsx-filename-extension": [
       1,
@@ -19,7 +20,7 @@
           ".js",
           ".jsx",
           ".tsx",
-          ".ts",
+          ".ts"
         ]
       }
     ],

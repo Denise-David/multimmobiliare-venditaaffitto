@@ -4,17 +4,18 @@ import { State } from '../store/store';
 // @interface
 export interface resultType {
   IDRisultato:string,
-risultato:string,
+risultato?:string,
+testoAnamnesi?:string,
 valoreMin:number,
 valoreMax:number,
-stateModify:boolean
+stateModify?:boolean
 }
 
 const risultatiAddFormSlice = createSlice({
   name: 'risultatiAddForm',
   initialState:
   {
-    dataRisultati: {} as any,
+    dataRisultati: {} as {[index:string]:resultType},
     valueMin: 0 as number,
     valueMax: 0 as number,
     result: ''as string,
@@ -72,16 +73,17 @@ const risultatiAddFormSlice = createSlice({
   },
 });
 
-export const addRisultatoClicked = () => ({
+export const addRisultatoClicked = ():{type:string} => ({
   type: 'ADD_RISULTATO',
 });
 
-export const buttonDisabled = (state: State) => state.risultatiAddForm.buttonDisabled;
-export const valueMax = (state : State) => state.risultatiAddForm.valueMax;
-export const dataRisultati = (state: State) => state.risultatiAddForm.dataRisultati;
-export const valueMin = (state: State) => state.risultatiAddForm.valueMin;
-export const result = (state: State) => state.risultatiAddForm.result;
-export const stateRisultato = (state : State) => state.risultatiAddForm.dataRisultati;
+export const buttonDisabled = (state: State):boolean => state.risultatiAddForm.buttonDisabled;
+export const valueMax = (state : State):number => state.risultatiAddForm.valueMax;
+export const
+  dataRisultati = (state: State):
+  {[index:string]:resultType} => state.risultatiAddForm.dataRisultati;
+export const valueMin = (state: State):number => state.risultatiAddForm.valueMin;
+export const result = (state: State):string => state.risultatiAddForm.result;
 
 export const {
 

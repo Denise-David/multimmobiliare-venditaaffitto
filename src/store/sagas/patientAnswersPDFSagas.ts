@@ -47,6 +47,6 @@ export default function* initPDFPatientAnswers() {
 
     yield put(getPatientAnswer(PDFRisposte));
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }

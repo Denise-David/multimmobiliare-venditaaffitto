@@ -13,7 +13,7 @@ export default function* allDisabled() {
     yield put(setBSaveDisabled());
     yield put(setDDLFormDisabled());
   } catch (error) {
-    console.log('xxerrore', error);
+    console.error(error);
   }
 }
 
@@ -30,6 +30,6 @@ export function* allEnabled() {
     }
     yield put(setDDLFormEnabled());
   } catch (error) {
-    console.log('errore', error);
+    console.error(error);
   }
 }

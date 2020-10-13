@@ -18,7 +18,7 @@ export default function* initInterfaccia() {
     const formNoLabel = yield call(fetchFormNoLabel);
     yield put(setFormNoLabel(formNoLabel.data));
   } catch (error) {
-    console.log('errore', error);
+    console.error('errore', error);
   }
 }
 
@@ -63,7 +63,7 @@ export function* aggiungiEtichetta() {
       yield put(resetLabel());
     }
   } catch (error) {
-    console.log('errore', error);
+    console.error('errore', error);
     yield put(openSnackbarEtichettaInesistente());
   }
 }
@@ -76,7 +76,7 @@ export function* filter() {
       yield put(setFormWithLabel(formWithLabel.data));
     }
   } catch (error) {
-    console.log('errore', error);
+    console.error('errore', error);
   }
 }
 
@@ -85,6 +85,6 @@ export function* deleteFormAns(action:any) {
     const IDForm = action.payload;
     yield call(deleteAnswersForm, IDForm);
   } catch (error) {
-    console.log('errore', error);
+    console.error('errore', error);
   }
 }

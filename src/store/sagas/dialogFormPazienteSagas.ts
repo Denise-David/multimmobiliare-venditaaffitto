@@ -96,7 +96,7 @@ export default function* getDataEtichetta() {
     yield put(setIsLoaded());
     yield put(openDialogFormPatient());
   } catch (error) {
-    console.log('errore', error);
+    console.error('errore', error);
     yield put(openSnackbarLabelPage());
   }
 }
@@ -128,6 +128,6 @@ export function* sendDataPazienti() {
       yield put(openSnackbarFieldEmpty());
     }
   } catch (error) {
-    console.log('errore', error);
+    console.error('errore', error);
   }
 }

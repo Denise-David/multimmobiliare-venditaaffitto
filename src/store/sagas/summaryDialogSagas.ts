@@ -57,6 +57,6 @@ export default function* setDataRisposteFormPaziente() {
     yield put(setIDLastForm(res));
   } catch (error) {
     // eslint-disable-next-line no-console
-    console.log('errore', error);
+    console.error('errore', error);
   }
 }

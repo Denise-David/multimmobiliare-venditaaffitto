@@ -103,7 +103,6 @@ export default function* initUserRightsAUTAN() {
         return null;
       }));
       // estraggo i reparti Modify
-      console.log('xx', allDataRepartiModify);
       const listRepartiModifySeparate = allDataRepartiModify.map(
         (reparto : repartoScopeRightType) => (
           reparto.data),
@@ -129,6 +128,6 @@ export default function* initUserRightsAUTAN() {
     // li metto su un a variabile
     yield put(setAllReparti(arrayNoDuplicate));
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }

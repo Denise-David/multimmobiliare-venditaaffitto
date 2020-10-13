@@ -10,7 +10,6 @@ const ButtonOpenPDFFormPatient = () => {
   const classes = useStyles();
   const lastIDForm = useSelector(lastFormID);
   const etichetta = useSelector(ValueCode);
-  console.log('xxLast', lastIDForm);
 
   const buttonFineDispatch = () => {
     // eslint-disable-next-line no-underscore-dangle

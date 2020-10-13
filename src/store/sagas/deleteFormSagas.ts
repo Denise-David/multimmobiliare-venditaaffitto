@@ -20,6 +20,6 @@ export default function* confirmDelForm() {
     yield put(resetIDReparto());
     yield put(resetIDForm());
   } catch (error) {
-    console.log('errore', error);
+    console.error('errore', error);
   }
 }

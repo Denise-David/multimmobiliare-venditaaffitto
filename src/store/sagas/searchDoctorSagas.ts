@@ -11,6 +11,6 @@ export default function* buttonSearch(action : any) {
 
     yield put(setMediciTrovati(data));
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }

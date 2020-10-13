@@ -70,16 +70,18 @@ const snackbarSlice = createSlice({
 });
 
 // eslint-disable-next-line max-len
-export const snackbarEtichettaInesistente = (state : State) => state.snackbar.snackbarEtichettaInesistente;
-export const snackbarDatiPersonali = (state:State) => state.snackbar.snackbarDatiPersonali;
-export const snackbarDoctor = (state: State) => state.snackbar.snackbarDoctor;
-export const snackbarFamilyDoctor = (state: State) => state.snackbar.snackbarFamilyDoctor;
-export const snackbarEmptyField = (state : State) => state.snackbar.snackbarEmptyField;
-export const snackbarAtLeast2ResOpen = (state : State) => state.snackbar.snackbarAtLeast2ResOpen;
-export const snackbarConfirmDeleteOpen = (state :State) => state.snackbar.snackbarConfirmDeleteOpen;
-// eslint-disable-next-line max-len
-export const snackbarPatientAnswersOpen = (state : State) => state.snackbar.snackbarPatientAnswersOpen;
-export const snackbarLabelOpen = (state : State) => state.snackbar.snackbarLabelOpen;
+export const snackbarEtichettaInesistente = (state : State):boolean => state.snackbar.snackbarEtichettaInesistente;
+export const snackbarDatiPersonali = (state:State):boolean => state.snackbar.snackbarDatiPersonali;
+export const snackbarDoctor = (state: State):boolean => state.snackbar.snackbarDoctor;
+export const snackbarFamilyDoctor = (state: State):boolean => state.snackbar.snackbarFamilyDoctor;
+export const snackbarEmptyField = (state : State):boolean => state.snackbar.snackbarEmptyField;
+export const
+  snackbarAtLeast2ResOpen = (state : State):boolean => state.snackbar.snackbarAtLeast2ResOpen;
+export const
+  snackbarConfirmDeleteOpen = (state :State):boolean => state.snackbar.snackbarConfirmDeleteOpen;
+export const
+  snackbarPatientAnswersOpen = (state : State):boolean => state.snackbar.snackbarPatientAnswersOpen;
+export const snackbarLabelOpen = (state : State):boolean => state.snackbar.snackbarLabelOpen;
 export const {
   closeSnackbarLabelPage, openSnackbarLabelPage,
   closeSnackbarPatientAnswers, openSnackbarPatientAnswers,

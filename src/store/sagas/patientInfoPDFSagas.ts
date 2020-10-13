@@ -15,6 +15,6 @@ export default function* initPDFPatientData() {
     yield put(getNewPatientData(paziente));
     yield put(getOldPatientData(oldPaziente));
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }

@@ -32,7 +32,7 @@ const TextBirthday = () => {
       disableFuture
       disabled={disabled}
       mask="__/__/____"
-      onError={(reason:any, value: any) => { console.log(value); }}
+      onError={(reason:any, value: any) => { console.error(value); }}
       label="*Data di nascita"
       value={birthday ? parseISO(birthday) : null}
 

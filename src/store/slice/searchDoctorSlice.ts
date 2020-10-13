@@ -7,7 +7,7 @@ const searchDoctorSlice = createSlice({
   initialState: {
     nomeMedico: {} as nomeCognomeMedico,
     cognomeMedico: {} as nomeCognomeMedico,
-    mediciTrovati: {} as any,
+    mediciTrovati: [] as [],
     tipoDottoreScelto: '' as string,
   },
   reducers: {
@@ -24,7 +24,7 @@ const searchDoctorSlice = createSlice({
       state.tipoDottoreScelto = payload;
     },
     resetMedici(state) {
-      state.mediciTrovati = {};
+      state.mediciTrovati = [];
       state.cognomeMedico = { value: '' };
       state.nomeMedico = { value: '' };
     },
@@ -36,10 +36,10 @@ export const buttonSearchClicked = () => ({
 });
 
 // eslint-disable-next-line max-len
-export const tipoDottoreScelto = (state : State) => state.searchDoctor.tipoDottoreScelto;
-export const mediciTrovati = (state : State) => state.searchDoctor.mediciTrovati;
-export const cognomeMedico = (state : State) => state.searchDoctor.cognomeMedico;
-export const nomeMedico = (state : State) => state.searchDoctor.nomeMedico;
+export const tipoDottoreScelto = (state : State):string => state.searchDoctor.tipoDottoreScelto;
+export const mediciTrovati = (state : State):[] => state.searchDoctor.mediciTrovati;
+export const cognomeMedico = (state : State) :nomeCognomeMedico => state.searchDoctor.cognomeMedico;
+export const nomeMedico = (state : State): nomeCognomeMedico => state.searchDoctor.nomeMedico;
 export const {
   getNomeMedico, getCognomeMedico,
   setMediciTrovati,

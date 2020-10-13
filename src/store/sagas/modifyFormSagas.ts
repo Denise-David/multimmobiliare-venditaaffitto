@@ -106,6 +106,6 @@ export default function* saveModify() {
       yield put(buttonCancelAddFormClicked());
     }
   } catch (error) {
-    console.log('errore', error);
+    console.error('errore', error);
   }
 }

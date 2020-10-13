@@ -4,3 +4,5 @@
 *.css
 *.jpeg
 *.png
+/doc
+*/serviceWorker.js

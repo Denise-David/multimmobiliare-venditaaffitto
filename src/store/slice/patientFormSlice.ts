@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { domandaType } from './domandeAddFormSlice';
 import { State } from '../store/store';
-import { Domanda } from '../../component/Autoanamnesi/PatientFormDialog/LinePatientForm/LineMoreAnswers/DropDownListAnswersPatientForm/DropDownListAnswersPatientForm';
 
 export interface rispostaPazienteType {
   idDomanda:string,
@@ -9,7 +9,8 @@ export interface rispostaPazienteType {
   testoRisposta:string,
   idRisposta:string,
   testoLibero:string,
-  date:{[index:string]:dataType}
+  type:string,
+  date:dataType[]
   }
 
 export interface dataType {
@@ -26,7 +27,7 @@ const patientFormSlice = createSlice({
   name: 'patientForm',
   initialState:
   {
-    domandeReparto: [] as Domanda[],
+    domandeReparto: [] as domandaType[],
     risposte: {} as any,
     boolAnswers: {} as {risposta1:string, risposta2:string},
     resDate: {} as {[index:string]:{[index:string]:dataType}},
@@ -127,7 +128,7 @@ export const
   boolAnswers = (state : State):
   {risposta1:string, risposta2:string} => state.patientForm.boolAnswers;
 export const risposte = (state : State) => state.patientForm.risposte;
-export const repartoDomande = (state: State):Domanda[] => state.patientForm.domandeReparto;
+export const repartoDomande = (state: State):domandaType[] => state.patientForm.domandeReparto;
 export const {
   getDomandeReparto,
   setRisposta, getBooleanAnswers, resetDomandeReparto,

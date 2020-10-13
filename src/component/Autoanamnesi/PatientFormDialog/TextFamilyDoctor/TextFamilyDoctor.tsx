@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -9,7 +9,7 @@ import {
 } from '../../../../store/slice/patientDataSlice';
 import { getStringMedico } from '../../../../util';
 
-const TextLastname = () => {
+const TextLastname = ():ReactElement => {
   const dataEtichetta = useSelector(newPatientInfo);
   const dispatch = useDispatch();
   const disabled = useSelector(textFieldDisabled);

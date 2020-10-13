@@ -21,6 +21,6 @@ export default function* initHomeNoLabel() {
       yield put(resetSelectedIndex());
     }
   } catch (error) {
-    console.log('errore', error);
+    console.error('errore', error);
   }
 }

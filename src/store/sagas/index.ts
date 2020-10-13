@@ -1,7 +1,7 @@
 import {
   all, takeLatest, call, put, select, takeEvery,
 } from 'redux-saga/effects';
-import { setRisultatiInObject } from '../slice/risultatiAddFormSlice';
+import { resultType, setRisultatiInObject } from '../slice/risultatiAddFormSlice';
 import {
   rispostaType,
   setRisposteOfDomandaInObject, getRisposta2, getRisposta1,
@@ -134,9 +134,10 @@ function* init() {
 
             return (rispostaWithState);
           });
-          const result = resWithState?.reduce((accumulator:any,
-            currentValue: any) => {
+          const result = resWithState?.reduce((accumulator:{[index:string]:rispostaType},
+            currentValue:{[index:string]:rispostaType}) => {
             accumulator[Object.keys(currentValue)[0]] = currentValue[Object.keys(currentValue)[0]];
+
             return accumulator;
           }, {});
           const domandaWithState = { [domandaObj.IDDomanda]: result };
@@ -144,14 +145,15 @@ function* init() {
           return domandaWithState;
         });
 
-        const res2 = datiRisposteDomandeWithState.reduce((accumulator:any, currentValue:any) => {
+        const res2 = datiRisposteDomandeWithState.reduce((accumulator:
+          {[index:string]:rispostaType}, currentValue:{[index:string]:rispostaType}) => {
           accumulator[Object.keys(currentValue)[0]] = currentValue[Object.keys(currentValue)[0]];
           return accumulator;
         }, {});
         yield put(setRisposteOfDomandaInObject(res2));
 
         // genero nuovo parametro risultati
-        const datiResWithState = selectedForm.Risultati.map((risultato:any) => {
+        const datiResWithState = selectedForm.Risultati.map((risultato:resultType) => {
           const risultatoWithState = {
             [risultato.IDRisultato]:
              { ...risultato, stateModify: false },
@@ -159,19 +161,22 @@ function* init() {
           return (risultatoWithState);
         });
 
-        const res3 = datiResWithState.reduce((accumulator:any, currentValue:any) => {
-          accumulator[Object.keys(currentValue)[0]] = currentValue[Object.keys(currentValue)[0]];
-          return accumulator;
-        }, {});
+        const res3 = datiResWithState.reduce(
+          (accumulator:{[index:string]:resultType},
+            currentValue:{[index:string]:resultType}) => {
+            accumulator[Object.keys(currentValue)[0]] = currentValue[Object.keys(currentValue)[0]];
+            return accumulator;
+          }, {},
+        );
 
         yield put(setRisultatiInObject(res3));
 
         // prendo tutti i form del reparto ID
-      } catch (error) { console.log('errore', error); }
+      } catch (error) { console.error('errore', error); }
     }
     yield put(setIsLoaded());
   } catch (error) {
-    console.log('error', error);
+    console.error('error', error);
   }
 }
 
@@ -231,6 +236,6 @@ function* actionWatcher() {
   yield takeLatest('CLOSE_AND_FILTER_DIALOG', filter);
   yield takeLatest('DELETE_ANS_FORM', deleteFormAns);
 }
-export default function* rootSaga() {
+export default function* rootSaga():Generator {
   yield all([actionWatcher()]);
 }

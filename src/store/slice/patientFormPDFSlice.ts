@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { rispostaPazienteType } from './patientFormSlice';
 import { Medico } from '../../util/index';
 import { State } from '../store/store';
 
@@ -14,7 +15,7 @@ const patientInfoPDFSlice = createSlice({
     ID: '' as string,
     oldPatientData: {} as patientData,
     newPatientData: {} as patientData,
-    patientAnswers: [] as any,
+    patientAnswers: {} as {givenname:string, familyname:string, risposte: rispostaPazienteType[]},
     infoReparto: {} as {Risultati:[], Reparto:string, tipo:string,
       risposta1:string},
     lastFormID: '' as string,
@@ -49,7 +50,10 @@ const patientInfoPDFSlice = createSlice({
 export const lastFormID = (state : State):string => state.patientInfoPDF.lastFormID;
 export const infoReparto = (state : State):{Risultati:[], Reparto:string, tipo:string,
   risposta1:string} => state.patientInfoPDF.infoReparto;
-export const patientAnswers = (state : State) => state.patientInfoPDF.patientAnswers;
+export const
+  patientAnswers = (state : State):
+  {givenname:string, familyname:string,
+    risposte: rispostaPazienteType[]} => state.patientInfoPDF.patientAnswers;
 export const newPatientData = (state : State):patientData => state.patientInfoPDF.newPatientData;
 export const oldPatientData = (state : State):patientData => state.patientInfoPDF.oldPatientData;
 export const IDFormRisposte = (state : State):string => state.patientInfoPDF.ID;

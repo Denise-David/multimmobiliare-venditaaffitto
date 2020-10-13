@@ -37,12 +37,12 @@ const rightsSlice = createSlice({
   name: 'rights',
   initialState: {
     user: 'eoc22527' as string,
-    rightsUserAUTAN: [] as any,
-    repartiCreate: [] as any,
-    repartiDelete: [] as any,
-    repartiModify: [] as any,
-    allReparti: [] as any,
-    formulariByReparto: [] as any,
+    rightsUserAUTAN: [] as rightType[],
+    repartiCreate: [] as repartoRightType[],
+    repartiDelete: [] as repartoRightType[],
+    repartiModify: [] as repartoRightType[],
+    allReparti: [] as repartoRightType[],
+    formulariByReparto: [] as {formulario:string, _id:string}[],
     haveUserCreateRight: false as boolean,
     haveUserDeleteRight: false as boolean,
     haveUserModifyRight: false as boolean,
@@ -101,18 +101,20 @@ const rightsSlice = createSlice({
   },
 });
 
-export const haveRepModifyRight = (state : State) => state.rights.haveRepModifyRight;
-export const haveRepDeleteRight = (state : State) => state.rights.haveRepDeleteRight;
-export const haveUserDeleteRight = (state : State) => state.rights.haveUserDeleteRight;
-export const haveUserModifyRight = (state : State) => state.rights.haveUserModifyRight;
-export const haveUserCreateRight = (state : State) => state.rights.haveUserCreateRight;
-export const formulariByReparto = (state : State) => state.rights.formulariByReparto;
-export const allReparti = (state : State) => state.rights.allReparti;
-export const repartiDelete = (state : State) => state.rights.repartiDelete;
-export const repartiCreate = (state : State) => state.rights.repartiCreate;
-export const repartiModify = (state : State) => state.rights.repartiModify;
-export const rightsUserAUTAN = (state : State) => state.rights.rightsUserAUTAN;
-export const user = (state : State) => state.rights.user;
+export const haveRepModifyRight = (state : State):boolean => state.rights.haveRepModifyRight;
+export const haveRepDeleteRight = (state : State):boolean => state.rights.haveRepDeleteRight;
+export const haveUserDeleteRight = (state : State):boolean => state.rights.haveUserDeleteRight;
+export const haveUserModifyRight = (state : State):boolean => state.rights.haveUserModifyRight;
+export const haveUserCreateRight = (state : State):boolean => state.rights.haveUserCreateRight;
+export const
+  formulariByReparto = (state : State):
+  {formulario:string, _id:string}[] => state.rights.formulariByReparto;
+export const allReparti = (state : State):repartoRightType[] => state.rights.allReparti;
+export const repartiDelete = (state : State):repartoRightType[] => state.rights.repartiDelete;
+export const repartiCreate = (state : State):repartoRightType[] => state.rights.repartiCreate;
+export const repartiModify = (state : State):repartoRightType[] => state.rights.repartiModify;
+export const rightsUserAUTAN = (state : State):rightType[] => state.rights.rightsUserAUTAN;
+export const user = (state : State):string => state.rights.user;
 export const {
   getUser, setRightsUserAUTAN, setRepartiCreate, setRepartiDelete,
   setAllReparti, setFormulari, setUserCreateRight, setUserDeleteRight,

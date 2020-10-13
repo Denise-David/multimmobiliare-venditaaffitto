@@ -2,21 +2,23 @@ import {
   FormControl, Grid, InputLabel, ListItem, TextField, Typography,
 } from '@material-ui/core';
 import { MobileDatePicker } from '@material-ui/pickers';
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { parseISO } from 'date-fns';
 import useStyles from './style';
 import {
   repartoDomande, resDate, setDate, setNormalTypePresent, setRispostaLibera,
 } from '../../../../../store/slice/patientFormSlice';
-import DropDownListAnswersPatientForm, { Risposta } from './DropDownListAnswersPatientForm/DropDownListAnswersPatientForm';
+import DropDownListAnswersPatientForm from './DropDownListAnswersPatientForm/DropDownListAnswersPatientForm';
+import { rispostaType } from '../../../../../store/slice/risposteAddFormSlice';
+import { domandaType } from '../../../../../store/slice/domandeAddFormSlice';
 
-interface Props {idDomanda : string, domanda : string, risposte : any,
-    question : any, index : number, groupSelected : any}
+interface Props {idDomanda : string, domanda : string, risposte : rispostaType[],
+    question : domandaType, index : number, groupSelected : {id:string, name:string} | undefined}
 
 const LineMoreAnswers = ({
   idDomanda, domanda, risposte, question, index, groupSelected,
-} : Props) => {
+} : Props):ReactElement => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const dateAnswer = useSelector(resDate);
@@ -24,7 +26,7 @@ const LineMoreAnswers = ({
   // controllo se sono presenti gruppi
   const dividerPresent = index !== 0 ? domande[index - 1].group !== question.group : false;
 
-  const listDatePicker = risposte.map((risposta: Risposta) => {
+  const listDatePicker = risposte.map((risposta: rispostaType) => {
     if (risposta.type === 'data') {
       const idRisposta = risposta.IDRisposta;
       const testoData = risposta.Risposta;
@@ -70,10 +72,10 @@ const LineMoreAnswers = ({
             <div className={classes.marginTop}>
               <Typography variant="subtitle1">
                 {question.Domanda}
-                {(!question.facoltativa || question.facoltativa === false) ? '*' : <></>}
+                {!question.facoltativa ? '*' : <></>}
                 {' '}
 
-                {!question.libera || question.libera === false
+                {!question.libera
                   ? <></> : (
                     <TextField
                       onChange={(event) => {

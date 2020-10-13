@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -6,7 +6,7 @@ import {
   setObligatoryFieldEmpty, unsetObligatoryFieldEmpty, cancelClicked,
 } from '../../../../store/slice/patientDataSlice';
 
-const TextCityName = () => {
+const TextCityName = ():ReactElement => {
   const dataEtichetta = useSelector(newPatientInfo);
   const disabled = useSelector(textFieldDisabled);
   const dispatch = useDispatch();
