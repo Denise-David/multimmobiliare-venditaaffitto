@@ -15,12 +15,14 @@ const TextLastname = () => {
   const cancClicked = useSelector(cancelClicked);
 
   if (disabled === false) {
-    if (dataEtichetta.doctor === null && error === false) {
-      setError(!error);
-      dispatch(setFieldFDoctorEmpty());
-    } else if (dataEtichetta.doctor !== null && error === true) {
-      setError(!error);
-      dispatch(unsetFieldDoctorEmpty());
+    if (dataEtichetta) {
+      if (dataEtichetta.doctor === null && error === false) {
+        setError(!error);
+        dispatch(setFieldFDoctorEmpty());
+      } else if (dataEtichetta.doctor !== null && error === true) {
+        setError(!error);
+        dispatch(unsetFieldDoctorEmpty());
+      }
     }
   } else if (cancClicked === true && error === true) {
     setError(!error);
@@ -33,7 +35,7 @@ const TextLastname = () => {
       disabled
       error={error}
       label="Medico inviante"
-      value={getStringMedico(dataEtichetta.doctor)}
+      value={getStringMedico(dataEtichetta ? dataEtichetta.doctor : {})}
 
       onChange={(event) => {
         const { value } = event.target;

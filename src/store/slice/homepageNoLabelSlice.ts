@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { formularioDBType } from './addFormSlice';
 import { State } from '../store/store';
 
 const homepageNoLabelSlice = createSlice({
@@ -6,8 +7,8 @@ const homepageNoLabelSlice = createSlice({
   initialState: {
     formularioCercato: '' as string,
     repartoCercato: '' as string,
-    listRisultati: [] as any[],
-    formSelectedIndex: -1 as any,
+    listRisultati: [] as formularioDBType[],
+    formSelectedIndex: -1 as number,
     formSelectedID: '' as string,
   },
   reducers: {
@@ -39,15 +40,16 @@ const homepageNoLabelSlice = createSlice({
   },
 });
 
-export const openForm = () => ({
+export const openForm = ():{type:string} => ({
   type: 'OPEN_FORM',
 });
 
-export const formSelectedIndex = (state : State) => state.homepageNoLabel.formSelectedIndex;
-export const formSelectedID = (state: State) => state.homepageNoLabel.formSelectedID;
-export const listRisultati = (state :State) => state.homepageNoLabel.listRisultati;
-export const repartoCercato = (state : State) => state.homepageNoLabel.repartoCercato;
-export const formularioCercato = (state: State) => state.homepageNoLabel.formularioCercato;
+export const formSelectedIndex = (state : State):number => state.homepageNoLabel.formSelectedIndex;
+export const formSelectedID = (state: State):string => state.homepageNoLabel.formSelectedID;
+export const
+  listRisultati = (state :State):formularioDBType[] => state.homepageNoLabel.listRisultati;
+export const repartoCercato = (state : State):string => state.homepageNoLabel.repartoCercato;
+export const formularioCercato = (state: State):string => state.homepageNoLabel.formularioCercato;
 export const {
   setFormCercato, setRepCercato, setList, resetList,
   setFormSelectedID, setFormSelectedIndex, resetSelectedIndex, resetCercato,

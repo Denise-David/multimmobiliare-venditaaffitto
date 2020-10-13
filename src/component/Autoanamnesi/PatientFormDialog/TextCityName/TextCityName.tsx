@@ -14,9 +14,11 @@ const TextCityName = () => {
   const cancClicked = useSelector(cancelClicked);
 
   if (disabled === false) {
-    if (dataEtichetta.cityName === '' && error === false) {
-      setError(!error);
-      dispatch(setObligatoryFieldEmpty());
+    if (dataEtichetta) {
+      if (dataEtichetta.cityName === '' && error === false) {
+        setError(!error);
+        dispatch(setObligatoryFieldEmpty());
+      }
     }
   } else if (cancClicked === true && error === true) {
     setError(!error);
@@ -29,7 +31,7 @@ const TextCityName = () => {
       disabled={disabled}
       error={error}
       label="*Residenza"
-      value={dataEtichetta.cityName || ''}
+      value={dataEtichetta ? dataEtichetta.cityName : ''}
       onChange={(event) => {
         const { value } = event.target;
         const name = 'cityName';

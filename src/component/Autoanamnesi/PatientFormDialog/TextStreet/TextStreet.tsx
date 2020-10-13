@@ -14,9 +14,11 @@ const TextLastname = () => {
   const cancClicked = useSelector(cancelClicked);
 
   if (disabled === false) {
-    if (dataEtichetta.streetName === '' && error === false) {
-      setError(!error);
-      dispatch(setObligatoryFieldEmpty());
+    if (dataEtichetta) {
+      if (dataEtichetta.streetName === '' && error === false) {
+        setError(!error);
+        dispatch(setObligatoryFieldEmpty());
+      }
     }
   } else if (cancClicked === true && error === true) {
     setError(!error);
@@ -27,7 +29,7 @@ const TextLastname = () => {
       fullWidth
       disabled={disabled}
       label="*Via"
-      value={dataEtichetta.streetName || ''}
+      value={dataEtichetta ? dataEtichetta.streetName : ''}
       error={error}
       onChange={(event) => {
         const { value } = event.target;

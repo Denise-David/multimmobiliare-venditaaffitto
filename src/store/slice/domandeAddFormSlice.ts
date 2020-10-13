@@ -3,13 +3,13 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import { State } from '../store/store';
 
-export interface domandaAddForm {
+export interface domandaType {
   Tipo: string,
   IDDomanda : string,
    Domanda : string,
    stateText : boolean,
    openCard: boolean,
-    Risposte? : []
+    risposte? : [],
   group? : string,
 facoltativa: boolean
 libera:boolean}
@@ -20,7 +20,7 @@ const domandeAddFormSlice = createSlice({
     isBAddDomandaclicked: false as boolean,
     isTextFieldNewDomandaDisabled: true as boolean,
     Question: '' as string,
-    domandeObject: {} as {[key:string]:domandaAddForm},
+    domandeObject: {} as {[key:string]:domandaType},
     isBCheckDisabled: true as boolean,
     isBCheckAddDomandaDisabled: true as boolean,
     expandedTableMoreAnswers: true as boolean,
@@ -124,29 +124,29 @@ const domandeAddFormSlice = createSlice({
   },
 });
 
-export const addDomandaInArray = () => ({
+export const addDomandaInArray = ():{type:string} => ({
   type: 'ADD_DOMANDA_IN_ARRAY',
 
 });
-export const addDomandaMoreResInArray = () => ({
+export const addDomandaMoreResInArray = ():{type:string} => ({
   type: 'ADD_DOMANDA_MORE_RES_IN_ARRAY',
 
 });
-export const deleteDomandaFormPiuRes = (payload:any) => ({
+export const deleteDomandaFormPiuRes = (payload:string):{payload:string, type:string} => ({
   type: 'DELETE_DOMANDA_FORM_PIU_RES',
   payload,
 });
 
-export const questionTwoAns = (state: State) => state.domandeAddForm.questionTwoAns;
-export const expandedTableQuestion = (state: State) => state.domandeAddForm.expandedTableQuestion;
-export const intestazioneMoreAnswers = (state: State) => state.domandeAddForm.intestazioneMoreAns;
-export const expandedTableMoreAnswers = (state : State) => state.domandeAddForm.expandedTableMoreAnswers;
-export const isBCheckAddDomandaDisabled = (state : State) => state.domandeAddForm.isBCheckAddDomandaDisabled;
-export const isBCheckDisabled = (state : State) => state.domandeAddForm.isBCheckDisabled;
-export const domandeObject = (state : State) => state.domandeAddForm.domandeObject;
-export const question = (state : State) => state.domandeAddForm.Question;
-export const isBAddDomandaClicked = (state : State) => state.domandeAddForm.isBAddDomandaclicked;
-export const isTextFieldNewDomandaDisabled = (state : State) => state.domandeAddForm.isTextFieldNewDomandaDisabled;
+export const questionTwoAns = (state: State):string => state.domandeAddForm.questionTwoAns;
+export const expandedTableQuestion = (state: State):boolean => state.domandeAddForm.expandedTableQuestion;
+export const intestazioneMoreAnswers = (state: State):string => state.domandeAddForm.intestazioneMoreAns;
+export const expandedTableMoreAnswers = (state : State):boolean => state.domandeAddForm.expandedTableMoreAnswers;
+export const isBCheckAddDomandaDisabled = (state : State):boolean => state.domandeAddForm.isBCheckAddDomandaDisabled;
+export const isBCheckDisabled = (state : State):boolean => state.domandeAddForm.isBCheckDisabled;
+export const domandeObject = (state : State):{[key:string]:domandaType} => state.domandeAddForm.domandeObject;
+export const question = (state : State):string => state.domandeAddForm.Question;
+export const isBAddDomandaClicked = (state : State):boolean => state.domandeAddForm.isBAddDomandaclicked;
+export const isTextFieldNewDomandaDisabled = (state : State):boolean => state.domandeAddForm.isTextFieldNewDomandaDisabled;
 export const {
   setBAddDomandaClicked, setBAddDomandaUnclicked,
   setDomanda, setDomandaInObjectDomandeTwoRes: setDomandaInObjectDomande, resetDomanda,

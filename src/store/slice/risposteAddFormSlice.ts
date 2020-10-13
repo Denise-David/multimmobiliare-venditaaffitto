@@ -3,8 +3,17 @@ import { State } from '../store/store';
 
 interface rispostaUno { risposta1: string, stateText: boolean}
 interface rispostaDue { risposta2: string, stateText: boolean}
-interface rispostaMoreAnswers {IDRisposta: string, Risposta: string, Valore : number, type: 'normal'}
-interface risposteOfQuestion {[key:string] : rispostaMoreAnswers}
+export interface rispostaType {
+  IDRisposta:string,
+Risposta:string,
+stateText:boolean,
+stateModify:boolean,
+type:string,
+Valore:number}
+
+export interface actionAnsType {
+ payload:string,
+type:string}
 
 const risposteAddFormSlice = createSlice({
   name: 'risposteAddForm',

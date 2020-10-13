@@ -17,12 +17,14 @@ const TextLastname = () => {
   const cancClicked = useSelector(cancelClicked);
 
   if (disabled === false) {
-    if (dataEtichetta.familyDoctor === null && error === false) {
-      setError(!error);
-      dispatch(setFieldFamilyDoctorEmpty());
-    } else if (dataEtichetta.familyDoctor !== null && error === true) {
-      setError(!error);
-      dispatch(unsetFieldFamilyDoctorEmpty());
+    if (dataEtichetta) {
+      if (dataEtichetta.familyDoctor === null && error === false) {
+        setError(!error);
+        dispatch(setFieldFamilyDoctorEmpty());
+      } else if (dataEtichetta.familyDoctor !== null && error === true) {
+        setError(!error);
+        dispatch(unsetFieldFamilyDoctorEmpty());
+      }
     }
   } else if (cancClicked === true && error === true) {
     setError(!error);
@@ -34,7 +36,7 @@ const TextLastname = () => {
       disabled
       error={error}
       label="Medico di famiglia"
-      value={getStringMedico(dataEtichetta.familyDoctor)}
+      value={getStringMedico(dataEtichetta ? dataEtichetta.familyDoctor : {})}
 
       onChange={(event) => {
         const { value } = event.target;

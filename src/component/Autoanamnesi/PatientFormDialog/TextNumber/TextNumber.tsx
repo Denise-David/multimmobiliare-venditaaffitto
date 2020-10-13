@@ -14,9 +14,11 @@ const TextNumber = () => {
   const cancClicked = useSelector(cancelClicked);
 
   if (disabled === false) {
-    if (dataEtichetta.streetNumber === '' && error === false) {
-      setError(!error);
-      dispatch(setObligatoryFieldEmpty());
+    if (dataEtichetta) {
+      if (dataEtichetta.streetNumber === '' && error === false) {
+        setError(!error);
+        dispatch(setObligatoryFieldEmpty());
+      }
     }
   } else if (cancClicked === true && error === true) {
     setError(!error);
@@ -29,7 +31,7 @@ const TextNumber = () => {
       style={{ marginLeft: 8 }}
       error={error}
       label="*n°"
-      value={dataEtichetta.streetNumber || ''}
+      value={dataEtichetta ? dataEtichetta.streetNumber : ''}
       onChange={(event) => {
         const { value } = event.target;
         const name = 'streetNumber';

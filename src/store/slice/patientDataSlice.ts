@@ -1,12 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { patientData } from './patientFormPDFSlice';
 import { State } from '../store/store';
 
 const patientDataSlice = createSlice({
   name: 'patientData',
   initialState: {
-    newPatientInfo: { } as any | null,
+    newPatientInfo: { } as patientData,
     textFieldDisabled: true as boolean,
-    oldPatientInfo: {} as any | null,
+    oldPatientInfo: {} as patientData,
     obligatoryFieldEmpty: false as boolean,
     cancelClicked: false as boolean,
     checkboxFamilyDoctor: false as boolean,
@@ -50,10 +51,14 @@ const patientDataSlice = createSlice({
       state.checkboxFamilyDoctor = false;
     },
     setNoFamilyDoctor(state) {
-      state.newPatientInfo.familyDoctor = { givenname: 'Nessun medico di famiglia' };
+      if (state.newPatientInfo) {
+        state.newPatientInfo.familyDoctor = { givenname: 'Nessun medico di famiglia' };
+      }
     },
     setNoDoctor(state) {
-      state.newPatientInfo.doctor = { givenname: 'Nessun medico inviante' };
+      if (state.newPatientInfo) {
+        state.newPatientInfo.doctor = { givenname: 'Nessun medico inviante' };
+      }
     },
     setObligatoryFieldEmpty(state) {
       state.obligatoryFieldEmpty = true;
@@ -66,10 +71,14 @@ const patientDataSlice = createSlice({
       state.cancelClicked = !state.cancelClicked;
     },
     deleteDoctor(state) {
-      state.newPatientInfo.doctor = null;
+      if (state.newPatientInfo) {
+        state.newPatientInfo.doctor = {};
+      }
     },
     deleteFamilyDoctor(state) {
-      state.newPatientInfo.familyDoctor = null;
+      if (state.newPatientInfo) {
+        state.newPatientInfo.familyDoctor = {};
+      }
     },
     getOldPatientInfo(state, { payload }) {
       state.oldPatientInfo = payload;
@@ -78,11 +87,14 @@ const patientDataSlice = createSlice({
       state.newPatientInfo = payload;
     },
     changePatientValue(state, { payload }) {
-      const { value, name } = payload;
-      if (state.newPatientInfo[name] === null) {
-        state.newPatientInfo[name] = '';
+      const { value } = payload;
+      const nome : 'familyname' | 'givenname' | 'cityName' | 'mobile' |
+      'streetName' | 'streetNumber' | 'doctor'
+      | 'familyDoctor' | 'insuranceCoversName' = payload.name;
+
+      if (state.newPatientInfo) {
+        state.newPatientInfo[nome] = value;
       }
-      state.newPatientInfo[name] = value;
     },
     switchStateDisabled(state) {
       state.textFieldDisabled = !state.textFieldDisabled;
@@ -91,22 +103,38 @@ const patientDataSlice = createSlice({
       state.textFieldDisabled = true;
     },
     resetAllData(state) {
-      state.newPatientInfo = {};
+      state.newPatientInfo = {
+        familyname: '',
+        givenname: '',
+        cityName: '',
+        mobile: '',
+        streetName: '',
+        streetNumber: '',
+        doctor: {},
+        familyDoctor: {},
+        insuranceCoversName: '',
+        zip: '',
+      };
       state.birthdayDate = '';
     },
   },
 });
 
-export const birthdayDate = (state : State) => state.patientData.birthdayDate;
-export const fieldDoctorEmpty = (state: State) => state.patientData.fieldDoctorEmpty;
-export const fieldFamilyDoctorEmpty = (state: State) => state.patientData.fieldFamilyDoctorEmpty;
-export const checkboxDoctor = (state : State) => state.patientData.checkboxDoctor;
-export const checkboxFamilyDoctro = (state : State) => state.patientData.checkboxFamilyDoctor;
-export const cancelClicked = (state : State) => state.patientData.cancelClicked;
-export const obligatoryFieldEmpty = (state : State) => state.patientData.obligatoryFieldEmpty;
-export const oldPatientInfo = (state : State) => state.patientData.oldPatientInfo;
-export const textFieldDisabled = (state : State) => state.patientData.textFieldDisabled;
-export const newPatientInfo = (state : State) => state.patientData.newPatientInfo;
+export const birthdayDate = (state : State):string | null => state.patientData.birthdayDate;
+export const fieldDoctorEmpty = (state: State):boolean => state.patientData.fieldDoctorEmpty;
+export const
+  fieldFamilyDoctorEmpty = (state: State):boolean => state.patientData.fieldFamilyDoctorEmpty;
+export const checkboxDoctor = (state : State):boolean => state.patientData.checkboxDoctor;
+export const
+  checkboxFamilyDoctro = (state : State):boolean => state.patientData.checkboxFamilyDoctor;
+export const cancelClicked = (state : State):boolean => state.patientData.cancelClicked;
+export const
+  obligatoryFieldEmpty = (state : State):boolean => state.patientData.obligatoryFieldEmpty;
+export const
+  oldPatientInfo = (state : State):patientData => state.patientData.oldPatientInfo;
+export const textFieldDisabled = (state : State):boolean => state.patientData.textFieldDisabled;
+export const
+  newPatientInfo = (state : State):patientData => state.patientData.newPatientInfo;
 export const {
   getNewPatientInfo,
   changePatientValue,

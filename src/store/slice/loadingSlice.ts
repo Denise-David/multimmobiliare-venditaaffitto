@@ -19,7 +19,7 @@ const loadingSlice = createSlice({
   },
 });
 
-export const isLoaded = (state: State) => state.loading.isLoaded;
-export const isLoading = (state: State) => state.loading.isLoading;
+export const isLoaded = (state: State):boolean => state.loading.isLoaded;
+export const isLoading = (state: State):boolean => state.loading.isLoading;
 export const { setIsLoaded, setIsLoading } = loadingSlice.actions;
 export default loadingSlice.reducer;

@@ -14,9 +14,11 @@ const TextCassaMalati = () => {
   const cancClicked = useSelector(cancelClicked);
 
   if (disabled === false) {
-    if (dataEtichetta.insuranceCoversName === '' && error === false) {
-      setError(!error);
-      dispatch(setObligatoryFieldEmpty());
+    if (dataEtichetta) {
+      if (dataEtichetta.insuranceCoversName === '' && error === false) {
+        setError(!error);
+        dispatch(setObligatoryFieldEmpty());
+      }
     }
   } else if (cancClicked === true && error === true) {
     setError(!error);
@@ -28,7 +30,7 @@ const TextCassaMalati = () => {
       fullWidth
       disabled={disabled}
       label="*Cassa malati"
-      value={dataEtichetta.insuranceCoversName || ''}
+      value={dataEtichetta ? dataEtichetta.insuranceCoversName : ''}
       error={error}
       onChange={(event) => {
         const { value } = event.target;

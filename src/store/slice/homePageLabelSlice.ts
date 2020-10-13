@@ -1,11 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { formularioDBType } from './addFormSlice';
 import { State } from '../store/store';
 
 const homePageSlice = createSlice({
   name: 'homePage',
   initialState: {
     repartoGUID: null as number | null,
-    formulariList: [] as any,
+    formulariList: [] as formularioDBType[],
     formSelected: '-1' as string,
     reparto: '' as string,
   },
@@ -41,10 +42,10 @@ export const initFormulariReparto = () => ({
   type: 'INIT_FORMULARI_REPARTO',
 
 });
-export const reparto = (state: State) => state.homePage.reparto;
-export const formSelected = (state: State) => state.homePage.formSelected;
-export const formulariList = (state : State) => state.homePage.formulariList;
-export const repartoGUID = (state : State) => state.homePage.repartoGUID;
+export const reparto = (state: State):string => state.homePage.reparto;
+export const formSelected = (state: State):string => state.homePage.formSelected;
+export const formulariList = (state : State):formularioDBType[] => state.homePage.formulariList;
+export const repartoGUID = (state : State):number|null => state.homePage.repartoGUID;
 export const {
   setRepartoGUID, setFormulariList, setSelectedForm,
   resetSelectedForm, resetRepartoGUID, resetFormList,

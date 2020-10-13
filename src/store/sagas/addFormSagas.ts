@@ -4,8 +4,23 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 import startOfToday from 'date-fns/startOfToday';
 import {
+  actionAnsType,
+  rispostaType,
+  risposteOfDomandaObject,
+  valore, answer, ris2 as Response2,
+  ris1 as response1, setAnswersInDomanda,
+  resetAnswerValore, typeAnswer, setAddRispostaUnclicked,
+  deleteDomandeObject, resetRisposteOfDomanda, setType,
+} from '../slice/risposteAddFormSlice';
+import {
+  resultType,
+  valueMin, valueMax,
+  result, addRisultato, dataRisultati, resetDataRisultati,
+} from '../slice/risultatiAddFormSlice';
+
+import {
   questionTwoAns,
-  domandaAddForm,
+  domandaType,
   domandeObject,
   question, setBAddDomandaUnclicked, resetDomanda,
   setDomandaInObjectDomande,
@@ -21,17 +36,6 @@ import {
 import { groups } from '../slice/groupSlice';
 import { user } from '../slice/rightsSlice';
 import { risposteTutteUguali } from '../slice/menuDomandeERisposteSlice';
-import {
-  valueMin, valueMax,
-  result, addRisultato, dataRisultati, resetDataRisultati,
-} from '../slice/risultatiAddFormSlice';
-import {
-  risposteOfDomandaObject,
-  valore, answer, ris2 as Response2,
-  ris1 as response1, setAnswersInDomanda,
-  resetAnswerValore, typeAnswer, setAddRispostaUnclicked,
-  deleteDomandeObject, resetRisposteOfDomanda, setType,
-} from '../slice/risposteAddFormSlice';
 
 import { addForm, setNewStructure } from '../api';
 import { objectToArray } from '../../util';
@@ -48,7 +52,7 @@ export default function* addFormulario() {
   const domandeAndStatusArray = objectToArray(domandeAndStatus);
   let atLeast1Res = true;
 
-  const response = domandeAndStatusArray.map((domanda : any) => {
+  const response = domandeAndStatusArray.map((domanda : domandaType) => {
     if ((risposteWithStatus[domanda.IDDomanda] === undefined
       || Object.keys(risposteWithStatus[domanda.IDDomanda]).length === 0) && atLeast1Res === true
        && domanda.Tipo === 'a più risposte') {
@@ -78,13 +82,13 @@ export default function* addFormulario() {
     // creo un array con solo le domande senza lo stateText
 
     // eslint-disable-next-line max-len
-    const domande = domandeAndStatusArray.map((domandaAndStatus: domandaAddForm) => {
+    const domande = domandeAndStatusArray.map((domandaAndStatus: domandaType) => {
       const {
         IDDomanda, Domanda, Tipo, group, facoltativa, libera,
       } = domandaAndStatus;
       if (domandaAndStatus.Tipo === 'a più risposte') {
         const risposteWithStatusArray = objectToArray(risposteWithStatus[IDDomanda]);
-        const risposte = risposteWithStatusArray.map((rispostaWithStatus : any) => {
+        const risposte = risposteWithStatusArray.map((rispostaWithStatus : rispostaType) => {
           const {
             IDRisposta, Risposta, Valore, type,
           } = rispostaWithStatus;
@@ -114,7 +118,7 @@ export default function* addFormulario() {
     // Creo Array con solo i risultati senza gli status
     const resWithStatusArray = objectToArray(resWithStatus);
 
-    const risultati = resWithStatusArray.map((risultatoWithStatus : any) => {
+    const risultati = resWithStatusArray.map((risultatoWithStatus : resultType) => {
       const {
         IDRisultato, risultato, valoreMin, valoreMax,
       } = risultatoWithStatus;
@@ -143,7 +147,7 @@ export default function* addFormulario() {
   }
 }
 
-export function* addDomandaTwoResInArray() {
+export function* addDomandaTwoResInArray():Generator {
   const IDDomanda = uuidv4();
   const Domanda = yield select(questionTwoAns);
 
@@ -152,7 +156,7 @@ export function* addDomandaTwoResInArray() {
   yield put(resetDomanda());
 }
 
-export function* addDomandaMoreResInArray() {
+export function* addDomandaMoreResInArray():Generator {
   const IDDomanda = uuidv4();
   const Domanda = yield select(question);
   const listRisposte = yield select(risposteOfDomandaObject);
@@ -164,7 +168,7 @@ export function* addDomandaMoreResInArray() {
   if (ansTutteUguali === true) {
     const listRisposteArray = objectToArray(listRisposte);
     const listResPrimaDomanda = objectToArray(listRisposteArray[0]);
-    yield all(listResPrimaDomanda.map((res : any) => {
+    yield all(listResPrimaDomanda.map((res : rispostaType) => {
       const IDRisposta = uuidv4();
       const { Risposta, Valore, type } = res;
       const setRes = put(setAnswersInDomanda({
@@ -176,7 +180,7 @@ export function* addDomandaMoreResInArray() {
   }
 }
 
-export function* clickAddButton() {
+export function* clickAddButton():Generator {
   yield put(setBAddFormClicked());
 
   yield put(resetDomandeOfDomandeObject());
@@ -185,19 +189,12 @@ export function* clickAddButton() {
   yield put(resetDataRisultati());
   yield put(resetRisposteOfDomanda());
 }
-export function* clickDelOrSaveButton() {
+export function* clickDelOrSaveButton():Generator {
   yield put(openCloseSnackbarConfirmDelete());
   yield put(setBModifyDelAddReturnDisabled());
 }
 
-export function* addDomandaMoreAnswers() {
-  const IDDomanda = uuidv4();
-  const Domanda = yield select(question);
-
-  yield put(setDomandaInObjectDomande({ IDDomanda, Domanda }));
-  yield put(setBAddDomandaUnclicked());
-}
-export function* addRes(action:any) {
+export function* addRes(action:actionAnsType) {
   const ansTutteUguali = yield select(risposteTutteUguali);
   let IDRisposta = uuidv4();
   const RispostaWithID = yield select(answer);
@@ -213,7 +210,7 @@ export function* addRes(action:any) {
   if (ansTutteUguali === true) {
     const listDomandeObj = yield select(domandeObject);
     const listDomandeArr = objectToArray(listDomandeObj);
-    yield all(listDomandeArr.map((ques : any) => {
+    yield all(listDomandeArr.map((ques : domandaType) => {
       IDDomanda = ques.IDDomanda;
       IDRisposta = uuidv4();
       const setRes = put(setAnswersInDomanda({
@@ -234,14 +231,14 @@ export function* addRes(action:any) {
   yield put(setType(IDDomanda));
 }
 
-export function* deleteDomandaPiuRes(action:any) {
+export function* deleteDomandaPiuRes(action:actionAnsType):Generator {
   const IDDomanda = action.payload;
 
   yield put(deleteDomandeObject(IDDomanda));
   yield put(resetDomandaByIDDomanda(IDDomanda));
 }
 
-export function* addResult() {
+export function* addResult():Generator {
   const IDRisultato = uuidv4();
   const risultato = yield select(result);
   const valoreMin = yield select(valueMin);

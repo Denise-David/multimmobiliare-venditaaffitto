@@ -14,9 +14,11 @@ const TextLastname = () => {
   const cancClicked = useSelector(cancelClicked);
 
   if (disabled === false) {
-    if (dataEtichetta.familyname === '' && error === false) {
-      setError(!error);
-      dispatch(setObligatoryFieldEmpty());
+    if (dataEtichetta) {
+      if (dataEtichetta.familyname === '' && error === false) {
+        setError(!error);
+        dispatch(setObligatoryFieldEmpty());
+      }
     }
   } else if (cancClicked === true && error === true) {
     setError(!error);
@@ -29,7 +31,7 @@ const TextLastname = () => {
       disabled={disabled}
       style={{ marginLeft: 8 }}
       label="*Cognome"
-      value={dataEtichetta.familyname || ''}
+      value={dataEtichetta ? dataEtichetta.familyname : ''}
       error={error}
       onChange={(event) => {
         const { value } = event.target;

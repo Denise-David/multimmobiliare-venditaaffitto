@@ -14,9 +14,11 @@ const TextCAP = () => {
   const cancClicked = useSelector(cancelClicked);
 
   if (disabled === false) {
-    if (dataEtichetta.zip === '' && error === false) {
-      setError(!error);
-      dispatch(setObligatoryFieldEmpty());
+    if (dataEtichetta && dataEtichetta.zip) {
+      if (dataEtichetta.zip === '' && error === false) {
+        setError(!error);
+        dispatch(setObligatoryFieldEmpty());
+      }
     }
   } else if (cancClicked === true && error === true) {
     setError(!error);
@@ -28,7 +30,7 @@ const TextCAP = () => {
       fullWidth
       disabled={disabled}
       label="*CAP"
-      value={dataEtichetta.zip || ''}
+      value={dataEtichetta ? dataEtichetta.zip : ''}
       error={error}
       onChange={(event) => {
         const { value } = event.target;

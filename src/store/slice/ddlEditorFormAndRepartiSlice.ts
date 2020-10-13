@@ -22,13 +22,14 @@ const ddlEditorFormAndRepartiSlice = createSlice({
     },
   },
 });
-export const changeReparto = () => ({
+export const changeReparto = ():{type:string} => ({
   type: 'CHANGE_REPARTO',
 
 });
 
-export const IDRepartoSelected = (state : State) => state.ddlEditorFormAndReparti.IDRepartoSelected;
-export const IDForm = (state : State) => state.ddlEditorFormAndReparti.IDForm;
+export const
+  IDRepartoSelected = (state : State):string => state.ddlEditorFormAndReparti.IDRepartoSelected;
+export const IDForm = (state : State):string => state.ddlEditorFormAndReparti.IDForm;
 export const {
   setRepartoSelected,
   setFormularioSelected, resetIDForm, resetIDReparto,

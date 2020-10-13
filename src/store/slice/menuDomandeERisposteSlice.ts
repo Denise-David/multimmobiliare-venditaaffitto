@@ -26,11 +26,11 @@ const menuDomandeERisposteSlice = createSlice({
   },
 });
 
-export const raggruppaAttivo = (state:State) => state.menuDomandeERisposte.raggruppaAttivo;
+export const raggruppaAttivo = (state:State):boolean => state.menuDomandeERisposte.raggruppaAttivo;
 // eslint-disable-next-line max-len
-export const intestazioneMoreAnsAttiva = (state : State) => state.menuDomandeERisposte.intestazioneAttiva;
+export const intestazioneMoreAnsAttiva = (state : State):boolean => state.menuDomandeERisposte.intestazioneAttiva;
 // eslint-disable-next-line max-len
-export const risposteTutteUguali = (state : State) => state.menuDomandeERisposte.risposteTutteUguali;
+export const risposteTutteUguali = (state : State):boolean => state.menuDomandeERisposte.risposteTutteUguali;
 export const {
   setRisposteTutteUguali,
   setIntestazioneMoreAnsAttiva, setGroupAttivi, resetMenuMoreAns,

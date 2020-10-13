@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { FormControl, Select, MenuItem } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -6,13 +6,14 @@ import {
   changeReparto,
 } from '../../../../store/slice/ddlEditorFormAndRepartiSlice';
 import {
-  allReparti, repartiDelete, repartiModify, rightsUserAUTAN,
+  allReparti, repartiDelete, repartiModify, repartoRightType, rightsUserAUTAN,
+  rightType,
   setRepartoDeleteRight, setRepartoModifyRight, setUserCreateRight,
   setUserDeleteRight, setUserModifyRight, unsetRepartoDeleteRight,
 } from '../../../../store/slice/rightsSlice';
 import { isBModifyDelAddReturnDisabled } from '../../../../store/slice/disableEnableSlice';
 
-const DropDownListReparti = () => {
+const DropDownListReparti = ():ReactElement => {
   const iconsDisabled = useSelector(isBModifyDelAddReturnDisabled);
   const IDReparto = useSelector(IDRepartoSelected);
   const allRep = useSelector(allReparti);
@@ -29,20 +30,20 @@ const DropDownListReparti = () => {
     dispatch(unsetRepartoDeleteRight());
     dispatch(changeReparto());
 
-    repModify.forEach((reparto:any) => {
+    repModify.forEach((reparto:repartoRightType) => {
       if (value === reparto.unitid || value === reparto.sermednodeid) {
         dispatch(setRepartoModifyRight());
       }
     });
 
-    repDelete.forEach((reparto:any) => {
+    repDelete.forEach((reparto:repartoRightType) => {
       if (value === reparto.unitid || value === reparto.sermednodeid) {
         dispatch(setRepartoDeleteRight());
       }
     });
   };
   if (IDRepSelected === '-1') {
-    rightUser.forEach((scope: any) => {
+    rightUser.forEach((scope: rightType) => {
       if (scope.code === 'AUTAN_ALL') {
         dispatch(setRepartoModifyRight());
         dispatch(setRepartoDeleteRight());
@@ -60,10 +61,11 @@ const DropDownListReparti = () => {
     });
   }
   // array nome reparti
-  const listRep = allRep.map((reparto: any) => (
+  const listRep = allRep.map((reparto: repartoRightType) => (
     <MenuItem
-      value={reparto.unitid ? reparto.unitid : reparto.sermednodeid}
       key={reparto.unitid}
+      value={reparto.unitid ? reparto.unitid : reparto.sermednodeid}
+
     >
       {reparto.longname}
 

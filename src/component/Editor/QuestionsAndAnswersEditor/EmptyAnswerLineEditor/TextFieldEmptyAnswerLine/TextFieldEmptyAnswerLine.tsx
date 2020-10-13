@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { Grid, TextField } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { isBCheckDisabled } from '../../../../../store/slice/domandeAddFormSlice';
@@ -10,7 +10,7 @@ import {
 
 interface Props{ IDDomanda: string}
 
-const TextFieldEmptyAnswerLine = ({ IDDomanda }:Props) => {
+const TextFieldEmptyAnswerLine = ({ IDDomanda }:Props):ReactElement => {
   const dispatch = useDispatch();
   const bCheckDisabled = useSelector(isBCheckDisabled);
   const typeRis = useSelector(typeAnswer);

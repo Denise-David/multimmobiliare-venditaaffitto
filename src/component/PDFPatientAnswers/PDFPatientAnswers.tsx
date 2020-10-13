@@ -80,10 +80,7 @@ const PDFPatientAnswers = () => {
     );
   }) : <></>;
   // creo lista risultati
-  const risultatiArray = repartoInfo.Risultati ? Object.keys(repartoInfo.Risultati).map((key) => {
-    const risultato = repartoInfo.Risultati[key];
-    return risultato;
-  }) : [];
+  const risultatiArray = repartoInfo.Risultati;
   const listRisultati = risultatiArray ? risultatiArray.map((risultato :any) => {
     // Seleziono risultato risultante in base alla somma dei valori delle risposte
     if (sommaRisposte >= risultato.valoreMin && sommaRisposte <= risultato.valoreMax) {

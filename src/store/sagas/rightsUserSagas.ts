@@ -3,12 +3,15 @@ import {
 } from 'redux-saga/effects';
 import { uniqBy } from 'lodash';
 import {
+  repartoScopeRightType,
+  repartoRightType,
+  rightType,
   repartiModify,
   haveUserModifyRight,
   repartiCreate,
   haveUserCreateRight, haveUserDeleteRight,
   user, setRightsUserAUTAN, setRepartiCreate, setRepartiDelete,
-  setAllReparti, repartiDelete, setRepartiModify,
+  setAllReparti, repartiDelete, setRepartiModify, scopeType,
 } from '../slice/rightsSlice';
 
 import { getUserRights, getRepartiZAM, getRepartiZAS } from '../api';
@@ -28,12 +31,12 @@ export default function* initUserRightsAUTAN() {
 
     if (haveRightCreate === true) {
       // filtro solo il diritto CREATE
-      const findCreate = (right : any) => right.code === 'AUTAN_CREATE';
+      const findCreate = (right : rightType) => right.code === 'AUTAN_CREATE';
       const rightCreate = data.find(findCreate);
       // filtro gli scope del Create
       const scopesCreate = rightCreate.scopes;
       // li mappo controllando se sono ZAM o ZAS
-      const allDataRepartiCreate = yield all(scopesCreate.map((scope :any) => {
+      const allDataRepartiCreate = yield all(scopesCreate.map((scope :scopeType) => {
         if (scope.areaType === 'UP-ZAM') {
           const repartiZAM = call(getRepartiZAM, scope.areaCode);
           return repartiZAM;
@@ -44,7 +47,9 @@ export default function* initUserRightsAUTAN() {
         return null;
       }));
       // estraggo i reparti
-      const listRepartiCreateSeparate = allDataRepartiCreate.map((reparto : any) => reparto.data);
+      const listRepartiCreateSeparate = allDataRepartiCreate.map(
+        (reparto : repartoScopeRightType) => reparto.data,
+      );
 
       const listRepartiCreate = extractAndMergeArray(listRepartiCreateSeparate);
       // li metto su una variabile di stato
@@ -52,13 +57,14 @@ export default function* initUserRightsAUTAN() {
     }
     if (haveRightDelete === true) {
       // filtro solo il diritto DELETE
-      const findDelete = (right : any) => right.code === 'AUTAN_DELETE';
+      const findDelete = (right : rightType) => right.code === 'AUTAN_DELETE';
       const rightDelete = data.find(findDelete);
 
       // filtro gli scope del delete
+
       const scopesDelete = rightDelete.scopes;
       // li mappo controllando se sono ZAM o ZAS
-      const allDataRepartiDelete = yield all(scopesDelete.map((scope :any) => {
+      const allDataRepartiDelete = yield all(scopesDelete.map((scope :scopeType) => {
         if (scope.areaType === 'UP-ZAM') {
           const repartiZAM = call(getRepartiZAM, scope.areaCode);
           return repartiZAM;
@@ -69,7 +75,9 @@ export default function* initUserRightsAUTAN() {
         return null;
       }));
       // estraggo i reparti Delete
-      const listRepartiDeleteSeparate = allDataRepartiDelete.map((reparto : any) => reparto.data);
+      const listRepartiDeleteSeparate = allDataRepartiDelete.map(
+        (reparto :repartoScopeRightType) => reparto.data,
+      );
 
       const listRepartiDelete = extractAndMergeArray(listRepartiDeleteSeparate);
       // li metto su una variabile di stato
@@ -78,13 +86,13 @@ export default function* initUserRightsAUTAN() {
 
     if (haveRightModify === true) {
       // filtro solo il diritto MODIFY
-      const findModify = (right : any) => right.code === 'AUTAN_MODIFY';
+      const findModify = (right : rightType) => right.code === 'AUTAN_MODIFY';
       const rightModify = data.find(findModify);
 
       // filtro gli scope del modify
       const scopesModify = rightModify.scopes;
       // li mappo controllando se sono ZAM o ZAS
-      const allDataRepartiModify = yield all(scopesModify.map((scope :any) => {
+      const allDataRepartiModify = yield all(scopesModify.map((scope :scopeType) => {
         if (scope.areaType === 'UP-ZAM') {
           const repartiZAM = call(getRepartiZAM, scope.areaCode);
           return repartiZAM;
@@ -95,7 +103,11 @@ export default function* initUserRightsAUTAN() {
         return null;
       }));
       // estraggo i reparti Modify
-      const listRepartiModifySeparate = allDataRepartiModify.map((reparto : any) => reparto.data);
+      console.log('xx', allDataRepartiModify);
+      const listRepartiModifySeparate = allDataRepartiModify.map(
+        (reparto : repartoScopeRightType) => (
+          reparto.data),
+      );
 
       const listRepartiModify = extractAndMergeArray(listRepartiModifySeparate);
       // li metto su una variabile di stato
@@ -110,7 +122,7 @@ export default function* initUserRightsAUTAN() {
     // unisco i reparti del delete e create dell'array
     const arrayAllReparti = listRepartiDelete.concat(listRepartiCreate, listRepartiModify);
     // elimino i doppioni
-    const arrayNoDuplicate = uniqBy(arrayAllReparti.map((reparto : any) => ({
+    const arrayNoDuplicate = uniqBy(arrayAllReparti.map((reparto : repartoRightType) => ({
       ...reparto, ID: reparto.unitid || reparto.sermednodeid,
     })), 'ID');
 

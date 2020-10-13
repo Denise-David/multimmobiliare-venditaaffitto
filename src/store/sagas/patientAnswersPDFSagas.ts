@@ -5,7 +5,7 @@ import {
 
 import { getRisposteFormPazientiByID, getEtichettaDataByLabel, fetchRepartoFormByGUID } from '../api';
 
-export default function* initPDFPatientAnswers(action : any) {
+export default function* initPDFPatientAnswers() {
   try {
     const IDForm = yield select(IDFormRisposte);
     const etichettaNum = yield select(numEtichetta);

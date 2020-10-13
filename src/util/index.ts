@@ -3,7 +3,7 @@ export interface Medico {
   familyname?: string;
   firstname?: string;
   lastname?: string;
-  city: string;
+  city?: string;
 }
 
 // eslint-disable-next-line import/prefer-default-export

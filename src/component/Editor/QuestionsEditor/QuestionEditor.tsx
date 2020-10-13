@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import TextField from '@material-ui/core/TextField';
 import {
   Typography, Collapse,
@@ -13,7 +13,7 @@ import {
 
   setBCheckDisabled, isBCheckDisabled, setBCheckEnabled,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  domandaAddForm, expandedTableQuestion, setBModifyDomandaUnclicked,
+  domandaType, expandedTableQuestion, setBModifyDomandaUnclicked,
 } from '../../../store/slice/domandeAddFormSlice';
 import { objectToArray } from '../../../util';
 import {
@@ -28,7 +28,7 @@ import DropDownListGroup from '../DropDownListGroup/DropDownListGroup';
 import TextFieldIntestazioneQuesMoreAnswers from '../TextFieldIntestazioneQuesMoreAnswers/TextFieldIntestazioneQuesMoreAnsw';
 import { enableAll } from '../../../store/slice/disableEnableSlice';
 
-const QuestionsEditor = () => {
+const QuestionsEditor = ():ReactElement => {
   const dispatch = useDispatch();
 
   const classes = useStyles();
@@ -42,7 +42,7 @@ const QuestionsEditor = () => {
   const group = useSelector(raggruppaAttivo);
 
   // eslint-disable-next-line no-shadow
-  const listNewDomande = domandeAddFormArray.map((domandaAddForm : domandaAddForm, index : any) => {
+  const listNewDomande = domandeAddFormArray.map((domandaAddForm : domandaType) => {
     const { IDDomanda } = domandaAddForm;
     const { Tipo } = domandaAddForm;
 

@@ -1,6 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { State } from '../store/store';
 
+// @interface
+export interface resultType {
+  IDRisultato:string,
+risultato:string,
+valoreMin:number,
+valoreMax:number,
+stateModify:boolean
+}
+
 const risultatiAddFormSlice = createSlice({
   name: 'risultatiAddForm',
   initialState:

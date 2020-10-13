@@ -15,7 +15,7 @@ const TextLastname = () => {
       fullWidth
       disabled={disabled}
       label="Numero di telefono"
-      value={dataEtichetta.mobile || ''}
+      value={dataEtichetta ? dataEtichetta.mobile : ''}
       onChange={(event) => {
         const { value } = event.target;
         const name = 'mobile';

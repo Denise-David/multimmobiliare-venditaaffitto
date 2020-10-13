@@ -2,9 +2,9 @@ import { createSlice } from '@reduxjs/toolkit';
 import { Medico } from '../../util/index';
 import { State } from '../store/store';
 
-export interface PatientData {familyname : string, givenname : string,
+export interface patientData {familyname : string, givenname : string,
 cityName : string, mobile: string, streetName: string, streetNumber : string,
-doctor : Medico, familyDoctor : Medico, insuranceCoversName: string}
+doctor : Medico, familyDoctor : Medico, insuranceCoversName: string, zip:string}
 
 const patientInfoPDFSlice = createSlice({
   name: 'patientInfoPDF',
@@ -12,10 +12,11 @@ const patientInfoPDFSlice = createSlice({
   {
     numEtichetta: 0 as number,
     ID: '' as string,
-    oldPatientData: {} as PatientData,
-    newPatientData: {} as PatientData,
+    oldPatientData: {} as patientData,
+    newPatientData: {} as patientData,
     patientAnswers: [] as any,
-    infoReparto: {} as any,
+    infoReparto: {} as {Risultati:[], Reparto:string, tipo:string,
+      risposta1:string},
     lastFormID: '' as string,
   },
   reducers: {
@@ -45,13 +46,14 @@ const patientInfoPDFSlice = createSlice({
   },
 });
 
-export const lastFormID = (state : State) => state.patientInfoPDF.lastFormID;
-export const infoReparto = (state : State) => state.patientInfoPDF.infoReparto;
+export const lastFormID = (state : State):string => state.patientInfoPDF.lastFormID;
+export const infoReparto = (state : State):{Risultati:[], Reparto:string, tipo:string,
+  risposta1:string} => state.patientInfoPDF.infoReparto;
 export const patientAnswers = (state : State) => state.patientInfoPDF.patientAnswers;
-export const newPatientData = (state : State) => state.patientInfoPDF.newPatientData;
-export const oldPatientData = (state : State) => state.patientInfoPDF.oldPatientData;
-export const IDFormRisposte = (state : State) => state.patientInfoPDF.ID;
-export const numEtichetta = (state : State) => state.patientInfoPDF.numEtichetta;
+export const newPatientData = (state : State):patientData => state.patientInfoPDF.newPatientData;
+export const oldPatientData = (state : State):patientData => state.patientInfoPDF.oldPatientData;
+export const IDFormRisposte = (state : State):string => state.patientInfoPDF.ID;
+export const numEtichetta = (state : State):number => state.patientInfoPDF.numEtichetta;
 export const {
   setNumEtichetta, setIDFormRisposte,
   getOldPatientData, getNewPatientData,

@@ -61,18 +61,19 @@ const dialogSlice = createSlice({
   },
 });
 
-export const closeAndFilterDialog = () => ({
+export const closeAndFilterDialog = ():{type:string} => ({
   type: 'CLOSE_AND_FILTER_DIALOG',
 
 });
 
-export const dialogFiltro = (state : State) => state.dialog.dialogFiltro;
-export const dialogLabel = (state : State) => state.dialog.dialogLabel;
-export const dialogGroupOpen = (state : State) => state.dialog.dialogGroupOpen;
-export const dialogFormPatientOpen = (state : State) => state.dialog.dialogFormPatientOpen;
-export const dialogSearchOpen = (state : State) => state.dialog.dialogSearchOpen;
-export const dialogReturnDeviceOpen = (state : State) => state.dialog.dialogReturnDeviceOpen;
-export const dialogSummaryOpen = (state : State) => state.dialog.dialogSummaryOpen;
+export const dialogFiltro = (state : State):boolean => state.dialog.dialogFiltro;
+export const dialogLabel = (state : State):boolean => state.dialog.dialogLabel;
+export const dialogGroupOpen = (state : State):boolean => state.dialog.dialogGroupOpen;
+export const dialogFormPatientOpen = (state : State):boolean => state.dialog.dialogFormPatientOpen;
+export const dialogSearchOpen = (state : State):boolean => state.dialog.dialogSearchOpen;
+export const
+  dialogReturnDeviceOpen = (state : State):boolean => state.dialog.dialogReturnDeviceOpen;
+export const dialogSummaryOpen = (state : State):boolean => state.dialog.dialogSummaryOpen;
 export const {
   openDialogSummary, closeDialogSummary,
   closeDialogSummaryAndSave, openReturnDeviceDialog,

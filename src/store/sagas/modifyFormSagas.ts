@@ -1,12 +1,15 @@
 import { put, select, call } from 'redux-saga/effects';
 import startOfToday from 'date-fns/startOfToday';
-import { groups } from '../slice/groupSlice';
 import {
+  rispostaType,
   risposteOfDomandaObject, ris2, ris1,
 } from '../slice/risposteAddFormSlice';
-import { allReparti, user } from '../slice/rightsSlice';
+import { repartoRightType, allReparti, user } from '../slice/rightsSlice';
+import { domandaType, domandeObject, intestazioneMoreAnswers } from '../slice/domandeAddFormSlice';
+import { groups } from '../slice/groupSlice';
+
 import { dataRisultati } from '../slice/risultatiAddFormSlice';
-import { domandeObject, intestazioneMoreAnswers } from '../slice/domandeAddFormSlice';
+
 import {
   IDRepartoSelected, IDForm,
 } from '../slice/ddlEditorFormAndRepartiSlice';
@@ -22,7 +25,7 @@ export default function* saveModify() {
     const listDomande = objectToArray(objDomande);
     const objRisposte = yield select(risposteOfDomandaObject);
     let atLeast1Res = true;
-    const response = listDomande.map((domanda : any) => {
+    const response = listDomande.map((domanda : domandaType) => {
       if ((objRisposte[domanda.IDDomanda] === undefined
         || Object.keys(objRisposte[domanda.IDDomanda]).length === 0) && atLeast1Res === true
         && domanda.Tipo === 'a più risposte') {
@@ -43,18 +46,19 @@ export default function* saveModify() {
       const intestazioneMoreAns = yield select(intestazioneMoreAnswers);
 
       // trovo il nome del reparto in base al formuario selezionato
-      const findNameByID = (rep : any) => rep.sermednodeid === GUID || rep.unitid === GUID;
+      const findNameByID = (rep : repartoRightType) => rep.sermednodeid
+      === GUID || rep.unitid === GUID;
       const repSelected = listRep.find(findNameByID);
       const nomeReparto = repSelected.longname;
 
       const nomeForm = yield select(nomeFormulario);
-      const listDomandeAndRisposte = listDomande.map((domanda : any) => {
+      const listDomandeAndRisposte = listDomande.map((domanda : domandaType) => {
         const {
           IDDomanda, Domanda, Tipo, group, facoltativa, libera,
         } = domanda;
         if (Tipo === 'a più risposte') {
           const listRisposte = objectToArray(objRisposte[IDDomanda]);
-          const risposte = listRisposte?.map((risposta : any) => {
+          const risposte = listRisposte?.map((risposta : rispostaType) => {
             const {
               IDRisposta, Risposta, Valore, type,
             } = risposta;

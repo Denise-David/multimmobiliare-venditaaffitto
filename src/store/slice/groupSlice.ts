@@ -5,7 +5,7 @@ const groupSlice = createSlice({
   name: 'group',
   initialState: {
     groupName: '' as string,
-    groups: [] as any,
+    groups: [] as {id:string, name:string}[],
     groupSelectedIndex: -1 as number,
     isListGroupsDisabled: false as boolean,
   },
@@ -46,10 +46,10 @@ const groupSlice = createSlice({
   },
 });
 
-export const isListGroupsDisabled = (state : State) => state.group.isListGroupsDisabled;
-export const groupSelectedIndex = (state: State) => state.group.groupSelectedIndex;
-export const groups = (state:State) => state.group.groups;
-export const groupName = (state:State) => state.group.groupName;
+export const isListGroupsDisabled = (state : State):boolean => state.group.isListGroupsDisabled;
+export const groupSelectedIndex = (state: State):number => state.group.groupSelectedIndex;
+export const groups = (state:State):{id:string, name:string}[] => state.group.groups;
+export const groupName = (state:State):string => state.group.groupName;
 export const {
   setNewGroup, setGroupInGroups, resetGroupName,
   setGroupSelectedIndex, deleteGroup, modifyGroup, setModifyGroup,

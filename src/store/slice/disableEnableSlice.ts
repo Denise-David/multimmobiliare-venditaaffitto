@@ -30,19 +30,19 @@ const disableEnableSlice = createSlice({
   },
 });
 
-export const disableAll = () => ({
+export const disableAll = ():{type:string} => ({
   type: 'DISABLE_ALL',
 
 });
-export const enableAll = () => ({
+export const enableAll = ():{type:string} => ({
   type: 'ENABLE_ALL',
 
 });
-export const isDDLFormDisabled = (state : State) => state.disableEnable.isDDLFormDisabled;
+export const isDDLFormDisabled = (state : State):boolean => state.disableEnable.isDDLFormDisabled;
 export const
   // eslint-disable-next-line max-len
-  isBModifyDelAddReturnDisabled = (state : State) => state.disableEnable.isBModifyDelAddReturnDisabled;
-export const isBSaveDisabled = (state : State) => state.disableEnable.isBSaveDisabled;
+  isBModifyDelAddReturnDisabled = (state : State):boolean => state.disableEnable.isBModifyDelAddReturnDisabled;
+export const isBSaveDisabled = (state : State):boolean => state.disableEnable.isBSaveDisabled;
 export const {
   setBModifyDelAddReturnDisabled,
   setBModifyDelAddReturnEnabled, setBSaveDisabled,

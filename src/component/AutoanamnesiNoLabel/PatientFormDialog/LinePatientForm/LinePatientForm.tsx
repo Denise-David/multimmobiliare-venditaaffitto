@@ -46,7 +46,7 @@ const MultipleChoiceLinePatient = () => {
     const domanda = question.Domanda;
 
     // setto il gruppo attuale
-    const groupSelected = gruppi ? gruppi.find((ID) => ID.id === question.group) : {};
+    const groupSelected = gruppi ? gruppi.find((ID) => ID.id === question.group) : { id: '', name: '' };
     // controllo se è una domanda a più risposte, se non lo è
     if (!risposte) {
       return (

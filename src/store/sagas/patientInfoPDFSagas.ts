@@ -5,7 +5,7 @@ import {
 
 import { getRisposteFormPazientiByID } from '../api';
 
-export default function* initPDFPatientData(action : any) {
+export default function* initPDFPatientData() {
   try {
     const IDForm = yield select(IDFormRisposte);
 

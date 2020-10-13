@@ -2,17 +2,37 @@ import { createSlice } from '@reduxjs/toolkit';
 import { State } from '../store/store';
 import { Domanda } from '../../component/Autoanamnesi/PatientFormDialog/LinePatientForm/LineMoreAnswers/DropDownListAnswersPatientForm/DropDownListAnswersPatientForm';
 
+export interface rispostaPazienteType {
+  idDomanda:string,
+  valore:string,
+  domanda:string,
+  testoRisposta:string,
+  idRisposta:string,
+  testoLibero:string,
+  date:{[index:string]:dataType}
+  }
+
+export interface dataType {
+
+   idRisposta:string,
+   idDomanda:string,
+   testoData:string,
+   dataFormattata:string,
+   domanda:string,
+
+    }
+
 const patientFormSlice = createSlice({
   name: 'patientForm',
   initialState:
   {
     domandeReparto: [] as Domanda[],
     risposte: {} as any,
-    boolAnswers: {} as any,
-    resDate: {} as any,
+    boolAnswers: {} as {risposta1:string, risposta2:string},
+    resDate: {} as {[index:string]:{[index:string]:dataType}},
     intestazioneMoreAnswers: '' as string,
-    gruppi: [] as any[],
-    noFacoltative: [] as any[],
+    gruppi: [] as {id:string, name:string}[],
+    noFacoltative: [] as string[],
 
   },
   reducers: {
@@ -25,10 +45,11 @@ const patientFormSlice = createSlice({
       }
     },
     setRispostaLibera(state, { payload }) {
-      const { idDomanda, value } = payload;
+      const { idDomanda } = payload;
+      const valore : string = payload.value;
       if (state.risposte[idDomanda]) {
-        state.risposte[idDomanda].testoLibero = value;
-      } else { state.risposte[idDomanda] = { testoLibero: value }; }
+        state.risposte[idDomanda].testoLibero = valore;
+      } else { state.risposte[idDomanda] = { testoLibero: valore }; }
     },
     setGruppi(state, { payload }) {
       state.gruppi = payload;
@@ -44,10 +65,7 @@ const patientFormSlice = createSlice({
       if (!state.resDate[idDomanda] && !state.risposte[idDomanda]) {
         state.resDate[idDomanda] = { [idRisposta]: payload };
         state.risposte[idDomanda] = { date: state.resDate[idDomanda] };
-      } else
-      if (!state.resDate[idDomanda]) {
-        state.resDate[idDomanda] = { [idRisposta]: payload };
-      } else
+      }
       if (!state.risposte[idDomanda].idRisposta) {
         state.risposte[idDomanda] = { idRisposta, idDomanda, domanda };
         state.risposte[idDomanda].date = state.resDate[idDomanda];
@@ -89,23 +107,27 @@ const patientFormSlice = createSlice({
       state.risposte = {};
     },
     resetBooleanAnswers(state) {
-      state.boolAnswers = {};
+      state.boolAnswers = { risposta1: 'Sì', risposta2: 'No' };
     },
   },
 });
 
-export const buttonSendForm = () => ({
+export const buttonSendForm = ():{type:string} => ({
   type: 'BUTTON_SEND_FORM',
 
 });
 
-export const noFacoltative = (state: State) => state.patientForm.noFacoltative;
-export const groups = (state : State) => state.patientForm.gruppi;
-export const intestazioneMoreAns = (state:State) => state.patientForm.intestazioneMoreAnswers;
-export const resDate = (state : State) => state.patientForm.resDate;
-export const boolAnswers = (state : State) => state.patientForm.boolAnswers;
+export const noFacoltative = (state: State):string[] => state.patientForm.noFacoltative;
+export const groups = (state : State):{id:string, name:string}[] => state.patientForm.gruppi;
+export const
+  intestazioneMoreAns = (state:State):string => state.patientForm.intestazioneMoreAnswers;
+export const resDate = (state : State)
+:{[index:string]:{[index:string]:dataType}} => state.patientForm.resDate;
+export const
+  boolAnswers = (state : State):
+  {risposta1:string, risposta2:string} => state.patientForm.boolAnswers;
 export const risposte = (state : State) => state.patientForm.risposte;
-export const repartoDomande = (state: State) => state.patientForm.domandeReparto;
+export const repartoDomande = (state: State):Domanda[] => state.patientForm.domandeReparto;
 export const {
   getDomandeReparto,
   setRisposta, getBooleanAnswers, resetDomandeReparto,

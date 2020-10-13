@@ -1,5 +1,7 @@
-/* eslint-disable no-underscore-dangle */
 import { select, put, call } from 'redux-saga/effects';
+import { rispostaPazienteType, risposte } from '../slice/patientFormSlice';
+import { formularioDBType } from '../slice/addFormSlice';
+/* eslint-disable no-underscore-dangle */
 import {
   formulariList, repartoGUID, formSelected, reparto,
 } from '../slice/homePageLabelSlice';
@@ -8,7 +10,6 @@ import { listRisultati, formSelectedID } from '../slice/homepageNoLabelSlice';
 
 import { oldPatientInfo, newPatientInfo } from '../slice/patientDataSlice';
 import { addRisposteFormPazienti } from '../api';
-import { risposte } from '../slice/patientFormSlice';
 
 import { objectToArray } from '../../util';
 import { setIDLastForm } from '../slice/patientFormPDFSlice';
@@ -27,8 +28,8 @@ export default function* setDataRisposteFormPaziente() {
     const nomeRep = yield select(reparto);
     const listForm = yield select(formulariList);
 
-    const form = resultForm.find((ID: any) => ID._id === formID);
-    const nomeForm = listForm.find((ID:any) => ID._id === IDSelectedForm);
+    const form = resultForm.find((ID: formularioDBType) => ID._id === formID);
+    const nomeForm = listForm.find((ID:formularioDBType) => ID._id === IDSelectedForm);
 
     const formulario = form ? form.formulario : nomeForm.formulario;
     const Reparto = form ? form.Reparto : nomeRep;
@@ -36,7 +37,7 @@ export default function* setDataRisposteFormPaziente() {
 
     const risData = objectToArray(ansData);
 
-    const answersData = risData.map((risposta : any) => {
+    const answersData = risData.map((risposta : rispostaPazienteType) => {
       const {
         idDomanda, domanda, testoRisposta, idRisposta, valore, testoLibero,
       } = risposta;
@@ -55,6 +56,7 @@ export default function* setDataRisposteFormPaziente() {
 
     yield put(setIDLastForm(res));
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.log('errore', error);
   }
 }

@@ -1,20 +1,29 @@
 import {
   all, takeLatest, call, put, select, takeEvery,
 } from 'redux-saga/effects';
-import initInterfaccia, { filter, aggiungiEtichetta, deleteFormAns } from './interfacciaAmministrativaSagas';
-import { setRepartoGUID, setFormulariList, setReparto } from '../slice/homePageLabelSlice';
-import { setNomeFormulario } from '../slice/addFormSlice';
-import { formulariByReparto, setFormulari } from '../slice/rightsSlice';
+import { setRisultatiInObject } from '../slice/risultatiAddFormSlice';
 import {
+  rispostaType,
   setRisposteOfDomandaInObject, getRisposta2, getRisposta1,
 } from '../slice/risposteAddFormSlice';
+import {
+  domandaType, setDomandeinObject, setIntestazioneMoreAns,
+} from '../slice/domandeAddFormSlice';
+
+/* eslint-disable no-underscore-dangle */
+import { formularioDBType, setNomeFormulario } from '../slice/addFormSlice';
+import initInterfaccia, { filter, aggiungiEtichetta, deleteFormAns } from './interfacciaAmministrativaSagas';
+import { setRepartoGUID, setFormulariList, setReparto } from '../slice/homePageLabelSlice';
+
+import { formulariByReparto, setFormulari } from '../slice/rightsSlice';
+
 import { IDRepartoSelected, IDForm } from '../slice/ddlEditorFormAndRepartiSlice';
 import addFormulario, {
   addDomandaTwoResInArray, clickAddButton,
   clickDelOrSaveButton, addRes, deleteDomandaPiuRes, addResult, addDomandaMoreResInArray,
 } from './addFormSagas';
 import { ValueCode } from '../slice/labelCodeSlice';
-import getDataEtichetta, { sendDataPazienti, sendOpenForm } from './dialogFormPazienteSagas';
+import getDataEtichetta, { sendDataPazienti } from './dialogFormPazienteSagas';
 import initPDFPatientData from './patientInfoPDFSagas';
 import initPDFPatientAnswers from './patientAnswersPDFSagas';
 import setDataRisposteFormPaziente from './summaryDialogSagas';
@@ -22,8 +31,6 @@ import buttonSearch from './searchDoctorSagas';
 import initUserRightsAUTAN from './rightsUserSagas';
 import confirmAddForm, { changeRep, cancelAddForm } from './departmentChoiceEditorSagas';
 import fetchFormStructureByID, { fetchRepartoFormByGUID, getEtichettaDataByLabel } from '../api';
-import { setDomandeinObject, setIntestazioneMoreAns } from '../slice/domandeAddFormSlice';
-import { setRisultatiInObject } from '../slice/risultatiAddFormSlice';
 
 import confirmDelForm from './deleteFormSagas';
 import saveModify from './modifyFormSagas';
@@ -47,7 +54,7 @@ function* init() {
     // cerco i nome  e id dei formulari del reparto selezionato
     const form = yield call(fetchRepartoFormByGUID, ID);
     // eslint-disable-next-line no-underscore-dangle
-    const formulari = form.data.map((formu : any) => {
+    const formulari = form.data.map((formu : formularioDBType) => {
       const { formulario, _id } = formu;
       const res = { formulario, _id };
 
@@ -79,8 +86,9 @@ function* init() {
 
         // setto il nome Formulario
         const listForm = yield select(formulariByReparto);
-        // eslint-disable-next-line no-underscore-dangle
-        const findNameFormByID = (formSelected : any) => formSelected._id === IDFormulario;
+        const findNameFormByID = (formSelected :
+          formularioDBType) => formSelected._id
+         === IDFormulario;
         const formSelected = listForm.find(findNameFormByID) ? listForm.find(findNameFormByID) : [];
         const nomeForm = formSelected.formulario;
         yield put(setNomeFormulario(nomeForm));
@@ -104,26 +112,30 @@ function* init() {
         yield put(getRisposta2(ris2));
 
         // genero un nuovo parametro stato
-        const datiDomandeWithState = datiDomande.map((domandaObj : any) => {
+        const datiDomandeWithState = datiDomande.map((domandaObj : domandaType) => {
           const domandaWithState = { [domandaObj.IDDomanda]: { ...domandaObj, stateText: true } };
 
           return domandaWithState;
         });
-        const res = datiDomandeWithState.reduce((accumulator:any, currentValue:any) => {
-          accumulator[Object.keys(currentValue)[0]] = currentValue[Object.keys(currentValue)[0]];
-          return accumulator;
-        }, {});
+        const res = datiDomandeWithState.reduce(
+          (accumulator:{[index:string]:domandaType},
+            currentValue:{[index:string]:domandaType}) => {
+            accumulator[Object.keys(currentValue)[0]] = currentValue[Object.keys(currentValue)[0]];
+            return accumulator;
+          }, {},
+        );
 
         yield put(setDomandeinObject(res));
 
         // genero un nuovo parametro stato per le risposte
-        const datiRisposteDomandeWithState = datiDomande.map((domandaObj : any) => {
-          const resWithState = domandaObj.risposte?.map((risposta :any) => {
+        const datiRisposteDomandeWithState = datiDomande.map((domandaObj : domandaType) => {
+          const resWithState = domandaObj.risposte?.map((risposta :rispostaType) => {
             const rispostaWithState = { [risposta.IDRisposta]: { ...risposta, stateText: true } };
 
             return (rispostaWithState);
           });
-          const result = resWithState?.reduce((accumulator:any, currentValue:any) => {
+          const result = resWithState?.reduce((accumulator:any,
+            currentValue: any) => {
             accumulator[Object.keys(currentValue)[0]] = currentValue[Object.keys(currentValue)[0]];
             return accumulator;
           }, {});
@@ -180,7 +192,7 @@ function* initRep() {
   const form = yield call(fetchRepartoFormByGUID, payload);
   yield put(setFormulariList(form.data));
 
-  form.data.map((formu : any) => {
+  form.data.map((formu : formularioDBType) => {
     const { formulario, _id } = formu;
     const res = { formulario, _id };
 
@@ -215,7 +227,6 @@ function* actionWatcher() {
   yield takeLatest('SAVE_MODIFY_FORM', saveModify);
   yield takeLatest('DISABLE_ALL', allDisabled);
   yield takeLatest('ENABLE_ALL', allEnabled);
-  yield takeLatest('OPEN_FORM', sendOpenForm);
   yield takeLatest('AGGIUNGI_ETICHETTA', aggiungiEtichetta);
   yield takeLatest('CLOSE_AND_FILTER_DIALOG', filter);
   yield takeLatest('DELETE_ANS_FORM', deleteFormAns);

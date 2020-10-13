@@ -1,6 +1,7 @@
 import {
   call, select, put,
 } from 'redux-saga/effects';
+import { domandaType } from '../slice/domandeAddFormSlice';
 import {
   obligatoryFieldEmpty, textFieldDisabled, getNewPatientInfo, getOldPatientInfo,
 } from '../slice/patientDataSlice';
@@ -22,7 +23,6 @@ import {
   openSnackbarDatiPersonali, openSnackbarFieldEmpty, openSnackbarLabelPage,
   openSnackbarPatientAnswers,
 } from '../slice/snackbarSlice';
-import { formSelectedID } from '../slice/homepageNoLabelSlice';
 
 export default function* getDataEtichetta() {
   try {
@@ -66,7 +66,7 @@ export default function* getDataEtichetta() {
 
       // prendo le domande
       const datiDomande = dataForm.Domande;
-      const listDomande = datiDomande.map((domanda : any) => {
+      const listDomande = datiDomande.map((domanda : domandaType) => {
         const question = { ...domanda, normalType: false };
         return question;
       });
@@ -101,34 +101,13 @@ export default function* getDataEtichetta() {
   }
 }
 
-export function* sendOpenForm() {
-  yield put(setIsLoading());
-  const IDForm = yield select(formSelectedID);
-  const dataForm = yield call(fetchFormStructureByID, IDForm);
-  // prendo le domande
-  const datiDomande = dataForm.Domande;
-  const listDomande = datiDomande.map((domanda : any) => {
-    const question = { ...domanda, normalType: false };
-    return question;
-  });
-  yield put(getDomandeReparto(listDomande));
-
-  // prendo risposte booleane
-  const booleanAnswers = dataForm.Risposte;
-  yield put(getBooleanAnswers(booleanAnswers));
-  yield put(setIntestazioneMoreAns(dataForm.intestazione));
-
-  yield put(setGruppi(dataForm.gruppi));
-
-  yield put(openDialogFormPatient());
-  yield put(setIsLoaded());
-}
 export function* sendDataPazienti() {
   try {
     const obbFieldEmpty = yield select(obligatoryFieldEmpty);
     const answersData = yield select(risposte);
-    const noFacol = yield select(noFacoltative);
     const checkOrCancelClicked = yield select(textFieldDisabled);
+    const noFacol = yield select(noFacoltative);
+
     let risAll = true;
     const response = noFacol.map((idDomanda: string) => {
       if (answersData[idDomanda] === undefined && risAll === true) {

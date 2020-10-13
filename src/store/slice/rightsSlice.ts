@@ -1,6 +1,38 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { State } from '../store/store';
 
+export interface repartoRightType {
+ sermednodeid?: number,
+unitid?:number,
+acronym:string,
+enddate:number,
+longname:string,
+nodetype:number,
+sermednodeparentid?:number,
+unitparentid?:number,
+shortname:string,
+startdate:number,
+localization:number}
+
+export interface rightType {
+ code:string,
+description:string,
+id:number,
+scopes:[]}
+
+export interface scopeType {
+  areaCode:string,
+areaType:string,
+areaDescription:string,
+description:string,
+id:number}
+
+export interface repartoScopeRightType {
+
+  data:[],
+
+}
+
 const rightsSlice = createSlice({
   name: 'rights',
   initialState: {

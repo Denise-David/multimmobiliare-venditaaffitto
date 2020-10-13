@@ -19,12 +19,12 @@ const labelCodeSlice = createSlice({
   },
 });
 
-export const buttonSendCode = () => ({
+export const buttonSendCode = ():{type:string} => ({
   type: 'BUTTON_SEND_CODE',
 
 });
 
-export const ValueCode = (state : State) => state.labelCode.Code;
+export const ValueCode = (state : State):string => state.labelCode.Code;
 export const {
   getCodeValue, resetCode,
 } = labelCodeSlice.actions;
