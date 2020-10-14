@@ -2,7 +2,7 @@
 import {
   Divider, Grid, IconButton, Typography,
 } from '@material-ui/core';
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { closeAndFilterDialog } from '../../../store/slice/dialogSlice';
@@ -14,22 +14,23 @@ import SnackbarEtichettaInesistente from '../SnackbarEtichettaInesistente/Snackb
 import useStyles from './style';
 import ButtonOpenPDFDataPatient from './ButtonOpenPDFDataPatient/ButtonOpenPDFDataPatient';
 import ButtonOpenPDFFormPatient from './ButtonOpenPDFFormPatient/ButtonOpenPDFFormPatient';
+import { formularioDBType } from '../../../store/slice/addFormSlice';
 
-const FormularioLabelLine = () => {
+const FormularioLabelLine = ():ReactElement => {
   const labelForm = useSelector(formWithLabel);
   const classes = useStyles();
   const dispatch = useDispatch();
   const nomeCercato = useSelector(nameCercato);
   const cognomeCercato = useSelector(familynameCercato);
-  const listForm = labelForm.map((form : any) => {
-    const nome : string = form.paziente.givenname.toLowerCase();
-    const cognome :string = form.paziente.familyname.toLowerCase();
+  const listForm = labelForm.map((form : formularioDBType) => {
+    const nome : string | undefined = form.paziente?.givenname.toLowerCase();
+    const cognome :string | undefined = form.paziente?.familyname.toLowerCase();
     const IDForm = form._id;
 
-    if (nome.includes(nomeCercato.toLowerCase())
-       && cognome.includes(cognomeCercato.toLowerCase())) {
+    if (nome?.includes(nomeCercato.toLowerCase())
+       && cognome?.includes(cognomeCercato.toLowerCase())) {
       return (
-        <>
+        <div key={form._id}>
           <SnackbarEtichettaInesistente />
           <Divider />
 
@@ -45,17 +46,20 @@ const FormularioLabelLine = () => {
                 {' / '}
                 {form.formulario}
                 {' / '}
-                {form.paziente.givenname}
+                {form.paziente?.givenname}
                 {' '}
-                {form.paziente.familyname}
+                {form.paziente?.familyname}
                 <span>
-                  <IconButton color="primary">
+                  <IconButton
+                    color="primary"
+                    onClick={() => {
+                      dispatch(DeleteAnsForm(IDForm));
+                      dispatch(closeAndFilterDialog());
+                      dispatch({ type: 'INIT_INTERFACCIA' });
+                    }}
+                  >
                     <DeleteIcon
-                      onClick={() => {
-                        dispatch(DeleteAnsForm(IDForm));
-                        dispatch(closeAndFilterDialog());
-                        dispatch({ type: 'INIT_INTERFACCIA' });
-                      }}
+
                       style={{ fontSize: 30 }}
                     />
                   </IconButton>
@@ -72,7 +76,7 @@ const FormularioLabelLine = () => {
           </span>
 
           <Divider />
-        </>
+        </div>
       );
     } return (<></>);
   });

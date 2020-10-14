@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { Dialog, Typography } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 import useStyles from './style';
@@ -9,7 +9,7 @@ import ButtonOpenPDFDataPatient from './ButtonOpenPDFDataPatient/ButtonOpenPDFDa
 import ButtonOpenPDFFormPatient from './ButtonOpenPDFFormPatient/ButtonOpenPDFFormPatient';
 import { dialogReturnDeviceOpen } from '../../../store/slice/dialogSlice';
 
-const ReturnDeviceDialog = () => {
+const ReturnDeviceDialog = ():ReactElement => {
   const isOpen = useSelector(dialogReturnDeviceOpen);
   const classes = useStyles();
 

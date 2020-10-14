@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import { FormControl, Select, MenuItem } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
 import { isDDLFormDisabled } from '../../../store/slice/disableEnableSlice';
@@ -9,7 +9,7 @@ import { isBConfirmAddFormClicked } from '../../../store/slice/addFormSlice';
 
 interface Props {IDDomanda : string}
 
-const DropDownListGroup = ({ IDDomanda }: Props) => {
+const DropDownListGroup = ({ IDDomanda }: Props):ReactElement => {
   const dispatch = useDispatch();
   const ddlDisabled = useSelector(isDDLFormDisabled);
   const groupsList = useSelector(groups);
@@ -19,7 +19,7 @@ const DropDownListGroup = ({ IDDomanda }: Props) => {
   const [disabled, setDisabled] = useState(false);
 
   // creo array con il nome dei gruppi
-  const listGroups = groupsList.map((gruppo : any) => (
+  const listGroups = groupsList.map((gruppo : {id:string, name:string}) => (
     // eslint-disable-next-line no-underscore-dangle
     <MenuItem value={gruppo.id} key={gruppo.id}>
       {gruppo.name}

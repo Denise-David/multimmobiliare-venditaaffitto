@@ -19,9 +19,7 @@ import { resetGroups } from '../slice/groupSlice';
 import { resetMenuMoreAns } from '../slice/menuDomandeERisposteSlice';
 import { resetMenuTwoAns } from '../slice/menuDomandeSlice';
 
-// eslint-disable-next-line import/no-cycle
-
-export default function* confirmAddForm() {
+export default function* confirmAddForm():Generator {
   yield put(setConfirmDisabled());
   yield put(setBModifyDelAddReturnEnabled());
   yield put(setBAddFormUnclicked());
@@ -31,7 +29,7 @@ export default function* confirmAddForm() {
   yield put(resetIntestazioneMoreAns());
 }
 
-export function* cancelAddForm() {
+export function* cancelAddForm():Generator {
   const addReparto = yield select(isButtonAddFormClicked);
   yield put(resetMenuMoreAns());
   yield put(resetMenuTwoAns());
@@ -54,7 +52,7 @@ export function* cancelAddForm() {
     yield put(resetIDReparto());
   }
 }
-export function* changeRep() {
+export function* changeRep():Generator {
   yield put(setBAddFormUnclicked());
   yield put(setBModifyDelAddReturnEnabled());
   yield put(resetFormType());

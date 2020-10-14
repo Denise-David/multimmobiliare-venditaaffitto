@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { IconButton } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
@@ -8,7 +8,7 @@ import {
 
 interface Props{ IDDomanda: string}
 
-const ButtonEmptyAnsweLine = ({ IDDomanda }:Props) => {
+const ButtonEmptyAnsweLine = ({ IDDomanda }:Props):ReactElement => {
   const dispatch = useDispatch();
   const stateTextField = useSelector(stateAddedRisposta);
 

@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  dataRisultati, setBModifyClicked, modifyRisultato, setBModifyUnclicked,
+  dataRisultati, setBModifyClicked, modifyRisultato, setBModifyUnclicked, resultType,
 } from '../../../../store/slice/risultatiAddFormSlice';
 import { objectToArray } from '../../../../util';
 import { haveRepModifyRight } from '../../../../store/slice/rightsSlice';
@@ -12,7 +12,7 @@ import { isBCheckDisabled, setBCheckEnabled, setBCheckDisabled } from '../../../
 import ButtonResultLine from './ButtonsResultLine/ButtonResultLine';
 import { enableAll } from '../../../../store/slice/disableEnableSlice';
 
-const ResultLineEditor = () => {
+const ResultLineEditor = ():ReactElement => {
   const dispatch = useDispatch();
 
   const risultatiObject = useSelector(dataRisultati);
@@ -23,7 +23,7 @@ const ResultLineEditor = () => {
   // eslint-disable-next-line no-useless-escape
   const NON_DIGIT = '/[^d]/g';
 
-  const listRisultati = risultatiArray ? risultatiArray.map((oneForm: any) => {
+  const listRisultati = risultatiArray ? risultatiArray.map((oneForm: resultType) => {
     let {
       valoreMax, valoreMin, risultato,
     } = oneForm;
@@ -82,7 +82,7 @@ const ResultLineEditor = () => {
                   dispatch(setBCheckEnabled());
                 }
               } else {
-                valoreMin = '0';
+                valoreMin = 0;
                 dispatch(modifyRisultato({
                   IDRisultato, valoreMin, valoreMax, risultato,
                 }));
@@ -123,7 +123,7 @@ const ResultLineEditor = () => {
                   dispatch(setBCheckEnabled());
                 }
               } else {
-                valoreMax = '0';
+                valoreMax = 0;
                 dispatch(modifyRisultato({
                   IDRisultato, valoreMax, valoreMin, risultato,
                 }));

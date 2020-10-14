@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Fab, IconButton } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -13,7 +13,7 @@ import { isBModifyDelAddReturnDisabled } from '../../../../../store/slice/disabl
 import useStyles from './style';
 import { IDForm } from '../../../../../store/slice/ddlEditorFormAndRepartiSlice';
 
-const PrimaryButtonsControlRep = () => {
+const PrimaryButtonsControlRep = ():ReactElement => {
   const classes = useStyles();
   const rightRepDelete = useSelector(haveRepDeleteRight);
   const rightRepModify = useSelector(haveRepModifyRight);

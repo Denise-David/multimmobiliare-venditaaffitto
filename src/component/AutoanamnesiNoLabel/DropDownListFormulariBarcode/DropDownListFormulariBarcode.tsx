@@ -1,15 +1,16 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { FormControl, MenuItem, Select } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
 import { formulariList, setSelectedForm, formSelected } from '../../../store/slice/homePageLabelSlice';
 import useStyles from './style';
+import { formularioDBType } from '../../../store/slice/addFormSlice';
 
-const DropDownListFormulariBarcode = () => {
+const DropDownListFormulariBarcode = ():ReactElement => {
   const formulari = useSelector(formulariList);
   const dispatch = useDispatch();
   const classes = useStyles();
   const selectedForm = useSelector(formSelected);
-  const listForm = formulari.map((formulario : any) => (
+  const listForm = formulari.map((formulario : formularioDBType) => (
     // eslint-disable-next-line no-underscore-dangle
     <MenuItem value={formulario._id} key={formulario._id}>
       {formulario.formulario}

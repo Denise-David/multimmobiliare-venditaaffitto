@@ -3,14 +3,21 @@ import { State } from '../store/store';
 
 export interface formularioDBType {
 _id:string,
-actualWardGUID:number,
-Reparto:string,
+actualWardGUID?:number,
+Reparto?:string,
 formulario:string,
-intestazione:string,
-gruppi:[],
-Domande:[],
-Risultati:[],
-Risposte:{risposta1:string, risposta2:string}
+intestazione?:string,
+gruppi?:[],
+Domande?:[],
+Risultati?:[],
+Risposte?:{risposta1:string, risposta2:string}
+paziente?:{givenname: string, familyname:string}
+etichetta?:string,
+reparto?:string,
+}
+
+export interface repartoType {
+  nomeReparto:string, idReparto:number
 }
 
 const addFormSlice = createSlice({
@@ -19,7 +26,7 @@ const addFormSlice = createSlice({
   {
     isButtonAddFormClicked: false as boolean,
     formType: '' as string,
-    selectedReparto: {} as {nomeReparto:string, idReparto:number},
+    selectedReparto: {} as repartoType,
     isConfirmDisabled: true as boolean,
     isBConfirmAddFormClicked: false as boolean,
     nomeFormulario: '' as string,
@@ -100,7 +107,7 @@ export const
 export const isConfirmDisabled = (state : State):boolean => state.addForm.isConfirmDisabled;
 export const
   selectedReparto = (state : State):
-   {nomeReparto:string, idReparto:number} => state.addForm.selectedReparto;
+   repartoType => state.addForm.selectedReparto;
 export const formType = (state : State):string => state.addForm.formType;
 export const {
   getFormType, setSelectedReparto, setConfirmEnabled,

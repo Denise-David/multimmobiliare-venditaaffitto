@@ -1,5 +1,5 @@
 import { IconButton } from '@material-ui/core';
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import CreateIcon from '@material-ui/icons/Create';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
@@ -11,7 +11,7 @@ import {
   unsetCancelClicked, unsetCheckboxDoctor, unsetCheckboxFamilyDoctor,
 } from '../../../../store/slice/patientDataSlice';
 
-const ButtonPatientDataForm = () => {
+const ButtonPatientDataForm = ():ReactElement => {
   const obbFieldempty = useSelector(obligatoryFieldEmpty);
   const modifyClicked = useSelector(textFieldDisabled);
   const dispatch = useDispatch();

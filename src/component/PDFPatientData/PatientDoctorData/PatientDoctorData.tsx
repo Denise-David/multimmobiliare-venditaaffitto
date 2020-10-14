@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { useSelector } from 'react-redux';
 import { newPatientData, oldPatientData } from '../../../store/slice/patientFormPDFSlice';
 import { getStringMedico } from '../../../util';
 import useStyles from './style';
 
-const PatientDoctorData = () => {
+const PatientDoctorData = ():ReactElement => {
   const oldDataPatient = useSelector(oldPatientData);
   const newDataPatient = useSelector(newPatientData);
   const classes = useStyles();

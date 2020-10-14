@@ -2,7 +2,7 @@ import {
   Button,
   Dialog, Grid, TextField, Typography,
 } from '@material-ui/core';
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { closeDialogLabel, dialogLabel } from '../../../store/slice/dialogSlice';
 import {
@@ -10,7 +10,7 @@ import {
 } from '../../../store/slice/interfacciaAmmSlice';
 import useStyles from './style';
 
-const DialogLabel = () => {
+const DialogLabel = ():ReactElement => {
   const classes = useStyles();
   const open = useSelector(dialogLabel);
   const dispatch = useDispatch();

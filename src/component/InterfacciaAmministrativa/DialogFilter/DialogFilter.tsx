@@ -4,14 +4,14 @@ import {
   RadioGroup,
   Toolbar,
 } from '@material-ui/core';
-import React from 'react';
+import React, { ReactElement } from 'react';
 import CloseIcon from '@material-ui/icons/Close';
 import { useDispatch, useSelector } from 'react-redux';
 import useStyles from './style';
 import { filtro, setFiltro } from '../../../store/slice/interfacciaAmmSlice';
 import { closeAndFilterDialog, closeDialogFiltro, dialogFiltro } from '../../../store/slice/dialogSlice';
 
-const DialogFilter = () => {
+const DialogFilter = ():ReactElement => {
   const filter = useSelector(filtro);
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -22,8 +22,8 @@ const DialogFilter = () => {
       <AppBar position="static" color="primary">
 
         <Toolbar>
-          <IconButton>
-            <CloseIcon className={classes.color} onClick={() => dispatch(closeDialogFiltro())} />
+          <IconButton onClick={() => dispatch(closeDialogFiltro())}>
+            <CloseIcon className={classes.color} />
           </IconButton>
         </Toolbar>
       </AppBar>

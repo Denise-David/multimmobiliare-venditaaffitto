@@ -5,12 +5,12 @@ import {
 
 import { searchForm } from '../api';
 
-export default function* initHomeNoLabel() {
+export default function* initHomeNoLabel():Generator {
   try {
-    const rep = yield select(repartoCercato);
+    const rep :any = yield select(repartoCercato);
     const form = yield select(formularioCercato);
-    const allFormForm = yield call(searchForm, form, '');
-    const allFormRep = yield call(searchForm, '', rep);
+    const allFormForm:any = yield call(searchForm, form, '');
+    const allFormRep:any = yield call(searchForm, '', rep);
 
     if (rep.length > 2) {
       const allForm = allFormForm.data.concat(allFormRep.data);

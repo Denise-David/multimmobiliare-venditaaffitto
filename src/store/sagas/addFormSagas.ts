@@ -4,6 +4,10 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 import startOfToday from 'date-fns/startOfToday';
 import {
+  buttonCancelAddFormClicked,
+  selectedReparto, nomeFormulario, setBAddFormClicked,
+} from '../slice/addFormSlice';
+import {
   actionAnsType,
   rispostaType,
   risposteOfDomandaObject,
@@ -29,10 +33,7 @@ import {
   setDomandaInObjectDomandeMoreRes, intestazioneMoreAnswers,
 } from '../slice/domandeAddFormSlice';
 import { openCloseSnackbarConfirmDelete, openSnackbarAtLeast2Res } from '../slice/snackbarSlice';
-import {
-  buttonCancelAddFormClicked,
-  selectedReparto, nomeFormulario, setBAddFormClicked,
-} from '../slice/addFormSlice';
+
 import { groups } from '../slice/groupSlice';
 import { user } from '../slice/rightsSlice';
 import { risposteTutteUguali } from '../slice/menuDomandeERisposteSlice';
@@ -44,11 +45,11 @@ import { setBSaveDisabled, setBModifyDelAddReturnDisabled } from '../slice/disab
 
 import { setIsLoaded, setIsLoading } from '../slice/loadingSlice';
 
-export default function* addFormulario() {
+export default function* addFormulario():Generator {
   yield put(setIsLoading());
 
   const domandeAndStatus = yield select(domandeObject);
-  const risposteWithStatus = yield select(risposteOfDomandaObject);
+  const risposteWithStatus:any = yield select(risposteOfDomandaObject);
   const domandeAndStatusArray = objectToArray(domandeAndStatus);
   let atLeast1Res = true;
 
@@ -67,13 +68,13 @@ export default function* addFormulario() {
   if (atLeast) {
     yield put(openSnackbarAtLeast2Res());
   } else {
-    const reparto = yield select(selectedReparto);
+    const reparto:any = yield select(selectedReparto);
     const { idReparto, nomeReparto } = reparto;
     const nomeForm = yield select(nomeFormulario);
     const gruppi = yield select(groups);
-    const ris1 = yield select(response1);
+    const ris1:any = yield select(response1);
     const { risposta1 } = ris1;
-    const ris2 = yield select(Response2);
+    const ris2:any = yield select(Response2);
     const { risposta2 } = ris2;
     const resWithStatus = yield select(dataRisultati);
 
@@ -194,12 +195,12 @@ export function* clickDelOrSaveButton():Generator {
   yield put(setBModifyDelAddReturnDisabled());
 }
 
-export function* addRes(action:actionAnsType) {
+export function* addRes(action:actionAnsType):Generator {
   const ansTutteUguali = yield select(risposteTutteUguali);
   let IDRisposta = uuidv4();
-  const RispostaWithID = yield select(answer);
-  const ValorewithID = yield select(valore);
-  const typeWithID = yield select(typeAnswer);
+  const RispostaWithID:any = yield select(answer);
+  const ValorewithID:any = yield select(valore);
+  const typeWithID:any = yield select(typeAnswer);
   let IDDomanda = action.payload;
   const IDPrimaDom = action.payload;
   const type = typeWithID[IDDomanda];

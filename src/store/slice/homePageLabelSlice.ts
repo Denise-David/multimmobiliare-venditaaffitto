@@ -38,7 +38,7 @@ const homePageSlice = createSlice({
   },
 });
 
-export const initFormulariReparto = () => ({
+export const initFormulariReparto = ():{type:string} => ({
   type: 'INIT_FORMULARI_REPARTO',
 
 });

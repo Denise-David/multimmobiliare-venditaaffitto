@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import { IconButton } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
@@ -14,7 +14,7 @@ import { haveRepModifyRight } from '../../../../store/slice/rightsSlice';
 import { setBCheckDisabled } from '../../../../store/slice/domandeAddFormSlice';
 import TextFieldEmptyResultLine from './TextFieldEmptyResultLine/TextFieldEmptyResultLine';
 
-const EmptyResultLineEditor = () => {
+const EmptyResultLineEditor = ():ReactElement => {
   const dispatch = useDispatch();
   const rightRepModify = useSelector(haveRepModifyRight);
   const confirmAddForm = useSelector(isBConfirmAddFormClicked);

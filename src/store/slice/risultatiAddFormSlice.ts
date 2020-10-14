@@ -4,11 +4,11 @@ import { State } from '../store/store';
 // @interface
 export interface resultType {
   IDRisultato:string,
-risultato?:string,
-testoAnamnesi?:string,
-valoreMin:number,
-valoreMax:number,
-stateModify?:boolean
+  risultato?:string,
+  testoAnamnesi?:string,
+  valoreMin:number,
+  valoreMax:number,
+  stateModify?:boolean
 }
 
 const risultatiAddFormSlice = createSlice({

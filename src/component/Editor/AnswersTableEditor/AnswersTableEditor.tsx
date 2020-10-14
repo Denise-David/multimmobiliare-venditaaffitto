@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import {
   Paper, Typography, Grid, Collapse,
 } from '@material-ui/core';
@@ -13,7 +13,7 @@ import NavRisposteDueRisposte from './NavRisposteDueRisposte/NavRisposteDueRispo
 import Risposta1Line from './Risposta1Line/Risposta1Line';
 import Risposta2Line from './Risposta2Line/Risposta2Line';
 
-const AnswersTableEditor = () => {
+const AnswersTableEditor = ():ReactElement => {
   const classes = useStyles();
   const expanded = useSelector(tableTwoAnsExpanded);
 

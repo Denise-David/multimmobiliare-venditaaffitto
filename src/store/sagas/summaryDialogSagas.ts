@@ -15,18 +15,18 @@ import { objectToArray } from '../../util';
 import { setIDLastForm } from '../slice/patientFormPDFSlice';
 import { ValueCode } from '../slice/labelCodeSlice';
 
-export default function* setDataRisposteFormPaziente() {
+export default function* setDataRisposteFormPaziente():Generator {
   try {
     const ansData = yield select(risposte);
     const patientData = yield select(newPatientInfo);
     const oldPatient = yield select(oldPatientInfo);
     const etichetta = yield select(ValueCode);
-    const resultForm = yield select(listRisultati);
+    const resultForm :any = yield select(listRisultati);
     const formID = yield select(formSelectedID);
     const IDSelectedForm = yield select(formSelected);
     const GUID = yield select(repartoGUID);
     const nomeRep = yield select(reparto);
-    const listForm = yield select(formulariList);
+    const listForm :any = yield select(formulariList);
 
     const form = resultForm.find((ID: formularioDBType) => ID._id === formID);
     const nomeForm = listForm.find((ID:formularioDBType) => ID._id === IDSelectedForm);

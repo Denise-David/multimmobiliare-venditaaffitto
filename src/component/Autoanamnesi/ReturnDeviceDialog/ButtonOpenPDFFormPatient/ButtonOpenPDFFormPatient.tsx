@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import Button from '@material-ui/core/Button';
 
 import { useSelector } from 'react-redux';
@@ -6,7 +6,7 @@ import useStyles from './style';
 import { ValueCode } from '../../../../store/slice/labelCodeSlice';
 import { lastFormID } from '../../../../store/slice/patientFormPDFSlice';
 
-const ButtonOpenPDFFormPatient = () => {
+const ButtonOpenPDFFormPatient = ():ReactElement => {
   const classes = useStyles();
   const lastIDForm = useSelector(lastFormID);
   const etichetta = useSelector(ValueCode);

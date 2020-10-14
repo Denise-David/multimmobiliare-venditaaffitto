@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import Button from '@material-ui/core/Button';
 import { useDispatch } from 'react-redux';
 import useStyles from './style';
 import { buttonSendForm } from '../../../../store/slice/patientFormSlice';
 
-const ButtonSendFormPaziente = () => {
+const ButtonSendFormPaziente = ():ReactElement => {
   const dispatch = useDispatch();
   const classes = useStyles();
 

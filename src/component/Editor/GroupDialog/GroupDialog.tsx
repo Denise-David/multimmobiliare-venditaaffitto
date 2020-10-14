@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   AppBar, Button, Dialog, Grid, TextField, Toolbar, Typography,
@@ -13,7 +13,7 @@ import {
 } from '../../../store/slice/groupSlice';
 import ListaGruppi from './ListaGruppi/ListaGruppi';
 
-const GroupDialog = () => {
+const GroupDialog = ():ReactElement => {
   const statusDialog = useSelector(dialogGroupOpen);
   const dispatch = useDispatch();
   const classes = useStyles();

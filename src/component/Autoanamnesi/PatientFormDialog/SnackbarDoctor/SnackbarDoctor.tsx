@@ -1,6 +1,6 @@
 import { Button, Snackbar, Typography } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { openDialogSearch } from '../../../../store/slice/dialogSlice';
 import { setCheckboxDoctor, setNoDoctor } from '../../../../store/slice/patientDataSlice';
@@ -9,7 +9,7 @@ import {
   closeSnackbarDoctor, closeSnackbarFamilyDoctor, snackbarDoctor,
 } from '../../../../store/slice/snackbarSlice';
 
-const SnackbarDoctor = () => {
+const SnackbarDoctor = ():ReactElement => {
   const snackbarOpen = useSelector(snackbarDoctor);
   const dispatch = useDispatch();
 

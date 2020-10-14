@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import Button from '@material-ui/core/Button';
 
 import { useSelector } from 'react-redux';
 import useStyles from './style';
 import { lastFormID } from '../../../../store/slice/patientFormPDFSlice';
 
-const ButtonOpenPDFDataPatient = () => {
+const ButtonOpenPDFDataPatient = ():ReactElement => {
   const classes = useStyles();
   const lastIDForm = useSelector(lastFormID);
 

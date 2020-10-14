@@ -1,10 +1,10 @@
 import { Snackbar, Typography } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { closeSnackbarEtichettaInesistente, snackbarEtichettaInesistente } from '../../../store/slice/snackbarSlice';
 
-const SnackbarEtichettaInesistente = () => {
+const SnackbarEtichettaInesistente = ():ReactElement => {
   const statusSnackbar = useSelector(snackbarEtichettaInesistente);
   const dispatch = useDispatch();
   return (

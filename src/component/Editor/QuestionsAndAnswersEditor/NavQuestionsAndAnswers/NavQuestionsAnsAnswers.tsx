@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import {
   AppBar, Typography, IconButton, Menu, MenuItem, Checkbox, Grid,
 } from '@material-ui/core';
@@ -20,7 +20,7 @@ import { intestazioneAttiva, setIntestazioneAttiva } from '../../../../store/sli
 import { haveRepModifyRight } from '../../../../store/slice/rightsSlice';
 import { isBConfirmAddFormClicked } from '../../../../store/slice/addFormSlice';
 
-const NavQuestionsAndAnswers = () => {
+const NavQuestionsAndAnswers = ():ReactElement => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const dispatch = useDispatch();

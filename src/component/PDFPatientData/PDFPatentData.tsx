@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 import { Typography } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
 import queryString from 'query-string';
@@ -7,7 +7,7 @@ import useStyles from './style';
 import PatientNoDoctorData from './PatientNoDoctorData/PatientNoDoctorData';
 import PatientDoctorData from './PatientDoctorData/PatientDoctorData';
 
-const PDFPatientData = () => {
+const PDFPatientData = ():ReactElement => {
   const dispatch = useDispatch();
   const classes = useStyles();
   // eslint-disable-next-line no-restricted-globals

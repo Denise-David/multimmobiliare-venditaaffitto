@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { Grid, Typography, Divider } from '@material-ui/core';
 import useStyles from './style';
 
-const HeaderRisposteMoreAnswers = () => {
+const HeaderRisposteMoreAnswers = ():ReactElement => {
   const classes = useStyles();
 
   return (

@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import Button from '@material-ui/core/Button';
 import useStyles from './style';
 
 interface Props {IDForm : string}
 
-const ButtonOpenPDFDataPatient = ({ IDForm } :Props) => {
+const ButtonOpenPDFDataPatient = ({ IDForm } :Props):ReactElement => {
   const classes = useStyles();
 
   const buttonFineDispatch = () => {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import Button from '@material-ui/core/Button';
 
 import { useDispatch } from 'react-redux';
@@ -13,7 +13,7 @@ import {
 } from '../../../../store/slice/homePageLabelSlice';
 import { closeReturnDeviceDialog } from '../../../../store/slice/dialogSlice';
 
-const ButtonReturnDevice = () => {
+const ButtonReturnDevice = ():ReactElement => {
   const classes = useStyles();
   const dispatch = useDispatch();
 

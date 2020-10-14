@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import Dialog from '@material-ui/core/Dialog';
 import AppBar from '@material-ui/core/AppBar';
 import { useSelector, useDispatch } from 'react-redux';
@@ -45,7 +45,7 @@ import SnackbarDoctor from './SnackbarDoctor/SnackbarDoctor';
 import SnackbarDatiPersonali from './SnackbarDatiPersonali/SnackbarDatiPersonali';
 import ButtonPatientDataForm from './ButtonPatientDataForm/ButtonPatientDataForm';
 
-const PatientFormDialog = () => {
+const PatientFormDialog = ():ReactElement => {
   const open = useSelector(dialogFormPatientOpen);
   const classes = useStyles();
   const dispatch = useDispatch();

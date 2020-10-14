@@ -5,17 +5,17 @@ import {
 
 import { getRisposteFormPazientiByID, getEtichettaDataByLabel, fetchRepartoFormByGUID } from '../api';
 
-export default function* initPDFPatientAnswers() {
+export default function* initPDFPatientAnswers():Generator {
   try {
     const IDForm = yield select(IDFormRisposte);
     const etichettaNum = yield select(numEtichetta);
-    const dataEtichetta = yield call(getEtichettaDataByLabel, etichettaNum);
+    const dataEtichetta:any = yield call(getEtichettaDataByLabel, etichettaNum);
 
     const { data = {} } = dataEtichetta;
     const { hcase = {} } = data;
     const { actualWardGUID = '', actualMedicalCategoryGUID = '' } = hcase;
 
-    const dataReparto = yield call(
+    const dataReparto:any = yield call(
       fetchRepartoFormByGUID, actualMedicalCategoryGUID || actualWardGUID,
     );
 
@@ -34,7 +34,7 @@ export default function* initPDFPatientAnswers() {
 
     yield put(getRepartoInfo(infoReparto));
 
-    const dataFormPaziente = yield call(getRisposteFormPazientiByID, IDForm);
+    const dataFormPaziente:any = yield call(getRisposteFormPazientiByID, IDForm);
     const { paziente = {}, risposte = {} } = dataFormPaziente;
     const { givenname = '', familyname = '' } = paziente;
 

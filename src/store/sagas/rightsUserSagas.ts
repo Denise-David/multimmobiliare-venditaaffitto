@@ -17,10 +17,10 @@ import {
 import { getUserRights, getRepartiZAM, getRepartiZAS } from '../api';
 import { extractAndMergeArray } from '../../util';
 
-export default function* initUserRightsAUTAN() {
+export default function* initUserRightsAUTAN():Generator {
   try {
     const username = yield select(user);
-    const userRights = yield call(getUserRights, username);
+    const userRights:any = yield call(getUserRights, username);
     const { data } = userRights;
     // estraggo gli scopes
     yield put(setRightsUserAUTAN(data));
@@ -36,7 +36,7 @@ export default function* initUserRightsAUTAN() {
       // filtro gli scope del Create
       const scopesCreate = rightCreate.scopes;
       // li mappo controllando se sono ZAM o ZAS
-      const allDataRepartiCreate = yield all(scopesCreate.map((scope :scopeType) => {
+      const allDataRepartiCreate:any = yield all(scopesCreate.map((scope :scopeType) => {
         if (scope.areaType === 'UP-ZAM') {
           const repartiZAM = call(getRepartiZAM, scope.areaCode);
           return repartiZAM;
@@ -64,7 +64,7 @@ export default function* initUserRightsAUTAN() {
 
       const scopesDelete = rightDelete.scopes;
       // li mappo controllando se sono ZAM o ZAS
-      const allDataRepartiDelete = yield all(scopesDelete.map((scope :scopeType) => {
+      const allDataRepartiDelete:any = yield all(scopesDelete.map((scope :scopeType) => {
         if (scope.areaType === 'UP-ZAM') {
           const repartiZAM = call(getRepartiZAM, scope.areaCode);
           return repartiZAM;
@@ -92,7 +92,7 @@ export default function* initUserRightsAUTAN() {
       // filtro gli scope del modify
       const scopesModify = rightModify.scopes;
       // li mappo controllando se sono ZAM o ZAS
-      const allDataRepartiModify = yield all(scopesModify.map((scope :scopeType) => {
+      const allDataRepartiModify:any = yield all(scopesModify.map((scope :scopeType) => {
         if (scope.areaType === 'UP-ZAM') {
           const repartiZAM = call(getRepartiZAM, scope.areaCode);
           return repartiZAM;
@@ -116,7 +116,7 @@ export default function* initUserRightsAUTAN() {
     // controllo tramite i diritti i reparti da visualizzare
 
     const listRepartiModify = yield select(repartiModify);
-    const listRepartiDelete = yield select(repartiDelete);
+    const listRepartiDelete:any = yield select(repartiDelete);
     const listRepartiCreate = yield select(repartiCreate);
     // unisco i reparti del delete e create dell'array
     const arrayAllReparti = listRepartiDelete.concat(listRepartiCreate, listRepartiModify);

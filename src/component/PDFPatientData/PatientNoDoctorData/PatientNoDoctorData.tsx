@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { useSelector } from 'react-redux';
 import { Typography } from '@material-ui/core';
 import { oldPatientData, newPatientData } from '../../../store/slice/patientFormPDFSlice';
 import useStyles from './style';
 
-const PatientNoDoctorData = () => {
+const PatientNoDoctorData = ():ReactElement => {
   const oldDataPatient = useSelector(oldPatientData);
   const newDataPatient = useSelector(newPatientData);
   const classes = useStyles();

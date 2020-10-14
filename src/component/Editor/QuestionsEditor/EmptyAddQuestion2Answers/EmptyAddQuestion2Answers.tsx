@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import { IconButton } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
@@ -9,7 +9,7 @@ import {
   addDomandaInArray, resetDomanda, questionTwoAns, setDomandaTwoAns,
 } from '../../../../store/slice/domandeAddFormSlice';
 
-const EmptyAddQuestion2Answers = () => {
+const EmptyAddQuestion2Answers = ():ReactElement => {
   const dispatch = useDispatch();
   const valoreTextField = useSelector(questionTwoAns);
   const classes = useStyles();

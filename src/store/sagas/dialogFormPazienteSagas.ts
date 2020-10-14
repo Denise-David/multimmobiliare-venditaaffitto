@@ -24,13 +24,13 @@ import {
   openSnackbarPatientAnswers,
 } from '../slice/snackbarSlice';
 
-export default function* getDataEtichetta() {
+export default function* getDataEtichetta():Generator {
   try {
     yield put(setIsLoading());
     // prendo tutti i dati dell'etichetta selezionata
-    const label : string = yield select(ValueCode);
+    const label : any = yield select(ValueCode);
 
-    const dataEtichetta = yield call(getEtichettaDataByLabel, label);
+    const dataEtichetta:any = yield call(getEtichettaDataByLabel, label);
     const { data = {} } = dataEtichetta;
     const { patient = {}, hcase = {} } = data;
     const { familyname = '', givenname = '', address = {} } = patient;
@@ -59,10 +59,10 @@ export default function* getDataEtichetta() {
     yield put(getNewPatientInfo(patientInfo));
 
     // controllo se ha uno o più formulari
-    const form = yield select(formulariList);
+    const form :any = yield select(formulariList);
     if (form.length > 1) {
       const IDForm = yield select(formSelected);
-      const dataForm = yield call(fetchFormStructureByID, IDForm);
+      const dataForm :any = yield call(fetchFormStructureByID, IDForm);
 
       // prendo le domande
       const datiDomande = dataForm.Domande;
@@ -80,7 +80,7 @@ export default function* getDataEtichetta() {
       yield put(setGruppi(dataForm.gruppi));
     } else {
       // prendo il o i formulari del reparto GUID
-      const allDataReparto = yield call(
+      const allDataReparto :any = yield call(
         fetchRepartoFormByGUID, hcase.actualMedicalCategoryGUID || hcase.actualWardGUID,
       );
       const datiDomande = allDataReparto.data[0].Domande;
@@ -101,12 +101,12 @@ export default function* getDataEtichetta() {
   }
 }
 
-export function* sendDataPazienti() {
+export function* sendDataPazienti():Generator {
   try {
     const obbFieldEmpty = yield select(obligatoryFieldEmpty);
-    const answersData = yield select(risposte);
+    const answersData:any = yield select(risposte);
     const checkOrCancelClicked = yield select(textFieldDisabled);
-    const noFacol = yield select(noFacoltative);
+    const noFacol :any = yield select(noFacoltative);
 
     let risAll = true;
     const response = noFacol.map((idDomanda: string) => {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { useSelector } from 'react-redux';
 import { Dialog, Typography } from '@material-ui/core';
 import { format } from 'date-fns';
@@ -9,11 +9,13 @@ import ButtonSendCancelSummary from './ButtonSendCancelSummary/ButtonSendCancelS
 import { objectToArray } from '../../../util';
 import { oldPatientInfo, newPatientInfo } from '../../../store/slice/patientDataSlice';
 import { dialogSummaryOpen } from '../../../store/slice/dialogSlice';
-import { boolAnswers, risposte } from '../../../store/slice/patientFormSlice';
+import {
+  boolAnswers, dataType, rispostaPazienteType, risposte,
+} from '../../../store/slice/patientFormSlice';
 import PatientNoDoctorDataSummary from './PatientNoDoctorDataSummary/PatientNoDoctorDataSummary';
 import PatientDoctorDataSummary from './PatientDoctorDataSummary/PatientDoctorDataSummary';
 
-const SummaryDialog = () => {
+const SummaryDialog = ():ReactElement => {
   const statusDialog = useSelector(dialogSummaryOpen);
   const dataPatient = useSelector(newPatientInfo);
   const oldDataPatient = useSelector(oldPatientInfo);
@@ -26,14 +28,14 @@ const SummaryDialog = () => {
     return risposta;
   }) : [];
 
-  const listRisposte = answersArray ? answersArray.map((risposta :any) => {
+  const listRisposte = answersArray ? answersArray.map((risposta :rispostaPazienteType) => {
     const objDate = risposta.date ? risposta.date : [];
     const arrayDate = objectToArray(objDate);
     const indexPuntoDomanda = risposta.domanda ? risposta.domanda.indexOf('?') : -1;
     const noPuntoDiDomanda = indexPuntoDomanda !== -1
       ? risposta.domanda.substring(0, indexPuntoDomanda)
       : risposta.domanda;
-    const listDate = arrayDate ? arrayDate.map((data:any) => (
+    const listDate = arrayDate ? arrayDate.map((data:dataType) => (
 
       <div key={data.idRisposta}>
         <Typography variant="body1">

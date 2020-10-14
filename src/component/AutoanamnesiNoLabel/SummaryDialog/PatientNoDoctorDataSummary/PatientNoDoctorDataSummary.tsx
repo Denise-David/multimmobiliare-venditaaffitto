@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { useSelector } from 'react-redux';
 import format from 'date-fns/format';
 import { birthdayDate, newPatientInfo } from '../../../../store/slice/patientDataSlice';
 
-const PatientNoDoctorDataSummary = () => {
+const PatientNoDoctorDataSummary = ():ReactElement => {
   const dataPatient = useSelector(newPatientInfo);
   const birthday = useSelector(birthdayDate);
   return (

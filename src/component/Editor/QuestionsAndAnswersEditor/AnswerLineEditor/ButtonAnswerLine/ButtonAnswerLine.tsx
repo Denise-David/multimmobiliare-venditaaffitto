@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { IconButton } from '@material-ui/core';
 import CreateIcon from '@material-ui/icons/Create';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -7,12 +7,14 @@ import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import {
   disableAll, isBModifyDelAddReturnDisabled, enableAll,
 } from '../../../../../store/slice/disableEnableSlice';
-import { setModifyRispostaClicked, deleteRisposta, setModifyRispostaUnclicked } from '../../../../../store/slice/risposteAddFormSlice';
+import {
+  setModifyRispostaClicked, deleteRisposta, setModifyRispostaUnclicked, rispostaType,
+} from '../../../../../store/slice/risposteAddFormSlice';
 import { isBCheckDisabled, setBCheckEnabled } from '../../../../../store/slice/domandeAddFormSlice';
 
-interface Props{rispostaArray : any, id: string, IDRisposta: string}
+interface Props{rispostaArray : rispostaType, id: string, IDRisposta: string}
 
-const ButtonAnswerLine = ({ rispostaArray, id, IDRisposta } : Props) => {
+const ButtonAnswerLine = ({ rispostaArray, id, IDRisposta } : Props):ReactElement => {
   const dispatch = useDispatch();
   const iconsDisabled = useSelector(isBModifyDelAddReturnDisabled);
   const bCheckDisabled = useSelector(isBCheckDisabled);

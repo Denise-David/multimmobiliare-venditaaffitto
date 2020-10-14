@@ -18,12 +18,12 @@ import { objectToArray } from '../../util';
 import { buttonCancelAddFormClicked, nomeFormulario } from '../slice/addFormSlice';
 import { openSnackbarAtLeast2Res } from '../slice/snackbarSlice';
 
-export default function* saveModify() {
+export default function* saveModify():Generator {
   try {
     const objDomande = yield select(domandeObject);
     const objRisultati = yield select(dataRisultati);
     const listDomande = objectToArray(objDomande);
-    const objRisposte = yield select(risposteOfDomandaObject);
+    const objRisposte:any = yield select(risposteOfDomandaObject);
     let atLeast1Res = true;
     const response = listDomande.map((domanda : domandaType) => {
       if ((objRisposte[domanda.IDDomanda] === undefined
@@ -42,7 +42,7 @@ export default function* saveModify() {
     } else {
       const IDFormulario = yield select(IDForm);
       const GUID = yield select(IDRepartoSelected);
-      const listRep = yield select(allReparti);
+      const listRep :any = yield select(allReparti);
       const intestazioneMoreAns = yield select(intestazioneMoreAnswers);
 
       // trovo il nome del reparto in base al formuario selezionato
@@ -87,8 +87,8 @@ export default function* saveModify() {
         return 0;
       });
       const listRisultati = objectToArray(objRisultati);
-      const ans1 = yield select(ris1);
-      const ans2 = yield select(ris2);
+      const ans1:any = yield select(ris1);
+      const ans2 :any = yield select(ris2);
       const { risposta1 } = ans1;
       const { risposta2 } = ans2;
       const utente = yield select(user);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { Dialog, Typography } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 import QRCode from 'qrcode.react';
@@ -8,7 +8,7 @@ import ButtonReturnDevice from './ButtonReturnDevice/ButtonReturnDevice';
 import { dialogReturnDeviceOpen } from '../../../store/slice/dialogSlice';
 import { lastFormID } from '../../../store/slice/patientFormPDFSlice';
 
-const ReturnDeviceDialog = () => {
+const ReturnDeviceDialog = ():ReactElement => {
   const isOpen = useSelector(dialogReturnDeviceOpen);
   const classes = useStyles();
   const IDFormRes = useSelector(lastFormID);

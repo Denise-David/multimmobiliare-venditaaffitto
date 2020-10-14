@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import {
   Grid, Typography, IconButton, TextField,
 } from '@material-ui/core';
@@ -12,7 +12,7 @@ import {
 } from '../../../../store/slice/risposteAddFormSlice';
 import { haveRepModifyRight } from '../../../../store/slice/rightsSlice';
 
-const Risposta1Line = () => {
+const Risposta1Line = ():ReactElement => {
   const rightRepModify = useSelector(haveRepModifyRight);
   const addFormConfirm = useSelector(isBConfirmAddFormClicked);
   const iconsDisabled = useSelector(isBModifyDelAddReturnDisabled);

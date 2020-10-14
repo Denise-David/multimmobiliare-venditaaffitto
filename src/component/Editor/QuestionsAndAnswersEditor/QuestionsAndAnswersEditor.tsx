@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import TextField from '@material-ui/core/TextField';
 import {
   Collapse, Card,
@@ -12,7 +12,8 @@ import HeaderDomandaMoreAnswers from './HeaderDomandaMoreAnswers/HeaderDomandaMo
 import useStyles from './style';
 import {
   domandeObject, modifyDomandaInObjectDomande, setBCheckDisabled,
-  setBCheckEnabled, isBCheckDisabled, expandedTableMoreAnswers, setBModifyDomandaUnclicked,
+  setBCheckEnabled, isBCheckDisabled, expandedTableMoreAnswers,
+  setBModifyDomandaUnclicked, domandaType,
 } from '../../../store/slice/domandeAddFormSlice';
 import { objectToArray } from '../../../util';
 import { isBConfirmAddFormClicked } from '../../../store/slice/addFormSlice';
@@ -27,7 +28,7 @@ import DropDownListGroup from '../DropDownListGroup/DropDownListGroup';
 import HeaderAnsMoreAns from './HeaderAnsMoreAns/HeaderAnsMoreAns';
 import { enableAll } from '../../../store/slice/disableEnableSlice';
 
-const QuestionsAndAnswersEditor = () => {
+const QuestionsAndAnswersEditor = ():ReactElement => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const domandeAddedObject = useSelector(domandeObject);
@@ -40,12 +41,12 @@ const QuestionsAndAnswersEditor = () => {
   const intestazione = useSelector(intestazioneMoreAnsAttiva);
   const group = useSelector(raggruppaAttivo);
 
-  const listDomandeAdded = arrayDomandeAdded.map((domanda : any, index) => {
+  const listDomandeAdded = arrayDomandeAdded.map((domanda : domandaType, index) => {
     const { IDDomanda } = domanda;
 
     return (
 
-      <div key={domanda.ID}>
+      <div key={domanda.IDDomanda}>
         {domanda.Tipo === 'a più risposte'
           ? (
             <>

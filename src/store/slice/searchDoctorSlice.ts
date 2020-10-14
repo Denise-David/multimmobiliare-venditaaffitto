@@ -30,7 +30,7 @@ const searchDoctorSlice = createSlice({
     },
   },
 });
-export const buttonSearchClicked = () => ({
+export const buttonSearchClicked = ():{type:string} => ({
   type: 'BUTTON_SEARCH_CLICKED',
 
 });

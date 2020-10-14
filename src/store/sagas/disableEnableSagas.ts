@@ -7,7 +7,7 @@ import {
   setBSaveEnabled, setDDLFormEnabled,
 } from '../slice/disableEnableSlice';
 
-export default function* allDisabled() {
+export default function* allDisabled():Generator {
   try {
     yield put(setBModifyDelAddReturnDisabled());
     yield put(setBSaveDisabled());
@@ -17,7 +17,7 @@ export default function* allDisabled() {
   }
 }
 
-export function* allEnabled() {
+export function* allEnabled():Generator {
   try {
     const confirmAddFormClicked = yield select(isBConfirmAddFormClicked);
     const nomeForm = yield select(nomeFormulario);

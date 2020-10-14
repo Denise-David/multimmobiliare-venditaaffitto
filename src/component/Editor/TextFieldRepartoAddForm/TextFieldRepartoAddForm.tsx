@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import {
   Grid, Typography, TextField,
 } from '@material-ui/core';
@@ -8,7 +8,7 @@ import {
 } from '../../../store/slice/addFormSlice';
 import useStyles from './style';
 
-const TextFieldRepartoAddForm = () => {
+const TextFieldRepartoAddForm = ():ReactElement => {
   const classes = useStyles();
   const repartoSelezionato = useSelector(selectedReparto);
   return (

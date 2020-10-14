@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import { FormControlLabel, Checkbox } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
-import { setRispostaTipoData } from '../../../../../store/slice/risposteAddFormSlice';
+import { rispostaType, setRispostaTipoData } from '../../../../../store/slice/risposteAddFormSlice';
 import { haveRepModifyRight } from '../../../../../store/slice/rightsSlice';
 import { isBConfirmAddFormClicked } from '../../../../../store/slice/addFormSlice';
 
-interface Props{rispostaArray : any, id: string, IDRisposta: string}
+interface Props{rispostaArray : rispostaType, id: string, IDRisposta: string}
 
-const CheckboxDataAnswerLine = ({ rispostaArray, id, IDRisposta } : Props) => {
+const CheckboxDataAnswerLine = ({ rispostaArray, id, IDRisposta } : Props):ReactElement => {
   const dispatch = useDispatch();
   const rightMod = useSelector(haveRepModifyRight);
   const confirmClicked = useSelector(isBConfirmAddFormClicked);

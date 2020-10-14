@@ -5,11 +5,11 @@ import {
 
 import { getRisposteFormPazientiByID } from '../api';
 
-export default function* initPDFPatientData() {
+export default function* initPDFPatientData():Generator {
   try {
     const IDForm = yield select(IDFormRisposte);
 
-    const dataFormPaziente = yield call(getRisposteFormPazientiByID, IDForm);
+    const dataFormPaziente:any = yield call(getRisposteFormPazientiByID, IDForm);
     const { paziente = {}, oldPaziente = {} } = dataFormPaziente;
 
     yield put(getNewPatientData(paziente));

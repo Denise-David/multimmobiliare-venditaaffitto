@@ -1,19 +1,20 @@
-import React from 'react';
+/* eslint-disable no-underscore-dangle */
+import React, { ReactElement } from 'react';
 import { FormControl, Select, MenuItem } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
 import { formulariByReparto } from '../../../../store/slice/rightsSlice';
 import { setFormularioSelected, IDForm } from '../../../../store/slice/ddlEditorFormAndRepartiSlice';
 import { isDDLFormDisabled } from '../../../../store/slice/disableEnableSlice';
+import { formularioDBType } from '../../../../store/slice/addFormSlice';
 
-const DropDownListFormulari = () => {
+const DropDownListFormulari = ():ReactElement => {
   const formulari = useSelector(formulariByReparto);
   const dispatch = useDispatch();
   const IDFormulario = useSelector(IDForm);
   const ddlDisabled = useSelector(isDDLFormDisabled);
 
   // array nome formulari
-  const listForm = formulari.map((formulario : any) => (
-    // eslint-disable-next-line no-underscore-dangle
+  const listForm = formulari.map((formulario : formularioDBType) => (
     <MenuItem value={formulario._id} key={formulario._id}>
       {formulario.formulario}
     </MenuItem>

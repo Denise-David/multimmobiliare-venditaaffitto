@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { IconButton } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
@@ -12,7 +12,7 @@ import {
 import { isBSaveDisabled, isBModifyDelAddReturnDisabled, setBSaveDisabled } from '../../../../store/slice/disableEnableSlice';
 import PrimaryButtonsControlRep from './PrimaryButtonsControlRep/PrimaryButtonsControlRep';
 
-const PrimaryButtons = () => {
+const PrimaryButtons = ():ReactElement => {
   const addReparto = useSelector(isButtonAddFormClicked);
   const dispatch = useDispatch();
   const confirmDisabled = useSelector(isConfirmDisabled);

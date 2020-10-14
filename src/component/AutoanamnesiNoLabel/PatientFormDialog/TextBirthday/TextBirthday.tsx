@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable no-param-reassign */
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { ReactElement } from 'react';
 import TextField from '@material-ui/core/TextField';
 import { useSelector, useDispatch } from 'react-redux';
 import { MobileDatePicker } from '@material-ui/pickers';
@@ -12,7 +12,7 @@ import {
   cancelClicked, setObligatoryFieldEmpty, unsetObligatoryFieldEmpty, birthdayDate, setBirthdayDate,
 } from '../../../../store/slice/patientDataSlice';
 
-const TextBirthday = () => {
+const TextBirthday = ():ReactElement => {
   const disabled = useSelector(textFieldDisabled);
   const dispatch = useDispatch();
   const cancClicked = useSelector(cancelClicked);
@@ -32,7 +32,8 @@ const TextBirthday = () => {
       disableFuture
       disabled={disabled}
       mask="__/__/____"
-      onError={(reason:any, value: any) => { console.error(value); }}
+      onError={(reason:
+        'shouldDisableDate' | 'invalidDate' | 'disableFuture' | 'maxDate' | 'disablePast' | 'minDate' | null, value: unknown) => { console.error(value); }}
       label="*Data di nascita"
       value={birthday ? parseISO(birthday) : null}
 

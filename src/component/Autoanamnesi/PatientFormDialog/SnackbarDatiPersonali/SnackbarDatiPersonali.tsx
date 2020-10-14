@@ -1,13 +1,13 @@
 import { Snackbar, Typography } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import {
   closeSnackbarDatiPersonali, snackbarDatiPersonali,
 } from '../../../../store/slice/snackbarSlice';
 
-const SnackbarDatiPersonali = () => {
+const SnackbarDatiPersonali = ():ReactElement => {
   const snackbarOpen = useSelector(snackbarDatiPersonali);
   const dispatch = useDispatch();
 

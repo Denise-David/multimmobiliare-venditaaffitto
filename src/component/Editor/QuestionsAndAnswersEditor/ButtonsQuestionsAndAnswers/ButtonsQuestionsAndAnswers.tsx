@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { IconButton, Grid } from '@material-ui/core';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -8,16 +8,17 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import {
   openCloseDomandaCard, setBModifyDomandaClicked,
-  deleteDomandaFormPiuRes, setBModifyDomandaUnclicked, isBCheckDisabled, setBCheckEnabled,
+  deleteDomandaFormPiuRes, setBModifyDomandaUnclicked,
+  isBCheckDisabled, setBCheckEnabled, domandaType,
 } from '../../../../store/slice/domandeAddFormSlice';
 import { isBModifyDelAddReturnDisabled, disableAll, enableAll } from '../../../../store/slice/disableEnableSlice';
 import { risposteTutteUguali } from '../../../../store/slice/menuDomandeERisposteSlice';
 import { haveRepModifyRight } from '../../../../store/slice/rightsSlice';
 import { isBConfirmAddFormClicked } from '../../../../store/slice/addFormSlice';
 
-interface Props{domanda : any}
+interface Props{domanda : domandaType}
 
-const ButtonsQuestionsAndAnswers = ({ domanda } : Props) => {
+const ButtonsQuestionsAndAnswers = ({ domanda } : Props):ReactElement => {
   const dispatch = useDispatch();
   const iconsDisabled = useSelector(isBModifyDelAddReturnDisabled);
   const bCheckDisabled = useSelector(isBCheckDisabled);

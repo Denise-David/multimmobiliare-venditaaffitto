@@ -1,4 +1,5 @@
 export interface Medico {
+  id?:string,
   givenname?: string;
   familyname?: string;
   firstname?: string;
@@ -15,7 +16,7 @@ export function getStringMedico(medico: Medico): string {
   } return '';
 }
 
-export function extractAndMergeArray(array : any[]) {
+export function extractAndMergeArray(array : any[]):Generator {
   let arrayRepartiUniti : any = [];
   array.map((ArrayRepartiSeparati : any) => {
     ArrayRepartiSeparati.map((reparto : any) => {
@@ -27,7 +28,7 @@ export function extractAndMergeArray(array : any[]) {
   return arrayRepartiUniti;
 }
 
-export function objectToArray(object : any) {
+export function objectToArray(object : any):any[] {
   if (object.length !== 0) {
     const array = Object.keys(object).map((key) => {
       const risposta = object[key];

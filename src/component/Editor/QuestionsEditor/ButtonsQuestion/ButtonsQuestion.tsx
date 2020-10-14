@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import {
   IconButton, FormControlLabel, Checkbox,
 } from '@material-ui/core';
@@ -12,12 +12,12 @@ import { isBConfirmAddFormClicked } from '../../../../store/slice/addFormSlice';
 import {
   deleteDomandaInObjectDomande, setBModifyDomandaClicked,
   setBModifyDomandaUnclicked, isBCheckDisabled,
-  setDomandaFacoltativa, setDomandaLibera, setBCheckEnabled,
+  setDomandaFacoltativa, setDomandaLibera, setBCheckEnabled, domandaType,
 } from '../../../../store/slice/domandeAddFormSlice';
 
-interface Props{ domandaAddForm: any}
+interface Props{ domandaAddForm: domandaType}
 
-const ButtonsQuestion = ({ domandaAddForm }: Props) => {
+const ButtonsQuestion = ({ domandaAddForm }: Props):ReactElement => {
   const rightRepModify = useSelector(haveRepModifyRight);
   const confirmAddReparto = useSelector(isBConfirmAddFormClicked);
   const iconsDisabled = useSelector(isBModifyDelAddReturnDisabled);

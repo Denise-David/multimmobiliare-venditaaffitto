@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import Grid from '@material-ui/core/Grid';
 import { useSelector } from 'react-redux';
 import {
+  rispostaType,
   risposteOfDomandaObject,
 } from '../../../../store/slice/risposteAddFormSlice';
 import { objectToArray } from '../../../../util';
@@ -14,7 +15,7 @@ import CheckboxDataAnswerLine from './CheckboxDataAnswerLine/CheckboxDataAnswerL
 // eslint-disable-next-line max-len
 interface Props {id : string}
 
-const AnswerLineEditor = ({ id }: Props) => {
+const AnswerLineEditor = ({ id }: Props):ReactElement => {
   const risposteOFDomandeObj = useSelector(risposteOfDomandaObject);
   const IDDomanda = id;
   const rightRepModify = useSelector(haveRepModifyRight);
@@ -22,7 +23,7 @@ const AnswerLineEditor = ({ id }: Props) => {
   const risposteArray = objectToArray(risposteOfDomanda);
   const confirmAddForm = useSelector(isBConfirmAddFormClicked);
 
-  const listItems = risposteArray ? risposteArray.map((rispostaArray : any, index) => (
+  const listItems = risposteArray ? risposteArray.map((rispostaArray : rispostaType) => (
     <Grid
       key={rispostaArray.IDRisposta}
       container

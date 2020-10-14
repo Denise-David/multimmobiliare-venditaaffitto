@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import {
   Paper, AppBar, Typography, Grid, Divider, IconButton, Collapse,
 } from '@material-ui/core';
@@ -8,7 +8,7 @@ import ResultLineEditor from './ResultLineEditor/ResultLineEditor';
 import useStyles from './style';
 import EmptyResultLineEditor from './EmptyResultLineEditor/EmptyResultLineEditor';
 
-const ResultTableEditor = () => {
+const ResultTableEditor = ():ReactElement => {
   const classes = useStyles();
 
   const [expanded, setExpanded] = useState(true);

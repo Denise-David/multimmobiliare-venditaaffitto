@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import QRCode from 'qrcode.react';
 
-const EtichettaQrCode = () => (
+const EtichettaQrCode = ():ReactElement => (
 
   <QRCode value="4153656" />
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import {
   AppBar, Typography, IconButton, Grid,
 } from '@material-ui/core';
@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import useStyles from './style';
 import { setExpanded, tableTwoAnsExpanded } from '../../../../store/slice/risposteAddFormSlice';
 
-const NavRisposteDueRisposte = () => {
+const NavRisposteDueRisposte = ():ReactElement => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const expanded = useSelector(tableTwoAnsExpanded);

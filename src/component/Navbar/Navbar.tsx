@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import { IconButton, Toolbar, Typography } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { useDispatch, useSelector } from 'react-redux';
 import { closeDialogFormPatient, dialogFormPatientOpen } from '../../store/slice/dialogSlice';
 
-const Navbar = () => {
+const Navbar = ():ReactElement => {
   const formPatientOpen = useSelector(dialogFormPatientOpen);
   const dispatch = useDispatch();
   return (

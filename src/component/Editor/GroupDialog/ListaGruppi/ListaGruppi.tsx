@@ -1,19 +1,19 @@
 import { DialogContent, MenuItem, Typography } from '@material-ui/core';
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useStyles from './style';
 import {
   groups, groupSelectedIndex, isListGroupsDisabled, setGroupSelectedIndex,
 } from '../../../../store/slice/groupSlice';
 
-const ListaGruppi = () => {
+const ListaGruppi = ():ReactElement => {
   const groupsList = useSelector(groups);
   const IDSelected = useSelector(groupSelectedIndex);
   const classes = useStyles();
   const dispatch = useDispatch();
   const listDisabled = useSelector(isListGroupsDisabled);
   const listGroups = !groupsList ? <></> : groupsList.map(
-    (gruppo:any, index:number) => {
+    (gruppo:{id:string, name:string}, index:number) => {
       if (index === IDSelected) {
         return (
           <MenuItem

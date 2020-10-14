@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import {
   Grid, Typography, IconButton, TextField,
 } from '@material-ui/core';
@@ -13,7 +13,7 @@ import { disableAll, enableAll, isBModifyDelAddReturnDisabled } from '../../../.
 import { haveRepModifyRight } from '../../../../store/slice/rightsSlice';
 import { isBConfirmAddFormClicked } from '../../../../store/slice/addFormSlice';
 
-const Risposta2Line = () => {
+const Risposta2Line = ():ReactElement => {
   const dispatch = useDispatch();
   const [bCheck2Disabled, setBCheck2] = useState(false);
   const rightRepModify = useSelector(haveRepModifyRight);

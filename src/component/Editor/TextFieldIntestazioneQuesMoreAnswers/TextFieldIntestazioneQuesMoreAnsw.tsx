@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import {
   Grid, Typography, TextField,
 } from '@material-ui/core';
@@ -8,7 +8,7 @@ import { setIntestazioneMoreAns, intestazioneMoreAnswers } from '../../../store/
 import { haveRepModifyRight } from '../../../store/slice/rightsSlice';
 import { isBConfirmAddFormClicked } from '../../../store/slice/addFormSlice';
 
-const TextFieldIntestazioneQuesMoreAnswers = () => {
+const TextFieldIntestazioneQuesMoreAnswers = ():ReactElement => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const int = useSelector(intestazioneMoreAnswers);

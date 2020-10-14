@@ -1,4 +1,5 @@
 import { put, call, select } from 'redux-saga/effects';
+import { actionAnsType } from '../slice/risposteAddFormSlice';
 import {
   filtro,
   IDFormSelected, label, resetLabel, setFormNoLabel, setFormWithLabel,
@@ -13,19 +14,19 @@ import { closeDialogLabel } from '../slice/dialogSlice';
 
 import { openSnackbarEtichettaInesistente } from '../slice/snackbarSlice';
 
-export default function* initInterfaccia() {
+export default function* initInterfaccia():Generator {
   try {
-    const formNoLabel = yield call(fetchFormNoLabel);
+    const formNoLabel:any = yield call(fetchFormNoLabel);
     yield put(setFormNoLabel(formNoLabel.data));
   } catch (error) {
     console.error('errore', error);
   }
 }
 
-export function* aggiungiEtichetta() {
+export function* aggiungiEtichetta():Generator {
   try {
     const etichetta = yield select(label);
-    const dataEtichetta = yield call(getEtichettaDataByLabel, etichetta);
+    const dataEtichetta:any = yield call(getEtichettaDataByLabel, etichetta);
     const { data = {} } = dataEtichetta;
     const { patient = {}, hcase = {} } = data;
     const { familyname = '', givenname = '', address = {} } = patient;
@@ -52,7 +53,7 @@ export function* aggiungiEtichetta() {
     };
 
     const ID = yield select(IDFormSelected);
-    const labelExist = yield call(getEtichettaDataByLabel, etichetta);
+    const labelExist :any = yield call(getEtichettaDataByLabel, etichetta);
     if (labelExist.data.errorType === 'ERROR_TYPE_INVALID') {
       yield put(openSnackbarEtichettaInesistente());
     } else {
@@ -68,11 +69,11 @@ export function* aggiungiEtichetta() {
   }
 }
 
-export function* filter() {
+export function* filter():Generator {
   try {
     const filterForm = yield select(filtro);
     if (filterForm === 'Con etichetta' || filterForm === 'Tutti') {
-      const formWithLabel = yield call(fetchFormWithLabel);
+      const formWithLabel:any = yield call(fetchFormWithLabel);
       yield put(setFormWithLabel(formWithLabel.data));
     }
   } catch (error) {
@@ -80,7 +81,7 @@ export function* filter() {
   }
 }
 
-export function* deleteFormAns(action:any) {
+export function* deleteFormAns(action:actionAnsType):Generator {
   try {
     const IDForm = action.payload;
     yield call(deleteAnswersForm, IDForm);

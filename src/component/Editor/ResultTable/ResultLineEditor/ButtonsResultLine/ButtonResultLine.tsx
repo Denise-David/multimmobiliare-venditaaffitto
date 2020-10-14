@@ -1,16 +1,19 @@
 import { Grid, IconButton } from '@material-ui/core';
-import React from 'react';
+import React, { ReactElement } from 'react';
 import CreateIcon from '@material-ui/icons/Create';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteRisultato, setBModifyClicked, setBModifyUnclicked } from '../../../../../store/slice/risultatiAddFormSlice';
+import {
+  deleteRisultato, resultType, setBModifyClicked,
+  setBModifyUnclicked,
+} from '../../../../../store/slice/risultatiAddFormSlice';
 import { disableAll, enableAll } from '../../../../../store/slice/disableEnableSlice';
 import { isBCheckDisabled, setBCheckEnabled } from '../../../../../store/slice/domandeAddFormSlice';
 
-interface Props{oneForm: any}
+interface Props{oneForm: resultType}
 
-const ButtonResultLine = ({ oneForm } : Props) => {
+const ButtonResultLine = ({ oneForm } : Props):ReactElement => {
   const dispatch = useDispatch();
   const bCheckDisabled = useSelector(isBCheckDisabled);
   if (!oneForm.stateModify) {

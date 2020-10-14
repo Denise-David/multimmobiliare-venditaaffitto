@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { Grid, TextField } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { setBCheckDisabled, setBCheckEnabled, isBCheckDisabled } from '../../../../../store/slice/domandeAddFormSlice';
-import { modifyRisposta, setModifyRispostaUnclicked } from '../../../../../store/slice/risposteAddFormSlice';
+import { modifyRisposta, rispostaType, setModifyRispostaUnclicked } from '../../../../../store/slice/risposteAddFormSlice';
 import { enableAll } from '../../../../../store/slice/disableEnableSlice';
 
-interface Props{rispostaArray : any, id: string, IDRisposta: string}
-const TextFieldAnswerLine = ({ rispostaArray, id, IDRisposta } : Props) => {
+interface Props{rispostaArray : rispostaType, id: string, IDRisposta: string}
+const TextFieldAnswerLine = ({ rispostaArray, id, IDRisposta } : Props):ReactElement => {
   const dispatch = useDispatch();
   const bCheckDisabled = useSelector(isBCheckDisabled);
   const NON_DIGIT = '/[^d]/g';

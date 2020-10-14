@@ -7,7 +7,7 @@ import fetchFormStructureByID, { deleteForm, setOldStructure } from '../api';
 import { setBModifyDelAddReturnEnabled } from '../slice/disableEnableSlice';
 import { openCloseSnackbarConfirmDelete } from '../slice/snackbarSlice';
 
-export default function* confirmDelForm() {
+export default function* confirmDelForm():Generator {
   try {
     const selectedForm = yield select(IDForm);
     const formulario = yield call(fetchFormStructureByID, selectedForm);

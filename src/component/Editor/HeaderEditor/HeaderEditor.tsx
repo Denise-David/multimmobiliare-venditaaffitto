@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import {
   Button, Snackbar, Typography, TextField, Paper,
 } from '@material-ui/core';
@@ -20,7 +20,7 @@ import { snackbarConfirmDeleteOpen, openCloseSnackbarConfirmDelete } from '../..
 import TextFieldRepartoAddForm from '../TextFieldRepartoAddForm/TextFieldRepartoAddForm';
 import SnackbarAtLeast2Res from '../SnackbarAtLeast2Res/SnackbarAtLeast2Res';
 
-const HeaderEditor = () => {
+const HeaderEditor = ():ReactElement => {
   const dispatch = useDispatch();
 
   // recupero stati dagli slice

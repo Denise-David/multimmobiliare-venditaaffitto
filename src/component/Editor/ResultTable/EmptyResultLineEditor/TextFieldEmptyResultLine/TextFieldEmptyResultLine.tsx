@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { TextField, Grid } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -7,7 +7,7 @@ import {
   resetRisultato, setButtonDisabled, setButtonEnabled, buttonDisabled,
 } from '../../../../../store/slice/risultatiAddFormSlice';
 
-const TextFieldEmptyResultLine = () => {
+const TextFieldEmptyResultLine = ():ReactElement => {
   const res = useSelector(result);
   const dispatch = useDispatch();
   const valMin = useSelector(valueMin);

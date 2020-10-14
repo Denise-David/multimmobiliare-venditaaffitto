@@ -1,7 +1,7 @@
 import {
   Card, DialogContent, Grid, IconButton, TextField,
 } from '@material-ui/core';
-import React, { useEffect } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 import { useDispatch, useSelector } from 'react-redux';
 import Navbar from '../../component/Navbar/Navbar';
@@ -13,7 +13,7 @@ import DialogFilter from '../../component/InterfacciaAmministrativa/DialogFilter
 import { openDialogFiltro } from '../../store/slice/dialogSlice';
 import FormularioLabelLine from '../../component/InterfacciaAmministrativa/FormularioLabelLine/FormularioLabelLine';
 
-const InterfacciaAmministrativa = () => {
+const InterfacciaAmministrativa = ():ReactElement => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const filterForm = useSelector(filtro);

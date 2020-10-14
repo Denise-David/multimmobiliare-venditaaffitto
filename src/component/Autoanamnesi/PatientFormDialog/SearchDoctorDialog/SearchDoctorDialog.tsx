@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-no-undef */
-import React, { useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import Dialog from '@material-ui/core/Dialog';
 import {
   Button, TextField, Typography, MenuItem, DialogContent, DialogTitle,
@@ -13,9 +13,9 @@ import {
 } from '../../../../store/slice/searchDoctorSlice';
 import { changePatientValue, unsetCheckboxDoctor, unsetCheckboxFamilyDoctor } from '../../../../store/slice/patientDataSlice';
 import { dialogSearchOpen, closeDialogSearch } from '../../../../store/slice/dialogSlice';
-import { objectToArray } from '../../../../util';
+import { Medico, objectToArray } from '../../../../util';
 
-const SearchDoctorDialog = () => {
+const SearchDoctorDialog = ():ReactElement => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const listaMedici = useSelector(mediciTrovati);
@@ -41,7 +41,7 @@ const SearchDoctorDialog = () => {
     dispatch(resetMedici());
   };
 
-  const doctorList = listaMediciArray ? listaMediciArray.map((medico : any) => (
+  const doctorList = listaMediciArray ? listaMediciArray.map((medico : Medico) => (
 
     <div key={medico.id}>
       <MenuItem

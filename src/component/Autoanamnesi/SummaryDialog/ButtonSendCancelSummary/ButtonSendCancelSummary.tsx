@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import Button from '@material-ui/core/Button';
 import { useDispatch } from 'react-redux';
 import useStyles from './style';
 import { closeDialogSummary } from '../../../../store/slice/dialogSlice';
 
-const ButtonSendCancelSummary = () => {
+const ButtonSendCancelSummary = ():ReactElement => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const handleClickOpen = () => {
