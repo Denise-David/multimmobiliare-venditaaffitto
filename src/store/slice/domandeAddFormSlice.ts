@@ -5,9 +5,9 @@ import { rispostaType } from './risposteAddFormSlice';
 import { State } from '../store/store';
 
 export interface domandaType {
-  Tipo: string,
+  tipo: string,
   IDDomanda : string,
-   Domanda : string,
+   domanda : string,
    stateText ?: boolean,
    openCard?: boolean,
     risposte? : rispostaType[],
@@ -85,13 +85,13 @@ const domandeAddFormSlice = createSlice({
       const { IDDomanda } = payload;
       state.domandeObject[IDDomanda] = payload;
       state.domandeObject[IDDomanda].stateText = true;
-      state.domandeObject[IDDomanda].Tipo = 'a due risposte';
+      state.domandeObject[IDDomanda].tipo = 'a due risposte';
     },
     setDomandaInObjectDomandeMoreRes(state, { payload }) {
       const { IDDomanda } = payload;
       state.domandeObject[IDDomanda] = payload;
       state.domandeObject[IDDomanda].stateText = true;
-      state.domandeObject[IDDomanda].Tipo = 'a più risposte';
+      state.domandeObject[IDDomanda].tipo = 'a più risposte';
     },
     resetDomanda(state) {
       state.Question = '';
@@ -104,8 +104,8 @@ const domandeAddFormSlice = createSlice({
       state.domandeObject[payload].stateText = true;
     },
     modifyDomandaInObjectDomande(state, { payload }) {
-      const { IDDomanda, Domanda } = payload;
-      state.domandeObject[IDDomanda].Domanda = Domanda;
+      const { IDDomanda, domanda } = payload;
+      state.domandeObject[IDDomanda].domanda = domanda;
     },
     deleteDomandaInObjectDomande(state, { payload }) {
       delete state.domandeObject[payload];

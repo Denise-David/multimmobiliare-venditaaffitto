@@ -25,7 +25,7 @@ import ButtonsQuestion from './ButtonsQuestion/ButtonsQuestion';
 import NavQuestions from './NavQuestions/NavQuestions';
 import { intestazioneAttiva, raggruppaAttivo } from '../../../store/slice/menuDomandeSlice';
 import DropDownListGroup from '../DropDownListGroup/DropDownListGroup';
-import TextFieldIntestazioneQuesMoreAnswers from '../TextFieldIntestazioneQuesMoreAnswers/TextFieldIntestazioneQuesMoreAnsw';
+import TextFieldIntestazione from '../TextFieldIntestazione/TextFieldIntestazione';
 import { enableAll } from '../../../store/slice/disableEnableSlice';
 
 const QuestionsEditor = ():ReactElement => {
@@ -44,12 +44,12 @@ const QuestionsEditor = ():ReactElement => {
   // eslint-disable-next-line no-shadow
   const listNewDomande = domandeAddFormArray.map((domandaAddForm : domandaType) => {
     const { IDDomanda } = domandaAddForm;
-    const { Tipo } = domandaAddForm;
+    const { tipo } = domandaAddForm;
 
     return (
 
       <div key={domandaAddForm.IDDomanda}>
-        { Tipo === 'a due risposte'
+        { tipo === 'a due risposte'
           ? (
             <Card className={classes.bordiCard} elevation={3}>
               <div className={classes.bordi}>
@@ -66,7 +66,7 @@ const QuestionsEditor = ():ReactElement => {
                         }
                       }}
                       disabled={domandaAddForm.stateText}
-                      value={domandaAddForm.Domanda}
+                      value={domandaAddForm.domanda}
                       fullWidth
                       onChange={(event) => {
                         const Domanda = event.target.value;
@@ -109,7 +109,7 @@ const QuestionsEditor = ():ReactElement => {
         <div className={classes.padding}>
           <div className={classes.marginDivider} />
           {intAttiva
-            ? <TextFieldIntestazioneQuesMoreAnswers /> : <></>}
+            ? <TextFieldIntestazione /> : <></>}
           {rightRepModify || confirmAddReparto
             ? <EmptyAddQuestion2Answers /> : <></>}
 

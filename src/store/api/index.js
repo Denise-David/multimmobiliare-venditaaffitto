@@ -34,7 +34,7 @@ export const deleteAnswersForm = (ID) => risposteFormPazienti.remove(ID, {});
 export const searchForm = (form, rep) => struttureFormReparti.find({
   query: {
     formulario: { $search: form },
-    Reparto: { $search: rep },
+    reparto: { $search: rep },
 
   },
 });
@@ -56,13 +56,13 @@ export const addForm = (
 ) => struttureFormReparti.create(
   {
     actualWardGUID: idReparto,
-    Reparto: nomeReparto,
+    reparto: nomeReparto,
     formulario: nomeForm,
     gruppi,
-    Domande: domande,
-    Risultati: risultati,
+    domande,
+    risultati,
     intestazione: intestazioneMoreAns,
-    Risposte:
+    risposte:
     {
       risposta1,
       risposta2,
@@ -138,13 +138,13 @@ export const updateForm = (
 ) => struttureFormReparti.update(IDFormulario,
   {
     actualWardGUID: GUID,
-    Reparto: nomeReparto,
+    reparto: nomeReparto,
     formulario: nomeForm,
     gruppi,
-    Domande: listDomandeAndRisposte,
-    Risultati: listRisultati,
+    domande: listDomandeAndRisposte,
+    risultati: listRisultati,
     intestazione: intestazioneMoreAns,
-    Risposte:
+    risposte:
     {
       risposta1,
       risposta2,
@@ -169,7 +169,7 @@ export const setOldStructure = (formulario, utente, date) => historyEditor.creat
 // per l'history quando creo un nuovo formulario
 export const setNewStructure = (nomeReparto,
   GUID, nomeForm, gruppi,
-  domande, risultati, risposta1, risposta2, utente, date) => historyEditor.create(
+  domande, ris, risposta1, risposta2, utente, date) => historyEditor.create(
 
   {
     data: date,
@@ -178,12 +178,12 @@ export const setNewStructure = (nomeReparto,
     newStructure: {
 
       actualWardGUID: GUID,
-      Reparto: nomeReparto,
+      reparto: nomeReparto,
       formulario: nomeForm,
       gruppi,
-      Domande: domande,
-      Risultati: risultati,
-      Risposte:
+      romande: domande,
+      risultati: ris,
+      risposte:
       {
         risposta1,
         risposta2,
@@ -206,12 +206,12 @@ export const setNewAndOldStructure = (GUID, nomeReparto,
     oldStructure: formulario,
     newStructure: {
       actualWardGUID: GUID,
-      Reparto: nomeReparto,
+      reparto: nomeReparto,
       formulario: nomeForm,
       gruppi,
-      Domande: listDomandeAndRisposte,
-      Risultati: listRisultati,
-      Risposte:
+      domande: listDomandeAndRisposte,
+      risultati: listRisultati,
+      risposte:
       {
         risposta1,
         risposta2,

@@ -8,7 +8,7 @@ import ButtonSend from '../../component/AutoanamnesiNoLabel/ButtonSendCode/Butto
 import useStyles from './style';
 import Navbar from '../../component/Navbar/Navbar';
 import PatientFormDialog from '../../component/AutoanamnesiNoLabel/PatientFormDialog';
-import ReturnDeviceDialog from '../../component/AutoanamnesiNoLabel/ReturnDeviceDialog/ReturnDeviceDialog';
+import ShowDeviceDialog from '../../component/AutoanamnesiNoLabel/ShowDeviceDialog/ShowDeviceDialog';
 import SummaryDialog from '../../component/AutoanamnesiNoLabel/SummaryDialog/SummaryDialog';
 
 import { isLoading } from '../../store/slice/loadingSlice';
@@ -40,7 +40,7 @@ const HomepageNoLabel = () => {
             dispatch(setFormSelectedID(res._id));
           }}
         >
-          {res.Reparto}
+          {res.reparto}
           ,
           {' '}
           {' '}
@@ -59,7 +59,7 @@ const HomepageNoLabel = () => {
           dispatch(setFormSelectedID(res._id));
         }}
       >
-        {res.Reparto}
+        {res.reparto}
         ,
         {' '}
         {' '}
@@ -112,7 +112,7 @@ const HomepageNoLabel = () => {
         ) : <></>}
 
       <PatientFormDialog />
-      <ReturnDeviceDialog />
+      <ShowDeviceDialog />
       <SummaryDialog />
 
     </div>

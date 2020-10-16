@@ -42,7 +42,7 @@ const TextFieldAnswerLine = ({ rispostaArray, id, IDRisposta } : Props):ReactEle
             }}
             disabled={!rispostaArray.stateModify}
             id="standard-basic"
-            value={rispostaArray.Risposta}
+            value={rispostaArray.risposta}
             fullWidth
           />
         </Grid>
@@ -77,7 +77,7 @@ const TextFieldAnswerLine = ({ rispostaArray, id, IDRisposta } : Props):ReactEle
             }}
             disabled={!rispostaArray.stateModify}
             id="standard-basic"
-            value={rispostaArray.Valore}
+            value={rispostaArray.valore}
             fullWidth
           />
         </Grid>
@@ -105,7 +105,7 @@ const TextFieldAnswerLine = ({ rispostaArray, id, IDRisposta } : Props):ReactEle
           }}
           disabled={!rispostaArray.stateModify}
           id="standard-basic"
-          value={rispostaArray.Risposta}
+          value={rispostaArray.risposta}
           fullWidth
         />
       </Grid>

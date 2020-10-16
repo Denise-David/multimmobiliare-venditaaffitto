@@ -11,14 +11,13 @@ import {
   familynameCercato, formWithLabel, nameCercato,
 } from '../../../store/slice/interfacciaAmmSlice';
 import SnackbarEtichettaInesistente from '../SnackbarEtichettaInesistente/SnackbarEtichettaInesistente';
-import useStyles from './style';
+
 import ButtonOpenPDFDataPatient from './ButtonOpenPDFDataPatient/ButtonOpenPDFDataPatient';
 import ButtonOpenPDFFormPatient from './ButtonOpenPDFFormPatient/ButtonOpenPDFFormPatient';
 import { formularioDBType } from '../../../store/slice/addFormSlice';
 
 const FormularioLabelLine = ():ReactElement => {
   const labelForm = useSelector(formWithLabel);
-  const classes = useStyles();
   const dispatch = useDispatch();
   const nomeCercato = useSelector(nameCercato);
   const cognomeCercato = useSelector(familynameCercato);
@@ -30,55 +29,60 @@ const FormularioLabelLine = ():ReactElement => {
     if (nome?.includes(nomeCercato.toLowerCase())
        && cognome?.includes(cognomeCercato.toLowerCase())) {
       return (
-        <div key={form._id}>
+        <Grid
+          container
+          direction="row"
+          justify="space-between"
+          alignItems="center"
+          key={form._id}
+        >
+
           <SnackbarEtichettaInesistente />
-          <Divider />
+          <Grid item xs={12} sm={11}>
+            <Typography variant="body1">
 
-          <div className={classes.margin}>
-            <Typography variant="body1" key={form._id}>
-              <Grid
-                container
-                direction="row"
-                justify="space-between"
-                alignItems="center"
-              >
-                {form.reparto}
-                {' / '}
-                {form.formulario}
-                {' / '}
-                {form.paziente?.givenname}
-                {' '}
-                {form.paziente?.familyname}
-                <span>
-                  <IconButton
-                    color="primary"
-                    onClick={() => {
-                      dispatch(DeleteAnsForm(IDForm));
-                      dispatch(closeAndFilterDialog());
-                      dispatch({ type: 'INIT_INTERFACCIA' });
-                    }}
-                  >
-                    <DeleteIcon
+              {form.reparto}
+              {' / '}
+              {form.formulario}
+              {' / '}
+              {form.paziente?.givenname}
+              {' '}
+              {form.paziente?.familyname}
 
-                      style={{ fontSize: 30 }}
-                    />
-                  </IconButton>
-                </span>
-              </Grid>
             </Typography>
-          </div>
+          </Grid>
           <span>
-            <div>
-              <ButtonOpenPDFFormPatient etichetta={form.etichetta} IDForm={form._id} />
+            <IconButton
+              color="primary"
+              onClick={() => {
+                dispatch(DeleteAnsForm(IDForm));
+                dispatch(closeAndFilterDialog());
+                dispatch({ type: 'INIT_INTERFACCIA' });
+              }}
+            >
+              <DeleteIcon
 
-              <ButtonOpenPDFDataPatient IDForm={form._id} />
-            </div>
+                style={{ fontSize: 30 }}
+              />
+            </IconButton>
           </span>
+          <Grid item xs={12} sm={10}>
+            <span>
 
-          <Divider />
-        </div>
+              <div>
+                <ButtonOpenPDFFormPatient etichetta={form.etichetta} IDForm={form._id} />
+
+                <ButtonOpenPDFDataPatient IDForm={form._id} />
+              </div>
+
+              <Divider />
+
+            </span>
+          </Grid>
+
+        </Grid>
       );
-    } return (<></>);
+    } return (<div key={form._id} />);
   });
   return (
     <div>{listForm}</div>

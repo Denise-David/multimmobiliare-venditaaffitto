@@ -29,11 +29,11 @@ const LineMoreAnswers = ({
   const listDatePicker = risposte.map((risposta: rispostaType) => {
     if (risposta.type === 'data') {
       const idRisposta = risposta.IDRisposta;
-      const testoData = risposta.Risposta;
+      const testoData = risposta.risposta;
       return (
         <div key={idRisposta} className={classes.datePicker}>
           <MobileDatePicker
-            label={risposta.Risposta}
+            label={risposta.risposta}
             mask="__/__/____"
             value={dateAnswer[idDomanda] && dateAnswer[idDomanda][idRisposta]
               ? parseISO(dateAnswer[idDomanda][idRisposta].dataFormattata) : null}
@@ -71,7 +71,7 @@ const LineMoreAnswers = ({
           <Grid item xs={12} sm={7}>
             <div className={classes.marginTop}>
               <Typography variant="subtitle1">
-                {question.Domanda}
+                {question.domanda}
                 {!question.facoltativa ? '*' : <></>}
                 {' '}
 
@@ -104,7 +104,7 @@ const LineMoreAnswers = ({
                 ? (
                   <DropDownListAnswersPatientForm
                     idDomanda={question.IDDomanda}
-                    domanda={question.Domanda}
+                    domanda={question.domanda}
                   />
                 )
                 : <></>}

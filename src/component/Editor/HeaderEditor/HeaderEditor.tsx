@@ -17,8 +17,8 @@ import {
   setBSaveEnabled, setBModifyDelAddReturnEnabled, setBSaveDisabled,
 } from '../../../store/slice/disableEnableSlice';
 import { snackbarConfirmDeleteOpen, openCloseSnackbarConfirmDelete } from '../../../store/slice/snackbarSlice';
-import TextFieldRepartoAddForm from '../TextFieldRepartoAddForm/TextFieldRepartoAddForm';
-import SnackbarAtLeast2Res from '../SnackbarAtLeast2Res/SnackbarAtLeast2Res';
+import TextFieldRepartoAddForm from './TextFieldRepartoAddForm/TextFieldRepartoAddForm';
+import SnackbarAtLeast2Res from './SnackbarAtLeast2Res/SnackbarAtLeast2Res';
 
 const HeaderEditor = ():ReactElement => {
   const dispatch = useDispatch();

@@ -5,11 +5,11 @@ interface rispostaUno { risposta1: string, stateText: boolean}
 interface rispostaDue { risposta2: string, stateText: boolean}
 export interface rispostaType {
   IDRisposta:string,
-Risposta:string,
+risposta:string,
 stateText?:boolean,
 stateModify:boolean,
 type:string,
-Valore:number}
+valore:number}
 
 export interface actionAnsType {
  payload:string,
@@ -24,7 +24,7 @@ const risposteAddFormSlice = createSlice({
     isBModifyRis2Clicked: false as boolean,
     addRispostaInDomanda: { } as {[key:string]:boolean},
     answer: {} as {[index:string]:string},
-    valore: { } as {[index:string]:number},
+    valoreRis: { } as {[index:string]:number},
     risposteOfDomandaObject: {} as {[index:string]:{[index:string]:rispostaType}},
     type: {} as {[index:string]:string},
     tableTwoAnsExpanded: true as boolean,
@@ -58,8 +58,8 @@ const risposteAddFormSlice = createSlice({
       const {
         IDDomanda, IDRisposta, risposta, valore,
       } = payload;
-      state.risposteOfDomandaObject[IDDomanda][IDRisposta].Risposta = risposta;
-      state.risposteOfDomandaObject[IDDomanda][IDRisposta].Valore = valore;
+      state.risposteOfDomandaObject[IDDomanda][IDRisposta].risposta = risposta;
+      state.risposteOfDomandaObject[IDDomanda][IDRisposta].valore = valore;
     },
     setModifyRispostaClicked(state, { payload }) {
       const { IDDomanda, IDRisposta } = payload;
@@ -78,17 +78,17 @@ const risposteAddFormSlice = createSlice({
     },
     resetAnswerValore(state) {
       state.answer = {};
-      state.valore = {};
+      state.valoreRis = {};
     },
     setAnswersInDomanda(state, { payload }) {
       const stateModify = false;
       const {
-        IDDomanda, IDRisposta, Risposta, Valore, type,
+        IDDomanda, IDRisposta, risposta, valore, type,
       } = payload;
 
       const oldRisposte = state.risposteOfDomandaObject[IDDomanda] || {};
       oldRisposte[IDRisposta] = {
-        IDRisposta, Risposta, Valore, stateModify, type,
+        IDRisposta, risposta, valore, stateModify, type,
       };
       state.risposteOfDomandaObject[IDDomanda] = oldRisposte;
     },
@@ -98,7 +98,7 @@ const risposteAddFormSlice = createSlice({
     },
     setValore(state, { payload }) {
       const { IDDomanda, intValue } = payload;
-      state.valore[IDDomanda] = intValue;
+      state.valoreRis[IDDomanda] = intValue;
     },
     setType(state, { payload }) {
       if (state.type[payload] === 'data') {
@@ -150,7 +150,7 @@ export const
   risposteOfDomandaObject = (state : State):
 {[index:string]:{[indey:string]:rispostaType}} => state.risposteAddForm.risposteOfDomandaObject;
 export const answer = (state : State):{[index:string]:string} => state.risposteAddForm.answer;
-export const valore = (state : State):{[index:string]:number} => state.risposteAddForm.valore;
+export const valoreRis = (state : State):{[index:string]:number} => state.risposteAddForm.valoreRis;
 export const
   stateAddedRisposta = (state : State):
   {[key:string]:boolean} => state.risposteAddForm.addRispostaInDomanda;

@@ -11,7 +11,7 @@ import {
 import '@fortawesome/fontawesome-pro/js/all';
 import { LocalizationProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@material-ui/pickers/adapter/date-fns';
-import App from './view/Barcode/App';
+import App from './view/Home/App';
 import store from './store/store/store';
 import * as serviceWorker from './serviceWorker';
 import theme from './theme';
@@ -25,7 +25,7 @@ import InterfacciaAmministrativa from './view/InterfacciaAmministrativa/Interfac
 // const escapeRegex = /([[\].#*$><+~=|^:(),"'`\s])/g;
 let classCounter = 0;
 
-const generateClassName = (rule : any, styleSheet : any) => {
+const generateClassName = () => {
   classCounter += 1;
 
   return `c${classCounter}`;

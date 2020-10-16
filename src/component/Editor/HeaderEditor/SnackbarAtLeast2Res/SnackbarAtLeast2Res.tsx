@@ -2,7 +2,7 @@ import { Snackbar, Typography } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import React, { ReactElement } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { closeSnackbarAtLeast2Res, snackbarAtLeast2ResOpen } from '../../../store/slice/snackbarSlice';
+import { closeSnackbarAtLeast2Res, snackbarAtLeast2ResOpen } from '../../../../store/slice/snackbarSlice';
 
 const SnackbarAtLeast2Res = ():ReactElement => {
   const snackbarOpen = useSelector(snackbarAtLeast2ResOpen);

@@ -11,7 +11,7 @@ import {
   actionAnsType,
   rispostaType,
   risposteOfDomandaObject,
-  valore, answer, ris2 as Response2,
+  valoreRis, answer, ris2 as Response2,
   ris1 as response1, setAnswersInDomanda,
   resetAnswerValore, typeAnswer, setAddRispostaUnclicked,
   deleteDomandeObject, resetRisposteOfDomanda, setType,
@@ -56,7 +56,7 @@ export default function* addFormulario():Generator {
   const response = domandeAndStatusArray.map((domanda : domandaType) => {
     if ((risposteWithStatus[domanda.IDDomanda] === undefined
       || Object.keys(risposteWithStatus[domanda.IDDomanda]).length === 0) && atLeast1Res === true
-       && domanda.Tipo === 'a più risposte') {
+       && domanda.tipo === 'a più risposte') {
       atLeast1Res = false;
       return (atLeast1Res);
     } atLeast1Res = true;
@@ -85,24 +85,25 @@ export default function* addFormulario():Generator {
     // eslint-disable-next-line max-len
     const domande = domandeAndStatusArray.map((domandaAndStatus: domandaType) => {
       const {
-        IDDomanda, Domanda, Tipo, group, facoltativa, libera,
+        IDDomanda, domanda, tipo, group, facoltativa, libera,
       } = domandaAndStatus;
-      if (domandaAndStatus.Tipo === 'a più risposte') {
+      if (domandaAndStatus.tipo === 'a più risposte') {
         const risposteWithStatusArray = objectToArray(risposteWithStatus[IDDomanda]);
         const risposte = risposteWithStatusArray.map((rispostaWithStatus : rispostaType) => {
           const {
-            IDRisposta, Risposta, Valore, type,
+            // eslint-disable-next-line no-shadow
+            IDRisposta, risposta, valore, type,
           } = rispostaWithStatus;
           return {
-            IDRisposta, Risposta, Valore, type,
+            IDRisposta, risposta, valore, type,
           };
         });
         return {
-          IDDomanda, Domanda, Tipo, risposte, group, facoltativa, libera,
+          IDDomanda, domanda, tipo, risposte, group, facoltativa, libera,
         };
       }
       return {
-        IDDomanda, Domanda, Tipo, group, facoltativa, libera,
+        IDDomanda, domanda, tipo, group, facoltativa, libera,
       };
     });
     domande.sort((a, b) => {
@@ -150,19 +151,19 @@ export default function* addFormulario():Generator {
 
 export function* addDomandaTwoResInArray():Generator {
   const IDDomanda = uuidv4();
-  const Domanda = yield select(questionTwoAns);
+  const domanda = yield select(questionTwoAns);
 
-  yield put(setDomandaInObjectDomande({ IDDomanda, Domanda }));
+  yield put(setDomandaInObjectDomande({ IDDomanda, domanda }));
   yield put(setBAddDomandaUnclicked());
   yield put(resetDomanda());
 }
 
 export function* addDomandaMoreResInArray():Generator {
   const IDDomanda = uuidv4();
-  const Domanda = yield select(question);
+  const domanda = yield select(question);
   const listRisposte = yield select(risposteOfDomandaObject);
   const ansTutteUguali = yield select(risposteTutteUguali);
-  yield put(setDomandaInObjectDomandeMoreRes({ IDDomanda, Domanda }));
+  yield put(setDomandaInObjectDomandeMoreRes({ IDDomanda, domanda }));
   yield put(setBAddDomandaUnclicked());
   yield put(resetDomanda());
 
@@ -171,9 +172,10 @@ export function* addDomandaMoreResInArray():Generator {
     const listResPrimaDomanda = objectToArray(listRisposteArray[0]);
     yield all(listResPrimaDomanda.map((res : rispostaType) => {
       const IDRisposta = uuidv4();
-      const { Risposta, Valore, type } = res;
+      // eslint-disable-next-line no-shadow
+      const { risposta, valore, type } = res;
       const setRes = put(setAnswersInDomanda({
-        IDDomanda, IDRisposta, Risposta, Valore, type,
+        IDDomanda, IDRisposta, risposta, valore, type,
       }));
       return setRes;
     }));
@@ -199,13 +201,13 @@ export function* addRes(action:actionAnsType):Generator {
   const ansTutteUguali = yield select(risposteTutteUguali);
   let IDRisposta = uuidv4();
   const RispostaWithID:any = yield select(answer);
-  const ValorewithID:any = yield select(valore);
+  const ValorewithID:any = yield select(valoreRis);
   const typeWithID:any = yield select(typeAnswer);
   let IDDomanda = action.payload;
   const IDPrimaDom = action.payload;
   const type = typeWithID[IDDomanda];
-  const Risposta = RispostaWithID[IDDomanda];
-  const Valore = ValorewithID[IDDomanda];
+  const risposta = RispostaWithID[IDDomanda];
+  const valore = ValorewithID[IDDomanda];
 
   // Se è cliccato il risposte tutte uguali
   if (ansTutteUguali === true) {
@@ -215,7 +217,7 @@ export function* addRes(action:actionAnsType):Generator {
       IDDomanda = ques.IDDomanda;
       IDRisposta = uuidv4();
       const setRes = put(setAnswersInDomanda({
-        IDDomanda, IDRisposta, Risposta, Valore, type,
+        IDDomanda, IDRisposta, risposta, valore, type,
       }));
       return setRes;
     }));
@@ -224,7 +226,7 @@ export function* addRes(action:actionAnsType):Generator {
     yield put(setType(IDPrimaDom));
   }
   yield put(setAnswersInDomanda({
-    IDDomanda, IDRisposta, Risposta, Valore, type,
+    IDDomanda, IDRisposta, risposta, valore, type,
   }));
 
   yield put(resetAnswerValore());

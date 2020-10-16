@@ -23,7 +23,7 @@ import {
 } from '../../../store/slice/menuDomandeERisposteSlice';
 import ButtonsQuestionsAndAnswers from './ButtonsQuestionsAndAnswers/ButtonsQuestionsAndAnswers';
 import NavQuestionsAndAnswers from './NavQuestionsAndAnswers/NavQuestionsAnsAnswers';
-import TextFieldIntestazioneQuesMoreAnswers from '../TextFieldIntestazioneQuesMoreAnswers/TextFieldIntestazioneQuesMoreAnsw';
+import TextFieldIntestazione from '../TextFieldIntestazione/TextFieldIntestazione';
 import DropDownListGroup from '../DropDownListGroup/DropDownListGroup';
 import HeaderAnsMoreAns from './HeaderAnsMoreAns/HeaderAnsMoreAns';
 import { enableAll } from '../../../store/slice/disableEnableSlice';
@@ -47,7 +47,7 @@ const QuestionsAndAnswersEditor = ():ReactElement => {
     return (
 
       <div key={domanda.IDDomanda}>
-        {domanda.Tipo === 'a più risposte'
+        {domanda.tipo === 'a più risposte'
           ? (
             <>
               {' '}
@@ -90,7 +90,7 @@ const QuestionsAndAnswersEditor = ():ReactElement => {
                           }
                         }}
                         disabled={domanda.stateText}
-                        value={domanda.Domanda}
+                        value={domanda.domanda}
                         fullWidth
                         onChange={(event) => {
                           const question = event.target.value;
@@ -143,7 +143,7 @@ const QuestionsAndAnswersEditor = ():ReactElement => {
       <Collapse in={expanded}>
         <div className={classes.padding}>
           {intestazione
-            ? <TextFieldIntestazioneQuesMoreAnswers /> : <></>}
+            ? <TextFieldIntestazione /> : <></>}
           {(rightRepModify || confirmAddFormClicked) && !risTutteUguali
             ? <EmptyAddQuestionMoreAnswers /> : <></>}
 

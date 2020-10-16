@@ -5,7 +5,7 @@ import {
 import { useSelector } from 'react-redux';
 import {
   selectedReparto,
-} from '../../../store/slice/addFormSlice';
+} from '../../../../store/slice/addFormSlice';
 import useStyles from './style';
 
 const TextFieldRepartoAddForm = ():ReactElement => {

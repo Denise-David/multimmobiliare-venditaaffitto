@@ -44,7 +44,7 @@ const MultipleChoiceLinePatient = ():ReactElement => {
 
     const { risposte } = question;
     const idDomanda = question.IDDomanda;
-    const domanda = question.Domanda;
+    const { domanda } = question;
 
     // setto il gruppo attuale
     const groupSelected = gruppi ? gruppi.find((ID) => ID.id === question.group) : { id: '', name: '' };
@@ -78,7 +78,7 @@ const MultipleChoiceLinePatient = ():ReactElement => {
               <Grid item xs={12} sm={8}>
                 <div className={classes.marginTop}>
                   <Typography variant="subtitle1">
-                    {question.Domanda}
+                    {question.domanda}
                     {/* Controllo se la domanda è facoltativa */}
                     {!question.facoltativa ? '*' : <></>}
                     {/* Controllo se la domanda è di tipo libera */}

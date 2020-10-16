@@ -4,13 +4,12 @@ import { State } from '../store/store';
 export interface formularioDBType {
 _id:string,
 actualWardGUID?:number,
-Reparto?:string,
 formulario:string,
 intestazione?:string,
 gruppi?:[],
-Domande?:[],
-Risultati?:[],
-Risposte?:{risposta1:string, risposta2:string}
+domande?:[],
+risultati?:[],
+risposte?:{risposta1:string, risposta2:string}
 paziente?:{givenname: string, familyname:string}
 etichetta?:string,
 reparto?:string,

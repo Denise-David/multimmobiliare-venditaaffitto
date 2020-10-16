@@ -8,7 +8,7 @@ import { setIntestazioneMoreAns, intestazioneMoreAnswers } from '../../../store/
 import { haveRepModifyRight } from '../../../store/slice/rightsSlice';
 import { isBConfirmAddFormClicked } from '../../../store/slice/addFormSlice';
 
-const TextFieldIntestazioneQuesMoreAnswers = ():ReactElement => {
+const TextFieldIntestazione = ():ReactElement => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const int = useSelector(intestazioneMoreAnswers);
@@ -45,4 +45,4 @@ const TextFieldIntestazioneQuesMoreAnswers = ():ReactElement => {
   );
 };
 
-export default TextFieldIntestazioneQuesMoreAnswers;
+export default TextFieldIntestazione;

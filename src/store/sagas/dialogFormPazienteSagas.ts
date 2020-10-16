@@ -13,7 +13,6 @@ import {
   noFacoltative, getDomandeReparto,
   risposte, getBooleanAnswers, setIntestazioneMoreAns, setGruppi,
 } from '../slice/patientFormSlice';
-
 import { ValueCode } from '../slice/labelCodeSlice';
 import fetchFormStructureByID, {
   getEtichettaDataByLabel, fetchRepartoFormByGUID,
@@ -23,6 +22,7 @@ import {
   openSnackbarDatiPersonali, openSnackbarFieldEmpty, openSnackbarLabelPage,
   openSnackbarPatientAnswers,
 } from '../slice/snackbarSlice';
+import { formSelectedID } from '../slice/homepageNoLabelSlice';
 
 export default function* getDataEtichetta():Generator {
   try {
@@ -65,7 +65,7 @@ export default function* getDataEtichetta():Generator {
       const dataForm :any = yield call(fetchFormStructureByID, IDForm);
 
       // prendo le domande
-      const datiDomande = dataForm.Domande;
+      const datiDomande = dataForm.domande;
       const listDomande = datiDomande.map((domanda : domandaType) => {
         const question = { ...domanda, normalType: false };
         return question;
@@ -73,7 +73,7 @@ export default function* getDataEtichetta():Generator {
       yield put(getDomandeReparto(listDomande));
 
       // prendo risposte booleane
-      const booleanAnswers = dataForm.Risposte;
+      const booleanAnswers = dataForm.risposte;
       yield put(getBooleanAnswers(booleanAnswers));
       yield put(setIntestazioneMoreAns(dataForm.intestazione));
 
@@ -83,14 +83,14 @@ export default function* getDataEtichetta():Generator {
       const allDataReparto :any = yield call(
         fetchRepartoFormByGUID, hcase.actualMedicalCategoryGUID || hcase.actualWardGUID,
       );
-      const datiDomande = allDataReparto.data[0].Domande;
+      const datiDomande = allDataReparto.data[0].domande;
       yield put(getDomandeReparto(datiDomande));
 
       // prendo risposte per formulario booleano
-      const booleanAnswers = allDataReparto.data[0].Risposte;
+      const booleanAnswers = allDataReparto.data[0].risposte;
       yield put(getBooleanAnswers(booleanAnswers));
 
-      yield put(setIntestazioneMoreAns(allDataReparto.data[0].intestazionePiuRisposte));
+      yield put(setIntestazioneMoreAns(allDataReparto.data[0].intestazione));
       yield put(setGruppi(allDataReparto.data[0].gruppi));
     }
     yield put(setIsLoaded());
@@ -99,6 +99,29 @@ export default function* getDataEtichetta():Generator {
     console.error('errore', error);
     yield put(openSnackbarLabelPage());
   }
+}
+
+export function* sendOpenForm():Generator {
+  yield put(setIsLoading());
+  const IDForm = yield select(formSelectedID);
+  const dataForm :any = yield call(fetchFormStructureByID, IDForm);
+  // prendo le domande
+  const datiDomande = dataForm.domande;
+  const listDomande = datiDomande.map((domanda : any) => {
+    const question = { ...domanda, normalType: false };
+    return question;
+  });
+  yield put(getDomandeReparto(listDomande));
+
+  // prendo risposte booleane
+  const booleanAnswers = dataForm.risposte;
+  yield put(getBooleanAnswers(booleanAnswers));
+  yield put(setIntestazioneMoreAns(dataForm.intestazione));
+
+  yield put(setGruppi(dataForm.gruppi));
+
+  yield put(openDialogFormPatient());
+  yield put(setIsLoaded());
 }
 
 export function* sendDataPazienti():Generator {

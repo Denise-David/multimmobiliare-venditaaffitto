@@ -31,7 +31,7 @@ const DropDownListAnswersPatient = ({ idDomanda, domanda } : Props):ReactElement
           key={risposta.IDRisposta}
           value={risposta.IDRisposta}
         >
-          {risposta.Risposta}
+          {risposta.risposta}
         </MenuItem>
       );
     }
@@ -49,8 +49,8 @@ const DropDownListAnswersPatient = ({ idDomanda, domanda } : Props):ReactElement
           (risposta : rispostaType) => risposta.IDRisposta === value
         );
 
-        const valore = rispostaSelezionata?.Valore;
-        const testoRisposta = rispostaSelezionata?.Risposta;
+        const valore = rispostaSelezionata?.valore;
+        const testoRisposta = rispostaSelezionata?.risposta;
 
         const idRisposta = value;
         dispatch(setRisposta({

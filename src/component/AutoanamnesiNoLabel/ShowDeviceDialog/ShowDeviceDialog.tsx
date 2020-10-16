@@ -8,7 +8,7 @@ import ButtonReturnDevice from './ButtonReturnDevice/ButtonReturnDevice';
 import { dialogReturnDeviceOpen } from '../../../store/slice/dialogSlice';
 import { lastFormID } from '../../../store/slice/patientFormPDFSlice';
 
-const ReturnDeviceDialog = ():ReactElement => {
+const ShowDeviceDialog = ():ReactElement => {
   const isOpen = useSelector(dialogReturnDeviceOpen);
   const classes = useStyles();
   const IDFormRes = useSelector(lastFormID);
@@ -33,4 +33,4 @@ const ReturnDeviceDialog = ():ReactElement => {
   );
 };
 
-export default ReturnDeviceDialog;
+export default ShowDeviceDialog;

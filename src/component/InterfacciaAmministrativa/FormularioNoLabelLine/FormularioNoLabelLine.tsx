@@ -98,7 +98,7 @@ const FormularioLine = ():ReactElement => {
         </Grid>
 
       );
-    } return (<></>);
+    } return (<div key={form._id} />);
   });
   return (
     <div>{listForm}</div>

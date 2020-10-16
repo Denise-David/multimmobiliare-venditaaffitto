@@ -28,7 +28,7 @@ export default function* saveModify():Generator {
     const response = listDomande.map((domanda : domandaType) => {
       if ((objRisposte[domanda.IDDomanda] === undefined
         || Object.keys(objRisposte[domanda.IDDomanda]).length === 0) && atLeast1Res === true
-        && domanda.Tipo === 'a più risposte') {
+        && domanda.tipo === 'a più risposte') {
         atLeast1Res = false;
 
         return atLeast1Res;
@@ -52,26 +52,26 @@ export default function* saveModify():Generator {
       const nomeReparto = repSelected.longname;
 
       const nomeForm = yield select(nomeFormulario);
-      const listDomandeAndRisposte = listDomande.map((domanda : domandaType) => {
+      const listDomandeAndRisposte = listDomande.map((dom : domandaType) => {
         const {
-          IDDomanda, Domanda, Tipo, group, facoltativa, libera,
-        } = domanda;
-        if (Tipo === 'a più risposte') {
+          IDDomanda, domanda, tipo, group, facoltativa, libera,
+        } = dom;
+        if (tipo === 'a più risposte') {
           const listRisposte = objectToArray(objRisposte[IDDomanda]);
-          const risposte = listRisposte?.map((risposta : rispostaType) => {
+          const risposte = listRisposte?.map((ris : rispostaType) => {
             const {
-              IDRisposta, Risposta, Valore, type,
-            } = risposta;
+              IDRisposta, risposta, valore, type,
+            } = ris;
             return {
-              IDRisposta, Risposta, Valore, type,
+              IDRisposta, risposta, valore, type,
             };
           });
           return {
-            IDDomanda, Domanda, Tipo, risposte, group, facoltativa, libera,
+            IDDomanda, domanda: dom, tipo, risposte, group, facoltativa, libera,
           };
         }
         return {
-          IDDomanda, Domanda, Tipo, group, facoltativa, libera,
+          IDDomanda, domanda, tipo, group, facoltativa, libera,
         };
       });
 

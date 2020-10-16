@@ -3,7 +3,7 @@ import { Grid, TextField } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { isBCheckDisabled } from '../../../../../store/slice/domandeAddFormSlice';
 import {
-  setAnswer, setValore, typeAnswer, valore, answer,
+  setAnswer, setValore, typeAnswer, valoreRis, answer,
   setAddRispostaClicked, setAddRispostaUnclicked, addRisposta,
   resetRispostaType, stateAddedRisposta,
 } from '../../../../../store/slice/risposteAddFormSlice';
@@ -15,7 +15,7 @@ const TextFieldEmptyAnswerLine = ({ IDDomanda }:Props):ReactElement => {
   const bCheckDisabled = useSelector(isBCheckDisabled);
   const typeRis = useSelector(typeAnswer);
   const rispostaText = useSelector(answer);
-  const valoreText = useSelector(valore);
+  const valoreText = useSelector(valoreRis);
   const stateTextField = useSelector(stateAddedRisposta);
   // eslint-disable-next-line no-useless-escape
   const NON_DIGIT = '/[^\d]/g';
