@@ -13,6 +13,7 @@ import {
 } from '../../../../store/slice/rightsSlice';
 import { isBModifyDelAddReturnDisabled } from '../../../../store/slice/disableEnableSlice';
 
+// Lista a tendina con i reparti
 const DropDownListReparti = ():ReactElement => {
   const iconsDisabled = useSelector(isBModifyDelAddReturnDisabled);
   const IDReparto = useSelector(IDRepartoSelected);

@@ -8,6 +8,7 @@ import {
 
 interface Props{ IDDomanda: string}
 
+// Bottoni aggiunta risposta
 const ButtonEmptyAnsweLine = ({ IDDomanda }:Props):ReactElement => {
   const dispatch = useDispatch();
   const stateTextField = useSelector(stateAddedRisposta);

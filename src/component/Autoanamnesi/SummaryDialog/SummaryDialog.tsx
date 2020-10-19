@@ -15,6 +15,7 @@ import {
 import PatientNoDoctorDataSummary from './PatientNoDoctorDataSummary/PatientNoDoctorDataSummary';
 import PatientDoctorDataSummary from './PatientDoctorDataSummary/PatientDoctorDataSummary';
 
+// Dialog riassunto risposte e dati
 const SummaryDialog = ():ReactElement => {
   const statusDialog = useSelector(dialogSummaryOpen);
   const dataPatient = useSelector(newPatientInfo);

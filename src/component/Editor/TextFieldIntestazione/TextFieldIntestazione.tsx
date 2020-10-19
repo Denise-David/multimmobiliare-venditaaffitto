@@ -8,6 +8,7 @@ import { setIntestazioneMoreAns, intestazioneMoreAnswers } from '../../../store/
 import { haveRepModifyRight } from '../../../store/slice/rightsSlice';
 import { isBConfirmAddFormClicked } from '../../../store/slice/addFormSlice';
 
+// Campo intestazione
 const TextFieldIntestazione = ():ReactElement => {
   const dispatch = useDispatch();
   const classes = useStyles();

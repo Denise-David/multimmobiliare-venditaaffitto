@@ -10,6 +10,7 @@ import {
 
 interface Props{ IDDomanda: string}
 
+// Campo vuoto per aggiunta risposta
 const TextFieldEmptyAnswerLine = ({ IDDomanda }:Props):ReactElement => {
   const dispatch = useDispatch();
   const bCheckDisabled = useSelector(isBCheckDisabled);

@@ -1,11 +1,10 @@
 import {
-  AppBar,
-  Dialog, FormControlLabel, IconButton, Radio,
+
+  Dialog, FormControlLabel, Radio,
   RadioGroup,
-  Toolbar,
+
 } from '@material-ui/core';
 import React, { ReactElement } from 'react';
-import CloseIcon from '@material-ui/icons/Close';
 import { useDispatch, useSelector } from 'react-redux';
 import useStyles from './style';
 import { filtro, setFiltro } from '../../../store/slice/interfacciaAmmSlice';
@@ -19,14 +18,7 @@ const DialogFilter = ():ReactElement => {
   return (
 
     <Dialog open={open} onClose={() => dispatch(closeDialogFiltro())}>
-      <AppBar position="static" color="primary">
 
-        <Toolbar>
-          <IconButton onClick={() => dispatch(closeDialogFiltro())}>
-            <CloseIcon className={classes.color} />
-          </IconButton>
-        </Toolbar>
-      </AppBar>
       <div className={classes.padding}>
         <RadioGroup
           aria-label="gender"
@@ -34,6 +26,7 @@ const DialogFilter = ():ReactElement => {
             const { value } = event.target;
             dispatch(setFiltro(value));
             dispatch(closeAndFilterDialog());
+            dispatch(closeDialogFiltro());
           }}
           value={filter}
           name="gender1"

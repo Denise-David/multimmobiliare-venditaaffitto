@@ -15,6 +15,7 @@ import { changePatientValue, unsetCheckboxDoctor, unsetCheckboxFamilyDoctor } fr
 import { dialogSearchOpen, closeDialogSearch } from '../../../../store/slice/dialogSlice';
 import { Medico, objectToArray } from '../../../../util';
 
+// Dialog per la ricerca dei dottori
 const SearchDoctorDialog = ():ReactElement => {
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -80,6 +81,11 @@ const SearchDoctorDialog = ():ReactElement => {
               Cerca il tuo medico
             </Typography>
             <TextField
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  dispatch(buttonSearchClicked());
+                }
+              }}
               variant="outlined"
               placeholder="Nome"
               onChange={(event) => {
@@ -88,6 +94,11 @@ const SearchDoctorDialog = ():ReactElement => {
               }}
             />
             <TextField
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  dispatch(buttonSearchClicked());
+                }
+              }}
               variant="outlined"
               placeholder="Cognome"
               onChange={(event) => {

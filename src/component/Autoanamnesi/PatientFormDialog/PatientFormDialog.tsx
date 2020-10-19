@@ -33,7 +33,7 @@ import {
   unsetCheckboxDoctor, unsetCheckboxFamilyDoctor,
 } from '../../../store/slice/patientDataSlice';
 import TextCityName from './TextCityName/TextCityName';
-import TextCAP from './TextCAP/TextCityName';
+import TextCAP from './TextCAP/TextCAP';
 import SearchDoctorDialog from './SearchDoctorDialog/SearchDoctorDialog';
 import { setNomeCognomeDottoreScelto } from '../../../store/slice/searchDoctorSlice';
 import {
@@ -45,6 +45,7 @@ import SnackbarDoctor from './SnackbarDoctor/SnackbarDoctor';
 import SnackbarDatiPersonali from './SnackbarDatiPersonali/SnackbarDatiPersonali';
 import ButtonPatientDataForm from './ButtonPatientDataForm/ButtonPatientDataForm';
 
+// Dialog formulario paziente
 const PatientFormDialog = ():ReactElement => {
   const open = useSelector(dialogFormPatientOpen);
   const classes = useStyles();

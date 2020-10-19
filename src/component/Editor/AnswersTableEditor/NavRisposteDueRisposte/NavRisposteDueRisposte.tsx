@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import useStyles from './style';
 import { setExpanded, tableTwoAnsExpanded } from '../../../../store/slice/risposteAddFormSlice';
 
+// Navbar della tabella risposte
 const NavRisposteDueRisposte = ():ReactElement => {
   const classes = useStyles();
   const dispatch = useDispatch();

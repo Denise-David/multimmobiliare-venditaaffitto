@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import useStyles from './style';
 import { closeDialogSummary } from '../../../../store/slice/dialogSlice';
 
+// Bottone di ritorno e modifica dei dati
 const ButtonSendCancelSummary = ():ReactElement => {
   const dispatch = useDispatch();
   const classes = useStyles();

@@ -28,6 +28,7 @@ import DropDownListGroup from '../DropDownListGroup/DropDownListGroup';
 import HeaderAnsMoreAns from './HeaderAnsMoreAns/HeaderAnsMoreAns';
 import { enableAll } from '../../../store/slice/disableEnableSlice';
 
+// Tabella domande a più risposte
 const QuestionsAndAnswersEditor = ():ReactElement => {
   const dispatch = useDispatch();
   const classes = useStyles();

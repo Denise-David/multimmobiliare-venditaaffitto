@@ -1,3 +1,5 @@
+import { useSelector } from 'react-redux';
+
 export interface Medico {
   id?:string,
   givenname?: string;
@@ -10,6 +12,9 @@ export interface Medico {
 // eslint-disable-next-line import/prefer-default-export
 export function getStringMedico(medico: Medico): string {
   if (medico) {
+    if (medico.city === 'Nessun medico di famiglia' || medico.city === 'Nessun medico inviante') {
+      return `${medico.city}`;
+    }
     return `${medico.givenname || medico.firstname || ''} ${
       medico.familyname || medico.lastname || ''
     }, ${medico.city || ''}`;

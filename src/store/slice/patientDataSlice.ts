@@ -52,12 +52,12 @@ const patientDataSlice = createSlice({
     },
     setNoFamilyDoctor(state) {
       if (state.newPatientInfo) {
-        state.newPatientInfo.familyDoctor = { givenname: 'Nessun medico di famiglia' };
+        state.newPatientInfo.familyDoctor = { city: 'Nessun medico di famiglia' };
       }
     },
     setNoDoctor(state) {
       if (state.newPatientInfo) {
-        state.newPatientInfo.doctor = { givenname: 'Nessun medico inviante' };
+        state.newPatientInfo.doctor = { city: 'Nessun medico inviante' };
       }
     },
     setObligatoryFieldEmpty(state) {

@@ -6,6 +6,7 @@ import {
   cancelClicked, setObligatoryFieldEmpty, unsetObligatoryFieldEmpty,
 } from '../../../../store/slice/patientDataSlice';
 
+// Campo numero via
 const TextNumber = ():ReactElement => {
   const dataEtichetta = useSelector(newPatientInfo);
   const disabled = useSelector(textFieldDisabled);

@@ -28,6 +28,7 @@ import DropDownListGroup from '../DropDownListGroup/DropDownListGroup';
 import TextFieldIntestazione from '../TextFieldIntestazione/TextFieldIntestazione';
 import { enableAll } from '../../../store/slice/disableEnableSlice';
 
+// Tabella domande
 const QuestionsEditor = ():ReactElement => {
   const dispatch = useDispatch();
 

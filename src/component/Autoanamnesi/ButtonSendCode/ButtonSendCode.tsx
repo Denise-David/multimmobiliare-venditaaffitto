@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import useStyles from './style';
 import { buttonSendCode } from '../../../store/slice/labelCodeSlice';
 
+// Bottone invia etichetta
 const ButtonSendCode = ():ReactElement => {
   const dispatch = useDispatch();
   const classes = useStyles();

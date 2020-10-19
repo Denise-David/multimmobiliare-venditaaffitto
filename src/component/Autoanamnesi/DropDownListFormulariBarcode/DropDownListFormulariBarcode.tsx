@@ -5,6 +5,7 @@ import { formulariList, setSelectedForm, formSelected } from '../../../store/sli
 import useStyles from './style';
 import { formularioDBType } from '../../../store/slice/addFormSlice';
 
+// Lista a tendina con formulari dell'etichetta
 const DropDownListFormulariBarcode = ():ReactElement => {
   const formulari = useSelector(formulariList);
   const dispatch = useDispatch();

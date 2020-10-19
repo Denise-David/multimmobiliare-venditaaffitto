@@ -16,6 +16,7 @@ import ButtonOpenPDFDataPatient from './ButtonOpenPDFDataPatient/ButtonOpenPDFDa
 import ButtonOpenPDFFormPatient from './ButtonOpenPDFFormPatient/ButtonOpenPDFFormPatient';
 import { formularioDBType } from '../../../store/slice/addFormSlice';
 
+// Riga formulario con etichetta
 const FormularioLabelLine = ():ReactElement => {
   const labelForm = useSelector(formWithLabel);
   const dispatch = useDispatch();
@@ -50,8 +51,10 @@ const FormularioLabelLine = ():ReactElement => {
               {form.paziente?.familyname}
 
             </Typography>
+
           </Grid>
           <span>
+
             <IconButton
               color="primary"
               onClick={() => {
@@ -60,6 +63,7 @@ const FormularioLabelLine = ():ReactElement => {
                 dispatch({ type: 'INIT_INTERFACCIA' });
               }}
             >
+
               <DeleteIcon
 
                 style={{ fontSize: 30 }}
@@ -73,6 +77,9 @@ const FormularioLabelLine = ():ReactElement => {
                 <ButtonOpenPDFFormPatient etichetta={form.etichetta} IDForm={form._id} />
 
                 <ButtonOpenPDFDataPatient IDForm={form._id} />
+                <Typography variant="h6" align="right">
+                  {form.etichetta}
+                </Typography>
               </div>
 
               <Divider />

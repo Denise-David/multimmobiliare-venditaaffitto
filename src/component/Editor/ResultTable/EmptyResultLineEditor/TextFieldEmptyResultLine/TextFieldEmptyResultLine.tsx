@@ -7,6 +7,7 @@ import {
   resetRisultato, setButtonDisabled, setButtonEnabled, buttonDisabled,
 } from '../../../../../store/slice/risultatiAddFormSlice';
 
+// Campo aggiunta risultato
 const TextFieldEmptyResultLine = ():ReactElement => {
   const res = useSelector(result);
   const dispatch = useDispatch();

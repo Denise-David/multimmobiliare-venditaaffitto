@@ -14,6 +14,7 @@ import {
   enableAll,
 } from '../../../../store/slice/disableEnableSlice';
 
+// Riga aggiunta domanda
 const EmptyAddQuestionMoreAnswers = ():ReactElement => {
   const dispatch = useDispatch();
   const valoreTextField = useSelector(question);

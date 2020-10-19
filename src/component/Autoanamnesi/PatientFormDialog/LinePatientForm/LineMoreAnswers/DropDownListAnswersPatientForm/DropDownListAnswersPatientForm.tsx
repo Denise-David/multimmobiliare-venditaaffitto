@@ -9,6 +9,7 @@ import { rispostaType } from '../../../../../../store/slice/risposteAddFormSlice
 
 interface Props {idDomanda : string, domanda : string}
 
+// Lista a tendina risposte domanda
 const DropDownListAnswersPatient = ({ idDomanda, domanda } : Props):ReactElement => {
   const dispatch = useDispatch();
 

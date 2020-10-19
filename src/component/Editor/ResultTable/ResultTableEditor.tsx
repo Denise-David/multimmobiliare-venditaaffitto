@@ -8,6 +8,7 @@ import ResultLineEditor from './ResultLineEditor/ResultLineEditor';
 import useStyles from './style';
 import EmptyResultLineEditor from './EmptyResultLineEditor/EmptyResultLineEditor';
 
+// Tabella risultati
 const ResultTableEditor = ():ReactElement => {
   const classes = useStyles();
 

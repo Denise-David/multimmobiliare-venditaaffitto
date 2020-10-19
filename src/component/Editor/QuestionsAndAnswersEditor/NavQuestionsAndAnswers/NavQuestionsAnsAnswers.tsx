@@ -20,6 +20,7 @@ import { intestazioneAttiva, setIntestazioneAttiva } from '../../../../store/sli
 import { haveRepModifyRight } from '../../../../store/slice/rightsSlice';
 import { isBConfirmAddFormClicked } from '../../../../store/slice/addFormSlice';
 
+// Navbar della tabella domande a più risposte
 const NavQuestionsAndAnswers = ():ReactElement => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);

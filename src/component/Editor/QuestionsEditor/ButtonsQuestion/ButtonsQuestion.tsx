@@ -17,6 +17,7 @@ import {
 
 interface Props{ domandaAddForm: domandaType}
 
+// Bottoni domande
 const ButtonsQuestion = ({ domandaAddForm }: Props):ReactElement => {
   const rightRepModify = useSelector(haveRepModifyRight);
   const confirmAddReparto = useSelector(isBConfirmAddFormClicked);

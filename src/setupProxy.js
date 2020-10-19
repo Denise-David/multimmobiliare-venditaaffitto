@@ -10,7 +10,7 @@ module.exports = function (app) {
   app.use(
     '/autoanamnesi',
     createProxyMiddleware({
-      target: 'http://gecodev.eoc.ch',
+      target: 'http://gecotest2.eoc.ch',
       changeOrigin: true,
     }),
   );

@@ -4,12 +4,13 @@ import useStyles from './style';
 
 interface Props {etichetta: string | undefined, IDForm : string}
 
+// Bottone apri PDF risposte formulario paziente
 const ButtonOpenPDFFormPatient = ({ etichetta, IDForm }: Props):ReactElement => {
   const classes = useStyles();
 
   const buttonFineDispatch = () => {
     // eslint-disable-next-line no-underscore-dangle
-    window.open(`http://gecodev.eoc.ch/autoanamnesi-client/pdfRispostePaziente?etichetta=${etichetta}&ID=${IDForm}`);
+    window.open(`http://gecotest2.eoc.ch/autoanamnesi-client/pdfRispostePaziente?etichetta=${etichetta}&ID=${IDForm}`);
   };
 
   return (

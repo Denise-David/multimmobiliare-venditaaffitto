@@ -7,6 +7,7 @@ import {
   closeSnackbarDatiPersonali, snackbarDatiPersonali,
 } from '../../../../store/slice/snackbarSlice';
 
+// Avviso che non sono state confermate le modifiche ai propri dati
 const SnackbarDatiPersonali = ():ReactElement => {
   const snackbarOpen = useSelector(snackbarDatiPersonali);
   const dispatch = useDispatch();

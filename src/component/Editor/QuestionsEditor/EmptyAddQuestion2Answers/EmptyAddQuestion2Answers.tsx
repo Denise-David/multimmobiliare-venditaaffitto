@@ -9,6 +9,7 @@ import {
   addDomandaInArray, resetDomanda, questionTwoAns, setDomandaTwoAns,
 } from '../../../../store/slice/domandeAddFormSlice';
 
+// Riga domanda aggiungi domanda
 const EmptyAddQuestion2Answers = ():ReactElement => {
   const dispatch = useDispatch();
   const valoreTextField = useSelector(questionTwoAns);

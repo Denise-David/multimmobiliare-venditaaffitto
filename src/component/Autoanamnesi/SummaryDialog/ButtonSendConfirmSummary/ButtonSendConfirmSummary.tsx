@@ -5,6 +5,7 @@ import useStyles from './style';
 
 import { closeDialogSummaryAndSave, openReturnDeviceDialog, closeDialogFormPatient } from '../../../../store/slice/dialogSlice';
 
+// Bottone di conferma dei dati
 const ButtonSendConfirmSummary = ():ReactElement => {
   const dispatch = useDispatch();
   const classes = useStyles();

@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import useStyles from './style';
 import { newPatientInfo, oldPatientInfo } from '../../../../store/slice/patientDataSlice';
 
+// Dati senza dottori paziente
 const PatientNoDoctorDataSummary = ():ReactElement => {
   const dataPatient = useSelector(newPatientInfo);
   const oldDataPatient = useSelector(oldPatientInfo);

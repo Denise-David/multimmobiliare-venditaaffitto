@@ -41,7 +41,7 @@ export default function* getDataEtichetta():Generator {
     const streetNumber = street.substring(indexSpace, street.length);
     const streetName = street.substring(0, indexSpace);
     const { familyDoctor = {}, doctor = {}, insuranceCovers = [] } = hcase;
-    const insuranceCoversName = insuranceCovers[0].guarantName;
+    const insuranceCoversName = insuranceCovers[0] ? insuranceCovers[0].guarantName : '';
 
     const patientInfo = {
       familyname,

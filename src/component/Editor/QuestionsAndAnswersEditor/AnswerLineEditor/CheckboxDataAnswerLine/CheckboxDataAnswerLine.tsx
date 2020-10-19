@@ -7,6 +7,7 @@ import { isBConfirmAddFormClicked } from '../../../../../store/slice/addFormSlic
 
 interface Props{rispostaArray : rispostaType, id: string, IDRisposta: string}
 
+// CHeckbox risposta
 const CheckboxDataAnswerLine = ({ rispostaArray, id, IDRisposta } : Props):ReactElement => {
   const dispatch = useDispatch();
   const rightMod = useSelector(haveRepModifyRight);

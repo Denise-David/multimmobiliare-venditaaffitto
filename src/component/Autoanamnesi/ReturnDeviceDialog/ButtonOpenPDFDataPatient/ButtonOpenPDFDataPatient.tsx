@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import useStyles from './style';
 import { lastFormID } from '../../../../store/slice/patientFormPDFSlice';
 
+// Bottone apri PDF dati paziente
 const ButtonOpenPDFDataPatient = ():ReactElement => {
   const classes = useStyles();
   const lastIDForm = useSelector(lastFormID);

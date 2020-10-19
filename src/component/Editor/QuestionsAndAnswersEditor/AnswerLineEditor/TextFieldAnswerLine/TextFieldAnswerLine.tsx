@@ -6,6 +6,7 @@ import { modifyRisposta, rispostaType, setModifyRispostaUnclicked } from '../../
 import { enableAll } from '../../../../../store/slice/disableEnableSlice';
 
 interface Props{rispostaArray : rispostaType, id: string, IDRisposta: string}
+// Campo risposta
 const TextFieldAnswerLine = ({ rispostaArray, id, IDRisposta } : Props):ReactElement => {
   const dispatch = useDispatch();
   const bCheckDisabled = useSelector(isBCheckDisabled);

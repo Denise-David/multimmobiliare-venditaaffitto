@@ -6,6 +6,7 @@ import useStyles from './style';
 import { ValueCode } from '../../../../store/slice/labelCodeSlice';
 import { lastFormID } from '../../../../store/slice/patientFormPDFSlice';
 
+// Bottone apri PDF formulario risposte paziente
 const ButtonOpenPDFFormPatient = ():ReactElement => {
   const classes = useStyles();
   const lastIDForm = useSelector(lastFormID);

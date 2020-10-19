@@ -6,7 +6,8 @@ import {
   cancelClicked, setObligatoryFieldEmpty, unsetObligatoryFieldEmpty,
 } from '../../../../store/slice/patientDataSlice';
 
-const TextLastname = ():ReactElement => {
+// Campo via
+const TextStreet = ():ReactElement => {
   const dataEtichetta = useSelector(newPatientInfo);
   const disabled = useSelector(textFieldDisabled);
   const dispatch = useDispatch();
@@ -47,4 +48,4 @@ const TextLastname = ():ReactElement => {
   );
 };
 
-export default TextLastname;
+export default TextStreet;

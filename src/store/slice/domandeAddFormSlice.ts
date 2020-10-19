@@ -13,7 +13,7 @@ export interface domandaType {
     risposte? : rispostaType[],
     normalType?:boolean,
   group? : string,
-facoltativa?: boolean
+facoltativa?: boolean,
 libera?:boolean}
 
 const domandeAddFormSlice = createSlice({

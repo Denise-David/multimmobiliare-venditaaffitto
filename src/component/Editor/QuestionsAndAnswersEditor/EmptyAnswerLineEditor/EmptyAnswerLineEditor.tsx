@@ -16,6 +16,7 @@ import useStyles from './style';
 
 interface Props{ IDDomanda: string}
 
+// Riga aggiunta risposta
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const EmptyAnswerLineEditor = ({ IDDomanda }: Props) => {
   const dispatch = useDispatch();

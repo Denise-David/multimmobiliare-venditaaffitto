@@ -13,6 +13,7 @@ import {
 } from '../../../store/slice/groupSlice';
 import ListaGruppi from './ListaGruppi/ListaGruppi';
 
+// Finestra gestione gruppi
 const GroupDialog = ():ReactElement => {
   const statusDialog = useSelector(dialogGroupOpen);
   const dispatch = useDispatch();

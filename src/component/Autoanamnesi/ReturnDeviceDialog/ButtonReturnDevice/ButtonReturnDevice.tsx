@@ -13,6 +13,7 @@ import {
 } from '../../../../store/slice/homePageLabelSlice';
 import { closeReturnDeviceDialog } from '../../../../store/slice/dialogSlice';
 
+// Bottone fine per il ritorno alla home
 const ButtonReturnDevice = ():ReactElement => {
   const classes = useStyles();
   const dispatch = useDispatch();

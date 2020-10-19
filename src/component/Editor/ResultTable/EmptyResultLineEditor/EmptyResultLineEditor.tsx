@@ -14,6 +14,7 @@ import { haveRepModifyRight } from '../../../../store/slice/rightsSlice';
 import { setBCheckDisabled } from '../../../../store/slice/domandeAddFormSlice';
 import TextFieldEmptyResultLine from './TextFieldEmptyResultLine/TextFieldEmptyResultLine';
 
+// Riga di aggiunta risultato
 const EmptyResultLineEditor = ():ReactElement => {
   const dispatch = useDispatch();
   const rightRepModify = useSelector(haveRepModifyRight);

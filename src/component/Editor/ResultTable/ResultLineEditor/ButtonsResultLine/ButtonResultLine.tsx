@@ -13,6 +13,7 @@ import { isBCheckDisabled, setBCheckEnabled } from '../../../../../store/slice/d
 
 interface Props{oneForm: resultType}
 
+// Bottoni risultato
 const ButtonResultLine = ({ oneForm } : Props):ReactElement => {
   const dispatch = useDispatch();
   const bCheckDisabled = useSelector(isBCheckDisabled);

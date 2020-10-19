@@ -15,6 +15,7 @@ import {
 import LineMoreAnswers from './LineMoreAnswers/LineMoreAnswers';
 import { domandaType } from '../../../../store/slice/domandeAddFormSlice';
 
+// Riga domanda formulario
 const MultipleChoiceLinePatient = ():ReactElement => {
   const classes = useStyles();
   const dispatch = useDispatch();

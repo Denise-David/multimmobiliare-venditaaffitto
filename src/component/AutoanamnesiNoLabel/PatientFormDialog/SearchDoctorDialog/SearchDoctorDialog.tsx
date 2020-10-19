@@ -80,6 +80,11 @@ const SearchDoctorDialog = ():ReactElement => {
               Cerca il tuo medico
             </Typography>
             <TextField
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  dispatch(buttonSearchClicked());
+                }
+              }}
               variant="outlined"
               placeholder="Nome"
               onChange={(event) => {
@@ -88,6 +93,11 @@ const SearchDoctorDialog = ():ReactElement => {
               }}
             />
             <TextField
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  dispatch(buttonSearchClicked());
+                }
+              }}
               variant="outlined"
               placeholder="Cognome"
               onChange={(event) => {

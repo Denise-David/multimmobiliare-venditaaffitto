@@ -9,6 +9,7 @@ import ButtonOpenPDFDataPatient from './ButtonOpenPDFDataPatient/ButtonOpenPDFDa
 import ButtonOpenPDFFormPatient from './ButtonOpenPDFFormPatient/ButtonOpenPDFFormPatient';
 import { dialogReturnDeviceOpen } from '../../../store/slice/dialogSlice';
 
+// Dialog ritorno dispositivo
 const ReturnDeviceDialog = ():ReactElement => {
   const isOpen = useSelector(dialogReturnDeviceOpen);
   const classes = useStyles();

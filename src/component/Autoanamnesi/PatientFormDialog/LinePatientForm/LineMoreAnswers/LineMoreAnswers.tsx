@@ -16,6 +16,7 @@ import { domandaType } from '../../../../../store/slice/domandeAddFormSlice';
 interface Props {idDomanda : string, domanda : string, risposte : rispostaType[],
     question : domandaType, index : number, groupSelected : {id:string, name:string} | undefined}
 
+// Riga domanda a più risposte
 const LineMoreAnswers = ({
   idDomanda, domanda, risposte, question, index, groupSelected,
 } : Props):ReactElement => {

@@ -9,6 +9,7 @@ import { isBConfirmAddFormClicked } from '../../../../store/slice/addFormSlice';
 
 interface Props {IDDomanda : string, domanda : domandaType}
 
+// Intestazione per le domande
 const HeaderDomandaMoreAnswers = ({ IDDomanda, domanda }: Props):ReactElement => {
   const classes = useStyles();
   const dispatch = useDispatch();
