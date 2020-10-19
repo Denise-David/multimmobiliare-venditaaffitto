@@ -13,8 +13,22 @@ const snackbarSlice = createSlice({
     snackbarDoctor: false as boolean,
     snackbarDatiPersonali: false as boolean,
     snackbarEtichettaInesistente: false as boolean,
+    snackbarNomeGruppo: false as boolean,
+    snackbarConfirmCancel: false as boolean,
   },
   reducers: {
+    closeSnackbarConfirmCancel(state) {
+      state.snackbarConfirmCancel = false;
+    },
+    openSnackbarConfirmCancel(state) {
+      state.snackbarConfirmCancel = true;
+    },
+    closeSnackbarNomeGruppo(state) {
+      state.snackbarNomeGruppo = false;
+    },
+    openSnackbarNomeGruppo(state) {
+      state.snackbarNomeGruppo = true;
+    },
     closeSnackbarEtichettaInesistente(state) {
       state.snackbarEtichettaInesistente = false;
     },
@@ -69,8 +83,10 @@ const snackbarSlice = createSlice({
   },
 });
 
+export const snackbarConfirmCancel = (state:State):boolean => state.snackbar.snackbarConfirmCancel;
 // eslint-disable-next-line max-len
 export const snackbarEtichettaInesistente = (state : State):boolean => state.snackbar.snackbarEtichettaInesistente;
+export const snackbarNomeGruppo = (state :State) : boolean => state.snackbar.snackbarNomeGruppo;
 export const snackbarDatiPersonali = (state:State):boolean => state.snackbar.snackbarDatiPersonali;
 export const snackbarDoctor = (state: State):boolean => state.snackbar.snackbarDoctor;
 export const snackbarFamilyDoctor = (state: State):boolean => state.snackbar.snackbarFamilyDoctor;
@@ -90,6 +106,7 @@ export const {
   openSnackbarFamilyDoctor, closeSnackbarFamilyDoctor,
   openSnackbarDoctor, closeSnackbarDoctor, openSnackbarDatiPersonali,
   openSnackbarEtichettaInesistente, closeSnackbarEtichettaInesistente,
-  closeSnackbarDatiPersonali,
+  closeSnackbarDatiPersonali, closeSnackbarNomeGruppo, openSnackbarNomeGruppo,
+  closeSnackbarConfirmCancel, openSnackbarConfirmCancel,
 } = snackbarSlice.actions;
 export default snackbarSlice.reducer;

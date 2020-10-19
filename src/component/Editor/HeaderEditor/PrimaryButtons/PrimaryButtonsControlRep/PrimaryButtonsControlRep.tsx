@@ -7,11 +7,12 @@ import SaveIcon from '@material-ui/icons/Save';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import { haveRepDeleteRight, haveRepModifyRight, haveUserCreateRight } from '../../../../../store/slice/rightsSlice';
 import {
-  buttonAddClicked, buttonDeleteOrSaveClicked, saveModifyForm, buttonCancelAddFormClicked,
+  buttonAddClicked, buttonDeleteOrSaveClicked, saveModifyForm,
 } from '../../../../../store/slice/addFormSlice';
 import { isBModifyDelAddReturnDisabled } from '../../../../../store/slice/disableEnableSlice';
 import useStyles from './style';
 import { IDForm } from '../../../../../store/slice/ddlEditorFormAndRepartiSlice';
+import { openSnackbarConfirmCancel } from '../../../../../store/slice/snackbarSlice';
 
 // Bottoni per controllo formulari
 const PrimaryButtonsControlRep = ():ReactElement => {
@@ -94,9 +95,8 @@ const PrimaryButtonsControlRep = ():ReactElement => {
               <IconButton
                 disabled={iconsDisabled}
                 onClick={
-                  () => dispatch(buttonCancelAddFormClicked())
-
-                   }
+                  () => dispatch((openSnackbarConfirmCancel()))
+                  }
                 color="primary"
               >
                 <HighlightOffIcon fontSize="large" />

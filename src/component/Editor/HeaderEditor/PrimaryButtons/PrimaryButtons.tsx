@@ -11,6 +11,7 @@ import {
 } from '../../../../store/slice/addFormSlice';
 import { isBSaveDisabled, isBModifyDelAddReturnDisabled, setBSaveDisabled } from '../../../../store/slice/disableEnableSlice';
 import PrimaryButtonsControlRep from './PrimaryButtonsControlRep/PrimaryButtonsControlRep';
+import { openSnackbarConfirmCancel } from '../../../../store/slice/snackbarSlice';
 
 // Bottoni primari
 const PrimaryButtons = ():ReactElement => {
@@ -65,7 +66,7 @@ const PrimaryButtons = ():ReactElement => {
                   <IconButton
                     disabled={iconsDisabled}
                     onClick={
-                        () => dispatch(buttonCancelAddFormClicked())
+                        () => dispatch((openSnackbarConfirmCancel()))
                         }
                     color="primary"
                   >

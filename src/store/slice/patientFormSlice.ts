@@ -34,9 +34,13 @@ const patientFormSlice = createSlice({
     intestazioneMoreAnswers: '' as string,
     gruppi: [] as {id:string, name:string}[],
     noFacoltative: [] as string[],
+    domandeDimenticate: [] as boolean[],
 
   },
   reducers: {
+    setDomandaDimenticata(state, { payload }) {
+      state.domandeDimenticate = payload;
+    },
     resetNoFacoltative(state) {
       state.noFacoltative = [];
     },
@@ -118,6 +122,7 @@ export const buttonSendForm = ():{type:string} => ({
 
 });
 
+export const domandeDimenticate = (state:State):boolean[] => state.patientForm.domandeDimenticate;
 export const noFacoltative = (state: State):string[] => state.patientForm.noFacoltative;
 export const groups = (state : State):{id:string, name:string}[] => state.patientForm.gruppi;
 export const
@@ -134,7 +139,8 @@ export const {
   setRisposta, getBooleanAnswers, resetDomandeReparto,
   resetBooleanAnswers, resetRisposte, setNormalTypePresent,
   setDate, setIntestazioneMoreAns, setIntestazioneTwoAns,
-  setGruppi, setRispostaLibera, setDomandaNoFacoltativa, resetNoFacoltative,
+  setGruppi, setRispostaLibera, setDomandaNoFacoltativa,
+  resetNoFacoltative, setDomandaDimenticata,
 
 } = patientFormSlice.actions;
 export default patientFormSlice.reducer;

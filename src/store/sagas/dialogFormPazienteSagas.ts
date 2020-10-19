@@ -11,7 +11,7 @@ import {
 } from '../slice/dialogSlice';
 import {
   noFacoltative, getDomandeReparto,
-  risposte, getBooleanAnswers, setIntestazioneMoreAns, setGruppi,
+  risposte, getBooleanAnswers, setIntestazioneMoreAns, setGruppi, setDomandaDimenticata,
 } from '../slice/patientFormSlice';
 import { ValueCode } from '../slice/labelCodeSlice';
 import fetchFormStructureByID, {
@@ -133,21 +133,20 @@ export function* sendDataPazienti():Generator {
 
     let risAll = true;
     const response = noFacol.map((idDomanda: string) => {
-      if (answersData[idDomanda] === undefined && risAll === true) {
-        risAll = false;
-        return (risAll);
-      } risAll = true;
-      return risAll;
+      risAll = !(answersData[idDomanda] === undefined);
+      return (risAll);
     });
 
+    yield put(setDomandaDimenticata(response));
     const answersAll = response.includes(false);
     // Se le risposte ricevute dal paziente sono uguali al numero di domande tot
     if (checkOrCancelClicked && !answersAll && !obbFieldEmpty) {
       yield put(openDialogSummary());
-      // yield put(addRisposteFormPazienti(patientData, answersData));
     } else if (!checkOrCancelClicked) {
       yield put(openSnackbarDatiPersonali());
-    } else if (answersAll) { yield put(openSnackbarPatientAnswers()); } else if (obbFieldEmpty) {
+    } else if (answersAll) {
+      yield put(openSnackbarPatientAnswers());
+    } else if (obbFieldEmpty) {
       yield put(openSnackbarFieldEmpty());
     }
   } catch (error) {

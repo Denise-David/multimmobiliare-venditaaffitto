@@ -106,6 +106,7 @@ const LineMoreAnswers = ({
                   <DropDownListAnswersPatientForm
                     idDomanda={question.IDDomanda}
                     domanda={question.domanda}
+                    index={index}
                   />
                 )
                 : <></>}

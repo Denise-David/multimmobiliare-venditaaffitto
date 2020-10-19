@@ -8,6 +8,7 @@ import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import CreateIcon from '@material-ui/icons/Create';
 import {
+  Button,
   Checkbox, FormControlLabel, Grid, IconButton, Snackbar,
 } from '@material-ui/core';
 import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
@@ -227,6 +228,12 @@ const PatientFormDialog = ():ReactElement => {
                 <Typography variant="body1">
                   Non ha risposto a tutte le domande!
                 </Typography>
+                <Button>
+                  Continua comunque
+                </Button>
+                <Button onClick={() => dispatch(closeSnackbarPatientAnswers())}>
+                  Torna al formulario
+                </Button>
               </Alert>
             </Snackbar>
             <div className={classes.centerButton}>

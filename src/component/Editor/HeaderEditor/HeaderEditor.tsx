@@ -19,6 +19,7 @@ import {
 import { snackbarConfirmDeleteOpen, openCloseSnackbarConfirmDelete } from '../../../store/slice/snackbarSlice';
 import TextFieldRepartoAddForm from './TextFieldRepartoAddForm/TextFieldRepartoAddForm';
 import SnackbarAtLeast2Res from './SnackbarAtLeast2Res/SnackbarAtLeast2Res';
+import SnackbarConfirmCancel from './SnackbarConfirmCancel/SnackbarConfirmCancel';
 
 // Parte in alto dell'editor
 const HeaderEditor = ():ReactElement => {
@@ -122,6 +123,7 @@ const HeaderEditor = ():ReactElement => {
           )}
       />
       <SnackbarAtLeast2Res />
+      <SnackbarConfirmCancel />
     </div>
   );
 };

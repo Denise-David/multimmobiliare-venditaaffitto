@@ -1,5 +1,3 @@
-import { useSelector } from 'react-redux';
-
 export interface Medico {
   id?:string,
   givenname?: string;

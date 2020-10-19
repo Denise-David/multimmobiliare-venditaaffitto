@@ -8,10 +8,12 @@ import { closeDialogGroup, dialogGroupOpen } from '../../../store/slice/dialogSl
 import useStyles from './style';
 import {
   deleteGroup, disableListGroups,
-  groupName, groupSelectedIndex, isListGroupsDisabled, modifyGroup,
+  groupName, groups, groupSelectedIndex, isListGroupsDisabled, modifyGroup,
   resetGroupName, resetSelectedIndex, setGroupInGroups, setModifyGroup, setNewGroup,
 } from '../../../store/slice/groupSlice';
 import ListaGruppi from './ListaGruppi/ListaGruppi';
+import { openSnackbarNomeGruppo } from '../../../store/slice/snackbarSlice';
+import SnackbarNomeGruppo from './SnackbarNomeGruppo/SnackbarNomeGruppo';
 
 // Finestra gestione gruppi
 const GroupDialog = ():ReactElement => {
@@ -26,6 +28,10 @@ const GroupDialog = ():ReactElement => {
   const [disabledDel, setDisabledDel] = useState(false);
   const [disabledMod, setDisabledMod] = useState(false);
   const disabledList = useSelector(isListGroupsDisabled);
+  const gruppi = useSelector(groups);
+
+  // genero un array con solo i nomi dei gruppi
+  const gruppiNames = gruppi.map((gruppo:{id:string, name:string}) => gruppo.name);
 
   // controlli per abilitare e disabilitare pulsanti
   if (IDSelected === -1 && disabledDel === false) {
@@ -42,6 +48,7 @@ const GroupDialog = ():ReactElement => {
       <AppBar position="static" color="primary">
         <Toolbar><Typography variant="h5">Gruppi</Typography></Toolbar>
       </AppBar>
+      <SnackbarNomeGruppo />
       <div className={classes.dialog}>
         <Grid
           container
@@ -98,11 +105,15 @@ const GroupDialog = ():ReactElement => {
                     dispatch(disableListGroups());
                   }
                   if (modify === true) {
-                    setModify(!modify);
-                    dispatch(setModifyGroup());
-                    dispatch(resetGroupName());
-                    dispatch(resetSelectedIndex());
-                    dispatch(disableListGroups());
+                    if (gruppiNames.includes(group)) {
+                      dispatch(openSnackbarNomeGruppo());
+                    } else {
+                      setModify(!modify);
+                      dispatch(setModifyGroup());
+                      dispatch(resetGroupName());
+                      dispatch(resetSelectedIndex());
+                      dispatch(disableListGroups());
+                    }
                   }
                 }}
                 variant="contained"
@@ -115,9 +126,13 @@ const GroupDialog = ():ReactElement => {
               </Button>
               <Button
                 onClick={() => {
-                  dispatch(setGroupInGroups(idGroup));
-                  dispatch(resetGroupName());
-                  setDisabledAdd(!disabledAdd);
+                  if (gruppiNames.includes(group)) {
+                    dispatch(openSnackbarNomeGruppo());
+                  } else {
+                    dispatch(setGroupInGroups(idGroup));
+                    dispatch(resetGroupName());
+                    setDisabledAdd(!disabledAdd);
+                  }
                 }}
                 disabled={disabledAdd}
                 variant="contained"

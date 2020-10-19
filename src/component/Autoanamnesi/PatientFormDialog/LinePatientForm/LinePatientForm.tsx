@@ -5,15 +5,27 @@ import Typography from '@material-ui/core/Typography';
 import ListItem from '@material-ui/core/ListItem';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  FormControlLabel, Radio, RadioGroup, TextField,
+  FormControlLabel, Radio, RadioGroup, RadioProps, TextField, withStyles,
 } from '@material-ui/core';
+import { red } from '@material-ui/core/colors';
 import useStyles from './style';
 import {
   repartoDomande, intestazioneMoreAns,
-  groups, setRisposta, boolAnswers, setRispostaLibera, setDomandaNoFacoltativa,
+  groups, setRisposta, boolAnswers, setRispostaLibera, setDomandaNoFacoltativa, domandeDimenticate,
 } from '../../../../store/slice/patientFormSlice';
 import LineMoreAnswers from './LineMoreAnswers/LineMoreAnswers';
 import { domandaType } from '../../../../store/slice/domandeAddFormSlice';
+
+const RedRadio = withStyles({
+  root: {
+    color: red[400],
+    '&$checked': {
+      color: red[600],
+    },
+  },
+  checked: {},
+// eslint-disable-next-line react/jsx-props-no-spreading
+})((props: RadioProps) => <Radio color="default" {...props} />);
 
 // Riga domanda formulario
 const MultipleChoiceLinePatient = ():ReactElement => {
@@ -23,6 +35,7 @@ const MultipleChoiceLinePatient = ():ReactElement => {
   const gruppi = useSelector(groups);
   const booleanAnswers = useSelector(boolAnswers);
   const domande = useSelector(repartoDomande);
+  const domDimenticate = useSelector(domandeDimenticate);
 
   useEffect(() => {
     // eslint-disable-next-line array-callback-return
@@ -114,16 +127,35 @@ const MultipleChoiceLinePatient = ():ReactElement => {
                         }));
                       }}
                     >
-                      <FormControlLabel
-                        value={booleanAnswers.risposta1}
-                        control={<Radio />}
-                        label={booleanAnswers.risposta1}
-                      />
-                      <FormControlLabel
-                        value={booleanAnswers.risposta2}
-                        control={<Radio />}
-                        label={booleanAnswers.risposta2}
-                      />
+                      {(domDimenticate[index] || domDimenticate.length === 0)
+                        ? (
+                          <>
+                            <FormControlLabel
+                              value={booleanAnswers.risposta1}
+                              control={<Radio />}
+                              label={booleanAnswers.risposta1}
+                            />
+                            <FormControlLabel
+                              value={booleanAnswers.risposta2}
+                              control={<Radio />}
+                              label={booleanAnswers.risposta2}
+                            />
+                          </>
+                        )
+                        : (
+                          <>
+                            <FormControlLabel
+                              value={booleanAnswers.risposta1}
+                              control={<RedRadio />}
+                              label={booleanAnswers.risposta1}
+                            />
+                            <FormControlLabel
+                              value={booleanAnswers.risposta2}
+                              control={<RedRadio />}
+                              label={booleanAnswers.risposta2}
+                            />
+                          </>
+                        )}
                     </RadioGroup>
                   </FormControl>
                 </form>
