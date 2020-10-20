@@ -38,6 +38,13 @@ const patientFormSlice = createSlice({
 
   },
   reducers: {
+    deleteDate(state, { payload }) {
+      const { idDomanda, idRisposta } = payload;
+      if (state.resDate[idDomanda] && state.risposte[idDomanda]) {
+        delete state.resDate[idDomanda][idRisposta];
+        delete state.risposte[idDomanda].date[idRisposta];
+      }
+    },
     setDomandaDimenticata(state, { payload }) {
       state.domandeDimenticate = payload;
     },
@@ -140,7 +147,7 @@ export const {
   resetBooleanAnswers, resetRisposte, setNormalTypePresent,
   setDate, setIntestazioneMoreAns, setIntestazioneTwoAns,
   setGruppi, setRispostaLibera, setDomandaNoFacoltativa,
-  resetNoFacoltative, setDomandaDimenticata,
+  resetNoFacoltative, setDomandaDimenticata, deleteDate,
 
 } = patientFormSlice.actions;
 export default patientFormSlice.reducer;

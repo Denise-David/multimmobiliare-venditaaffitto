@@ -17,5 +17,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     margin: theme.spacing(4),
     textAlign: 'center',
   },
+  etichettaNome: {
+    marginTop: theme.spacing(2),
+  },
 }));
 export default useStyles;

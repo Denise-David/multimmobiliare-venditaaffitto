@@ -1,12 +1,19 @@
+/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable react/prop-types */
 import {
-  FormControl, Grid, InputLabel, ListItem, TextField, Typography,
+  FormControl, Grid, IconButton, InputLabel, ListItem, TextField, Typography,
 } from '@material-ui/core';
-import { MobileDatePicker } from '@material-ui/pickers';
+import { LocalizationProvider, MobileDatePicker } from '@material-ui/pickers';
 import React, { ReactElement } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { parseISO } from 'date-fns';
+import DeleteIcon from '@material-ui/icons/Delete';
+import itLocale from 'date-fns/locale/it';
+import DateFnsAdapter from '@material-ui/pickers/adapter/date-fns';
 import useStyles from './style';
 import {
+  deleteDate,
+  domandeDimenticate,
   repartoDomande, resDate, setDate, setNormalTypePresent, setRispostaLibera,
 } from '../../../../../store/slice/patientFormSlice';
 import DropDownListAnswersPatientForm from './DropDownListAnswersPatientForm/DropDownListAnswersPatientForm';
@@ -23,6 +30,7 @@ const LineMoreAnswers = ({
   const dispatch = useDispatch();
   const dateAnswer = useSelector(resDate);
   const domande = useSelector(repartoDomande);
+  const domDimenticate = useSelector(domandeDimenticate);
   // controllo se sono presenti gruppi
   const dividerPresent = index !== 0 ? domande[index - 1].group !== question.group : false;
 
@@ -30,22 +38,37 @@ const LineMoreAnswers = ({
     if (risposta.type === 'data') {
       const idRisposta = risposta.IDRisposta;
       const testoData = risposta.risposta;
+      let errore = false;
+      if (domDimenticate.length === 0) {
+        errore = false;
+      } else { errore = !domDimenticate[index]; }
       return (
         <div key={idRisposta} className={classes.datePicker}>
-          <MobileDatePicker
-            label={risposta.risposta}
-            mask="__/__/____"
-            value={dateAnswer[idDomanda] && dateAnswer[idDomanda][idRisposta]
-              ? parseISO(dateAnswer[idDomanda][idRisposta].dataFormattata) : null}
-            onChange={(data) => {
-              const dataFormattata = data !== null ? data.toISOString() : '';
-              dispatch(setDate({
-                idRisposta, idDomanda, testoData, dataFormattata, domanda,
-              }));
-            }}
+          <LocalizationProvider locale={itLocale} dateAdapter={DateFnsAdapter}>
+            <MobileDatePicker
+              cancelText="CANCELLA"
+              label={risposta.risposta}
+              mask="__/__/____"
+              value={dateAnswer[idDomanda] && dateAnswer[idDomanda][idRisposta]
+                ? parseISO(dateAnswer[idDomanda][idRisposta].dataFormattata) : null}
+              onChange={(data) => {
+                const dataFormattata = data !== null ? data.toISOString() : '';
+                dispatch(setDate({
+                  idRisposta, idDomanda, testoData, dataFormattata, domanda,
+                }));
+              }}
                     // eslint-disable-next-line react/jsx-props-no-spreading
-            renderInput={(props) => <TextField {...props} />}
-          />
+              renderInput={(props) => {
+                // eslint-disable-next-line no-param-reassign
+                props = { ...props, InputProps: { ...props.InputProps, error: errore } };
+
+                return (<TextField {...props} />);
+              }}
+            />
+          </LocalizationProvider>
+          <IconButton onClick={() => dispatch(deleteDate({ idDomanda, idRisposta }))} color="primary">
+            <DeleteIcon />
+          </IconButton>
         </div>
       );
     }
@@ -105,6 +128,7 @@ const LineMoreAnswers = ({
                   <DropDownListAnswersPatientForm
                     idDomanda={question.IDDomanda}
                     domanda={question.domanda}
+                    index={index}
                   />
                 )
                 : <></>}

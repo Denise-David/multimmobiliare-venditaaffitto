@@ -12,7 +12,9 @@ import {
 
 /* eslint-disable no-underscore-dangle */
 import { formularioDBType, setNomeFormulario } from '../slice/addFormSlice';
-import initInterfaccia, { filter, aggiungiEtichetta, deleteFormAns } from './interfacciaAmministrativaSagas';
+import initInterfaccia, {
+  filter, aggiungiEtichetta, deleteFormAns, getNomeCognomePaziente,
+} from './interfacciaAmministrativaSagas';
 import { setRepartoGUID, setFormulariList, setReparto } from '../slice/homePageLabelSlice';
 
 import { formulariByReparto, setFormulari } from '../slice/rightsSlice';
@@ -230,6 +232,7 @@ function* actionWatcher() {
   yield takeLatest('AGGIUNGI_ETICHETTA', aggiungiEtichetta);
   yield takeLatest('CLOSE_AND_FILTER_DIALOG', filter);
   yield takeLatest('DELETE_ANS_FORM', deleteFormAns);
+  yield takeLatest('GET_NAME_FAMILYNAME_LABEL', getNomeCognomePaziente);
 }
 export default function* rootSaga():Generator {
   yield all([actionWatcher()]);

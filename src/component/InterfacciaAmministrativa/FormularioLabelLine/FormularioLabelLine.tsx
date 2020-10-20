@@ -5,21 +5,24 @@ import {
 import React, { ReactElement } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { closeAndFilterDialog } from '../../../store/slice/dialogSlice';
 import {
-  DeleteAnsForm,
+
   familynameCercato, formWithLabel, nameCercato,
 } from '../../../store/slice/interfacciaAmmSlice';
 import SnackbarEtichettaInesistente from '../SnackbarEtichettaInesistente/SnackbarEtichettaInesistente';
-
+import useStyles from './style';
 import ButtonOpenPDFDataPatient from './ButtonOpenPDFDataPatient/ButtonOpenPDFDataPatient';
 import ButtonOpenPDFFormPatient from './ButtonOpenPDFFormPatient/ButtonOpenPDFFormPatient';
 import { formularioDBType } from '../../../store/slice/addFormSlice';
+import { openSnackbarConfirmDelForm } from '../../../store/slice/snackbarSlice';
+import SnackbarConfirmDelForm from '../SnackbarConfermaEliminazione/SnackbarConfermaEliminazione';
+import ButtonLabel from './ButtonLabel/ButtonLabel';
 
 // Riga formulario con etichetta
 const FormularioLabelLine = ():ReactElement => {
   const labelForm = useSelector(formWithLabel);
   const dispatch = useDispatch();
+  const classes = useStyles();
   const nomeCercato = useSelector(nameCercato);
   const cognomeCercato = useSelector(familynameCercato);
   const listForm = labelForm.map((form : formularioDBType) => {
@@ -37,9 +40,10 @@ const FormularioLabelLine = ():ReactElement => {
           alignItems="center"
           key={form._id}
         >
-
+          <SnackbarConfirmDelForm IDForm={IDForm} />
           <SnackbarEtichettaInesistente />
-          <Grid item xs={12} sm={11}>
+          <Grid item xs={12} sm={10}>
+            <Divider />
             <Typography variant="body1">
 
               {form.reparto}
@@ -53,30 +57,15 @@ const FormularioLabelLine = ():ReactElement => {
             </Typography>
 
           </Grid>
-          <span>
 
-            <IconButton
-              color="primary"
-              onClick={() => {
-                dispatch(DeleteAnsForm(IDForm));
-                dispatch(closeAndFilterDialog());
-                dispatch({ type: 'INIT_INTERFACCIA' });
-              }}
-            >
-
-              <DeleteIcon
-
-                style={{ fontSize: 30 }}
-              />
-            </IconButton>
-          </span>
           <Grid item xs={12} sm={10}>
             <span>
 
-              <div>
+              <div className={classes.button}>
                 <ButtonOpenPDFFormPatient etichetta={form.etichetta} IDForm={form._id} />
 
                 <ButtonOpenPDFDataPatient IDForm={form._id} />
+                <ButtonLabel />
                 <Typography variant="h6" align="right">
                   {form.etichetta}
                 </Typography>
@@ -86,6 +75,21 @@ const FormularioLabelLine = ():ReactElement => {
 
             </span>
           </Grid>
+          <span>
+
+            <IconButton
+              color="primary"
+              onClick={() => {
+                dispatch(openSnackbarConfirmDelForm());
+              }}
+            >
+
+              <DeleteIcon
+
+                style={{ fontSize: 30 }}
+              />
+            </IconButton>
+          </span>
 
         </Grid>
       );

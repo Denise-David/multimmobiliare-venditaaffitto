@@ -6,7 +6,8 @@ import React, { ReactElement } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { closeDialogLabel, dialogLabel } from '../../../store/slice/dialogSlice';
 import {
-  patientSelected, repSelected, formSelected, setLabel, label,
+  patientSelected, repSelected, formSelected, setLabel,
+  label, patientLabel, getNameFamilynameLabel, resetPatientLabel,
 } from '../../../store/slice/interfacciaAmmSlice';
 import useStyles from './style';
 
@@ -19,6 +20,7 @@ const DialogLabel = ():ReactElement => {
   const form = useSelector(formSelected);
   const NON_DIGIT = '/[^d]/g';
   const etichetta = useSelector(label);
+  const pazienteEtichetta = useSelector(patientLabel);
 
   return (
     <Dialog open={open} onClose={() => dispatch(closeDialogLabel())}>
@@ -27,41 +29,78 @@ const DialogLabel = ():ReactElement => {
           className={classes.width}
           container
           spacing={1}
-          direction="column"
-          justify="center"
+          direction="row"
+          justify="space-between"
           alignItems="flex-start"
         >
-          <div className={classes.margin}>
-            <Typography>Reparto:</Typography>
-            <TextField value={rep} disabled variant="outlined" />
-          </div>
-          <div className={classes.margin}>
-            <Typography>Formulario:</Typography>
-            <TextField value={form} disabled variant="outlined" />
-          </div>
-          <div className={classes.margin}>
-            <Typography>Paziente:</Typography>
-            <TextField value={patient} disabled variant="outlined" />
-          </div>
+          <Grid item xs={12} sm={6}>
+            <div className={classes.margin}>
+              <Typography>Reparto:</Typography>
+              <TextField value={rep} disabled variant="outlined" />
+            </div>
+          </Grid>
+          <Grid item xs={12} sm={6} />
+          <Grid item xs={12} sm={6}>
+            <div className={classes.margin}>
+              <Typography>Formulario:</Typography>
+              <TextField value={form} disabled variant="outlined" />
+            </div>
+          </Grid>
+          <Grid item xs={12} sm={6} />
+          <Grid item xs={12} sm={6}>
+            <div className={classes.margin}>
+              <Typography>
+                Paziente:
+                {' '}
 
-          <Typography variant="h6" color="primary" align="center">Etichetta:</Typography>
-          <TextField
-            value={etichetta}
-            onChange={(event) => {
-              const { value } = event.target;
-              if (value !== '') {
-              // eslint-disable-next-line radix
-                const valore = parseInt(value.toString().replace(NON_DIGIT, ''));
-                dispatch(setLabel(valore));
-              } else {
-                const valore = 0;
-                dispatch(setLabel(valore));
-              }
-            }}
-            fullWidth
-            variant="outlined"
-          />
+              </Typography>
+              <TextField value={patient} disabled variant="outlined" />
 
+            </div>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <div className={classes.margin}>
+              <Typography>
+                Paziente etichetta:
+                {' '}
+
+              </Typography>
+              <div className={classes.etichettaNome}>
+                <Typography>
+
+                  {pazienteEtichetta.nome}
+                  {' '}
+                  {pazienteEtichetta.cognome}
+
+                </Typography>
+              </div>
+
+            </div>
+          </Grid>
+          <Grid item xs={12} sm={12}>
+            <Typography variant="h6" color="primary" align="left">Etichetta:</Typography>
+            <TextField
+              value={etichetta}
+              onChange={(event) => {
+                const { value } = event.target;
+                if (value !== '') {
+                  // eslint-disable-next-line radix
+                  const valore = parseInt(value.toString().replace(NON_DIGIT, ''));
+                  dispatch(setLabel(valore));
+                  if (value.length > 6) {
+                    dispatch(getNameFamilynameLabel());
+                  } else if (value.length < 7) {
+                    dispatch(resetPatientLabel());
+                  }
+                } else {
+                  const valore = 0;
+                  dispatch(setLabel(valore));
+                }
+              }}
+              fullWidth
+              variant="outlined"
+            />
+          </Grid>
         </Grid>
         <div className={classes.button}>
           <Button

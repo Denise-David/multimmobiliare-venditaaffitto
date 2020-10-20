@@ -2,7 +2,7 @@ import { put, call, select } from 'redux-saga/effects';
 import { actionAnsType } from '../slice/risposteAddFormSlice';
 import {
   filtro,
-  IDFormSelected, label, resetLabel, setFormNoLabel, setFormWithLabel,
+  IDFormSelected, label, resetLabel, setFormNoLabel, setFormWithLabel, setPatientLabel,
 } from '../slice/interfacciaAmmSlice';
 
 import {
@@ -53,8 +53,8 @@ export function* aggiungiEtichetta():Generator {
     };
 
     const ID = yield select(IDFormSelected);
-    const labelExist :any = yield call(getEtichettaDataByLabel, etichetta);
-    if (labelExist.data.errorType === 'ERROR_TYPE_INVALID') {
+
+    if (dataEtichetta.data.errorType === 'ERROR_TYPE_INVALID') {
       yield put(openSnackbarEtichettaInesistente());
     } else {
       const resPatient = yield call(getRisposteFormPazientiByID, ID);
@@ -88,4 +88,13 @@ export function* deleteFormAns(action:actionAnsType):Generator {
   } catch (error) {
     console.error('errore', error);
   }
+}
+
+export function* getNomeCognomePaziente():Generator {
+  const etichetta : any = yield select(label);
+  const dataEtichetta:any = yield call(getEtichettaDataByLabel, etichetta);
+  const { data = {} } = dataEtichetta;
+  const { patient = {} } = data;
+  const { familyname = '', givenname = '' } = patient;
+  yield put(setPatientLabel({ givenname, familyname }));
 }

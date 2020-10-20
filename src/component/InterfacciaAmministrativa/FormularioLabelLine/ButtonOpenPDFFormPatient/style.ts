@@ -5,6 +5,7 @@ const useStyles = makeStyles((theme:Theme) => ({
 
   margin: {
     margin: theme.spacing(1),
+    minWidth: '200px',
   },
 
 }));

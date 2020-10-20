@@ -12,7 +12,7 @@ import {
   Checkbox, FormControlLabel, Grid, IconButton, Snackbar,
 } from '@material-ui/core';
 import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
-import { dialogFormPatientOpen, openDialogSearch } from '../../../store/slice/dialogSlice';
+import { dialogFormPatientOpen, openDialogSearch, openDialogSummary } from '../../../store/slice/dialogSlice';
 import useStyles from './style';
 import Navbar from '../../Navbar/Navbar';
 import TextName from './TextName/TextName';
@@ -215,7 +215,7 @@ const PatientFormDialog = ():ReactElement => {
             <MultipleChoiceLinePatientForm />
             <div className={classes.margini}>
               <Typography variant="inherit">
-                *domanda obbligatoria
+                *domanda consigliata
               </Typography>
             </div>
             <SnackbarDatiPersonali />
@@ -226,9 +226,9 @@ const PatientFormDialog = ():ReactElement => {
             >
               <Alert severity="warning">
                 <Typography variant="body1">
-                  Non ha risposto a tutte le domande!
+                  Non ha risposto a tutte le domande consigliate!
                 </Typography>
-                <Button>
+                <Button onClick={() => dispatch(openDialogSummary())}>
                   Continua comunque
                 </Button>
                 <Button onClick={() => dispatch(closeSnackbarPatientAnswers())}>

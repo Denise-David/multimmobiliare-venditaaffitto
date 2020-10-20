@@ -4,8 +4,8 @@ import { makeStyles, Theme } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme: Theme) => ({
 
   button: {
-    margin: theme.spacing(2),
-    textAlign: 'center',
+
+    marginTop: theme.spacing(2),
   },
   margin: {
     margin: theme.spacing(1),

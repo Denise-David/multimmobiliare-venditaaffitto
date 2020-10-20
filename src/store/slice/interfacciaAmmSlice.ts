@@ -15,8 +15,18 @@ const interfacciaAmmSlice = createSlice({
     IDFormSelected: '' as string,
     filtro: 'Senza etichetta' as string,
     formWithLabel: [] as formularioDBType[],
+    patientLabel: { nome: '', cognome: '' } as {nome:string, cognome:string},
   },
   reducers: {
+    resetPatientLabel(state) {
+      state.patientLabel.nome = '';
+      state.patientLabel.cognome = '';
+    },
+    setPatientLabel(state, { payload }) {
+      const { givenname, familyname } = payload;
+      state.patientLabel.nome = givenname;
+      state.patientLabel.cognome = familyname;
+    },
     setFormWithLabel(state, { payload }) {
       state.formWithLabel = payload;
     },
@@ -54,6 +64,13 @@ export const DeleteAnsForm = (payload : string):{payload:string, type:string} =>
   payload,
 });
 
+export const getNameFamilynameLabel = ():{type:string} => ({
+  type: 'GET_NAME_FAMILYNAME_LABEL',
+
+});
+
+export const
+  patientLabel = (state: State):{nome:string, cognome:string} => state.interfacciaAmm.patientLabel;
 export const
   formWithLabel = (state: State):formularioDBType[] => state.interfacciaAmm.formWithLabel;
 export const filtro = (state: State):string => state.interfacciaAmm.filtro;
@@ -68,6 +85,7 @@ export const formNoLabel = (state : State):formularioDBType[] => state.interfacc
 export const {
   setFormNoLabel, setNameCercato, setSelected,
   setFamilynameCercato, setLabel, resetLabel,
-  setFiltro, setFormWithLabel,
+  setFiltro, setFormWithLabel, setPatientLabel,
+  resetPatientLabel,
 } = interfacciaAmmSlice.actions;
 export default interfacciaAmmSlice.reducer;

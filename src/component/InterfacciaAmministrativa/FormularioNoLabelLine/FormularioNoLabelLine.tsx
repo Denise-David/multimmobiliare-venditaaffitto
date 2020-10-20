@@ -5,15 +5,17 @@ import {
 import React, { ReactElement } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { closeAndFilterDialog, openDialogLabel } from '../../../store/slice/dialogSlice';
+import { openDialogLabel } from '../../../store/slice/dialogSlice';
 import {
-  DeleteAnsForm,
+
   familynameCercato, formNoLabel, nameCercato, setSelected,
 } from '../../../store/slice/interfacciaAmmSlice';
 
 import useStyles from './style';
 import SnackbarEtichettaInesistente from '../SnackbarEtichettaInesistente/SnackbarEtichettaInesistente';
 import { formularioDBType } from '../../../store/slice/addFormSlice';
+import { openSnackbarConfirmDelForm } from '../../../store/slice/snackbarSlice';
+import SnackbarConfirmDelForm from '../SnackbarConfermaEliminazione/SnackbarConfermaEliminazione';
 
 const FormularioLine = ():ReactElement => {
   const noLabelForm = useSelector(formNoLabel);
@@ -39,11 +41,12 @@ const FormularioLine = ():ReactElement => {
           alignItems="center"
           key={form._id}
         >
+          <SnackbarConfirmDelForm IDForm={IDForm} />
 
           <SnackbarEtichettaInesistente />
 
-          <Grid item xs={12} sm={11}>
-
+          <Grid item xs={12} sm={10}>
+            <Divider />
             <Typography variant="body1">
 
               {form.reparto}
@@ -56,28 +59,11 @@ const FormularioLine = ():ReactElement => {
 
             </Typography>
           </Grid>
-          <span className={classes.right}>
-            <Grid item xs={12} sm={1}>
-              <IconButton
-                color="primary"
-                onClick={() => {
-                  dispatch(DeleteAnsForm(IDForm));
-                  dispatch(closeAndFilterDialog());
-                  dispatch({ type: 'INIT_INTERFACCIA' });
-                }}
-              >
-
-                <DeleteIcon
-
-                  style={{ fontSize: 30 }}
-                />
-              </IconButton>
-            </Grid>
-          </span>
 
           <Grid item xs={12} sm={10}>
-            <div className={classes.margin}>
+            <div className={classes.button}>
               <Button
+                className={classes.width}
                 color="primary"
                 onClick={() => {
                   dispatch(setSelected({
@@ -94,6 +80,22 @@ const FormularioLine = ():ReactElement => {
             </div>
             <Divider />
           </Grid>
+          <span className={classes.right}>
+            <Grid item xs={12} sm={1}>
+              <IconButton
+                color="primary"
+                onClick={() => {
+                  dispatch(openSnackbarConfirmDelForm());
+                }}
+              >
+
+                <DeleteIcon
+
+                  style={{ fontSize: 30 }}
+                />
+              </IconButton>
+            </Grid>
+          </span>
 
         </Grid>
 
