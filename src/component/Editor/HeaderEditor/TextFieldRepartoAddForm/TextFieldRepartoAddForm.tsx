@@ -2,16 +2,15 @@ import React, { ReactElement } from 'react';
 import {
   Grid, Typography, TextField,
 } from '@material-ui/core';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import {
-  selectedReparto, setUnsavedChanges,
+  selectedReparto,
 } from '../../../../store/slice/addFormSlice';
 import useStyles from './style';
 
 // Campo nome formulario all'aggiunta del formulario
 const TextFieldRepartoAddForm = ():ReactElement => {
   const classes = useStyles();
-  const dispatch = useDispatch();
   const repartoSelezionato = useSelector(selectedReparto);
   return (
     <>

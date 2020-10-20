@@ -3,7 +3,7 @@ import { FormControlLabel, Checkbox } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { rispostaType, setRispostaTipoData } from '../../../../../store/slice/risposteAddFormSlice';
 import { haveRepModifyRight } from '../../../../../store/slice/rightsSlice';
-import { isBConfirmAddFormClicked } from '../../../../../store/slice/addFormSlice';
+import { isBConfirmAddFormClicked, setUnsavedChanges } from '../../../../../store/slice/addFormSlice';
 
 interface Props{rispostaArray : rispostaType, id: string, IDRisposta: string}
 
@@ -39,7 +39,10 @@ const CheckboxDataAnswerLine = ({ rispostaArray, id, IDRisposta } : Props):React
         <Checkbox
           disabled={disabled}
           checked={false}
-          onClick={() => dispatch(setRispostaTipoData({ IDDomanda, IDRisposta }))}
+          onClick={() => {
+            dispatch(setUnsavedChanges());
+            dispatch(setRispostaTipoData({ IDDomanda, IDRisposta }));
+          }}
         />
 )}
       label="data"

@@ -11,6 +11,7 @@ import {
   setModifyRispostaClicked, deleteRisposta, setModifyRispostaUnclicked, rispostaType,
 } from '../../../../../store/slice/risposteAddFormSlice';
 import { isBCheckDisabled, setBCheckEnabled } from '../../../../../store/slice/domandeAddFormSlice';
+import { setUnsavedChanges } from '../../../../../store/slice/addFormSlice';
 
 interface Props{rispostaArray : rispostaType, id: string, IDRisposta: string}
 
@@ -31,6 +32,7 @@ const ButtonAnswerLine = ({ rispostaArray, id, IDRisposta } : Props):ReactElemen
             dispatch(disableAll());
             dispatch(setModifyRispostaClicked({ IDDomanda, IDRisposta }));
             dispatch(setBCheckEnabled());
+            dispatch(setUnsavedChanges());
           }}
           disabled={iconsDisabled}
           color="primary"

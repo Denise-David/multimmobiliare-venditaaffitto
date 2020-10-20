@@ -7,6 +7,7 @@ import {
   setAddRispostaClicked, setAddRispostaUnclicked, addRisposta,
   resetRispostaType, stateAddedRisposta,
 } from '../../../../../store/slice/risposteAddFormSlice';
+import { setUnsavedChanges } from '../../../../../store/slice/addFormSlice';
 
 interface Props{ IDDomanda: string}
 
@@ -32,6 +33,7 @@ const TextFieldEmptyAnswerLine = ({ IDDomanda }:Props):ReactElement => {
               if (e.key === 'Enter' && !stateTextField[IDDomanda]) {
                 dispatch(addRisposta(IDDomanda));
                 dispatch(resetRispostaType(IDDomanda));
+                dispatch(setUnsavedChanges());
               }
             }}
             placeholder="risposta"
@@ -57,6 +59,7 @@ const TextFieldEmptyAnswerLine = ({ IDDomanda }:Props):ReactElement => {
               if (e.key === 'Enter' && !stateTextField[IDDomanda]) {
                 dispatch(addRisposta(IDDomanda));
                 dispatch(resetRispostaType(IDDomanda));
+                dispatch(setUnsavedChanges());
               }
             }}
             placeholder="valore"
@@ -89,6 +92,7 @@ const TextFieldEmptyAnswerLine = ({ IDDomanda }:Props):ReactElement => {
             if (e.key === 'Enter' && !stateTextField[IDDomanda]) {
               dispatch(addRisposta(IDDomanda));
               dispatch(resetRispostaType(IDDomanda));
+              dispatch(setUnsavedChanges());
             }
           }}
           placeholder="testo data"

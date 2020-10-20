@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import { haveRepModifyRight } from '../../../../store/slice/rightsSlice';
 import { isBModifyDelAddReturnDisabled, disableAll, enableAll } from '../../../../store/slice/disableEnableSlice';
-import { isBConfirmAddFormClicked } from '../../../../store/slice/addFormSlice';
+import { isBConfirmAddFormClicked, setUnsavedChanges } from '../../../../store/slice/addFormSlice';
 import {
   deleteDomandaInObjectDomande, setBModifyDomandaClicked,
   setBModifyDomandaUnclicked, isBCheckDisabled,
@@ -50,6 +50,7 @@ const ButtonsQuestion = ({ domandaAddForm }: Props):ReactElement => {
                       dispatch(setBModifyDomandaClicked(domandaAddForm.IDDomanda));
                       dispatch(disableAll());
                       dispatch(setBCheckEnabled());
+                      dispatch(setUnsavedChanges());
                     }}
                   >
                     <CreateIcon />
@@ -59,7 +60,10 @@ const ButtonsQuestion = ({ domandaAddForm }: Props):ReactElement => {
                     color="primary"
                     disabled={iconsDisabled}
                     onClick={
-            () => dispatch(deleteDomandaInObjectDomande(domandaAddForm.IDDomanda))
+            () => {
+              dispatch(deleteDomandaInObjectDomande(domandaAddForm.IDDomanda));
+              dispatch(setUnsavedChanges());
+            }
           }
                   >
                     <DeleteIcon />
@@ -70,7 +74,10 @@ const ButtonsQuestion = ({ domandaAddForm }: Props):ReactElement => {
                       <Checkbox
                         disabled={disabled}
                         checked={domandaAddForm.facoltativa}
-                        onChange={() => dispatch(setDomandaFacoltativa(domandaAddForm.IDDomanda))}
+                        onChange={() => {
+                          dispatch(setDomandaFacoltativa(domandaAddForm.IDDomanda));
+                          dispatch(setUnsavedChanges());
+                        }}
                       />
         )}
                     label="facoltativa"
@@ -80,7 +87,10 @@ const ButtonsQuestion = ({ domandaAddForm }: Props):ReactElement => {
                       <Checkbox
                         disabled={disabled}
                         checked={domandaAddForm.libera}
-                        onChange={() => dispatch(setDomandaLibera(domandaAddForm.IDDomanda))}
+                        onChange={() => {
+                          dispatch(setUnsavedChanges());
+                          dispatch(setDomandaLibera(domandaAddForm.IDDomanda));
+                        }}
                       />
         )}
                     label="libera"
@@ -138,7 +148,7 @@ const ButtonsQuestion = ({ domandaAddForm }: Props):ReactElement => {
                 <Checkbox
                   disabled={disabled}
                   checked={domandaAddForm.facoltativa}
-                  onChange={() => dispatch(setDomandaFacoltativa(domandaAddForm.IDDomanda))}
+
                 />
         )}
               label="facoltativa"
@@ -148,7 +158,7 @@ const ButtonsQuestion = ({ domandaAddForm }: Props):ReactElement => {
                 <Checkbox
                   disabled={disabled}
                   checked={domandaAddForm.libera}
-                  onChange={() => dispatch(setDomandaLibera(domandaAddForm.IDDomanda))}
+
                 />
         )}
               label="libera"

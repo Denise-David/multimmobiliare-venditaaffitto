@@ -7,7 +7,7 @@ import {
 } from '../../../../store/slice/risultatiAddFormSlice';
 import { objectToArray } from '../../../../util';
 import { haveRepModifyRight } from '../../../../store/slice/rightsSlice';
-import { isBConfirmAddFormClicked } from '../../../../store/slice/addFormSlice';
+import { isBConfirmAddFormClicked, setUnsavedChanges } from '../../../../store/slice/addFormSlice';
 import { isBCheckDisabled, setBCheckEnabled, setBCheckDisabled } from '../../../../store/slice/domandeAddFormSlice';
 import ButtonResultLine from './ButtonsResultLine/ButtonResultLine';
 import { enableAll } from '../../../../store/slice/disableEnableSlice';
@@ -39,6 +39,7 @@ const ResultLineEditor = ():ReactElement => {
               if (e.key === 'Enter' && !bCheckDisabled) {
                 dispatch(enableAll());
                 dispatch(setBModifyUnclicked(oneForm.IDRisultato));
+                dispatch(setUnsavedChanges());
               }
             }}
 
@@ -66,6 +67,7 @@ const ResultLineEditor = ():ReactElement => {
               if (e.key === 'Enter' && !bCheckDisabled) {
                 dispatch(enableAll());
                 dispatch(setBModifyUnclicked(oneForm.IDRisultato));
+                dispatch(setUnsavedChanges());
               }
             }}
             onChange={(event) => {
@@ -107,6 +109,7 @@ const ResultLineEditor = ():ReactElement => {
               if (e.key === 'Enter' && !bCheckDisabled) {
                 dispatch(enableAll());
                 dispatch(setBModifyUnclicked(oneForm.IDRisultato));
+                dispatch(setUnsavedChanges());
               }
             }}
             onChange={(event) => {

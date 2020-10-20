@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import useStyles from './style';
 import { setIntestazioneMoreAns, intestazioneMoreAnswers } from '../../../store/slice/domandeAddFormSlice';
 import { haveRepModifyRight } from '../../../store/slice/rightsSlice';
-import { isBConfirmAddFormClicked } from '../../../store/slice/addFormSlice';
+import { isBConfirmAddFormClicked, setUnsavedChanges } from '../../../store/slice/addFormSlice';
 
 // Campo intestazione
 const TextFieldIntestazione = ():ReactElement => {
@@ -34,6 +34,7 @@ const TextFieldIntestazione = ():ReactElement => {
             onChange={(event) => {
               const { value } = event.target;
               dispatch(setIntestazioneMoreAns(value));
+              dispatch(setUnsavedChanges());
             }}
             fullWidth
             variant="outlined"

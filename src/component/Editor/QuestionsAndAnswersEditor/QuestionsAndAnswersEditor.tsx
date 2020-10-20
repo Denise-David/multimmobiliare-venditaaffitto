@@ -16,7 +16,7 @@ import {
   setBModifyDomandaUnclicked, domandaType,
 } from '../../../store/slice/domandeAddFormSlice';
 import { objectToArray } from '../../../util';
-import { isBConfirmAddFormClicked } from '../../../store/slice/addFormSlice';
+import { isBConfirmAddFormClicked, setUnsavedChanges } from '../../../store/slice/addFormSlice';
 import { haveRepModifyRight } from '../../../store/slice/rightsSlice';
 import {
   raggruppaAttivo, risposteTutteUguali, intestazioneMoreAnsAttiva,
@@ -88,6 +88,7 @@ const QuestionsAndAnswersEditor = ():ReactElement => {
                           if (e.key === 'Enter' && !bCheckDisabled) {
                             dispatch(setBModifyDomandaUnclicked(domanda.IDDomanda));
                             dispatch(enableAll());
+                            dispatch(setUnsavedChanges());
                           }
                         }}
                         disabled={domanda.stateText}

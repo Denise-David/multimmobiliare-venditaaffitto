@@ -1,14 +1,14 @@
 import { put, select } from 'redux-saga/effects';
-import { resetIDReparto, resetIDForm } from '../slice/ddlEditorFormAndRepartiSlice';
-import { unsetRepartoModifyRight } from '../slice/rightsSlice';
-import {
-  resetDataRisultati,
-} from '../slice/risultatiAddFormSlice';
 import {
   resetFormType, resetSelectedReparto, setConfirmDisabled,
   isButtonAddFormClicked, setBAddFormUnclicked, setBConfirmAddFormClicked,
   setBConfirmAddFormUnclicked,
 } from '../slice/addFormSlice';
+import { resetIDReparto, resetIDForm } from '../slice/ddlEditorFormAndRepartiSlice';
+import { unsetRepartoModifyRight } from '../slice/rightsSlice';
+import {
+  resetDataRisultati,
+} from '../slice/risultatiAddFormSlice';
 
 import { resetDomandeOfDomandeObject, resetIntestazioneMoreAns } from '../slice/domandeAddFormSlice';
 

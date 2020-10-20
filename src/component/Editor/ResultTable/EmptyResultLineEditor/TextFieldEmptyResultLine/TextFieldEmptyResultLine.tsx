@@ -6,6 +6,7 @@ import {
   setValoreMin, setValoreMax, addRisultatoClicked,
   resetRisultato, setButtonDisabled, setButtonEnabled, buttonDisabled,
 } from '../../../../../store/slice/risultatiAddFormSlice';
+import { setUnsavedChanges } from '../../../../../store/slice/addFormSlice';
 
 // Campo aggiunta risultato
 const TextFieldEmptyResultLine = ():ReactElement => {
@@ -25,6 +26,7 @@ const TextFieldEmptyResultLine = ():ReactElement => {
               dispatch(addRisultatoClicked());
               dispatch(resetRisultato());
               dispatch(setButtonDisabled());
+              dispatch(setUnsavedChanges());
             }
           }}
           value={res}

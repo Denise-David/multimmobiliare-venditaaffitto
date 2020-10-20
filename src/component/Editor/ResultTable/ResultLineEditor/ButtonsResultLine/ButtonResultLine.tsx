@@ -10,6 +10,7 @@ import {
 } from '../../../../../store/slice/risultatiAddFormSlice';
 import { disableAll, enableAll } from '../../../../../store/slice/disableEnableSlice';
 import { isBCheckDisabled, setBCheckEnabled } from '../../../../../store/slice/domandeAddFormSlice';
+import { setUnsavedChanges } from '../../../../../store/slice/addFormSlice';
 
 interface Props{oneForm: resultType}
 
@@ -27,6 +28,7 @@ const ButtonResultLine = ({ oneForm } : Props):ReactElement => {
               dispatch(disableAll());
               dispatch(setBModifyClicked(oneForm.IDRisultato));
               dispatch(setBCheckEnabled());
+              dispatch(setUnsavedChanges());
             }}
             color="primary"
           >
@@ -36,7 +38,10 @@ const ButtonResultLine = ({ oneForm } : Props):ReactElement => {
         <Grid item xs={12} sm={1}>
           <IconButton
             color="primary"
-            onClick={() => dispatch(deleteRisultato(oneForm.IDRisultato))}
+            onClick={() => {
+              dispatch(deleteRisultato(oneForm.IDRisultato));
+              dispatch(setUnsavedChanges());
+            }}
           >
             <DeleteIcon />
           </IconButton>

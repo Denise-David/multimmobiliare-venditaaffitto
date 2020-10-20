@@ -18,7 +18,7 @@ import {
 import { openDialogGroup } from '../../../../store/slice/dialogSlice';
 import { intestazioneAttiva, setIntestazioneAttiva } from '../../../../store/slice/menuDomandeSlice';
 import { haveRepModifyRight } from '../../../../store/slice/rightsSlice';
-import { isBConfirmAddFormClicked } from '../../../../store/slice/addFormSlice';
+import { isBConfirmAddFormClicked, setUnsavedChanges } from '../../../../store/slice/addFormSlice';
 
 // Navbar della tabella domande a più risposte
 const NavQuestionsAndAnswers = ():ReactElement => {
@@ -93,6 +93,7 @@ const NavQuestionsAndAnswers = ():ReactElement => {
           {Object.keys(domande).length !== 0
             ? (
               <MenuItem onClick={() => {
+                dispatch(setUnsavedChanges());
                 dispatch(setRisposteTutteUguali());
                 handleClose();
                 if (!risTutteUguali) {
@@ -112,6 +113,7 @@ const NavQuestionsAndAnswers = ():ReactElement => {
               </MenuItem>
             ) : <></>}
           <MenuItem onClick={() => {
+            dispatch(setUnsavedChanges());
             dispatch(setIntestazioneMoreAnsAttiva());
             if (intTwoAns) {
               dispatch(setIntestazioneAttiva());
@@ -131,6 +133,7 @@ const NavQuestionsAndAnswers = ():ReactElement => {
 
           </MenuItem>
           <MenuItem onClick={() => {
+            dispatch(setUnsavedChanges());
             dispatch(setGroupAttivi());
             handleClose();
           }}

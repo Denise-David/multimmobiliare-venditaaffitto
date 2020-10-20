@@ -15,7 +15,7 @@ import {
 } from '../slice/ddlEditorFormAndRepartiSlice';
 import fetchFormStructureByID, { setNewAndOldStructure, updateForm } from '../api';
 import { objectToArray } from '../../util';
-import { nomeFormulario } from '../slice/addFormSlice';
+import { nomeFormulario, unsetUnsavedChanges } from '../slice/addFormSlice';
 import { openSnackbarAtLeast2Res } from '../slice/snackbarSlice';
 
 export default function* saveModify():Generator {
@@ -103,6 +103,7 @@ export default function* saveModify():Generator {
       yield call(setNewAndOldStructure, GUID, nomeReparto,
         nomeForm, gruppi, listDomandeAndRisposte, listRisultati, risposta1,
         risposta2, date, formulario, utente);
+      yield put(unsetUnsavedChanges());
     }
   } catch (error) {
     console.error('errore', error);

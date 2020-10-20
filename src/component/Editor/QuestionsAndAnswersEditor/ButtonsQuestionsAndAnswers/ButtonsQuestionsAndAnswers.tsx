@@ -14,7 +14,7 @@ import {
 import { isBModifyDelAddReturnDisabled, disableAll, enableAll } from '../../../../store/slice/disableEnableSlice';
 import { risposteTutteUguali } from '../../../../store/slice/menuDomandeERisposteSlice';
 import { haveRepModifyRight } from '../../../../store/slice/rightsSlice';
-import { isBConfirmAddFormClicked } from '../../../../store/slice/addFormSlice';
+import { isBConfirmAddFormClicked, setUnsavedChanges } from '../../../../store/slice/addFormSlice';
 
 interface Props{domanda : domandaType}
 
@@ -59,6 +59,7 @@ const ButtonsQuestionsAndAnswers = ({ domanda } : Props):ReactElement => {
                           dispatch(setBModifyDomandaClicked(domanda.IDDomanda));
                           dispatch(disableAll());
                           dispatch(setBCheckEnabled());
+                          dispatch(setUnsavedChanges());
                         }}
                         color="primary"
                       >
@@ -67,7 +68,10 @@ const ButtonsQuestionsAndAnswers = ({ domanda } : Props):ReactElement => {
                       {/* Bottone elimina */}
                       <IconButton
                         onClick={
-                      () => dispatch(deleteDomandaFormPiuRes(domanda.IDDomanda))
+                      () => {
+                        dispatch(setUnsavedChanges());
+                        dispatch(deleteDomandaFormPiuRes(domanda.IDDomanda));
+                      }
                       }
                         disabled={iconsDisabled}
                         color="primary"

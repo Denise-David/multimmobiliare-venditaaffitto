@@ -5,6 +5,7 @@ import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import {
   addRisposta, resetRispostaType, stateAddedRisposta,
 } from '../../../../../store/slice/risposteAddFormSlice';
+import { setUnsavedChanges } from '../../../../../store/slice/addFormSlice';
 
 interface Props{ IDDomanda: string}
 
@@ -21,6 +22,7 @@ const ButtonEmptyAnsweLine = ({ IDDomanda }:Props):ReactElement => {
         onClick={() => {
           dispatch(addRisposta(IDDomanda));
           dispatch(resetRispostaType(IDDomanda));
+          dispatch(setUnsavedChanges());
         }}
         color="primary"
         disabled={stateTextField[IDDomanda]}

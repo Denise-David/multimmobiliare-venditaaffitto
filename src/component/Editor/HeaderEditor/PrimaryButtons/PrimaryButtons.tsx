@@ -9,7 +9,7 @@ import {
   isButtonAddFormClicked, buttonConfirmAddFormClicked,
   isConfirmDisabled, buttonCancelAddFormClicked,
   isBConfirmAddFormClicked, buttonSaveFormClicked,
-  idAddedFormulario, saveModifyForm, resetIDAddedForm,
+  idAddedFormulario, saveModifyForm, resetIDAddedForm, unsavedChanges,
 } from '../../../../store/slice/addFormSlice';
 import { isBSaveDisabled, isBModifyDelAddReturnDisabled, setBSaveDisabled } from '../../../../store/slice/disableEnableSlice';
 import PrimaryButtonsControlRep from './PrimaryButtonsControlRep/PrimaryButtonsControlRep';
@@ -26,6 +26,7 @@ const PrimaryButtons = ():ReactElement => {
   const isSaveDisabled = useSelector(isBSaveDisabled);
   const iconsDisabled = useSelector(isBModifyDelAddReturnDisabled);
   const idAddedForm = useSelector(idAddedFormulario);
+  const unsChanges = useSelector(unsavedChanges);
 
   return (
     <>
@@ -85,7 +86,7 @@ const PrimaryButtons = ():ReactElement => {
                   <IconButton
                     disabled={isSaveDisabled}
                     onClick={() => {
-                      if (idAddedForm === '') {
+                      if (idAddedForm === '' && bConfirmAddFormClicked) {
                         dispatch(buttonSaveFormClicked());
                       } else { dispatch(saveModifyForm()); }
                     }}
@@ -98,7 +99,9 @@ const PrimaryButtons = ():ReactElement => {
                     disabled={iconsDisabled}
                     onClick={
                         () => {
-                          dispatch(openSnackbarConfirmCancel());
+                          if (unsChanges === true) {
+                            dispatch(openSnackbarConfirmCancel());
+                          } else { dispatch(buttonCancelAddFormClicked()); }
                         }
                         }
                     color="primary"

@@ -7,7 +7,8 @@ import SaveIcon from '@material-ui/icons/Save';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import { haveRepDeleteRight, haveRepModifyRight, haveUserCreateRight } from '../../../../../store/slice/rightsSlice';
 import {
-  buttonAddClicked, buttonDeleteOrSaveClicked, saveModifyForm,
+  buttonAddClicked, buttonCancelAddFormClicked,
+  buttonDeleteOrSaveClicked, saveModifyForm, unsavedChanges,
 } from '../../../../../store/slice/addFormSlice';
 import { isBModifyDelAddReturnDisabled } from '../../../../../store/slice/disableEnableSlice';
 import useStyles from './style';
@@ -23,6 +24,7 @@ const PrimaryButtonsControlRep = ():ReactElement => {
   const dispatch = useDispatch();
   const iconsDisabled = useSelector(isBModifyDelAddReturnDisabled);
   const noRep = useSelector(IDForm);
+  const unsChanges = useSelector(unsavedChanges);
 
   return (
     <div>
@@ -95,7 +97,13 @@ const PrimaryButtonsControlRep = ():ReactElement => {
               <IconButton
                 disabled={iconsDisabled}
                 onClick={
-                  () => dispatch((openSnackbarConfirmCancel()))
+                  () => {
+                    if (unsChanges === true) {
+                      dispatch((openSnackbarConfirmCancel()));
+                    } else {
+                      dispatch(buttonCancelAddFormClicked());
+                    }
+                  }
                   }
                 color="primary"
               >

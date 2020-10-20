@@ -9,7 +9,7 @@ import {
   buttonDisabled,
   resetRisultato,
 } from '../../../../store/slice/risultatiAddFormSlice';
-import { isBConfirmAddFormClicked } from '../../../../store/slice/addFormSlice';
+import { isBConfirmAddFormClicked, setUnsavedChanges } from '../../../../store/slice/addFormSlice';
 import { haveRepModifyRight } from '../../../../store/slice/rightsSlice';
 import { setBCheckDisabled } from '../../../../store/slice/domandeAddFormSlice';
 import TextFieldEmptyResultLine from './TextFieldEmptyResultLine/TextFieldEmptyResultLine';
@@ -36,6 +36,7 @@ const EmptyResultLineEditor = ():ReactElement => {
                     dispatch(addRisultatoClicked());
                     dispatch(resetRisultato());
                     dispatch(setBCheckDisabled());
+                    dispatch(setUnsavedChanges());
                   }}
                   disabled={bCheckDisabled}
                   color="primary"

@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 import startOfToday from 'date-fns/startOfToday';
 import {
 
-  selectedReparto, nomeFormulario, setBAddFormClicked, setIDAddedForm,
+  selectedReparto, nomeFormulario, setBAddFormClicked, setIDAddedForm, unsetUnsavedChanges,
 } from '../slice/addFormSlice';
 import {
   actionAnsType,
@@ -141,7 +141,7 @@ export default function* addFormulario():Generator {
       nomeForm, domande, gruppi, risultati, risposta1, risposta2, utente, date);
 
     yield put(setIDAddedForm(structure));
-
+    yield put(unsetUnsavedChanges());
     yield put(setIsLoaded());
   }
 }

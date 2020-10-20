@@ -8,6 +8,7 @@ import useStyles from './style';
 import {
   addDomandaInArray, resetDomanda, questionTwoAns, setDomandaTwoAns,
 } from '../../../../store/slice/domandeAddFormSlice';
+import { setUnsavedChanges } from '../../../../store/slice/addFormSlice';
 
 // Riga domanda aggiungi domanda
 const EmptyAddQuestion2Answers = ():ReactElement => {
@@ -31,6 +32,7 @@ const EmptyAddQuestion2Answers = ():ReactElement => {
                 dispatch(addDomandaInArray());
                 dispatch(resetDomanda());
                 setDisabled(!disabled);
+                dispatch(setUnsavedChanges());
               }
             }}
             value={valoreTextField}
@@ -53,6 +55,7 @@ const EmptyAddQuestion2Answers = ():ReactElement => {
           onClick={() => {
             dispatch(addDomandaInArray());
             dispatch(resetDomanda());
+            dispatch(setUnsavedChanges());
           }}
         >
           <AddCircleOutlineIcon />

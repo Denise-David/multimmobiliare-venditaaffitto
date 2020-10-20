@@ -13,7 +13,7 @@ import HeaderEditor from '../../component/Editor/HeaderEditor/HeaderEditor';
 import QuestionsAndAnswersEditor from '../../component/Editor/QuestionsAndAnswersEditor/QuestionsAndAnswersEditor';
 import {
   isButtonAddFormClicked, setSelectedReparto, setConfirmEnabled,
-  isBConfirmAddFormClicked, nomeFormulario, setNomeFormulario,
+  isBConfirmAddFormClicked, nomeFormulario, setNomeFormulario, setUnsavedChanges,
 } from '../../store/slice/addFormSlice';
 import QuestionsEditor from '../../component/Editor/QuestionsEditor/QuestionEditor';
 import ResultTableEditor from '../../component/Editor/ResultTable/ResultTableEditor';
@@ -104,6 +104,7 @@ const FormPaziente = () => {
                             onChange={(event) => {
                               const { value } = event.target;
                               dispatch(setNomeFormulario(value));
+                              dispatch(setUnsavedChanges());
                             }}
                             disabled={iconsDisabled}
                           />

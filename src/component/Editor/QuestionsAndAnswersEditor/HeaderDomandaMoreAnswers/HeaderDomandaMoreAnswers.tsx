@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import useStyles from './style';
 import { domandaType, setDomandaFacoltativa, setDomandaLibera } from '../../../../store/slice/domandeAddFormSlice';
 import { haveRepModifyRight } from '../../../../store/slice/rightsSlice';
-import { isBConfirmAddFormClicked } from '../../../../store/slice/addFormSlice';
+import { isBConfirmAddFormClicked, setUnsavedChanges } from '../../../../store/slice/addFormSlice';
 
 interface Props {IDDomanda : string, domanda : domandaType}
 
@@ -35,7 +35,10 @@ const HeaderDomandaMoreAnswers = ({ IDDomanda, domanda }: Props):ReactElement =>
             <Checkbox
               disabled={disabled}
               checked={domanda.facoltativa}
-              onChange={() => dispatch(setDomandaFacoltativa(IDDomanda))}
+              onChange={() => {
+                dispatch(setDomandaFacoltativa(IDDomanda));
+                dispatch(setUnsavedChanges());
+              }}
             />
         )}
           label="facoltativa"
@@ -45,7 +48,10 @@ const HeaderDomandaMoreAnswers = ({ IDDomanda, domanda }: Props):ReactElement =>
             <Checkbox
               disabled={disabled}
               checked={domanda.libera}
-              onChange={() => dispatch(setDomandaLibera(IDDomanda))}
+              onChange={() => {
+                dispatch(setDomandaLibera(IDDomanda));
+                dispatch(setUnsavedChanges());
+              }}
             />
         )}
           label="libera"

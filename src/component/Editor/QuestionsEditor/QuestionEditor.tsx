@@ -17,7 +17,7 @@ import {
 } from '../../../store/slice/domandeAddFormSlice';
 import { objectToArray } from '../../../util';
 import {
-  isBConfirmAddFormClicked,
+  isBConfirmAddFormClicked, setUnsavedChanges,
 } from '../../../store/slice/addFormSlice';
 import { haveRepModifyRight } from '../../../store/slice/rightsSlice';
 import EmptyAddQuestion2Answers from './EmptyAddQuestion2Answers/EmptyAddQuestion2Answers';
@@ -64,6 +64,7 @@ const QuestionsEditor = ():ReactElement => {
                         if (e.key === 'Enter' && !bCheckDisabled) {
                           dispatch(setBModifyDomandaUnclicked(domandaAddForm.IDDomanda));
                           dispatch(enableAll());
+                          dispatch(setUnsavedChanges());
                         }
                       }}
                       disabled={domandaAddForm.stateText}
