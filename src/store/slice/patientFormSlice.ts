@@ -74,6 +74,7 @@ const patientFormSlice = createSlice({
     },
     setDate(state, { payload }) {
       const { idRisposta, idDomanda, domanda } = payload;
+
       if (!state.resDate[idDomanda] && !state.risposte[idDomanda]) {
         state.resDate[idDomanda] = { [idRisposta]: payload };
         state.risposte[idDomanda] = { date: state.resDate[idDomanda] };

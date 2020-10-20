@@ -3,7 +3,7 @@ import { Button, Snackbar, Typography } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import React, { ReactElement } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { buttonCancelAddFormClicked } from '../../../../store/slice/addFormSlice';
+import { buttonCancelAddFormClicked, resetIDAddedForm } from '../../../../store/slice/addFormSlice';
 import {
   closeSnackbarConfirmCancel, snackbarConfirmCancel,
 } from '../../../../store/slice/snackbarSlice';
@@ -25,6 +25,7 @@ const SnackbarConfirmCancel = ():ReactElement => {
           <Button onClick={() => {
             dispatch(buttonCancelAddFormClicked());
             dispatch(closeSnackbarConfirmCancel());
+            dispatch(resetIDAddedForm());
           }}
           >
             Si

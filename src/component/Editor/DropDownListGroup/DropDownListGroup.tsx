@@ -5,7 +5,7 @@ import { isDDLFormDisabled } from '../../../store/slice/disableEnableSlice';
 import { groups } from '../../../store/slice/groupSlice';
 import { domandeObject, setGroupSelected } from '../../../store/slice/domandeAddFormSlice';
 import { haveRepModifyRight } from '../../../store/slice/rightsSlice';
-import { isBConfirmAddFormClicked } from '../../../store/slice/addFormSlice';
+import { isBConfirmAddFormClicked, setUnsavedChanges } from '../../../store/slice/addFormSlice';
 
 interface Props {IDDomanda : string}
 
@@ -30,6 +30,7 @@ const DropDownListGroup = ({ IDDomanda }: Props):ReactElement => {
   const getValueOnChange = (event : React.ChangeEvent<{ value: unknown }>) => {
     const { value } = event.target;
     dispatch(setGroupSelected({ value, IDDomanda }));
+    dispatch(setUnsavedChanges());
   };
 
   // Controllo dei diritti e se si è in modalità aggiungi formulario

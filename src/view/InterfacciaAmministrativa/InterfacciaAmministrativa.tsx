@@ -12,6 +12,7 @@ import DialogLabel from '../../component/InterfacciaAmministrativa/DialogLabel/D
 import DialogFilter from '../../component/InterfacciaAmministrativa/DialogFilter/DialogFilter';
 import { openDialogFiltro } from '../../store/slice/dialogSlice';
 import FormularioLabelLine from '../../component/InterfacciaAmministrativa/FormularioLabelLine/FormularioLabelLine';
+import DialogLabelManager from '../../component/InterfacciaAmministrativa/DialogLabelManager/DialogLabelManager';
 
 const InterfacciaAmministrativa = ():ReactElement => {
   const classes = useStyles();
@@ -26,6 +27,7 @@ const InterfacciaAmministrativa = ():ReactElement => {
       <div className={classes.paddingGeneral}>
         <DialogLabel />
         <DialogFilter />
+        <DialogLabelManager />
         <Card className={classes.padding}>
           <Grid
             container

@@ -14,6 +14,7 @@ import {
 import ListaGruppi from './ListaGruppi/ListaGruppi';
 import { openSnackbarNomeGruppo } from '../../../store/slice/snackbarSlice';
 import SnackbarNomeGruppo from './SnackbarNomeGruppo/SnackbarNomeGruppo';
+import { setUnsavedChanges } from '../../../store/slice/addFormSlice';
 
 // Finestra gestione gruppi
 const GroupDialog = ():ReactElement => {
@@ -82,6 +83,7 @@ const GroupDialog = ():ReactElement => {
                   dispatch(resetGroupName());
                   dispatch(deleteGroup());
                   dispatch(resetSelectedIndex());
+                  dispatch(setUnsavedChanges());
                   if (disabledAdd === false) {
                     setDisabledAdd(!disabledAdd);
                   } if (disabledList === true) {
@@ -99,6 +101,7 @@ const GroupDialog = ():ReactElement => {
               <Button
                 disabled={disabledMod}
                 onClick={() => {
+                  dispatch(setUnsavedChanges());
                   if (modify === false) {
                     setModify(!modify);
                     dispatch(modifyGroup());
@@ -126,6 +129,7 @@ const GroupDialog = ():ReactElement => {
               </Button>
               <Button
                 onClick={() => {
+                  dispatch(setUnsavedChanges());
                   if (gruppiNames.includes(group)) {
                     dispatch(openSnackbarNomeGruppo());
                   } else {

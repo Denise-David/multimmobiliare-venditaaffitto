@@ -5,7 +5,7 @@ import {
 import { useSelector, useDispatch } from 'react-redux';
 import CreateIcon from '@material-ui/icons/Create';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
-import { isBConfirmAddFormClicked } from '../../../../store/slice/addFormSlice';
+import { isBConfirmAddFormClicked, setUnsavedChanges } from '../../../../store/slice/addFormSlice';
 import { disableAll, isBModifyDelAddReturnDisabled, enableAll } from '../../../../store/slice/disableEnableSlice';
 import {
   setBModifyRis1Clicked, setBModifyRis1Unclicked, getRisposta1, isBModifyRis1Clicked, ris1,
@@ -70,6 +70,7 @@ const Risposta1Line = ():ReactElement => {
                     onClick={() => {
                       dispatch(setBModifyRis1Clicked());
                       dispatch(disableAll());
+                      dispatch(setUnsavedChanges());
                     }}
                   >
                     <CreateIcon />

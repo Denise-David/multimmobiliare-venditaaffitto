@@ -2,7 +2,8 @@ import { put, call, select } from 'redux-saga/effects';
 import { actionAnsType } from '../slice/risposteAddFormSlice';
 import {
   filtro,
-  IDFormSelected, label, resetLabel, setFormNoLabel, setFormWithLabel, setPatientLabel,
+  IDFormSelected, label, resetLabel, resetPatientLabel,
+  setFormNoLabel, setFormWithLabel, setPatientLabel,
 } from '../slice/interfacciaAmmSlice';
 
 import {
@@ -10,7 +11,7 @@ import {
   fetchFormWithLabel,
   getEtichettaDataByLabel, getRisposteFormPazientiByID,
 } from '../api';
-import { closeDialogLabel } from '../slice/dialogSlice';
+import { closeDialogLabel, closeDialogLabelManager } from '../slice/dialogSlice';
 
 import { openSnackbarEtichettaInesistente } from '../slice/snackbarSlice';
 
@@ -37,7 +38,7 @@ export function* aggiungiEtichetta():Generator {
     const streetNumber = street.substring(indexSpace, street.length);
     const streetName = street.substring(0, indexSpace);
     const { familyDoctor = {}, doctor = {}, insuranceCovers = [] } = hcase;
-    const insuranceCoversName = insuranceCovers[0].guarantName;
+    const insuranceCoversName = insuranceCovers[0] ? insuranceCovers[0].guarantName : '';
 
     const patientInfo = {
       familyname,
@@ -60,7 +61,9 @@ export function* aggiungiEtichetta():Generator {
       const resPatient = yield call(getRisposteFormPazientiByID, ID);
       yield call(addLabelToRispostePaziente, ID, resPatient, etichetta, patientInfo);
       yield put({ type: 'INIT_INTERFACCIA' });
+      yield put({ type: 'CLOSE_AND_FILTER_DIALOG' });
       yield put(closeDialogLabel());
+      yield put(closeDialogLabelManager());
       yield put(resetLabel());
     }
   } catch (error) {
@@ -97,4 +100,23 @@ export function* getNomeCognomePaziente():Generator {
   const { patient = {} } = data;
   const { familyname = '', givenname = '' } = patient;
   yield put(setPatientLabel({ givenname, familyname }));
+}
+
+export function* slegaEtichetta():Generator {
+  try {
+    const ID = yield select(IDFormSelected);
+    const etichetta = '';
+    const patientInfo = {};
+    const resPatient = yield call(getRisposteFormPazientiByID, ID);
+    yield call(addLabelToRispostePaziente, ID, resPatient, etichetta, patientInfo);
+    yield put({ type: 'INIT_INTERFACCIA' });
+    yield put({ type: 'CLOSE_AND_FILTER_DIALOG' });
+    yield put(closeDialogLabel());
+    yield put(closeDialogLabelManager());
+    yield put(resetLabel());
+    yield put(resetPatientLabel());
+  } catch (error) {
+    console.error('errore', error);
+    yield put(openSnackbarEtichettaInesistente());
+  }
 }

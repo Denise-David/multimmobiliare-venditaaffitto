@@ -2,15 +2,16 @@ import React, { ReactElement } from 'react';
 import {
   Grid, Typography, TextField,
 } from '@material-ui/core';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
-  selectedReparto,
+  selectedReparto, setUnsavedChanges,
 } from '../../../../store/slice/addFormSlice';
 import useStyles from './style';
 
 // Campo nome formulario all'aggiunta del formulario
 const TextFieldRepartoAddForm = ():ReactElement => {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const repartoSelezionato = useSelector(selectedReparto);
   return (
     <>
@@ -23,6 +24,7 @@ const TextFieldRepartoAddForm = ():ReactElement => {
           variant="outlined"
           disabled
           value={repartoSelezionato.nomeReparto}
+
         />
       </Grid>
     </>

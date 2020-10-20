@@ -69,6 +69,11 @@ export const getNameFamilynameLabel = ():{type:string} => ({
 
 });
 
+export const slegaLabel = ():{type:string} => ({
+  type: 'SLEGA_LABEL',
+
+});
+
 export const
   patientLabel = (state: State):{nome:string, cognome:string} => state.interfacciaAmm.patientLabel;
 export const

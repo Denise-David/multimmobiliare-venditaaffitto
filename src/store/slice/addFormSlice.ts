@@ -29,9 +29,28 @@ const addFormSlice = createSlice({
     isConfirmDisabled: true as boolean,
     isBConfirmAddFormClicked: false as boolean,
     nomeFormulario: '' as string,
+    idAddedFormulario: '' as string,
+    unsavedChanges: false as boolean,
 
   },
   reducers: {
+    unsetUnsavedChanges(state) {
+      if (state.unsavedChanges === true) {
+        state.unsavedChanges = false;
+      }
+    },
+    setUnsavedChanges(state) {
+      if (state.unsavedChanges === false) {
+        state.unsavedChanges = true;
+      }
+    },
+    resetIDAddedForm(state) {
+      state.idAddedFormulario = '';
+    },
+    setIDAddedForm(state, { payload }) {
+      const { _id } = payload;
+      state.idAddedFormulario = _id;
+    },
     getFormType(state, { payload }) {
       state.formType = payload;
     },
@@ -98,6 +117,8 @@ export const saveModifyForm = ():{type:string} => ({
 
 // eslint-disable-next-line max-len
 
+export const unsavedChanges = (state : State) : boolean => state.addForm.unsavedChanges;
+export const idAddedFormulario = (state : State) :string => state.addForm.idAddedFormulario;
 export const nomeFormulario = (state : State):string => state.addForm.nomeFormulario;
 export const
   isBConfirmAddFormClicked = (state : State):boolean => state.addForm.isBConfirmAddFormClicked;
@@ -112,6 +133,7 @@ export const {
   getFormType, setSelectedReparto, setConfirmEnabled,
   resetFormType, resetSelectedReparto, setConfirmDisabled,
   setBAddFormClicked, setBAddFormUnclicked, setBConfirmAddFormClicked,
-  setBConfirmAddFormUnclicked, setNomeFormulario,
+  setBConfirmAddFormUnclicked, setNomeFormulario, setIDAddedForm,
+  resetIDAddedForm, setUnsavedChanges, unsetUnsavedChanges,
 } = addFormSlice.actions;
 export default addFormSlice.reducer;

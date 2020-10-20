@@ -1,11 +1,12 @@
+/* eslint-disable no-underscore-dangle */
 import {
   call, select, put, all,
 } from 'redux-saga/effects';
 import { v4 as uuidv4 } from 'uuid';
 import startOfToday from 'date-fns/startOfToday';
 import {
-  buttonCancelAddFormClicked,
-  selectedReparto, nomeFormulario, setBAddFormClicked,
+
+  selectedReparto, nomeFormulario, setBAddFormClicked, setIDAddedForm,
 } from '../slice/addFormSlice';
 import {
   actionAnsType,
@@ -41,7 +42,7 @@ import { risposteTutteUguali } from '../slice/menuDomandeERisposteSlice';
 import { addForm, setNewStructure } from '../api';
 import { objectToArray } from '../../util';
 import { resetIDForm, resetIDReparto } from '../slice/ddlEditorFormAndRepartiSlice';
-import { setBSaveDisabled, setBModifyDelAddReturnDisabled } from '../slice/disableEnableSlice';
+import { setBModifyDelAddReturnDisabled } from '../slice/disableEnableSlice';
 
 import { setIsLoaded, setIsLoading } from '../slice/loadingSlice';
 
@@ -136,14 +137,10 @@ export default function* addFormulario():Generator {
     const utente = yield select(user);
     const date = startOfToday();
     // inserico il nuovo form nell history editor
-    yield call(setNewStructure, nomeReparto, idReparto,
+    const structure = yield call(setNewStructure, nomeReparto, idReparto,
       nomeForm, domande, gruppi, risultati, risposta1, risposta2, utente, date);
 
-    yield put(resetDataRisultati());
-
-    yield put(resetDomandeOfDomandeObject());
-    yield put(setBSaveDisabled());
-    yield put(buttonCancelAddFormClicked());
+    yield put(setIDAddedForm(structure));
 
     yield put(setIsLoaded());
   }

@@ -29,6 +29,9 @@ const FormularioLabelLine = ():ReactElement => {
     const nome : string | undefined = form.paziente?.givenname.toLowerCase();
     const cognome :string | undefined = form.paziente?.familyname.toLowerCase();
     const IDForm = form._id;
+    const nomeCognome = `${form.paziente?.givenname} ${form.paziente?.familyname}`;
+    const { reparto } = form;
+    const { formulario } = form;
 
     if (nome?.includes(nomeCercato.toLowerCase())
        && cognome?.includes(cognomeCercato.toLowerCase())) {
@@ -65,7 +68,13 @@ const FormularioLabelLine = ():ReactElement => {
                 <ButtonOpenPDFFormPatient etichetta={form.etichetta} IDForm={form._id} />
 
                 <ButtonOpenPDFDataPatient IDForm={form._id} />
-                <ButtonLabel />
+                <ButtonLabel
+                  IDForm={IDForm}
+                  reparto={reparto}
+                  formulario={formulario}
+                  nomeCognome={nomeCognome}
+                  etichetta={form.etichetta}
+                />
                 <Typography variant="h6" align="right">
                   {form.etichetta}
                 </Typography>

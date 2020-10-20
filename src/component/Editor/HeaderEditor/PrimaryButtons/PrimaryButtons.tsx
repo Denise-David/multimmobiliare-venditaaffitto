@@ -4,14 +4,18 @@ import { useSelector, useDispatch } from 'react-redux';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import SaveIcon from '@material-ui/icons/Save';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
+
 import {
   isButtonAddFormClicked, buttonConfirmAddFormClicked,
   isConfirmDisabled, buttonCancelAddFormClicked,
   isBConfirmAddFormClicked, buttonSaveFormClicked,
+  idAddedFormulario, saveModifyForm, resetIDAddedForm,
 } from '../../../../store/slice/addFormSlice';
 import { isBSaveDisabled, isBModifyDelAddReturnDisabled, setBSaveDisabled } from '../../../../store/slice/disableEnableSlice';
 import PrimaryButtonsControlRep from './PrimaryButtonsControlRep/PrimaryButtonsControlRep';
 import { openSnackbarConfirmCancel } from '../../../../store/slice/snackbarSlice';
+import { resetDataRisultati } from '../../../../store/slice/risultatiAddFormSlice';
+import { resetDomandeOfDomandeObject } from '../../../../store/slice/domandeAddFormSlice';
 
 // Bottoni primari
 const PrimaryButtons = ():ReactElement => {
@@ -21,6 +25,7 @@ const PrimaryButtons = ():ReactElement => {
   const bConfirmAddFormClicked = useSelector(isBConfirmAddFormClicked);
   const isSaveDisabled = useSelector(isBSaveDisabled);
   const iconsDisabled = useSelector(isBModifyDelAddReturnDisabled);
+  const idAddedForm = useSelector(idAddedFormulario);
 
   return (
     <>
@@ -54,10 +59,36 @@ const PrimaryButtons = ():ReactElement => {
               ? (
                 <div>
                   {/* Se add è non è attivo ed è stato cliccato il confirm add Form */}
-
                   <IconButton
                     disabled={isSaveDisabled}
-                    onClick={() => dispatch(buttonSaveFormClicked())}
+                    onClick={() => {
+                      if (idAddedForm === '') {
+                        dispatch(buttonSaveFormClicked());
+                        dispatch(resetDataRisultati());
+                        dispatch(resetDomandeOfDomandeObject());
+                        dispatch(setBSaveDisabled());
+                        dispatch(buttonCancelAddFormClicked());
+                        dispatch(resetIDAddedForm());
+                      } else {
+                        dispatch(saveModifyForm());
+                        dispatch(resetDataRisultati());
+                        dispatch(resetDomandeOfDomandeObject());
+                        dispatch(setBSaveDisabled());
+                        dispatch(buttonCancelAddFormClicked());
+                        dispatch(resetIDAddedForm());
+                      }
+                    }}
+                    color="primary"
+                  >
+                    <CheckCircleOutlineIcon fontSize="large" />
+                  </IconButton>
+                  <IconButton
+                    disabled={isSaveDisabled}
+                    onClick={() => {
+                      if (idAddedForm === '') {
+                        dispatch(buttonSaveFormClicked());
+                      } else { dispatch(saveModifyForm()); }
+                    }}
                     color="primary"
                   >
                     <SaveIcon fontSize="large" />
@@ -66,7 +97,9 @@ const PrimaryButtons = ():ReactElement => {
                   <IconButton
                     disabled={iconsDisabled}
                     onClick={
-                        () => dispatch((openSnackbarConfirmCancel()))
+                        () => {
+                          dispatch(openSnackbarConfirmCancel());
+                        }
                         }
                     color="primary"
                   >

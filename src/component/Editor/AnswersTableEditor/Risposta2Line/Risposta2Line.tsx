@@ -11,7 +11,7 @@ import {
 } from '../../../../store/slice/risposteAddFormSlice';
 import { disableAll, enableAll, isBModifyDelAddReturnDisabled } from '../../../../store/slice/disableEnableSlice';
 import { haveRepModifyRight } from '../../../../store/slice/rightsSlice';
-import { isBConfirmAddFormClicked } from '../../../../store/slice/addFormSlice';
+import { isBConfirmAddFormClicked, setUnsavedChanges } from '../../../../store/slice/addFormSlice';
 
 // Riga risposta secondaria
 const Risposta2Line = ():ReactElement => {
@@ -71,6 +71,7 @@ const Risposta2Line = ():ReactElement => {
                     onClick={() => {
                       dispatch(setBModifyRis2Clicked());
                       dispatch(disableAll());
+                      dispatch(setUnsavedChanges());
                     }}
                   >
                     <CreateIcon />

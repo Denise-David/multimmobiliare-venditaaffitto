@@ -11,8 +11,15 @@ const dialogSlice = createSlice({
     dialogGroupOpen: false as boolean,
     dialogLabel: false as boolean,
     dialogFiltro: false as boolean,
+    dialogLabelManager: false as boolean,
   },
   reducers: {
+    openDialogLabelManager(state) {
+      state.dialogLabelManager = true;
+    },
+    closeDialogLabelManager(state) {
+      state.dialogLabelManager = false;
+    },
     openDialogFiltro(state) {
       state.dialogFiltro = true;
     },
@@ -66,6 +73,7 @@ export const closeAndFilterDialog = ():{type:string} => ({
 
 });
 
+export const dialogLabelManager = (state : State):boolean => state.dialog.dialogLabelManager;
 export const dialogFiltro = (state : State):boolean => state.dialog.dialogFiltro;
 export const dialogLabel = (state : State):boolean => state.dialog.dialogLabel;
 export const dialogGroupOpen = (state : State):boolean => state.dialog.dialogGroupOpen;
@@ -81,5 +89,6 @@ export const {
   closeDialogFormPatient,
   openDialogFormPatient, openDialogGroup, closeDialogGroup,
   openDialogLabel, closeDialogLabel, openDialogFiltro, closeDialogFiltro,
+  openDialogLabelManager, closeDialogLabelManager,
 } = dialogSlice.actions;
 export default dialogSlice.reducer;

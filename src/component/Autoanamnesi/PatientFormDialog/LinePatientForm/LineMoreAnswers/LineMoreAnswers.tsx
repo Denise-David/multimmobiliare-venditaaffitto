@@ -54,13 +54,15 @@ const LineMoreAnswers = ({
         <div key={idRisposta} className={classes.datePicker}>
           <LocalizationProvider locale={itLocale} dateAdapter={DateFnsAdapter}>
             <MobileDatePicker
+              // eslint-disable-next-line no-return-assign
+
               cancelText="CANCELLA"
               label={risposta.risposta}
               mask="__/__/____"
               value={dateAnswer[idDomanda] && dateAnswer[idDomanda][idRisposta]
                 ? parseISO(dateAnswer[idDomanda][idRisposta].dataFormattata) : null}
               onChange={(data) => {
-                const dataFormattata = data !== null ? data.toISOString() : '';
+                const dataFormattata = data !== null ? data.toISOString() : null;
                 dispatch(setDate({
                   idRisposta, idDomanda, testoData, dataFormattata, domanda,
                 }));
