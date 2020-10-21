@@ -29,6 +29,7 @@ const DropDownListAnswersPatient = ({ idDomanda, domanda, index } : Props):React
 
   const answer = useSelector((state : State) => state.patientForm.risposte[idDomanda] || null);
 
+  // Creo la lista di risposte
   const listItems = risposte ? risposte.map((risposta : rispostaType) => {
     if (risposta.type === 'normal' || !risposta.type) {
       return (

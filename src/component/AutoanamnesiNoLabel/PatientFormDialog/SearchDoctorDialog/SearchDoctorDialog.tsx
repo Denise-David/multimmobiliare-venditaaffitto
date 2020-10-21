@@ -42,6 +42,7 @@ const SearchDoctorDialog = ():ReactElement => {
     dispatch(resetMedici());
   };
 
+  // Lista dottori
   const doctorList = listaMediciArray ? listaMediciArray.map((medico : Medico) => (
 
     <div key={medico.id}>
@@ -77,9 +78,11 @@ const SearchDoctorDialog = ():ReactElement => {
 
         <div className={classes.margin}>
           <DialogTitle>
+            {/* header */}
             <Typography className={classes.button}>
               Cerca il tuo medico
             </Typography>
+            {/* Campi nome e cognome */}
             <TextField
               onKeyDown={(e) => {
                 if (e.key === 'Enter') {
@@ -106,6 +109,7 @@ const SearchDoctorDialog = ():ReactElement => {
                 dispatch(getCognomeMedico({ value }));
               }}
             />
+            {/* Bottone */}
             <br />
             <Button
               disabled={disabledSearchButton}

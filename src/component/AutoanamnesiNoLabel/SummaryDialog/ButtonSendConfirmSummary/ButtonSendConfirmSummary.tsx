@@ -5,6 +5,7 @@ import useStyles from './style';
 
 import { closeDialogSummaryAndSave, openReturnDeviceDialog, closeDialogFormPatient } from '../../../../store/slice/dialogSlice';
 
+// Bottone invio formulario e dati paziente
 const ButtonSendConfirmSummary = ():ReactElement => {
   const dispatch = useDispatch();
   const classes = useStyles();

@@ -25,6 +25,7 @@ const DialogLabelManager = ():ReactElement => {
   return (
     <Dialog open={open} onClose={() => dispatch(closeDialogLabelManager())}>
       <div className={classes.padding}>
+        {/* Dati formulario scelto */}
         <Grid
           className={classes.width}
           container
@@ -58,6 +59,7 @@ const DialogLabelManager = ():ReactElement => {
 
             </div>
           </Grid>
+          {/* Paziente etichetta */}
           <Grid item xs={12} sm={6}>
             <div className={classes.margin}>
               <Typography>
@@ -77,6 +79,7 @@ const DialogLabelManager = ():ReactElement => {
 
             </div>
           </Grid>
+          {/* etichetta */}
           <Grid item xs={12} sm={12}>
             <Typography variant="h6" color="primary" align="left">Etichetta:</Typography>
             <TextField
@@ -102,6 +105,7 @@ const DialogLabelManager = ():ReactElement => {
             />
           </Grid>
         </Grid>
+        {/* Bottoni */}
         <div className={classes.button}>
           <Button
             className={classes.marginB}

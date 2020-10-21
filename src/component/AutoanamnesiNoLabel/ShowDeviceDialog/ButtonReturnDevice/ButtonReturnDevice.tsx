@@ -7,6 +7,7 @@ import { closeReturnDeviceDialog } from '../../../../store/slice/dialogSlice';
 import { resetCercato, resetList } from '../../../../store/slice/homepageNoLabelSlice';
 import { resetAllData } from '../../../../store/slice/patientDataSlice';
 
+// Bottone per tornare alla home
 const ButtonReturnDevice = ():ReactElement => {
   const classes = useStyles();
   const dispatch = useDispatch();

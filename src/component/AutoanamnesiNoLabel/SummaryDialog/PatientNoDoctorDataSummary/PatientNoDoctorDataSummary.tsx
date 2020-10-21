@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import format from 'date-fns/format';
 import { birthdayDate, newPatientInfo } from '../../../../store/slice/patientDataSlice';
 
+// Dati personali paziente
 const PatientNoDoctorDataSummary = ():ReactElement => {
   const dataPatient = useSelector(newPatientInfo);
   const birthday = useSelector(birthdayDate);

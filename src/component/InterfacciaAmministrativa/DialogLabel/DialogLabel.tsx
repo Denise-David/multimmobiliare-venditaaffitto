@@ -25,6 +25,7 @@ const DialogLabel = ():ReactElement => {
 
   return (
     <Dialog open={open} onClose={() => dispatch(closeDialogLabel())}>
+      {/* Dati formulario scelto */}
       <div className={classes.padding}>
         <Grid
           className={classes.width}
@@ -59,6 +60,7 @@ const DialogLabel = ():ReactElement => {
 
             </div>
           </Grid>
+          {/* Paziente etichetta */}
           <Grid item xs={12} sm={6}>
             <div className={classes.margin}>
               <Typography>
@@ -78,6 +80,7 @@ const DialogLabel = ():ReactElement => {
 
             </div>
           </Grid>
+          {/* Etichetta */}
           <Grid item xs={12} sm={12}>
             <Typography variant="h6" color="primary" align="left">Etichetta:</Typography>
             <TextField
@@ -103,6 +106,7 @@ const DialogLabel = ():ReactElement => {
             />
           </Grid>
         </Grid>
+        {/* Bottone aggiungi */}
         <div className={classes.button}>
           <Button
             onClick={() => dispatch({ type: 'AGGIUNGI_ETICHETTA' })}

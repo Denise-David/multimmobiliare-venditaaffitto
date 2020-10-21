@@ -12,8 +12,7 @@ import itLocale from 'date-fns/locale/it';
 import DateFnsAdapter from '@material-ui/pickers/adapter/date-fns';
 import useStyles from './style';
 import {
-  deleteDate,
-  domandeDimenticate,
+  deleteDate, domandeDimenticate,
   repartoDomande, resDate, setDate, setNormalTypePresent, setRispostaLibera,
 } from '../../../../../store/slice/patientFormSlice';
 import DropDownListAnswersPatientForm from './DropDownListAnswersPatientForm/DropDownListAnswersPatientForm';
@@ -51,11 +50,10 @@ const LineMoreAnswers = ({
       const idRisposta = risposta.IDRisposta;
       const testoData = risposta.risposta;
       return (
+        // campo data
         <div key={idRisposta} className={classes.datePicker}>
           <LocalizationProvider locale={itLocale} dateAdapter={DateFnsAdapter}>
             <MobileDatePicker
-              // eslint-disable-next-line no-return-assign
-
               cancelText="CANCELLA"
               label={risposta.risposta}
               mask="__/__/____"
@@ -67,7 +65,6 @@ const LineMoreAnswers = ({
                   idRisposta, idDomanda, testoData, dataFormattata, domanda,
                 }));
               }}
-         // eslint-disable-next-line react/jsx-props-no-spreading
               renderInput={(props) => {
                 // eslint-disable-next-line no-param-reassign
                 props = { ...props, InputProps: { ...props.InputProps, error: errore } };
@@ -76,6 +73,7 @@ const LineMoreAnswers = ({
               }}
             />
           </LocalizationProvider>
+          {/* elimina data */}
           <IconButton onClick={() => dispatch(deleteDate({ idDomanda, idRisposta }))} color="primary">
             <DeleteIcon />
           </IconButton>
@@ -88,6 +86,7 @@ const LineMoreAnswers = ({
     return <></>;
   });
   return (
+    // Controllo tipo domande e trasformazione interfaccia in base al tipo
     <div key={question.IDDomanda}>
       { dividerPresent && groupSelected !== undefined
         ? (
@@ -133,6 +132,7 @@ const LineMoreAnswers = ({
               <InputLabel id="demo-simple-select-outlined-label">
                 {' '}
               </InputLabel>
+              {/* Lista a tendina risposte */}
               {question.normalType === true
                 ? (
                   <DropDownListAnswersPatientForm

@@ -8,6 +8,7 @@ import ButtonReturnDevice from './ButtonReturnDevice/ButtonReturnDevice';
 import { dialogReturnDeviceOpen } from '../../../store/slice/dialogSlice';
 import { lastFormID } from '../../../store/slice/patientFormPDFSlice';
 
+// Pagina da mostrare all'amministrazione con QRCode
 const ShowDeviceDialog = ():ReactElement => {
   const isOpen = useSelector(dialogReturnDeviceOpen);
   const classes = useStyles();

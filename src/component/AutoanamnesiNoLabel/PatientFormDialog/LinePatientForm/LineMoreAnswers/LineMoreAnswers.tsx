@@ -44,6 +44,7 @@ const LineMoreAnswers = ({
         errore = false;
       } else { errore = !domDimenticate[index]; }
       return (
+        // Campo data
         <div key={idRisposta} className={classes.datePicker}>
           <LocalizationProvider locale={itLocale} dateAdapter={DateFnsAdapter}>
             <MobileDatePicker
@@ -67,6 +68,7 @@ const LineMoreAnswers = ({
               }}
             />
           </LocalizationProvider>
+          {/* elimina data */}
           <IconButton onClick={() => dispatch(deleteDate({ idDomanda, idRisposta }))} color="primary">
             <DeleteIcon />
           </IconButton>
@@ -79,6 +81,7 @@ const LineMoreAnswers = ({
     return <></>;
   });
   return (
+    // Controllo tipo domanda e imposta interfaccia in base al tipo
     <div key={question.IDDomanda}>
       { dividerPresent && groupSelected !== undefined
         ? (
@@ -124,6 +127,7 @@ const LineMoreAnswers = ({
               <InputLabel id="demo-simple-select-outlined-label">
                 {' '}
               </InputLabel>
+              {/* Lista a tendina con risposte */}
               {question.normalType === true
                 ? (
                   <DropDownListAnswersPatientForm
