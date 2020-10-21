@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { formularioDBType } from './addFormSlice';
 import { State } from '../store/store';
 
+// Slice gestione interfaccia amministrativa
 const interfacciaAmmSlice = createSlice({
   name: 'interfacciaAmm',
   initialState: {
@@ -18,6 +19,7 @@ const interfacciaAmmSlice = createSlice({
     patientLabel: { nome: '', cognome: '' } as {nome:string, cognome:string},
   },
   reducers: {
+    // Gestione etichetta
     resetPatientLabel(state) {
       state.patientLabel.nome = '';
       state.patientLabel.cognome = '';
@@ -27,20 +29,18 @@ const interfacciaAmmSlice = createSlice({
       state.patientLabel.nome = givenname;
       state.patientLabel.cognome = familyname;
     },
+    setLabel(state, { payload }) {
+      state.label = payload;
+    },
+    resetLabel(state) {
+      state.label = 0;
+    },
+    // Gestione formulari
     setFormWithLabel(state, { payload }) {
       state.formWithLabel = payload;
     },
-    setFiltro(state, { payload }) {
-      state.filtro = payload;
-    },
     setFormNoLabel(state, { payload }) {
       state.formNoLabel = payload;
-    },
-    setNameCercato(state, { payload }) {
-      state.nameCercato = payload;
-    },
-    setFamilynameCercato(state, { payload }) {
-      state.familynameCercato = payload;
     },
     setSelected(state, { payload }) {
       const {
@@ -51,24 +51,31 @@ const interfacciaAmmSlice = createSlice({
       state.patientSelected = nomeCognome;
       state.IDFormSelected = IDForm;
     },
-    setLabel(state, { payload }) {
-      state.label = payload;
+    // Gestione filtri, ricerca
+    setFiltro(state, { payload }) {
+      state.filtro = payload;
     },
-    resetLabel(state) {
-      state.label = 0;
+    setNameCercato(state, { payload }) {
+      state.nameCercato = payload;
     },
+    setFamilynameCercato(state, { payload }) {
+      state.familynameCercato = payload;
+    },
+
   },
 });
-export const DeleteAnsForm = (payload : string):{payload:string, type:string} => ({
+
+// action eliminazione formulario
+export const deleteAnsForm = (payload : string):{payload:string, type:string} => ({
   type: 'DELETE_ANS_FORM',
   payload,
 });
-
+// action apertura gestione etichetta
 export const getNameFamilynameLabel = ():{type:string} => ({
   type: 'GET_NAME_FAMILYNAME_LABEL',
 
 });
-
+// action slega etichetta
 export const slegaLabel = ():{type:string} => ({
   type: 'SLEGA_LABEL',
 

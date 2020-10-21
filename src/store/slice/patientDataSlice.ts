@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { patientData } from './patientFormPDFSlice';
 import { State } from '../store/store';
 
+// Slice gestione dati paziente
 const patientDataSlice = createSlice({
   name: 'patientData',
   initialState: {
@@ -17,38 +18,12 @@ const patientDataSlice = createSlice({
     birthdayDate: '' as string | null,
   },
   reducers: {
+    // Gestione dati paziente
     setBirthdayDate(state, { payload }) {
       state.birthdayDate = payload;
     },
     resetBirthday(state) {
       state.birthdayDate = null;
-    },
-    unsetCancelClicked(state) {
-      state.cancelClicked = false;
-    },
-    setFieldFDoctorEmpty(state) {
-      state.fieldDoctorEmpty = true;
-    },
-    unsetFieldDoctorEmpty(state) {
-      state.fieldDoctorEmpty = false;
-    },
-    setFieldFamilyDoctorEmpty(state) {
-      state.fieldFamilyDoctorEmpty = true;
-    },
-    unsetFieldFamilyDoctorEmpty(state) {
-      state.fieldFamilyDoctorEmpty = false;
-    },
-    setCheckboxDoctor(state) {
-      state.checkboxDoctor = true;
-    },
-    unsetCheckboxDoctor(state) {
-      state.checkboxDoctor = false;
-    },
-    setCheckboxFamilyDoctor(state) {
-      state.checkboxFamilyDoctor = true;
-    },
-    unsetCheckboxFamilyDoctor(state) {
-      state.checkboxFamilyDoctor = false;
     },
     setNoFamilyDoctor(state) {
       if (state.newPatientInfo) {
@@ -59,12 +34,6 @@ const patientDataSlice = createSlice({
       if (state.newPatientInfo) {
         state.newPatientInfo.doctor = { city: 'Nessun medico inviante' };
       }
-    },
-    setObligatoryFieldEmpty(state) {
-      state.obligatoryFieldEmpty = true;
-    },
-    unsetObligatoryFieldEmpty(state) {
-      state.obligatoryFieldEmpty = false;
     },
     resetNewPatientInfo(state) {
       state.newPatientInfo = state.oldPatientInfo;
@@ -96,12 +65,6 @@ const patientDataSlice = createSlice({
         state.newPatientInfo[nome] = value;
       }
     },
-    switchStateDisabled(state) {
-      state.textFieldDisabled = !state.textFieldDisabled;
-    },
-    setDisabledTrue(state) {
-      state.textFieldDisabled = true;
-    },
     resetAllData(state) {
       state.newPatientInfo = {
         familyname: '',
@@ -117,6 +80,49 @@ const patientDataSlice = createSlice({
       };
       state.birthdayDate = '';
     },
+    // Gestione tasto annulla
+    unsetCancelClicked(state) {
+      state.cancelClicked = false;
+    },
+    // Gestione controllo campi vuoti
+    setFieldFDoctorEmpty(state) {
+      state.fieldDoctorEmpty = true;
+    },
+    unsetFieldDoctorEmpty(state) {
+      state.fieldDoctorEmpty = false;
+    },
+    setFieldFamilyDoctorEmpty(state) {
+      state.fieldFamilyDoctorEmpty = true;
+    },
+    unsetFieldFamilyDoctorEmpty(state) {
+      state.fieldFamilyDoctorEmpty = false;
+    },
+    setCheckboxDoctor(state) {
+      state.checkboxDoctor = true;
+    },
+    unsetCheckboxDoctor(state) {
+      state.checkboxDoctor = false;
+    },
+    setCheckboxFamilyDoctor(state) {
+      state.checkboxFamilyDoctor = true;
+    },
+    unsetCheckboxFamilyDoctor(state) {
+      state.checkboxFamilyDoctor = false;
+    },
+    setObligatoryFieldEmpty(state) {
+      state.obligatoryFieldEmpty = true;
+    },
+    unsetObligatoryFieldEmpty(state) {
+      state.obligatoryFieldEmpty = false;
+    },
+    // Gestione abilita/disabilita campi
+    switchStateDisabled(state) {
+      state.textFieldDisabled = !state.textFieldDisabled;
+    },
+    setDisabledTrue(state) {
+      state.textFieldDisabled = true;
+    },
+
   },
 });
 

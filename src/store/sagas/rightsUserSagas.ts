@@ -17,6 +17,7 @@ import {
 import { getUserRights, getRepartiZAM, getRepartiZAS } from '../api';
 import { extractAndMergeArray } from '../../util';
 
+// inizializzazione diritti utente
 export default function* initUserRightsAUTAN():Generator {
   try {
     const username = yield select(user);

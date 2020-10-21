@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import React, { ReactElement } from 'react';
 import {
   CardContent, Typography, CircularProgress, Paper, TextField,
@@ -19,6 +20,7 @@ import {
 } from '../../store/slice/homepageNoLabelSlice';
 import { formularioDBType } from '../../store/slice/addFormSlice';
 
+// View dell'applicativo autoanamnesi senza etichetta
 const HomepageNoLabel = ():ReactElement => {
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -27,17 +29,17 @@ const HomepageNoLabel = ():ReactElement => {
   const selectedIndex = useSelector(formSelectedIndex);
   const rep = useSelector(repartoCercato);
 
+  // Lista risultati formulari
   const list = listResult.map((res : formularioDBType, index:number) => {
     if (index === selectedIndex) {
       return (
+        // item selezionato
         <MenuItem
-     // eslint-disable-next-line no-underscore-dangle
           key={res._id}
           value={index}
           className={classes.selected}
           onClick={() => {
             dispatch(setFormSelectedIndex(index));
-            // eslint-disable-next-line no-underscore-dangle
             dispatch(setFormSelectedID(res._id));
           }}
         >
@@ -50,13 +52,12 @@ const HomepageNoLabel = ():ReactElement => {
       );
     }
     return (
+      // item non selezionato
       <MenuItem
-// eslint-disable-next-line no-underscore-dangle
         key={res._id}
         value={index}
         onClick={() => {
           dispatch(setFormSelectedIndex(index));
-          // eslint-disable-next-line no-underscore-dangle
           dispatch(setFormSelectedID(res._id));
         }}
       >
@@ -70,7 +71,7 @@ const HomepageNoLabel = ():ReactElement => {
   });
   return (
     <div className={classes.Content}>
-
+      {/* Header */}
       <Navbar />
       <div className={classes.Card}>
         <Paper>
@@ -81,6 +82,7 @@ const HomepageNoLabel = ():ReactElement => {
         </Paper>
 
       </div>
+      {/* Campo ricerca formulari */}
       <div className={classes.Margin}>
         <TextField
           value={rep}
@@ -93,16 +95,14 @@ const HomepageNoLabel = ():ReactElement => {
           fullWidth
           variant="outlined"
         />
-
       </div>
+      {/* Lista formulari */}
       <div className={classes.Margin}>
         <DialogContent className={classes.listGroup} dividers>
-
           {list}
-
         </DialogContent>
       </div>
-
+      {/* Bottone invia */}
       <ButtonSend />
       {loading
         ? (
@@ -112,6 +112,7 @@ const HomepageNoLabel = ():ReactElement => {
           </div>
         ) : <></>}
 
+      {/* Dialog */}
       <PatientFormDialog />
       <ShowDeviceDialog />
       <SummaryDialog />

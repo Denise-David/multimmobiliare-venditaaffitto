@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { State } from '../store/store';
 
-// @interface
+// struttura risultato
 export interface resultType {
   IDRisultato:string,
   risultato?:string,
@@ -11,6 +11,7 @@ export interface resultType {
   stateModify?:boolean
 }
 
+// Slice per la gestione dei risultati
 const risultatiAddFormSlice = createSlice({
   name: 'risultatiAddForm',
   initialState:
@@ -22,12 +23,20 @@ const risultatiAddFormSlice = createSlice({
     buttonDisabled: true as boolean,
   },
   reducers: {
+    // Gestione bottoni
     setButtonDisabled(state) {
       state.buttonDisabled = true;
     },
     setButtonEnabled(state) {
       state.buttonDisabled = false;
     },
+    setBModifyClicked(state, { payload }) {
+      state.dataRisultati[payload].stateModify = true;
+    },
+    setBModifyUnclicked(state, { payload }) {
+      state.dataRisultati[payload].stateModify = false;
+    },
+    // Gestioni risultati
     setRisultatiInObject(state, { payload }) {
       state.dataRisultati = payload;
     },
@@ -50,12 +59,7 @@ const risultatiAddFormSlice = createSlice({
     deleteRisultato(state, { payload }) {
       delete state.dataRisultati[payload];
     },
-    setBModifyClicked(state, { payload }) {
-      state.dataRisultati[payload].stateModify = true;
-    },
-    setBModifyUnclicked(state, { payload }) {
-      state.dataRisultati[payload].stateModify = false;
-    },
+
     setRisultato(state, { payload }) {
       state.result = payload;
     },
@@ -73,6 +77,7 @@ const risultatiAddFormSlice = createSlice({
   },
 });
 
+// action bottone aggiungi risultato
 export const addRisultatoClicked = ():{type:string} => ({
   type: 'ADD_RISULTATO',
 });

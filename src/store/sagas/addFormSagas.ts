@@ -22,7 +22,6 @@ import {
   valueMin, valueMax,
   result, addRisultato, dataRisultati, resetDataRisultati,
 } from '../slice/risultatiAddFormSlice';
-
 import {
   questionTwoAns,
   domandaType,
@@ -34,18 +33,16 @@ import {
   setDomandaInObjectDomandeMoreRes, intestazioneMoreAnswers,
 } from '../slice/domandeAddFormSlice';
 import { openCloseSnackbarConfirmDelete, openSnackbarAtLeast2Res } from '../slice/snackbarSlice';
-
 import { groups } from '../slice/groupSlice';
 import { user } from '../slice/rightsSlice';
 import { risposteTutteUguali } from '../slice/menuDomandeERisposteSlice';
-
 import { addForm, setNewStructure } from '../api';
 import { objectToArray } from '../../util';
 import { resetIDForm, resetIDReparto } from '../slice/ddlEditorFormAndRepartiSlice';
 import { setBModifyDelAddReturnDisabled } from '../slice/disableEnableSlice';
-
 import { setIsLoaded, setIsLoading } from '../slice/loadingSlice';
 
+// Aggiungere un nuovo formulario
 export default function* addFormulario():Generator {
   yield put(setIsLoading());
 
@@ -54,6 +51,7 @@ export default function* addFormulario():Generator {
   const domandeAndStatusArray = objectToArray(domandeAndStatus);
   let atLeast1Res = true;
 
+  // Controllo che ogni domanda abbia almeno una risposta
   const response = domandeAndStatusArray.map((domanda : domandaType) => {
     if ((risposteWithStatus[domanda.IDDomanda] === undefined
       || Object.keys(risposteWithStatus[domanda.IDDomanda]).length === 0) && atLeast1Res === true
@@ -82,8 +80,6 @@ export default function* addFormulario():Generator {
     const intestazioneMoreAns = yield select(intestazioneMoreAnswers);
 
     // creo un array con solo le domande senza lo stateText
-
-    // eslint-disable-next-line max-len
     const domande = domandeAndStatusArray.map((domandaAndStatus: domandaType) => {
       const {
         IDDomanda, domanda, tipo, group, facoltativa, libera,
@@ -92,7 +88,6 @@ export default function* addFormulario():Generator {
         const risposteWithStatusArray = objectToArray(risposteWithStatus[IDDomanda]);
         const risposte = risposteWithStatusArray.map((rispostaWithStatus : rispostaType) => {
           const {
-            // eslint-disable-next-line no-shadow
             IDRisposta, risposta, valore, type,
           } = rispostaWithStatus;
           return {
@@ -107,6 +102,7 @@ export default function* addFormulario():Generator {
         IDDomanda, domanda, tipo, group, facoltativa, libera,
       };
     });
+    // riordino le domande per gruppo
     domande.sort((a, b) => {
       const IDGroupA = a.group?.toUpperCase() ? a.group?.toUpperCase() : '';
       const IDGroupB = b.group?.toUpperCase() ? b.group?.toUpperCase() : '';
@@ -141,11 +137,14 @@ export default function* addFormulario():Generator {
       nomeForm, domande, gruppi, risultati, risposta1, risposta2, utente, date);
 
     yield put(setIDAddedForm(structure));
+    // Informo che non ci sono modifiche non salvate
     yield put(unsetUnsavedChanges());
+    // Informo che la funzione è andata a buon fine
     yield put(setIsLoaded());
   }
 }
 
+// Aggiunge una domanda a due risposte nell'array
 export function* addDomandaTwoResInArray():Generator {
   const IDDomanda = uuidv4();
   const domanda = yield select(questionTwoAns);
@@ -155,6 +154,7 @@ export function* addDomandaTwoResInArray():Generator {
   yield put(resetDomanda());
 }
 
+// Aggiunge una domanda a più rispsote nell'array
 export function* addDomandaMoreResInArray():Generator {
   const IDDomanda = uuidv4();
   const domanda = yield select(question);
@@ -164,9 +164,12 @@ export function* addDomandaMoreResInArray():Generator {
   yield put(setBAddDomandaUnclicked());
   yield put(resetDomanda());
 
+  // Controllo se sono state impostate le risposte tutte uguali
   if (ansTutteUguali === true) {
     const listRisposteArray = objectToArray(listRisposte);
+    // Prendo le risposte della prima domanda
     const listResPrimaDomanda = objectToArray(listRisposteArray[0]);
+    // Metto le risposte della prima domanda nella domanda appena creata
     yield all(listResPrimaDomanda.map((res : rispostaType) => {
       const IDRisposta = uuidv4();
       // eslint-disable-next-line no-shadow
@@ -180,6 +183,7 @@ export function* addDomandaMoreResInArray():Generator {
   }
 }
 
+// Bottone aggiunta nuovo formulario
 export function* clickAddButton():Generator {
   yield put(setBAddFormClicked());
 
@@ -189,11 +193,13 @@ export function* clickAddButton():Generator {
   yield put(resetDataRisultati());
   yield put(resetRisposteOfDomanda());
 }
+// Bottone eliminazione formulario
 export function* clickDelOrSaveButton():Generator {
   yield put(openCloseSnackbarConfirmDelete());
   yield put(setBModifyDelAddReturnDisabled());
 }
 
+// Aggiunta risposta alla domanda
 export function* addRes(action:actionAnsType):Generator {
   const ansTutteUguali = yield select(risposteTutteUguali);
   let IDRisposta = uuidv4();
@@ -206,10 +212,12 @@ export function* addRes(action:actionAnsType):Generator {
   const risposta = RispostaWithID[IDDomanda];
   const valore = ValorewithID[IDDomanda];
 
-  // Se è cliccato il risposte tutte uguali
+  // Controllo se sono messe le risposte tutte uguali
   if (ansTutteUguali === true) {
     const listDomandeObj = yield select(domandeObject);
+    // Prendo la lista delle domande
     const listDomandeArr = objectToArray(listDomandeObj);
+    // Imposto la nuova risposta a tutte le domande
     yield all(listDomandeArr.map((ques : domandaType) => {
       IDDomanda = ques.IDDomanda;
       IDRisposta = uuidv4();
@@ -231,6 +239,7 @@ export function* addRes(action:actionAnsType):Generator {
   yield put(setType(IDDomanda));
 }
 
+// Eliminazione domanda a più risposte
 export function* deleteDomandaPiuRes(action:actionAnsType):Generator {
   const IDDomanda = action.payload;
 
@@ -238,6 +247,7 @@ export function* deleteDomandaPiuRes(action:actionAnsType):Generator {
   yield put(resetDomandaByIDDomanda(IDDomanda));
 }
 
+// Aggiunta nuovo risultato
 export function* addResult():Generator {
   const IDRisultato = uuidv4();
   const risultato = yield select(result);

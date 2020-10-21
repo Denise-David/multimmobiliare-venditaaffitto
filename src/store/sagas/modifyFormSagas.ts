@@ -7,9 +7,7 @@ import {
 import { repartoRightType, allReparti, user } from '../slice/rightsSlice';
 import { domandaType, domandeObject, intestazioneMoreAnswers } from '../slice/domandeAddFormSlice';
 import { groups } from '../slice/groupSlice';
-
 import { dataRisultati } from '../slice/risultatiAddFormSlice';
-
 import {
   IDRepartoSelected, IDForm,
 } from '../slice/ddlEditorFormAndRepartiSlice';
@@ -18,6 +16,7 @@ import { objectToArray } from '../../util';
 import { nomeFormulario, unsetUnsavedChanges } from '../slice/addFormSlice';
 import { openSnackbarAtLeast2Res } from '../slice/snackbarSlice';
 
+// Salvataggio delle modifiche sul formulario
 export default function* saveModify():Generator {
   try {
     const objDomande = yield select(domandeObject);
@@ -25,6 +24,7 @@ export default function* saveModify():Generator {
     const listDomande = objectToArray(objDomande);
     const objRisposte:any = yield select(risposteOfDomandaObject);
     let atLeast1Res = true;
+    // Controllo ci sia almeno 1 risposta per ogni domanda
     const response = listDomande.map((domanda : domandaType) => {
       if ((objRisposte[domanda.IDDomanda] === undefined
         || Object.keys(objRisposte[domanda.IDDomanda]).length === 0) && atLeast1Res === true
@@ -37,6 +37,7 @@ export default function* saveModify():Generator {
     });
 
     const atLeast = response.includes(false);
+    // Se non c'è almeno 1 risposta per ogni domanda apro lo snackbar
     if (atLeast) {
       yield put(openSnackbarAtLeast2Res());
     } else {
@@ -52,6 +53,8 @@ export default function* saveModify():Generator {
       const nomeReparto = repSelected.longname;
 
       const nomeForm = yield select(nomeFormulario);
+
+      // Ritorno la lista da inserire nel DB senza i dati che non servono
       const listDomandeAndRisposte = listDomande.map((dom : domandaType) => {
         const {
           IDDomanda, domanda, tipo, group, facoltativa, libera,
@@ -75,6 +78,7 @@ export default function* saveModify():Generator {
         };
       });
 
+      // Riordino le domande per gruppi
       listDomandeAndRisposte.sort((a, b) => {
         const IDGroupA = a.group?.toUpperCase() ? a.group?.toUpperCase() : '';
         const IDGroupB = b.group?.toUpperCase() ? b.group?.toUpperCase() : '';
@@ -86,6 +90,7 @@ export default function* saveModify():Generator {
         }
         return 0;
       });
+
       const listRisultati = objectToArray(objRisultati);
       const ans1:any = yield select(ris1);
       const ans2 :any = yield select(ris2);
@@ -95,14 +100,15 @@ export default function* saveModify():Generator {
       const date = startOfToday();
       const formulario = yield call(fetchFormStructureByID, IDFormulario);
       const gruppi = yield select(groups);
-
+      // Metto il formulario con le modifiche nel DB
       yield call(updateForm, IDFormulario, GUID, nomeReparto,
         nomeForm, gruppi, listDomandeAndRisposte, listRisultati, risposta1,
         risposta2, intestazioneMoreAns);
-
+      // Inserisco nell'history il formulario con le nuove modifiche e quello senza
       yield call(setNewAndOldStructure, GUID, nomeReparto,
         nomeForm, gruppi, listDomandeAndRisposte, listRisultati, risposta1,
         risposta2, date, formulario, utente);
+      // Segnalo che non ci sono modifiche non salvate
       yield put(unsetUnsavedChanges());
     }
   } catch (error) {

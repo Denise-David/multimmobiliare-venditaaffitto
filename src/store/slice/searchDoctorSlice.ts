@@ -1,7 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { State } from '../store/store';
 
+// struttura del nome e cognome cercato
 export interface nomeCognomeMedico { value : string}
+
+// Slice per la ricerca dei dottori
 const searchDoctorSlice = createSlice({
   name: 'searchDoctor',
   initialState: {
@@ -30,6 +33,8 @@ const searchDoctorSlice = createSlice({
     },
   },
 });
+
+// action del bottone cerca
 export const buttonSearchClicked = ():{type:string} => ({
   type: 'BUTTON_SEARCH_CLICKED',
 

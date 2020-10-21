@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { formularioDBType } from './addFormSlice';
 import { State } from '../store/store';
 
+// Slice gestione home autoanamnesi senza etichetta
 const homepageNoLabelSlice = createSlice({
   name: 'homepageNoLabel',
   initialState: {
@@ -12,6 +13,7 @@ const homepageNoLabelSlice = createSlice({
     formSelectedID: '' as string,
   },
   reducers: {
+    // Gestione formulario / reparto cercato
     resetCercato(state) {
       state.formularioCercato = '';
       state.repartoCercato = '';
@@ -22,12 +24,14 @@ const homepageNoLabelSlice = createSlice({
     setRepCercato(state, { payload }) {
       state.repartoCercato = payload;
     },
+    // Gestione lista risultati
     setList(state, { payload }) {
       state.listRisultati = payload;
     },
     resetList(state) {
       state.listRisultati = [];
     },
+    // Gestione formulario selezionato
     setFormSelectedIndex(state, { payload }) {
       state.formSelectedIndex = payload;
     },
@@ -40,6 +44,7 @@ const homepageNoLabelSlice = createSlice({
   },
 });
 
+// action apertura formulario selezionato
 export const openForm = ():{type:string} => ({
   type: 'OPEN_FORM',
 });

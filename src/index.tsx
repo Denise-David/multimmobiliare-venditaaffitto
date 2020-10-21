@@ -11,7 +11,7 @@ import {
 import '@fortawesome/fontawesome-pro/js/all';
 import { LocalizationProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@material-ui/pickers/adapter/date-fns';
-import App from './view/Home/App';
+import App from './view/Home/Home';
 import store from './store/store/store';
 import * as serviceWorker from './serviceWorker';
 import theme from './theme';

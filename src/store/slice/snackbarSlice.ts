@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { State } from '../store/store';
 
+// Slice per la gestione degli snackbar
 const snackbarSlice = createSlice({
   name: 'snackbar',
   initialState: {
@@ -18,36 +19,42 @@ const snackbarSlice = createSlice({
     snackbarConfirmDelForm: false as boolean,
   },
   reducers: {
+    // Gestione richiesta di conferma di eliminazione del formulario interfaccia amministrativa
     closeSnackbarConfirmDelForm(state) {
       state.snackbarConfirmDelForm = false;
     },
     openSnackbarConfirmDelForm(state) {
       state.snackbarConfirmDelForm = true;
     },
+    // Gestione richiesta di conferma annullamento modifiche editor
     closeSnackbarConfirmCancel(state) {
       state.snackbarConfirmCancel = false;
     },
     openSnackbarConfirmCancel(state) {
       state.snackbarConfirmCancel = true;
     },
+    // Gestione avviso che i nome del gruppo esiste già editor
     closeSnackbarNomeGruppo(state) {
       state.snackbarNomeGruppo = false;
     },
     openSnackbarNomeGruppo(state) {
       state.snackbarNomeGruppo = true;
     },
+    // Gestione avviso che l'etichetta non esiste interfaccia amministrativa
     closeSnackbarEtichettaInesistente(state) {
       state.snackbarEtichettaInesistente = false;
     },
     openSnackbarEtichettaInesistente(state) {
       state.snackbarEtichettaInesistente = true;
     },
+    // Gestione avviso che mancano dei dati obbligatori autoanamnesi
     closeSnackbarDatiPersonali(state) {
       state.snackbarDatiPersonali = false;
     },
     openSnackbarDatiPersonali(state) {
       state.snackbarDatiPersonali = true;
     },
+    // Gestione avviso che mancano i medici
     closeSnackbarDoctor(state) {
       state.snackbarDoctor = false;
     },
@@ -60,27 +67,32 @@ const snackbarSlice = createSlice({
     openSnackbarFamilyDoctor(state) {
       state.snackbarFamilyDoctor = true;
     },
+    // Gestione avviso che etichetta è errata autoanamnesi
     closeSnackbarLabelPage(state) {
       state.snackbarLabelOpen = false;
     },
     openSnackbarLabelPage(state) {
       state.snackbarLabelOpen = true;
     },
+    // Gestione avviso mancanza di risposte
     closeSnackbarPatientAnswers(state) {
       state.snackbarPatientAnswersOpen = false;
     },
     openSnackbarPatientAnswers(state) {
       state.snackbarPatientAnswersOpen = true;
     },
+    // Gestione richiesta conferma eliminazione formulario editor
     openCloseSnackbarConfirmDelete(state) {
       state.snackbarConfirmDeleteOpen = !state.snackbarConfirmDeleteOpen;
     },
+    // Gestione avviso che ogni domanda deve avere 1 risposta editor
     openSnackbarAtLeast2Res(state) {
       state.snackbarAtLeast2ResOpen = true;
     },
     closeSnackbarAtLeast2Res(state) {
       state.snackbarAtLeast2ResOpen = false;
     },
+    // Gestione avviso dati personali amncanti autoanamnesi
     openSnackbarFieldEmpty(state) {
       state.snackbarEmptyField = true;
     },

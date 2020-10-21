@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { State } from '../store/store';
 
+// Slice per la gestione dei gruppi
 const groupSlice = createSlice({
   name: 'group',
   initialState: {
@@ -10,6 +11,7 @@ const groupSlice = createSlice({
     isListGroupsDisabled: false as boolean,
   },
   reducers: {
+    // Gestione gruppi
     disableListGroups(state) {
       state.isListGroupsDisabled = !state.isListGroupsDisabled;
     },
@@ -31,14 +33,15 @@ const groupSlice = createSlice({
     deleteGroup(state) {
       state.groups.splice(state.groupSelectedIndex, 1);
     },
-    setGroupSelectedIndex(state, { payload }) {
-      state.groupSelectedIndex = payload;
-    },
     modifyGroup(state) {
       state.groupName = state.groups[state.groupSelectedIndex].name;
     },
     setModifyGroup(state) {
       state.groups[state.groupSelectedIndex].name = state.groupName;
+    },
+    // Gestione gruppo selezionato
+    setGroupSelectedIndex(state, { payload }) {
+      state.groupSelectedIndex = payload;
     },
     resetSelectedIndex(state) {
       state.groupSelectedIndex = -1;

@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { formularioDBType } from './addFormSlice';
 import { State } from '../store/store';
 
+// Slice home page autanamnesi cone etichetta
 const homePageSlice = createSlice({
   name: 'homePage',
   initialState: {
@@ -11,12 +12,20 @@ const homePageSlice = createSlice({
     reparto: '' as string,
   },
   reducers: {
+    // Gestione reparto
     setReparto(state, { payload }) {
       state.reparto = payload;
     },
     setRepartoGUID(state, { payload }) {
       state.repartoGUID = payload;
     },
+    resetReparto(state) {
+      state.reparto = '';
+    },
+    resetRepartoGUID(state) {
+      state.repartoGUID = null;
+    },
+    // Gestione formulario
     setFormulariList(state, { payload }) {
       state.formulariList = payload;
     },
@@ -26,18 +35,14 @@ const homePageSlice = createSlice({
     resetSelectedForm(state) {
       state.formSelected = '-1';
     },
-    resetRepartoGUID(state) {
-      state.repartoGUID = null;
-    },
     resetFormList(state) {
       state.formulariList = [];
     },
-    resetReparto(state) {
-      state.reparto = '';
-    },
+
   },
 });
 
+// action inizializzazione formulari reparto
 export const initFormulariReparto = ():{type:string} => ({
   type: 'INIT_FORMULARI_REPARTO',
 

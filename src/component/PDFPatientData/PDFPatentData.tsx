@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 import React, { ReactElement, useEffect } from 'react';
 import { Typography } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
@@ -11,10 +12,8 @@ import PatientDoctorData from './PatientDoctorData/PatientDoctorData';
 const PDFPatientData = ():ReactElement => {
   const dispatch = useDispatch();
   const classes = useStyles();
-  // eslint-disable-next-line no-restricted-globals
   const parsedText = queryString.parse(location.search);
   useEffect(() => {
-    // eslint-disable-next-line no-restricted-globals
     const parsed = queryString.parse(location.search);
     dispatch(setIDFormRisposte(parsed.ID));
     dispatch({ type: 'initPDFPatientData' });
@@ -23,6 +22,7 @@ const PDFPatientData = ():ReactElement => {
   const newDataPatient = useSelector(newPatientData);
 
   return (
+    // Intestazione
     <div className={classes.margini}>
       <Typography variant="body2">
         ID formulario risposte :
@@ -33,11 +33,13 @@ const PDFPatientData = ():ReactElement => {
         Dati paziente
         <hr />
       </Typography>
+      {/* Dati paziente */}
       <PatientNoDoctorData />
       <br />
 
       <Typography variant="subtitle1">
         <PatientDoctorData />
+        {/* Cassa malati */}
         <br />
 
         { (oldDataPatient.insuranceCoversName === newDataPatient.insuranceCoversName)

@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { State } from '../store/store';
 
+// Slice menu tabella domande a più risposte
 const menuDomandeERisposteSlice = createSlice({
   name: 'menuDomandeERisposte',
   initialState: {

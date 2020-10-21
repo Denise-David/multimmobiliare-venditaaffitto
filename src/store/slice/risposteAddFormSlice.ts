@@ -1,8 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { State } from '../store/store';
 
+// struttura risposta di riferimento
 interface rispostaUno { risposta1: string, stateText: boolean}
+// struttura risposta secondaria
 interface rispostaDue { risposta2: string, stateText: boolean}
+
+// struttura risposta
 export interface rispostaType {
   IDRisposta:string,
 risposta:string,
@@ -11,10 +15,12 @@ stateModify:boolean,
 type:string,
 valore:number}
 
+// struttura action risposta
 export interface actionAnsType {
  payload:string,
 type:string}
 
+// Slice per la gestione delle risposte
 const risposteAddFormSlice = createSlice({
   name: 'risposteAddForm',
   initialState: {
@@ -31,18 +37,13 @@ const risposteAddFormSlice = createSlice({
 
   },
   reducers: {
-
+    // Gestione collasso tabella
     setExpanded(state) {
       state.tableTwoAnsExpanded = !state.tableTwoAnsExpanded;
     },
+    // Gestione risposte
     resetRispostaType(state, { payload }) {
       state.type[payload] = 'normal';
-    },
-    setRispostaTipoData(state, { payload }) {
-      const { IDDomanda, IDRisposta } = payload;
-      if (state.risposteOfDomandaObject[IDDomanda][IDRisposta].type === 'data') {
-        state.risposteOfDomandaObject[IDDomanda][IDRisposta].type = 'normal';
-      } else { state.risposteOfDomandaObject[IDDomanda][IDRisposta].type = 'data'; }
     },
     resetRisposteOfDomanda(state) {
       state.risposteOfDomandaObject = {};
@@ -60,14 +61,6 @@ const risposteAddFormSlice = createSlice({
       } = payload;
       state.risposteOfDomandaObject[IDDomanda][IDRisposta].risposta = risposta;
       state.risposteOfDomandaObject[IDDomanda][IDRisposta].valore = valore;
-    },
-    setModifyRispostaClicked(state, { payload }) {
-      const { IDDomanda, IDRisposta } = payload;
-      state.risposteOfDomandaObject[IDDomanda][IDRisposta].stateModify = true;
-    },
-    setModifyRispostaUnclicked(state, { payload }) {
-      const { IDDomanda, IDRisposta } = payload;
-      state.risposteOfDomandaObject[IDDomanda][IDRisposta].stateModify = false;
     },
     deleteDomandeObject(state, { payload }) {
       delete state.risposteOfDomandaObject[payload];
@@ -100,6 +93,20 @@ const risposteAddFormSlice = createSlice({
       const { IDDomanda, intValue } = payload;
       state.valoreRis[IDDomanda] = intValue;
     },
+    getRisposta1(state, { payload }) {
+      state.ris1.risposta1 = payload;
+    },
+    getRisposta2(state, { payload }) {
+      state.ris2.risposta2 = payload;
+    },
+    // Gestione tipo risposta
+    setRispostaTipoData(state, { payload }) {
+      const { IDDomanda, IDRisposta } = payload;
+      if (state.risposteOfDomandaObject[IDDomanda][IDRisposta].type === 'data') {
+        state.risposteOfDomandaObject[IDDomanda][IDRisposta].type = 'normal';
+      } else { state.risposteOfDomandaObject[IDDomanda][IDRisposta].type = 'data'; }
+    },
+
     setType(state, { payload }) {
       if (state.type[payload] === 'data') {
         state.type[payload] = 'normal';
@@ -107,25 +114,22 @@ const risposteAddFormSlice = createSlice({
         state.type[payload] = 'data';
       }
     },
-    setAddRispostaClicked(state, { payload }) {
-      state.addRispostaInDomanda[payload] = false;
+    // Gestione bottone modifica risposta
+    setModifyRispostaClicked(state, { payload }) {
+      const { IDDomanda, IDRisposta } = payload;
+      state.risposteOfDomandaObject[IDDomanda][IDRisposta].stateModify = true;
     },
-    setAddRispostaUnclicked(state, { payload }) {
-      state.addRispostaInDomanda[payload] = true;
+    setModifyRispostaUnclicked(state, { payload }) {
+      const { IDDomanda, IDRisposta } = payload;
+      state.risposteOfDomandaObject[IDDomanda][IDRisposta].stateModify = false;
     },
     setBModifyRis1Clicked(state) {
       state.ris1.stateText = false;
       state.isBModifyRis1Clicked = true;
     },
-    getRisposta1(state, { payload }) {
-      state.ris1.risposta1 = payload;
-    },
     setBModifyRis1Unclicked(state) {
       state.ris1.stateText = true;
       state.isBModifyRis1Clicked = false;
-    },
-    getRisposta2(state, { payload }) {
-      state.ris2.risposta2 = payload;
     },
     setBModifyRis2Clicked(state) {
       state.ris2.stateText = false;
@@ -135,10 +139,18 @@ const risposteAddFormSlice = createSlice({
       state.ris2.stateText = true;
       state.isBModifyRis2Clicked = false;
     },
+    // Gestione bottone aggiungi risposta
+    setAddRispostaClicked(state, { payload }) {
+      state.addRispostaInDomanda[payload] = false;
+    },
+    setAddRispostaUnclicked(state, { payload }) {
+      state.addRispostaInDomanda[payload] = true;
+    },
 
   },
 });
 
+// action bottone aggiungi risposta
 export const addRisposta = (payload : string):{payload:string, type:string} => ({
   type: 'ADD_RISPOSTA',
   payload,

@@ -7,6 +7,7 @@ import fetchFormStructureByID, { deleteForm, setOldStructure } from '../api';
 import { setBModifyDelAddReturnEnabled } from '../slice/disableEnableSlice';
 import { openCloseSnackbarConfirmDelete } from '../slice/snackbarSlice';
 
+// Bottone conferma eliminazione formulario
 export default function* confirmDelForm():Generator {
   try {
     const selectedForm = yield select(IDForm);

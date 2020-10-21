@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { domandaType } from './domandeAddFormSlice';
 import { State } from '../store/store';
 
+// struttura risposta paziente
 export interface rispostaPazienteType {
   idDomanda:string,
   valore:string,
@@ -13,6 +14,7 @@ export interface rispostaPazienteType {
   date:dataType[]
   }
 
+// struttura risposta data paziente
 export interface dataType {
 
    idRisposta:string,
@@ -23,6 +25,7 @@ export interface dataType {
 
     }
 
+// Slice per le risposte paziente
 const patientFormSlice = createSlice({
   name: 'patientForm',
   initialState:
@@ -38,39 +41,13 @@ const patientFormSlice = createSlice({
 
   },
   reducers: {
+    // gestione risposta data
     deleteDate(state, { payload }) {
       const { idDomanda, idRisposta } = payload;
       if (state.resDate[idDomanda] && state.risposte[idDomanda]) {
         delete state.resDate[idDomanda][idRisposta];
         delete state.risposte[idDomanda].date[idRisposta];
       }
-    },
-    setDomandaDimenticata(state, { payload }) {
-      state.domandeDimenticate = payload;
-    },
-    resetNoFacoltative(state) {
-      state.noFacoltative = [];
-    },
-    setDomandaNoFacoltativa(state, { payload }) {
-      if (!state.noFacoltative.includes(payload)) {
-        state.noFacoltative.push(payload);
-      }
-    },
-    setRispostaLibera(state, { payload }) {
-      const { idDomanda } = payload;
-      const valore : string = payload.value;
-      if (state.risposte[idDomanda]) {
-        state.risposte[idDomanda].testoLibero = valore;
-      } else { state.risposte[idDomanda] = { testoLibero: valore }; }
-    },
-    setGruppi(state, { payload }) {
-      state.gruppi = payload;
-    },
-    setIntestazioneMoreAns(state, { payload }) {
-      state.intestazioneMoreAnswers = payload;
-    },
-    setIntestazioneTwoAns(state, { payload }) {
-      state.intestazioneMoreAnswers = payload;
     },
     setDate(state, { payload }) {
       const { idRisposta, idDomanda, domanda } = payload;
@@ -86,14 +63,50 @@ const patientFormSlice = createSlice({
       state.resDate[idDomanda][idRisposta] = payload;
       state.risposte[idDomanda].date = state.resDate[idDomanda];
     },
+    // Gestione domande obbligatorie
+    setDomandaDimenticata(state, { payload }) {
+      state.domandeDimenticate = payload;
+    },
+    resetNoFacoltative(state) {
+      state.noFacoltative = [];
+    },
+    setDomandaNoFacoltativa(state, { payload }) {
+      if (!state.noFacoltative.includes(payload)) {
+        state.noFacoltative.push(payload);
+      }
+    },
+    // Gestione risposta libera
+    setRispostaLibera(state, { payload }) {
+      const { idDomanda } = payload;
+      const valore : string = payload.value;
+      if (state.risposte[idDomanda]) {
+        state.risposte[idDomanda].testoLibero = valore;
+      } else { state.risposte[idDomanda] = { testoLibero: valore }; }
+    },
+    // Gestione gruppi / intestazione
+    setGruppi(state, { payload }) {
+      state.gruppi = payload;
+    },
+    setIntestazioneMoreAns(state, { payload }) {
+      state.intestazioneMoreAnswers = payload;
+    },
+    setIntestazioneTwoAns(state, { payload }) {
+      state.intestazioneMoreAnswers = payload;
+    },
+    // Gestione tipo domanda
     setNormalTypePresent(state, { payload }) {
       if (state.domandeReparto[payload].normalType !== true) {
         state.domandeReparto[payload].normalType = true;
       }
     },
+    // Gestione domande
     getDomandeReparto(state, { payload }) {
       state.domandeReparto = payload;
     },
+    resetDomandeReparto(state) {
+      state.domandeReparto = [];
+    },
+    // Gestione risposte
     setRisposta(state, { payload }) {
       const {
         idDomanda, valore, domanda, testoRisposta, idRisposta,
@@ -113,9 +126,6 @@ const patientFormSlice = createSlice({
     getBooleanAnswers(state, { payload }) {
       state.boolAnswers = payload;
     },
-    resetDomandeReparto(state) {
-      state.domandeReparto = [];
-    },
     resetRisposte(state) {
       state.risposte = {};
     },
@@ -125,6 +135,7 @@ const patientFormSlice = createSlice({
   },
 });
 
+// action apertura riassunto
 export const buttonSendForm = ():{type:string} => ({
   type: 'BUTTON_SEND_FORM',
 

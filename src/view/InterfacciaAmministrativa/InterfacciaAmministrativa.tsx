@@ -14,6 +14,7 @@ import { openDialogFiltro } from '../../store/slice/dialogSlice';
 import FormularioLabelLine from '../../component/InterfacciaAmministrativa/FormularioLabelLine/FormularioLabelLine';
 import DialogLabelManager from '../../component/InterfacciaAmministrativa/DialogLabelManager/DialogLabelManager';
 
+// Vista dell'applicativo interfaccia amministrativa
 const InterfacciaAmministrativa = ():ReactElement => {
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -23,11 +24,9 @@ const InterfacciaAmministrativa = ():ReactElement => {
   }, [dispatch]);
   return (
     <div>
+      {/* Header */}
       <Navbar />
       <div className={classes.paddingGeneral}>
-        <DialogLabel />
-        <DialogFilter />
-        <DialogLabelManager />
         <Card className={classes.padding}>
           <Grid
             container
@@ -63,7 +62,7 @@ const InterfacciaAmministrativa = ():ReactElement => {
             </IconButton>
           </Grid>
         </Card>
-
+        {/* Lista formulari */}
         <DialogContent className={classes.listGroup} dividers>
           {filterForm === 'Senza etichetta'
             ? <FormularioLine /> : (
@@ -78,7 +77,10 @@ const InterfacciaAmministrativa = ():ReactElement => {
                   )}
               </>
             )}
-
+          {/* Dialog */}
+          <DialogLabel />
+          <DialogFilter />
+          <DialogLabelManager />
         </DialogContent>
       </div>
     </div>

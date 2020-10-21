@@ -45,6 +45,7 @@ import { resetMenuTwoAns, setGroupAttiviTwoAns } from '../slice/menuDomandeSlice
 import { setIsLoaded, setIsLoading } from '../slice/loadingSlice';
 import initHomeNoLabel from './homepageNoLabelSagas';
 
+// inizializzazione
 function* init() {
   try {
     yield put(setIsLoading());

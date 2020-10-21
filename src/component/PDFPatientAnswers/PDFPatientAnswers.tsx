@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 /* eslint-disable react/jsx-key */
 import React, { ReactElement, useEffect } from 'react';
 import { Typography } from '@material-ui/core';
@@ -13,13 +14,11 @@ import { resultType } from '../../store/slice/risultatiAddFormSlice';
 
 // PDF con le risposte del paziente
 const PDFPatientAnswers = ():ReactElement => {
-  // eslint-disable-next-line no-restricted-globals
   const parsedText = queryString.parse(location.search);
   const dispatch = useDispatch();
   const classes = useStyles();
 
   useEffect(() => {
-    // eslint-disable-next-line no-restricted-globals
     const parsed = queryString.parse(location.search);
 
     dispatch(setNumEtichetta(parsed.etichetta));

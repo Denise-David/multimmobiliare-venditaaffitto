@@ -32,6 +32,7 @@ const FormularioLine = ():ReactElement => {
     const { formulario } = form;
     const IDForm = form._id;
 
+    // Filtraggio per nome e congome
     if (nome?.includes(nomeCercato.toLowerCase())
      && cognome?.includes(cognomeCercato.toLowerCase())) {
       return (
@@ -42,10 +43,10 @@ const FormularioLine = ():ReactElement => {
           alignItems="center"
           key={form._id}
         >
+          {/* Avvisi */}
           <SnackbarConfirmDelForm IDForm={IDForm} />
-
           <SnackbarEtichettaInesistente />
-
+          {/* Formulario */}
           <Grid item xs={12} sm={10}>
             <Divider />
             <Typography variant="body1">
@@ -60,7 +61,7 @@ const FormularioLine = ():ReactElement => {
 
             </Typography>
           </Grid>
-
+          {/* Bottoni */}
           <Grid item xs={12} sm={10}>
             <div className={classes.button}>
               <Button

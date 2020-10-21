@@ -26,11 +26,8 @@ import MultipleChoiceLinePatientForm from './LinePatientForm/LinePatientForm';
 import TextFamilyDoctor from './TextFamilyDoctor/TextFamilyDoctor';
 import ButtonSendFormPaziente from './ButtonSendPatientForm/ButtonSendPatientForm';
 import {
-  checkboxDoctor,
-  checkboxFamilyDoctro,
-  deleteDoctor, deleteFamilyDoctor,
-  setCheckboxDoctor, setCheckboxFamilyDoctor,
-  setNoDoctor, setNoFamilyDoctor, textFieldDisabled,
+  checkboxDoctor, checkboxFamilyDoctro, deleteDoctor, deleteFamilyDoctor,
+  setCheckboxDoctor, setCheckboxFamilyDoctor, setNoDoctor, setNoFamilyDoctor, textFieldDisabled,
   unsetCheckboxDoctor, unsetCheckboxFamilyDoctor,
 } from '../../../store/slice/patientDataSlice';
 import TextCityName from './TextCityName/TextCityName';
@@ -88,9 +85,7 @@ const PatientFormDialog = ():ReactElement => {
                 </Alert>
               </Snackbar>
               <div className={classes.center}>
-
                 <ButtonPatientDataForm />
-
               </div>
               <div className={classes.inline}>
                 <TextName />
@@ -101,10 +96,8 @@ const PatientFormDialog = ():ReactElement => {
                 <TextStreet />
                 <TextNumber />
               </div>
-
               <TextCAP />
               <TextCityName />
-
               <TextCassaMalati />
               <TextPhone />
               <div className={classes.inline}>
@@ -114,7 +107,6 @@ const PatientFormDialog = ():ReactElement => {
                   justify="center"
                   alignItems="center"
                 >
-
                   {!modifyClicked
                     ? (
                       <>
@@ -146,7 +138,6 @@ const PatientFormDialog = ():ReactElement => {
                                   }
                                 }}
                               />
-
                     )}
                           />
                         </Grid>

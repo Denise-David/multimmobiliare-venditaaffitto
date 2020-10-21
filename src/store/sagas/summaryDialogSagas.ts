@@ -1,7 +1,7 @@
+/* eslint-disable no-underscore-dangle */
 import { select, put, call } from 'redux-saga/effects';
 import { rispostaPazienteType, risposte } from '../slice/patientFormSlice';
 import { formularioDBType } from '../slice/addFormSlice';
-/* eslint-disable no-underscore-dangle */
 import {
   formulariList, repartoGUID, formSelected, reparto,
 } from '../slice/homePageLabelSlice';
@@ -15,6 +15,7 @@ import { objectToArray } from '../../util';
 import { setIDLastForm } from '../slice/patientFormPDFSlice';
 import { ValueCode } from '../slice/labelCodeSlice';
 
+// Inizializzazione del riassunto dei dati e le risposte del paziente
 export default function* setDataRisposteFormPaziente():Generator {
   try {
     const ansData = yield select(risposte);

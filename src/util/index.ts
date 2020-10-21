@@ -1,3 +1,4 @@
+// struttura medico
 export interface Medico {
   id?:string,
   givenname?: string;
@@ -7,7 +8,7 @@ export interface Medico {
   city?: string;
 }
 
-// eslint-disable-next-line import/prefer-default-export
+// funzione per estrarre il nome, cognome e città del medico
 export function getStringMedico(medico: Medico): string {
   if (medico) {
     if (medico.city === 'Nessun medico di famiglia' || medico.city === 'Nessun medico inviante') {
@@ -19,6 +20,7 @@ export function getStringMedico(medico: Medico): string {
   } return '';
 }
 
+// funzione per estrarer e unire gli array
 export function extractAndMergeArray(array : any[]):Generator {
   let arrayRepartiUniti : any = [];
   array.map((ArrayRepartiSeparati : any) => {
@@ -31,6 +33,7 @@ export function extractAndMergeArray(array : any[]):Generator {
   return arrayRepartiUniti;
 }
 
+// funzione che converte un oggetto in un array
 export function objectToArray(object : any):any[] {
   if (object.length !== 0) {
     const array = Object.keys(object).map((key) => {

@@ -5,6 +5,7 @@ import {
 
 import { getRisposteFormPazientiByID } from '../api';
 
+// inizializzazione PDF dati paziente
 export default function* initPDFPatientData():Generator {
   try {
     const IDForm = yield select(IDFormRisposte);

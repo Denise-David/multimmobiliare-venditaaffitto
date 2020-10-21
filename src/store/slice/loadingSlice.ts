@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { State } from '../store/store';
 
+// Slice gestione loading
 const loadingSlice = createSlice({
   name: 'loading',
   initialState: {

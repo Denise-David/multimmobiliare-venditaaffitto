@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { State } from '../store/store';
 
+// Gestione etichetta autoanamnesi con etichetta
 const labelCodeSlice = createSlice({
   name: 'labelCode',
   initialState:
@@ -19,6 +20,7 @@ const labelCodeSlice = createSlice({
   },
 });
 
+// Bottone apertura formulario
 export const buttonSendCode = ():{type:string} => ({
   type: 'BUTTON_SEND_CODE',
 

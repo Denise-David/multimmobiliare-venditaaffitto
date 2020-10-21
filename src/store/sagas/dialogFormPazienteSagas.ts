@@ -24,6 +24,7 @@ import {
 } from '../slice/snackbarSlice';
 import { formSelectedID } from '../slice/homepageNoLabelSlice';
 
+// Prendere i dati dell'etichetta
 export default function* getDataEtichetta():Generator {
   try {
     yield put(setIsLoading());
@@ -101,6 +102,7 @@ export default function* getDataEtichetta():Generator {
   }
 }
 
+// Apertura formulario dell'autoanamnesi senza etichetta
 export function* sendOpenForm():Generator {
   yield put(setIsLoading());
   const IDForm = yield select(formSelectedID);
@@ -124,6 +126,7 @@ export function* sendOpenForm():Generator {
   yield put(setIsLoaded());
 }
 
+// Invio dei dati del paziente e delle risposte del formulario
 export function* sendDataPazienti():Generator {
   try {
     const obbFieldEmpty = yield select(obligatoryFieldEmpty);
@@ -139,7 +142,7 @@ export function* sendDataPazienti():Generator {
 
     yield put(setDomandaDimenticata(response));
     const answersAll = response.includes(false);
-    // Se le risposte ricevute dal paziente sono uguali al numero di domande tot
+    // Controlli che sono stati immessi tutti i dati richiesti
     if (checkOrCancelClicked && !answersAll && !obbFieldEmpty) {
       yield put(openDialogSummary());
     } else if (!checkOrCancelClicked) {

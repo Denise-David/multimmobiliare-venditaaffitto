@@ -1,6 +1,5 @@
 import {
-  Button,
-  Dialog, Grid, TextField, Typography,
+  Button, Dialog, Grid, TextField, Typography,
 } from '@material-ui/core';
 import React, { ReactElement } from 'react';
 import { useDispatch, useSelector } from 'react-redux';

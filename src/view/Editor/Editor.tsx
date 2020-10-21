@@ -1,7 +1,6 @@
 import React, { ReactElement, useEffect } from 'react';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-
 import Typography from '@material-ui/core/Typography';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -24,7 +23,8 @@ import GroupDialog from '../../component/Editor/GroupDialog/GroupDialog';
 import { isLoaded, isLoading } from '../../store/slice/loadingSlice';
 import { isBModifyDelAddReturnDisabled } from '../../store/slice/disableEnableSlice';
 
-const FormPaziente = ():ReactElement => {
+// Vista editor principale
+const Editor = ():ReactElement => {
   const classes = useStyles();
   const dispatch = useDispatch();
   useEffect(() => {
@@ -41,13 +41,13 @@ const FormPaziente = ():ReactElement => {
   const addReparto = useSelector(isButtonAddFormClicked);
   const username = useSelector(user);
   const confirmAddForm = useSelector(isBConfirmAddFormClicked);
-  // Estraggo i reparti e li unisco in un unico array (da spostare nel saga magari)
   const doppiArrayRepartiCreate = useSelector(repartiCreate);
 
   const listRepartiCreate = doppiArrayRepartiCreate.map((Reparto : any) => {
     const nomeReparto = Reparto.longname;
     const idReparto = Reparto.unitid || Reparto.sermednodeid;
     return (
+      // Item reparto dei diritti create
       <MenuItem
         onClick={() => {
           dispatch(setSelectedReparto({ nomeReparto, idReparto }));
@@ -61,7 +61,7 @@ const FormPaziente = ():ReactElement => {
   });
   return (
     <div>
-
+      {/* Header */}
       <Nav />
       <div className={classes.root}>
         <Typography
@@ -72,8 +72,9 @@ const FormPaziente = ():ReactElement => {
           {username}
         </Typography>
         <HeaderEditor />
+        {/* Dialog */}
         <GroupDialog />
-
+        {/* Loading */}
         {!loaded && loading && IDFormSelected !== '-1'
           ? (
             <Grid
@@ -88,15 +89,16 @@ const FormPaziente = ():ReactElement => {
           )
           : (
             <>
+              {/* Tabelle */}
               {IDFormSelected !== '-1' || confirmAddForm
                 ? (
 
                   <>
                     {modifyRight && IDFormulario !== '-1'
                       ? (
+                        // Campo nome formulario
                         <div className={classes.tfNomeForm}>
                           <TextField
-
                             fullWidth
                             variant="outlined"
                             value={nomeForm}
@@ -113,7 +115,6 @@ const FormPaziente = ():ReactElement => {
                     <Grid container spacing={3}>
                       <Grid item xs={12} sm={8}>
                         <Paper className={classes.marginTable}>
-
                           <QuestionsAndAnswersEditor />
                         </Paper>
                       </Grid>
@@ -136,17 +137,16 @@ const FormPaziente = ():ReactElement => {
 
                     </Grid>
                   </>
-
                 ) : (
                   <>
                     {addReparto
                       ? (
                         <>
+                          {/* scelta reparto per aggiunta formulario */}
                           <Typography className={classes.background} variant="h5">Scegli il reparto</Typography>
                           <br />
                           <DialogContent dividers>{listRepartiCreate}</DialogContent>
                         </>
-
                       ) : <></> }
                   </>
                 )}
@@ -154,7 +154,6 @@ const FormPaziente = ():ReactElement => {
           )}
       </div>
     </div>
-
   );
 };
-export default FormPaziente;
+export default Editor;

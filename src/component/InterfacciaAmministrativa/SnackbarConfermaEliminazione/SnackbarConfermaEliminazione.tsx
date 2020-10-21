@@ -3,7 +3,7 @@ import { Alert } from '@material-ui/lab';
 import React, { ReactElement } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { closeAndFilterDialog } from '../../../store/slice/dialogSlice';
-import { DeleteAnsForm } from '../../../store/slice/interfacciaAmmSlice';
+import { deleteAnsForm } from '../../../store/slice/interfacciaAmmSlice';
 import { closeSnackbarConfirmDelForm, snackbarConfirmDelForm } from '../../../store/slice/snackbarSlice';
 import useStyles from './style';
 
@@ -27,7 +27,7 @@ const SnackbarConfirmDelForm = ({ IDForm }:Props):ReactElement => {
           </Typography>
 
           <Button onClick={() => {
-            dispatch(DeleteAnsForm(IDForm));
+            dispatch(deleteAnsForm(IDForm));
             dispatch(closeAndFilterDialog());
             dispatch({ type: 'INIT_INTERFACCIA' });
             dispatch(closeSnackbarConfirmDelForm());

@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { State } from '../store/store';
 
+// struttura di un reparto preso dai diritti dell'utente
 export interface repartoRightType {
  sermednodeid?: number,
 unitid?:number,
@@ -14,12 +15,14 @@ shortname:string,
 startdate:number,
 localization:number}
 
+// struttura di un diritto dell'utente
 export interface rightType {
  code:string,
 description:string,
 id:number,
 scopes:[]}
 
+// struttura  di uno scope di un diritto
 export interface scopeType {
   areaCode:string,
 areaType:string,
@@ -27,12 +30,14 @@ areaDescription:string,
 description:string,
 id:number}
 
+// struttura di un reparto di uno scope dei diritti dell'utente
 export interface repartoScopeRightType {
 
   data:[],
 
 }
 
+// Slice per la gestione dei diritti
 const rightsSlice = createSlice({
   name: 'rights',
   initialState: {
@@ -51,7 +56,7 @@ const rightsSlice = createSlice({
 
   },
   reducers: {
-
+    // Gestione dei reparti
     unsetRepartoModifyRight(state) {
       state.haveRepModifyRight = false;
     },
@@ -67,6 +72,16 @@ const rightsSlice = createSlice({
     setRepartoDeleteRight(state) {
       state.haveRepDeleteRight = true;
     },
+    setRepartiCreate(state, { payload }) {
+      state.repartiCreate = payload;
+    },
+    setRepartiDelete(state, { payload }) {
+      state.repartiDelete = payload;
+    },
+    setAllReparti(state, { payload }) {
+      state.allReparti = payload;
+    },
+    // Gestione dei diritti
     unsetUserDeleteRight(state) {
       state.haveUserCreateRight = false;
     },
@@ -79,21 +94,14 @@ const rightsSlice = createSlice({
     setUserModifyRight(state) {
       state.haveUserModifyRight = true;
     },
-    getUser(state) {
-      state.user = 'eoc22527';
-    },
     setRightsUserAUTAN(state, { payload }) {
       state.rightsUserAUTAN = payload;
     },
-    setRepartiCreate(state, { payload }) {
-      state.repartiCreate = payload;
+    // Gestione utente
+    getUser(state) {
+      state.user = 'eoc22527';
     },
-    setRepartiDelete(state, { payload }) {
-      state.repartiDelete = payload;
-    },
-    setAllReparti(state, { payload }) {
-      state.allReparti = payload;
-    },
+    // Gestione formulario
     setFormulari(state, { payload }) {
       state.formulariByReparto = payload;
     },

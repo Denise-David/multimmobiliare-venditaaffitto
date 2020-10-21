@@ -7,6 +7,7 @@ import {
   setBSaveEnabled, setDDLFormEnabled,
 } from '../slice/disableEnableSlice';
 
+// Disabilita la maggior parte delle icone
 export default function* allDisabled():Generator {
   try {
     yield put(setBModifyDelAddReturnDisabled());
@@ -17,6 +18,7 @@ export default function* allDisabled():Generator {
   }
 }
 
+// Abilita la maggior parte delle icone
 export function* allEnabled():Generator {
   try {
     const confirmAddFormClicked = yield select(isBConfirmAddFormClicked);
