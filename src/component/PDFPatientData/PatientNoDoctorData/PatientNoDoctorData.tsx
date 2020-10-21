@@ -4,6 +4,7 @@ import { Typography } from '@material-ui/core';
 import { oldPatientData, newPatientData } from '../../../store/slice/patientFormPDFSlice';
 import useStyles from './style';
 
+// Dati del paziente senza dottori
 const PatientNoDoctorData = ():ReactElement => {
   const oldDataPatient = useSelector(oldPatientData);
   const newDataPatient = useSelector(newPatientData);

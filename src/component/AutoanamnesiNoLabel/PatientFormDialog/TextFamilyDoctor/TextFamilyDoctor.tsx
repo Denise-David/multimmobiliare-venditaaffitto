@@ -9,7 +9,8 @@ import {
 } from '../../../../store/slice/patientDataSlice';
 import { getStringMedico } from '../../../../util';
 
-const TextLastname = ():ReactElement => {
+// Campo medico di famiglia
+const TextFamilyDoctor = ():ReactElement => {
   const dataEtichetta = useSelector(newPatientInfo);
   const dispatch = useDispatch();
   const disabled = useSelector(textFieldDisabled);
@@ -45,4 +46,4 @@ const TextLastname = ():ReactElement => {
   );
 };
 
-export default TextLastname;
+export default TextFamilyDoctor;

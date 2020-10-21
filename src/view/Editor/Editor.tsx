@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 
@@ -24,7 +24,7 @@ import GroupDialog from '../../component/Editor/GroupDialog/GroupDialog';
 import { isLoaded, isLoading } from '../../store/slice/loadingSlice';
 import { isBModifyDelAddReturnDisabled } from '../../store/slice/disableEnableSlice';
 
-const FormPaziente = () => {
+const FormPaziente = ():ReactElement => {
   const classes = useStyles();
   const dispatch = useDispatch();
   useEffect(() => {
@@ -38,7 +38,6 @@ const FormPaziente = () => {
   const IDFormulario = useSelector(IDForm);
   const nomeForm = useSelector(nomeFormulario);
   const iconsDisabled = useSelector(isBModifyDelAddReturnDisabled);
-
   const addReparto = useSelector(isButtonAddFormClicked);
   const username = useSelector(user);
   const confirmAddForm = useSelector(isBConfirmAddFormClicked);

@@ -21,6 +21,7 @@ const ButtonPatientDataForm = ():ReactElement => {
 
   if (modifyClicked) {
     return (
+      // bottone modifica
       <IconButton onClick={() => {
         dispatch(unsetCancelClicked());
         dispatch(switchStateDisabled());
@@ -31,6 +32,7 @@ const ButtonPatientDataForm = ():ReactElement => {
     );
   } return (
     <>
+      {/* bottone conferma */}
       <IconButton onClick={() => {
         if (!obbFieldempty && !familyDoctorEmpty && !doctorEmpty) {
           dispatch(switchStateDisabled());
@@ -45,6 +47,7 @@ const ButtonPatientDataForm = ():ReactElement => {
       >
         <CheckCircleOutlineIcon color="primary" fontSize="large" />
       </IconButton>
+      {/* bottone annulla */}
       <IconButton onClick={() => {
         dispatch(switchStateDisabled());
         dispatch(resetNewPatientInfo());

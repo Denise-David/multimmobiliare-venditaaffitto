@@ -7,6 +7,7 @@ import { setCheckboxFamilyDoctor, setNoFamilyDoctor } from '../../../../store/sl
 import { setNomeCognomeDottoreScelto } from '../../../../store/slice/searchDoctorSlice';
 import { closeSnackbarFamilyDoctor, snackbarFamilyDoctor } from '../../../../store/slice/snackbarSlice';
 
+// Avviso che il dottore di famiglia non è presente
 const SnackbarFamilyDoctor = ():ReactElement => {
   const snackbarOpen = useSelector(snackbarFamilyDoctor);
   const dispatch = useDispatch();

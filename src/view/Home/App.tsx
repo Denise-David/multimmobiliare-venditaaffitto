@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 import {
   CardContent, Typography, Snackbar, CircularProgress, Paper,
 } from '@material-ui/core';
@@ -22,7 +22,7 @@ import { formulariList } from '../../store/slice/homePageLabelSlice';
 import { closeSnackbarLabelPage, snackbarLabelOpen } from '../../store/slice/snackbarSlice';
 import { isLoading } from '../../store/slice/loadingSlice';
 
-const Barcodepage = () => {
+const Barcodepage = ():ReactElement => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const loading = useSelector(isLoading);

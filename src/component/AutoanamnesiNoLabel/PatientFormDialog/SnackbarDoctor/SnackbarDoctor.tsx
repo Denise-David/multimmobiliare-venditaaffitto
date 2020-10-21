@@ -9,6 +9,7 @@ import {
   closeSnackbarDoctor, closeSnackbarFamilyDoctor, snackbarDoctor,
 } from '../../../../store/slice/snackbarSlice';
 
+// Avviso che il dottore inviante non è stato messo
 const SnackbarDoctor = ():ReactElement => {
   const snackbarOpen = useSelector(snackbarDoctor);
   const dispatch = useDispatch();

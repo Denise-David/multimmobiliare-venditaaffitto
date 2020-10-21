@@ -9,14 +9,10 @@ const ButtonSendCode = ():ReactElement => {
   const dispatch = useDispatch();
   const classes = useStyles();
 
-  const handleClickOpen = () => {
-    dispatch(buttonSendCode());
-  };
-
   return (
     <>
       <Button
-        onClick={handleClickOpen}
+        onClick={() => dispatch(buttonSendCode())}
         className={classes.margin}
         variant="contained"
         color="primary"

@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import React, { ReactElement } from 'react';
 import { FormControl, MenuItem, Select } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
@@ -11,8 +12,9 @@ const DropDownListFormulariBarcode = ():ReactElement => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const selectedForm = useSelector(formSelected);
+
+  // Creo la lista dei nomi dei formulari
   const listForm = formulari.map((formulario : formularioDBType) => (
-    // eslint-disable-next-line no-underscore-dangle
     <MenuItem value={formulario._id} key={formulario._id}>
       {formulario.formulario}
     </MenuItem>

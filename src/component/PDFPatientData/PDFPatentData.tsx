@@ -7,6 +7,7 @@ import useStyles from './style';
 import PatientNoDoctorData from './PatientNoDoctorData/PatientNoDoctorData';
 import PatientDoctorData from './PatientDoctorData/PatientDoctorData';
 
+// PDF con i dati del paziente
 const PDFPatientData = ():ReactElement => {
   const dispatch = useDispatch();
   const classes = useStyles();

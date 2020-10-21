@@ -4,18 +4,15 @@ import { useDispatch } from 'react-redux';
 import useStyles from './style';
 import { openForm } from '../../../store/slice/homepageNoLabelSlice';
 
+// Bottone per inviare formulario scelto
 const ButtonSendCode = ():ReactElement => {
   const dispatch = useDispatch();
   const classes = useStyles();
 
-  const handleClickOpen = () => {
-    dispatch(openForm());
-  };
-
   return (
     <>
       <Button
-        onClick={handleClickOpen}
+        onClick={() => dispatch(openForm())}
         className={classes.margin}
         variant="contained"
         color="primary"

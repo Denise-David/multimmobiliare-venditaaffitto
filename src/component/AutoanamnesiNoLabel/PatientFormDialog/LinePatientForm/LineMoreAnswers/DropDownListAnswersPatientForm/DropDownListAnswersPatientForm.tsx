@@ -9,6 +9,7 @@ import { domandaType } from '../../../../../../store/slice/domandeAddFormSlice';
 
 interface Props {idDomanda : string, domanda : string, index:number}
 
+// Lista a tendina risposte paziente
 const DropDownListAnswersPatient = ({ idDomanda, domanda, index } : Props):ReactElement => {
   const dispatch = useDispatch();
   const domDimenticate = useSelector(domandeDimenticate);
@@ -28,7 +29,6 @@ const DropDownListAnswersPatient = ({ idDomanda, domanda, index } : Props):React
 
   const answer = useSelector((state : State) => state.patientForm.risposte[idDomanda] || null);
 
-  // eslint-disable-next-line
   const listItems = risposte ? risposte.map((risposta : rispostaType) => {
     if (risposta.type === 'normal' || !risposta.type) {
       return (

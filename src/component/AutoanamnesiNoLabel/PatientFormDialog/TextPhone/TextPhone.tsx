@@ -5,7 +5,8 @@ import {
   newPatientInfo, changePatientValue, textFieldDisabled,
 } from '../../../../store/slice/patientDataSlice';
 
-const TextLastname = ():ReactElement => {
+// Campo numero di telefono
+const TextPhone = ():ReactElement => {
   const dataEtichetta = useSelector(newPatientInfo);
   const disabled = useSelector(textFieldDisabled);
   const dispatch = useDispatch();
@@ -25,4 +26,4 @@ const TextLastname = ():ReactElement => {
   );
 };
 
-export default TextLastname;
+export default TextPhone;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import {
   CardContent, Typography, CircularProgress, Paper, TextField,
   MenuItem, DialogContent,
@@ -17,8 +17,9 @@ import {
   listRisultati, repartoCercato, setFormCercato,
   setFormSelectedID, setFormSelectedIndex, setRepCercato,
 } from '../../store/slice/homepageNoLabelSlice';
+import { formularioDBType } from '../../store/slice/addFormSlice';
 
-const HomepageNoLabel = () => {
+const HomepageNoLabel = ():ReactElement => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const loading = useSelector(isLoading);
@@ -26,7 +27,7 @@ const HomepageNoLabel = () => {
   const selectedIndex = useSelector(formSelectedIndex);
   const rep = useSelector(repartoCercato);
 
-  const list = listResult.map((res : any, index:number) => {
+  const list = listResult.map((res : formularioDBType, index:number) => {
     if (index === selectedIndex) {
       return (
         <MenuItem

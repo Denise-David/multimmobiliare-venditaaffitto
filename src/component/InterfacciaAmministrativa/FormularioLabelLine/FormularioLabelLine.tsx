@@ -33,6 +33,7 @@ const FormularioLabelLine = ():ReactElement => {
     const { reparto } = form;
     const { formulario } = form;
 
+    // Filtro per nome e cognome
     if (nome?.includes(nomeCercato.toLowerCase())
        && cognome?.includes(cognomeCercato.toLowerCase())) {
       return (
@@ -63,7 +64,7 @@ const FormularioLabelLine = ():ReactElement => {
 
           <Grid item xs={12} sm={10}>
             <span>
-
+              {/* bottoni PDF e gestione etichetta */}
               <div className={classes.button}>
                 <ButtonOpenPDFFormPatient etichetta={form.etichetta} IDForm={form._id} />
 
@@ -85,7 +86,7 @@ const FormularioLabelLine = ():ReactElement => {
             </span>
           </Grid>
           <span>
-
+            {/* bottone elimina */}
             <IconButton
               color="primary"
               onClick={() => {

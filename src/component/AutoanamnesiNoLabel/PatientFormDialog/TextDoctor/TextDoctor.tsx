@@ -7,7 +7,8 @@ import {
 } from '../../../../store/slice/patientDataSlice';
 import { getStringMedico } from '../../../../util';
 
-const TextLastname = ():ReactElement => {
+// Campo dottore inviante
+const TextDoctor = ():ReactElement => {
   const dataEtichetta = useSelector(newPatientInfo);
   const disabled = useSelector(textFieldDisabled);
   const dispatch = useDispatch();
@@ -44,4 +45,4 @@ const TextLastname = ():ReactElement => {
   );
 };
 
-export default TextLastname;
+export default TextDoctor;

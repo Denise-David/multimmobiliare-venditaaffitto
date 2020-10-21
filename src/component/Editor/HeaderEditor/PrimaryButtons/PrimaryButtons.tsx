@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import SaveIcon from '@material-ui/icons/Save';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
-
 import {
   isButtonAddFormClicked, buttonConfirmAddFormClicked,
   isConfirmDisabled, buttonCancelAddFormClicked,

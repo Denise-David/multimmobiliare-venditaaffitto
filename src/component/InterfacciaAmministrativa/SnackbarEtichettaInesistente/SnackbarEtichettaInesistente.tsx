@@ -4,6 +4,7 @@ import React, { ReactElement } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { closeSnackbarEtichettaInesistente, snackbarEtichettaInesistente } from '../../../store/slice/snackbarSlice';
 
+// avviso che l'etichetta non esiste
 const SnackbarEtichettaInesistente = ():ReactElement => {
   const statusSnackbar = useSelector(snackbarEtichettaInesistente);
   const dispatch = useDispatch();

@@ -27,6 +27,7 @@ const RedRadio = withStyles({
 // eslint-disable-next-line react/jsx-props-no-spreading
 })((props: RadioProps) => <Radio color="default" {...props} />);
 
+// Riga paziente
 const MultipleChoiceLinePatient = ():ReactElement => {
   const classes = useStyles();
   const dispatch = useDispatch();
