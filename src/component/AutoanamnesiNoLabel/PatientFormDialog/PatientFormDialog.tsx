@@ -115,12 +115,14 @@ const PatientFormDialog = ():ReactElement => {
                           <TextFamilyDoctor />
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                          <IconButton color="primary">
-                            <CreateIcon onClick={() => {
+                          <IconButton
+                            onClick={() => {
                               dispatch(openDialogSearch());
                               dispatch(setNomeCognomeDottoreScelto('familyDoctor'));
                             }}
-                            />
+                            color="primary"
+                          >
+                            <CreateIcon />
                           </IconButton>
                           <FormControlLabel
                             label="Nessun medico di famiglia"
@@ -163,12 +165,14 @@ const PatientFormDialog = ():ReactElement => {
                         <TextDoctor />
                       </Grid>
                       <Grid item xs={12} sm={6}>
-                        <IconButton color="primary">
-                          <CreateIcon onClick={() => {
+                        <IconButton
+                          onClick={() => {
                             dispatch(openDialogSearch());
                             dispatch(setNomeCognomeDottoreScelto('doctor'));
                           }}
-                          />
+                          color="primary"
+                        >
+                          <CreateIcon />
                         </IconButton>
                         <FormControlLabel
                           label="Nessun medico inviante"

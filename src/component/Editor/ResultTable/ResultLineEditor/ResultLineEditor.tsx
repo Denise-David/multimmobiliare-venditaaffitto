@@ -31,7 +31,7 @@ const ResultLineEditor = ():ReactElement => {
     const { IDRisultato } = oneForm;
     return (
     // eslint-disable-next-line react/jsx-key
-      <Grid container spacing={3}>
+      <Grid container spacing={3} key={oneForm.IDRisultato}>
 
         <Grid item xs={12} sm={6}>
           <TextField

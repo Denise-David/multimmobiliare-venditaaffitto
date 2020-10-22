@@ -1,9 +1,9 @@
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 import TextField from '@material-ui/core/TextField';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   newPatientInfo, changePatientValue, textFieldDisabled,
-  cancelClicked, setObligatoryFieldEmpty, unsetObligatoryFieldEmpty,
+  cancelClicked, setObligatoryFieldEmpty, unsetObligatoryFieldEmpty, obligatoryFieldEmpty,
 } from '../../../../store/slice/patientDataSlice';
 
 // Campo cognome
@@ -11,21 +11,19 @@ const TextLastname = ():ReactElement => {
   const dataEtichetta = useSelector(newPatientInfo);
   const disabled = useSelector(textFieldDisabled);
   const dispatch = useDispatch();
-  const [error, setError] = useState(false);
-  const cancClicked = useSelector(cancelClicked);
-  useEffect(() => {
-    dispatch(setObligatoryFieldEmpty());
-  }, [dispatch]);
+  const error = useSelector(obligatoryFieldEmpty);
 
-  if (disabled === false) {
-    if ((dataEtichetta.familyname === '' || !dataEtichetta.familyname) && error === false) {
-      setError(!error);
-      dispatch(setObligatoryFieldEmpty());
+  const cancClicked = useSelector(cancelClicked);
+
+  useEffect(() => {
+    if (disabled === false) {
+      if ((dataEtichetta.familyname === '' || !dataEtichetta.familyname)) {
+        dispatch(setObligatoryFieldEmpty());
+      }
+    } else if (cancClicked === true) {
+      dispatch(unsetObligatoryFieldEmpty());
     }
-  } else if (cancClicked === true && error === true) {
-    setError(!error);
-    dispatch(setObligatoryFieldEmpty());
-  }
+  });
 
   return (
     <TextField
@@ -39,11 +37,9 @@ const TextLastname = ():ReactElement => {
         const { value } = event.target;
         const name = 'familyname';
         dispatch(changePatientValue({ name, value }));
-        if (value !== '' && error === true) {
-          setError(!error);
+        if (value !== '') {
           dispatch(unsetObligatoryFieldEmpty());
-        } else if (value === '' && error === false) {
-          setError(!error);
+        } else if (value === '') {
           dispatch(setObligatoryFieldEmpty());
         }
       }}

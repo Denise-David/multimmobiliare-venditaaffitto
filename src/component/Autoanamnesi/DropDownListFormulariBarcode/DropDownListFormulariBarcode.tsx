@@ -1,5 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-import React, { ReactElement, useRef } from 'react';
+import React, { ReactElement } from 'react';
 import { FormControl, MenuItem, Select } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
 import { formulariList, setSelectedForm, formSelected } from '../../../store/slice/homePageLabelSlice';

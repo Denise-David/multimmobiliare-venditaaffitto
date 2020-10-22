@@ -111,7 +111,7 @@ const NavQuestionsAndAnswers = ():ReactElement => {
                   imposta risposte tutte uguali
                 </Grid>
               </MenuItem>
-            ) : <></>}
+            ) : null}
           <MenuItem onClick={() => {
             dispatch(setUnsavedChanges());
             dispatch(setIntestazioneMoreAnsAttiva());

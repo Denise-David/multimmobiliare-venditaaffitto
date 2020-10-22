@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable no-param-reassign */
 /* eslint-disable react/prop-types */
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 import TextField from '@material-ui/core/TextField';
 import { useSelector, useDispatch } from 'react-redux';
 import { MobileDatePicker } from '@material-ui/pickers';
@@ -18,14 +18,15 @@ const TextBirthday = ():ReactElement => {
   const dispatch = useDispatch();
   const cancClicked = useSelector(cancelClicked);
   const birthday = useSelector(birthdayDate);
-
-  if (disabled === false) {
-    if (!birthday) {
-      dispatch(setObligatoryFieldEmpty());
+  useEffect(() => {
+    if (disabled === false) {
+      if (!birthday) {
+        dispatch(setObligatoryFieldEmpty());
+      }
+    } else if (cancClicked === true) {
+      dispatch(unsetObligatoryFieldEmpty());
     }
-  } else if (cancClicked === true) {
-    dispatch(unsetObligatoryFieldEmpty());
-  }
+  });
 
   return (
     <MobileDatePicker

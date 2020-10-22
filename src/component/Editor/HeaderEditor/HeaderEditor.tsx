@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import useStyles from './style';
 import {
   isBConfirmAddFormClicked,
-  setNomeFormulario, confirmDeleteForm, isButtonAddFormClicked, setUnsavedChanges,
+  setNomeFormulario, confirmDeleteForm, isButtonAddFormClicked, setUnsavedChanges, nomeFormulario,
 } from '../../../store/slice/addFormSlice';
 import DropDownListFormulari from './DropDownListFormulari/DropDownListFormulari';
 import PrimaryButtons from './PrimaryButtons/PrimaryButtons';
@@ -29,7 +29,7 @@ const HeaderEditor = ():ReactElement => {
   const classes = useStyles();
   const deleteActive = useSelector(snackbarConfirmDeleteOpen);
   const bConfirmAddFormClicked = useSelector(isBConfirmAddFormClicked);
-
+  const nomeForm = useSelector(nomeFormulario);
   const bAddFormClicked = useSelector(isButtonAddFormClicked);
 
   // Prendo il nome del form immesso dall'utente e controllo se è vuoto
@@ -75,6 +75,7 @@ const HeaderEditor = ():ReactElement => {
                         fullWidth
                         variant="outlined"
                         autoFocus
+                        value={nomeForm}
                       />
                     </Grid>
                   </>

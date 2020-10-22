@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 import { FormControl, Select, MenuItem } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -20,7 +20,6 @@ const DropDownListReparti = ():ReactElement => {
   const allRep = useSelector(allReparti);
   const dispatch = useDispatch();
   const rightUser = useSelector(rightsUserAUTAN);
-  const IDRepSelected = useSelector(IDRepartoSelected);
   const repDelete = useSelector(repartiDelete);
   const repModify = useSelector(repartiModify);
   // prendo e setto il valore quando cambia, prendo i dati dei formulari ec...
@@ -28,6 +27,7 @@ const DropDownListReparti = ():ReactElement => {
     const { value } = event.target;
     dispatch(setRepartoSelected(value));
     dispatch({ type: 'INIT' });
+
     dispatch(unsetRepartoDeleteRight());
     dispatch(changeReparto());
 
@@ -43,11 +43,11 @@ const DropDownListReparti = ():ReactElement => {
       }
     });
   };
-  if (IDRepSelected === '-1') {
+  useEffect(() => {
     rightUser.forEach((scope: rightType) => {
       if (scope.code === 'AUTAN_ALL') {
-        dispatch(setRepartoModifyRight());
-        dispatch(setRepartoDeleteRight());
+        dispatch(setUserModifyRight());
+        dispatch(setUserDeleteRight());
         dispatch(setUserCreateRight());
       }
       if (scope.code === 'AUTAN_CREATE') {
@@ -60,16 +60,16 @@ const DropDownListReparti = ():ReactElement => {
         dispatch(setUserModifyRight());
       }
     });
-  }
+  });
+
   // array nome reparti
   const listRep = allRep.map((reparto: repartoRightType) => (
     <MenuItem
-      key={reparto.unitid}
+      key={reparto.unitid ? reparto.unitid : reparto.sermednodeid}
       value={reparto.unitid ? reparto.unitid : reparto.sermednodeid}
 
     >
       {reparto.longname}
-
     </MenuItem>
   ));
 
@@ -81,8 +81,8 @@ const DropDownListReparti = ():ReactElement => {
         <Select
           defaultValue={-1}
           value={IDReparto}
-          autoWidth
           onChange={getValueOnChange}
+          onOpen={() => dispatch({ type: 'initUserRightsAUTAN' })}
         >
           <MenuItem value={-1}>
             Seleziona Reparto

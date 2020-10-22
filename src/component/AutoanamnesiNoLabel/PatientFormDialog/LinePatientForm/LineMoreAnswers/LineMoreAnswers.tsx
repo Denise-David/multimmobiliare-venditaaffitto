@@ -78,7 +78,7 @@ const LineMoreAnswers = ({
     if (risposta.type === 'normal' && question.normalType !== true) {
       dispatch(setNormalTypePresent(index));
     }
-    return <></>;
+    return null;
   });
   return (
     // Controllo tipo domanda e imposta interfaccia in base al tipo

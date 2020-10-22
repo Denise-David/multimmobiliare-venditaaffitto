@@ -1,30 +1,30 @@
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 import TextField from '@material-ui/core/TextField';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   newPatientInfo, changePatientValue, textFieldDisabled,
-  cancelClicked, setObligatoryFieldEmpty, unsetObligatoryFieldEmpty,
+  cancelClicked, setObligatoryFieldEmpty, unsetObligatoryFieldEmpty, obligatoryFieldEmpty,
 } from '../../../../store/slice/patientDataSlice';
 
 // Campo cassa malati
 const TextCassaMalati = ():ReactElement => {
   const dataEtichetta = useSelector(newPatientInfo);
   const disabled = useSelector(textFieldDisabled);
-  const [error, setError] = useState(false);
   const dispatch = useDispatch();
   const cancClicked = useSelector(cancelClicked);
+  const error = useSelector(obligatoryFieldEmpty);
 
-  if (disabled === false) {
-    if (dataEtichetta) {
-      if (dataEtichetta.insuranceCoversName === '' && error === false) {
-        setError(!error);
-        dispatch(setObligatoryFieldEmpty());
+  useEffect(() => {
+    if (disabled === false) {
+      if (dataEtichetta) {
+        if (dataEtichetta.insuranceCoversName === '') {
+          dispatch(setObligatoryFieldEmpty());
+        }
       }
+    } else if (cancClicked === true) {
+      dispatch(unsetObligatoryFieldEmpty());
     }
-  } else if (cancClicked === true && error === true) {
-    setError(!error);
-    dispatch(unsetObligatoryFieldEmpty());
-  }
+  });
 
   return (
     <TextField
@@ -37,11 +37,9 @@ const TextCassaMalati = ():ReactElement => {
         const { value } = event.target;
         const name = 'insuranceCoversName';
         dispatch(changePatientValue({ name, value }));
-        if (value !== '' && error === true) {
-          setError(!error);
+        if (value !== '') {
           dispatch(unsetObligatoryFieldEmpty());
-        } else if (value === '' && error === false) {
-          setError(!error);
+        } else if (value === '') {
           dispatch(setObligatoryFieldEmpty());
         }
       }}

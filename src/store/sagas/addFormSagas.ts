@@ -168,7 +168,7 @@ export function* addDomandaMoreResInArray():Generator {
   if (ansTutteUguali === true) {
     const listRisposteArray = objectToArray(listRisposte);
     // Prendo le risposte della prima domanda
-    const listResPrimaDomanda = objectToArray(listRisposteArray[0]);
+    const listResPrimaDomanda = objectToArray(listRisposteArray[0] || {});
     // Metto le risposte della prima domanda nella domanda appena creata
     yield all(listResPrimaDomanda.map((res : rispostaType) => {
       const IDRisposta = uuidv4();
@@ -192,6 +192,7 @@ export function* clickAddButton():Generator {
   yield put(resetIDReparto());
   yield put(resetDataRisultati());
   yield put(resetRisposteOfDomanda());
+  yield put({ type: 'initUserRightsAUTAN' });
 }
 // Bottone eliminazione formulario
 export function* clickDelOrSaveButton():Generator {

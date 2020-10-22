@@ -1,9 +1,9 @@
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 import TextField from '@material-ui/core/TextField';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   newPatientInfo, changePatientValue, textFieldDisabled,
-  cancelClicked, setFieldFDoctorEmpty, unsetFieldDoctorEmpty,
+  cancelClicked, setFieldFDoctorEmpty, unsetFieldDoctorEmpty, fieldDoctorEmpty,
 } from '../../../../store/slice/patientDataSlice';
 import { getStringMedico } from '../../../../util';
 
@@ -14,23 +14,22 @@ const Doctor = ():ReactElement => {
   const dataEtichetta = useSelector(newPatientInfo);
   const disabled = useSelector(textFieldDisabled);
   const dispatch = useDispatch();
-  const [error, setError] = useState(false);
   const cancClicked = useSelector(cancelClicked);
+  const error = useSelector(fieldDoctorEmpty);
 
-  // if (disabled === false) {
-  //   if (dataEtichetta) {
-  //     if (dataEtichetta.doctor === null && error === false) {
-  //       setError(!error);
-  //       dispatch(setFieldFDoctorEmpty());
-  //     } else if (dataEtichetta.doctor !== null && error === true) {
-  //       setError(!error);
-  //       dispatch(unsetFieldDoctorEmpty());
-  //     }
-  //   }
-  // } else if (cancClicked === true && error === true) {
-  //   setError(!error);
-  //   dispatch(unsetFieldDoctorEmpty());
-  // }
+  useEffect(() => {
+    if (disabled === false) {
+      if (dataEtichetta) {
+        if (dataEtichetta.doctor === null) {
+          dispatch(setFieldFDoctorEmpty());
+        } else if (dataEtichetta.doctor !== null) {
+          dispatch(unsetFieldDoctorEmpty());
+        }
+      }
+    } else if (cancClicked === true) {
+      dispatch(unsetFieldDoctorEmpty());
+    }
+  });
 
   return (
     <TextField
@@ -43,6 +42,11 @@ const Doctor = ():ReactElement => {
         const { value } = event.target;
         const name = 'doctor';
         dispatch(changePatientValue({ name, value }));
+        if (value !== '') {
+          dispatch(unsetFieldDoctorEmpty());
+        } else if ((value === '' || value === ' ')) {
+          dispatch(setFieldFDoctorEmpty());
+        }
       }}
     />
   );

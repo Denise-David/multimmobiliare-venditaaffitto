@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 import TextField from '@material-ui/core/TextField';
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -6,6 +6,7 @@ import {
   cancelClicked,
   setFieldFamilyDoctorEmpty,
   unsetFieldFamilyDoctorEmpty,
+  fieldFamilyDoctorEmpty,
 } from '../../../../store/slice/patientDataSlice';
 import { getStringMedico } from '../../../../util';
 
@@ -16,24 +17,22 @@ const TextFamilyDoctor = ():ReactElement => {
   const dataEtichetta = useSelector(newPatientInfo);
   const dispatch = useDispatch();
   const disabled = useSelector(textFieldDisabled);
-  const [error, setError] = useState(false);
   const cancClicked = useSelector(cancelClicked);
+  const error = useSelector(fieldFamilyDoctorEmpty);
 
-  if (disabled === false) {
-    if (dataEtichetta) {
-      if (dataEtichetta.familyDoctor === null && error === false) {
-        setError(!error);
-      } else if (dataEtichetta.familyDoctor !== null && error === true) {
-        setError(!error);
+  useEffect(() => {
+    if (disabled === false) {
+      if (dataEtichetta) {
+        if (dataEtichetta.familyDoctor === null) {
+          dispatch(setFieldFamilyDoctorEmpty());
+        } else if (dataEtichetta.familyDoctor !== null) {
+          dispatch(unsetFieldFamilyDoctorEmpty());
+        }
       }
+    } else if (cancClicked === true) {
+      dispatch(unsetFieldFamilyDoctorEmpty());
     }
-  } else if (cancClicked === true && error === true) {
-    setError(!error);
-  }
-
-  if (error === true) {
-    dispatch(setFieldFamilyDoctorEmpty());
-  } else { dispatch(unsetFieldFamilyDoctorEmpty()); }
+  });
 
   return (
     <TextField

@@ -73,104 +73,104 @@ function* init() {
     }
 
     const IDFormulario = yield select(IDForm);
+    if (IDFormulario !== '-1') {
+      // prendo il formulario ID
+      // eslint-disable-next-line no-underscore-dangle
+      const selectedForm = yield call(fetchFormStructureByID, IDFormulario);
 
-    // prendo il formulario ID
-    // eslint-disable-next-line no-underscore-dangle
-    const selectedForm = yield call(fetchFormStructureByID, IDFormulario);
+      const datiDomande = selectedForm.domande;
 
-    const datiDomande = selectedForm.domande;
+      // prendo risultato1 e risultato 2
+      const ris1 = selectedForm.risposte.risposta1;
+      const ris2 = selectedForm.risposte.risposta2;
 
-    // prendo risultato1 e risultato 2
-    const ris1 = selectedForm.risposte.risposta1;
-    const ris2 = selectedForm.risposte.risposta2;
-
-    // setto il nome Formulario
-    const listForm = yield select(formulariByReparto);
-    const findNameFormByID = (formSelected :
+      // setto il nome Formulario
+      const listForm = yield select(formulariByReparto);
+      const findNameFormByID = (formSelected :
           formularioDBType) => formSelected._id
          === IDFormulario;
-    const formSelected = listForm.find(findNameFormByID) ? listForm.find(findNameFormByID) : [];
-    const nomeForm = formSelected.formulario;
-    yield put(setNomeFormulario(nomeForm));
-    // setto i gruppi
+      const formSelected = listForm.find(findNameFormByID) ? listForm.find(findNameFormByID) : [];
+      const nomeForm = formSelected.formulario;
+      yield put(setNomeFormulario(nomeForm));
+      // setto i gruppi
 
-    if (selectedForm.gruppi.length !== 0) {
-      yield put(setGroupsArray(selectedForm.gruppi));
+      if (selectedForm.gruppi.length !== 0) {
+        yield put(setGroupsArray(selectedForm.gruppi));
 
-      yield put(setGroupAttivi());
-      yield put(setGroupAttiviTwoAns());
-    }
+        yield put(setGroupAttivi());
+        yield put(setGroupAttiviTwoAns());
+      }
 
-    if (selectedForm.intestazione !== '') {
+      if (selectedForm.intestazione !== '') {
       // setto l'intestazione
-      yield put(setIntestazioneMoreAns(selectedForm.intestazione));
-      yield put(setIntestazioneMoreAnsAttiva());
-    }
+        yield put(setIntestazioneMoreAns(selectedForm.intestazione));
+        yield put(setIntestazioneMoreAnsAttiva());
+      }
 
-    // inserisco nello state
-    yield put(getRisposta1(ris1));
-    yield put(getRisposta2(ris2));
+      // inserisco nello state
+      yield put(getRisposta1(ris1));
+      yield put(getRisposta2(ris2));
 
-    // genero un nuovo parametro stato
-    const datiDomandeWithState = datiDomande.map((domandaObj : domandaType) => {
-      const domandaWithState = { [domandaObj.IDDomanda]: { ...domandaObj, stateText: true } };
+      // genero un nuovo parametro stato
+      const datiDomandeWithState = datiDomande.map((domandaObj : domandaType) => {
+        const domandaWithState = { [domandaObj.IDDomanda]: { ...domandaObj, stateText: true } };
 
-      return domandaWithState;
-    });
-    const res = datiDomandeWithState.reduce(
-      (accumulator:{[index:string]:domandaType},
-        currentValue:{[index:string]:domandaType}) => {
-        accumulator[Object.keys(currentValue)[0]] = currentValue[Object.keys(currentValue)[0]];
-        return accumulator;
-      }, {},
-    );
-
-    yield put(setDomandeinObject(res));
-
-    // genero un nuovo parametro stato per le risposte
-    const datiRisposteDomandeWithState = datiDomande.map((domandaObj : domandaType) => {
-      const resWithState = domandaObj.risposte?.map((risposta :rispostaType) => {
-        const rispostaWithState = { [risposta.IDRisposta]: { ...risposta, stateText: true } };
-
-        return (rispostaWithState);
+        return domandaWithState;
       });
-      const result = resWithState?.reduce((accumulator:{[index:string]:rispostaType},
-        currentValue:{[index:string]:rispostaType}) => {
-        accumulator[Object.keys(currentValue)[0]] = currentValue[Object.keys(currentValue)[0]];
+      const res = datiDomandeWithState.reduce(
+        (accumulator:{[index:string]:domandaType},
+          currentValue:{[index:string]:domandaType}) => {
+          accumulator[Object.keys(currentValue)[0]] = currentValue[Object.keys(currentValue)[0]];
+          return accumulator;
+        }, {},
+      );
 
+      yield put(setDomandeinObject(res));
+
+      // genero un nuovo parametro stato per le risposte
+      const datiRisposteDomandeWithState = datiDomande.map((domandaObj : domandaType) => {
+        const resWithState = domandaObj.risposte?.map((risposta :rispostaType) => {
+          const rispostaWithState = { [risposta.IDRisposta]: { ...risposta, stateText: true } };
+
+          return (rispostaWithState);
+        });
+        const result = resWithState?.reduce((accumulator:{[index:string]:rispostaType},
+          currentValue:{[index:string]:rispostaType}) => {
+          accumulator[Object.keys(currentValue)[0]] = currentValue[Object.keys(currentValue)[0]];
+
+          return accumulator;
+        }, {});
+        const domandaWithState = { [domandaObj.IDDomanda]: result };
+
+        return domandaWithState;
+      });
+
+      const res2 = datiRisposteDomandeWithState.reduce((accumulator:
+          {[index:string]:rispostaType}, currentValue:{[index:string]:rispostaType}) => {
+        accumulator[Object.keys(currentValue)[0]] = currentValue[Object.keys(currentValue)[0]];
         return accumulator;
       }, {});
-      const domandaWithState = { [domandaObj.IDDomanda]: result };
+      yield put(setRisposteOfDomandaInObject(res2));
 
-      return domandaWithState;
-    });
-
-    const res2 = datiRisposteDomandeWithState.reduce((accumulator:
-          {[index:string]:rispostaType}, currentValue:{[index:string]:rispostaType}) => {
-      accumulator[Object.keys(currentValue)[0]] = currentValue[Object.keys(currentValue)[0]];
-      return accumulator;
-    }, {});
-    yield put(setRisposteOfDomandaInObject(res2));
-
-    // genero nuovo parametro risultati
-    const datiResWithState = selectedForm.risultati.map((risultato:resultType) => {
-      const risultatoWithState = {
-        [risultato.IDRisultato]:
+      // genero nuovo parametro risultati
+      const datiResWithState = selectedForm.risultati.map((risultato:resultType) => {
+        const risultatoWithState = {
+          [risultato.IDRisultato]:
              { ...risultato, stateModify: false },
-      };
-      return (risultatoWithState);
-    });
+        };
+        return (risultatoWithState);
+      });
 
-    const res3 = datiResWithState.reduce(
-      (accumulator:{[index:string]:resultType},
-        currentValue:{[index:string]:resultType}) => {
-        accumulator[Object.keys(currentValue)[0]] = currentValue[Object.keys(currentValue)[0]];
-        return accumulator;
-      }, {},
-    );
+      const res3 = datiResWithState.reduce(
+        (accumulator:{[index:string]:resultType},
+          currentValue:{[index:string]:resultType}) => {
+          accumulator[Object.keys(currentValue)[0]] = currentValue[Object.keys(currentValue)[0]];
+          return accumulator;
+        }, {},
+      );
 
-    yield put(setRisultatiInObject(res3));
-
+      yield put(setRisultatiInObject(res3));
+    }
     yield put(setIsLoaded());
   } catch (error) {
     console.error('error', error);

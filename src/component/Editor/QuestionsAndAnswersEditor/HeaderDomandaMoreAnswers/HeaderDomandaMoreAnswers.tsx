@@ -34,7 +34,7 @@ const HeaderDomandaMoreAnswers = ({ IDDomanda, domanda }: Props):ReactElement =>
           control={(
             <Checkbox
               disabled={disabled}
-              checked={domanda.facoltativa}
+              checked={domanda.facoltativa || false}
               onChange={() => {
                 dispatch(setDomandaFacoltativa(IDDomanda));
                 dispatch(setUnsavedChanges());
@@ -47,7 +47,7 @@ const HeaderDomandaMoreAnswers = ({ IDDomanda, domanda }: Props):ReactElement =>
           control={(
             <Checkbox
               disabled={disabled}
-              checked={domanda.libera}
+              checked={domanda.libera || false}
               onChange={() => {
                 dispatch(setDomandaLibera(IDDomanda));
                 dispatch(setUnsavedChanges());

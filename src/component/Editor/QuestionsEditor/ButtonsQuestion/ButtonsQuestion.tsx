@@ -73,7 +73,7 @@ const ButtonsQuestion = ({ domandaAddForm }: Props):ReactElement => {
                     control={(
                       <Checkbox
                         disabled={disabled}
-                        checked={domandaAddForm.facoltativa}
+                        checked={domandaAddForm.facoltativa || false}
                         onChange={() => {
                           dispatch(setDomandaFacoltativa(domandaAddForm.IDDomanda));
                           dispatch(setUnsavedChanges());
@@ -86,7 +86,7 @@ const ButtonsQuestion = ({ domandaAddForm }: Props):ReactElement => {
                     control={(
                       <Checkbox
                         disabled={disabled}
-                        checked={domandaAddForm.libera}
+                        checked={domandaAddForm.libera || false}
                         onChange={() => {
                           dispatch(setUnsavedChanges());
                           dispatch(setDomandaLibera(domandaAddForm.IDDomanda));

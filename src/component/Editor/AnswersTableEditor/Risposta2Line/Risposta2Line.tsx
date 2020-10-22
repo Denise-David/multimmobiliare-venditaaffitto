@@ -41,7 +41,6 @@ const Risposta2Line = ():ReactElement => {
           }}
           value={ans2.risposta2}
           disabled={ans2.stateText}
-          defaultValue="No"
           onChange={
     (event) => {
       const res2 = event.target.value;

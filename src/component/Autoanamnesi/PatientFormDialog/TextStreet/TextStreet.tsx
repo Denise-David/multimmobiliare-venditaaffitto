@@ -1,9 +1,9 @@
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 import TextField from '@material-ui/core/TextField';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   newPatientInfo, changePatientValue, textFieldDisabled,
-  cancelClicked, setObligatoryFieldEmpty, unsetObligatoryFieldEmpty,
+  cancelClicked, setObligatoryFieldEmpty, unsetObligatoryFieldEmpty, obligatoryFieldEmpty,
 } from '../../../../store/slice/patientDataSlice';
 
 // Campo via
@@ -11,20 +11,20 @@ const TextStreet = ():ReactElement => {
   const dataEtichetta = useSelector(newPatientInfo);
   const disabled = useSelector(textFieldDisabled);
   const dispatch = useDispatch();
-  const [error, setError] = useState(false);
   const cancClicked = useSelector(cancelClicked);
-
-  if (disabled === false) {
-    if (dataEtichetta) {
-      if (dataEtichetta.streetName === '' && error === false) {
-        setError(!error);
-        dispatch(setObligatoryFieldEmpty());
+  const error = useSelector(obligatoryFieldEmpty);
+  useEffect(() => {
+    if (disabled === false) {
+      if (dataEtichetta) {
+        if (dataEtichetta.streetName === '') {
+          dispatch(setObligatoryFieldEmpty());
+        }
       }
+    } else if (cancClicked === true) {
+      dispatch(unsetObligatoryFieldEmpty());
     }
-  } else if (cancClicked === true && error === true) {
-    setError(!error);
-    dispatch(unsetObligatoryFieldEmpty());
-  }
+  });
+
   return (
     <TextField
       fullWidth
@@ -36,11 +36,9 @@ const TextStreet = ():ReactElement => {
         const { value } = event.target;
         const name = 'streetName';
         dispatch(changePatientValue({ name, value }));
-        if (value !== '' && error === true) {
-          setError(!error);
+        if (value !== '') {
           dispatch(unsetObligatoryFieldEmpty());
-        } else if (value === '' && error === false) {
-          setError(!error);
+        } else if (value === '') {
           dispatch(setObligatoryFieldEmpty());
         }
       }}
