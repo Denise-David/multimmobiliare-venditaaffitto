@@ -21,7 +21,9 @@ import { formulariList } from '../../store/slice/homePageLabelSlice';
 import { isLoading } from '../../store/slice/loadingSlice';
 import SnackbarLabel from '../../component/Autoanamnesi/SnackbarLabel/SnackbarLabel';
 
-// View dell'applicativo autoanamnesi con etichetta
+/**
+ * Vista dell'autoanamnesi con etichetta
+ */
 const Home = ():ReactElement => {
   const classes = useStyles();
   const dispatch = useDispatch();

@@ -7,7 +7,9 @@ import { setFormularioSelected, IDForm } from '../../../../store/slice/ddlEditor
 import { isDDLFormDisabled } from '../../../../store/slice/disableEnableSlice';
 import { formularioDBType } from '../../../../store/slice/addFormSlice';
 
-// Lista a tendina con formulari
+/**
+ * Lista a tendina con formulari
+ */
 const DropDownListFormulari = ():ReactElement => {
   const formulari = useSelector(formulariByReparto);
   const dispatch = useDispatch();

@@ -46,7 +46,9 @@ import SnackbarDoctor from './SnackbarDoctor/SnackbarDoctor';
 import SnackbarDatiPersonali from './SnackbarDatiPersonali/SnackbarDatiPersonali';
 import ButtonPatientDataForm from './ButtonPatientDataForm/ButtonPatientDataForm';
 
-// Dialog formulario paziente
+/**
+ * Dialog formulario paziente
+ */
 const PatientFormDialog = ():ReactElement => {
   const open = useSelector(dialogFormPatientOpen);
   const classes = useStyles();

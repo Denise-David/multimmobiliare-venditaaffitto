@@ -5,7 +5,9 @@ import {
 
 import { searchForm } from '../api';
 
-// Inizializzazione della home dell'autoanamnesi senza etichetta
+/**
+ * Inizializzazione della home dell'autoanamnesi senza etichetta
+ */
 export default function* initHomeNoLabel():Generator {
   try {
     const rep :any = yield select(repartoCercato);

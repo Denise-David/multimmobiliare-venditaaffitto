@@ -10,7 +10,9 @@ import {
 } from '../../../../store/slice/domandeAddFormSlice';
 import { setUnsavedChanges } from '../../../../store/slice/addFormSlice';
 
-// Riga domanda aggiungi domanda
+/**
+ * Riga domanda aggiungi domanda
+ */
 const EmptyAddQuestion2Answers = ():ReactElement => {
   const dispatch = useDispatch();
   const valoreTextField = useSelector(questionTwoAns);

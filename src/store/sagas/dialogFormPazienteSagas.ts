@@ -24,7 +24,9 @@ import {
 } from '../slice/snackbarSlice';
 import { formSelectedID } from '../slice/homepageNoLabelSlice';
 
-// Prendere i dati dell'etichetta
+/**
+ * Prende i dati dell'etichetta
+ */
 export default function* getDataEtichetta():Generator {
   try {
     yield put(setIsLoading());
@@ -102,7 +104,9 @@ export default function* getDataEtichetta():Generator {
   }
 }
 
-// Apertura formulario dell'autoanamnesi senza etichetta
+/**
+ * Apertura formulario dell'autoanamnesi senza etichetta
+ */
 export function* sendOpenForm():Generator {
   yield put(setIsLoading());
   const IDForm = yield select(formSelectedID);
@@ -126,7 +130,9 @@ export function* sendOpenForm():Generator {
   yield put(setIsLoaded());
 }
 
-// Invio dei dati del paziente e delle risposte del formulario
+/**
+ * Invio dei dati del paziente e delle risposte del formulario
+ */
 export function* sendDataPazienti():Generator {
   try {
     const obbFieldEmpty = yield select(obligatoryFieldEmpty);

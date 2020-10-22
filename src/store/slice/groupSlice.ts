@@ -1,7 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { State } from '../store/store';
 
-// Slice per la gestione dei gruppi
+/**
+ * Slice per la gestione dei gruppi
+ */
 const groupSlice = createSlice({
   name: 'group',
   initialState: {

@@ -21,7 +21,9 @@ import TextFieldRepartoAddForm from './TextFieldRepartoAddForm/TextFieldRepartoA
 import SnackbarAtLeast2Res from './SnackbarAtLeast2Res/SnackbarAtLeast2Res';
 import SnackbarConfirmCancel from './SnackbarConfirmCancel/SnackbarConfirmCancel';
 
-// Parte in alto dell'editor
+/**
+ * PArte in alto dell'editor
+ */
 const HeaderEditor = ():ReactElement => {
   const dispatch = useDispatch();
 

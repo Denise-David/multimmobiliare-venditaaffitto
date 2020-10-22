@@ -1,7 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { State } from '../store/store';
 
-// Slice per gestire l'abilita/disabilita delle icone
+/**
+ * Slice per gestire l'abilita/disabilita delle icone
+ */
 const disableEnableSlice = createSlice({
   name: 'disableEnable',
   initialState: {

@@ -5,7 +5,9 @@ import {
   newPatientInfo, changePatientValue, textFieldDisabled,
 } from '../../../../store/slice/patientDataSlice';
 
-// Campo numero di telefono
+/**
+ * Campo numero di telefono
+ */
 const TextPhone = ():ReactElement => {
   const dataEtichetta = useSelector(newPatientInfo);
   const disabled = useSelector(textFieldDisabled);

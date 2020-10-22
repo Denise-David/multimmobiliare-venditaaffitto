@@ -15,7 +15,9 @@ import {
 } from '../../../../store/slice/disableEnableSlice';
 import { setUnsavedChanges } from '../../../../store/slice/addFormSlice';
 
-// Riga aggiunta domanda
+/**
+ * Riga aggiunta domanda
+ */
 const EmptyAddQuestionMoreAnswers = ():ReactElement => {
   const dispatch = useDispatch();
   const valoreTextField = useSelector(question);

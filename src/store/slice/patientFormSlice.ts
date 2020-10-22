@@ -2,7 +2,9 @@ import { createSlice } from '@reduxjs/toolkit';
 import { domandaType } from './domandeAddFormSlice';
 import { State } from '../store/store';
 
-// struttura risposta paziente
+/**
+ * struttura risposta paziente
+ */
 export interface rispostaPazienteType {
   idDomanda:string,
   valore:string,
@@ -14,7 +16,9 @@ export interface rispostaPazienteType {
   date:dataType[]
   }
 
-// struttura risposta data paziente
+/**
+ * struttura risposta data paziente
+ */
 export interface dataType {
 
    idRisposta:string,
@@ -25,7 +29,9 @@ export interface dataType {
 
     }
 
-// Slice per le risposte paziente
+/**
+ * Slice per le risposte paziente
+ */
 const patientFormSlice = createSlice({
   name: 'patientForm',
   initialState:

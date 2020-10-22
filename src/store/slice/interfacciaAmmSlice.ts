@@ -2,7 +2,9 @@ import { createSlice } from '@reduxjs/toolkit';
 import { formularioDBType } from './addFormSlice';
 import { State } from '../store/store';
 
-// Slice gestione interfaccia amministrativa
+/**
+ * Slice gestione interfaccia amministrativa
+ */
 const interfacciaAmmSlice = createSlice({
   name: 'interfacciaAmm',
   initialState: {

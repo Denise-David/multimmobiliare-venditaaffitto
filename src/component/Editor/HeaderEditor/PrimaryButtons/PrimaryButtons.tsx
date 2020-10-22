@@ -16,7 +16,9 @@ import { openSnackbarConfirmCancel } from '../../../../store/slice/snackbarSlice
 import { resetDataRisultati } from '../../../../store/slice/risultatiAddFormSlice';
 import { resetDomandeOfDomandeObject } from '../../../../store/slice/domandeAddFormSlice';
 
-// Bottoni primari
+/**
+ * Bottoni primari
+ */
 const PrimaryButtons = ():ReactElement => {
   const addReparto = useSelector(isButtonAddFormClicked);
   const dispatch = useDispatch();

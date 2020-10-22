@@ -6,7 +6,9 @@ import {
   cancelClicked, setObligatoryFieldEmpty, unsetObligatoryFieldEmpty, obligatoryFieldEmpty,
 } from '../../../../store/slice/patientDataSlice';
 
-// Campo via
+/**
+ * Campo via
+ */
 const TextStreet = ():ReactElement => {
   const dataEtichetta = useSelector(newPatientInfo);
   const disabled = useSelector(textFieldDisabled);

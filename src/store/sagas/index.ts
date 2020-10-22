@@ -45,7 +45,9 @@ import { resetMenuTwoAns, setGroupAttiviTwoAns } from '../slice/menuDomandeSlice
 import { setIsLoaded, setIsLoading } from '../slice/loadingSlice';
 import initHomeNoLabel from './homepageNoLabelSagas';
 
-// inizializzazione
+/**
+ * Inizializzazione
+ */
 function* init() {
   try {
     yield put(setIsLoading());
@@ -176,7 +178,9 @@ function* init() {
     console.error('error', error);
   }
 }
-
+/**
+ * inizializzazione reparti
+ */
 function* initRep() {
   // prendo e setto il reparto dell'etichetta immessa
   const label : string = yield select(ValueCode);

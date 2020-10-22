@@ -15,7 +15,9 @@ import CheckboxDataAnswerLine from './CheckboxDataAnswerLine/CheckboxDataAnswerL
 // eslint-disable-next-line max-len
 interface Props {id : string}
 
-// Riga risposta
+/**
+ * Riga risposta
+ */
 const AnswerLineEditor = ({ id }: Props):ReactElement => {
   const risposteOFDomandeObj = useSelector(risposteOfDomandaObject);
   const IDDomanda = id;

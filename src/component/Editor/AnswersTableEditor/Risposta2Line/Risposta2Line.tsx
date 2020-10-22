@@ -13,7 +13,9 @@ import { disableAll, enableAll, isBModifyDelAddReturnDisabled } from '../../../.
 import { haveRepModifyRight } from '../../../../store/slice/rightsSlice';
 import { isBConfirmAddFormClicked, setUnsavedChanges } from '../../../../store/slice/addFormSlice';
 
-// Riga risposta secondaria
+/**
+ * Riga risposta secondaria
+ */
 const Risposta2Line = ():ReactElement => {
   const dispatch = useDispatch();
   const [bCheck2Disabled, setBCheck2] = useState(false);

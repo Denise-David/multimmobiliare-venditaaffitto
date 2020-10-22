@@ -12,7 +12,9 @@ import {
   cancelClicked, setObligatoryFieldEmpty, unsetObligatoryFieldEmpty, birthdayDate, setBirthdayDate,
 } from '../../../../store/slice/patientDataSlice';
 
-// Campo data di nascita
+/**
+ * Campo data di nascita
+ */
 const TextBirthday = ():ReactElement => {
   const disabled = useSelector(textFieldDisabled);
   const dispatch = useDispatch();

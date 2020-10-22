@@ -2,7 +2,9 @@ import { createSlice } from '@reduxjs/toolkit';
 import { formularioDBType } from './addFormSlice';
 import { State } from '../store/store';
 
-// Slice home page autanamnesi cone etichetta
+/**
+ * Slice home page autoanamnesi con etichetta
+ */
 const homePageSlice = createSlice({
   name: 'homePage',
   initialState: {

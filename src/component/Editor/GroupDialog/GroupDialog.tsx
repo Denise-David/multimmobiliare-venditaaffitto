@@ -16,7 +16,9 @@ import { openSnackbarNomeGruppo } from '../../../store/slice/snackbarSlice';
 import SnackbarNomeGruppo from './SnackbarNomeGruppo/SnackbarNomeGruppo';
 import { setUnsavedChanges } from '../../../store/slice/addFormSlice';
 
-// Finestra gestione gruppi
+/**
+ * Finestra gestione gruppi
+ */
 const GroupDialog = ():ReactElement => {
   const statusDialog = useSelector(dialogGroupOpen);
   const dispatch = useDispatch();

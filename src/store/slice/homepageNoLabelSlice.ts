@@ -2,7 +2,9 @@ import { createSlice } from '@reduxjs/toolkit';
 import { formularioDBType } from './addFormSlice';
 import { State } from '../store/store';
 
-// Slice gestione home autoanamnesi senza etichetta
+/**
+ * Slice gestione home autoanamnesi senza etichetta
+ */
 const homepageNoLabelSlice = createSlice({
   name: 'homepageNoLabel',
   initialState: {

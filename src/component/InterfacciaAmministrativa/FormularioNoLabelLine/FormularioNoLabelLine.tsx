@@ -17,7 +17,9 @@ import { formularioDBType } from '../../../store/slice/addFormSlice';
 import { openSnackbarConfirmDelForm } from '../../../store/slice/snackbarSlice';
 import SnackbarConfirmDelForm from '../SnackbarConfermaEliminazione/SnackbarConfermaEliminazione';
 
-// Riga formulario senza etichetta
+/**
+ * Riga formularo senza etichetta
+ */
 const FormularioLine = ():ReactElement => {
   const noLabelForm = useSelector(formNoLabel);
   const classes = useStyles();

@@ -5,7 +5,9 @@ import {
 
 import { getRisposteFormPazientiByID, getEtichettaDataByLabel, fetchRepartoFormByGUID } from '../api';
 
-// inizializzazione PDF risposte paziente
+/**
+ * inizializzazione PDF risposte paziente
+ */
 export default function* initPDFPatientAnswers():Generator {
   try {
     const IDForm = yield select(IDFormRisposte);

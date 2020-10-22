@@ -1,7 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { State } from '../store/store';
 
-// Slice per la gestione delle liste a tendina dell'editor del reparto e formulario
+/**
+ * Slice per la gestione delle liste a tendina dell'editor del reparto e formulario
+ */
 const ddlEditorFormAndRepartiSlice = createSlice({
   name: 'ddlEditorFormAndReparti',
   initialState: {

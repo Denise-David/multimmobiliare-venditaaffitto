@@ -23,7 +23,9 @@ import GroupDialog from '../../component/Editor/GroupDialog/GroupDialog';
 import { isLoaded, isLoading } from '../../store/slice/loadingSlice';
 import { isBModifyDelAddReturnDisabled } from '../../store/slice/disableEnableSlice';
 
-// Vista editor principale
+/**
+ * Vista editor principale
+ */
 const Editor = ():ReactElement => {
   const classes = useStyles();
   const dispatch = useDispatch();

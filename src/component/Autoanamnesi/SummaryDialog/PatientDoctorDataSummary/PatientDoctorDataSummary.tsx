@@ -4,7 +4,9 @@ import { newPatientInfo, oldPatientInfo } from '../../../../store/slice/patientD
 import { getStringMedico } from '../../../../util';
 import useStyles from './style';
 
-// Dati dottori paziente
+/**
+ * Dati dottori paziente
+ */
 const PatientDoctorDataSummary = ():ReactElement => {
   const dataPatient = useSelector(newPatientInfo);
   const oldDataPatient = useSelector(oldPatientInfo);

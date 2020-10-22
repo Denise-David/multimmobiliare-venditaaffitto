@@ -6,7 +6,9 @@ import {
 } from '../../../../store/slice/patientDataSlice';
 import { getStringMedico } from '../../../../util';
 
-// Campo medico di famiglia
+/**
+ * Campo medico di famiglia
+ */
 const TextFamilyDoctor = ():ReactElement => {
   const dataEtichetta = useSelector(newPatientInfo);
   const dispatch = useDispatch();

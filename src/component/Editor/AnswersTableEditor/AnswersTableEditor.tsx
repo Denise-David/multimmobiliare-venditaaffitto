@@ -13,7 +13,9 @@ import NavRisposteDueRisposte from './NavRisposteDueRisposte/NavRisposteDueRispo
 import Risposta1Line from './Risposta1Line/Risposta1Line';
 import Risposta2Line from './Risposta2Line/Risposta2Line';
 
-// Tabella risposte
+/**
+ * Tabella risposte
+ */
 const AnswersTableEditor = ():ReactElement => {
   const classes = useStyles();
   const expanded = useSelector(tableTwoAnsExpanded);

@@ -9,7 +9,9 @@ import { isBConfirmAddFormClicked, setUnsavedChanges } from '../../../store/slic
 
 interface Props {IDDomanda : string}
 
-// Lista a tendina gruppi
+/**
+ * Lista a tendina gruppi
+ */
 const DropDownListGroup = ({ IDDomanda }: Props):ReactElement => {
   const dispatch = useDispatch();
   const ddlDisabled = useSelector(isDDLFormDisabled);

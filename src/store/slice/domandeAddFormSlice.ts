@@ -2,7 +2,9 @@ import { createSlice } from '@reduxjs/toolkit';
 import { rispostaType } from './risposteAddFormSlice';
 import { State } from '../store/store';
 
-// Struttura domanda
+/**
+ * Struttura domanda
+ */
 export interface domandaType {
   tipo: string,
   IDDomanda : string,
@@ -15,7 +17,9 @@ export interface domandaType {
 facoltativa?: boolean,
 libera?:boolean}
 
-// Slice per la gestione delle domande
+/**
+ * Slice per la gestione delle domande
+ */
 const domandeAddFormSlice = createSlice({
   name: 'domandeAddForm',
   initialState: {

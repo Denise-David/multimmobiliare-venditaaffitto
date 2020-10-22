@@ -4,7 +4,9 @@ import useStyles from './style';
 
 interface Props {etichetta: string | undefined, IDForm : string}
 
-// Bottone apri PDF risposte formulario paziente
+/**
+ * Bottone apri PDF risposte formulario paziente
+ */
 const ButtonOpenPDFFormPatient = ({ etichetta, IDForm }: Props):ReactElement => {
   const classes = useStyles();
 

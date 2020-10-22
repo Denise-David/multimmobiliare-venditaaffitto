@@ -10,7 +10,9 @@ import useStyles from './style';
 import { filtro, setFiltro } from '../../../store/slice/interfacciaAmmSlice';
 import { closeAndFilterDialog, closeDialogFiltro, dialogFiltro } from '../../../store/slice/dialogSlice';
 
-// Dialog con i filtri
+/**
+ * Dialog con i filtri
+ */
 const DialogFilter = ():ReactElement => {
   const filter = useSelector(filtro);
   const classes = useStyles();

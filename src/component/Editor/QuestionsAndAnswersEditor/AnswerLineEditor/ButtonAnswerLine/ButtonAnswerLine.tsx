@@ -15,7 +15,9 @@ import { setUnsavedChanges } from '../../../../../store/slice/addFormSlice';
 
 interface Props{rispostaArray : rispostaType, id: string, IDRisposta: string}
 
-// Bottoni risposta
+/**
+ * Bottoni risposta
+ */
 const ButtonAnswerLine = ({ rispostaArray, id, IDRisposta } : Props):ReactElement => {
   const dispatch = useDispatch();
   const iconsDisabled = useSelector(isBModifyDelAddReturnDisabled);

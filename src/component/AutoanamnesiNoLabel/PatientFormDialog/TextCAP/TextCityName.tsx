@@ -6,7 +6,9 @@ import {
 
 } from '../../../../store/slice/patientDataSlice';
 
-// Campo CAP città di residenza
+/**
+ * Campo CAP cità di residenza
+ */
 const TextCAP = ():ReactElement => {
   const dataEtichetta = useSelector(newPatientInfo);
   const disabled = useSelector(textFieldDisabled);

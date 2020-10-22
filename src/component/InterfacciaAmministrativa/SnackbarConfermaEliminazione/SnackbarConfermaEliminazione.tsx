@@ -9,7 +9,9 @@ import useStyles from './style';
 
 interface Props {IDForm : string}
 
-// richiesta conferma eliminazione
+/**
+ * richiesta conferma eliminazione
+ */
 const SnackbarConfirmDelForm = ({ IDForm }:Props):ReactElement => {
   const statusSnackbar = useSelector(snackbarConfirmDelForm);
   const dispatch = useDispatch();

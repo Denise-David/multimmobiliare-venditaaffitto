@@ -1,7 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { State } from '../store/store';
 
-// Slice menu domande a due risposte
+/**
+ * Slice menu domande a due risposte
+ */
 const menuDomandeSlice = createSlice({
   name: 'menuDomande',
   initialState: {

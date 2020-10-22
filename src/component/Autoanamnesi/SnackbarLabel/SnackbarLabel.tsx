@@ -4,7 +4,9 @@ import React, { ReactElement } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { closeSnackbarLabelPage, snackbarLabelOpen } from '../../../store/slice/snackbarSlice';
 
-// Avviso che manca il campo dottore di famiglia
+/**
+ * Avviso che manca il campo dottore di famiglia
+ */
 const SnackbarLabel = ():ReactElement => {
   const statusSnackbarBarcode = useSelector(snackbarLabelOpen);
   const dispatch = useDispatch();

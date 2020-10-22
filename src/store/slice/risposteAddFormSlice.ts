@@ -1,12 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { State } from '../store/store';
 
-// struttura risposta di riferimento
+/**
+ * struttura rrisposta di riferimento
+ */
 interface rispostaUno { risposta1: string, stateText: boolean}
-// struttura risposta secondaria
+/**
+ * struttura risposta secondaria
+ */
 interface rispostaDue { risposta2: string, stateText: boolean}
 
-// struttura risposta
+/**
+ * struttura risposta
+ */
 export interface rispostaType {
   IDRisposta:string,
 risposta:string,
@@ -15,12 +21,16 @@ stateModify:boolean,
 type:string,
 valore:number}
 
-// struttura action risposta
+/**
+ * struttura action risposte
+ */
 export interface actionAnsType {
  payload:string,
 type:string}
 
-// Slice per la gestione delle risposte
+/**
+ * Slice per la gestione delle risposte
+ */
 const risposteAddFormSlice = createSlice({
   name: 'risposteAddForm',
   initialState: {

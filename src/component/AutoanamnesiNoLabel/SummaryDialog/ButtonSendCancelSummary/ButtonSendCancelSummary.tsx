@@ -4,7 +4,9 @@ import { useDispatch } from 'react-redux';
 import useStyles from './style';
 import { closeDialogSummary } from '../../../../store/slice/dialogSlice';
 
-// Bottone annulla visualizzazione riassunto e correzione formulario
+/**
+ * Bottone annulla visualizzazione riassunto e correzione formulario
+ */
 const ButtonSendCancelSummary = ():ReactElement => {
   const dispatch = useDispatch();
   const classes = useStyles();

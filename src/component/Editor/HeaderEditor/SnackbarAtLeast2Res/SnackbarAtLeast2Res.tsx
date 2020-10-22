@@ -4,7 +4,9 @@ import React, { ReactElement } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { closeSnackbarAtLeast2Res, snackbarAtLeast2ResOpen } from '../../../../store/slice/snackbarSlice';
 
-// Avviso che ogni domanda deve avere almeno 1 risposta
+/**
+ * Avviso che ogni domanda deve avere almeno 1 risposta
+ */
 const SnackbarAtLeast2Res = ():ReactElement => {
   const snackbarOpen = useSelector(snackbarAtLeast2ResOpen);
   const dispatch = useDispatch();

@@ -11,8 +11,9 @@ import {
 import useStyles from './style';
 import { dataType, rispostaPazienteType } from '../../store/slice/patientFormSlice';
 import { resultType } from '../../store/slice/risultatiAddFormSlice';
-
-// PDF con le risposte del paziente
+/**
+ * PDF con le risposte del paziente
+ */
 const PDFPatientAnswers = ():ReactElement => {
   const parsedText = queryString.parse(location.search);
   const dispatch = useDispatch();

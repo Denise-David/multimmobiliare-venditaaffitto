@@ -14,7 +14,9 @@ import { openDialogFiltro } from '../../store/slice/dialogSlice';
 import FormularioLabelLine from '../../component/InterfacciaAmministrativa/FormularioLabelLine/FormularioLabelLine';
 import DialogLabelManager from '../../component/InterfacciaAmministrativa/DialogLabelManager/DialogLabelManager';
 
-// Vista dell'applicativo interfaccia amministrativa
+/**
+ * Vista dell'interfaccia amministrativa
+ */
 const InterfacciaAmministrativa = ():ReactElement => {
   const classes = useStyles();
   const dispatch = useDispatch();

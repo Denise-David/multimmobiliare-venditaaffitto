@@ -7,7 +7,9 @@ import {
   closeSnackbarNomeGruppo, snackbarNomeGruppo,
 } from '../../../../store/slice/snackbarSlice';
 
-// Avviso che non sono state confermate le modifiche ai propri dati
+/**
+ * Avviso che il nome gruppo messo esiste già
+ */
 const SnackbarNomeGruppo = ():ReactElement => {
   const snackbarOpen = useSelector(snackbarNomeGruppo);
   const dispatch = useDispatch();

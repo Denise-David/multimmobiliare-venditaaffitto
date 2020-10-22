@@ -5,7 +5,9 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { useDispatch, useSelector } from 'react-redux';
 import { closeDialogFormPatient, dialogFormPatientOpen } from '../../store/slice/dialogSlice';
 
-// Barra di navigazione con il nome autoanamnesi
+/**
+ * Barra di navigazione con il nome autoanamnesi
+ */
 const Navbar = ():ReactElement => {
   const formPatientOpen = useSelector(dialogFormPatientOpen);
   const dispatch = useDispatch();

@@ -20,7 +20,9 @@ import {
 } from '../../store/slice/homepageNoLabelSlice';
 import { formularioDBType } from '../../store/slice/addFormSlice';
 
-// View dell'applicativo autoanamnesi senza etichetta
+/**
+ * Vista dell'autoanamnesi senza etichetta
+ */
 const HomepageNoLabel = ():ReactElement => {
   const classes = useStyles();
   const dispatch = useDispatch();

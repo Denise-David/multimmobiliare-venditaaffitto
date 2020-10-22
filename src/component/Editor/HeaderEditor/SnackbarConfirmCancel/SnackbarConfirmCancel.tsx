@@ -8,7 +8,9 @@ import {
   closeSnackbarConfirmCancel, snackbarConfirmCancel,
 } from '../../../../store/slice/snackbarSlice';
 
-// Avviso che ogni domanda deve avere almeno 1 risposta
+/**
+ * Avviso che chiede conferma per annullare le modifiche non salvate
+ */
 const SnackbarConfirmCancel = ():ReactElement => {
   const snackbarOpen = useSelector(snackbarConfirmCancel);
   const dispatch = useDispatch();

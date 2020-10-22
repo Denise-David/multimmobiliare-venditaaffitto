@@ -7,7 +7,9 @@ import {
   selectedReparto,
 } from '../../../../store/slice/addFormSlice';
 
-// Campo nome formulario all'aggiunta del formulario
+/**
+ * Campo nome reparto all'aggiunta del formulario
+ */
 const TextFieldRepartoAddForm = ():ReactElement => {
   const repartoSelezionato = useSelector(selectedReparto);
   return (

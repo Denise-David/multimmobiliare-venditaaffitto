@@ -7,7 +7,9 @@ import { isBConfirmAddFormClicked, setUnsavedChanges } from '../../../../../stor
 
 interface Props{rispostaArray : rispostaType, id: string, IDRisposta: string}
 
-// CHeckbox risposta
+/**
+ * Checkbox risposta
+ */
 const CheckboxDataAnswerLine = ({ rispostaArray, id, IDRisposta } : Props):ReactElement => {
   const dispatch = useDispatch();
   const rightMod = useSelector(haveRepModifyRight);

@@ -15,22 +15,30 @@ const struttureFormReparti = app.service('strutture_form_reparti');
 const risposteFormPazienti = app.service('risposte_form_pazienti');
 const historyEditor = app.service('history_editor');
 
-// PRendi formulari csenza etichetta
+/**
+ * Prende formulari senza etchetta
+ */
 export const fetchFormNoLabel = () => risposteFormPazienti.find({
   query: {
     etichetta: '',
   },
 });
-
+/**
+ * Prende formulari con etichetta
+ */
 export const fetchFormWithLabel = () => risposteFormPazienti.find({
   query: {
     etichetta: { $nin: [''] },
   },
 });
-
+/**
+ * Elimina formulario risposte paziente
+ */
 export const deleteAnswersForm = (ID) => risposteFormPazienti.remove(ID, {});
 
-// Prendi tutti i formulari
+/**
+ * Prende tutti formulari che contengono il form e il rep cercati
+ */
 export const searchForm = (form, rep) => struttureFormReparti.find({
   query: {
     formulario: { $search: form },
@@ -39,16 +47,22 @@ export const searchForm = (form, rep) => struttureFormReparti.find({
   },
 });
 
-// Prendi il formulario con tramite ID
+/**
+ * Prende formulario tramite ID formulario
+ */
 const fetchFormStructureByID = (ID) => struttureFormReparti.get(ID, {});
 export default fetchFormStructureByID;
 
-// Prendi i formulari con actualWardGUID GUID
+/**
+ * Prende i formulari tramile il reparto GUID
+ */
 export const fetchRepartoFormByGUID = (GUID) => struttureFormReparti.find(
   { query: { actualWardGUID: GUID } },
 );
 
-// Aggiungi formulario piu risposte
+/**
+ * Aggiunge un formulario
+ */
 export const addForm = (
   nomeReparto,
   idReparto, nomeForm, gruppi,
@@ -71,10 +85,14 @@ export const addForm = (
   },
 );
 
-// Prendo i dati dell'etichetta
+/**
+ * Prende i dati dell'etichetta
+ */
 export const getEtichettaDataByLabel = (labelNumber) => axios.get(`/autoanamnesi/forwardCall/adts?edsId=${labelNumber}`);
 
-// Aggiungi formulario risposte paziente
+/**
+ * Aggiunge un formulario risposte del paziente
+ */
 
 export const addRisposteFormPazienti = (
   GUIDReparto,
@@ -97,7 +115,10 @@ export const addRisposteFormPazienti = (
   },
 
 );
-// add etichetta risposte form pazienti
+
+/**
+ * Aggiunge l'etichetta e i suoi dati a un formulario senza etichetta
+ */
 export const addLabelToRispostePaziente = (
   IDForm, risposte, etichetta, patientInfo,
 ) => risposteFormPazienti.update(IDForm,
@@ -111,26 +132,37 @@ export const addLabelToRispostePaziente = (
     risposte: risposte.risposte,
   });
 
-// prendo le risposte dei pazienti tramite ID
+/**
+ * prende le risposte dei pazient tramite ID formulario
+ */
 export const getRisposteFormPazientiByID = (ID) => risposteFormPazienti.get(ID, {});
 
-// Cerco dottori tramite nome e cognome
+/**
+ * Prende i dottori con nome e cognome cercati
+ */
 export const searchDoctor = (medicoName, medicoCognome) => axios.post('/autoanamnesi/forwardCall/eocmoss',
   {
     givenname: medicoName.value,
     familyname: medicoCognome.value,
   });
 
-// Cerco diritti dell utente selezionato
+/**
+ * Prende i diritti dell'utente selezionato
+ */
 export const getUserRights = (username) => axios.get(`/autoanamnesi/forwardCall/user?username=${username}`);
 
-// Cerco reparti ZAS
+/**
+ * Prende i reparti ZAS
+ */
 export const getRepartiZAS = (zasAcronym) => axios.get(`/autoanamnesi/forwardCall/unit?zasAcronym=${zasAcronym}`);
-
-// Cerco reparti ZAM
+/**
+ * Prende le categorie mediche ZAM
+ */
 export const getRepartiZAM = (zamAcronym) => axios.get(`/autoanamnesi/forwardCall/sermed?zamAcronym=${zamAcronym}`);
 
-// Modifica dati formulario
+/**
+ * Modifica il formulario
+ */
 export const updateForm = (
   IDFormulario, GUID, nomeReparto,
   nomeForm, gruppi, listDomandeAndRisposte, listRisultati, risposta1,
@@ -152,10 +184,14 @@ export const updateForm = (
 
   });
 
-// Elimina formulario
+/**
+ * Elimina il formulario
+ */
 export const deleteForm = (IDForm) => struttureFormReparti.remove(IDForm, {});
 
-// settiamo la vecchia struttura del formulario prima di eliminarla
+/**
+ * setta la vecchia struttura del formulario prima di eliminarla
+ */
 export const setOldStructure = (formulario, utente, date) => historyEditor.create(
   {
     data: date,
@@ -166,7 +202,9 @@ export const setOldStructure = (formulario, utente, date) => historyEditor.creat
 
 );
 
-// per l'history quando creo un nuovo formulario
+/**
+ * setta la nuova struttura del formuario dopo averla aggiunta
+ */
 export const setNewStructure = (nomeReparto,
   GUID, nomeForm, gruppi,
   domande, ris, risposta1, risposta2, utente, date) => historyEditor.create(
@@ -193,7 +231,9 @@ export const setNewStructure = (nomeReparto,
   },
 );
 
-// aggiungiamo all'history il nuovo e vecchio formulario quando si modifica
+/**
+ * aggiunge all'history il nuovo e vecchio formulairo quando si modifica
+ */
 export const setNewAndOldStructure = (GUID, nomeReparto,
   nomeForm, gruppi, listDomandeAndRisposte, listRisultati,
   risposta1, risposta2, date, formulario, utente) => historyEditor.create(
@@ -219,5 +259,3 @@ export const setNewAndOldStructure = (GUID, nomeReparto,
     },
   },
 );
-
-// noLabel

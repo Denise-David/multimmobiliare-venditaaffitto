@@ -18,7 +18,9 @@ import { openSnackbarConfirmDelForm } from '../../../store/slice/snackbarSlice';
 import SnackbarConfirmDelForm from '../SnackbarConfermaEliminazione/SnackbarConfermaEliminazione';
 import ButtonLabel from './ButtonLabel/ButtonLabel';
 
-// Riga formulario con etichetta
+/**
+ * Riga formulario con etichetta
+ */
 const FormularioLabelLine = ():ReactElement => {
   const labelForm = useSelector(formWithLabel);
   const dispatch = useDispatch();

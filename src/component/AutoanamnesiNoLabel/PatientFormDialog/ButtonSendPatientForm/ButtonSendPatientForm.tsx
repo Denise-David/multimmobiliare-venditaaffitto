@@ -4,7 +4,9 @@ import { useDispatch } from 'react-redux';
 import useStyles from './style';
 import { buttonSendForm } from '../../../../store/slice/patientFormSlice';
 
-// Bottone per inviare formulario paziente
+/**
+ * Bottone per inviare formulario paziente
+ */
 const ButtonSendFormPaziente = ():ReactElement => {
   const dispatch = useDispatch();
   const classes = useStyles();

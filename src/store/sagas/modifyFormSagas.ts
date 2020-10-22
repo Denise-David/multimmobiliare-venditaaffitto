@@ -16,7 +16,9 @@ import { objectToArray } from '../../util';
 import { nomeFormulario, unsetUnsavedChanges } from '../slice/addFormSlice';
 import { openSnackbarAtLeast2Res } from '../slice/snackbarSlice';
 
-// Salvataggio delle modifiche sul formulario
+/**
+ * Salvataggio delle modifiche sul formulario
+ */
 export default function* saveModify():Generator {
   try {
     const objDomande = yield select(domandeObject);

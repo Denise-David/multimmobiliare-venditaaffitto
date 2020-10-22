@@ -11,7 +11,9 @@ import {
 } from '../../../store/slice/interfacciaAmmSlice';
 import useStyles from './style';
 
-// Dialog aggiunta etichetta
+/**
+ * Dialog aggiunta etichetta
+ */
 const DialogLabel = ():ReactElement => {
   const classes = useStyles();
   const open = useSelector(dialogLabel);

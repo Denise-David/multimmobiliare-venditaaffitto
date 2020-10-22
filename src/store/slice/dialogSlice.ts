@@ -1,7 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { State } from '../store/store';
 
-// Slice gestione dei dialog
+/**
+ * Slice gestione dei dialog
+ */
 const dialogSlice = createSlice({
   name: 'dialog',
   initialState: {

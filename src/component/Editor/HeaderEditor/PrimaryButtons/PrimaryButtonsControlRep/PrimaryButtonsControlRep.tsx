@@ -15,7 +15,9 @@ import useStyles from './style';
 import { IDForm } from '../../../../../store/slice/ddlEditorFormAndRepartiSlice';
 import { openSnackbarConfirmCancel } from '../../../../../store/slice/snackbarSlice';
 
-// Bottoni per controllo formulari
+/**
+ * Bottoni per controllo formualari
+ */
 const PrimaryButtonsControlRep = ():ReactElement => {
   const classes = useStyles();
   const rightRepDelete = useSelector(haveRepDeleteRight);

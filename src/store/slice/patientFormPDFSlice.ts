@@ -3,12 +3,16 @@ import { rispostaPazienteType } from './patientFormSlice';
 import { Medico } from '../../util/index';
 import { State } from '../store/store';
 
-// struttura dati paziente
+/**
+ * struttura dati paziente
+ */
 export interface patientData {familyname : string, givenname : string,
 cityName : string, mobile: string, streetName: string, streetNumber : string,
 doctor : Medico, familyDoctor : Medico, insuranceCoversName: string, zip:string}
 
-// Gestione dati paziente PDF
+/**
+ * Gestione dati paziente PDF
+ */
 const patientInfoPDFSlice = createSlice({
   name: 'patientInfoPDF',
   initialState:

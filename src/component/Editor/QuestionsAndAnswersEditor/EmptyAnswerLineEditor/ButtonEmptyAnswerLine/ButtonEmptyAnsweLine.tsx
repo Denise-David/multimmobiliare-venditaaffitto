@@ -9,7 +9,9 @@ import { setUnsavedChanges } from '../../../../../store/slice/addFormSlice';
 
 interface Props{ IDDomanda: string}
 
-// Bottoni aggiunta risposta
+/**
+ * Bottoni aggiunta risposta
+ */
 const ButtonEmptyAnsweLine = ({ IDDomanda }:Props):ReactElement => {
   const dispatch = useDispatch();
   const stateTextField = useSelector(stateAddedRisposta);

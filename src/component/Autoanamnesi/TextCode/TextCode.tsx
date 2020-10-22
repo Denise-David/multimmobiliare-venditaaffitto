@@ -5,7 +5,9 @@ import NumPad from 'react-numpad';
 import { getCodeValue, ValueCode } from '../../../store/slice/labelCodeSlice';
 import { initFormulariReparto } from '../../../store/slice/homePageLabelSlice';
 
-// Campo per numero etichetta
+/**
+ * Campo per numero etichetta
+ */
 const TextFieldCodice = ():ReactElement => {
   const dispatch = useDispatch();
   const valueCode = useSelector(ValueCode);

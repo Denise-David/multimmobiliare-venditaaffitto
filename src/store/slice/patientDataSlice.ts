@@ -2,7 +2,9 @@ import { createSlice } from '@reduxjs/toolkit';
 import { patientData } from './patientFormPDFSlice';
 import { State } from '../store/store';
 
-// Slice gestione dati paziente
+/**
+ * Slice gestione dati paziente
+ */
 const patientDataSlice = createSlice({
   name: 'patientData',
   initialState: {

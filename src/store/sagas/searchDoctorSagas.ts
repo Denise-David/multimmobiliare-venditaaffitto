@@ -2,7 +2,9 @@ import { select, put, call } from 'redux-saga/effects';
 import { nomeMedico, cognomeMedico, setMediciTrovati } from '../slice/searchDoctorSlice';
 import { searchDoctor } from '../api';
 
-// bottone di ricerca dottori
+/**
+ * bottone di ricerca dottori
+ */
 export default function* buttonSearch():Generator {
   try {
     const medicoName = yield select(nomeMedico);

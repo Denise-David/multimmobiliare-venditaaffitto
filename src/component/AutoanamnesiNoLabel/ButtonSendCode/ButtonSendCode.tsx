@@ -4,7 +4,9 @@ import { useDispatch } from 'react-redux';
 import useStyles from './style';
 import { openForm } from '../../../store/slice/homepageNoLabelSlice';
 
-// Bottone per inviare formulario scelto
+/**
+ * Bottone per inviare formulario scelto
+ */
 const ButtonSendCode = ():ReactElement => {
   const dispatch = useDispatch();
   const classes = useStyles();

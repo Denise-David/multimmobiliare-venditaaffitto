@@ -42,7 +42,9 @@ import { resetIDForm, resetIDReparto } from '../slice/ddlEditorFormAndRepartiSli
 import { setBModifyDelAddReturnDisabled } from '../slice/disableEnableSlice';
 import { setIsLoaded, setIsLoading } from '../slice/loadingSlice';
 
-// Aggiungere un nuovo formulario
+/**
+ * Aggiunge un nuovo formulario
+ */
 export default function* addFormulario():Generator {
   yield put(setIsLoading());
 
@@ -144,7 +146,9 @@ export default function* addFormulario():Generator {
   }
 }
 
-// Aggiunge una domanda a due risposte nell'array
+/**
+ * Aggiunge una domanda a due risposte nell'array
+ */
 export function* addDomandaTwoResInArray():Generator {
   const IDDomanda = uuidv4();
   const domanda = yield select(questionTwoAns);
@@ -183,7 +187,9 @@ export function* addDomandaMoreResInArray():Generator {
   }
 }
 
-// Bottone aggiunta nuovo formulario
+/**
+ * Bottone aggiunta nuovo formulario
+ */
 export function* clickAddButton():Generator {
   yield put(setBAddFormClicked());
 
@@ -194,13 +200,16 @@ export function* clickAddButton():Generator {
   yield put(resetRisposteOfDomanda());
   yield put({ type: 'initUserRightsAUTAN' });
 }
-// Bottone eliminazione formulario
+/**
+ * Bottone eliminazione formulario
+ */
 export function* clickDelOrSaveButton():Generator {
   yield put(openCloseSnackbarConfirmDelete());
   yield put(setBModifyDelAddReturnDisabled());
 }
-
-// Aggiunta risposta alla domanda
+/**
+ * Aggiunta risposta alla domanda
+ */
 export function* addRes(action:actionAnsType):Generator {
   const ansTutteUguali = yield select(risposteTutteUguali);
   let IDRisposta = uuidv4();
@@ -240,7 +249,9 @@ export function* addRes(action:actionAnsType):Generator {
   yield put(setType(IDDomanda));
 }
 
-// Eliminazione domanda a più risposte
+/**
+ * Eliminazione domanda a piÙ risposte
+ */
 export function* deleteDomandaPiuRes(action:actionAnsType):Generator {
   const IDDomanda = action.payload;
 
@@ -248,7 +259,9 @@ export function* deleteDomandaPiuRes(action:actionAnsType):Generator {
   yield put(resetDomandaByIDDomanda(IDDomanda));
 }
 
-// Aggiunta nuovo risultato
+/**
+ * Aggiunta nuovo risultato
+ */
 export function* addResult():Generator {
   const IDRisultato = uuidv4();
   const risultato = yield select(result);

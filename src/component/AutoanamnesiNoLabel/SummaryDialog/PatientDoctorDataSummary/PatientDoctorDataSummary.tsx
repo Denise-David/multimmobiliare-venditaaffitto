@@ -3,7 +3,9 @@ import { useSelector } from 'react-redux';
 import { newPatientInfo } from '../../../../store/slice/patientDataSlice';
 import { getStringMedico } from '../../../../util';
 
-// Dati medici paziente
+/**
+ * Dati medici paziente
+ */
 const PatientDoctorDataSummary = ():ReactElement => {
   const dataPatient = useSelector(newPatientInfo);
   return (

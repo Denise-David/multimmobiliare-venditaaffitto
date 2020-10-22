@@ -1,7 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { State } from '../store/store';
 
-// Slice per la gestione degli snackbar
+/**
+ * Slice per la gestione degli snackbar
+ */
 const snackbarSlice = createSlice({
   name: 'snackbar',
   initialState: {

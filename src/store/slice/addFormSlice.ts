@@ -1,7 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { State } from '../store/store';
 
-// Struttura di un formulario
+/**
+ * Struttura di un formulario
+ */
 export interface formularioDBType {
 _id:string,
 actualWardGUID?:number,
@@ -15,13 +17,16 @@ paziente?:{givenname: string, familyname:string}
 etichetta?:string,
 reparto?:string,
 }
-
-// Struttura di un reparto selezionato
+/**
+ * Struttura di un reparto selezionato
+ */
 export interface repartoType {
   nomeReparto:string, idReparto:number
 }
 
-// Slice aggiunta di un formulario
+/**
+ * Slice aggiunta di un formulario
+ */
 const addFormSlice = createSlice({
   name: 'addForm',
   initialState:

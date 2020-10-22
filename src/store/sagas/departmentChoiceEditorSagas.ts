@@ -19,7 +19,9 @@ import { resetGroups } from '../slice/groupSlice';
 import { resetMenuMoreAns } from '../slice/menuDomandeERisposteSlice';
 import { resetMenuTwoAns } from '../slice/menuDomandeSlice';
 
-// Bottone conferma aggiunta formulario
+/**
+ * Bottone conferma aggiunta formulario
+ */
 export default function* confirmAddForm():Generator {
   yield put(setConfirmDisabled());
   yield put(setBModifyDelAddReturnEnabled());
@@ -29,8 +31,9 @@ export default function* confirmAddForm():Generator {
   yield put(resetMenuTwoAns());
   yield put(resetIntestazioneMoreAns());
 }
-
-// Annulla aggiunta formulario
+/**
+ * Annulla aggiunta formulario
+ */
 export function* cancelAddForm():Generator {
   const addReparto = yield select(isButtonAddFormClicked);
   yield put(resetMenuMoreAns());
@@ -54,7 +57,9 @@ export function* cancelAddForm():Generator {
     yield put(resetIDReparto());
   }
 }
-// Cambio reparto dalla lista a tendina
+/**
+ * Cambio reparto dalla lista a tendina
+ */
 export function* changeRep():Generator {
   yield put(setBAddFormUnclicked());
   yield put(setBModifyDelAddReturnEnabled());

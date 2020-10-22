@@ -9,7 +9,10 @@ import { getNameFamilynameLabel, setLabel, setSelected } from '../../../../store
 interface Props {IDForm : string, reparto:string | undefined,
   formulario:string, nomeCognome:string, etichetta: string | undefined}
 
-// Bottone apri gestione etichetta
+/**
+ * Bottone gestione etichetta
+ */
+
 const ButtonLabel = ({
   IDForm, reparto, formulario, nomeCognome, etichetta,
 }:Props):ReactElement => {

@@ -6,7 +6,9 @@ import {
   groups, groupSelectedIndex, isListGroupsDisabled, setGroupSelectedIndex,
 } from '../../../../store/slice/groupSlice';
 
-// Tabella con i gruppi
+/**
+ * Tabella con i gruppi
+ */
 const ListaGruppi = ():ReactElement => {
   const groupsList = useSelector(groups);
   const IDSelected = useSelector(groupSelectedIndex);

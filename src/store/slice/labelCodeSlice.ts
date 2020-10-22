@@ -1,7 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { State } from '../store/store';
 
-// Gestione etichetta autoanamnesi con etichetta
+/**
+ * Gestione etichetta autoanamnesi con etichetta
+ */
 const labelCodeSlice = createSlice({
   name: 'labelCode',
   initialState:

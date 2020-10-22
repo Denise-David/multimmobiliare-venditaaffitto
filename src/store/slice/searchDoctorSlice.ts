@@ -3,10 +3,14 @@ import {
 } from '@reduxjs/toolkit';
 import { State } from '../store/store';
 
-// struttura del nome e cognome cercato
+/**
+ * struttura del nome e cognome cercato
+ */
 export interface nomeCognomeMedico { value : string}
 
-// Slice per la ricerca dei dottori
+/**
+ * Slice per la ricerca dei dottori
+ */
 const searchDoctorSlice = createSlice({
   name: 'searchDoctor',
   initialState: {

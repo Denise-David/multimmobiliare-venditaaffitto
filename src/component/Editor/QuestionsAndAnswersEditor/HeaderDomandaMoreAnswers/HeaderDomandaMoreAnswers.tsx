@@ -9,7 +9,9 @@ import { isBConfirmAddFormClicked, setUnsavedChanges } from '../../../../store/s
 
 interface Props {IDDomanda : string, domanda : domandaType}
 
-// Intestazione per le domande
+/**
+ * intestazione per le domande
+ */
 const HeaderDomandaMoreAnswers = ({ IDDomanda, domanda }: Props):ReactElement => {
   const classes = useStyles();
   const dispatch = useDispatch();

@@ -12,7 +12,9 @@ import {
 } from '../../../../store/slice/risposteAddFormSlice';
 import { haveRepModifyRight } from '../../../../store/slice/rightsSlice';
 
-// Riga risposta di riferimento
+/**
+ * Riga risposta di riferimento
+ */
 const Risposta1Line = ():ReactElement => {
   const rightRepModify = useSelector(haveRepModifyRight);
   const addFormConfirm = useSelector(isBConfirmAddFormClicked);

@@ -18,7 +18,9 @@ import { isBConfirmAddFormClicked, setUnsavedChanges } from '../../../../store/s
 
 interface Props{domanda : domandaType}
 
-// Bottoni tabella domande a più risposte
+/**
+ * Bottoni tabella domande a più risposte
+ */
 const ButtonsQuestionsAndAnswers = ({ domanda } : Props):ReactElement => {
   const dispatch = useDispatch();
   const iconsDisabled = useSelector(isBModifyDelAddReturnDisabled);

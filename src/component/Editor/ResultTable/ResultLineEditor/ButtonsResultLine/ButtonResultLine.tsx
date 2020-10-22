@@ -14,7 +14,9 @@ import { setUnsavedChanges } from '../../../../../store/slice/addFormSlice';
 
 interface Props{oneForm: resultType}
 
-// Bottoni risultato
+/**
+ * Bottoni risultato
+ */
 const ButtonResultLine = ({ oneForm } : Props):ReactElement => {
   const dispatch = useDispatch();
   const bCheckDisabled = useSelector(isBCheckDisabled);

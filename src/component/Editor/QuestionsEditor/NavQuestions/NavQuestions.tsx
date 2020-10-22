@@ -18,7 +18,9 @@ import { intestazioneMoreAnsAttiva, setIntestazioneMoreAnsAttiva } from '../../.
 import { haveRepModifyRight } from '../../../../store/slice/rightsSlice';
 import { isBConfirmAddFormClicked } from '../../../../store/slice/addFormSlice';
 
-// Navbar tabella domande
+/**
+ * Navbar tabella domande
+ */
 const NavQuestions = ():ReactElement => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);

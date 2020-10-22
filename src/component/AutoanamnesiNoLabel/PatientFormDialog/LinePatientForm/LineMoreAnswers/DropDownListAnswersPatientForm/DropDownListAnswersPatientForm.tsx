@@ -9,7 +9,9 @@ import { domandaType } from '../../../../../../store/slice/domandeAddFormSlice';
 
 interface Props {idDomanda : string, domanda : string, index:number}
 
-// Lista a tendina risposte paziente
+/**
+ * Lista a tendina risposte paziente
+ */
 const DropDownListAnswersPatient = ({ idDomanda, domanda, index } : Props):ReactElement => {
   const dispatch = useDispatch();
   const domDimenticate = useSelector(domandeDimenticate);

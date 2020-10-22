@@ -6,7 +6,9 @@ import {
   cancelClicked, setObligatoryFieldEmpty, unsetObligatoryFieldEmpty, obligatoryFieldEmpty,
 } from '../../../../store/slice/patientDataSlice';
 
-// Campo nome
+/**
+ * Campo nome
+ */
 const TextName = ():ReactElement => {
   const dispatch = useDispatch();
   const disabled = useSelector(textFieldDisabled);

@@ -12,7 +12,9 @@ import { isBCheckDisabled, setBCheckEnabled, setBCheckDisabled } from '../../../
 import ButtonResultLine from './ButtonsResultLine/ButtonResultLine';
 import { enableAll } from '../../../../store/slice/disableEnableSlice';
 
-// Riga risultato
+/**
+ * Riga risultato
+ */
 const ResultLineEditor = ():ReactElement => {
   const dispatch = useDispatch();
 

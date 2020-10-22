@@ -1,7 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { State } from '../store/store';
 
-// struttura di un reparto preso dai diritti dell'utente
+/**
+ * struttura di un reparto preso dai diritti dell'utente
+ */
 export interface repartoRightType {
  sermednodeid?: number,
 unitid?:number,
@@ -15,14 +17,18 @@ shortname:string,
 startdate:number,
 localization:number}
 
-// struttura di un diritto dell'utente
+/**
+ * struttura di un diritto dell'utente
+ */
 export interface rightType {
  code:string,
 description:string,
 id:number,
 scopes:[]}
 
-// struttura  di uno scope di un diritto
+/**
+ * struttura di uno scope di un diritto
+ */
 export interface scopeType {
   areaCode:string,
 areaType:string,
@@ -30,14 +36,18 @@ areaDescription:string,
 description:string,
 id:number}
 
-// struttura di un reparto di uno scope dei diritti dell'utente
+/**
+ * struttura di un reparto di uno scope dei diritti dell'utente
+ */
 export interface repartoScopeRightType {
 
   data:[],
 
 }
 
-// Slice per la gestione dei diritti
+/**
+ * Slice per la gestione dei diritti
+ */
 const rightsSlice = createSlice({
   name: 'rights',
   initialState: {
