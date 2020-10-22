@@ -52,7 +52,6 @@ const TextFieldCodice = ():ReactElement => {
         id="outlined-basic"
         value={valueCode}
         label="Immetti codice"
-
         fullWidth
         variant="outlined"
       />

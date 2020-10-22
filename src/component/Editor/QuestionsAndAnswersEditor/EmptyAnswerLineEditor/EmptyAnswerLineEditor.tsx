@@ -37,7 +37,6 @@ const EmptyAnswerLineEditor = ({ IDDomanda }: Props) => {
   return (
     <div className={classes.margin}>
       <Grid
-
         container
         direction="row"
         justify="space-between"

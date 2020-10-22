@@ -34,7 +34,6 @@ const generateClassName = () => {
 ReactDOM.render(
   <React.StrictMode>
 
-    {/* @ts-ignore */}
     <LocalizationProvider dateAdapter={DateFnsUtils}>
       <Provider store={store}>
         <StylesProvider generateClassName={generateClassName}>

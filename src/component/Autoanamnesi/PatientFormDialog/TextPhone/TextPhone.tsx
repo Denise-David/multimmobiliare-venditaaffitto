@@ -16,7 +16,7 @@ const TextPhone = ():ReactElement => {
       fullWidth
       disabled={disabled}
       label="Numero di telefono"
-      value={dataEtichetta ? dataEtichetta.mobile : ''}
+      value={dataEtichetta.mobile ? dataEtichetta.mobile : ''}
       onChange={(event) => {
         const { value } = event.target;
         const name = 'mobile';

@@ -39,7 +39,6 @@ const TextFieldEmptyResultLine = ():ReactElement => {
             }
             dispatch(setRisultato(value));
           }}
-
           id="standard-basic"
           fullWidth
         />
@@ -53,7 +52,6 @@ const TextFieldEmptyResultLine = ():ReactElement => {
             }
           }}
           value={valMin}
-
           onChange={(event) => {
             const { value } = event.target;
             if (value !== '') {
@@ -75,7 +73,6 @@ const TextFieldEmptyResultLine = ():ReactElement => {
               }
             }
           }}
-
           id="standard-basic"
           fullWidth
         />
@@ -89,7 +86,6 @@ const TextFieldEmptyResultLine = ():ReactElement => {
             }
           }}
           value={valMax}
-
           onChange={(event) => {
             const { value } = event.target;
             if (value !== '') {
@@ -111,7 +107,6 @@ const TextFieldEmptyResultLine = ():ReactElement => {
               }
             }
           }}
-
           id="standard-basic"
           fullWidth
         />

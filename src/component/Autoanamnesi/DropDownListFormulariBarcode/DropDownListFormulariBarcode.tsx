@@ -1,12 +1,14 @@
 /* eslint-disable no-underscore-dangle */
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useRef } from 'react';
 import { FormControl, MenuItem, Select } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
 import { formulariList, setSelectedForm, formSelected } from '../../../store/slice/homePageLabelSlice';
 import useStyles from './style';
 import { formularioDBType } from '../../../store/slice/addFormSlice';
 
-// Lista a tendina con formulari dell'etichetta
+/**
+ * Lista a tendina com fofmrulari dell'etichetta
+ */
 const DropDownListFormulariBarcode = ():ReactElement => {
   const formulari = useSelector(formulariList);
   const dispatch = useDispatch();
@@ -19,13 +21,11 @@ const DropDownListFormulariBarcode = ():ReactElement => {
       {formulario.formulario}
     </MenuItem>
   ));
-
   return (
     <div>
       <FormControl className={classes.alignLeft} placeholder="seleziona Formulario" variant="outlined" fullWidth>
         <Select
           defaultValue={-1}
-          autoWidth
           value={selectedForm}
           onChange={(event) => {
             const { value } = event.target;

@@ -9,7 +9,9 @@ import {
   closeSnackbarDoctor, closeSnackbarFamilyDoctor, snackbarDoctor,
 } from '../../../../store/slice/snackbarSlice';
 
-// Avviso che manca il campo dottore inviante
+/**
+ * Avviso che manca il campo dottore inviante
+ */
 const SnackbarDoctor = ():ReactElement => {
   const snackbarOpen = useSelector(snackbarDoctor);
   const dispatch = useDispatch();

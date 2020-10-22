@@ -35,7 +35,6 @@ const TextDoctor = ():ReactElement => {
       error={error}
       label="Medico inviante"
       value={getStringMedico(dataEtichetta.doctor)}
-
       onChange={(event) => {
         const { value } = event.target;
         const name = 'doctor';

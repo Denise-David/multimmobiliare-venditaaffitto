@@ -23,7 +23,6 @@ const ButtonResultLine = ({ oneForm } : Props):ReactElement => {
       <>
         <Grid item xs={12} sm={1}>
           <IconButton
-
             onClick={() => {
               dispatch(disableAll());
               dispatch(setBModifyClicked(oneForm.IDRisultato));

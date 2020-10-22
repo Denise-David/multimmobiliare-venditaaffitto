@@ -62,7 +62,6 @@ const EmptyAddQuestionMoreAnswers = ():ReactElement => {
           {/* Bottoni */}
 
           <IconButton
-
             disabled={bCheckDisabled}
             color="primary"
             onClick={() => {

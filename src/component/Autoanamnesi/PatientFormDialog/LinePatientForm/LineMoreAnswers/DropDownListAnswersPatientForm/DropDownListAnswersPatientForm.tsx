@@ -3,16 +3,19 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { useSelector, useDispatch } from 'react-redux';
 import { FormControl, Select } from '@material-ui/core';
 import { State } from '../../../../../../store/store/store';
-import { domandeDimenticate, setRisposta } from '../../../../../../store/slice/patientFormSlice';
+import { setRisposta } from '../../../../../../store/slice/patientFormSlice';
 import { domandaType } from '../../../../../../store/slice/domandeAddFormSlice';
 import { rispostaType } from '../../../../../../store/slice/risposteAddFormSlice';
 
-interface Props {idDomanda : string, domanda : string, index: number}
+interface Props {idDomanda : string, domanda : string, index: number, domDimenticate: boolean[]}
 
-// Lista a tendina risposte domanda
-const DropDownListAnswersPatient = ({ idDomanda, domanda, index } : Props):ReactElement => {
+/**
+ * Lista a tendina risposte domanda
+ */
+const DropDownListAnswersPatient = ({
+  idDomanda, domanda, index, domDimenticate,
+} : Props):ReactElement => {
   const dispatch = useDispatch();
-  const domDimenticate = useSelector(domandeDimenticate);
 
   let error = false;
   // cerco le risposte della domanda tramite l'ID
@@ -41,7 +44,6 @@ const DropDownListAnswersPatient = ({ idDomanda, domanda, index } : Props):React
         </MenuItem>
       );
     }
-    return <></>;
   }) : <></>;
 
   return (

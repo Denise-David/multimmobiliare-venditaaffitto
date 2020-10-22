@@ -9,7 +9,9 @@ import {
 } from '../../../../store/slice/patientDataSlice';
 import { getStringMedico } from '../../../../util';
 
-// Campo medico di famiglia
+/**
+ * Campo medico di famiglia
+ */
 const TextFamilyDoctor = ():ReactElement => {
   const dataEtichetta = useSelector(newPatientInfo);
   const dispatch = useDispatch();
@@ -21,16 +23,18 @@ const TextFamilyDoctor = ():ReactElement => {
     if (dataEtichetta) {
       if (dataEtichetta.familyDoctor === null && error === false) {
         setError(!error);
-        dispatch(setFieldFamilyDoctorEmpty());
       } else if (dataEtichetta.familyDoctor !== null && error === true) {
         setError(!error);
-        dispatch(unsetFieldFamilyDoctorEmpty());
       }
     }
   } else if (cancClicked === true && error === true) {
     setError(!error);
-    dispatch(unsetFieldFamilyDoctorEmpty());
   }
+
+  if (error === true) {
+    dispatch(setFieldFamilyDoctorEmpty());
+  } else { dispatch(unsetFieldFamilyDoctorEmpty()); }
+
   return (
     <TextField
       fullWidth
@@ -38,7 +42,6 @@ const TextFamilyDoctor = ():ReactElement => {
       error={error}
       label="Medico di famiglia"
       value={getStringMedico(dataEtichetta ? dataEtichetta.familyDoctor : {})}
-
       onChange={(event) => {
         const { value } = event.target;
         const name = 'nameFamilyDoctor';

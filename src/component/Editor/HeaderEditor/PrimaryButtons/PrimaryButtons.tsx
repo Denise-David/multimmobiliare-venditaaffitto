@@ -45,7 +45,6 @@ const PrimaryButtons = ():ReactElement => {
               <CheckCircleOutlineIcon fontSize="large" />
             </IconButton>
             <IconButton
-
               onClick={() => dispatch(buttonCancelAddFormClicked())}
             >
               <HighlightOffIcon fontSize="large" color="primary" />

@@ -97,7 +97,6 @@ const FormularioLabelLine = ():ReactElement => {
             >
 
               <DeleteIcon
-
                 style={{ fontSize: 30 }}
               />
             </IconButton>

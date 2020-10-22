@@ -37,7 +37,6 @@ const TextBirthday = ():ReactElement => {
         'shouldDisableDate' | 'invalidDate' | 'disableFuture' | 'maxDate' | 'disablePast' | 'minDate' | null, value: unknown) => { console.error(value); }}
       label="*Data di nascita"
       value={birthday ? parseISO(birthday) : null}
-
       onChange={(data) => {
         const dataFormattata = data !== null ? data.toISOString() : '';
         dispatch(setBirthdayDate(dataFormattata));

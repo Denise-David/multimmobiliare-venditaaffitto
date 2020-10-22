@@ -28,7 +28,6 @@ const TextFieldEmptyAnswerLine = ({ IDDomanda }:Props):ReactElement => {
         <Grid item xs={12} sm={7}>
 
           <TextField
-
             onKeyDown={(e) => {
               if (e.key === 'Enter' && !stateTextField[IDDomanda]) {
                 dispatch(addRisposta(IDDomanda));
@@ -47,7 +46,6 @@ const TextFieldEmptyAnswerLine = ({ IDDomanda }:Props):ReactElement => {
               }
               dispatch(setAnswer({ IDDomanda, value }));
             }}
-
             id="standard-basic"
             fullWidth
           />

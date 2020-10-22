@@ -51,7 +51,6 @@ const HeaderEditor = ():ReactElement => {
   };
 
   return (
-
     <div className={classes.margin}>
       <Grid
         container
@@ -59,7 +58,6 @@ const HeaderEditor = ():ReactElement => {
         justify="space-between"
         alignItems="flex-start"
       >
-
         {/* se è cliccato il tasto add */}
         {bAddFormClicked
           ? <TextFieldRepartoAddForm />

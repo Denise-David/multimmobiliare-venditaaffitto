@@ -1,4 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit';
+import {
+  createSlice,
+} from '@reduxjs/toolkit';
 import { State } from '../store/store';
 
 // struttura del nome e cognome cercato

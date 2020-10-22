@@ -7,7 +7,9 @@ import {
 } from '../../../../store/slice/patientDataSlice';
 import { getStringMedico } from '../../../../util';
 
-// Campo dottore inviante
+/**
+ * Campo dottore inviante
+ */
 const Doctor = ():ReactElement => {
   const dataEtichetta = useSelector(newPatientInfo);
   const disabled = useSelector(textFieldDisabled);
@@ -15,20 +17,20 @@ const Doctor = ():ReactElement => {
   const [error, setError] = useState(false);
   const cancClicked = useSelector(cancelClicked);
 
-  if (disabled === false) {
-    if (dataEtichetta) {
-      if (dataEtichetta.doctor === null && error === false) {
-        setError(!error);
-        dispatch(setFieldFDoctorEmpty());
-      } else if (dataEtichetta.doctor !== null && error === true) {
-        setError(!error);
-        dispatch(unsetFieldDoctorEmpty());
-      }
-    }
-  } else if (cancClicked === true && error === true) {
-    setError(!error);
-    dispatch(unsetFieldDoctorEmpty());
-  }
+  // if (disabled === false) {
+  //   if (dataEtichetta) {
+  //     if (dataEtichetta.doctor === null && error === false) {
+  //       setError(!error);
+  //       dispatch(setFieldFDoctorEmpty());
+  //     } else if (dataEtichetta.doctor !== null && error === true) {
+  //       setError(!error);
+  //       dispatch(unsetFieldDoctorEmpty());
+  //     }
+  //   }
+  // } else if (cancClicked === true && error === true) {
+  //   setError(!error);
+  //   dispatch(unsetFieldDoctorEmpty());
+  // }
 
   return (
     <TextField
@@ -37,7 +39,6 @@ const Doctor = ():ReactElement => {
       error={error}
       label="Medico inviante"
       value={getStringMedico(dataEtichetta ? dataEtichetta.doctor : {})}
-
       onChange={(event) => {
         const { value } = event.target;
         const name = 'doctor';

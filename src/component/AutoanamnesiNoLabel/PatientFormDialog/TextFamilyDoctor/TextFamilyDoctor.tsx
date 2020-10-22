@@ -36,7 +36,6 @@ const TextFamilyDoctor = ():ReactElement => {
       error={error}
       label="Medico di famiglia"
       value={getStringMedico(dataEtichetta.familyDoctor)}
-
       onChange={(event) => {
         const { value } = event.target;
         const name = 'nameFamilyDoctor';

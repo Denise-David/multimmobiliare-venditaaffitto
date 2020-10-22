@@ -7,7 +7,9 @@ import { setCheckboxFamilyDoctor, setNoFamilyDoctor } from '../../../../store/sl
 import { setNomeCognomeDottoreScelto } from '../../../../store/slice/searchDoctorSlice';
 import { closeSnackbarFamilyDoctor, snackbarFamilyDoctor } from '../../../../store/slice/snackbarSlice';
 
-// Avviso che manca il campo dottore di famiglia
+/**
+ * Avviso che manca il campo dottore di famiglia
+ */
 const SnackbarFamilyDoctor = ():ReactElement => {
   const snackbarOpen = useSelector(snackbarFamilyDoctor);
   const dispatch = useDispatch();

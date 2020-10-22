@@ -28,7 +28,9 @@ declare module '@material-ui/pickers/adapter/date-fns' {
 interface Props {idDomanda : string, domanda : string, risposte : rispostaType[],
     question : domandaType, index : number, groupSelected : {id:string, name:string} | undefined}
 
-// Riga domanda a più risposte
+/**
+ * Riga domanda a più risposte
+ */
 const LineMoreAnswers = ({
   idDomanda, domanda, risposte, question, index, groupSelected,
 } : Props):ReactElement => {
@@ -80,10 +82,11 @@ const LineMoreAnswers = ({
         </div>
       );
     }
+
     if (risposta.type === 'normal' && question.normalType !== true) {
       dispatch(setNormalTypePresent(index));
     }
-    return <></>;
+    return null;
   });
   return (
     // Controllo tipo domande e trasformazione interfaccia in base al tipo
@@ -97,9 +100,9 @@ const LineMoreAnswers = ({
             {' '}
           </>
         ) : (<></>) }
+      <Grid container>
+        <ListItem divider>
 
-      <ListItem divider>
-        <Grid container>
           <Grid item xs={12} sm={7}>
             <div className={classes.marginTop}>
               <Typography variant="subtitle1">
@@ -139,6 +142,7 @@ const LineMoreAnswers = ({
                     idDomanda={question.IDDomanda}
                     domanda={question.domanda}
                     index={index}
+                    domDimenticate={domDimenticate}
                   />
                 )
                 : <></>}
@@ -146,9 +150,8 @@ const LineMoreAnswers = ({
             {listDatePicker}
           </Grid>
 
-        </Grid>
-
-      </ListItem>
+        </ListItem>
+      </Grid>
 
     </div>
   );

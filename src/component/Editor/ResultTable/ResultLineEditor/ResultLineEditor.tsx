@@ -42,7 +42,6 @@ const ResultLineEditor = ():ReactElement => {
                 dispatch(setUnsavedChanges());
               }
             }}
-
             onChange={(event) => {
               risultato = event.target.value;
               if (risultato === '' || valoreMin > valoreMax) {

@@ -15,7 +15,9 @@ import { changePatientValue, unsetCheckboxDoctor, unsetCheckboxFamilyDoctor } fr
 import { dialogSearchOpen, closeDialogSearch } from '../../../../store/slice/dialogSlice';
 import { Medico, objectToArray } from '../../../../util';
 
-// Dialog per la ricerca dei dottori
+/**
+ * Dialog per la ricerca die dottori
+ */
 const SearchDoctorDialog = ():ReactElement => {
   const classes = useStyles();
   const dispatch = useDispatch();

@@ -4,7 +4,6 @@ import logger from 'redux-logger';
 import rootSaga from '../sagas';
 import ddlEditorFormAndReparti from '../slice/ddlEditorFormAndRepartiSlice';
 import risultatiAddForm from '../slice/risultatiAddFormSlice';
-
 import labelCode from '../slice/labelCodeSlice';
 import patientData from '../slice/patientDataSlice';
 import patientForm from '../slice/patientFormSlice';

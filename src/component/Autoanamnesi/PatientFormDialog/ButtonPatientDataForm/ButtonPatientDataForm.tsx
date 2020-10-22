@@ -11,7 +11,9 @@ import {
   unsetCancelClicked, unsetCheckboxDoctor, unsetCheckboxFamilyDoctor,
 } from '../../../../store/slice/patientDataSlice';
 
-// Bottoni sopra i dati del paziente
+/**
+ * Bottoni sopra i dati del paziente
+ */
 const ButtonPatientDataForm = ():ReactElement => {
   const obbFieldempty = useSelector(obligatoryFieldEmpty);
   const modifyClicked = useSelector(textFieldDisabled);
