@@ -43,12 +43,12 @@ const patientDataSlice = createSlice({
     },
     deleteDoctor(state) {
       if (state.newPatientInfo) {
-        state.newPatientInfo.doctor = {};
+        state.newPatientInfo.doctor = { city: '' };
       }
     },
     deleteFamilyDoctor(state) {
       if (state.newPatientInfo) {
-        state.newPatientInfo.familyDoctor = {};
+        state.newPatientInfo.familyDoctor = { city: '' };
       }
     },
     getOldPatientInfo(state, { payload }) {

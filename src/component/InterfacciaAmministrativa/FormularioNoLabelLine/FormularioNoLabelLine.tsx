@@ -27,8 +27,8 @@ const FormularioLine = ():ReactElement => {
   const nomeCercato = useSelector(nameCercato);
   const cognomeCercato = useSelector(familynameCercato);
   const listForm = noLabelForm.map((form : formularioDBType) => {
-    const nome : string | undefined = form.paziente?.givenname.toLowerCase();
-    const cognome :string | undefined = form.paziente?.familyname.toLowerCase();
+    const nome : string | undefined = form.paziente?.givenname?.toLowerCase();
+    const cognome :string | undefined = form.paziente?.familyname?.toLowerCase();
     const nomeCognome = `${form.paziente?.givenname} ${form.paziente?.familyname}`;
     const { reparto } = form;
     const { formulario } = form;

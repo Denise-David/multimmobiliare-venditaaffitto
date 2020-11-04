@@ -15,7 +15,7 @@ export interface Medico {
  */
 export function getStringMedico(medico: Medico): string {
   if (medico) {
-    if (medico.city === 'Nessun medico di famiglia' || medico.city === 'Nessun medico inviante') {
+    if (medico.city === 'Nessun medico di famiglia' || medico.city === 'Nessun medico inviante' || medico.city === '') {
       return `${medico.city}`;
     }
     return `${medico.givenname || medico.firstname || ''} ${
