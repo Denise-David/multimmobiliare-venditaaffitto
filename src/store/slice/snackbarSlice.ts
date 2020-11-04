@@ -19,8 +19,16 @@ const snackbarSlice = createSlice({
     snackbarNomeGruppo: false as boolean,
     snackbarConfirmCancel: false as boolean,
     snackbarConfirmDelForm: false as boolean,
+    snackbarNoForm: false as boolean,
   },
   reducers: {
+    // Gestione avviso che non è stato selezionato formulario
+    closeSnackbarNoForm(state) {
+      state.snackbarNoForm = false;
+    },
+    openSnackbarNoForm(state) {
+      state.snackbarNoForm = true;
+    },
     // Gestione richiesta di conferma di eliminazione del formulario interfaccia amministrativa
     closeSnackbarConfirmDelForm(state) {
       state.snackbarConfirmDelForm = false;
@@ -104,6 +112,7 @@ const snackbarSlice = createSlice({
   },
 });
 
+export const snackbarNoForm = (state:State):boolean => state.snackbar.snackbarNoForm;
 export const
   snackbarConfirmDelForm = (state:State):boolean => state.snackbar.snackbarConfirmDelForm;
 export const snackbarConfirmCancel = (state:State):boolean => state.snackbar.snackbarConfirmCancel;
@@ -132,6 +141,6 @@ export const {
   openSnackbarEtichettaInesistente, closeSnackbarEtichettaInesistente,
   closeSnackbarDatiPersonali, closeSnackbarNomeGruppo, openSnackbarNomeGruppo,
   closeSnackbarConfirmCancel, openSnackbarConfirmCancel, openSnackbarConfirmDelForm,
-  closeSnackbarConfirmDelForm,
+  closeSnackbarConfirmDelForm, openSnackbarNoForm, closeSnackbarNoForm,
 } = snackbarSlice.actions;
 export default snackbarSlice.reducer;

@@ -195,15 +195,17 @@ function* initRep() {
   yield put(setReparto(hcase.actualWardName));
 
   // prendo i formulari del reparto
-  const form = yield call(fetchRepartoFormByGUID, payload);
-  yield put(setFormulariList(form.data));
+  if (payload) {
+    const form = yield call(fetchRepartoFormByGUID, payload);
+    yield put(setFormulariList(form.data));
 
-  form.data.map((formu : formularioDBType) => {
-    const { formulario, _id } = formu;
-    const res = { formulario, _id };
+    form.data.map((formu : formularioDBType) => {
+      const { formulario, _id } = formu;
+      const res = { formulario, _id };
 
-    return res;
-  });
+      return res;
+    });
+  }
 }
 
 function* actionWatcher() {

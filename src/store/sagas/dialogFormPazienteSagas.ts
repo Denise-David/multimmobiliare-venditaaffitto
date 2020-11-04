@@ -20,6 +20,7 @@ import fetchFormStructureByID, {
 import { formSelected, formulariList } from '../slice/homePageLabelSlice';
 import {
   openSnackbarDatiPersonali, openSnackbarFieldEmpty, openSnackbarLabelPage,
+  openSnackbarNoForm,
   openSnackbarPatientAnswers,
 } from '../slice/snackbarSlice';
 import { formSelectedID } from '../slice/homepageNoLabelSlice';
@@ -34,73 +35,84 @@ export default function* getDataEtichetta():Generator {
     const label : any = yield select(ValueCode);
 
     const dataEtichetta:any = yield call(getEtichettaDataByLabel, label);
-    const { data = {} } = dataEtichetta;
-    const { patient = {}, hcase = {} } = data;
-    const { familyname = '', givenname = '', address = {} } = patient;
-    const {
-      street = '', cityName = '', mobile = '', zip = '',
-    } = address;
-    const indexSpace = street.lastIndexOf(' ');
-    const streetNumber = street.substring(indexSpace, street.length);
-    const streetName = street.substring(0, indexSpace);
-    const { familyDoctor = {}, doctor = {}, insuranceCovers = [] } = hcase;
-    const insuranceCoversName = insuranceCovers[0] ? insuranceCovers[0].guarantName : '';
-
-    const patientInfo = {
-      familyname,
-      givenname,
-      cityName,
-      zip,
-      mobile,
-      streetName,
-      streetNumber,
-      familyDoctor,
-      doctor,
-      insuranceCoversName,
-    };
-    yield put(getOldPatientInfo(patientInfo));
-    yield put(getNewPatientInfo(patientInfo));
-
-    // controllo se ha uno o più formulari
-    const form :any = yield select(formulariList);
-    if (form.length > 1) {
-      const IDForm = yield select(formSelected);
-      const dataForm :any = yield call(fetchFormStructureByID, IDForm);
-
-      // prendo le domande
-      const datiDomande = dataForm.domande;
-      const listDomande = datiDomande.map((domanda : domandaType) => {
-        const question = { ...domanda, normalType: false };
-        return question;
-      });
-      yield put(getDomandeReparto(listDomande));
-
-      // prendo risposte booleane
-      const booleanAnswers = dataForm.risposte;
-      yield put(getBooleanAnswers(booleanAnswers));
-      yield put(setIntestazioneMoreAns(dataForm.intestazione));
-
-      yield put(setGruppi(dataForm.gruppi));
+    if (dataEtichetta.data.errorCode === 'ERROR_CODE_LABELNUMBER_NOT_UNIQUE') {
+      yield put(setIsLoaded());
+      yield put(openSnackbarLabelPage());
     } else {
+      const { data } = dataEtichetta;
+      const { patient = {}, hcase = {} } = data;
+      const { familyname = '', givenname = '', address = {} } = patient;
+      const {
+        street = '', cityName = '', mobile = '', zip = '',
+      } = address;
+      const indexSpace = street.lastIndexOf(' ');
+      const streetNumber = street.substring(indexSpace, street.length);
+      const streetName = street.substring(0, indexSpace);
+      const { familyDoctor = {}, doctor = {}, insuranceCovers = [] } = hcase;
+      const insuranceCoversName = insuranceCovers[0] ? insuranceCovers[0].guarantName : '';
+
+      const patientInfo = {
+        familyname,
+        givenname,
+        cityName,
+        zip,
+        mobile,
+        streetName,
+        streetNumber,
+        familyDoctor,
+        doctor,
+        insuranceCoversName,
+      };
+      yield put(getOldPatientInfo(patientInfo));
+      yield put(getNewPatientInfo(patientInfo));
+
+      // controllo se ha uno o più formulari
+      const form :any = yield select(formulariList);
+      if (form.length > 1) {
+        const IDForm = yield select(formSelected);
+        if (IDForm === '-1') {
+          yield put(setIsLoaded());
+          yield put(openSnackbarNoForm());
+        } else {
+          const dataForm :any = yield call(fetchFormStructureByID, IDForm);
+
+          // prendo le domande
+          const datiDomande = dataForm.domande;
+          const listDomande = datiDomande.map((domanda : domandaType) => {
+            const question = { ...domanda, normalType: false };
+            return question;
+          });
+          yield put(getDomandeReparto(listDomande));
+
+          // prendo risposte booleane
+          const booleanAnswers = dataForm.risposte;
+          yield put(getBooleanAnswers(booleanAnswers));
+          yield put(setIntestazioneMoreAns(dataForm.intestazione));
+
+          yield put(setGruppi(dataForm.gruppi));
+          yield put(setIsLoaded());
+          yield put(openDialogFormPatient());
+        }
+      } else {
       // prendo il o i formulari del reparto GUID
-      const allDataReparto :any = yield call(
-        fetchRepartoFormByGUID, hcase.actualMedicalCategoryGUID || hcase.actualWardGUID,
-      );
-      const datiDomande = allDataReparto.data[0].domande;
-      yield put(getDomandeReparto(datiDomande));
+        const allDataReparto :any = yield call(
+          fetchRepartoFormByGUID, hcase.actualMedicalCategoryGUID || hcase.actualWardGUID,
+        );
+        const datiDomande = allDataReparto.data[0].domande;
+        yield put(getDomandeReparto(datiDomande));
 
-      // prendo risposte per formulario booleano
-      const booleanAnswers = allDataReparto.data[0].risposte;
-      yield put(getBooleanAnswers(booleanAnswers));
+        // prendo risposte per formulario booleano
+        const booleanAnswers = allDataReparto.data[0].risposte;
+        yield put(getBooleanAnswers(booleanAnswers));
 
-      yield put(setIntestazioneMoreAns(allDataReparto.data[0].intestazione));
-      yield put(setGruppi(allDataReparto.data[0].gruppi));
+        yield put(setIntestazioneMoreAns(allDataReparto.data[0].intestazione));
+        yield put(setGruppi(allDataReparto.data[0].gruppi));
+        yield put(setIsLoaded());
+        yield put(openDialogFormPatient());
+      }
     }
-    yield put(setIsLoaded());
-    yield put(openDialogFormPatient());
   } catch (error) {
     console.error('errore', error);
-    yield put(openSnackbarLabelPage());
   }
 }
 

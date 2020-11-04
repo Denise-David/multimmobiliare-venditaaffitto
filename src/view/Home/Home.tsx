@@ -20,6 +20,7 @@ import DropDownListFormulariBarcode from '../../component/Autoanamnesi/DropDownL
 import { formulariList } from '../../store/slice/homePageLabelSlice';
 import { isLoading } from '../../store/slice/loadingSlice';
 import SnackbarLabel from '../../component/Autoanamnesi/SnackbarLabel/SnackbarLabel';
+import SnackbarNoForm from '../../component/Autoanamnesi/SnackbarNoForm/SnackbarNoForm';
 
 /**
  * Vista dell'autoanamnesi con etichetta
@@ -74,8 +75,9 @@ const Home = ():ReactElement => {
             {' '}
           </div>
         ) : <></>}
-      {/* Avviso etichetta errata */}
+      {/* Avviso etichetta errata e formulario non selezionato */}
       <SnackbarLabel />
+      <SnackbarNoForm />
       {/* Dialog */}
       <PatientFormDialog />
       <ReturnDeviceDialog />
