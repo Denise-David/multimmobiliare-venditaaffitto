@@ -20,8 +20,16 @@ const snackbarSlice = createSlice({
     snackbarConfirmCancel: false as boolean,
     snackbarConfirmDelForm: false as boolean,
     snackbarNoForm: false as boolean,
+    snackbarNoNomeCognome: false as boolean,
   },
   reducers: {
+    // Gestione avviso che mancano il nome e cognome
+    closeSnackbarNoNomeCognome(state) {
+      state.snackbarNoNomeCognome = false;
+    },
+    openSnackbarNoNomeCognome(state) {
+      state.snackbarNoNomeCognome = true;
+    },
     // Gestione avviso che non è stato selezionato formulario
     closeSnackbarNoForm(state) {
       state.snackbarNoForm = false;
@@ -112,6 +120,7 @@ const snackbarSlice = createSlice({
   },
 });
 
+export const snackbarNoNomeCognome = (state:State):boolean => state.snackbar.snackbarNoNomeCognome;
 export const snackbarNoForm = (state:State):boolean => state.snackbar.snackbarNoForm;
 export const
   snackbarConfirmDelForm = (state:State):boolean => state.snackbar.snackbarConfirmDelForm;
@@ -141,6 +150,7 @@ export const {
   openSnackbarEtichettaInesistente, closeSnackbarEtichettaInesistente,
   closeSnackbarDatiPersonali, closeSnackbarNomeGruppo, openSnackbarNomeGruppo,
   closeSnackbarConfirmCancel, openSnackbarConfirmCancel, openSnackbarConfirmDelForm,
-  closeSnackbarConfirmDelForm, openSnackbarNoForm, closeSnackbarNoForm,
+  closeSnackbarConfirmDelForm, openSnackbarNoForm, closeSnackbarNoForm, openSnackbarNoNomeCognome,
+  closeSnackbarNoNomeCognome,
 } = snackbarSlice.actions;
 export default snackbarSlice.reducer;

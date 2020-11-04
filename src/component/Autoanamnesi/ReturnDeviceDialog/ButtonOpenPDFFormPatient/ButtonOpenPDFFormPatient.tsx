@@ -16,7 +16,7 @@ const ButtonOpenPDFFormPatient = ():ReactElement => {
 
   const buttonFineDispatch = () => {
     // eslint-disable-next-line no-underscore-dangle
-    window.open(`http://gecodev.eoc.ch/autoanamnesi-client/pdfRispostePaziente?etichetta=${etichetta}&ID=${lastIDForm}`);
+    window.open(`/autoanamnesi-client/pdfRispostePaziente?etichetta=${etichetta}&ID=${lastIDForm}`);
   };
 
   return (

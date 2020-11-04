@@ -43,6 +43,7 @@ import SnackbarDoctor from './SnackbarDoctor/SnackbarDoctor';
 import SnackbarDatiPersonali from './SnackbarDatiPersonali/SnackbarDatiPersonali';
 import ButtonPatientDataForm from './ButtonPatientDataForm/ButtonPatientDataForm';
 import TextBirthday from './TextBirthday/TextBirthday';
+import SnackbarNoNomeCognome from './SnackbarNoNomeCognome/SnackbarNoNomeCognome';
 
 /**
  * Dialog con il formulario del paziente
@@ -74,6 +75,7 @@ const PatientFormDialog = ():ReactElement => {
               <Typography variant="subtitle2" align="center"> Se già compilato, siete pregati di controllare e aggiornare i dati </Typography>
               <SnackbarFamilyDoctor />
               <SnackbarDoctor />
+              <SnackbarNoNomeCognome />
               <Snackbar
                 anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
                 open={snackbarEmpty}

@@ -3,7 +3,7 @@ import TextField from '@material-ui/core/TextField';
 import { useDispatch, useSelector } from 'react-redux';
 import NumPad from 'react-numpad';
 import { getCodeValue, ValueCode } from '../../../store/slice/labelCodeSlice';
-import { initFormulariReparto } from '../../../store/slice/homePageLabelSlice';
+import { initFormulariReparto, resetFormList } from '../../../store/slice/homePageLabelSlice';
 
 /**
  * Campo per numero etichetta
@@ -13,6 +13,7 @@ const TextFieldCodice = ():ReactElement => {
   const valueCode = useSelector(ValueCode);
 
   const getValueOnChange = (value : string) => {
+    dispatch(resetFormList());
     dispatch(getCodeValue(value));
     dispatch(initFormulariReparto());
   };

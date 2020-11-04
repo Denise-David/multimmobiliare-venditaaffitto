@@ -3,7 +3,8 @@ import {
 } from 'redux-saga/effects';
 import { domandaType } from '../slice/domandeAddFormSlice';
 import {
-  obligatoryFieldEmpty, textFieldDisabled, getNewPatientInfo, getOldPatientInfo,
+  obligatoryFieldEmpty, textFieldDisabled, getNewPatientInfo,
+  getOldPatientInfo, newPatientInfo, birthdayDate,
 } from '../slice/patientDataSlice';
 import { setIsLoaded, setIsLoading } from '../slice/loadingSlice';
 import {
@@ -21,6 +22,7 @@ import { formSelected, formulariList } from '../slice/homePageLabelSlice';
 import {
   openSnackbarDatiPersonali, openSnackbarFieldEmpty, openSnackbarLabelPage,
   openSnackbarNoForm,
+  openSnackbarNoNomeCognome,
   openSnackbarPatientAnswers,
 } from '../slice/snackbarSlice';
 import { formSelectedID } from '../slice/homepageNoLabelSlice';
@@ -151,6 +153,8 @@ export function* sendDataPazienti():Generator {
     const answersData:any = yield select(risposte);
     const checkOrCancelClicked = yield select(textFieldDisabled);
     const noFacol :any = yield select(noFacoltative);
+    const datiPaziente:any = yield select(newPatientInfo);
+    const birthday:any = yield select(birthdayDate);
 
     let risAll = true;
     const response = noFacol.map((idDomanda: string) => {
@@ -160,15 +164,22 @@ export function* sendDataPazienti():Generator {
 
     yield put(setDomandaDimenticata(response));
     const answersAll = response.includes(false);
+    let allPatientData = true;
+    if (!datiPaziente.givenname
+       || !datiPaziente.familyname
+       || !birthday) { allPatientData = false; }
+
     // Controlli che sono stati immessi tutti i dati richiesti
-    if (checkOrCancelClicked && !answersAll && !obbFieldEmpty) {
+    if (checkOrCancelClicked && !answersAll && !obbFieldEmpty && allPatientData) {
       yield put(openDialogSummary());
     } else if (!checkOrCancelClicked) {
       yield put(openSnackbarDatiPersonali());
-    } else if (answersAll) {
-      yield put(openSnackbarPatientAnswers());
     } else if (obbFieldEmpty) {
       yield put(openSnackbarFieldEmpty());
+    } else if (!allPatientData) {
+      yield put(openSnackbarNoNomeCognome());
+    } else if (answersAll) {
+      yield put(openSnackbarPatientAnswers());
     }
   } catch (error) {
     console.error('errore', error);

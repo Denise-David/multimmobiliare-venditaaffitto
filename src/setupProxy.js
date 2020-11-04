@@ -21,4 +21,12 @@ module.exports = function (app) {
       changeOrigin: true,
     }),
   );
+
+  app.use(
+    '/autoanamnesi-client',
+    createProxyMiddleware({
+      target: 'http://gecodev.eoc.ch',
+      changeOrigin: true,
+    }),
+  );
 };

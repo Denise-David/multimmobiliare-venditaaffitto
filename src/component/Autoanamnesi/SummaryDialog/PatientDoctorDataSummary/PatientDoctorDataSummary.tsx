@@ -13,68 +13,65 @@ const PatientDoctorDataSummary = ():ReactElement => {
   const classes = useStyles();
   return (
     <>
-      {dataPatient.doctor
-        && (
-        <>
-          { getStringMedico(dataPatient.doctor)
-          === getStringMedico(oldDataPatient.doctor)
-            ? (
-              <>
-                <span>
-                  Medico inviante:
-                  {' '}
-                  {getStringMedico(oldDataPatient.doctor)}
-                </span>
 
-              </>
-            )
-            : (
-              <span className={classes.color}>
+      <>
+        { getStringMedico(dataPatient.doctor)
+          === getStringMedico(oldDataPatient.doctor)
+          ? (
+            <>
+              <span>
                 Medico inviante:
                 {' '}
-                <span className={classes.oldData}>
-                  {getStringMedico(oldDataPatient.doctor)}
-                </span>
-                {' '}
-                Nuovo:
-                {' '}
-                {getStringMedico(dataPatient.doctor)}
+                {getStringMedico(oldDataPatient.doctor)}
               </span>
-            )}
-        </>
-        )}
+
+            </>
+          )
+          : (
+            <span className={classes.color}>
+              Medico inviante:
+              {' '}
+              <span className={classes.oldData}>
+                {getStringMedico(oldDataPatient.doctor)}
+              </span>
+              {' '}
+              Nuovo:
+              {' '}
+              {getStringMedico(dataPatient.doctor)}
+            </span>
+          )}
+      </>
 
       <br />
-      {dataPatient.familyDoctor
-        && (
-        <>
-          { getStringMedico(dataPatient.familyDoctor)
-          === getStringMedico(oldDataPatient.familyDoctor)
-            ? (
-              <>
-                <span>
-                  Medico di famiglia:
-                  {' '}
-                  {getStringMedico(oldDataPatient.familyDoctor)}
-                </span>
 
-              </>
-            )
-            : (
-              <span className={classes.color}>
+      <>
+        { getStringMedico(dataPatient.familyDoctor)
+          === getStringMedico(oldDataPatient.familyDoctor)
+          ? (
+            <>
+              <span>
                 Medico di famiglia:
                 {' '}
-                <span className={classes.oldData}>
-                  {getStringMedico(oldDataPatient.familyDoctor)}
-                </span>
-                {' '}
-                Nuovo:
-                {' '}
-                {getStringMedico(dataPatient.familyDoctor)}
+                {getStringMedico(oldDataPatient.familyDoctor)}
               </span>
-            )}
-        </>
-        )}
+
+            </>
+          )
+          : (
+            <span className={classes.color}>
+              Medico di famiglia:
+              {' '}
+              <span className={classes.oldData}>
+                {getStringMedico(oldDataPatient.familyDoctor)}
+              </span>
+              {' '}
+              Nuovo:
+              {' '}
+              {getStringMedico(dataPatient.familyDoctor)}
+            </span>
+          )}
+      </>
+
     </>
   );
 };
