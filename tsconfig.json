@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "types": ["node"],
     "target": "es5",
     "lib": [
       "dom",
@@ -20,6 +21,9 @@
     "jsx": "react"
   },
   "include": [
-    "src", 
-  ]
+    "src", "theme.js", 
+  ],
+  "typeRoots": [
+    "node_modules/@types"
+  ],
 }

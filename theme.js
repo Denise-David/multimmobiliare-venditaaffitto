@@ -26,6 +26,11 @@ const theme = createMuiTheme({
         color: 'white',
 
       },
+      MuiInputLabel: {
+        root: {
+          color: 'white',
+        },
+      },
     },
 
     MuiOutlinedInput: {

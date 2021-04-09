@@ -1,0 +1,17 @@
+{
+  "presets": [
+    "@babel/react",
+
+    [
+      "@babel/env",
+
+      {
+        "targets": {
+          "browsers": ["Chrome >= 60", "iOS >= 11.0"]
+        },
+
+        "debug": true
+      }
+    ]
+  ]
+}

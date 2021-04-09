@@ -1,6 +1,5 @@
 FROM node:12-stretch as nodebuilder
 WORKDIR /usr/src/app
-RUN npm config set registry https://nexus.eoc.ch/repository/npm-public/
 COPY ./package* /usr/src/app/
 COPY .npmrc /usr/src/app/
 RUN npm install
