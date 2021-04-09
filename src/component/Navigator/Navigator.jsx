@@ -13,6 +13,7 @@ import FormRiservazione from '../FormRiservazione/FormRiservazione';
 import ButtonRentOrBuy from '../ButtonRentOrBuy/ButtonRentOrBuy';
 import ImmoElement from '../ImmoElement/ImmoElement';
 import AnnuncioPDF from '../AnnuncioPDF/AnnuncioPDF';
+import Newspaper from '../Newspaper/Newspaper';
 
 const Navigator = (elemento) => {
   if (document.URL.includes('riservazioni')) {
@@ -37,6 +38,13 @@ const Navigator = (elemento) => {
     return (
       <div>
         <AnnuncioPDF />
+
+      </div>
+    );
+  } if (document.URL.includes('articolo')) {
+    return (
+      <div>
+        <Newspaper />
 
       </div>
     );

@@ -71,7 +71,7 @@ const ButtonSendCode = ({ actionClick, name }) => {
   const [value, setValue] = React.useState();
   const [inputValue, setInputValue] = React.useState('');
 
-  if (regionSelected.id === 0 && regionSelected.value === '') {
+  if (regionSelected.id === 0 && regionSelected.tipo === '' && inputValue !== '') {
     setInputValue('');
     setValue('');
   }

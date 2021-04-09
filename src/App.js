@@ -26,6 +26,7 @@ import ImmoElementEvidence from './component/ImmoElement/ImmoElementEvidence/Imm
 import FormRiservazione from './component/FormRiservazione/FormRiservazione';
 import AnnuncioPDF from './component/AnnuncioPDF/AnnuncioPDF';
 import Navigator from './component/Navigator/Navigator';
+import Newspaper from './component/Newspaper/Newspaper';
 
 library.add(faArrowCircleRight);
 

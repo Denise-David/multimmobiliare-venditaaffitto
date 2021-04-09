@@ -63,8 +63,9 @@ const ImmoSlice = createSlice({
     },
     resetAll(state) {
       state.rentOrSell = 0;
-      state.idRegionSelected = { id: 0, tipo: '' };
-      state.idLocalSelected = {};
+      state.idRegionSelected.id = 0;
+      state.idRegionSelected.tipo = '';
+      state.idLocalSelected = 0;
       state.idCategorySelected = 0;
       state.priceLimits = [0, 0];
     },
