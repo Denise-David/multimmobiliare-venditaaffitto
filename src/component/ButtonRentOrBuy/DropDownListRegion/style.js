@@ -5,35 +5,73 @@ const useStyles = makeStyles((theme) => ({
   ddl: {
     margin: '1em',
     padding: '1em',
-    marginBottom: '8px',
   },
   whiteColor: {
-    color: 'white',
+    color: '',
     fontSize: '20px',
     marginLeft: '23px',
 
   },
   prova: {
     maxWidth: '18em',
-    borderWidth: '3px',
-    borderColor: 'grey',
-    borderStyle: 'solid',
-    borderRadius: '0.5em',
-    padding: '1em',
-    color: 'white',
+    color: '#131313',
 
   },
   icon: {
-    fill: 'white',
+    fill: '#131313',
   },
   text: {
-    color: 'white',
+    color: '#131313',
     fontSize: '18px',
   },
   inputRoot: {
-    color: 'white',
+    fontSize: 20,
+    '&$cssFocused $notchedOutline': {
+      borderColor: '#131313 !important',
+    },
 
   },
-
+  labelRoot: {
+    fontSize: 25,
+    color: '#ECECEC !important',
+    backgroundColor: '#000000',
+    marginTop: '-5px',
+    paddingRight: '5px',
+    '&$labelFocused': {
+      color: '#ECECEC !important',
+    },
+  },
+  labelFocused: {
+    fontSize: 25,
+    color: '#1d1d1d !important',
+  },
+  notchedOutline: {
+    borderWidth: '1px',
+    borderColor: '#131313 !important',
+  },
+  option: {
+    // Hover
+    '&[data-focus="true"]': {
+      backgroundColor: '#F8F8F8',
+      borderColor: '#131313',
+    },
+    // Selected
+    '&[aria-selected="true"]': {
+      backgroundColor: theme.palette.grey.A200,
+      borderColor: '#131313',
+    },
+  },
+  inputRoot2: {
+    color: 'purple',
+    '& .MuiOutlinedInput-notchedOutline': {
+      borderColor: 'green !important',
+    },
+    '&:hover .MuiOutlinedInput-notchedOutline': {
+      borderColor: 'red !important',
+    },
+    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+      borderColor: 'purple !important',
+    },
+  },
 }));
 export default useStyles;

@@ -50,11 +50,12 @@ const ImmoElement = () => {
     if (element.contratto === contractType
       && countElement < 6
       && (((element.regioneId === selectedRegion.id || selectedRegion.id === 0) && (selectedRegion.tipo === 'regione' || selectedRegion.tipo === ''))
-      || ((element.cittaId === selectedRegion.id || selectedRegion.id === 0) && (selectedRegion.tipo === 'città' || selectedRegion.tipo === '')))
+      || ((element.cittaId === selectedRegion.id || selectedRegion.id === 0) && (selectedRegion.tipo === 'città' || selectedRegion.tipo === ' ')))
       && (element.locali.numero === selectedLocal || selectedLocal === 0)
       && (element.tipologia.id === selectedCategory || selectedCategory === 0)
       && ((element.pigione <= prices[1] && element.pigione >= prices[0])
-      || (prices[1] === 0 && prices[0] === 0))) {
+      || (prices[1] === 0 && prices[0] === 0))
+      && element.visibilita === true) {
       if (document.URL.includes('vendita-affitto')) {
         countElement = 0;
         countAllElement += 1;
@@ -68,7 +69,7 @@ const ImmoElement = () => {
           <CardMedia
             key={elem.id}
             className={classes.media}
-            image={`https://api.fideconto.ch/img/immobili/${elem.fileName}`}
+            image={`https://api.multimmobiliare.apton.ch/img/immobili/${elem.fileName}`}
             title="foto immobile principale"
           />
 

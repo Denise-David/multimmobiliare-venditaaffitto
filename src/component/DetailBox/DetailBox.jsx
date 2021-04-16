@@ -53,7 +53,6 @@ const DetailBox = () => {
   const classes = useStyles();
   const lt = useSelector(latitude);
   const lg = useSelector(longitude);
-
   const dispatch = useDispatch();
   const allImmo = useSelector(immo);
   useEffect(() => {
@@ -86,7 +85,7 @@ const DetailBox = () => {
   const doc = selectedImmo[0]?.documenti?.map((d) => (
     <>
       <div nome="dettaglio">
-        <Link className={classes.div2} color="secondary" href="#" onClick={() => window.location.href = `https://api.fideconto.ch/doc/immobili/${d.fileName}`}>
+        <Link className={classes.div2} color="secondary" href="#" onClick={() => window.location.href = `https://api.multimmobiliare.apton.ch/doc/immobili/${d.fileName}`}>
           <Typography style={{ fontSize: '20px', marginRight: '1em' }} key={d.id}>
             {' '}
             {d.fileName}

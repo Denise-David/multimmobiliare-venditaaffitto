@@ -68,48 +68,63 @@ const ButtonSendCode = ({ actionClick, name }) => {
   }, []);
   const concatenati = uniqueArray.concat(uniqueCity);
 
-  const [value, setValue] = React.useState();
-  const [inputValue, setInputValue] = React.useState('');
+  const [value, setValue] = React.useState('');
+  const [inputValue, setInputValue] = React.useState({ nome: '', tipo: '' });
 
   if (regionSelected.id === 0 && regionSelected.tipo === '' && inputValue !== '') {
     setInputValue('');
-    setValue('');
+    setValue(0);
   }
 
   return (
     <>
       <div>
         <FormControl
+          variant="filled"
           className={classes.ddl}
         >
-
-          <InputLabel style={{ marginTop: '-2.6em' }} id="demo-simple-select-outlined-label">
-            <Typography className={classes.whiteColor}>
-              Regione, città
-            </Typography>
-          </InputLabel>
           <Autocomplete
             value={value}
             onChange={(event, newValue) => {
               setValue(newValue);
               dispatch(setIdRegionSelected({ id: newValue.id, tipo: newValue.tipo }));
             }}
-            inputValue={inputValue}
-            classes={classes}
+            classes={{
+              inputRoot: {
+                root: classes.inputRoot,
+                notchedOutline: classes.notchedOutline,
+              },
+            }}
+            inputValue={regionSelected.id === 0 ? ' ' : inputValue}
             onInputChange={(event, newInputValue) => {
               setInputValue(newInputValue);
             }}
             options={concatenati}
-            style={{ width: 300, color: 'white' }}
+            style={{ width: 300 }}
             className={classes.prova}
+            classes={{ root: classes.option }}
             color="secondary"
-            getOptionLabel={(option) => `${option.cap ? option.cap : ''} ${option.nome} (${option.tipo})`}
+            getOptionLabel={(option) => {
+              if (option === 0) {
+                return (', ');
+              }
+              return (`${option?.cap ? option?.cap : ''} ${option.nome ? option.nome : ''} ${option.tipo ? `(${option.tipo})` : ''}`);
+            }}
             renderInput={(params) => (
               <TextField
                 {...params}
+                variant="outlined"
+                label="Regione, città"
                 inputProps={{
                   ...params.inputProps,
                 }}
+                InputLabelProps={{
+                  classes: {
+                    root: classes.labelRoot,
+                    focused: classes.labelFocused,
+                  },
+                }}
+
               />
             )}
           />

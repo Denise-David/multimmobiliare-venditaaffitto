@@ -26,14 +26,14 @@ const About = () => {
         <Button
           onClick={() => dispatch(goToThePage())}
           style={{
-            textTransform: 'none', marginLeft: '5em', paddingBottom: '45px',
+            textTransform: 'none', marginLeft: '5em', marginBottom: '35px',
           }}
         >
-          <Typography variant="h6" style={{ color: '#acacac' }}>
+          <Typography variant="h6" style={{ color: '#ECECEC' }}>
             Vedi altro
           </Typography>
           <div style={{ marginRight: '1em', textAlign: 'right', marginLeft: '10px' }}>
-            <FontAwesomeIcon icon="arrow-circle-right" size="2x" style={{ color: '#acacac' }} />
+            <FontAwesomeIcon icon="arrow-circle-right" size="2x" style={{ color: '#131313' }} />
           </div>
 
         </Button>

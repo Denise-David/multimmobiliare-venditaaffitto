@@ -41,31 +41,31 @@ const ImageSlide = (selectedImmo) => {
 
   let numberSlide;
 
-  if (Number.isInteger(selImmo.immagini.length / 4)) {
-    numberSlide = selImmo.immagini.length / 4;
+  if (Number.isInteger(selImmo.immagini.length / 3)) {
+    numberSlide = selImmo.immagini.length / 3;
   } else {
-    numberSlide = parseInt(selImmo.immagini.length / 4, 10) + 1;
+    numberSlide = parseInt(selImmo.immagini.length / 3, 10) + 1;
   }
 
-  const iTotalMax = 4 * numberSlide - 1;
+  const iTotalMax = 3 * numberSlide - 1;
 
   const setIndex = () => {
     if (iMax < iTotalMax) {
       setIMin(iMax + 1);
-      setIMax(iMax + 4);
+      setIMax(iMax + 3);
     } else {
       setIMin(0);
-      setIMax(3);
+      setIMax(2);
     }
     setTransition('left');
   };
   const setIndexInverse = () => {
     if (iMin === 0) {
-      setIMin(iTotalMax - 3);
+      setIMin(iTotalMax - 2);
       setIMax(iTotalMax);
     } else {
-      setIMin(iMin - 4);
-      setIMax(iMax - 4);
+      setIMin(iMin - 3);
+      setIMax(iMax - 3);
     }
     setTransition('right');
   };
@@ -79,74 +79,50 @@ const ImageSlide = (selectedImmo) => {
           justify="center"
           alignItems="center"
         >
-          <Grid item xs={12} sm={6}>
-            <Link href="#" onClick={() => onOpen(iMin)}>
-              <CardMedia
-                className={classes.media}
-                image={`https://api.fideconto.ch/img/immobili/${selImmo.immagini[iMin].fileName}`}
-                title="foto immobile"
-              />
-            </Link>
 
-          </Grid>
+          <Link href="#" onClick={() => onOpen(iMin)}>
+            <CardMedia
+              className={classes.media}
+              image={`https://api.multimmobiliare.apton.ch/img/immobili/${selImmo.immagini[iMin].fileName}`}
+              title="foto immobile"
+            />
+          </Link>
 
-          <Grid item xs={12} sm={6}>
-            {!selImmo.immagini[iMin + 1] ? <></>
-              : (
-                <Link href="#" onClick={() => onOpen(iMin + 1)}>
-                  <CardMedia
-                    className={classes.media}
-                    image={`https://api.fideconto.ch/img/immobili/${selImmo.immagini[iMin + 1].fileName}`}
-                    title="foto immobile"
-                  />
-                </Link>
-              )}
+          {!selImmo.immagini[iMin + 1] ? <></>
+            : (
+              <Link href="#" onClick={() => onOpen(iMin + 1)}>
+                <CardMedia
+                  className={classes.media}
+                  image={`https://api.multimmobiliare.apton.ch/img/immobili/${selImmo.immagini[iMin + 1].fileName}`}
+                  title="foto immobile"
+                />
+              </Link>
+            )}
 
-          </Grid>
+          {!selImmo.immagini[iMin + 2] ? <></>
+            : (
+              <Link href="#" onClick={() => onOpen(iMin + 2)}>
+                <CardMedia
+                  className={classes.media}
+                  image={`https://api.multimmobiliare.apton.ch/img/immobili/${selImmo.immagini[iMin + 2].fileName}`}
+                  title="foto immobile"
+                />
+              </Link>
+            )}
+
         </Grid>
-        <Grid
-          container
-          direction="row"
-          justify="center"
-          alignItems="center"
-        >
-          <Grid item xs={12} sm={6}>
-            {!selImmo.immagini[iMin + 2] ? <></>
-              : (
-                <Link href="#" onClick={() => onOpen(iMin + 2)}>
-                  <CardMedia
-                    className={classes.media}
-                    image={`https://api.fideconto.ch/img/immobili/${selImmo.immagini[iMin + 2].fileName}`}
-                    title="foto immobile"
-                  />
-                </Link>
-              )}
 
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            {!selImmo.immagini[iMax] ? <></>
-              : (
-                <Link href="#" onClick={() => onOpen(iMax)}>
-                  <CardMedia
-                    className={classes.media}
-                    image={`https://api.fideconto.ch/img/immobili/${selImmo.immagini[iMax].fileName}`}
-                    title="foto immobile"
-                  />
-                </Link>
-              )}
-
-          </Grid>
-        </Grid>
       </>
     );
 
   const listLargeImage = !selImmo.immagini ? <></>
     : selImmo.immagini.map((elem, index) => (
-      <CardMedia
+      <img
+        alt="immagine"
         key={elem.id}
         className={classes.media2}
         style={{ backgroundColor: 'black' }}
-        image={`https://api.fideconto.ch/img/immobili/${elem.fileName}`}
+        src={`https://api.multimmobiliare.apton.ch/img/immobili/${elem.fileName}`}
         title="foto immobile principale"
       />
 
@@ -161,12 +137,9 @@ const ImageSlide = (selectedImmo) => {
           justify="center"
           alignItems="center"
         >
-          <div style={{ paddingRight: '16%', paddingLeft: '16%' }}>
-            <TitleDetail selectedImmo={selImmo || []} />
-          </div>
 
           <Carousel
-            navButtonsAlwaysInvisible={selImmo.immagini.length < 5}
+            navButtonsAlwaysInvisible={selImmo.immagini.length < 4}
             prev={() => setIndexInverse()}
             next={() => setIndex()}
             navButtonsAlwaysVisible
@@ -176,6 +149,9 @@ const ImageSlide = (selectedImmo) => {
           >
             {listImage}
           </Carousel>
+          <div style={{ paddingRight: '5%', paddingLeft: '5%' }}>
+            <TitleDetail selectedImmo={selImmo || []} />
+          </div>
 
         </Grid>
 

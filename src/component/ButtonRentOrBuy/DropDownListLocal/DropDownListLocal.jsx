@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable no-restricted-globals */
 /* eslint-disable global-require */
@@ -5,6 +6,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import React, { ReactElement, useEffect } from 'react';
+import NativeSelect from '@material-ui/core/NativeSelect';
 import Button from '@material-ui/core/Button';
 import {
   useDispatch, useSelector,
@@ -14,11 +16,21 @@ import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
+import { withStyles } from '@material-ui/core/styles';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
 import useStyles from './style';
 
 import {
   setIdLocalSelected, idRegionSelecter, immo, rentOrSell, idLocalSelected,
 } from '../../../store/slice/ImmoSlice';
+
+const MuiOutlinedInput = withStyles((theme) => ({
+  notchedOutline: {
+    borderColor: '#ECECEC !important',
+  },
+
+}))(OutlinedInput);
 
 const DropDownListLocal = ({ actionClick, name }) => {
   const classes = useStyles();
@@ -63,6 +75,7 @@ const DropDownListLocal = ({ actionClick, name }) => {
     <>
       <FormControl
         className={classes.ddl}
+        variant="filled"
       >
         <InputLabel id="demo-simple-select-outlined-label">
           <Typography className={classes.whiteColor}>
@@ -70,13 +83,19 @@ const DropDownListLocal = ({ actionClick, name }) => {
           </Typography>
         </InputLabel>
         <Select
+          variant="outlined"
           value={locali}
           labelId="demo-simple-select-outlined-label"
           id="demo-simple-select-outlined"
-          label="Age"
           onChange={(ev) => dispatch(setIdLocalSelected(ev.target.value))}
           className={classes.prova}
           classes={{ icon: classes.icon }}
+          label="age"
+          input={<MuiOutlinedInput />}
+          inputProps={{
+            name: 'Age',
+            id: 'age-simple',
+          }}
         >
           {itemUniqueRegion}
         </Select>

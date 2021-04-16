@@ -97,7 +97,7 @@ const Newspaper = () => {
   const parsed = queryString.parse(location.search);
 
   return (
-    <div>
+    <div style={{ paddingTop: '3em' }}>
       <Grid
         container
         direction="row"
@@ -110,21 +110,19 @@ const Newspaper = () => {
               orientation="horizontal"
               uncutPages
               showSwipeHint
-              width="1772"
+              width="1800"
               height="1257"
               pageBackground="#1a1b1f"
             >
 
               <articolo>
                 <div>
-                  <img src={black} alt="copertina" />
                   <img src={copReg} alt="copertina" />
                 </div>
               </articolo>
               <articolo>
                 <div>
                   <img src={artiReg} alt="copertina" />
-                  <img src={black} alt="copertina" />
                 </div>
               </articolo>
 
@@ -142,16 +140,14 @@ const Newspaper = () => {
             >
 
               <articolo>
-                <div>
-                  <img src={black} alt="copertina" />
-                  <img src={welcome} alt="copertina" />
-                </div>
+
+                <img src={welcome} alt="copertina" />
+
               </articolo>
               <articolo>
-                <div>
-                  <img src={art1} alt="copertina" />
-                  <img src={art2} alt="copertina" />
-                </div>
+
+                <img src={art1} alt="copertina" />
+
               </articolo>
 
             </FlipPage>
@@ -169,14 +165,12 @@ const Newspaper = () => {
 
               <articolo>
                 <div>
-                  <img src={black} alt="copertina" />
                   <img src={tiCop} alt="copertina" />
                 </div>
               </articolo>
               <articolo>
                 <div>
                   <img src={tiArt1} alt="copertina" />
-                  <img src={tiArt2} alt="copertina" />
                 </div>
               </articolo>
 
@@ -195,14 +189,12 @@ const Newspaper = () => {
 
               <articolo>
                 <div>
-                  <img src={black} alt="copertina" />
                   <img src={stileCop} alt="copertina" />
                 </div>
               </articolo>
               <articolo>
                 <div>
                   <img src={stileArt1} alt="copertina" />
-                  <img src={black} alt="copertina" />
                 </div>
               </articolo>
 
@@ -221,14 +213,12 @@ const Newspaper = () => {
 
               <articolo>
                 <div>
-                  <img src={black} alt="copertina" />
                   <img src={turritaCop} alt="copertina" />
                 </div>
               </articolo>
               <articolo>
                 <div>
                   <img src={turritaArt} alt="copertina" />
-                  <img src={black} alt="copertina" />
                 </div>
               </articolo>
 
@@ -247,14 +237,12 @@ const Newspaper = () => {
 
               <articolo>
                 <div>
-                  <img src={black} alt="copertina" />
                   <img src={tioCopertina} alt="copertina" />
                 </div>
               </articolo>
               <articolo>
                 <div>
                   <img src={tioArt} alt="copertina" />
-                  <img src={black} alt="copertina" />
                 </div>
               </articolo>
 
@@ -274,14 +262,12 @@ const Newspaper = () => {
 
               <articolo>
                 <div>
-                  <img src={black} alt="copertina" />
                   <img src={archiCop} alt="copertina" />
                 </div>
               </articolo>
               <articolo>
                 <div>
                   <img src={archiArt1} alt="copertina" />
-                  <img src={archiArt2} alt="copertina" />
                 </div>
               </articolo>
 
@@ -300,14 +286,12 @@ const Newspaper = () => {
 
               <articolo>
                 <div>
-                  <img src={black} alt="copertina" />
                   <img src={liberaCop} alt="copertina" />
                 </div>
               </articolo>
               <articolo>
                 <div>
                   <img src={liberaArt} alt="copertina" />
-                  <img src={black} alt="copertina" />
                 </div>
               </articolo>
 
@@ -327,14 +311,12 @@ const Newspaper = () => {
 
               <articolo>
                 <div>
-                  <img src={black} alt="copertina" />
                   <img src={travCopertina} alt="copertina" />
                 </div>
               </articolo>
               <articolo>
                 <div>
                   <img src={travArt} alt="copertina" />
-                  <img src={black} alt="copertina" />
                 </div>
               </articolo>
 
@@ -354,14 +336,12 @@ const Newspaper = () => {
 
               <articolo>
                 <div>
-                  <img src={black} alt="copertina" />
                   <img src={advCop} alt="copertina" />
                 </div>
               </articolo>
               <articolo>
                 <div>
                   <img src={advArt1} alt="copertina" />
-                  <img src={advArt2} alt="copertina" />
                 </div>
               </articolo>
 
@@ -381,14 +361,12 @@ const Newspaper = () => {
 
               <articolo>
                 <div>
-                  <img src={black} alt="copertina" />
                   <img src={itCop} alt="copertina" />
                 </div>
               </articolo>
               <articolo>
                 <div>
                   <img src={itArt} alt="copertina" />
-                  <img src={black} alt="copertina" />
                 </div>
               </articolo>
 
@@ -407,14 +385,12 @@ const Newspaper = () => {
 
               <articolo>
                 <div>
-                  <img src={black} alt="copertina" />
                   <img src={meetCop} alt="copertina" />
                 </div>
               </articolo>
               <articolo>
                 <div>
                   <img src={meetArt} alt="copertina" />
-                  <img src={black} alt="copertina" />
                 </div>
               </articolo>
 
@@ -433,20 +409,17 @@ const Newspaper = () => {
 
               <articolo>
                 <div>
-                  <img src={black} alt="copertina" />
                   <img src={qCop} alt="copertina" />
                 </div>
               </articolo>
               <articolo>
                 <div>
                   <img src={qArt1} alt="copertina" />
-                  <img src={qArt2} alt="copertina" />
                 </div>
               </articolo>
               <articolo>
                 <div>
                   <img src={qArt3} alt="copertina" />
-                  <img src={qArt4} alt="copertina" />
                 </div>
               </articolo>
 
@@ -465,14 +438,12 @@ const Newspaper = () => {
 
               <articolo>
                 <div>
-                  <img src={black} alt="copertina" />
                   <img src={trendCop} alt="copertina" />
                 </div>
               </articolo>
               <articolo>
                 <div>
                   <img src={trendArt1} alt="copertina" />
-                  <img src={trendArt2} alt="copertina" />
                 </div>
               </articolo>
 
@@ -491,14 +462,13 @@ const Newspaper = () => {
 
               <articolo>
                 <div>
-                  <img src={black} alt="copertina" />
+
                   <img src={copReg} alt="copertina" />
                 </div>
               </articolo>
               <articolo>
                 <div>
                   <img src={reg2Art} alt="copertina" />
-                  <img src={black} alt="copertina" />
                 </div>
               </articolo>
 

@@ -5,12 +5,9 @@ import { makeStyles, Theme } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme) => ({
   media: {
     paddingTop: '56.25%', // 16:9
-    borderRadius: '0.5em',
-    borderStyle: 'solid',
-    borderColor: 'black',
     borderWidth: '2px',
-    margin: '1em',
-    width: window.screen.width / 3,
+    width: window.screen.width / 3.1,
+    margin: '10px',
   },
   iconNext: {
     fontSize: '60px',
@@ -26,9 +23,11 @@ const useStyles = makeStyles((theme) => ({
     borderStyle: 'solid',
     borderColor: 'black',
     borderWidth: '2px',
-    marginRight: '1em',
-    marginLeft: '1em',
-    height: window.screen.height / 1.8,
+    marginRight: 'Auto',
+    marginLeft: 'Auto',
+    maxHeight: window.screen.height / 1.35,
+    width: 'Auto',
+    display: 'block',
 
   },
   divider: {

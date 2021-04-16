@@ -9,29 +9,25 @@ const useStyles = makeStyles((theme) => ({
 
   },
   whiteColor: {
-    color: 'white',
-    fontSize: '18px',
+    color: '#ECECEC',
+    fontSize: '15px',
 
   },
   prova: {
     minWidth: '18em',
-    borderWidth: '3px',
-    borderColor: 'grey',
-    borderStyle: 'solid',
-    borderRadius: '0.5em',
-    padding: '1em',
-    color: 'white',
+    color: '#ECECEC',
+
   },
   icon: {
-    fill: 'white',
+    fill: '#131313',
   },
 
   text: {
-    color: 'white',
+    color: '#1d1d1d',
   },
   slider: {
-    maxWidth: '20em',
-
+    maxWidth: '36em',
+    color: '#ECECEC',
   },
   marginText: {
     marginRight: '3em',
@@ -40,6 +36,30 @@ const useStyles = makeStyles((theme) => ({
   },
   priceText: {
     marginBottom: '1.5em',
+  },
+  inputRoot: {
+    fontSize: 17,
+    '&$cssFocused $notchedOutline': {
+      borderColor: '#131313 !important',
+    },
+
+  },
+  labelRoot: {
+    fontSize: 25,
+    color: '#ECECEC !important',
+    marginTop: '-5px',
+    paddingRight: '5px',
+    '&$labelFocused': {
+      color: '#ECECEC !important',
+    },
+  },
+  labelFocused: {
+    fontSize: 20,
+    color: '#ECECEC !important',
+  },
+  notchedOutline: {
+    borderWidth: '1px',
+    borderColor: '#ECECEC !important',
   },
 
 }));

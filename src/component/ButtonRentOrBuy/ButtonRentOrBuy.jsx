@@ -22,7 +22,7 @@ import TextField from '@material-ui/core/TextField';
 import DropDownListRegion from './DropDownListRegion/DropDownListRegion';
 import {
   rentOrSell, setRentOrSell, resetAll, idRegionSelecter, idLocalSelected, priceLimits,
-  idCategorySelected,
+  idCategorySelected, setIdRegionSelected,
 } from '../../store/slice/ImmoSlice';
 import DropDownListLocal from './DropDownListLocal/DropDownListLocal';
 import DropDownListCategory from './DropDownListCategory/DropDownListCategory';
@@ -69,12 +69,11 @@ const ButtonSendCode = () => {
   }
   return (
     <>
-      <Paper square className={classes.nav}>
+      <div square className={classes.nav}>
 
         <Tabs
           value={contract}
           indicatorColor="secondary"
-          textColor="secondary"
           aria-label="disabled tabs example"
           onChange={(event, value) => {
             dispatch(setRentOrSell(value));
@@ -154,7 +153,7 @@ const ButtonSendCode = () => {
               justify="center"
               alignItems="center"
             >
-              <Typography style={{ fontSize: '20px' }} color="secondary">
+              <Typography style={{ fontSize: '20px' }} color="primary">
                 Non hai trovato quello che cercavi? Iscriviti per
                 ricevere gli annunci di questa tua ricerca
               </Typography>
@@ -169,13 +168,13 @@ const ButtonSendCode = () => {
                 }}
                 style={{ marginTop: '20px' }}
               />
-              <Button color="secondary" variant="contained" style={{ marginTop: '20px' }}>
+              <Button className={classes.button} variant="contained" style={{ marginTop: '20px' }}>
                 Iscriviti
               </Button>
             </Grid>
           ) }
 
-      </Paper>
+      </div>
     </>
   );
 };

@@ -20,8 +20,9 @@ const useStyles = makeStyles((theme) => ({
     minWidth: '15em',
     margin: '2em',
     padding: '1em',
-    background: theme.palette.primary.main,
-    color: 'lightgrey',
+    background: 'black',
+    color: '#ECECEC',
+
     '&:hover': {
       transform: 'scale(1.07, 1.07)',
       cursor: 'pointer',

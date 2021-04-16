@@ -20,8 +20,8 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     margin: '2em',
     padding: '1em',
-    background: theme.palette.primary.main,
-    color: 'lightgrey',
+    background: 'black',
+    color: '#ECECEC',
     '&:hover': {
       transform: 'scale(1.1, 1.1)',
       cursor: 'pointer',

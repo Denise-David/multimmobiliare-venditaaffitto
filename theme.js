@@ -8,7 +8,7 @@ const theme = createMuiTheme({
       main: '#1b1c1d',
     },
     secondary: {
-      main: '#ffffff',
+      main: '#CECECE ',
     },
   },
   typography: {
@@ -17,30 +17,37 @@ const theme = createMuiTheme({
 
   },
   overrides: {
+    MuiButtonContained: {
+
+      backgroundColor: '#B50717',
+    },
     MuiInputBase: {
       root: {
-        color: 'white',
+        color: '##131313',
 
       },
       outlined: {
-        color: 'white',
+        color: '#131313',
 
       },
       MuiInputLabel: {
         root: {
-          color: 'white',
+          color: '#ECECEC',
+          fontSize: '25',
+
         },
       },
+
     },
 
     MuiOutlinedInput: {
       notchedOutline: {
-        borderColor: 'white',
+        borderColor: '#ECECEC',
       },
       root: {
         Mui: {
           focused: {
-            borderColor: 'white',
+            borderColor: '#ECECEC',
           },
         },
       },

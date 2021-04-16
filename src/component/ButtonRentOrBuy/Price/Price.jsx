@@ -13,6 +13,7 @@ import Slider from '@material-ui/core/Slider';
 import Grid from '@material-ui/core/Grid';
 import Input from '@material-ui/core/Input';
 import TextField from '@material-ui/core/TextField';
+import { withStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 
@@ -64,13 +65,12 @@ const Price = () => {
         justify="center"
         alignItems="center"
       >
-        <Typography variant="h6" color="secondary">
+        <Typography variant="h6" style={{ color: '#ECECEC' }}>
           CHF
         </Typography>
         <Slider
           value={prices}
           aria-labelledby="range-slider"
-          color="secondary"
           onChange={(event, newValue) => {
             dispatch(setPriceLimits(newValue));
             setChange(true);
@@ -86,50 +86,55 @@ const Price = () => {
           justify="center"
           alignItems="center"
         >
-          <div className={classes.priceText}>
-            <InputLabel
-              id="demo-simple-select-outlined-label"
-            >
-              <Typography
-                className={classes.whiteColor}
-              >
-                Prezzo Min
-              </Typography>
 
-            </InputLabel>
+          <div className={classes.priceText}>
             <TextField
-              color="secondary"
-              className={classes.prova}
-              value={
-                prices[0]
-              }
+              key={prices[1]}
+              label="Prezzo Min"
+              variant="outlined"
+              value={prices[1]}
               InputProps={{
-                className: classes.text,
+                classes: {
+                  root: classes.inputRoot,
+                  notchedOutline: classes.notchedOutline,
+                },
               }}
+              InputLabelProps={{
+                classes: {
+                  root: classes.labelRoot,
+                  focused: classes.labelFocused,
+                },
+              }}
+              className={classes.prova}
               onChange={(event) => dispatch(setPriceLimitsMin(event.target.value))}
+              margin="normal"
+              style={{ marginRight: '10px', marginLeft: '20px' }}
             />
+
           </div>
 
           <div className={classes.priceText}>
-            <InputLabel
-              id="demo-simple-select-outlined-label"
-
-            >
-              <Typography
-                className={classes.whiteColor}
-              >
-                Prezzo Max
-              </Typography>
-
-            </InputLabel>
             <TextField
+              key={prices[1]}
+              label="Prezzo Max"
+              variant="outlined"
               value={prices[1]}
               InputProps={{
-                className: classes.text,
+                classes: {
+                  root: classes.inputRoot,
+                  notchedOutline: classes.notchedOutline,
+                },
               }}
-              color="secondary"
+              InputLabelProps={{
+                classes: {
+                  root: classes.labelRoot,
+                  focused: classes.labelFocused,
+                },
+              }}
               className={classes.prova}
               onChange={(event) => dispatch(setPriceLimitsMax(event.target.value))}
+              margin="normal"
+              style={{ marginRight: '30px' }}
             />
 
           </div>

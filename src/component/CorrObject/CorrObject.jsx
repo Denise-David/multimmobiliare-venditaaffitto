@@ -50,7 +50,7 @@ const CorrObject = () => {
         <CardMedia
           key={elem.id}
           className={classes.media}
-          image={`https://api.fideconto.ch/img/immobili/${elem.fileName}`}
+          image={`https://api.multimmobiliare.apton.ch/img/immobili/${elem.fileName}`}
           title="foto immobile principale"
         />
 
@@ -73,7 +73,7 @@ const CorrObject = () => {
           count += 1;
           if (count >= 2) {
             return (
-              <Typography>
+              <Typography style={{ fontSize: '20px' }}>
                 /
                 {' '}
                 {car.caratteristica.nome}
@@ -81,7 +81,7 @@ const CorrObject = () => {
             );
           }
           return (
-            <Typography>
+            <Typography style={{ fontSize: '20px' }}>
               {car.caratteristica.nome}
             </Typography>
           );
@@ -112,16 +112,16 @@ const CorrObject = () => {
               alignItems="center"
               className={classes.padding}
             >
-              <Typography key={element.id}>
+              <Typography style={{ fontSize: '20px' }} key={element.id}>
                 <RoomIcon />
                 {' '}
                 {element.citta}
               </Typography>
               <span className={classes.div}>
-                <Typography style={{ fontSize: '15px', marginRight: '10px' }}>
+                <Typography style={{ fontSize: '30px', marginRight: '10px' }}>
                   CHF
                 </Typography>
-                <Typography variant="h6">
+                <Typography style={{ fontSize: '30px' }}>
 
                   <NumberFormat
                     value={element.pigione}
@@ -133,7 +133,7 @@ const CorrObject = () => {
                 </Typography>
               </span>
             </Grid>
-            <Typography variant="h6" className={classes.padding}>
+            <Typography style={{ fontSize: '30px' }} className={classes.padding}>
               {element.titolo}
             </Typography>
             <Divider classes={{ root: classes.divider }} />
@@ -148,7 +148,7 @@ const CorrObject = () => {
                 <div className={classes.div}>
                   <MeetingRoomIcon />
                   {' '}
-                  <Typography>
+                  <Typography style={{ fontSize: '20px' }}>
 
                     {element.locali.numero}
                     {' '}
@@ -160,7 +160,7 @@ const CorrObject = () => {
                 <span className={classes.div}>
                   <SquareFootIcon />
                   {' '}
-                  <Typography>
+                  <Typography style={{ fontSize: '20px' }}>
 
                     {element.metratura}
                     {' '}
@@ -173,7 +173,7 @@ const CorrObject = () => {
                 <div className={classes.div}>
                   <HomeWorkIcon />
                   {' '}
-                  <Typography>
+                  <Typography style={{ fontSize: '20px' }}>
                     {element.piano === 0 ? ' PT' : `  ${element.piano} °Piano`}
                   </Typography>
                 </div>
@@ -191,7 +191,7 @@ const CorrObject = () => {
                   <LocalParkingIcon />
                   {' '}
                   {getSingleParking.length === 0
-                    ? <Typography>Nessun parcheggio</Typography> : parking}
+                    ? <Typography style={{ fontSize: '20px' }}>Nessun parcheggio</Typography> : parking}
                 </span>
               </Grid>
               <Grid item xs={12} sm={2}>
@@ -199,7 +199,7 @@ const CorrObject = () => {
                   <WcIcon />
                   {' '}
 
-                  <Typography>
+                  <Typography style={{ fontSize: '20px' }}>
 
                     1 bagno
                   </Typography>
@@ -209,7 +209,7 @@ const CorrObject = () => {
                 <div className={classes.div}>
                   <EventAvailableIcon />
                   {' '}
-                  <Typography>
+                  <Typography style={{ fontSize: '20px' }}>
                     {' '}
                     {dateFormat}
                   </Typography>
@@ -225,10 +225,10 @@ const CorrObject = () => {
               className={classes.padding}
             >
               {' '}
-              <Typography>
+              <Typography style={{ fontSize: '20px' }}>
                 {element.tipologia.nome}
               </Typography>
-              <Typography className={classes.price}>
+              <Typography style={{ fontSize: '20px' }} className={classes.price}>
                 CHF
                 {' '}
                 {element.pigione}
@@ -246,9 +246,10 @@ const CorrObject = () => {
     return (<></>);
   } return (
     <>
-      <div className={classes.div2}>
-        <Typography variant="h4" color="secondary" style={{ margin: '1em' }}>
-          Oggetti correlati
+      <div>
+        <Divider fullWidth style={{ background: '#CF291d', margin: '4em' }} />
+        <Typography variant="h4" color="secondary" align="center" style={{ margin: '1em', fontSize: '60px' }}>
+          OGGETTI CORRELATI
         </Typography>
         <Grid
           container

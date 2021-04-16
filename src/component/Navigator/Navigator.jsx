@@ -25,10 +25,7 @@ const Navigator = (elemento) => {
         <div>
           <DetailPage />
         </div>
-        <div id="ciao">
-          <DetailBox />
-        </div>
-        <ContactForm />
+
         {' '}
         <CorrObject />
 

@@ -2,7 +2,7 @@
 import { makeStyles, Theme } from '@material-ui/core/styles';
 // eslint-disable-next-line no-unused-vars
 const useStyles = makeStyles((theme) => ({
-  media: {
+  media2: {
     borderRadius: '0.5em',
     marginBottom: '1em',
     borderStyle: 'solid',

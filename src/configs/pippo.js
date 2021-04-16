@@ -1,7 +1,7 @@
 const pippo = {
 
   http: {
-    baseUrl: 'https://api.fideconto.ch/api',
+    baseUrl: 'https://api.multimmobiliare.apton.ch/api',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',

@@ -58,41 +58,7 @@ const DetailPage = () => {
     );
   } return (
     <>
-      <Typography align="center" variant="h3" color="secondary" style={{ marginTop: '10px' }}>
-        {selectedImmo[0]?.contratto === 0 ? 'AFFITTO' : 'VENDITA'}
-        {' '}
-        /
-        {reg}
-        {' '}
-        /
-        {' '}
-        {tip}
-      </Typography>
       <ImageSlide selectedImmo={selectedImmo[0] ? selectedImmo[0] : []} />
-      ;
-      {selectedImmo[0]?.tour360Visibility === false ? <></>
-        : (
-          <div className={classes.container}>
-            <CardMedia
-              onClick={open360}
-              className={classes.media}
-              image={`https://api.fideconto.ch/img/immobili/${selectedImmo[0]?.immagini[0]?.fileName}`}
-              title="foto immobile"
-            />
-
-            <div className={classes.centered}>
-              <Typography
-                onClick={open360}
-                variant="h2"
-                style={{ fontWeight: 'bold' }}
-              >
-                Virtual tour
-              </Typography>
-              <ThreeSixtyIcon onClick={open360} style={{ fontSize: '200px' }} />
-              <Icon onClick={open360} classes={{ root: classes.iconRoot }} />
-            </div>
-          </div>
-)}
 
     </>
   );

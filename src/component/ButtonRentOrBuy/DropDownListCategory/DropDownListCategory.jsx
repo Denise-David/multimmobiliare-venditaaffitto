@@ -13,11 +13,20 @@ import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Typography from '@material-ui/core/Typography';
+import { withStyles } from '@material-ui/core/styles';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
 
 import {
   setIdCategorySelected, idCategorySelected, immo, rentOrSell,
 } from '../../../store/slice/ImmoSlice';
 import useStyles from './style';
+
+const MuiOutlinedInput = withStyles((theme) => ({
+  notchedOutline: {
+    borderColor: '#ECECEC !important',
+  },
+
+}))(OutlinedInput);
 
 const DropDownListCategory = ({ actionClick, name }) => {
   const classes = useStyles();
@@ -57,6 +66,7 @@ const DropDownListCategory = ({ actionClick, name }) => {
     <>
       <FormControl
         className={classes.ddl}
+        variant="filled"
       >
         <InputLabel id="demo-simple-select-outlined-label">
           <Typography className={classes.whiteColor}>
@@ -64,13 +74,19 @@ const DropDownListCategory = ({ actionClick, name }) => {
           </Typography>
         </InputLabel>
         <Select
+          variant="outlined"
           value={category}
           labelId="demo-simple-select-outlined-label"
           id="demo-simple-select-outlined"
-          label="Age"
           onChange={(ev) => dispatch(setIdCategorySelected(ev.target.value))}
           className={classes.prova}
           classes={{ icon: classes.icon }}
+          label="age"
+          input={<MuiOutlinedInput />}
+          inputProps={{
+            name: 'Age',
+            id: 'age-simple',
+          }}
         >
           {itemUniqueRegion}
         </Select>

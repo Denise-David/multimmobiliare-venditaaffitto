@@ -6,27 +6,43 @@ const useStyles = makeStyles((theme) => ({
     margin: '1em',
     padding: '1em',
     minWidth: '20em',
-    marginBottom: '8px',
   },
   whiteColor: {
-    color: 'white',
+    color: '#ECECEC',
     fontSize: '25px',
     marginRight: '1em',
     marginLeft: '25px',
+    marginTop: '-10px',
+    paddingRight: '10px',
+    paddingLeft: '10px',
+    zIndex: '100',
+    backgroundColor: 'black',
 
   },
+  root: {
 
+    borderColor: 'white',
+  },
   prova: {
     minWidth: '200px',
-    borderWidth: '3px',
-    borderColor: 'grey',
-    borderStyle: 'solid',
-    borderRadius: '0.5em',
-    padding: '1em',
-    color: 'white',
+
   },
   icon: {
-    fill: 'white',
+    fill: '#ECECEC',
+  },
+  labelRoot: {
+    fontSize: 25,
+    color: '#ECECEC !important',
+    backgroundColor: 'black',
+    marginTop: '-5px',
+    paddingRight: '5px',
+    '&$labelFocused': {
+      color: '#ECECEC !important',
+    },
+  },
+  labelFocused: {
+    fontSize: 25,
+    color: '#ECECEC !important',
   },
 }));
 export default useStyles;

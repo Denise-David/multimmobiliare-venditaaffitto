@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable no-restricted-globals */
 /* eslint-disable no-undef */
@@ -54,6 +55,123 @@ const AnnuncioPDF = () => {
   let prezzo = '';
   let spese = '';
 
+  const gallery = selectedImmo[0]?.immagini.map((immagine, index) => {
+    if (index !== 0) {
+      return (
+        <Page size="A4" style={styles.page}>
+          <Image
+            style={{
+              height: '50px',
+              width: '300px',
+              margin: 'auto',
+              display: 'block',
+              marginVertical: 15,
+              marginHorizontal: 100,
+            }}
+            src={multi}
+          />
+          <View>
+
+            <Image
+              style={{
+                marginVertical: 15,
+                marginHorizontal: 100,
+              }}
+              src={{ uri: `https://api.multimmobiliare.apton.ch/img/immobili/${immagine.fileName}`, method: 'GET', headers: '' }}
+            />
+          </View>
+          <Text style={{ borderTop: '3px solid red' }} />
+          <View style={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-around',
+            alignContent: 'stretch',
+            flexWrap: 'nowrap',
+            alignItems: 'stretch',
+            flexGrow: 0,
+            flexShrink: 0,
+            flexBasis: 35,
+          }}
+          >
+
+            <Text style={{
+              fontSize: '10px',
+              marginTop: '10px',
+              flexGrow: 1,
+              flexShrink: 1,
+              flexBasis: 'auto',
+              alignSelf: 'stretch',
+            }}
+            >
+              {' '}
+              Multimmobiliare e Partecipazioni SA
+
+            </Text>
+            <Text style={{
+              fontSize: '10px',
+              marginTop: '10px',
+              flexGrow: 1,
+              flexShrink: 1,
+              flexBasis: 'auto',
+              alignSelf: 'stretch',
+            }}
+            >
+              {' '}
+
+              www.multimmobiliare.ch
+
+            </Text>
+            <Text style={{
+              fontSize: '10px',
+              marginTop: '10px',
+              flexGrow: 1,
+              flexShrink: 1,
+              flexBasis: 'auto',
+              alignSelf: 'stretch',
+            }}
+            >
+              {' '}
+
+              Telefono +41 91 826 21 40
+
+            </Text>
+
+          </View>
+          <View style={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-around',
+            alignContent: 'stretch',
+            flexWrap: 'nowrap',
+            alignItems: 'stretch',
+            flexGrow: 0,
+            flexShrink: 0,
+            flexBasis: 35,
+          }}
+          >
+
+            <Text style={{
+              fontSize: '10px',
+              marginTop: '10px',
+              flexGrow: 1,
+              flexShrink: 1,
+              flexBasis: 'auto',
+              alignSelf: 'stretch',
+            }}
+            >
+              {' '}
+
+              email info@multimmobiliare.ch
+
+            </Text>
+
+          </View>
+
+        </Page>
+      );
+    }
+  });
+
   if (selectedImmo[0] !== undefined) {
     const date = parseJSON(selectedImmo[0]?.disponibilita);
     dateFormat = format(new Date(date), 'dd.MM.yyyy');
@@ -84,31 +202,31 @@ const AnnuncioPDF = () => {
     >
       <Document>
         <Page size="A4" style={styles.page}>
-          <Image
-            style={{
-              height: '50px',
-              width: '300px',
-              margin: 'auto',
-              display: 'block',
-              marginVertical: 15,
-              marginHorizontal: 100,
-            }}
-            src={multi}
-          />
+          <View>
+            <Image
+              style={{
+                height: '50px',
+                width: '300px',
+                margin: 'auto',
+                display: 'block',
+                marginVertical: 15,
+                marginHorizontal: 100,
+              }}
+              src={multi}
+            />
+          </View>
           <View style={styles.section}>
             <Text style={{ textAlign: 'center', fontWeight: 'bold' }}>{selectedImmo[0]?.titolo}</Text>
           </View>
-
-          {/* <Image
-            style={{
-              height: '100px',
-              marginVertical: 15,
-              marginHorizontal: 100,
-            }}
-            src={{ uri: `https://api.fideconto.ch/img/immobili/${selectedImmo[0]?.immagini[0]?.fileName}`, method: 'GET', headers: { 'Access-Control-Allow-Origin': '*' } }}
-
-          /> */}
-
+          <View>
+            <Image
+              style={{
+                marginVertical: 15,
+                marginHorizontal: 100,
+              }}
+              src={{ uri: `https://api.multimmobiliare.apton.ch/img/immobili/${selectedImmo[0]?.immagini[0]?.fileName}`, method: 'GET', headers: '' }}
+            />
+          </View>
           <Text style={{ borderTop: '3px solid red' }} />
           <View style={{
             display: 'flex',
@@ -479,7 +597,7 @@ const AnnuncioPDF = () => {
           </View>
 
         </Page>
-
+        {gallery}
       </Document>
     </PDFViewer>
   );

@@ -3,21 +3,29 @@ import { makeStyles, Theme } from '@material-ui/core/styles';
 // eslint-disable-next-line no-unused-vars
 const useStyles = makeStyles((theme) => ({
   nav: {
-    backgroundColor: 'black',
+    backgroundColor: '#000000',
     padding: '1em',
   },
   text: {
-    color: 'white',
+    color: '#ECECEC',
     textTransform: 'none',
   },
   text2: {
-    color: 'white',
+    color: '#ECECEC',
     floatingLabelFocusStyle: {
-      color: 'white',
+      color: '#ECECEC',
     },
   },
   prova: {
-    color: 'white',
+    color: '#ECECEC',
+  },
+  button: {
+    backgroundColor: '#B50717',
+    color: '#ECECEC',
+    '&:hover': {
+      backgroundColor: '#CF291d',
+      color: '#ECECEC',
+    },
   },
 }));
 export default useStyles;
