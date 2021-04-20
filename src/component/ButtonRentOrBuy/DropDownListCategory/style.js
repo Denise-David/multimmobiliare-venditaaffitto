@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
   prova: {
     minWidth: '200px',
-
+    color: '#ECECEC',
   },
   icon: {
     fill: '#ECECEC',

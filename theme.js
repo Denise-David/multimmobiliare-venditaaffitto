@@ -1,6 +1,9 @@
 import { createMuiTheme } from '@material-ui/core/styles';
 
-const montserrat = 'Montserrat, sans-serif';
+const montserrat = {
+  fontFamily: 'Montserrat, sans-serif',
+  fontWeight: 300,
+};
 
 const theme = createMuiTheme({
   palette: {
@@ -14,12 +17,37 @@ const theme = createMuiTheme({
   typography: {
     fontFamily: 'Montserrat, sans-serif',
     textTransform: 'none',
+    fontWeightLight: '300',
 
   },
   overrides: {
     MuiButtonContained: {
 
       backgroundColor: '#B50717',
+    },
+    MuiTypography: {
+      body1: {
+        fontWeight: 300,
+      },
+      h4: {
+        fontWeight: 300,
+      },
+      h1: {
+        fontWeight: 300,
+      },
+      h2: {
+        fontWeight: 300,
+      },
+      h3: {
+        fontWeight: 300,
+      },
+      h5: {
+        fontWeight: 300,
+      },
+      h6: {
+        fontWeight: 300,
+      },
+
     },
     MuiInputBase: {
       root: {
@@ -41,6 +69,7 @@ const theme = createMuiTheme({
     },
 
     MuiOutlinedInput: {
+      borderColor: '#ECECEC',
       notchedOutline: {
         borderColor: '#ECECEC',
       },

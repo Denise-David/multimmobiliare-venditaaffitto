@@ -117,7 +117,7 @@ const TitleDetail = (selectedImmo) => {
           onClick={() => window.location.href = `https://api.multimmobiliare.apton.ch/doc/immobili/${d.fileName}`}
         >
           <PictureAsPdfIcon style={{ color: '#CF291d', marginRight: '20px', fontSize: '40px' }} />
-          <Typography style={{ fontSize: '25px', marginRight: '1em' }} key={d.id}>
+          <Typography style={{ fontSize: '25px', marginRight: '1em', color: 'white' }} key={d.id}>
             {' '}
             {d.fileName}
           </Typography>
@@ -126,10 +126,10 @@ const TitleDetail = (selectedImmo) => {
       </div>
     </>
   ));
-  const caratt = selectedImmo.selectedImmo.immobiliCaratteristiche?.map((car) => (
+  const caratt = selectedImmo.selectedImmo.immobiliCaratteristiche?.map((car, index) => (
     <>
 
-      <List>
+      <List style={{ padding: '0px' }}>
         <Divider fullWidth style={{ background: '#CF291d' }} />
         <ListItem alignItems="flex-start">
           <ListItemIcon style={{ marginRight: '10%' }}>
@@ -139,13 +139,15 @@ const TitleDetail = (selectedImmo) => {
             primary=""
             secondary={(
               <>
-                <Typography style={{ fontSize: '25px' }} color="secondary">
+                <Typography style={{ fontSize: '25px', color: 'white' }} color="secondary">
                   {car.caratteristica.nome}
                 </Typography>
               </>
   )}
           />
         </ListItem>
+        {selectedImmo.selectedImmo.immobiliCaratteristiche.length === index + 1 ? <Divider fullWidth style={{ background: '#CF291d' }} /> : <></> }
+
       </List>
     </>
   )
@@ -156,7 +158,7 @@ const TitleDetail = (selectedImmo) => {
       count += 1;
       if (count >= 2) {
         return (
-          <Typography style={{ fontSize: '25px' }}>
+          <Typography style={{ fontSize: '25px', color: 'white' }}>
             /
             {' '}
             {car.caratteristica.nome}
@@ -164,7 +166,7 @@ const TitleDetail = (selectedImmo) => {
         );
       }
       return (
-        <Typography style={{ fontSize: '25px' }}>
+        <Typography style={{ fontSize: '25px', color: 'white' }}>
           {car.caratteristica.nome}
         </Typography>
       );
@@ -183,36 +185,51 @@ const TitleDetail = (selectedImmo) => {
       >
         <Grid container item xl={8} xs={8}>
           <div>
-            <Grid
-              container
-              direction="row"
-              justify="flex-start"
-              alignItems="center"
-              style={{ marginTop: '20px', marginBottom: '20px' }}
-            >
-
-              <animated.img
-                onMouseMove={() => set13({ xys: [-20, 0, 0] })}
-                onMouseLeave={() => set13({ xys: [0, 0, 0] })}
-                src={arr}
-                alt="copertina"
+            <Link to={() => window.history.back()}>
+              <Grid
+                container
+                direction="row"
+                justify="flex-start"
+                alignItems="center"
                 style={{
-                  width: '30px', transform: props13.xys.interpolate(trans13), marginRight: '20px',
+                  marginTop: '20px',
+                  marginBottom: '20px',
+
                 }}
-              />
-              <Typography
-                onMouseMove={() => set13({ xys: [-20, 0, 0] })}
-                onMouseLeave={() => set13({ xys: [0, 0, 0] })}
-                align="left"
-                color="secondary"
-                style={{ fontSize: '25px' }}
+                onClick={() => window.history.back()}
               >
-                Ritorna alla ricerca
 
-              </Typography>
+                <animated.img
+                  onMouseMove={() => set13({ xys: [-20, 0, 0] })}
+                  onMouseLeave={() => set13({ xys: [0, 0, 0] })}
+                  src={arr}
+                  alt="copertina"
+                  style={{
+                    width: '30px',
+                    transform: props13.xys.interpolate(trans13),
+                    marginRight: '20px',
+                    cursor: 'pointer',
+                  }}
+                />
+                <Typography
+                  onMouseMove={() => set13({ xys: [-20, 0, 0] })}
+                  onMouseLeave={() => set13({ xys: [0, 0, 0] })}
+                  align="left"
+                  color="secondary"
+                  style={{
+                    fontSize: '25px',
+                    color: 'white',
 
-            </Grid>
-            <Typography align="left" color="secondary" style={{ marginTop: '20 px', fontSize: '44px' }}>
+                    cursor: 'pointer',
+                  }}
+                >
+                  Ritorna alla ricerca
+
+                </Typography>
+
+              </Grid>
+            </Link>
+            <Typography align="left" style={{ marginTop: '20 px', fontSize: '44px', color: 'white' }}>
               {selectedImmo.selectedImmo.contratto === 0 ? 'AFFITTO' : 'VENDITA'}
               {' '}
               /
@@ -233,6 +250,7 @@ const TitleDetail = (selectedImmo) => {
                 color="secondary"
                 style={{
                   fontSize: '44px',
+                  color: 'white',
                 }}
               >
 
@@ -272,7 +290,7 @@ const TitleDetail = (selectedImmo) => {
               variant="h4"
               color="secondary"
               style={{
-                marginTop: '20px', fontSize: '44px',
+                marginTop: '20px', fontSize: '44px', color: 'white',
               }}
             >
               {selectedImmo.selectedImmo ? selectedImmo.selectedImmo.indirizzo : ''}
@@ -283,6 +301,7 @@ const TitleDetail = (selectedImmo) => {
               color="secondary"
               style={{
                 fontSize: '44px',
+                color: 'white',
               }}
             >
               {selectedImmo.selectedImmo ? selectedImmo.selectedImmo.citta : ''}
@@ -300,7 +319,7 @@ const TitleDetail = (selectedImmo) => {
                 <Typography
                   onClick={open360}
                   variant="h2"
-                  style={{ fontWeight: 'bold' }}
+                  style={{ fontWeight: 'bold', color: 'white' }}
                 >
                   Virtual tour
                 </Typography>
@@ -314,12 +333,13 @@ const TitleDetail = (selectedImmo) => {
                 fontSize: '44px',
                 marginBottom: '1em',
                 marginTop: '50px',
+                color: 'white',
               }}
             >
               Descrizione
 
             </Typography>
-            <Typography style={{ marginBottom: '2em', fontSize: '25px' }} color="secondary">
+            <Typography style={{ marginBottom: '2em', fontSize: '25px', color: 'white' }} color="secondary">
 
               {selectedImmo.selectedImmo ? selectedImmo.selectedImmo.descrizione : ''}
             </Typography>
@@ -330,6 +350,7 @@ const TitleDetail = (selectedImmo) => {
                   fontSize: '44px',
                   marginBottom: '1em',
                   marginTop: '50px',
+                  color: 'white',
                 }}
               >
                 Costi
@@ -340,7 +361,7 @@ const TitleDetail = (selectedImmo) => {
 
                 <ListItem alignItems="flex-start">
 
-                  <Typography style={{ fontSize: '25px', marginRight: '9%' }} color="secondary">
+                  <Typography style={{ fontSize: '25px', marginRight: '9%', color: 'white' }} color="secondary">
                     Affitto:
 
                   </Typography>
@@ -348,7 +369,7 @@ const TitleDetail = (selectedImmo) => {
                   <ListItemText
                     secondary={(
                       <>
-                        <Typography style={{ fontSize: '25px' }} color="secondary">
+                        <Typography style={{ fontSize: '25px', color: 'white' }} color="secondary">
                           <NumberFormat
                             value={selectedImmo.selectedImmo ? selectedImmo.selectedImmo.pigione : ''}
                             className="foo"
@@ -368,7 +389,12 @@ const TitleDetail = (selectedImmo) => {
               <List>
 
                 <ListItem alignItems="flex-start">
-                  <Typography style={{ fontAlign: 'left', fontSize: '25px', marginRight: '9%' }} color="secondary">
+                  <Typography
+                    style={{
+                      color: 'white', fontAlign: 'left', fontSize: '25px', marginRight: '9%',
+                    }}
+                    color="secondary"
+                  >
                     Spese:
 
                   </Typography>
@@ -376,7 +402,7 @@ const TitleDetail = (selectedImmo) => {
                   <ListItemText
                     secondary={(
                       <>
-                        <Typography style={{ fontSize: '25px' }} color="secondary">
+                        <Typography style={{ fontSize: '25px', color: 'white' }} color="secondary">
                           <NumberFormat
                             value={selectedImmo.selectedImmo ? selectedImmo.selectedImmo.spese : ''}
                             className="foo"
@@ -399,6 +425,7 @@ const TitleDetail = (selectedImmo) => {
                   fontSize: '44px',
                   marginBottom: '1em',
                   marginTop: '50px',
+                  color: 'white',
                 }}
               >
                 Dettagli
@@ -415,7 +442,7 @@ const TitleDetail = (selectedImmo) => {
                     primary=""
                     secondary={(
                       <>
-                        <Typography style={{ fontSize: '25px' }} color="secondary">
+                        <Typography style={{ fontSize: '25px', color: 'white' }} color="secondary">
 
                           {selectedImmo.selectedImmo.locali.numero}
                           {' '}
@@ -437,7 +464,7 @@ const TitleDetail = (selectedImmo) => {
                     primary=""
                     secondary={(
                       <>
-                        <Typography style={{ fontSize: '25px' }} color="secondary">
+                        <Typography style={{ fontSize: '25px', color: 'white' }} color="secondary">
 
                           {selectedImmo.selectedImmo.metratura}
                           {' '}
@@ -458,7 +485,7 @@ const TitleDetail = (selectedImmo) => {
                     primary=""
                     secondary={(
                       <>
-                        <Typography style={{ fontSize: '25px' }} color="secondary">
+                        <Typography style={{ fontSize: '25px', color: 'white' }} color="secondary">
 
                           {selectedImmo.selectedImmo.piano === 0 ? 'PT' : `${selectedImmo.selectedImmo.piano}°Piano`}
                         </Typography>
@@ -478,8 +505,8 @@ const TitleDetail = (selectedImmo) => {
                     secondary={(
                       <>
                         {getSingleParking.length === 0
-                          ? <Typography style={{ fontSize: '25px' }} color="secondary">Nessun parcheggio</Typography>
-                          : <Typography className={classes.div1} color="secondary">{parking}</Typography>}
+                          ? <Typography style={{ fontSize: '25px', color: 'white' }} color="secondary">Nessun parcheggio</Typography>
+                          : <Typography style={{ color: 'white' }} className={classes.div1} color="secondary">{parking}</Typography>}
                       </>
 )}
                   />
@@ -495,7 +522,7 @@ const TitleDetail = (selectedImmo) => {
                     primary=""
                     secondary={(
                       <>
-                        <Typography style={{ fontSize: '25px' }} color="secondary">
+                        <Typography style={{ fontSize: '25px', color: 'white' }} color="secondary">
 
                           1 bagno
                         </Typography>
@@ -517,7 +544,7 @@ const TitleDetail = (selectedImmo) => {
                         primary=""
                         secondary={(
                           <>
-                            <Typography style={{ fontSize: '25px' }} color="secondary">
+                            <Typography style={{ fontSize: '25px', color: 'white' }} color="secondary">
                               {' '}
                               libero da
                               {' '}
@@ -530,12 +557,14 @@ const TitleDetail = (selectedImmo) => {
                   </List>
 
                 ) : <></>}
+              <Divider fullWidth style={{ background: '#CF291d' }} />
               <Typography
                 color="secondary"
                 style={{
                   fontSize: '44px',
                   marginBottom: '1em',
                   marginTop: '50px',
+                  color: 'white',
                 }}
               >
                 Caratteristiche
@@ -550,6 +579,7 @@ const TitleDetail = (selectedImmo) => {
                   fontSize: '44px',
                   marginBottom: '50px',
                   marginTop: '50px',
+                  color: 'white',
                 }}
               >
                 Documenti e planimetrie
@@ -654,7 +684,7 @@ const TitleDetail = (selectedImmo) => {
                   </IconButton>
 
                 </Grid>
-                <Typography color="secondary" style={{ marginBottom: '20px', fontSize: '44px' }}>
+                <Typography color="secondary" style={{ marginBottom: '20px', fontSize: '44px', color: 'white' }}>
                   Responsabile
                 </Typography>
 
@@ -665,23 +695,28 @@ const TitleDetail = (selectedImmo) => {
                   alignItems="center"
                 >
                   <span className={classes.margin}>
-                    <Typography color="secondary" style={{ marginBottom: '20px', fontSize: '25px' }}>
+                    <Typography color="secondary" style={{ marginBottom: '20px', fontSize: '25px', color: 'white' }}>
                       Stefania Auciello
                     </Typography>
 
-                    <Typography color="secondary" style={{ marginBottom: '20px', marginRight: '20px', fontSize: '25px' }}>
+                    <Typography
+                      color="secondary"
+                      style={{
+                        marginBottom: '20px', marginRight: '20px', color: 'white', fontSize: '25px',
+                      }}
+                    >
                       Direzione
                     </Typography>
                     <div className={classes.div3}>
                       <RoomIcon color="secondary" />
-                      <Typography color="secondary" style={{ marginBottom: '20px', fontSize: '25px' }}>
+                      <Typography color="secondary" style={{ marginBottom: '20px', fontSize: '25px', color: 'white' }}>
 
                         Lugano
                       </Typography>
                     </div>
-                    <LinkedInIcon color="secondary" style={{ marginRight: '10px', fontSize: '35px' }} />
-                    <PhoneIcon color="secondary" style={{ marginRight: '10px', fontSize: '35px' }} />
-                    <MailIcon color="secondary" style={{ marginRight: '10px', fontSize: '35px' }} />
+                    <LinkedInIcon color="secondary" style={{ marginRight: '10px', fontSize: '35px', color: 'white' }} />
+                    <PhoneIcon color="secondary" style={{ marginRight: '10px', fontSize: '35px', color: 'white' }} />
+                    <MailIcon color="secondary" style={{ marginRight: '10px', fontSize: '35px', color: 'white' }} />
                   </span>
 
                   <CardMedia
@@ -693,7 +728,7 @@ const TitleDetail = (selectedImmo) => {
                   />
                 </Grid>
                 <Divider fullWidth style={{ background: '#CF291d', marginTop: '20px', marginBottom: '20px' }} />
-                <Typography color="secondary" style={{ marginBottom: '20px', fontSize: '44px' }}>
+                <Typography color="secondary" style={{ marginBottom: '20px', fontSize: '44px', color: 'white' }}>
                   Richiedi una visita
                 </Typography>
 
@@ -707,7 +742,7 @@ const TitleDetail = (selectedImmo) => {
                       focused: classes.labelFocused,
                     },
                   }}
-                  style={{ marginTop: '20px', marginRight: '10px', color: '#ECECEC' }}
+                  style={{ marginTop: '20px', marginRight: '10px', color: 'white' }}
                 />
 
                 <TextField
@@ -721,6 +756,7 @@ const TitleDetail = (selectedImmo) => {
                     },
                   }}
                   style={{
+                    color: 'white',
                     marginTop: '20px',
                     overrides: {
                       MuiInputBase: {
@@ -755,7 +791,7 @@ const TitleDetail = (selectedImmo) => {
                       focused: classes.labelFocused,
                     },
                   }}
-                  style={{ marginTop: '20px', color: '#ECECEC' }}
+                  style={{ marginTop: '20px', color: 'white' }}
                 />
                 <Button
                   className={classes.button}
@@ -767,7 +803,7 @@ const TitleDetail = (selectedImmo) => {
 
                 </Button>
                 <Divider fullWidth style={{ background: '#CF291d', marginTop: '20px', marginBottom: '20px' }} />
-                <Typography color="secondary" style={{ marginBottom: '20px', fontSize: '44px' }}>
+                <Typography color="secondary" style={{ marginBottom: '20px', fontSize: '44px', color: 'white' }}>
                   Riserva
                 </Typography>
                 <Button

@@ -25,6 +25,9 @@ import EventAvailableIcon from '@material-ui/icons/EventAvailable';
 import NumberFormat from 'react-number-format';
 import parseJSON from 'date-fns/parseJSON';
 import useStyles from './style';
+import metratura from '../../img/metratura.png';
+import locali from '../../img/Locali.png';
+import scala from '../../img/scala.png';
 import {
   immo, rentOrSell, idRegionSelecter, idLocalSelected, idCategorySelected, priceLimits,
 } from '../../store/slice/ImmoSlice';
@@ -146,7 +149,7 @@ const CorrObject = () => {
             >
               <Grid item xs={12} sm={6}>
                 <div className={classes.div}>
-                  <MeetingRoomIcon />
+                  <img src={locali} alt="met" style={{ width: '30px', marginRight: '10px' }} />
                   {' '}
                   <Typography style={{ fontSize: '20px' }}>
 
@@ -158,7 +161,7 @@ const CorrObject = () => {
               </Grid>
               <Grid item xs={12} sm={2}>
                 <span className={classes.div}>
-                  <SquareFootIcon />
+                  <img src={metratura} alt="met" style={{ width: '30px', marginRight: '10px' }} />
                   {' '}
                   <Typography style={{ fontSize: '20px' }}>
 
@@ -171,7 +174,7 @@ const CorrObject = () => {
               </Grid>
               <Grid item xs={12} sm={3}>
                 <div className={classes.div}>
-                  <HomeWorkIcon />
+                  <img src={scala} alt="met" style={{ width: '30px', marginRight: '10px' }} />
                   {' '}
                   <Typography style={{ fontSize: '20px' }}>
                     {element.piano === 0 ? ' PT' : `  ${element.piano} °Piano`}
@@ -188,7 +191,7 @@ const CorrObject = () => {
             >
               <Grid item xs={12} sm={6}>
                 <span className={classes.div}>
-                  <LocalParkingIcon />
+                  <LocalParkingIcon style={{ marginRight: '10px' }} />
                   {' '}
                   {getSingleParking.length === 0
                     ? <Typography style={{ fontSize: '20px' }}>Nessun parcheggio</Typography> : parking}
@@ -196,7 +199,7 @@ const CorrObject = () => {
               </Grid>
               <Grid item xs={12} sm={2}>
                 <div className={classes.div}>
-                  <WcIcon />
+                  <WcIcon style={{ marginRight: '10px' }} />
                   {' '}
 
                   <Typography style={{ fontSize: '20px' }}>
@@ -207,7 +210,7 @@ const CorrObject = () => {
               </Grid>
               <Grid item xs={12} sm={3}>
                 <div className={classes.div}>
-                  <EventAvailableIcon />
+                  <EventAvailableIcon style={{ marginRight: '10px' }} />
                   {' '}
                   <Typography style={{ fontSize: '20px' }}>
                     {' '}
@@ -220,7 +223,7 @@ const CorrObject = () => {
             <Grid
               container
               direction="row"
-              justify="space-between"
+              justify="flex-start"
               alignItems="center"
               className={classes.padding}
             >
@@ -228,11 +231,7 @@ const CorrObject = () => {
               <Typography style={{ fontSize: '20px' }}>
                 {element.tipologia.nome}
               </Typography>
-              <Typography style={{ fontSize: '20px' }} className={classes.price}>
-                CHF
-                {' '}
-                {element.pigione}
-              </Typography>
+
             </Grid>
 
           </Paper>
@@ -248,7 +247,7 @@ const CorrObject = () => {
     <>
       <div>
         <Divider fullWidth style={{ background: '#CF291d', margin: '4em' }} />
-        <Typography variant="h4" color="secondary" align="center" style={{ margin: '1em', fontSize: '60px' }}>
+        <Typography variant="h4" color="secondary" align="center" style={{ margin: '1em', fontSize: '60px', color: 'white' }}>
           OGGETTI CORRELATI
         </Typography>
         <Grid

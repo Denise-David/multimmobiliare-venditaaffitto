@@ -6,5 +6,8 @@ const useStyles = makeStyles((theme) => ({
   color: {
     color: theme.palette.secondary.main,
   },
+  img: {
+    transform: 'rotate(180deg)',
+  },
 }));
 export default useStyles;

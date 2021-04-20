@@ -29,6 +29,9 @@ import {
   CarouselProvider, Slider, Slide, Image, ButtonBack, ButtonNext,
 } from 'pure-react-carousel';
 import Carousel from 'react-material-ui-carousel';
+import scala from '../../img/scala.png';
+import metratura from '../../img/metratura.png';
+import locali from '../../img/Locali.png';
 import useStyles from './style';
 import {
   immo, rentOrSell, idRegionSelecter, idLocalSelected, idCategorySelected, priceLimits,
@@ -82,7 +85,7 @@ const ImmoElement = () => {
           count += 1;
           if (count >= 2) {
             return (
-              <Typography>
+              <Typography style={{ fontSize: '20px' }}>
                 /
                 {' '}
                 {car.caratteristica.nome}
@@ -90,7 +93,7 @@ const ImmoElement = () => {
             );
           }
           return (
-            <Typography>
+            <Typography style={{ fontSize: '20px' }}>
               {car.caratteristica.nome}
             </Typography>
           );
@@ -120,16 +123,16 @@ const ImmoElement = () => {
               alignItems="center"
               className={classes.padding}
             >
-              <Typography key={element.id}>
+              <Typography key={element.id} style={{ fontSize: '20px' }}>
                 <RoomIcon />
                 {' '}
                 {element.citta}
               </Typography>
               <span className={classes.div}>
-                <Typography style={{ fontSize: '15px', marginRight: '10px' }}>
+                <Typography style={{ fontSize: '30px', marginRight: '10px' }}>
                   CHF
                 </Typography>
-                <Typography variant="h6">
+                <Typography style={{ fontSize: '30px' }}>
 
                   <NumberFormat
                     value={element.pigione}
@@ -141,7 +144,7 @@ const ImmoElement = () => {
                 </Typography>
               </span>
             </Grid>
-            <Typography variant="h6" className={classes.padding}>
+            <Typography style={{ fontSize: '30px' }} className={classes.padding}>
               {element.titolo}
             </Typography>
             <Divider classes={{ root: classes.divider }} />
@@ -154,9 +157,9 @@ const ImmoElement = () => {
             >
               <Grid item xs={12} sm={6}>
                 <div className={classes.div}>
-                  <MeetingRoomIcon />
+                  <img src={locali} alt="locali" style={{ width: '30px', marginRight: '10px' }} />
                   {' '}
-                  <Typography>
+                  <Typography style={{ fontSize: '20px' }}>
 
                     {element.locali.numero}
                     {' '}
@@ -166,9 +169,9 @@ const ImmoElement = () => {
               </Grid>
               <Grid item xs={12} sm={2}>
                 <span className={classes.div}>
-                  <SquareFootIcon />
+                  <img src={metratura} alt="locali" style={{ width: '30px', marginRight: '10px' }} />
                   {' '}
-                  <Typography>
+                  <Typography style={{ fontSize: '20px' }}>
 
                     {element.metratura}
                     {' '}
@@ -179,9 +182,9 @@ const ImmoElement = () => {
               </Grid>
               <Grid item xs={12} sm={3}>
                 <div className={classes.div}>
-                  <HomeWorkIcon />
+                  <img src={scala} alt="locali" style={{ width: '30px', marginRight: '10px' }} />
                   {' '}
-                  <Typography>
+                  <Typography style={{ fontSize: '20px' }}>
                     {element.piano === 0 ? ' PT' : `  ${element.piano} °Piano`}
                   </Typography>
                 </div>
@@ -196,18 +199,18 @@ const ImmoElement = () => {
             >
               <Grid item xs={12} sm={6}>
                 <span className={classes.div}>
-                  <LocalParkingIcon />
+                  <LocalParkingIcon style={{ marginRight: '10px' }} />
                   {' '}
                   {getSingleParking.length === 0
-                    ? <Typography>Nessun parcheggio</Typography> : parking}
+                    ? <Typography style={{ fontSize: '20px' }}>Nessun parcheggio</Typography> : parking}
                 </span>
               </Grid>
               <Grid item xs={12} sm={2}>
                 <div className={classes.div}>
-                  <WcIcon />
+                  <WcIcon style={{ marginRight: '10px' }} />
                   {' '}
 
-                  <Typography>
+                  <Typography style={{ fontSize: '20px' }}>
 
                     1 bagno
                   </Typography>
@@ -215,9 +218,9 @@ const ImmoElement = () => {
               </Grid>
               <Grid item xs={12} sm={3}>
                 <div className={classes.div}>
-                  <EventAvailableIcon />
+                  <EventAvailableIcon style={{ marginRight: '10px' }} />
                   {' '}
-                  <Typography>
+                  <Typography style={{ fontSize: '20px' }}>
                     {' '}
                     {dateFormat}
                   </Typography>
@@ -233,7 +236,7 @@ const ImmoElement = () => {
               className={classes.padding}
             >
               {' '}
-              <Typography>
+              <Typography style={{ fontSize: '20px' }}>
                 {element.tipologia.nome}
               </Typography>
 

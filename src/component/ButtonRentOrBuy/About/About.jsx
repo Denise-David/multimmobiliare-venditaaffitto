@@ -7,14 +7,18 @@ import Grid from '@material-ui/core/Grid';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSelector, useDispatch } from 'react-redux';
 import Button from '@material-ui/core/Button';
+import { useSpring, animated } from 'react-spring';
+import arr from '../../../img/arrowBack - Copia.png';
 import useStyles from './style';
 import {
   immo, rentOrSell, idRegionSelecter,
   idLocalSelected, idCategorySelected, priceLimits, setIdRegionSelected, goToThePage,
 } from '../../../store/slice/ImmoSlice';
 
+const trans13 = (x, y, z) => `translate(${x}px, ${y}px)`;
 const About = () => {
   const dispatch = useDispatch();
+  const [props13, set13] = useSpring(() => ({ xys: [0, 0, -1] }));
   return (
     <>
       <Grid
@@ -29,11 +33,26 @@ const About = () => {
             textTransform: 'none', marginLeft: '5em', marginBottom: '35px',
           }}
         >
-          <Typography variant="h6" style={{ color: '#ECECEC' }}>
+          <Typography
+            onMouseMove={() => set13({ xys: [20, 0, 0] })}
+            onMouseLeave={() => set13({ xys: [0, 0, 0] })}
+            style={{ color: '#ECECEC', fontSize: '25px' }}
+          >
             Vedi altro
           </Typography>
           <div style={{ marginRight: '1em', textAlign: 'right', marginLeft: '10px' }}>
-            <FontAwesomeIcon icon="arrow-circle-right" size="2x" style={{ color: '#131313' }} />
+            <animated.img
+              onMouseMove={() => set13({ xys: [20, 0, 0] })}
+              onMouseLeave={() => set13({ xys: [0, 0, 0] })}
+              src={arr}
+              alt="copertina"
+              style={{
+                width: '30px',
+                transform: props13.xys.interpolate(trans13),
+                marginRight: '20px',
+                cursor: 'pointer',
+              }}
+            />
           </div>
 
         </Button>

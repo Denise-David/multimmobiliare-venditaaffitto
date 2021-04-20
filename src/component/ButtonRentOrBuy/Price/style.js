@@ -47,6 +47,7 @@ const useStyles = makeStyles((theme) => ({
   labelRoot: {
     fontSize: 25,
     color: '#ECECEC !important',
+    backgroundColor: 'black',
     marginTop: '-5px',
     paddingRight: '5px',
     '&$labelFocused': {

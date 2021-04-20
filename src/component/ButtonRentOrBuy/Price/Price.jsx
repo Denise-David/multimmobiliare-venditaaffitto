@@ -65,7 +65,7 @@ const Price = () => {
         justify="center"
         alignItems="center"
       >
-        <Typography variant="h6" style={{ color: '#ECECEC' }}>
+        <Typography style={{ color: '#ECECEC', fontSize: '25px' }}>
           CHF
         </Typography>
         <Slider

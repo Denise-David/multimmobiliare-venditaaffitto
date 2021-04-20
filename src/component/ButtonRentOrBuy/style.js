@@ -27,5 +27,26 @@ const useStyles = makeStyles((theme) => ({
       color: '#ECECEC',
     },
   },
+  inputRoot: {
+    fontSize: 17,
+    '&$cssFocused $notchedOutline': {
+      borderColor: '#131313 !important',
+    },
+
+  },
+  labelRoot: {
+    fontSize: 25,
+    color: '#ECECEC !important',
+    backgroundColor: 'black',
+    marginTop: '-5px',
+    paddingRight: '5px',
+    '&$labelFocused': {
+      color: '#ECECEC !important',
+    },
+  },
+  labelFocused: {
+    fontSize: 20,
+    color: '#ECECEC !important',
+  },
 }));
 export default useStyles;

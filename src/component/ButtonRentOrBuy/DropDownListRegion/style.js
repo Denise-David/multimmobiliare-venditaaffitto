@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
   },
   prova: {
     maxWidth: '18em',
-    color: '#131313',
+    color: '#ECECEC',
 
   },
   icon: {

@@ -87,7 +87,7 @@ const ButtonSendCode = () => {
             label={(
               <>
                 <HomeWorkIcon />
-                <Typography variant="h6">
+                <Typography style={{ fontSize: '25px' }}>
 
                   Affitto
                 </Typography>
@@ -99,7 +99,7 @@ const ButtonSendCode = () => {
             label={(
               <>
                 <AttachMoneyIcon />
-                <Typography variant="h6">
+                <Typography style={{ fontSize: '25px' }}>
                   Vendita
                 </Typography>
               </>
@@ -153,7 +153,7 @@ const ButtonSendCode = () => {
               justify="center"
               alignItems="center"
             >
-              <Typography style={{ fontSize: '20px' }} color="primary">
+              <Typography style={{ fontSize: '25px', color: 'white' }}>
                 Non hai trovato quello che cercavi? Iscriviti per
                 ricevere gli annunci di questa tua ricerca
               </Typography>
@@ -162,13 +162,21 @@ const ButtonSendCode = () => {
                 label="Email"
                 InputProps={{
                   className: classes.text2,
+                  classes: {
+                    root: classes.inputRoot,
+                    notchedOutline: classes.notchedOutline,
+                  },
                 }}
                 InputLabelProps={{
                   className: classes.prova,
+                  classes: {
+                    root: classes.labelRoot,
+                    focused: classes.labelFocused,
+                  },
                 }}
                 style={{ marginTop: '20px' }}
               />
-              <Button className={classes.button} variant="contained" style={{ marginTop: '20px' }}>
+              <Button className={classes.button} variant="contained" style={{ marginTop: '20px', fontSize: '20px' }}>
                 Iscriviti
               </Button>
             </Grid>
