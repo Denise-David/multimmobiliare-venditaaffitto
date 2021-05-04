@@ -70,7 +70,7 @@ const useStyles = makeStyles((theme) => ({
   },
   clusterMarker3: {
     color: '#fff',
-    backgroundImage: 'url("https://api.multimmobiliare.apton.ch/img/house.png")',
+    backgroundImage: 'url("https://api.multimmobiliare.com/img/house.png")',
     backgroundSize: 'cover',
     display: 'flex',
     justifyContent: 'center',

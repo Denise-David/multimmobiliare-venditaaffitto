@@ -1,7 +1,7 @@
 const pippo = {
 
   http: {
-    baseUrl: 'https://api.multimmobiliare.apton.ch/api',
+    baseUrl: 'https://api.multimmobiliare.com/api',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',

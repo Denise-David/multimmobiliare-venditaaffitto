@@ -33,7 +33,7 @@ const ImmoElementEvidence = (elemento) => {
       <CardMedia
         key={elem.id}
         className={classes.media}
-        image={`https://api.multimmobiliare.apton.ch/img/immobili/${elem.fileName}`}
+        image={`https://api.multimmobiliare.com/img/immobili/${elem.fileName}`}
         title="foto immobile principale"
       />
 

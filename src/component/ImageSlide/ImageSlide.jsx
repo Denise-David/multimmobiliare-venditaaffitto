@@ -83,7 +83,7 @@ const ImageSlide = (selectedImmo) => {
           <Link href="#" onClick={() => onOpen(iMin)}>
             <CardMedia
               className={classes.media}
-              image={`https://api.multimmobiliare.apton.ch/img/immobili/${selImmo.immagini[iMin].fileName}`}
+              image={`https://api.multimmobiliare.com/img/immobili/${selImmo.immagini[iMin].fileName}`}
               title="foto immobile"
             />
           </Link>
@@ -93,7 +93,7 @@ const ImageSlide = (selectedImmo) => {
               <Link href="#" onClick={() => onOpen(iMin + 1)}>
                 <CardMedia
                   className={classes.media}
-                  image={`https://api.multimmobiliare.apton.ch/img/immobili/${selImmo.immagini[iMin + 1].fileName}`}
+                  image={`https://api.multimmobiliare.com/img/immobili/${selImmo.immagini[iMin + 1].fileName}`}
                   title="foto immobile"
                 />
               </Link>
@@ -104,7 +104,7 @@ const ImageSlide = (selectedImmo) => {
               <Link href="#" onClick={() => onOpen(iMin + 2)}>
                 <CardMedia
                   className={classes.media}
-                  image={`https://api.multimmobiliare.apton.ch/img/immobili/${selImmo.immagini[iMin + 2].fileName}`}
+                  image={`https://api.multimmobiliare.com/img/immobili/${selImmo.immagini[iMin + 2].fileName}`}
                   title="foto immobile"
                 />
               </Link>
@@ -122,7 +122,7 @@ const ImageSlide = (selectedImmo) => {
         key={elem.id}
         className={classes.media2}
         style={{ backgroundColor: 'black' }}
-        src={`https://api.multimmobiliare.apton.ch/img/immobili/${elem.fileName}`}
+        src={`https://api.multimmobiliare.com/img/immobili/${elem.fileName}`}
         title="foto immobile principale"
       />
 

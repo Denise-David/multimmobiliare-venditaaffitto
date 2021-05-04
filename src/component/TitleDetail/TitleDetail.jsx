@@ -65,8 +65,11 @@ const trans13 = (x, y, z) => `translate(${x}px, ${y}px)`;
 const TitleDetail = (selectedImmo) => {
   const dispatch = useDispatch();
   const classes = useStyles();
-  const date = parseJSON(selectedImmo.selectedImmo.disponibilita);
-  const dateFormat = format(new Date(date), 'dd.MM.yyyy');
+  if (selectedImmo.selectedImmo.disponibilita !== undefined) {
+    const date = parseJSON(selectedImmo.selectedImmo.disponibilita);
+
+    const dateFormat = format(new Date(date), 'dd.MM.yyyy');
+  }
   const load = useSelector(loaded);
   const lt = useSelector(latitude);
   const lg = useSelector(longitude);
@@ -103,16 +106,16 @@ const TitleDetail = (selectedImmo) => {
     );
   }
 
-  const reg = selectedImmo.selectedImmo.regione.nome.toUpperCase();
-  const tip = selectedImmo.selectedImmo.tipologia.nome.toUpperCase();
-  const doc = selectedImmo.selectedImmo.documenti?.map((d) => (
+  const reg = selectedImmo.selectedImmo?.regione?.nome?.toUpperCase();
+  const tip = selectedImmo.selectedImmo?.tipologia?.nome?.toUpperCase();
+  const doc = selectedImmo.selectedImmo?.documenti?.map((d) => (
     <>
       <div nome="dettaglio">
         <Link
           className={classes.div2}
           color="secondary"
           href="#"
-          onClick={() => window.location.href = `https://api.multimmobiliare.apton.ch/doc/immobili/${d.fileName}`}
+          onClick={() => window.location.href = `https://api.multimmobiliare.com/doc/immobili/${d.fileName}`}
         >
           <PictureAsPdfIcon style={{ color: '#CF291d', marginRight: '20px', fontSize: '40px' }} />
           <Typography style={{ fontSize: '25px', marginRight: '1em', color: 'white' }} key={d.id}>
@@ -159,7 +162,7 @@ const TitleDetail = (selectedImmo) => {
     (car) => car.caratteristicaId === 10);
   const posteggio = selectedImmo?.selectedImmo?.immobiliCaratteristiche?.find(
     (car) => car.caratteristicaId === 18);
-  const parking = selectedImmo.selectedImmo.immobiliCaratteristiche.map(
+  const parking = selectedImmo?.selectedImmo?.immobiliCaratteristiche?.map(
     (car) => {
       if (car.caratteristicaId === 18 || car.caratteristicaId === 3
         || car.caratteristicaId === 10) {
@@ -222,7 +225,7 @@ const TitleDetail = (selectedImmo) => {
       return ('');
     },
   );
-  const getSingleParking = parking.filter((value) => value !== '');
+  const getSingleParking = parking?.filter((value) => value !== '');
 
   return (
     <>
@@ -251,7 +254,7 @@ const TitleDetail = (selectedImmo) => {
                 <animated.img
                   onMouseMove={() => set13({ xys: [-20, 0, 0] })}
                   onMouseLeave={() => set13({ xys: [0, 0, 0] })}
-                  src="https://api.multimmobiliare.apton.ch/img/icons/arrowBack.png"
+                  src="https://api.multimmobiliare.com/img/icons/arrowBack.png"
                   alt="copertina"
                   style={{
                     width: '30px',
@@ -360,7 +363,7 @@ const TitleDetail = (selectedImmo) => {
               <CardMedia
                 onClick={open360}
                 className={classes.media2}
-                image={`https://api.multimmobiliare.apton.ch/img/immobili/${selectedImmo.selectedImmo?.immagini[0]?.fileName}`}
+                image={`https://api.multimmobiliare.com/img/immobili/${selectedImmo.selectedImmo?.immagini[0]?.fileName}`}
                 title="foto immobile"
               />
 
@@ -434,41 +437,45 @@ const TitleDetail = (selectedImmo) => {
 
                 </ListItem>
               </List>
-              <Divider fullWidth style={{ background: '#CF291d' }} />
-              <List>
-                {selectedImmo.selectedImmo.spese
-                  ? (
-                    <ListItem alignItems="flex-start">
-                      <Typography
-                        style={{
-                          color: 'white', fontAlign: 'left', fontSize: '25px', marginRight: '9%',
-                        }}
-                        color="secondary"
-                      >
-                        Spese:
 
-                      </Typography>
+              {selectedImmo.selectedImmo.spese
+                ? (
+                  <>
+                    <Divider fullWidth style={{ background: '#CF291d' }} />
+                    <List>
+                      <ListItem alignItems="flex-start">
+                        <Typography
+                          style={{
+                            color: 'white', fontAlign: 'left', fontSize: '25px', marginRight: '9%',
+                          }}
+                          color="secondary"
+                        >
+                          Spese:
 
-                      <ListItemText
-                        secondary={(
-                          <>
-                            <Typography style={{ fontSize: '25px', color: 'white' }} color="secondary">
-                              <NumberFormat
-                                value={selectedImmo.selectedImmo ? selectedImmo.selectedImmo.spese : ''}
-                                className="foo"
-                                displayType="text"
-                                thousandSeparator
-                                renderText={(value, props) => <div {...props}>{value}</div>}
-                              />
+                        </Typography>
 
-                            </Typography>
-                          </>
+                        <ListItemText
+                          secondary={(
+                            <>
+                              <Typography style={{ fontSize: '25px', color: 'white' }} color="secondary">
+                                <NumberFormat
+                                  value={selectedImmo.selectedImmo ? selectedImmo.selectedImmo.spese : ''}
+                                  className="foo"
+                                  displayType="text"
+                                  thousandSeparator
+                                  renderText={(value, props) => <div {...props}>{value}</div>}
+                                />
+
+                              </Typography>
+                            </>
 )}
-                      />
-                    </ListItem>
-                  )
-                  : <></>}
-              </List>
+                        />
+                      </ListItem>
+                    </List>
+                  </>
+                )
+                : <></>}
+
               <Divider fullWidth style={{ background: '#CF291d' }} />
               {autorimessa && autorimessa.prezzo
                 ? (
@@ -479,7 +486,7 @@ const TitleDetail = (selectedImmo) => {
                       <ListItem alignItems="flex-start">
                         <Typography
                           style={{
-                            color: 'white', fontAlign: 'left', fontSize: '25px', marginRight: '9%',
+                            color: 'white', fontAlign: 'left', fontSize: '25px', marginRight: '4%',
                           }}
                           color="secondary"
                         >
@@ -615,7 +622,7 @@ const TitleDetail = (selectedImmo) => {
 
                 <ListItem alignItems="flex-start">
                   <ListItemIcon style={{ marginRight: '10%' }}>
-                    <img alt="logo" src="https://api.multimmobiliare.apton.ch/img/icons/Locali.png" style={{ maxHeight: '50px', maxWidth: '50px' }} />
+                    <img alt="logo" src="https://api.multimmobiliare.com/img/icons/Locali.png" style={{ maxHeight: '50px', maxWidth: '50px' }} />
                   </ListItemIcon>
                   <ListItemText
                     primary=""
@@ -637,7 +644,7 @@ const TitleDetail = (selectedImmo) => {
 
                 <ListItem alignItems="flex-start">
                   <ListItemIcon style={{ marginRight: '10%' }}>
-                    <img alt="logo" src="https://api.multimmobiliare.apton.ch/img/icons/metratura.png" style={{ maxHeight: '50px', maxWidth: '50px' }} />
+                    <img alt="logo" src="https://api.multimmobiliare.com/img/icons/metratura.png" style={{ maxHeight: '50px', maxWidth: '50px' }} />
                   </ListItemIcon>
                   <ListItemText
                     primary=""
@@ -658,7 +665,7 @@ const TitleDetail = (selectedImmo) => {
                 <Divider fullWidth style={{ background: '#CF291d' }} />
                 <ListItem alignItems="flex-start">
                   <ListItemIcon style={{ marginRight: '10%' }}>
-                    <img alt="logo" src="https://api.multimmobiliare.apton.ch/img/icons/scala.png" style={{ maxHeight: '50px', maxWidth: '50px' }} />
+                    <img alt="logo" src="https://api.multimmobiliare.com/img/icons/scala.png" style={{ maxHeight: '50px', maxWidth: '50px' }} />
                   </ListItemIcon>
                   <ListItemText
                     primary=""
@@ -677,7 +684,7 @@ const TitleDetail = (selectedImmo) => {
                 <Divider fullWidth style={{ background: '#CF291d' }} />
                 <ListItem alignItems="flex-start">
                   <ListItemIcon style={{ marginRight: '10%' }}>
-                    <img alt="logo" src="https://api.multimmobiliare.apton.ch/img/icons/parking.png" style={{ maxHeight: '50px', maxWidth: '50px' }} />
+                    <img alt="logo" src="https://api.multimmobiliare.com/img/icons/parking.png" style={{ maxHeight: '50px', maxWidth: '50px' }} />
                   </ListItemIcon>
                   <ListItemText
                     primary=""
@@ -698,7 +705,7 @@ const TitleDetail = (selectedImmo) => {
                       <Divider fullWidth style={{ background: '#CF291d' }} />
                       <ListItem alignItems="flex-start">
                         <ListItemIcon style={{ marginRight: '10%' }}>
-                          <img alt="logo" src="https://api.multimmobiliare.apton.ch/img/icons/vasca.png" style={{ maxHeight: '50px', maxWidth: '50px' }} />
+                          <img alt="logo" src="https://api.multimmobiliare.com/img/icons/vasca.png" style={{ maxHeight: '50px', maxWidth: '50px' }} />
                         </ListItemIcon>
                         <ListItemText
                           primary=""
@@ -735,7 +742,7 @@ const TitleDetail = (selectedImmo) => {
                       <ListItemIcon style={{ marginRight: '10%' }}>
                         <img
                           alt="logo"
-                          src="https://api.multimmobiliare.apton.ch/img/icons/calendar.png"
+                          src="https://api.multimmobiliare.com/img/icons/calendar.png"
                           style={{ maxHeight: '50px', maxWidth: '50px' }}
                         />
                       </ListItemIcon>
@@ -747,7 +754,7 @@ const TitleDetail = (selectedImmo) => {
                               {' '}
                               libero da
                               {' '}
-                              {dateFormat}
+                              {selectedImmo.selectedImmo.disponibilita ? dateFormat : ''}
                             </Typography>
                           </>
   )}
@@ -839,7 +846,7 @@ const TitleDetail = (selectedImmo) => {
                   <IconButton onClick={() => window.open(`https://multimmobiliare.webflow.io/pdf?id=${parsed.id}`)}>
                     <img
                       alt="pdf"
-                      src="https://api.multimmobiliare.apton.ch/img/icons/pdfDownload.png"
+                      src="https://api.multimmobiliare.com/img/icons/pdfDownload.png"
                       style={{
                         width: '40px', height: 'auto',
                       }}
@@ -856,7 +863,7 @@ const TitleDetail = (selectedImmo) => {
                       <IconButton>
                         <img
                           alt="pdf"
-                          src="https://api.multimmobiliare.apton.ch/img/icons/fbShare.png"
+                          src="https://api.multimmobiliare.com/img/icons/fbShare.png"
                           style={{
                             width: '30px', height: 'auto',
                           }}
@@ -877,7 +884,7 @@ const TitleDetail = (selectedImmo) => {
                   >
                     <img
                       alt="pdf"
-                      src="https://api.multimmobiliare.apton.ch/img/icons/link.png"
+                      src="https://api.multimmobiliare.com/img/icons/link.png"
                       style={{
                         width: '30px', height: '30px',
                       }}
@@ -959,7 +966,7 @@ const TitleDetail = (selectedImmo) => {
                   <CardMedia
                     component="img"
                     alt="Stefania"
-                    image={`https://api.multimmobiliare.apton.ch/img/referenti/${selectedImmo.selectedImmo.referente.foto}`}
+                    image={`https://api.multimmobiliare.com/img/referenti/${selectedImmo.selectedImmo.referente.foto}`}
                     title="stefania"
                     style={{ width: '200px', height: '200px', marginLeft: '2em' }}
                   />

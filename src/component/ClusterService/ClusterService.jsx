@@ -159,7 +159,7 @@ const ClusterService = () => {
               <div
                 onClick={() => window.location.href = `https://multimmobiliare.webflow.io/dettaglio?id=${immobileSel.id}`}
                 className={classes.markerImage}
-                style={{ backgroundImage: `url("https://api.multimmobiliare.apton.ch/img/immobili/${immobileSel.immagini[0].fileName}")` }}
+                style={{ backgroundImage: `url("https://api.multimmobiliare.com/img/immobili/${immobileSel.immagini[0].fileName}")` }}
               >
                 <div className={classes.opacity} style={{ backgroundColor: 'rgba(181, 7, 23, 0.6)' }}>
                   <Typography

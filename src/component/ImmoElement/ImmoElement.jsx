@@ -72,7 +72,7 @@ const ImmoElement = () => {
           <CardMedia
             key={elem.id}
             className={classes.media}
-            image={`https://api.multimmobiliare.apton.ch/img/immobili/${elem.fileName}`}
+            image={`https://api.multimmobiliare.com/img/immobili/${elem.fileName}`}
             title="foto immobile principale"
           />
 
@@ -158,7 +158,7 @@ const ImmoElement = () => {
             >
               <Grid item xs={12} sm={6}>
                 <div className={classes.div}>
-                  <img src="https://api.multimmobiliare.apton.ch/img/icons/Locali.png" alt="locali" style={{ width: '30px', marginRight: '10px' }} />
+                  <img src="https://api.multimmobiliare.com/img/icons/Locali.png" alt="locali" style={{ width: '30px', marginRight: '10px' }} />
                   {' '}
                   <Typography style={{ fontSize: '20px' }}>
 
@@ -170,7 +170,7 @@ const ImmoElement = () => {
               </Grid>
               <Grid item xs={12} sm={2}>
                 <span className={classes.div}>
-                  <img src="https://api.multimmobiliare.apton.ch/img/icons/metratura.png" alt="locali" style={{ width: '30px', marginRight: '10px' }} />
+                  <img src="https://api.multimmobiliare.com/img/icons/metratura.png" alt="locali" style={{ width: '30px', marginRight: '10px' }} />
                   {' '}
                   <Typography style={{ fontSize: '20px' }}>
 
@@ -183,7 +183,7 @@ const ImmoElement = () => {
               </Grid>
               <Grid item xs={12} sm={3}>
                 <div className={classes.div}>
-                  <img src="https://api.multimmobiliare.apton.ch/img/icons/scala.png" alt="locali" style={{ width: '30px', marginRight: '10px' }} />
+                  <img src="https://api.multimmobiliare.com/img/icons/scala.png" alt="locali" style={{ width: '30px', marginRight: '10px' }} />
                   {' '}
                   <Typography style={{ fontSize: '20px' }}>
                     {element.piano === 0 ? ' PT' : `  ${element.piano} °Piano`}

@@ -43,7 +43,6 @@ import {
 } from '../../store/slice/ImmoSlice';
 import { loaded } from '../../store/slice/LoadingSlice';
 import useStyles from './style';
-import stefania from '../../img/stefania.png';
 
 const DetailBox = () => {
   const queryString = require('query-string');
@@ -85,7 +84,7 @@ const DetailBox = () => {
   const doc = selectedImmo[0]?.documenti?.map((d) => (
     <>
       <div nome="dettaglio">
-        <Link className={classes.div2} color="secondary" href="#" onClick={() => window.location.href = `https://api.multimmobiliare.apton.ch/doc/immobili/${d.fileName}`}>
+        <Link className={classes.div2} color="secondary" href="#" onClick={() => window.location.href = `https://api.multimmobiliare.com/doc/immobili/${d.fileName}`}>
           <Typography style={{ fontSize: '20px', marginRight: '1em' }} key={d.id}>
             {' '}
             {d.fileName}
@@ -192,13 +191,6 @@ const DetailBox = () => {
                 <MailIcon style={{ marginRight: '10px', fontSize: '35px' }} />
               </span>
 
-              <CardMedia
-                component="img"
-                alt="Stefania"
-                image={stefania}
-                title="stefania"
-                style={{ width: '200px', height: '200px', marginLeft: '2em' }}
-              />
             </Grid>
           </Grid>
 

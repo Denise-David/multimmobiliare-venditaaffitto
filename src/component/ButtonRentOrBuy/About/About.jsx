@@ -43,7 +43,7 @@ const About = () => {
             <animated.img
               onMouseMove={() => set13({ xys: [20, 0, 0] })}
               onMouseLeave={() => set13({ xys: [0, 0, 0] })}
-              src="https://api.multimmobiliare.apton.ch/img/icons/arrowFront.png"
+              src="https://api.multimmobiliare.com/img/icons/arrowFront.png"
               alt="copertina"
               style={{
                 width: '30px',

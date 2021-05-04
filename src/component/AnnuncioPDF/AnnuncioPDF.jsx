@@ -67,7 +67,7 @@ const AnnuncioPDF = () => {
               marginVertical: 15,
               marginHorizontal: 100,
             }}
-            src="https://api.multimmobiliare.apton.ch/img/icons/Multi.png"
+            src="https://api.multimmobiliare.com/img/icons/Multi.png"
           />
           <View>
 
@@ -76,7 +76,7 @@ const AnnuncioPDF = () => {
                 marginVertical: 15,
                 marginHorizontal: 100,
               }}
-              src={{ uri: `https://api.multimmobiliare.apton.ch/img/immobili/${immagine.fileName}`, method: 'GET', headers: '' }}
+              src={{ uri: `https://api.multimmobiliare.com/img/immobili/${immagine.fileName}`, method: 'GET', headers: '' }}
             />
           </View>
           <Text style={{ borderTop: '3px solid red' }} />
@@ -211,7 +211,7 @@ const AnnuncioPDF = () => {
                 marginVertical: 15,
                 marginHorizontal: 100,
               }}
-              src="https://api.multimmobiliare.apton.ch/img/icons/Multi.png"
+              src="https://api.multimmobiliare.com/img/icons/Multi.png"
             />
           </View>
           <View style={styles.section}>
@@ -223,7 +223,7 @@ const AnnuncioPDF = () => {
                 marginVertical: 15,
                 marginHorizontal: 100,
               }}
-              src={{ uri: `https://api.multimmobiliare.apton.ch/img/immobili/${selectedImmo[0]?.immagini[0]?.fileName}`, method: 'GET', headers: '' }}
+              src={{ uri: `https://api.multimmobiliare.com/img/immobili/${selectedImmo[0]?.immagini[0]?.fileName}`, method: 'GET', headers: '' }}
             />
           </View>
           <Text style={{ borderTop: '3px solid red' }} />
@@ -324,7 +324,7 @@ const AnnuncioPDF = () => {
               marginVertical: 15,
               marginHorizontal: 100,
             }}
-            src="https://api.multimmobiliare.apton.ch/img/icons/Multi.png"
+            src="https://api.multimmobiliare.com/img/icons/Multi.png"
           />
           <View style={styles.section}>
             <Text style={{ fontWeight: 'bold' }}>{selectedImmo[0]?.titolo}</Text>
@@ -463,7 +463,7 @@ const AnnuncioPDF = () => {
               marginVertical: 15,
               marginHorizontal: 100,
             }}
-            src="https://api.multimmobiliare.apton.ch/img/icons/Multi.png"
+            src="https://api.multimmobiliare.com/img/icons/Multi.png"
           />
           <View style={styles.section}>
             <Text style={{ fontWeight: 'bold', borderBottom: '1px solid black' }}>Dati principali</Text>
