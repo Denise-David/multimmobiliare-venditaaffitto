@@ -77,8 +77,8 @@ const ButtonSendCode = () => {
           aria-label="disabled tabs example"
           onChange={(event, value) => {
             dispatch(setRentOrSell(value));
+            setChange(true);
           }}
-          onClick={() => setChange(true)}
           centered
           style={{ paddingTop: '1em', marginBottom: '1em' }}
         >
