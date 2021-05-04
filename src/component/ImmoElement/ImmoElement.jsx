@@ -29,9 +29,7 @@ import {
   CarouselProvider, Slider, Slide, Image, ButtonBack, ButtonNext,
 } from 'pure-react-carousel';
 import Carousel from 'react-material-ui-carousel';
-import scala from '../../img/scala.png';
-import metratura from '../../img/metratura.png';
-import locali from '../../img/Locali.png';
+
 import useStyles from './style';
 import {
   immo, rentOrSell, idRegionSelecter, idLocalSelected, idCategorySelected, priceLimits,
@@ -50,6 +48,8 @@ const ImmoElement = () => {
   let countAllElement = 0;
 
   const listImmo = allImmo.map((element) => {
+    const bagni = element.immobiliCaratteristiche?.find(
+      (car) => car.caratteristicaId === 29);
     if (element.contratto === contractType
       && countElement < 6
       && (((element.regioneId === selectedRegion.id || selectedRegion.id === 0) && (selectedRegion.tipo === 'regione' || selectedRegion.tipo === ''))
@@ -81,7 +81,8 @@ const ImmoElement = () => {
       const dateFormat = format(new Date(date), 'dd.MM.yyyy');
       let count = 0;
       const parking = element.immobiliCaratteristiche.map((car) => {
-        if (car.caratteristicaId === 18 || car.caratteristicaId === 3) {
+        if (car.caratteristicaId === 18 || car.caratteristicaId === 3
+          || car.caratteristicaId === 10) {
           count += 1;
           if (count >= 2) {
             return (
@@ -157,7 +158,7 @@ const ImmoElement = () => {
             >
               <Grid item xs={12} sm={6}>
                 <div className={classes.div}>
-                  <img src={locali} alt="locali" style={{ width: '30px', marginRight: '10px' }} />
+                  <img src="https://api.multimmobiliare.apton.ch/img/icons/Locali.png" alt="locali" style={{ width: '30px', marginRight: '10px' }} />
                   {' '}
                   <Typography style={{ fontSize: '20px' }}>
 
@@ -169,7 +170,7 @@ const ImmoElement = () => {
               </Grid>
               <Grid item xs={12} sm={2}>
                 <span className={classes.div}>
-                  <img src={metratura} alt="locali" style={{ width: '30px', marginRight: '10px' }} />
+                  <img src="https://api.multimmobiliare.apton.ch/img/icons/metratura.png" alt="locali" style={{ width: '30px', marginRight: '10px' }} />
                   {' '}
                   <Typography style={{ fontSize: '20px' }}>
 
@@ -182,7 +183,7 @@ const ImmoElement = () => {
               </Grid>
               <Grid item xs={12} sm={3}>
                 <div className={classes.div}>
-                  <img src={scala} alt="locali" style={{ width: '30px', marginRight: '10px' }} />
+                  <img src="https://api.multimmobiliare.apton.ch/img/icons/scala.png" alt="locali" style={{ width: '30px', marginRight: '10px' }} />
                   {' '}
                   <Typography style={{ fontSize: '20px' }}>
                     {element.piano === 0 ? ' PT' : `  ${element.piano} °Piano`}
@@ -209,11 +210,21 @@ const ImmoElement = () => {
                 <div className={classes.div}>
                   <WcIcon style={{ marginRight: '10px' }} />
                   {' '}
+                  {bagni?.quantita > 1
+                    ? (
+                      <Typography style={{ fontSize: '20px' }}>
 
-                  <Typography style={{ fontSize: '20px' }}>
+                        {bagni?.quantita}
+                        {' '}
+                        bagni
+                      </Typography>
+                    )
+                    : (
+                      <Typography style={{ fontSize: '20px' }}>
 
-                    1 bagno
-                  </Typography>
+                        Bagno
+                      </Typography>
+                    )}
                 </div>
               </Grid>
               <Grid item xs={12} sm={3}>

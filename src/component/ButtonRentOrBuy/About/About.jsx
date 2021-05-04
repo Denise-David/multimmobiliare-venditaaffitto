@@ -8,7 +8,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSelector, useDispatch } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import { useSpring, animated } from 'react-spring';
-import arr from '../../../img/arrowBack - Copia.png';
 import useStyles from './style';
 import {
   immo, rentOrSell, idRegionSelecter,
@@ -44,7 +43,7 @@ const About = () => {
             <animated.img
               onMouseMove={() => set13({ xys: [20, 0, 0] })}
               onMouseLeave={() => set13({ xys: [0, 0, 0] })}
-              src={arr}
+              src="https://api.multimmobiliare.apton.ch/img/icons/arrowFront.png"
               alt="copertina"
               style={{
                 width: '30px',

@@ -41,10 +41,10 @@ const ImageSlide = (selectedImmo) => {
 
   let numberSlide;
 
-  if (Number.isInteger(selImmo.immagini.length / 3)) {
-    numberSlide = selImmo.immagini.length / 3;
+  if (Number.isInteger(selImmo?.immagini?.length / 3)) {
+    numberSlide = selImmo?.immagini?.length / 3;
   } else {
-    numberSlide = parseInt(selImmo.immagini.length / 3, 10) + 1;
+    numberSlide = parseInt(selImmo?.immagini?.length / 3, 10) + 1;
   }
 
   const iTotalMax = 3 * numberSlide - 1;
@@ -70,7 +70,7 @@ const ImageSlide = (selectedImmo) => {
     setTransition('right');
   };
 
-  const listImage = !selImmo.immagini[iMin] ? <></>
+  const listImage = !selImmo?.immagini ? <></>
     : (
       <>
         <Grid
@@ -136,10 +136,11 @@ const ImageSlide = (selectedImmo) => {
           direction="row"
           justify="center"
           alignItems="center"
+          style={{ marginTop: '1em' }}
         >
 
           <Carousel
-            navButtonsAlwaysInvisible={selImmo.immagini.length < 4}
+            navButtonsAlwaysInvisible={selImmo?.immagini?.length < 4}
             prev={() => setIndexInverse()}
             next={() => setIndex()}
             navButtonsAlwaysVisible

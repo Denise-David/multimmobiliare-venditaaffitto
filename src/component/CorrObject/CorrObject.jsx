@@ -25,9 +25,6 @@ import EventAvailableIcon from '@material-ui/icons/EventAvailable';
 import NumberFormat from 'react-number-format';
 import parseJSON from 'date-fns/parseJSON';
 import useStyles from './style';
-import metratura from '../../img/metratura.png';
-import locali from '../../img/Locali.png';
-import scala from '../../img/scala.png';
 import {
   immo, rentOrSell, idRegionSelecter, idLocalSelected, idCategorySelected, priceLimits,
 } from '../../store/slice/ImmoSlice';
@@ -47,6 +44,8 @@ const CorrObject = () => {
     return (<></>);
   // eslint-disable-next-line consistent-return
   } const listImmo = allImmo.map((element) => {
+    const bagni = element.immobiliCaratteristiche?.find(
+      (car) => car.caratteristicaId === 29);
     const listLargeImage = !element.immagini ? <></>
       : element.immagini.map((elem, index) => (
 
@@ -72,7 +71,8 @@ const CorrObject = () => {
       const dateFormat = format(new Date(date), 'dd.MM.yyyy');
       let count = 0;
       const parking = element.immobiliCaratteristiche.map((car) => {
-        if (car.caratteristicaId === 18 || car.caratteristicaId === 3) {
+        if (car.caratteristicaId === 18 || car.caratteristicaId === 3
+          || car.caratteristicaId === 10) {
           count += 1;
           if (count >= 2) {
             return (
@@ -149,7 +149,7 @@ const CorrObject = () => {
             >
               <Grid item xs={12} sm={6}>
                 <div className={classes.div}>
-                  <img src={locali} alt="met" style={{ width: '30px', marginRight: '10px' }} />
+                  <img src="https://api.multimmobiliare.apton.ch/img/icons/Locali.png" alt="met" style={{ width: '30px', marginRight: '10px' }} />
                   {' '}
                   <Typography style={{ fontSize: '20px' }}>
 
@@ -161,7 +161,7 @@ const CorrObject = () => {
               </Grid>
               <Grid item xs={12} sm={2}>
                 <span className={classes.div}>
-                  <img src={metratura} alt="met" style={{ width: '30px', marginRight: '10px' }} />
+                  <img src="https://api.multimmobiliare.apton.ch/img/icons/metratura.png" alt="met" style={{ width: '30px', marginRight: '10px' }} />
                   {' '}
                   <Typography style={{ fontSize: '20px' }}>
 
@@ -174,7 +174,7 @@ const CorrObject = () => {
               </Grid>
               <Grid item xs={12} sm={3}>
                 <div className={classes.div}>
-                  <img src={scala} alt="met" style={{ width: '30px', marginRight: '10px' }} />
+                  <img src="https://api.multimmobiliare.apton.ch/img/icons/scala.png" alt="met" style={{ width: '30px', marginRight: '10px' }} />
                   {' '}
                   <Typography style={{ fontSize: '20px' }}>
                     {element.piano === 0 ? ' PT' : `  ${element.piano} °Piano`}
@@ -202,10 +202,21 @@ const CorrObject = () => {
                   <WcIcon style={{ marginRight: '10px' }} />
                   {' '}
 
-                  <Typography style={{ fontSize: '20px' }}>
+                  {bagni?.quantita > 1
+                    ? (
+                      <Typography style={{ fontSize: '20px' }}>
 
-                    1 bagno
-                  </Typography>
+                        {bagni?.quantita}
+                        {' '}
+                        bagni
+                      </Typography>
+                    )
+                    : (
+                      <Typography style={{ fontSize: '20px' }}>
+
+                        Bagno
+                      </Typography>
+                    )}
                 </div>
               </Grid>
               <Grid item xs={12} sm={3}>

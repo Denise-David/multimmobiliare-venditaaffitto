@@ -56,6 +56,12 @@ const Price = () => {
   const maxPriceSell = Math.max.apply(null, allPriceSell);
   const minPriceSell = Math.min.apply(null, allPriceSell);
 
+  const handleChange = (event, newValue) => {
+    dispatch(setPriceLimits(newValue));
+    setChange(true);
+  };
+
+  const [prezzi, setPrezzi] = useState([0, 0]);
   return (
     <>
 
@@ -69,12 +75,10 @@ const Price = () => {
           CHF
         </Typography>
         <Slider
-          value={prices}
+          value={prezzi}
           aria-labelledby="range-slider"
-          onChange={(event, newValue) => {
-            dispatch(setPriceLimits(newValue));
-            setChange(true);
-          }}
+          onChange={(event, newValue) => setPrezzi(newValue)}
+          onChangeCommitted={handleChange}
           className={classes.slider}
           min={contract === 0 ? minPriceRent : minPriceSell}
           max={contract === 0 ? maxPriceRent : maxPriceSell}
@@ -89,10 +93,11 @@ const Price = () => {
 
           <div className={classes.priceText}>
             <TextField
-              key={prices[1]}
+              id="min"
+              key="1"
               label="Prezzo Min"
               variant="outlined"
-              value={prices[1]}
+              value={prices[0]}
               InputProps={{
                 classes: {
                   root: classes.inputRoot,
@@ -106,7 +111,10 @@ const Price = () => {
                 },
               }}
               className={classes.prova}
-              onChange={(event) => dispatch(setPriceLimitsMin(event.target.value))}
+              onChange={(event) => {
+                dispatch(setPriceLimitsMin(event.target.value));
+                document.getElementById('min').focus();
+              }}
               margin="normal"
               style={{ marginRight: '10px', marginLeft: '20px' }}
             />
@@ -115,7 +123,7 @@ const Price = () => {
 
           <div className={classes.priceText}>
             <TextField
-              key={prices[1]}
+              key="2"
               label="Prezzo Max"
               variant="outlined"
               value={prices[1]}

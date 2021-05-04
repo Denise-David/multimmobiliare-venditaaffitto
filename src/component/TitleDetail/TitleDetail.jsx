@@ -11,6 +11,7 @@ import React, { ReactElement, useEffect } from 'react';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import RoomIcon from '@material-ui/icons/Room';
+import { BrowserView, MobileView } from 'react-device-detect';
 import {
   Divider, Button, SvgIcon,
   IconButton,
@@ -50,23 +51,11 @@ import Link from '@material-ui/core/Link';
 import PictureAsPdfIcon from '@material-ui/icons/PictureAsPdf';
 import GoogleMapReact from 'google-map-react';
 import Geocode from 'react-geocode';
-
-import fb from '../../img/fbShare.png';
-import link from '../../img/link.png';
-import pdfD from '../../img/pdfDownload.png';
-import stefania from '../../img/stefania.png';
-import vasca from '../../img/vasca.png';
-import park from '../../img/parking.png';
-import scala from '../../img/scala.png';
-import met from '../../img/metratura.png';
-import locali from '../../img/Locali.png';
 import useStyles from './style';
-import calendar from '../../img/calendar.png';
 import { loaded } from '../../store/slice/LoadingSlice';
 import {
   immo, latitude, longitude, setLat, setLng,
 } from '../../store/slice/ImmoSlice';
-import arr from '../../img/arrowBack.png';
 
 const open360 = () => {
   window.open(selectedImmo[0]?.tour360Url);
@@ -85,6 +74,15 @@ const TitleDetail = (selectedImmo) => {
   const [props13, set13] = useSpring(() => ({ xys: [0, 0, -1] }));
   const parsed = queryString.parse(location.search);
 
+  const Mailto = ({
+    email, subject = '', body = '', children,
+  }) => {
+    let params = subject || body ? '?' : '';
+    if (subject) params += `subject=${encodeURIComponent(subject)}`;
+    if (body) params += `${subject ? '&' : ''}body=${encodeURIComponent(body)}`;
+
+    return <a href={`mailto:${email}${params}`}>{children}</a>;
+  };
   let count = 0;
 
   Geocode.setApiKey('AIzaSyDoqKjf0F9Y2vaVUBGTqLs7JxM3PQMMp_A');
@@ -153,26 +151,77 @@ const TitleDetail = (selectedImmo) => {
   )
   );
 
-  const parking = selectedImmo.selectedImmo.immobiliCaratteristiche.map((car) => {
-    if (car.caratteristicaId === 18 || car.caratteristicaId === 3) {
-      count += 1;
-      if (count >= 2) {
-        return (
+  const bagni = selectedImmo?.selectedImmo?.immobiliCaratteristiche?.find(
+    (car) => car.caratteristicaId === 29);
+  const autorimessa = selectedImmo?.selectedImmo?.immobiliCaratteristiche?.find(
+    (car) => car.caratteristicaId === 3);
+  const garage = selectedImmo?.selectedImmo?.immobiliCaratteristiche?.find(
+    (car) => car.caratteristicaId === 10);
+  const posteggio = selectedImmo?.selectedImmo?.immobiliCaratteristiche?.find(
+    (car) => car.caratteristicaId === 18);
+  const parking = selectedImmo.selectedImmo.immobiliCaratteristiche.map(
+    (car) => {
+      if (car.caratteristicaId === 18 || car.caratteristicaId === 3
+        || car.caratteristicaId === 10) {
+        count += 1;
+        if (count >= 2) {
+          if (car.caratteristicaId === 3 && car?.quantita > 1) {
+            return (
+
+              <Typography style={{ fontSize: '25px', color: 'white' }}>
+                /
+                {car?.quantita}
+                {' '}
+                Autorimesse
+              </Typography>
+            );
+          } if (car.caratteristicaId === 18 && car?.quantita > 1) {
+            return (
+
+              <Typography style={{ fontSize: '25px', color: 'white' }}>
+                /
+                {car?.quantita}
+                {' '}
+                Posteggi esterni
+              </Typography>
+            );
+          } return (
+
+            <Typography style={{ fontSize: '25px', color: 'white' }}>
+              /
+              {' '}
+              {car.caratteristica.nome}
+            </Typography>
+          );
+        }
+        if (car.caratteristicaId === 3 && car?.quantita > 1) {
+          return (
+
+            <Typography style={{ fontSize: '25px', color: 'white' }}>
+              {car?.quantita}
+              {' '}
+              Autorimesse
+            </Typography>
+          );
+        } if (car.caratteristicaId === 18 && car?.quantita > 1) {
+          return (
+
+            <Typography style={{ fontSize: '25px', color: 'white' }}>
+              {car?.quantita}
+              {' '}
+              Posteggi esterni
+            </Typography>
+          );
+        } return (
+
           <Typography style={{ fontSize: '25px', color: 'white' }}>
-            /
-            {' '}
             {car.caratteristica.nome}
           </Typography>
         );
       }
-      return (
-        <Typography style={{ fontSize: '25px', color: 'white' }}>
-          {car.caratteristica.nome}
-        </Typography>
-      );
-    }
-    return ('');
-  });
+      return ('');
+    },
+  );
   const getSingleParking = parking.filter((value) => value !== '');
 
   return (
@@ -202,7 +251,7 @@ const TitleDetail = (selectedImmo) => {
                 <animated.img
                   onMouseMove={() => set13({ xys: [-20, 0, 0] })}
                   onMouseLeave={() => set13({ xys: [0, 0, 0] })}
-                  src={arr}
+                  src="https://api.multimmobiliare.apton.ch/img/icons/arrowBack.png"
                   alt="copertina"
                   style={{
                     width: '30px',
@@ -387,37 +436,167 @@ const TitleDetail = (selectedImmo) => {
               </List>
               <Divider fullWidth style={{ background: '#CF291d' }} />
               <List>
+                {selectedImmo.selectedImmo.spese
+                  ? (
+                    <ListItem alignItems="flex-start">
+                      <Typography
+                        style={{
+                          color: 'white', fontAlign: 'left', fontSize: '25px', marginRight: '9%',
+                        }}
+                        color="secondary"
+                      >
+                        Spese:
 
-                <ListItem alignItems="flex-start">
-                  <Typography
-                    style={{
-                      color: 'white', fontAlign: 'left', fontSize: '25px', marginRight: '9%',
-                    }}
-                    color="secondary"
-                  >
-                    Spese:
+                      </Typography>
 
-                  </Typography>
+                      <ListItemText
+                        secondary={(
+                          <>
+                            <Typography style={{ fontSize: '25px', color: 'white' }} color="secondary">
+                              <NumberFormat
+                                value={selectedImmo.selectedImmo ? selectedImmo.selectedImmo.spese : ''}
+                                className="foo"
+                                displayType="text"
+                                thousandSeparator
+                                renderText={(value, props) => <div {...props}>{value}</div>}
+                              />
 
-                  <ListItemText
-                    secondary={(
-                      <>
-                        <Typography style={{ fontSize: '25px', color: 'white' }} color="secondary">
-                          <NumberFormat
-                            value={selectedImmo.selectedImmo ? selectedImmo.selectedImmo.spese : ''}
-                            className="foo"
-                            displayType="text"
-                            thousandSeparator
-                            renderText={(value, props) => <div {...props}>{value}</div>}
-                          />
-
-                        </Typography>
-                      </>
+                            </Typography>
+                          </>
 )}
-                  />
-                </ListItem>
+                      />
+                    </ListItem>
+                  )
+                  : <></>}
               </List>
               <Divider fullWidth style={{ background: '#CF291d' }} />
+              {autorimessa && autorimessa.prezzo
+                ? (
+                  <>
+
+                    <List>
+
+                      <ListItem alignItems="flex-start">
+                        <Typography
+                          style={{
+                            color: 'white', fontAlign: 'left', fontSize: '25px', marginRight: '9%',
+                          }}
+                          color="secondary"
+                        >
+                          {autorimessa.caratteristica.nome}
+                          {' '}
+                          :
+
+                        </Typography>
+
+                        <ListItemText
+                          secondary={(
+                            <>
+                              <Typography style={{ fontSize: '25px', color: 'white' }} color="secondary">
+                                <NumberFormat
+                                  value={autorimessa.prezzo ? autorimessa.prezzo : ''}
+                                  className="foo"
+                                  displayType="text"
+                                  thousandSeparator
+                                  renderText={(value, props) => <div {...props}>{value}</div>}
+                                />
+
+                              </Typography>
+                            </>
+)}
+                        />
+                      </ListItem>
+                    </List>
+                    <Divider fullWidth style={{ background: '#CF291d' }} />
+
+                  </>
+                )
+                : <></>}
+              {garage && garage.prezzo
+                ? (
+                  <>
+
+                    <List>
+
+                      <ListItem alignItems="flex-start">
+                        <Typography
+                          style={{
+                            color: 'white', fontAlign: 'left', fontSize: '25px', marginRight: '9%',
+                          }}
+                          color="secondary"
+                        >
+                          {garage.caratteristica.nome}
+                          {' '}
+                          :
+
+                        </Typography>
+
+                        <ListItemText
+                          secondary={(
+                            <>
+                              <Typography style={{ fontSize: '25px', color: 'white' }} color="secondary">
+                                <NumberFormat
+                                  value={garage.prezzo ? garage.prezzo : ''}
+                                  className="foo"
+                                  displayType="text"
+                                  thousandSeparator
+                                  renderText={(value, props) => <div {...props}>{value}</div>}
+                                />
+
+                              </Typography>
+                            </>
+)}
+                        />
+                      </ListItem>
+                    </List>
+                    <Divider fullWidth style={{ background: '#CF291d' }} />
+
+                  </>
+                )
+                : <></>}
+
+              {posteggio && posteggio.prezzo
+                ? (
+                  <>
+
+                    <List>
+
+                      <ListItem alignItems="flex-start">
+                        <Typography
+                          style={{
+                            color: 'white', fontAlign: 'left', fontSize: '25px', marginRight: '9%',
+                          }}
+                          color="secondary"
+                        >
+                          {posteggio.caratteristica.nome}
+                          {' '}
+                          :
+
+                        </Typography>
+
+                        <ListItemText
+                          secondary={(
+                            <>
+                              <Typography style={{ fontSize: '25px', color: 'white' }} color="secondary">
+                                <NumberFormat
+                                  value={posteggio.prezzo ? posteggio.prezzo : ''}
+                                  className="foo"
+                                  displayType="text"
+                                  thousandSeparator
+                                  renderText={(value, props) => <div {...props}>{value}</div>}
+                                />
+
+                              </Typography>
+                            </>
+)}
+                        />
+                      </ListItem>
+                    </List>
+                    <Divider fullWidth style={{ background: '#CF291d' }} />
+
+                  </>
+                )
+                : <></>}
 
               <Typography
                 color="secondary"
@@ -436,7 +615,7 @@ const TitleDetail = (selectedImmo) => {
 
                 <ListItem alignItems="flex-start">
                   <ListItemIcon style={{ marginRight: '10%' }}>
-                    <img alt="logo" src={locali} style={{ maxHeight: '50px', maxWidth: '50px' }} />
+                    <img alt="logo" src="https://api.multimmobiliare.apton.ch/img/icons/Locali.png" style={{ maxHeight: '50px', maxWidth: '50px' }} />
                   </ListItemIcon>
                   <ListItemText
                     primary=""
@@ -458,7 +637,7 @@ const TitleDetail = (selectedImmo) => {
 
                 <ListItem alignItems="flex-start">
                   <ListItemIcon style={{ marginRight: '10%' }}>
-                    <img alt="logo" src={met} style={{ maxHeight: '50px', maxWidth: '50px' }} />
+                    <img alt="logo" src="https://api.multimmobiliare.apton.ch/img/icons/metratura.png" style={{ maxHeight: '50px', maxWidth: '50px' }} />
                   </ListItemIcon>
                   <ListItemText
                     primary=""
@@ -479,7 +658,7 @@ const TitleDetail = (selectedImmo) => {
                 <Divider fullWidth style={{ background: '#CF291d' }} />
                 <ListItem alignItems="flex-start">
                   <ListItemIcon style={{ marginRight: '10%' }}>
-                    <img alt="logo" src={scala} style={{ maxHeight: '50px', maxWidth: '50px' }} />
+                    <img alt="logo" src="https://api.multimmobiliare.apton.ch/img/icons/scala.png" style={{ maxHeight: '50px', maxWidth: '50px' }} />
                   </ListItemIcon>
                   <ListItemText
                     primary=""
@@ -498,7 +677,7 @@ const TitleDetail = (selectedImmo) => {
                 <Divider fullWidth style={{ background: '#CF291d' }} />
                 <ListItem alignItems="flex-start">
                   <ListItemIcon style={{ marginRight: '10%' }}>
-                    <img alt="logo" src={park} style={{ maxHeight: '50px', maxWidth: '50px' }} />
+                    <img alt="logo" src="https://api.multimmobiliare.apton.ch/img/icons/parking.png" style={{ maxHeight: '50px', maxWidth: '50px' }} />
                   </ListItemIcon>
                   <ListItemText
                     primary=""
@@ -513,23 +692,39 @@ const TitleDetail = (selectedImmo) => {
                 </ListItem>
               </List>
               <List>
-                <Divider fullWidth style={{ background: '#CF291d' }} />
-                <ListItem alignItems="flex-start">
-                  <ListItemIcon style={{ marginRight: '10%' }}>
-                    <img alt="logo" src={vasca} style={{ maxHeight: '50px', maxWidth: '50px' }} />
-                  </ListItemIcon>
-                  <ListItemText
-                    primary=""
-                    secondary={(
-                      <>
-                        <Typography style={{ fontSize: '25px', color: 'white' }} color="secondary">
+                {bagni
+                  ? (
+                    <>
+                      <Divider fullWidth style={{ background: '#CF291d' }} />
+                      <ListItem alignItems="flex-start">
+                        <ListItemIcon style={{ marginRight: '10%' }}>
+                          <img alt="logo" src="https://api.multimmobiliare.apton.ch/img/icons/vasca.png" style={{ maxHeight: '50px', maxWidth: '50px' }} />
+                        </ListItemIcon>
+                        <ListItemText
+                          primary=""
+                          secondary={(
+                            <>
+                              {bagni?.quantita > 1 ? (
+                                <Typography style={{ fontSize: '25px', color: 'white' }} color="secondary">
 
-                          1 bagno
-                        </Typography>
-                      </>
+                                  {bagni?.quantita}
+                                  {' '}
+                                  bagni
+                                </Typography>
+                              )
+                                : (
+                                  <Typography style={{ fontSize: '25px', color: 'white' }} color="secondary">
+
+                                    1 bagno
+                                  </Typography>
+                                ) }
+                            </>
 )}
-                  />
-                </ListItem>
+                        />
+                      </ListItem>
+                    </>
+                  )
+                  : <></>}
               </List>
 
               {selectedImmo.selectedImmo.contratto === 0
@@ -538,7 +733,11 @@ const TitleDetail = (selectedImmo) => {
                     <Divider fullWidth style={{ background: '#CF291d' }} />
                     <ListItem alignItems="flex-start">
                       <ListItemIcon style={{ marginRight: '10%' }}>
-                        <img alt="logo" src={calendar} style={{ maxHeight: '50px', maxWidth: '50px' }} />
+                        <img
+                          alt="logo"
+                          src="https://api.multimmobiliare.apton.ch/img/icons/calendar.png"
+                          style={{ maxHeight: '50px', maxWidth: '50px' }}
+                        />
                       </ListItemIcon>
                       <ListItemText
                         primary=""
@@ -586,6 +785,8 @@ const TitleDetail = (selectedImmo) => {
 
               </Typography>
               {doc}
+
+              <Divider fullWidth style={{ background: '#CF291d' }} />
               <div style={{
                 width: 'Auto', height: '20em', marginTop: '50px',
               }}
@@ -638,7 +839,7 @@ const TitleDetail = (selectedImmo) => {
                   <IconButton onClick={() => window.open(`https://multimmobiliare.webflow.io/pdf?id=${parsed.id}`)}>
                     <img
                       alt="pdf"
-                      src={pdfD}
+                      src="https://api.multimmobiliare.apton.ch/img/icons/pdfDownload.png"
                       style={{
                         width: '40px', height: 'auto',
                       }}
@@ -655,7 +856,7 @@ const TitleDetail = (selectedImmo) => {
                       <IconButton>
                         <img
                           alt="pdf"
-                          src={fb}
+                          src="https://api.multimmobiliare.apton.ch/img/icons/fbShare.png"
                           style={{
                             width: '30px', height: 'auto',
                           }}
@@ -676,7 +877,7 @@ const TitleDetail = (selectedImmo) => {
                   >
                     <img
                       alt="pdf"
-                      src={link}
+                      src="https://api.multimmobiliare.apton.ch/img/icons/link.png"
                       style={{
                         width: '30px', height: '30px',
                       }}
@@ -696,7 +897,9 @@ const TitleDetail = (selectedImmo) => {
                 >
                   <span className={classes.margin}>
                     <Typography color="secondary" style={{ marginBottom: '20px', fontSize: '25px', color: 'white' }}>
-                      Stefania Auciello
+                      {selectedImmo.selectedImmo.referente.nome}
+                      {' '}
+                      {selectedImmo.selectedImmo.referente.cognome}
                     </Typography>
 
                     <Typography
@@ -705,24 +908,58 @@ const TitleDetail = (selectedImmo) => {
                         marginBottom: '20px', marginRight: '20px', color: 'white', fontSize: '25px',
                       }}
                     >
-                      Direzione
+                      {selectedImmo.selectedImmo.referente.posizione}
                     </Typography>
-                    <div className={classes.div3}>
+                    <Grid
+                      container
+                      direction="row"
+                      justify="flex-start"
+                      alignItems="center"
+                    >
                       <RoomIcon color="secondary" />
-                      <Typography color="secondary" style={{ marginBottom: '20px', fontSize: '25px', color: 'white' }}>
+                      <Typography color="secondary" style={{ fontSize: '25px', color: 'white' }}>
 
-                        Lugano
+                        {selectedImmo.selectedImmo.referente.citta}
                       </Typography>
-                    </div>
-                    <LinkedInIcon color="secondary" style={{ marginRight: '10px', fontSize: '35px', color: 'white' }} />
-                    <PhoneIcon color="secondary" style={{ marginRight: '10px', fontSize: '35px', color: 'white' }} />
-                    <MailIcon color="secondary" style={{ marginRight: '10px', fontSize: '35px', color: 'white' }} />
+                    </Grid>
+
+                    <BrowserView>
+                      <Grid
+                        container
+                        direction="row"
+                        justify="flex-start"
+                        alignItems="center"
+                        style={{ marginBottom: '20px' }}
+                      >
+                        <PhoneIcon color="secondary" />
+                        <Typography
+                          color="secondary"
+                          style={{
+                            marginRight: '20px', color: 'white', fontSize: '25px',
+                          }}
+                        >
+                          {' '}
+                          {selectedImmo.selectedImmo.referente.numero}
+                        </Typography>
+                      </Grid>
+                    </BrowserView>
+
+                    <LinkedInIcon onClick={() => window.open(selectedImmo.selectedImmo.referente.linkedin)} color="secondary" style={{ marginRight: '10px', fontSize: '35px', color: 'white' }} />
+
+                    <MobileView>
+                      <a href={`tel:${selectedImmo.selectedImmo.referente.numero}`}>
+                        <PhoneIcon color="secondary" style={{ marginRight: '10px', fontSize: '35px', color: 'white' }} />
+                      </a>
+                    </MobileView>
+                    <Mailto email={selectedImmo.selectedImmo.referente.email} subject="" body="">
+                      <MailIcon color="secondary" style={{ marginRight: '10px', fontSize: '35px', color: 'white' }} />
+                    </Mailto>
                   </span>
 
                   <CardMedia
                     component="img"
                     alt="Stefania"
-                    image={stefania}
+                    image={`https://api.multimmobiliare.apton.ch/img/referenti/${selectedImmo.selectedImmo.referente.foto}`}
                     title="stefania"
                     style={{ width: '200px', height: '200px', marginLeft: '2em' }}
                   />

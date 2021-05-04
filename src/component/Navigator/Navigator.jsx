@@ -14,6 +14,7 @@ import ButtonRentOrBuy from '../ButtonRentOrBuy/ButtonRentOrBuy';
 import ImmoElement from '../ImmoElement/ImmoElement';
 import AnnuncioPDF from '../AnnuncioPDF/AnnuncioPDF';
 import Newspaper from '../Newspaper/Newspaper';
+import ClusterService from '../ClusterService/ClusterService';
 
 const Navigator = (elemento) => {
   if (document.URL.includes('riservazioni')) {
@@ -43,6 +44,18 @@ const Navigator = (elemento) => {
       <div>
         <Newspaper />
 
+      </div>
+    );
+  }
+  if (document.URL.includes('vendita-affitto')) {
+    return (
+      <div>
+        <ClusterService />
+        <div style={{ padding: '3em' }} />
+        <div style={{ paddingRight: '82px', marginLeft: '82px' }}>
+          <ButtonRentOrBuy />
+          <ImmoElement />
+        </div>
       </div>
     );
   }

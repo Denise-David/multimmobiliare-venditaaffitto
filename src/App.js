@@ -27,6 +27,7 @@ import FormRiservazione from './component/FormRiservazione/FormRiservazione';
 import AnnuncioPDF from './component/AnnuncioPDF/AnnuncioPDF';
 import Navigator from './component/Navigator/Navigator';
 import Newspaper from './component/Newspaper/Newspaper';
+import ClusterService from './component/ClusterService/ClusterService';
 
 library.add(faArrowCircleRight);
 
@@ -34,8 +35,14 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <Provider store={store}>
+        {/* <Navigator /> */}
 
-        <Navigator />
+        <div>
+          <DetailPage />
+        </div>
+
+        {' '}
+        <CorrObject />
 
       </Provider>
     </ThemeProvider>

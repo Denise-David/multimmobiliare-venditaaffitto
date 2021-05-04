@@ -7,58 +7,6 @@ import React, { useEffect, useState } from 'react';
 import FlipPage from 'react-flip-page';
 import { Grid, Typography } from '@material-ui/core';
 import { useSpring, animated } from 'react-spring';
-import welcome from '../../img/welcomeCopertina.png';
-import art1 from '../../img/WelcomeArt1.png';
-import black from '../../img/Black.png';
-import art2 from '../../img/WelcomeArt2.png';
-import regione from '../../img/laRegione.png';
-import wel from '../../img/welcomeCop.png';
-import min from '../../img/20min.png';
-import travel from '../../img/travel.png';
-import archi from '../../img/archi.png';
-import stile from '../../img/stile.png';
-import turrita from '../../img/turrita.png';
-import ticino from '../../img/ticino.png';
-import italiaTravel from '../../img/italiaTravel.png';
-import libera from '../../img/liberaTV.jpg';
-import quality from '../../img/quality.png';
-import trend from '../../img/trend.png';
-import adv from '../../img/Adv.png';
-import meeting from '../../img/meeting.png';
-import copReg from '../../img/laRegioneCopertina.png';
-import artiReg from '../../img/laRegioneArt1.png';
-import tiCop from '../../img/ticinoCopertina.png';
-import tiArt1 from '../../img/ticinoArti1.png';
-import tiArt2 from '../../img/ticinoArti2.png';
-import stileCop from '../../img/stileCopertina.png';
-import stileArt1 from '../../img/stileArt1.png';
-import turritaArt from '../../img/turritaArt.png';
-import turritaCop from '../../img/turritaCopertina.png';
-import tioCopertina from '../../img/tioCopertina.png';
-import tioArt from '../../img/tioArt.png';
-import archiCop from '../../img/archiCopertina.png';
-import archiArt1 from '../../img/archiArt1.png';
-import archiArt2 from '../../img/archiArt2.png';
-import liberaCop from '../../img/liberaCopertina.png';
-import liberaArt from '../../img/liberaArt.png';
-import travCopertina from '../../img/travel copertina.png';
-import travArt from '../../img/travelArt.png';
-import advCop from '../../img/advCopertina.png';
-import advArt1 from '../../img/advArt1.png';
-import advArt2 from '../../img/advArt2.png';
-import itCop from '../../img/italiaTravelCopertina.png';
-import itArt from '../../img/italiaTravelArt.png';
-import meetCop from '../../img/meetingCopertina.png';
-import meetArt from '../../img/meetingArt.png';
-import qArt1 from '../../img/qualityArt1.png';
-import qArt2 from '../../img/qualityArt2.png';
-import qArt3 from '../../img/qualityArt3.png';
-import qArt4 from '../../img/qualityArt4.png';
-import qCop from '../../img/qualityCopertina.png';
-import trendCop from '../../img/trendCopertina.png';
-import trendArt1 from '../../img/trendArt1.png';
-import trendArt2 from '../../img/trendArt2.png';
-import reg2Art from '../../img/regione2Art.png';
 
 const trans = (x, y, z) => `translate(0px, ${y}px)`;
 const trans1 = (x, y, z) => `translate(0px, ${y}px)`;
@@ -117,12 +65,12 @@ const Newspaper = () => {
 
               <articolo>
                 <div>
-                  <img src={copReg} alt="copertina" />
+                  <img src="https://api.multimmobiliare.apton.ch/img/articoli/laRegioneCopertina.png" alt="copertina" />
                 </div>
               </articolo>
               <articolo>
                 <div>
-                  <img src={artiReg} alt="copertina" />
+                  <img src="https://api.multimmobiliare.apton.ch/img/articoli/laRegioneArt1.png" alt="copertina" />
                 </div>
               </articolo>
 
@@ -141,12 +89,12 @@ const Newspaper = () => {
 
               <articolo>
 
-                <img src={welcome} alt="copertina" />
+                <img src="https://api.multimmobiliare.apton.ch/img/articoli/welcomeCopertina.png" alt="copertina" />
 
               </articolo>
               <articolo>
 
-                <img src={art1} alt="copertina" />
+                <img src="https://api.multimmobiliare.apton.ch/img/articoli/WelcomeArt1.png" alt="copertina" />
 
               </articolo>
 
@@ -165,12 +113,12 @@ const Newspaper = () => {
 
               <articolo>
                 <div>
-                  <img src={tiCop} alt="copertina" />
+                  <img src="https://api.multimmobiliare.apton.ch/img/articoli/ticinoCopertina.png" alt="copertina" />
                 </div>
               </articolo>
               <articolo>
                 <div>
-                  <img src={tiArt1} alt="copertina" />
+                  <img src="https://api.multimmobiliare.apton.ch/img/articoli/ticinoArt1.png" alt="copertina" />
                 </div>
               </articolo>
 
@@ -189,12 +137,12 @@ const Newspaper = () => {
 
               <articolo>
                 <div>
-                  <img src={stileCop} alt="copertina" />
+                  <img src="https://api.multimmobiliare.apton.ch/img/articoli/stileCopertina.png" alt="copertina" />
                 </div>
               </articolo>
               <articolo>
                 <div>
-                  <img src={stileArt1} alt="copertina" />
+                  <img src="https://api.multimmobiliare.apton.ch/img/articoli/stileArt1.png" alt="copertina" />
                 </div>
               </articolo>
 
@@ -213,12 +161,12 @@ const Newspaper = () => {
 
               <articolo>
                 <div>
-                  <img src={turritaCop} alt="copertina" />
+                  <img src="https://api.multimmobiliare.apton.ch/img/articoli/turritaCopertina.png" alt="copertina" />
                 </div>
               </articolo>
               <articolo>
                 <div>
-                  <img src={turritaArt} alt="copertina" />
+                  <img src="https://api.multimmobiliare.apton.ch/img/articoli/turritaArt.png" alt="copertina" />
                 </div>
               </articolo>
 
@@ -237,12 +185,12 @@ const Newspaper = () => {
 
               <articolo>
                 <div>
-                  <img src={tioCopertina} alt="copertina" />
+                  <img src="https://api.multimmobiliare.apton.ch/img/articoli/tioCopertina.png" alt="copertina" />
                 </div>
               </articolo>
               <articolo>
                 <div>
-                  <img src={tioArt} alt="copertina" />
+                  <img src="https://api.multimmobiliare.apton.ch/img/articoli/tioArt.png" alt="copertina" />
                 </div>
               </articolo>
 
@@ -262,12 +210,12 @@ const Newspaper = () => {
 
               <articolo>
                 <div>
-                  <img src={archiCop} alt="copertina" />
+                  <img src="https://api.multimmobiliare.apton.ch/img/articoli/archiCopertina.png" alt="copertina" />
                 </div>
               </articolo>
               <articolo>
                 <div>
-                  <img src={archiArt1} alt="copertina" />
+                  <img src="https://api.multimmobiliare.apton.ch/img/articoli/archiArt1.png" alt="copertina" />
                 </div>
               </articolo>
 
@@ -286,12 +234,12 @@ const Newspaper = () => {
 
               <articolo>
                 <div>
-                  <img src={liberaCop} alt="copertina" />
+                  <img src="https://api.multimmobiliare.apton.ch/img/articoli/liberaCopertina.png" alt="copertina" />
                 </div>
               </articolo>
               <articolo>
                 <div>
-                  <img src={liberaArt} alt="copertina" />
+                  <img src="https://api.multimmobiliare.apton.ch/img/articoli/liberaArt.png" alt="copertina" />
                 </div>
               </articolo>
 
@@ -311,12 +259,12 @@ const Newspaper = () => {
 
               <articolo>
                 <div>
-                  <img src={travCopertina} alt="copertina" />
+                  <img src="https://api.multimmobiliare.apton.ch/img/articoli/travelCopertina.png" alt="copertina" />
                 </div>
               </articolo>
               <articolo>
                 <div>
-                  <img src={travArt} alt="copertina" />
+                  <img src="https://api.multimmobiliare.apton.ch/img/articoli/travelArt.png" alt="copertina" />
                 </div>
               </articolo>
 
@@ -336,12 +284,12 @@ const Newspaper = () => {
 
               <articolo>
                 <div>
-                  <img src={advCop} alt="copertina" />
+                  <img src="https://api.multimmobiliare.apton.ch/img/articoli/advCopertina.png" alt="copertina" />
                 </div>
               </articolo>
               <articolo>
                 <div>
-                  <img src={advArt1} alt="copertina" />
+                  <img src="https://api.multimmobiliare.apton.ch/img/articoli/advArt1.png" alt="copertina" />
                 </div>
               </articolo>
 
@@ -361,12 +309,12 @@ const Newspaper = () => {
 
               <articolo>
                 <div>
-                  <img src={itCop} alt="copertina" />
+                  <img src="https://api.multimmobiliare.apton.ch/img/articoli/italiaTravelCopertina.png" alt="copertina" />
                 </div>
               </articolo>
               <articolo>
                 <div>
-                  <img src={itArt} alt="copertina" />
+                  <img src="https://api.multimmobiliare.apton.ch/img/articoli/italiaTravelArt.png" alt="copertina" />
                 </div>
               </articolo>
 
@@ -385,12 +333,12 @@ const Newspaper = () => {
 
               <articolo>
                 <div>
-                  <img src={meetCop} alt="copertina" />
+                  <img src="https://api.multimmobiliare.apton.ch/img/articoli/meetingCopertina.png" alt="copertina" />
                 </div>
               </articolo>
               <articolo>
                 <div>
-                  <img src={meetArt} alt="copertina" />
+                  <img src="https://api.multimmobiliare.apton.ch/img/articoli/meetingArt.png" alt="copertina" />
                 </div>
               </articolo>
 
@@ -409,17 +357,17 @@ const Newspaper = () => {
 
               <articolo>
                 <div>
-                  <img src={qCop} alt="copertina" />
+                  <img src="https://api.multimmobiliare.apton.ch/img/articoli/qualityCopertina.png" alt="copertina" />
                 </div>
               </articolo>
               <articolo>
                 <div>
-                  <img src={qArt1} alt="copertina" />
+                  <img src="https://api.multimmobiliare.apton.ch/img/articoli/qualityArt1.png" alt="copertina" />
                 </div>
               </articolo>
               <articolo>
                 <div>
-                  <img src={qArt3} alt="copertina" />
+                  <img src="https://api.multimmobiliare.apton.ch/img/articoli/qualityArt3.png" alt="copertina" />
                 </div>
               </articolo>
 
@@ -438,12 +386,12 @@ const Newspaper = () => {
 
               <articolo>
                 <div>
-                  <img src={trendCop} alt="copertina" />
+                  <img src="https://api.multimmobiliare.apton.ch/img/articoli/trendCopertina.png" alt="copertina" />
                 </div>
               </articolo>
               <articolo>
                 <div>
-                  <img src={trendArt1} alt="copertina" />
+                  <img src="https://api.multimmobiliare.apton.ch/img/articoli/trendArt1.png" alt="copertina" />
                 </div>
               </articolo>
 
@@ -463,12 +411,12 @@ const Newspaper = () => {
               <articolo>
                 <div>
 
-                  <img src={copReg} alt="copertina" />
+                  <img src="https://api.multimmobiliare.apton.ch/img/articoli/laRegioneCopertina.png" alt="copertina" />
                 </div>
               </articolo>
               <articolo>
                 <div>
-                  <img src={reg2Art} alt="copertina" />
+                  <img src="https://api.multimmobiliare.apton.ch/img/articoli/regione2Art.png" alt="copertina" />
                 </div>
               </articolo>
 
@@ -489,7 +437,7 @@ const Newspaper = () => {
               onClick={() => window.open('https://multimmobiliare.webflow.io/articolo?articolo=regione1')}
               onMouseMove={() => set1({ xys: [0, -38, 0] })}
               onMouseLeave={() => set1({ xys: [0, 0, 0] })}
-              src={regione}
+              src="https://api.multimmobiliare.apton.ch/img/copertine/laRegione.png"
               alt="copertina"
               style={{
                 width: '300px', boxShadow: '-4px -10px 20px 12px #000000', transform: props1.xys.interpolate(trans1),
@@ -499,8 +447,8 @@ const Newspaper = () => {
               onClick={() => window.open('https://multimmobiliare.webflow.io/articolo?articolo=welcome')}
               onMouseMove={() => set({ xys: [0, -38, 0] })}
               onMouseLeave={() => set({ xys: [0, 0, 0] })}
-              src={wel}
-              alt="copertina"
+              src="https://api.multimmobiliare.apton.ch/img/copertine/welcomeCop.png"
+              alt="https://api.multimmobiliare.apton.ch/img/copertine/welcomeCop.png"
               style={{
                 width: '300px', boxShadow: '-4px -10px 20px 12px #000000', transform: props.xys.interpolate(trans), marginTop: '-5em',
               }}
@@ -509,8 +457,8 @@ const Newspaper = () => {
               onClick={() => window.open('https://multimmobiliare.webflow.io/articolo?articolo=regione2')}
               onMouseMove={() => set2({ xys: [0, -38, 0] })}
               onMouseLeave={() => set2({ xys: [0, 0, 0] })}
-              src={regione}
-              alt="copertina"
+              src="https://api.multimmobiliare.apton.ch/img/copertine/laRegione.png"
+              alt="https://api.multimmobiliare.apton.ch/img/copertine/laRegione.png"
               style={{
                 width: '300px', boxShadow: '-4px -10px 20px 12px #000000', transform: props2.xys.interpolate(trans2), marginTop: '-5em',
               }}
@@ -519,8 +467,8 @@ const Newspaper = () => {
               onClick={() => window.open('https://multimmobiliare.webflow.io/articolo?articolo=tio')}
               onMouseMove={() => set3({ xys: [0, -38, 0] })}
               onMouseLeave={() => set3({ xys: [0, 0, 0] })}
-              src={min}
-              alt="copertina"
+              src="https://api.multimmobiliare.apton.ch/img/copertine/20min.png"
+              alt="https://api.multimmobiliare.apton.ch/img/copertine/20min.png"
               style={{
                 width: '300px', boxShadow: '-4px -10px 20px 12px #000000', transform: props3.xys.interpolate(trans3), marginTop: '-5em',
               }}
@@ -530,7 +478,7 @@ const Newspaper = () => {
               onClick={() => window.open('https://multimmobiliare.webflow.io/articolo?articolo=travel')}
               onMouseMove={() => set4({ xys: [0, -38, 0] })}
               onMouseLeave={() => set4({ xys: [0, 0, 0] })}
-              src={travel}
+              src="https://api.multimmobiliare.apton.ch/img/copertine/travel.png"
               alt="copertina"
               style={{
                 width: '300px', boxShadow: '-4px -10px 20px 12px #000000', transform: props4.xys.interpolate(trans4), marginTop: '-5em',
@@ -540,7 +488,7 @@ const Newspaper = () => {
               onClick={() => window.open('https://multimmobiliare.webflow.io/articolo?articolo=archi')}
               onMouseMove={() => set5({ xys: [0, -38, 0] })}
               onMouseLeave={() => set5({ xys: [0, 0, 0] })}
-              src={archi}
+              src="https://api.multimmobiliare.apton.ch/img/copertine/archi.png"
               alt="copertina"
               style={{
                 width: '300px', boxShadow: '-4px -10px 20px 12px #000000', transform: props5.xys.interpolate(trans5), marginTop: '-5em',
@@ -550,7 +498,7 @@ const Newspaper = () => {
               onClick={() => window.open('https://multimmobiliare.webflow.io/articolo?articolo=stile')}
               onMouseMove={() => set6({ xys: [0, -38, 0] })}
               onMouseLeave={() => set6({ xys: [0, 0, 0] })}
-              src={stile}
+              src="https://api.multimmobiliare.apton.ch/img/copertine/stile.png"
               alt="copertina"
               style={{
                 width: '300px', boxShadow: '-4px -10px 20px 12px #000000', transform: props6.xys.interpolate(trans6), marginTop: '-3em',
@@ -561,7 +509,7 @@ const Newspaper = () => {
               onClick={() => window.open('https://multimmobiliare.webflow.io/articolo?articolo=turrita')}
               onMouseMove={() => set7({ xys: [0, -38, 0] })}
               onMouseLeave={() => set7({ xys: [0, 0, 0] })}
-              src={turrita}
+              src="https://api.multimmobiliare.apton.ch/img/copertine/turrita.png"
               alt="copertina"
               style={{
                 width: '300px', boxShadow: '-4px -10px 20px 12px #000000', transform: props7.xys.interpolate(trans7), marginTop: '-5em',
@@ -571,7 +519,7 @@ const Newspaper = () => {
               onClick={() => window.open('https://multimmobiliare.webflow.io/articolo?articolo=ticino')}
               onMouseMove={() => set8({ xys: [0, -38, 0] })}
               onMouseLeave={() => set8({ xys: [0, 0, 0] })}
-              src={ticino}
+              src="https://api.multimmobiliare.apton.ch/img/copertine/ticino.png"
               alt="copertina"
               style={{
                 width: '300px', boxShadow: '-4px -10px 20px 12px #000000', transform: props8.xys.interpolate(trans8), marginTop: '-5em',
@@ -581,7 +529,7 @@ const Newspaper = () => {
               onClick={() => window.open('https://multimmobiliare.webflow.io/articolo?articolo=italia')}
               onMouseMove={() => set9({ xys: [0, -38, 0] })}
               onMouseLeave={() => set9({ xys: [0, 0, 0] })}
-              src={italiaTravel}
+              src="https://api.multimmobiliare.apton.ch/img/copertine/italiaTravel.png"
               alt="copertina"
               style={{
                 width: '300px', boxShadow: '-4px -10px 20px 12px #000000', transform: props9.xys.interpolate(trans9), marginTop: '-5em',
@@ -591,7 +539,7 @@ const Newspaper = () => {
               onClick={() => window.open('https://multimmobiliare.webflow.io/articolo?articolo=libera')}
               onMouseMove={() => set10({ xys: [0, -38, 0] })}
               onMouseLeave={() => set10({ xys: [0, 0, 0] })}
-              src={libera}
+              src="https://api.multimmobiliare.apton.ch/img/copertine/liberaTV.jpg"
               alt="copertina"
               style={{
                 width: '300px', boxShadow: '-4px -10px 20px 12px #000000', transform: props10.xys.interpolate(trans10), marginTop: '-5em',
@@ -601,7 +549,7 @@ const Newspaper = () => {
               onClick={() => window.open('https://multimmobiliare.webflow.io/articolo?articolo=quality')}
               onMouseMove={() => set11({ xys: [0, -38, 0] })}
               onMouseLeave={() => set11({ xys: [0, 0, 0] })}
-              src={quality}
+              src="https://api.multimmobiliare.apton.ch/img/copertine/quality.png"
               alt="copertina"
               style={{
                 width: '300px', boxShadow: '-4px -10px 20px 12px #000000', transform: props11.xys.interpolate(trans11), marginTop: '-3em',
@@ -611,7 +559,7 @@ const Newspaper = () => {
               onClick={() => window.open('https://multimmobiliare.webflow.io/articolo?articolo=trend')}
               onMouseMove={() => set12({ xys: [0, -38, 0] })}
               onMouseLeave={() => set12({ xys: [0, 0, 0] })}
-              src={trend}
+              src="https://api.multimmobiliare.apton.ch/img/copertine/trend.png"
               alt="copertina"
               style={{
                 width: '300px', boxShadow: '-4px -10px 20px 12px #000000', transform: props12.xys.interpolate(trans12), marginTop: '-5em',
@@ -621,7 +569,7 @@ const Newspaper = () => {
               onClick={() => window.open('https://multimmobiliare.webflow.io/articolo?articolo=adv')}
               onMouseMove={() => set13({ xys: [0, -38, 0] })}
               onMouseLeave={() => set13({ xys: [0, 0, 0] })}
-              src={adv}
+              src="https://api.multimmobiliare.apton.ch/img/copertine/Adv.png"
               alt="copertina"
               style={{
                 width: '300px', boxShadow: '-4px -10px 20px 12px #000000', transform: props13.xys.interpolate(trans13), marginTop: '-5em',
@@ -631,7 +579,7 @@ const Newspaper = () => {
               onClick={() => window.open('https://multimmobiliare.webflow.io/articolo?articolo=meeting')}
               onMouseMove={() => set14({ xys: [0, -38, 0] })}
               onMouseLeave={() => set14({ xys: [0, 0, 0] })}
-              src={meeting}
+              src="https://api.multimmobiliare.apton.ch/img/copertine/meeting.png"
               alt="copertina"
               style={{
                 width: '300px', boxShadow: '-4px -70px 80px -20px #000000', transform: props14.xys.interpolate(trans14), marginTop: '-5em',

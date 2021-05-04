@@ -17,6 +17,7 @@ const ImmoSlice = createSlice({
     priceLimits: [0, 0],
     latitude: 0,
     longitude: 0,
+    arrayImmo: [],
 
   },
   reducers: {
@@ -45,7 +46,7 @@ const ImmoSlice = createSlice({
       state.priceLimits = payload;
     },
     setPriceLimitsMin(state, { payload }) {
-      if (payload > state.priceLimits[1]) {
+      if (Number(payload) > state.priceLimits[1]) {
         state.priceLimits[1] = payload;
         state.priceLimits[0] = payload;
       }
@@ -70,6 +71,17 @@ const ImmoSlice = createSlice({
       state.idRegionSelected.tipo = '';
     },
 
+    setLatAndLngImmo(state, { payload }) {
+      const { id, lat, lng } = payload;
+      if (state.immo) {
+        state.immo.find((immobile) => immobile.id === id).lat = lat;
+        state.immo.find((immobile) => immobile.id === id).lng = lng;
+      }
+    },
+    setArrayImmo(state, { payload }) {
+      state.arrayImmo.push(payload);
+    },
+
   },
 });
 
@@ -84,6 +96,6 @@ export const immo = (state) => state.Immo.immo;
 export const {
   setAllImmo, setRentOrSell, setIdRegionSelected, setIdLocalSelected, setIdCategorySelected,
   setPriceLimits, setPriceLimitsMin, setPriceLimitsMax, goToThePage, resetAll,
-  setLat, setLng,
+  setLat, setLng, setLatAndLngImmo, setArrayImmo,
 } = ImmoSlice.actions;
 export default ImmoSlice.reducer;

@@ -16,7 +16,6 @@ import NumberFormat from 'react-number-format';
 import {
   immo,
 } from '../../store/slice/ImmoSlice';
-import multi from '../../img/Multi.png';
 
 const styles = StyleSheet.create({
   page: {
@@ -68,7 +67,7 @@ const AnnuncioPDF = () => {
               marginVertical: 15,
               marginHorizontal: 100,
             }}
-            src={multi}
+            src="https://api.multimmobiliare.apton.ch/img/icons/Multi.png"
           />
           <View>
 
@@ -212,7 +211,7 @@ const AnnuncioPDF = () => {
                 marginVertical: 15,
                 marginHorizontal: 100,
               }}
-              src={multi}
+              src="https://api.multimmobiliare.apton.ch/img/icons/Multi.png"
             />
           </View>
           <View style={styles.section}>
@@ -325,7 +324,7 @@ const AnnuncioPDF = () => {
               marginVertical: 15,
               marginHorizontal: 100,
             }}
-            src={multi}
+            src="https://api.multimmobiliare.apton.ch/img/icons/Multi.png"
           />
           <View style={styles.section}>
             <Text style={{ fontWeight: 'bold' }}>{selectedImmo[0]?.titolo}</Text>
@@ -464,7 +463,7 @@ const AnnuncioPDF = () => {
               marginVertical: 15,
               marginHorizontal: 100,
             }}
-            src={multi}
+            src="https://api.multimmobiliare.apton.ch/img/icons/Multi.png"
           />
           <View style={styles.section}>
             <Text style={{ fontWeight: 'bold', borderBottom: '1px solid black' }}>Dati principali</Text>
