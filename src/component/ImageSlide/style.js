@@ -6,7 +6,7 @@ const useStyles = makeStyles((theme) => ({
   media: {
     paddingTop: '56.25%', // 16:9
     borderWidth: '2px',
-    width: window.screen.width / 3.1,
+    width: window.innerWidth / 3.2,
     margin: '10px',
   },
   iconNext: {

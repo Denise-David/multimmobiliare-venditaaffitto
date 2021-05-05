@@ -69,7 +69,6 @@ const ImageSlide = (selectedImmo) => {
     }
     setTransition('right');
   };
-
   const listImage = !selImmo?.immagini ? <></>
     : (
       <>
@@ -146,7 +145,7 @@ const ImageSlide = (selectedImmo) => {
             navButtonsAlwaysVisible
             animation="slide"
             autoPlay={false}
-            style={{ width: '1000px', height: '500px' }}
+            style={{ width: window.innerWidth, height: '500px' }}
           >
             {listImage}
           </Carousel>

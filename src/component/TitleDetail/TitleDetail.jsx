@@ -65,11 +65,11 @@ const trans13 = (x, y, z) => `translate(${x}px, ${y}px)`;
 const TitleDetail = (selectedImmo) => {
   const dispatch = useDispatch();
   const classes = useStyles();
-  if (selectedImmo.selectedImmo.disponibilita !== undefined) {
-    const date = parseJSON(selectedImmo.selectedImmo.disponibilita);
 
-    const dateFormat = format(new Date(date), 'dd.MM.yyyy');
-  }
+  const date = parseJSON(selectedImmo.selectedImmo.disponibilita);
+
+  const dateFormat = format(new Date(date), 'dd.MM.yyyy');
+
   const load = useSelector(loaded);
   const lt = useSelector(latitude);
   const lg = useSelector(longitude);
@@ -281,10 +281,17 @@ const TitleDetail = (selectedImmo) => {
 
               </Grid>
             </Link>
-            <Typography align="left" style={{ marginTop: '20 px', fontSize: '44px', color: 'white' }}>
+            <Typography
+              align="left"
+              style={{
+                marginTop: '20px', fontSize: '25px', color: 'white', marginBottom: '10px',
+              }}
+            >
               {selectedImmo.selectedImmo.contratto === 0 ? 'AFFITTO' : 'VENDITA'}
               {' '}
               /
+              {' '}
+              {' '}
               {reg}
               {' '}
               /
@@ -295,7 +302,10 @@ const TitleDetail = (selectedImmo) => {
               container
               direction="row"
               justify="space-between"
-              alignItems="flex-start"
+              alignItems="center"
+              style={{
+                borderColor: '#CF291d', borderStyle: 'solid', borderWidth: '1px', padding: '1em',
+              }}
             >
 
               <Typography
@@ -319,6 +329,7 @@ const TitleDetail = (selectedImmo) => {
                 >
                   CHF
                 </Typography>
+
                 <Typography
                   align="right"
                   variant="h4"
@@ -338,13 +349,15 @@ const TitleDetail = (selectedImmo) => {
                 </Typography>
               </div>
             </Grid>
+
             <Typography
               variant="h4"
               color="secondary"
               style={{
-                marginTop: '20px', fontSize: '44px', color: 'white',
+                marginTop: '70px', fontSize: '25px', color: 'white',
               }}
             >
+              <RoomIcon style={{ fontSize: '30px', color: '#CF291d' }} />
               {selectedImmo.selectedImmo ? selectedImmo.selectedImmo.indirizzo : ''}
 
             </Typography>
@@ -352,8 +365,10 @@ const TitleDetail = (selectedImmo) => {
               variant="h4"
               color="secondary"
               style={{
-                fontSize: '44px',
+                fontSize: '25px',
                 color: 'white',
+                marginLeft: '30px',
+                marginBottom: '70px',
               }}
             >
               {selectedImmo.selectedImmo ? selectedImmo.selectedImmo.citta : ''}
@@ -486,7 +501,7 @@ const TitleDetail = (selectedImmo) => {
                       <ListItem alignItems="flex-start">
                         <Typography
                           style={{
-                            color: 'white', fontAlign: 'left', fontSize: '25px', marginRight: '4%',
+                            color: 'white', fontAlign: 'left', fontSize: '25px', marginRight: '3.8%',
                           }}
                           color="secondary"
                         >
