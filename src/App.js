@@ -35,14 +35,7 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <Provider store={store}>
-        {/* <Navigator /> */}
-
-        <div>
-          <DetailPage />
-        </div>
-
-        {' '}
-        <CorrObject />
+        <Navigator />
 
       </Provider>
     </ThemeProvider>

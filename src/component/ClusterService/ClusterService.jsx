@@ -113,11 +113,11 @@ const ClusterService = () => {
 
   );
   return (
-    <div style={{ width: '100%', height: '600px', marginBottom: '100px' }}>
+    <div className={classes.map}>
       <GoogleMapReact
         options={getMapOptions}
         bootstrapURLKeys={{ key: 'AIzaSyDoqKjf0F9Y2vaVUBGTqLs7JxM3PQMMp_A' }}
-        defaultCenter={{ lat: 46.1262979, lng: 8.8907846 }}
+        defaultCenter={{ lat: 46.0762979, lng: 8.9707846 }}
         defaultZoom={10}
         yesIWantToUseGoogleMapApiInternals
         onGoogleApiLoaded={({ map }) => {
@@ -161,7 +161,7 @@ const ClusterService = () => {
                 className={classes.markerImage}
                 style={{ backgroundImage: `url("https://api.multimmobiliare.com/img/immobili/${immobileSel.immagini[0].fileName}")` }}
               >
-                <div className={classes.opacity} style={{ backgroundColor: 'rgba(181, 7, 23, 0.6)' }}>
+                <div className={classes.opacity}>
                   <Typography
                     align="center"
                     style={{
@@ -196,7 +196,18 @@ const ClusterService = () => {
         })}
 
       </GoogleMapReact>
-      <Typography align="center" style={{ fontSize: '60px', padding: '1em', color: 'white' }}>
+      <Typography
+        align="center"
+        variant="h1"
+        style={{
+          padding: '1em',
+          color: 'white',
+          marginBottom: '-50px',
+          '@media (min-width:600px)': {
+            marginBottom: '0px',
+          },
+        }}
+      >
         VENDITA / AFFITTO
       </Typography>
     </div>

@@ -52,7 +52,13 @@ const Navigator = (elemento) => {
       <div>
         <ClusterService />
         <div style={{ padding: '3em' }} />
-        <div style={{ paddingRight: '82px', marginLeft: '82px' }}>
+        <div style={{
+          marginLeft: '5px',
+          '@media (min-width:600px)': {
+            paddingRight: '82px', marginLeft: '82px',
+          },
+        }}
+        >
           <ButtonRentOrBuy />
           <ImmoElement />
         </div>

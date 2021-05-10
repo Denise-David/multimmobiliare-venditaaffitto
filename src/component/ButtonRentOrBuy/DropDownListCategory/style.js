@@ -5,11 +5,17 @@ const useStyles = makeStyles((theme) => ({
   ddl: {
     margin: '1em',
     padding: '1em',
-    minWidth: '20em',
+    minWidth: '18em',
+    '@media (min-width:600px)': {
+      minWidth: '20em',
+    },
   },
   whiteColor: {
     color: '#ECECEC',
-    fontSize: '25px',
+    fontSize: '15px',
+    '@media (min-width:600px)': {
+      fontSize: '25px',
+    },
     marginRight: '1em',
     marginLeft: '25px',
     marginTop: '-10px',
@@ -31,7 +37,10 @@ const useStyles = makeStyles((theme) => ({
     fill: '#ECECEC',
   },
   labelRoot: {
-    fontSize: 25,
+    fontSize: '15px',
+    '@media (min-width:600px)': {
+      fontSize: '25px',
+    },
     color: '#131313 !important',
     backgroundColor: '#black',
     marginTop: '-5px',
@@ -41,7 +50,10 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   labelFocused: {
-    fontSize: 25,
+    fontSize: '15px',
+    '@media (min-width:600px)': {
+      fontSize: '25px',
+    },
     color: '#1d1d1d !important',
   },
 }));

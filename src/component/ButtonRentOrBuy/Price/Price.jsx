@@ -71,7 +71,7 @@ const Price = () => {
         justify="center"
         alignItems="center"
       >
-        <Typography style={{ color: '#ECECEC', fontSize: '25px' }}>
+        <Typography variant="body1" style={{ color: '#ECECEC' }}>
           CHF
         </Typography>
         <Slider
@@ -116,7 +116,7 @@ const Price = () => {
                 document.getElementById('min').focus();
               }}
               margin="normal"
-              style={{ marginRight: '10px', marginLeft: '20px' }}
+
             />
 
           </div>
@@ -142,7 +142,7 @@ const Price = () => {
               className={classes.prova}
               onChange={(event) => dispatch(setPriceLimitsMax(event.target.value))}
               margin="normal"
-              style={{ marginRight: '30px' }}
+
             />
 
           </div>

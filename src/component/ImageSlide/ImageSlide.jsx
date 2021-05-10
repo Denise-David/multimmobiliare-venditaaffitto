@@ -22,6 +22,7 @@ import Dialog from '@material-ui/core/Dialog';
 import Link from '@material-ui/core/Link';
 import Carousel from 'react-material-ui-carousel';
 import CloseIcon from '@material-ui/icons/Close';
+import { BrowserView, MobileView } from 'react-device-detect';
 import useStyles from './style';
 import TitleDetail from '../TitleDetail/TitleDetail';
 
@@ -72,44 +73,72 @@ const ImageSlide = (selectedImmo) => {
   const listImage = !selImmo?.immagini ? <></>
     : (
       <>
-        <Grid
-          container
-          direction="row"
-          justify="center"
-          alignItems="center"
-        >
 
-          <Link href="#" onClick={() => onOpen(iMin)}>
-            <CardMedia
-              className={classes.media}
-              image={`https://api.multimmobiliare.com/img/immobili/${selImmo.immagini[iMin].fileName}`}
-              title="foto immobile"
-            />
-          </Link>
+        <BrowserView>
+          <Grid
+            container
+            direction="row"
+            justify="center"
+            alignItems="center"
+          >
+            <Link href="#" onClick={() => onOpen(iMin)}>
+              <CardMedia
+                className={classes.media}
+                image={`https://api.multimmobiliare.com/img/immobili/${selImmo.immagini[iMin].fileName}`}
+                title="foto immobile"
+              />
+            </Link>
 
-          {!selImmo.immagini[iMin + 1] ? <></>
-            : (
-              <Link href="#" onClick={() => onOpen(iMin + 1)}>
-                <CardMedia
-                  className={classes.media}
-                  image={`https://api.multimmobiliare.com/img/immobili/${selImmo.immagini[iMin + 1].fileName}`}
-                  title="foto immobile"
-                />
-              </Link>
-            )}
+            {!selImmo.immagini[iMin + 1] ? <></>
+              : (
+                <Link href="#" onClick={() => onOpen(iMin + 1)}>
+                  <CardMedia
+                    className={classes.media}
+                    image={`https://api.multimmobiliare.com/img/immobili/${selImmo.immagini[iMin + 1].fileName}`}
+                    title="foto immobile"
+                  />
+                </Link>
+              )}
 
-          {!selImmo.immagini[iMin + 2] ? <></>
-            : (
-              <Link href="#" onClick={() => onOpen(iMin + 2)}>
-                <CardMedia
-                  className={classes.media}
-                  image={`https://api.multimmobiliare.com/img/immobili/${selImmo.immagini[iMin + 2].fileName}`}
-                  title="foto immobile"
-                />
-              </Link>
-            )}
+            {!selImmo.immagini[iMin + 2] ? <></>
+              : (
+                <Link href="#" onClick={() => onOpen(iMin + 2)}>
+                  <CardMedia
+                    className={classes.media}
+                    image={`https://api.multimmobiliare.com/img/immobili/${selImmo.immagini[iMin + 2].fileName}`}
+                    title="foto immobile"
+                  />
+                </Link>
+              )}
+          </Grid>
+        </BrowserView>
+        <MobileView>
+          <Grid
+            container
+            direction="row"
+            justify="center"
+            alignItems="center"
+          >
+            <Link href="#" onClick={() => onOpen(iMin)}>
+              <CardMedia
+                className={classes.media}
+                image={`https://api.multimmobiliare.com/img/immobili/${selImmo.immagini[iMin].fileName}`}
+                title="foto immobile"
+              />
+            </Link>
 
-        </Grid>
+            {!selImmo.immagini[iMin + 1] ? <></>
+              : (
+                <Link href="#" onClick={() => onOpen(iMin + 1)}>
+                  <CardMedia
+                    className={classes.media}
+                    image={`https://api.multimmobiliare.com/img/immobili/${selImmo.immagini[iMin + 1].fileName}`}
+                    title="foto immobile"
+                  />
+                </Link>
+              )}
+          </Grid>
+        </MobileView>
 
       </>
     );
@@ -135,7 +164,12 @@ const ImageSlide = (selectedImmo) => {
           direction="row"
           justify="center"
           alignItems="center"
-          style={{ marginTop: '1em' }}
+          style={{
+            marginTop: '6em',
+            '@media (min-width:600px)': {
+              marginTop: '1em',
+            },
+          }}
         >
 
           <Carousel
@@ -145,7 +179,11 @@ const ImageSlide = (selectedImmo) => {
             navButtonsAlwaysVisible
             animation="slide"
             autoPlay={false}
-            style={{ width: window.innerWidth, height: '500px' }}
+            style={{
+              width: window.innerWidth,
+              height: '500px',
+
+            }}
           >
             {listImage}
           </Carousel>

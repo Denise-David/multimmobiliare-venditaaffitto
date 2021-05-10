@@ -117,8 +117,16 @@ const TitleDetail = (selectedImmo) => {
           href="#"
           onClick={() => window.location.href = `https://api.multimmobiliare.com/doc/immobili/${d.fileName}`}
         >
-          <PictureAsPdfIcon style={{ color: '#CF291d', marginRight: '20px', fontSize: '40px' }} />
-          <Typography style={{ fontSize: '25px', marginRight: '1em', color: 'white' }} key={d.id}>
+          <PictureAsPdfIcon style={{
+            color: '#CF291d',
+            marginRight: '20px',
+            fontSize: '20px',
+            '@media (min-width:600px)': {
+              fontSize: '40px',
+            },
+          }}
+          />
+          <Typography variant="body1" style={{ marginRight: '1em', color: 'white' }} key={d.id}>
             {' '}
             {d.fileName}
           </Typography>
@@ -134,13 +142,20 @@ const TitleDetail = (selectedImmo) => {
         <Divider fullWidth style={{ background: '#CF291d' }} />
         <ListItem alignItems="flex-start">
           <ListItemIcon style={{ marginRight: '10%' }}>
-            <CheckIcon style={{ color: 'red', fontSize: '40px' }} />
+            <CheckIcon style={{
+              color: 'red',
+              fontSize: '20px',
+              '@media (min-width:600px)': {
+                fontSize: '40px',
+              },
+            }}
+            />
           </ListItemIcon>
           <ListItemText
             primary=""
             secondary={(
               <>
-                <Typography style={{ fontSize: '25px', color: 'white' }} color="secondary">
+                <Typography variant="body1" style={{ color: 'white' }} color="secondary">
                   {car.caratteristica.nome}
                 </Typography>
               </>
@@ -171,7 +186,7 @@ const TitleDetail = (selectedImmo) => {
           if (car.caratteristicaId === 3 && car?.quantita > 1) {
             return (
 
-              <Typography style={{ fontSize: '25px', color: 'white' }}>
+              <Typography variant="body1" style={{ color: 'white' }}>
                 /
                 {car?.quantita}
                 {' '}
@@ -181,7 +196,7 @@ const TitleDetail = (selectedImmo) => {
           } if (car.caratteristicaId === 18 && car?.quantita > 1) {
             return (
 
-              <Typography style={{ fontSize: '25px', color: 'white' }}>
+              <Typography variant="body1" style={{ color: 'white' }}>
                 /
                 {car?.quantita}
                 {' '}
@@ -190,7 +205,7 @@ const TitleDetail = (selectedImmo) => {
             );
           } return (
 
-            <Typography style={{ fontSize: '25px', color: 'white' }}>
+            <Typography variant="body1" style={{ color: 'white' }}>
               /
               {' '}
               {car.caratteristica.nome}
@@ -200,7 +215,7 @@ const TitleDetail = (selectedImmo) => {
         if (car.caratteristicaId === 3 && car?.quantita > 1) {
           return (
 
-            <Typography style={{ fontSize: '25px', color: 'white' }}>
+            <Typography variant="body1" style={{ color: 'white' }}>
               {car?.quantita}
               {' '}
               Autorimesse
@@ -209,7 +224,7 @@ const TitleDetail = (selectedImmo) => {
         } if (car.caratteristicaId === 18 && car?.quantita > 1) {
           return (
 
-            <Typography style={{ fontSize: '25px', color: 'white' }}>
+            <Typography variant="body1" style={{ color: 'white' }}>
               {car?.quantita}
               {' '}
               Posteggi esterni
@@ -217,7 +232,7 @@ const TitleDetail = (selectedImmo) => {
           );
         } return (
 
-          <Typography style={{ fontSize: '25px', color: 'white' }}>
+          <Typography variant="body1" style={{ color: 'white' }}>
             {car.caratteristica.nome}
           </Typography>
         );
@@ -235,7 +250,7 @@ const TitleDetail = (selectedImmo) => {
         justify="space-between"
         alignItems="flex-start"
       >
-        <Grid container item xl={8} xs={8}>
+        <Grid container item xl={8} xs={12}>
           <div>
             <Link to={() => window.history.back()}>
               <Grid
@@ -266,10 +281,10 @@ const TitleDetail = (selectedImmo) => {
                 <Typography
                   onMouseMove={() => set13({ xys: [-20, 0, 0] })}
                   onMouseLeave={() => set13({ xys: [0, 0, 0] })}
+                  variant="body1"
                   align="left"
                   color="secondary"
                   style={{
-                    fontSize: '25px',
                     color: 'white',
 
                     cursor: 'pointer',
@@ -283,8 +298,9 @@ const TitleDetail = (selectedImmo) => {
             </Link>
             <Typography
               align="left"
+              variant="body1"
               style={{
-                marginTop: '20px', fontSize: '25px', color: 'white', marginBottom: '10px',
+                marginTop: '20px', color: 'white', marginBottom: '10px',
               }}
             >
               {selectedImmo.selectedImmo.contratto === 0 ? 'AFFITTO' : 'VENDITA'}
@@ -310,8 +326,9 @@ const TitleDetail = (selectedImmo) => {
 
               <Typography
                 color="secondary"
+                variant="h2"
                 style={{
-                  fontSize: '44px',
+
                   color: 'white',
                 }}
               >
@@ -320,11 +337,11 @@ const TitleDetail = (selectedImmo) => {
               </Typography>
               <div className={classes.div}>
                 <Typography
+                  variant="h2"
                   align="right"
-                  variant="h4"
                   color="secondary"
                   style={{
-                    marginRight: '10px', fontSize: '44px', color: '#CF291d',
+                    marginRight: '10px', color: '#CF291d',
                   }}
                 >
                   CHF
@@ -332,10 +349,10 @@ const TitleDetail = (selectedImmo) => {
 
                 <Typography
                   align="right"
-                  variant="h4"
+                  variant="h2"
                   color="secondary"
                   style={{
-                    fontSize: '44px', color: '#CF291d',
+                    color: '#CF291d',
                   }}
                 >
                   <NumberFormat
@@ -351,10 +368,14 @@ const TitleDetail = (selectedImmo) => {
             </Grid>
 
             <Typography
-              variant="h4"
+              variant="body1"
               color="secondary"
               style={{
-                marginTop: '70px', fontSize: '25px', color: 'white',
+                color: 'white',
+                marginTop: '20px',
+                '@media (min-width:600px)': {
+                  marginTop: '70px',
+                },
               }}
             >
               <RoomIcon style={{ fontSize: '30px', color: '#CF291d' }} />
@@ -362,13 +383,15 @@ const TitleDetail = (selectedImmo) => {
 
             </Typography>
             <Typography
-              variant="h4"
+              variant="body1"
               color="secondary"
               style={{
-                fontSize: '25px',
                 color: 'white',
                 marginLeft: '30px',
-                marginBottom: '70px',
+                marginBottom: '20px',
+                '@media (min-width:600px)': {
+                  marginBottom: '70px',
+                },
               }}
             >
               {selectedImmo.selectedImmo ? selectedImmo.selectedImmo.citta : ''}
@@ -390,14 +413,22 @@ const TitleDetail = (selectedImmo) => {
                 >
                   Virtual tour
                 </Typography>
-                <ThreeSixtyIcon onClick={open360} style={{ fontSize: '200px' }} />
+                <ThreeSixtyIcon
+                  onClick={open360}
+                  style={{
+                    fontSize: '80px',
+                    '@media (min-width:600px)': {
+                      fontSize: '200px',
+                    },
+                  }}
+                />
                 <Icon onClick={open360} classes={{ root: classes.iconRoot }} />
               </div>
             </div>
             <Typography
+              variant="h2"
               color="secondary"
               style={{
-                fontSize: '44px',
                 marginBottom: '1em',
                 marginTop: '50px',
                 color: 'white',
@@ -406,15 +437,15 @@ const TitleDetail = (selectedImmo) => {
               Descrizione
 
             </Typography>
-            <Typography style={{ marginBottom: '2em', fontSize: '25px', color: 'white' }} color="secondary">
+            <Typography variant="body1" style={{ marginBottom: '2em', color: 'white' }} color="secondary">
 
               {selectedImmo.selectedImmo ? selectedImmo.selectedImmo.descrizione : ''}
             </Typography>
             <div>
               <Typography
+                variant="h2"
                 color="secondary"
                 style={{
-                  fontSize: '44px',
                   marginBottom: '1em',
                   marginTop: '50px',
                   color: 'white',
@@ -428,7 +459,7 @@ const TitleDetail = (selectedImmo) => {
 
                 <ListItem alignItems="flex-start">
 
-                  <Typography style={{ fontSize: '25px', marginRight: '9%', color: 'white' }} color="secondary">
+                  <Typography variant="body1" style={{ marginRight: '9%', color: 'white' }} color="secondary">
                     Affitto:
 
                   </Typography>
@@ -436,7 +467,7 @@ const TitleDetail = (selectedImmo) => {
                   <ListItemText
                     secondary={(
                       <>
-                        <Typography style={{ fontSize: '25px', color: 'white' }} color="secondary">
+                        <Typography variant="body1" style={{ color: 'white' }} color="secondary">
                           <NumberFormat
                             value={selectedImmo.selectedImmo ? selectedImmo.selectedImmo.pigione : ''}
                             className="foo"
@@ -460,8 +491,9 @@ const TitleDetail = (selectedImmo) => {
                     <List>
                       <ListItem alignItems="flex-start">
                         <Typography
+                          variant="body1"
                           style={{
-                            color: 'white', fontAlign: 'left', fontSize: '25px', marginRight: '9%',
+                            color: 'white', fontAlign: 'left', marginRight: '9%',
                           }}
                           color="secondary"
                         >
@@ -472,7 +504,7 @@ const TitleDetail = (selectedImmo) => {
                         <ListItemText
                           secondary={(
                             <>
-                              <Typography style={{ fontSize: '25px', color: 'white' }} color="secondary">
+                              <Typography variant="body1" style={{ color: 'white' }} color="secondary">
                                 <NumberFormat
                                   value={selectedImmo.selectedImmo ? selectedImmo.selectedImmo.spese : ''}
                                   className="foo"
@@ -500,8 +532,9 @@ const TitleDetail = (selectedImmo) => {
 
                       <ListItem alignItems="flex-start">
                         <Typography
+                          variant="body1"
                           style={{
-                            color: 'white', fontAlign: 'left', fontSize: '25px', marginRight: '3.8%',
+                            color: 'white', fontAlign: 'left', marginRight: '3.8%',
                           }}
                           color="secondary"
                         >
@@ -514,7 +547,7 @@ const TitleDetail = (selectedImmo) => {
                         <ListItemText
                           secondary={(
                             <>
-                              <Typography style={{ fontSize: '25px', color: 'white' }} color="secondary">
+                              <Typography variant="body1" style={{ color: 'white' }} color="secondary">
                                 <NumberFormat
                                   value={autorimessa.prezzo ? autorimessa.prezzo : ''}
                                   className="foo"
@@ -542,8 +575,9 @@ const TitleDetail = (selectedImmo) => {
 
                       <ListItem alignItems="flex-start">
                         <Typography
+                          variant="body1"
                           style={{
-                            color: 'white', fontAlign: 'left', fontSize: '25px', marginRight: '9%',
+                            color: 'white', fontAlign: 'left', marginRight: '9%',
                           }}
                           color="secondary"
                         >
@@ -556,7 +590,7 @@ const TitleDetail = (selectedImmo) => {
                         <ListItemText
                           secondary={(
                             <>
-                              <Typography style={{ fontSize: '25px', color: 'white' }} color="secondary">
+                              <Typography variant="body1" style={{ color: 'white' }} color="secondary">
                                 <NumberFormat
                                   value={garage.prezzo ? garage.prezzo : ''}
                                   className="foo"
@@ -585,8 +619,9 @@ const TitleDetail = (selectedImmo) => {
 
                       <ListItem alignItems="flex-start">
                         <Typography
+                          variant="body1"
                           style={{
-                            color: 'white', fontAlign: 'left', fontSize: '25px', marginRight: '9%',
+                            color: 'white', fontAlign: 'left', marginRight: '9%',
                           }}
                           color="secondary"
                         >
@@ -599,7 +634,11 @@ const TitleDetail = (selectedImmo) => {
                         <ListItemText
                           secondary={(
                             <>
-                              <Typography style={{ fontSize: '25px', color: 'white' }} color="secondary">
+                              <Typography
+                                variant="body1"
+                                style={{ color: 'white' }}
+                                color="secondary"
+                              >
                                 <NumberFormat
                                   value={posteggio.prezzo ? posteggio.prezzo : ''}
                                   className="foo"
@@ -621,9 +660,9 @@ const TitleDetail = (selectedImmo) => {
                 : <></>}
 
               <Typography
+                variant="h2"
                 color="secondary"
                 style={{
-                  fontSize: '44px',
                   marginBottom: '1em',
                   marginTop: '50px',
                   color: 'white',
@@ -637,13 +676,23 @@ const TitleDetail = (selectedImmo) => {
 
                 <ListItem alignItems="flex-start">
                   <ListItemIcon style={{ marginRight: '10%' }}>
-                    <img alt="logo" src="https://api.multimmobiliare.com/img/icons/Locali.png" style={{ maxHeight: '50px', maxWidth: '50px' }} />
+                    <img
+                      alt="logo"
+                      src="https://api.multimmobiliare.com/img/icons/Locali.png"
+                      style={{
+                        maxHeight: '30px',
+                        maxWidth: '30px',
+                        '@media (min-width:600px)': {
+                          maxHeight: '50px', maxWidth: '50px',
+                        },
+                      }}
+                    />
                   </ListItemIcon>
                   <ListItemText
                     primary=""
                     secondary={(
                       <>
-                        <Typography style={{ fontSize: '25px', color: 'white' }} color="secondary">
+                        <Typography variant="body1" style={{ color: 'white' }} color="secondary">
 
                           {selectedImmo.selectedImmo.locali.numero}
                           {' '}
@@ -659,13 +708,23 @@ const TitleDetail = (selectedImmo) => {
 
                 <ListItem alignItems="flex-start">
                   <ListItemIcon style={{ marginRight: '10%' }}>
-                    <img alt="logo" src="https://api.multimmobiliare.com/img/icons/metratura.png" style={{ maxHeight: '50px', maxWidth: '50px' }} />
+                    <img
+                      alt="logo"
+                      src="https://api.multimmobiliare.com/img/icons/metratura.png"
+                      style={{
+                        maxHeight: '30px',
+                        maxWidth: '30px',
+                        '@media (min-width:600px)': {
+                          maxHeight: '50px', maxWidth: '50px',
+                        },
+                      }}
+                    />
                   </ListItemIcon>
                   <ListItemText
                     primary=""
                     secondary={(
                       <>
-                        <Typography style={{ fontSize: '25px', color: 'white' }} color="secondary">
+                        <Typography variant="body1" style={{ color: 'white' }} color="secondary">
 
                           {selectedImmo.selectedImmo.metratura}
                           {' '}
@@ -680,13 +739,23 @@ const TitleDetail = (selectedImmo) => {
                 <Divider fullWidth style={{ background: '#CF291d' }} />
                 <ListItem alignItems="flex-start">
                   <ListItemIcon style={{ marginRight: '10%' }}>
-                    <img alt="logo" src="https://api.multimmobiliare.com/img/icons/scala.png" style={{ maxHeight: '50px', maxWidth: '50px' }} />
+                    <img
+                      alt="logo"
+                      src="https://api.multimmobiliare.com/img/icons/scala.png"
+                      style={{
+                        maxHeight: '30px',
+                        maxWidth: '30px',
+                        '@media (min-width:600px)': {
+                          maxHeight: '50px', maxWidth: '50px',
+                        },
+                      }}
+                    />
                   </ListItemIcon>
                   <ListItemText
                     primary=""
                     secondary={(
                       <>
-                        <Typography style={{ fontSize: '25px', color: 'white' }} color="secondary">
+                        <Typography variant="body1" style={{ color: 'white' }} color="secondary">
 
                           {selectedImmo.selectedImmo.piano === 0 ? 'PT' : `${selectedImmo.selectedImmo.piano}°Piano`}
                         </Typography>
@@ -699,15 +768,25 @@ const TitleDetail = (selectedImmo) => {
                 <Divider fullWidth style={{ background: '#CF291d' }} />
                 <ListItem alignItems="flex-start">
                   <ListItemIcon style={{ marginRight: '10%' }}>
-                    <img alt="logo" src="https://api.multimmobiliare.com/img/icons/parking.png" style={{ maxHeight: '50px', maxWidth: '50px' }} />
+                    <img
+                      alt="logo"
+                      src="https://api.multimmobiliare.com/img/icons/parking.png"
+                      style={{
+                        maxHeight: '30px',
+                        maxWidth: '30px',
+                        '@media (min-width:600px)': {
+                          maxHeight: '50px', maxWidth: '50px',
+                        },
+                      }}
+                    />
                   </ListItemIcon>
                   <ListItemText
                     primary=""
                     secondary={(
                       <>
                         {getSingleParking.length === 0
-                          ? <Typography style={{ fontSize: '25px', color: 'white' }} color="secondary">Nessun parcheggio</Typography>
-                          : <Typography style={{ color: 'white' }} className={classes.div1} color="secondary">{parking}</Typography>}
+                          ? <Typography variant="body1" style={{ color: 'white' }} color="secondary">Nessun parcheggio</Typography>
+                          : <Typography variant="body1" style={{ color: 'white' }} className={classes.div1} color="secondary">{parking}</Typography>}
                       </>
 )}
                   />
@@ -720,14 +799,24 @@ const TitleDetail = (selectedImmo) => {
                       <Divider fullWidth style={{ background: '#CF291d' }} />
                       <ListItem alignItems="flex-start">
                         <ListItemIcon style={{ marginRight: '10%' }}>
-                          <img alt="logo" src="https://api.multimmobiliare.com/img/icons/vasca.png" style={{ maxHeight: '50px', maxWidth: '50px' }} />
+                          <img
+                            alt="logo"
+                            src="https://api.multimmobiliare.com/img/icons/vasca.png"
+                            style={{
+                              maxHeight: '30px',
+                              maxWidth: '30px',
+                              '@media (min-width:600px)': {
+                                maxHeight: '50px', maxWidth: '50px',
+                              },
+                            }}
+                          />
                         </ListItemIcon>
                         <ListItemText
                           primary=""
                           secondary={(
                             <>
                               {bagni?.quantita > 1 ? (
-                                <Typography style={{ fontSize: '25px', color: 'white' }} color="secondary">
+                                <Typography variant="body1" style={{ color: 'white' }} color="secondary">
 
                                   {bagni?.quantita}
                                   {' '}
@@ -735,7 +824,7 @@ const TitleDetail = (selectedImmo) => {
                                 </Typography>
                               )
                                 : (
-                                  <Typography style={{ fontSize: '25px', color: 'white' }} color="secondary">
+                                  <Typography variant="body1" style={{ color: 'white' }} color="secondary">
 
                                     1 bagno
                                   </Typography>
@@ -758,14 +847,20 @@ const TitleDetail = (selectedImmo) => {
                         <img
                           alt="logo"
                           src="https://api.multimmobiliare.com/img/icons/calendar.png"
-                          style={{ maxHeight: '50px', maxWidth: '50px' }}
+                          style={{
+                            maxHeight: '30px',
+                            maxWidth: '30px',
+                            '@media (min-width:600px)': {
+                              maxHeight: '50px', maxWidth: '50px',
+                            },
+                          }}
                         />
                       </ListItemIcon>
                       <ListItemText
                         primary=""
                         secondary={(
                           <>
-                            <Typography style={{ fontSize: '25px', color: 'white' }} color="secondary">
+                            <Typography variant="body1" style={{ color: 'white' }} color="secondary">
                               {' '}
                               libero da
                               {' '}
@@ -780,9 +875,9 @@ const TitleDetail = (selectedImmo) => {
                 ) : <></>}
               <Divider fullWidth style={{ background: '#CF291d' }} />
               <Typography
+                variant="h2"
                 color="secondary"
                 style={{
-                  fontSize: '44px',
                   marginBottom: '1em',
                   marginTop: '50px',
                   color: 'white',
@@ -795,9 +890,9 @@ const TitleDetail = (selectedImmo) => {
               {caratt}
 
               <Typography
+                variant="h2"
                 color="secondary"
                 style={{
-                  fontSize: '44px',
                   marginBottom: '50px',
                   marginTop: '50px',
                   color: 'white',
@@ -844,12 +939,20 @@ const TitleDetail = (selectedImmo) => {
           container
           item
           xl={3}
-          xs={3}
+          xs={12}
           style={{
-            padding: '1em', position: 'sticky', top: '200px', backgroundColor: '#1d1d1d', marginTop: '0px', overflowX: 'none',
+            position: 'sticky',
+            top: '200px',
+            backgroundColor: '#1d1d1d',
+            marginTop: '20px',
+            padding: '1%',
+            '@media (min-width:600px)': {
+              marginTop: '0px',
+            },
+            overflowX: 'none',
           }}
         >
-          <Card style={{}}>
+          <Card style={{ }}>
             <CardContent style={{ backgroundColor: '#1d1d1d' }}>
               <div>
                 <Grid
@@ -863,7 +966,12 @@ const TitleDetail = (selectedImmo) => {
                       alt="pdf"
                       src="https://api.multimmobiliare.com/img/icons/pdfDownload.png"
                       style={{
-                        width: '40px', height: 'auto',
+                        width: '40px',
+                        height: 'auto',
+                        marginRight: '20px',
+                        '@media (min-width:600px)': {
+                          marginRight: '0px',
+                        },
                       }}
                     />
                   </IconButton>
@@ -880,7 +988,12 @@ const TitleDetail = (selectedImmo) => {
                           alt="pdf"
                           src="https://api.multimmobiliare.com/img/icons/fbShare.png"
                           style={{
-                            width: '30px', height: 'auto',
+                            width: '30px',
+                            height: 'auto',
+                            marginRight: '20px',
+                            '@media (min-width:600px)': {
+                              marginRight: '0px',
+                            },
                           }}
                         />
                       </IconButton>
@@ -901,13 +1014,29 @@ const TitleDetail = (selectedImmo) => {
                       alt="pdf"
                       src="https://api.multimmobiliare.com/img/icons/link.png"
                       style={{
-                        width: '30px', height: '30px',
+                        width: '30px',
+                        height: '30px',
+                        marginRight: '20px',
+                        '@media (min-width:600px)': {
+                          marginRight: '0px',
+                        },
                       }}
                     />
                   </IconButton>
 
                 </Grid>
-                <Typography color="secondary" style={{ marginBottom: '20px', fontSize: '44px', color: 'white' }}>
+                <Typography
+                  variant="h2"
+                  color="secondary"
+                  style={{
+                    marginBottom: '20px',
+                    color: 'white',
+                    marginTop: '20px',
+                    '@media (min-width:600px)': {
+                      marginTop: '0px',
+                    },
+                  }}
+                >
                   Responsabile
                 </Typography>
 
@@ -918,7 +1047,17 @@ const TitleDetail = (selectedImmo) => {
                   alignItems="center"
                 >
                   <span className={classes.margin}>
-                    <Typography color="secondary" style={{ marginBottom: '20px', fontSize: '25px', color: 'white' }}>
+                    <Typography
+                      variant="body1"
+                      color="secondary"
+                      style={{
+                        marginBottom: '8px',
+                        '@media (min-width:600px)': {
+                          marginBottom: '20px',
+                        },
+                        color: 'white',
+                      }}
+                    >
                       {selectedImmo.selectedImmo.referente.nome}
                       {' '}
                       {selectedImmo.selectedImmo.referente.cognome}
@@ -926,8 +1065,14 @@ const TitleDetail = (selectedImmo) => {
 
                     <Typography
                       color="secondary"
+                      variant="body1"
                       style={{
-                        marginBottom: '20px', marginRight: '20px', color: 'white', fontSize: '25px',
+                        marginBottom: '8px',
+                        '@media (min-width:600px)': {
+                          marginBottom: '20px',
+                        },
+                        marginRight: '20px',
+                        color: 'white',
                       }}
                     >
                       {selectedImmo.selectedImmo.referente.posizione}
@@ -939,10 +1084,11 @@ const TitleDetail = (selectedImmo) => {
                       alignItems="center"
                     >
                       <RoomIcon color="secondary" />
-                      <Typography color="secondary" style={{ fontSize: '25px', color: 'white' }}>
+                      <Typography variant="body1" color="secondary" style={{ color: 'white' }}>
 
                         {selectedImmo.selectedImmo.referente.citta}
                       </Typography>
+
                     </Grid>
 
                     <BrowserView>
@@ -955,9 +1101,10 @@ const TitleDetail = (selectedImmo) => {
                       >
                         <PhoneIcon color="secondary" />
                         <Typography
+                          variant="body1"
                           color="secondary"
                           style={{
-                            marginRight: '20px', color: 'white', fontSize: '25px',
+                            marginRight: '20px', color: 'white',
                           }}
                         >
                           {' '}
@@ -965,29 +1112,52 @@ const TitleDetail = (selectedImmo) => {
                         </Typography>
                       </Grid>
                     </BrowserView>
+                    <Grid
+                      container
+                      direction="row"
+                      justify="flex-start"
+                      alignItems="center"
+                      style={{ marginTop: '20px' }}
+                    >
+                      <LinkedInIcon onClick={() => window.open(selectedImmo.selectedImmo.referente.linkedin)} color="secondary" style={{ marginRight: '10px', fontSize: '35px', color: 'white' }} />
 
-                    <LinkedInIcon onClick={() => window.open(selectedImmo.selectedImmo.referente.linkedin)} color="secondary" style={{ marginRight: '10px', fontSize: '35px', color: 'white' }} />
-
-                    <MobileView>
-                      <a href={`tel:${selectedImmo.selectedImmo.referente.numero}`}>
-                        <PhoneIcon color="secondary" style={{ marginRight: '10px', fontSize: '35px', color: 'white' }} />
-                      </a>
-                    </MobileView>
-                    <Mailto email={selectedImmo.selectedImmo.referente.email} subject="" body="">
-                      <MailIcon color="secondary" style={{ marginRight: '10px', fontSize: '35px', color: 'white' }} />
-                    </Mailto>
+                      <MobileView>
+                        <a href={`tel:${selectedImmo.selectedImmo.referente.numero}`}>
+                          <PhoneIcon color="secondary" style={{ marginRight: '10px', fontSize: '35px', color: 'white' }} />
+                        </a>
+                      </MobileView>
+                      <Mailto email={selectedImmo.selectedImmo.referente.email} subject="" body="">
+                        <MailIcon color="secondary" style={{ marginRight: '10px', fontSize: '35px', color: 'white' }} />
+                      </Mailto>
+                    </Grid>
                   </span>
-
-                  <CardMedia
-                    component="img"
-                    alt="Stefania"
-                    image={`https://api.multimmobiliare.com/img/referenti/${selectedImmo.selectedImmo.referente.foto}`}
-                    title="stefania"
-                    style={{ width: '200px', height: '200px', marginLeft: '2em' }}
-                  />
+                  <BrowserView>
+                    <CardMedia
+                      component="img"
+                      alt="Stefania"
+                      image={`https://api.multimmobiliare.com/img/referenti/${selectedImmo.selectedImmo.referente.foto}`}
+                      title="stefania"
+                      style={{
+                        width: '200px',
+                        height: '200px',
+                        marginLeft: '2em',
+                      }}
+                    />
+                  </BrowserView>
+                  <MobileView>
+                    <CardMedia
+                      component="img"
+                      alt="Stefania"
+                      image={`https://api.multimmobiliare.com/img/referenti/${selectedImmo.selectedImmo.referente.foto}`}
+                      title="stefania"
+                      style={{
+                        width: '100px',
+                      }}
+                    />
+                  </MobileView>
                 </Grid>
                 <Divider fullWidth style={{ background: '#CF291d', marginTop: '20px', marginBottom: '20px' }} />
-                <Typography color="secondary" style={{ marginBottom: '20px', fontSize: '44px', color: 'white' }}>
+                <Typography variant="h2" color="secondary" style={{ marginBottom: '20px', color: 'white' }}>
                   Richiedi una visita
                 </Typography>
 
@@ -1062,7 +1232,7 @@ const TitleDetail = (selectedImmo) => {
 
                 </Button>
                 <Divider fullWidth style={{ background: '#CF291d', marginTop: '20px', marginBottom: '20px' }} />
-                <Typography color="secondary" style={{ marginBottom: '20px', fontSize: '44px', color: 'white' }}>
+                <Typography variant="h2" color="secondary" style={{ marginBottom: '20px', color: 'white' }}>
                   Riserva
                 </Typography>
                 <Button

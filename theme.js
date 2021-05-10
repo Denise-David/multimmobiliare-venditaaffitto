@@ -28,18 +28,38 @@ const theme = createMuiTheme({
     MuiTypography: {
       body1: {
         fontWeight: 300,
+        fontSize: '15px',
+        '@media (min-width:600px)': {
+          fontSize: '25px',
+        },
       },
       h4: {
         fontWeight: 300,
+        fontSize: '12px',
+        '@media (min-width:600px)': {
+          fontSize: '20px',
+        },
       },
       h1: {
         fontWeight: 300,
+        fontSize: '30px',
+        '@media (min-width:600px)': {
+          fontSize: '60px',
+        },
       },
       h2: {
-        fontWeight: 300,
+        fontSize: '22px',
+        '@media (min-width:600px)': {
+          fontSize: '44px',
+        },
       },
       h3: {
         fontWeight: 300,
+        fontSize: '15px',
+        '@media (min-width:600px)': {
+          fontSize: '30px',
+        },
+
       },
       h5: {
         fontWeight: 300,
@@ -67,7 +87,14 @@ const theme = createMuiTheme({
       },
 
     },
-
+    MuiIconButton: {
+      root: {
+        padding: '0px',
+        '@media (min-width:600px)': {
+          padding: '12px',
+        },
+      },
+    },
     MuiOutlinedInput: {
       borderColor: '#ECECEC',
       notchedOutline: {

@@ -86,7 +86,7 @@ const ImmoElement = () => {
           count += 1;
           if (count >= 2) {
             return (
-              <Typography style={{ fontSize: '20px' }}>
+              <Typography variant="h4">
                 /
                 {' '}
                 {car.caratteristica.nome}
@@ -94,7 +94,7 @@ const ImmoElement = () => {
             );
           }
           return (
-            <Typography style={{ fontSize: '20px' }}>
+            <Typography variant="h4">
               {car.caratteristica.nome}
             </Typography>
           );
@@ -112,6 +112,12 @@ const ImmoElement = () => {
                     navButtonsAlwaysVisible
                     animation="slide"
                     autoPlay={false}
+                    navButtonsProps={{
+                      padding: '0px',
+                      '@media (min-width:600px)': {
+                        padding: '12px',
+                      },
+                    }}
                   >
                     {listLargeImage}
                   </Carousel>
@@ -124,16 +130,16 @@ const ImmoElement = () => {
               alignItems="center"
               className={classes.padding}
             >
-              <Typography key={element.id} style={{ fontSize: '20px' }}>
+              <Typography key={element.id} variant="h4">
                 <RoomIcon />
                 {' '}
                 {element.citta}
               </Typography>
               <span className={classes.div}>
-                <Typography style={{ fontSize: '30px', marginRight: '10px' }}>
+                <Typography variant="h3" style={{ marginRight: '10px' }}>
                   CHF
                 </Typography>
-                <Typography style={{ fontSize: '30px' }}>
+                <Typography variant="h3">
 
                   <NumberFormat
                     value={element.pigione}
@@ -145,7 +151,7 @@ const ImmoElement = () => {
                 </Typography>
               </span>
             </Grid>
-            <Typography style={{ fontSize: '30px' }} className={classes.padding}>
+            <Typography variant="h3" className={classes.padding}>
               {element.titolo}
             </Typography>
             <Divider classes={{ root: classes.divider }} />
@@ -160,7 +166,7 @@ const ImmoElement = () => {
                 <div className={classes.div}>
                   <img src="https://api.multimmobiliare.com/img/icons/Locali.png" alt="locali" style={{ width: '30px', marginRight: '10px' }} />
                   {' '}
-                  <Typography style={{ fontSize: '20px' }}>
+                  <Typography variant="h4">
 
                     {element.locali.numero}
                     {' '}
@@ -172,7 +178,7 @@ const ImmoElement = () => {
                 <span className={classes.div}>
                   <img src="https://api.multimmobiliare.com/img/icons/metratura.png" alt="locali" style={{ width: '30px', marginRight: '10px' }} />
                   {' '}
-                  <Typography style={{ fontSize: '20px' }}>
+                  <Typography variant="h4">
 
                     {element.metratura}
                     {' '}
@@ -185,7 +191,7 @@ const ImmoElement = () => {
                 <div className={classes.div}>
                   <img src="https://api.multimmobiliare.com/img/icons/scala.png" alt="locali" style={{ width: '30px', marginRight: '10px' }} />
                   {' '}
-                  <Typography style={{ fontSize: '20px' }}>
+                  <Typography variant="h4">
                     {element.piano === 0 ? ' PT' : `  ${element.piano} °Piano`}
                   </Typography>
                 </div>
@@ -203,7 +209,7 @@ const ImmoElement = () => {
                   <LocalParkingIcon style={{ marginRight: '10px' }} />
                   {' '}
                   {getSingleParking.length === 0
-                    ? <Typography style={{ fontSize: '20px' }}>Nessun parcheggio</Typography> : parking}
+                    ? <Typography variant="h4">Nessun parcheggio</Typography> : parking}
                 </span>
               </Grid>
               <Grid item xs={12} sm={2}>
@@ -212,7 +218,7 @@ const ImmoElement = () => {
                   {' '}
                   {bagni?.quantita > 1
                     ? (
-                      <Typography style={{ fontSize: '20px' }}>
+                      <Typography variant="h4">
 
                         {bagni?.quantita}
                         {' '}
@@ -220,7 +226,7 @@ const ImmoElement = () => {
                       </Typography>
                     )
                     : (
-                      <Typography style={{ fontSize: '20px' }}>
+                      <Typography variant="h4">
 
                         Bagno
                       </Typography>
@@ -231,7 +237,7 @@ const ImmoElement = () => {
                 <div className={classes.div}>
                   <EventAvailableIcon style={{ marginRight: '10px' }} />
                   {' '}
-                  <Typography style={{ fontSize: '20px' }}>
+                  <Typography variant="h4">
                     {' '}
                     {dateFormat}
                   </Typography>
@@ -247,7 +253,7 @@ const ImmoElement = () => {
               className={classes.padding}
             >
               {' '}
-              <Typography style={{ fontSize: '20px' }}>
+              <Typography variant="h4">
                 {element.tipologia.nome}
               </Typography>
 

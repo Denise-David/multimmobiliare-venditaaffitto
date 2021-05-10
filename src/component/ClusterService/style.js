@@ -92,13 +92,28 @@ const useStyles = makeStyles((theme) => ({
   },
 
   opacity: {
+    backgroundColor: 'rgba(181, 7, 23, 0.5)',
     width: '150px',
     height: '150px',
     borderRadius: '50%',
-    opacity: '0',
-    '&:hover': {
-      opacity: '1',
+    opacity: 1,
+    '@media (min-width:600px)': {
+      opacity: '0',
+      '&:hover': {
+        opacity: '1',
+      },
     },
+
+  },
+
+  map: {
+
+    width: '100%',
+    height: '450px',
+    '@media (min-width:600px)': {
+      height: '600px',
+    },
+    marginBottom: '100px',
   },
 }));
 export default useStyles;

@@ -25,14 +25,20 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '18px',
   },
   inputRoot: {
-    fontSize: 20,
+    fontSize: '15px',
+    '@media (min-width:600px)': {
+      fontSize: '25px',
+    },
     '&$cssFocused $notchedOutline': {
       borderColor: '#131313 !important',
     },
 
   },
   labelRoot: {
-    fontSize: 25,
+    fontSize: '15px',
+    '@media (min-width:600px)': {
+      fontSize: '25px',
+    },
     color: '#ECECEC !important',
     backgroundColor: '#000000',
     marginTop: '-5px',
@@ -42,7 +48,10 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   labelFocused: {
-    fontSize: 25,
+    fontSize: '15px',
+    '@media (min-width:600px)': {
+      fontSize: '25px',
+    },
     color: '#1d1d1d !important',
   },
   notchedOutline: {

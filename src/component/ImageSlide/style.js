@@ -6,8 +6,11 @@ const useStyles = makeStyles((theme) => ({
   media: {
     paddingTop: '56.25%', // 16:9
     borderWidth: '2px',
-    width: window.innerWidth / 3.2,
-    margin: '10px',
+    width: window.innerWidth / 2.2,
+    '@media (min-width:600px)': {
+      width: window.innerWidth / 3.1,
+    },
+    margin: window.innerWidth / 300,
   },
   iconNext: {
     fontSize: '60px',

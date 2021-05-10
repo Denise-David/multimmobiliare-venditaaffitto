@@ -87,7 +87,7 @@ const ButtonSendCode = () => {
             label={(
               <>
                 <HomeWorkIcon />
-                <Typography style={{ fontSize: '25px' }}>
+                <Typography variant="body1">
 
                   Affitto
                 </Typography>
@@ -99,7 +99,7 @@ const ButtonSendCode = () => {
             label={(
               <>
                 <AttachMoneyIcon />
-                <Typography style={{ fontSize: '25px' }}>
+                <Typography variant="body1">
                   Vendita
                 </Typography>
               </>
@@ -153,7 +153,7 @@ const ButtonSendCode = () => {
               justify="center"
               alignItems="center"
             >
-              <Typography style={{ fontSize: '25px', color: 'white' }}>
+              <Typography align="center" variant="body1" style={{ color: 'white' }}>
                 Non hai trovato quello che cercavi? Iscriviti per
                 ricevere gli annunci di questa tua ricerca
               </Typography>
@@ -176,7 +176,13 @@ const ButtonSendCode = () => {
                 }}
                 style={{ marginTop: '20px' }}
               />
-              <Button className={classes.button} variant="contained" style={{ marginTop: '20px', fontSize: '20px' }}>
+              <Button
+                className={classes.button}
+                variant="contained"
+                style={{
+                  marginTop: '20px',
+                }}
+              >
                 Iscriviti
               </Button>
             </Grid>

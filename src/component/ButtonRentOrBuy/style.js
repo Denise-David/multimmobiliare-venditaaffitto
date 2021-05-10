@@ -28,14 +28,20 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   inputRoot: {
-    fontSize: 17,
+    fontSize: '15px',
+    '@media (min-width:600px)': {
+      fontSize: '25px',
+    },
     '&$cssFocused $notchedOutline': {
       borderColor: '#131313 !important',
     },
 
   },
   labelRoot: {
-    fontSize: 25,
+    fontSize: '15px',
+    '@media (min-width:600px)': {
+      fontSize: '25px',
+    },
     color: '#ECECEC !important',
     backgroundColor: 'black',
     marginTop: '-5px',

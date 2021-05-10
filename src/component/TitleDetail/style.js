@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   margin: {
-    margin: '0.5em',
+    marginRight: '0.5em',
   },
 
   div: {
@@ -63,7 +63,10 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '15px',
   },
   button: {
-    fontSize: '20px',
+    fontSize: '15px',
+    '@media (min-width:600px)': {
+      fontSize: '20px',
+    },
     backgroundColor: '#B50717',
     color: 'white',
     '&:hover': {
@@ -97,11 +100,17 @@ const useStyles = makeStyles((theme) => ({
     borderWidth: '2px',
     opacity: '60%',
     objectFit: 'cover',
-    height: '300px',
+    height: '150px',
+    '@media (min-width:600px)': {
+      height: '300px',
+    },
 
   },
   labelRoot: {
-    fontSize: 25,
+    fontSize: '15px',
+    '@media (min-width:600px)': {
+      fontSize: '25px',
+    },
     color: '#ECECEC !important',
     backgroundColor: '#1d1d1d',
     marginTop: '-5px',
@@ -111,7 +120,10 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   labelFocused: {
-    fontSize: 20,
+    fontSize: '15px',
+    '@media (min-width:600px)': {
+      fontSize: '25px',
+    },
     color: '#ECECEC !important',
   },
 

@@ -33,9 +33,10 @@ const About = () => {
           }}
         >
           <Typography
+            variant="body1"
             onMouseMove={() => set13({ xys: [20, 0, 0] })}
             onMouseLeave={() => set13({ xys: [0, 0, 0] })}
-            style={{ color: '#ECECEC', fontSize: '25px' }}
+            style={{ color: '#ECECEC' }}
           >
             Vedi altro
           </Typography>

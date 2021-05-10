@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 // eslint-disable-next-line no-unused-vars
 import { makeStyles, Theme } from '@material-ui/core/styles';
 // eslint-disable-next-line no-unused-vars
@@ -34,7 +35,10 @@ const useStyles = makeStyles((theme) => ({
   },
 
   padding: {
-    padding: '0.5em',
+    width: window.innerWidth,
+    '@media (min-width:600px)': {
+      width: '1770px',
+    },
   },
 
   price: {

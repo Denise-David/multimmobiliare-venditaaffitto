@@ -14,7 +14,10 @@ const useStyles = makeStyles((theme) => ({
 
   },
   prova: {
-    minWidth: '18em',
+    minWidth: '10em',
+    '@media (min-width:600px)': {
+      minWidth: '18em',
+    },
     color: '#ECECEC',
 
   },
@@ -26,7 +29,10 @@ const useStyles = makeStyles((theme) => ({
     color: '#1d1d1d',
   },
   slider: {
-    maxWidth: '36em',
+    maxWidth: '25em',
+    '@media (min-width:600px)': {
+      maxWidth: '36em',
+    },
     color: '#ECECEC',
   },
   marginText: {
@@ -38,14 +44,20 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: '1.5em',
   },
   inputRoot: {
-    fontSize: 17,
+    fontSize: '15px',
+    '@media (min-width:600px)': {
+      fontSize: '25px',
+    },
     '&$cssFocused $notchedOutline': {
       borderColor: '#131313 !important',
     },
 
   },
   labelRoot: {
-    fontSize: 25,
+    fontSize: '15px',
+    '@media (min-width:600px)': {
+      fontSize: '25px',
+    },
     color: '#ECECEC !important',
     backgroundColor: 'black',
     marginTop: '-5px',
@@ -55,7 +67,10 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   labelFocused: {
-    fontSize: 20,
+    fontSize: '15px',
+    '@media (min-width:600px)': {
+      fontSize: '25px',
+    },
     color: '#ECECEC !important',
   },
   notchedOutline: {
@@ -63,5 +78,11 @@ const useStyles = makeStyles((theme) => ({
     borderColor: '#ECECEC !important',
   },
 
+  button: {
+    fontSize: '12px',
+    '@media (min-width:600px)': {
+      fontSize: '25px',
+    },
+  },
 }));
 export default useStyles;
