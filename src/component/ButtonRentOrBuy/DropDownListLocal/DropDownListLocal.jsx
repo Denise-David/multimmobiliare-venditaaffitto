@@ -63,7 +63,7 @@ const DropDownListLocal = ({ actionClick, name }) => {
 
   const itemUniqueRegion = orderedNumber.map((element) => (
     <MenuItem key={element} value={element}>
-      <Typography>
+      <Typography className={classes.element}>
         {element}
       </Typography>
 
@@ -89,7 +89,13 @@ const DropDownListLocal = ({ actionClick, name }) => {
           id="demo-simple-select-outlined"
           onChange={(ev) => dispatch(setIdLocalSelected(ev.target.value))}
           className={classes.prova}
-          classes={{ icon: classes.icon }}
+          classes={{
+            inputRoot: {
+              root: classes.inputRoot,
+              notchedOutline: classes.notchedOutline,
+            },
+            icon: classes.icon,
+          }}
           label="age"
           input={<MuiOutlinedInput />}
           inputProps={{

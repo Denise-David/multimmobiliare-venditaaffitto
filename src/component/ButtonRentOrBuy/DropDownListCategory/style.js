@@ -7,7 +7,7 @@ const useStyles = makeStyles((theme) => ({
     padding: '1em',
     minWidth: '18em',
     '@media (min-width:600px)': {
-      minWidth: '20em',
+      minWidth: '18em',
     },
   },
   whiteColor: {
@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
     borderColor: 'white',
   },
   prova: {
-    minWidth: '200px',
+    width: '18em',
     color: '#ECECEC',
   },
   icon: {
@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
       fontSize: '25px',
     },
     color: '#131313 !important',
-    backgroundColor: '#black',
+    backgroundColor: 'black',
     marginTop: '-5px',
     paddingRight: '5px',
     '&$labelFocused': {
@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
     '@media (min-width:600px)': {
       fontSize: '25px',
     },
-    color: '#1d1d1d !important',
+    color: '#ececec !important',
   },
 }));
 export default useStyles;

@@ -15,7 +15,6 @@ const useStyles = makeStyles((theme) => ({
   prova: {
     maxWidth: '18em',
     color: '#ECECEC',
-
   },
   icon: {
     fill: '#131313',
@@ -42,7 +41,8 @@ const useStyles = makeStyles((theme) => ({
     color: '#ECECEC !important',
     backgroundColor: '#000000',
     marginTop: '-5px',
-    paddingRight: '5px',
+    paddingRight: '10px',
+    paddingBottom: '10px',
     '&$labelFocused': {
       color: '#ECECEC !important',
     },

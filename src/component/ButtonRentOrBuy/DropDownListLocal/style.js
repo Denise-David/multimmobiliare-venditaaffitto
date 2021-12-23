@@ -5,10 +5,11 @@ const useStyles = makeStyles((theme) => ({
   ddl: {
     margin: '1em',
     padding: '1em',
-    minWidth: '18em',
+    width: '18em',
     '@media (min-width:600px)': {
-      minWidth: '20em',
+      width: '18em',
     },
+    marginLeft: '-1em',
   },
   whiteColor: {
     color: '#ECECEC',
@@ -30,16 +31,16 @@ const useStyles = makeStyles((theme) => ({
     borderColor: 'white',
   },
   prova: {
-    minWidth: '200px',
+    width: '18em',
     color: '#ECECEC',
   },
   icon: {
     fill: '#ECECEC',
   },
   labelRoot: {
-    minWidth: '18em',
+    minWidth: '15em',
     '@media (min-width:600px)': {
-      minWidth: '18em',
+      minWidth: '25em',
     },
     color: '#ECECEC !important',
     backgroundColor: 'black',
@@ -55,6 +56,19 @@ const useStyles = makeStyles((theme) => ({
       fontSize: '25px',
     },
     color: '#ECECEC !important',
+  },
+  inputRoot: {
+    fontSize: '15px',
+    '@media (min-width:600px)': {
+      fontSize: '25px',
+    },
+    '&$cssFocused $notchedOutline': {
+      borderColor: '#131313 !important',
+    },
+
+  },
+  element: {
+    fontSize: '15px',
   },
 }));
 export default useStyles;

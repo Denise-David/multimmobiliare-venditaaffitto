@@ -18,6 +18,7 @@ const ImmoSlice = createSlice({
     latitude: 0,
     longitude: 0,
     arrayImmo: [],
+    ammobiliato: false,
 
   },
   reducers: {
@@ -60,7 +61,7 @@ const ImmoSlice = createSlice({
       state.priceLimits[1] = Number(payload);
     },
     goToThePage(state) {
-      window.location.href = `https://multimmobiliare.webflow.io/vendita-affitto?rentOrSell=${state.rentOrSell}&idRegion=${state.idRegionSelected}&idLocal=${state.idLocalSelected}&idCategory=${state.idCategorySelected}&priceMin=${state.priceLimits[0]}&priceMax=${state.priceLimits[1]}`;
+      window.location.href = `${window.location.href.substring(0, window.location.href.indexOf('/'))}vendita-affitto?rentOrSell=${state.rentOrSell}&idRegion=${state.idRegionSelected}&idLocal=${state.idLocalSelected}&idCategory=${state.idCategorySelected}&priceMin=${state.priceLimits[0]}&priceMax=${state.priceLimits[1]}`;
     },
     resetAll(state) {
       state.rentOrSell = 0;
@@ -69,8 +70,14 @@ const ImmoSlice = createSlice({
       state.priceLimits = [0, 0];
       state.idRegionSelected.id = 0;
       state.idRegionSelected.tipo = '';
+      state.ammobiliato = false;
     },
-
+    setAmmobiliato(state) {
+      state.ammobiliato = !state.ammobiliato;
+    },
+    setTrueAmmobiliato(state, { payload }) {
+      state.ammobiliato = payload;
+    },
     setLatAndLngImmo(state, { payload }) {
       const { id, lat, lng } = payload;
       if (state.immo) {
@@ -93,9 +100,10 @@ export const idLocalSelected = (state) => state.Immo.idLocalSelected;
 export const idRegionSelecter = (state) => state.Immo.idRegionSelected;
 export const rentOrSell = (state) => state.Immo.rentOrSell;
 export const immo = (state) => state.Immo.immo;
+export const ammobiliato = (state) => state.Immo.ammobiliato;
 export const {
   setAllImmo, setRentOrSell, setIdRegionSelected, setIdLocalSelected, setIdCategorySelected,
   setPriceLimits, setPriceLimitsMin, setPriceLimitsMax, goToThePage, resetAll,
-  setLat, setLng, setLatAndLngImmo, setArrayImmo,
+  setLat, setLng, setLatAndLngImmo, setArrayImmo, setAmmobiliato, setTrueAmmobiliato,
 } = ImmoSlice.actions;
 export default ImmoSlice.reducer;

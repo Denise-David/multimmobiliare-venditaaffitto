@@ -14,15 +14,18 @@ import Typography from '@material-ui/core/Typography';
 import HomeWorkIcon from '@material-ui/icons/HomeWork';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import BackspaceIcon from '@material-ui/icons/Backspace';
+import Switch from '@material-ui/core/Switch';
 import {
   IconButton, Button, SvgIcon,
 } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import TextField from '@material-ui/core/TextField';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import { withStyles } from '@material-ui/core/styles';
 import DropDownListRegion from './DropDownListRegion/DropDownListRegion';
 import {
   rentOrSell, setRentOrSell, resetAll, idRegionSelecter, idLocalSelected, priceLimits,
-  idCategorySelected, setIdRegionSelected,
+  idCategorySelected, setIdRegionSelected, ammobiliato, setAmmobiliato, setTrueAmmobiliato,
 } from '../../store/slice/ImmoSlice';
 import DropDownListLocal from './DropDownListLocal/DropDownListLocal';
 import DropDownListCategory from './DropDownListCategory/DropDownListCategory';
@@ -39,9 +42,11 @@ const ButtonSendCode = () => {
   const localita = useSelector(idLocalSelected);
   const categoria = useSelector(idCategorySelected);
   const prezzi = useSelector(priceLimits);
+  const ammo = useSelector(ammobiliato);
 
   const parsed = queryString.parse(location.search);
   const [change, setChange] = useState(false);
+  const [iscrizione, setIscrizione] = useState(false);
 
   const contract = useSelector(rentOrSell);
 
@@ -49,9 +54,32 @@ const ButtonSendCode = () => {
     dispatch(setRentOrSell(Number(parsed.rentOrSell)));
   }
 
+  if (document.URL.includes('?')) {
+    dispatch(setTrueAmmobiliato(parsed.ammobiliato === 'true'));
+  }
+
   useEffect(() => {
     dispatch({ type: 'INIT' });
   }, []);
+
+  const PurpleSwitch = withStyles({
+    switchBase: {
+      color: '#CF291D',
+      '&$checked': {
+        color: '#CF291D',
+      },
+      '&$checked + $track': {
+        backgroundColor: '#CF291D',
+      },
+    },
+    track: {
+      border: '1px solid #BFBFBF',
+      borderRadius: 16 / 2,
+      opacity: 1,
+      backgroundColor: '#BFBFBF',
+    },
+    checked: {},
+  })(Switch);
 
   const load = useSelector(loaded);
 
@@ -69,7 +97,7 @@ const ButtonSendCode = () => {
   }
   return (
     <>
-      <div square className={classes.nav}>
+      <div className={classes.nav}>
 
         <Tabs
           value={contract}
@@ -126,6 +154,15 @@ const ButtonSendCode = () => {
           <div>
             <DropDownListCategory />
           </div>
+          <div style={{ marginBottom: '35px', marginRight: '30px' }}>
+            <Typography color="secondary" variant="h6" style={{ marginLeft: '10px' }}>
+              Ammobiliato
+            </Typography>
+            <FormControlLabel
+              control={<PurpleSwitch checked={ammo} onChange={() => dispatch(setAmmobiliato())} name="checkedA" />}
+              style={{ marginLeft: '35px' }}
+            />
+          </div>
           <div>
             <IconButton
               color="secondary"
@@ -133,13 +170,12 @@ const ButtonSendCode = () => {
               onClick={() => dispatch(resetAll())}
             >
               <BackspaceIcon />
+              <Typography variant="body1" style={{ marginLeft: '10px' }}>
+                Azzera
+              </Typography>
             </IconButton>
           </div>
-          {document.URL.includes('vendita-affitto') ? <div /> : (
-            <div>
-              <About />
-            </div>
-          ) }
+
         </Grid>
         { region.id === 0
 && localita === 0
@@ -181,6 +217,30 @@ const ButtonSendCode = () => {
                 variant="contained"
                 style={{
                   marginTop: '20px',
+                }}
+                onClick={() => {
+                  if (region.id !== 0 && region.tipo === 'regione') {
+                    regione = region.id;
+                  } else if (region.id !== 0 && region.tipo === 'città') {
+                    citta = region.id;
+                  }
+                  dispatch({
+                    type: 'SET_CLIENTE',
+                    payload: [{ Email: email }, {
+                      PrezzoMin: prezzi[0],
+                      PrezzoMax: prezzi[1],
+                      Contratto: contract,
+                      Regione: regione,
+                      Citta: citta,
+                      Locali: localita,
+                      Categoria: categoria,
+                      ClienteId: 0,
+
+                    }],
+                  });
+
+                  setEmail('');
+                  dispatch(setIscrizione(true));
                 }}
               >
                 Iscriviti

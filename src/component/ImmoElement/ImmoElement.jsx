@@ -14,6 +14,7 @@ import RoomIcon from '@material-ui/icons/Room';
 import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
 import WcIcon from '@material-ui/icons/Wc';
 import EventAvailableIcon from '@material-ui/icons/EventAvailable';
+import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import parseJSON from 'date-fns/parseJSON';
 import { format } from 'date-fns';
 import SimpleImageSlider from 'react-simple-image-slider';
@@ -24,17 +25,12 @@ import {
 import SquareFootIcon from '@material-ui/icons/SquareFoot';
 import HomeWorkIcon from '@material-ui/icons/HomeWork';
 import LocalParkingIcon from '@material-ui/icons/LocalParking';
-
-import {
-  CarouselProvider, Slider, Slide, Image, ButtonBack, ButtonNext,
-} from 'pure-react-carousel';
 import Carousel from 'react-material-ui-carousel';
 
 import useStyles from './style';
 import {
-  immo, rentOrSell, idRegionSelecter, idLocalSelected, idCategorySelected, priceLimits,
+  immo, rentOrSell, idRegionSelecter, idLocalSelected, idCategorySelected, priceLimits, ammobiliato,
 } from '../../store/slice/ImmoSlice';
-import ImmoElementEvidence from './ImmoElementEvidence/ImmoElement';
 
 const ImmoElement = () => {
   const classes = useStyles();
@@ -44,30 +40,34 @@ const ImmoElement = () => {
   const selectedLocal = useSelector(idLocalSelected);
   const selectedCategory = useSelector(idCategorySelected);
   const prices = useSelector(priceLimits);
+  const ammo = useSelector(ammobiliato);
   let countElement = 0;
   let countAllElement = 0;
 
   const listImmo = allImmo.map((element) => {
     const bagni = element.immobiliCaratteristiche?.find(
       (car) => car.caratteristicaId === 29);
+    const ammobi = element.immobiliCaratteristiche?.find(
+        (car) => car.caratteristicaId === 1);
     if (element.contratto === contractType
-      && countElement < 6
       && (((element.regioneId === selectedRegion.id || selectedRegion.id === 0) && (selectedRegion.tipo === 'regione' || selectedRegion.tipo === ''))
       || ((element.cittaId === selectedRegion.id || selectedRegion.id === 0) && (selectedRegion.tipo === 'città' || selectedRegion.tipo === ' ')))
       && (element.locali.numero === selectedLocal || selectedLocal === 0)
       && (element.tipologia.id === selectedCategory || selectedCategory === 0)
       && ((element.pigione <= prices[1] && element.pigione >= prices[0])
       || (prices[1] === 0 && prices[0] === 0))
-      && element.visibilita === true) {
+      && element.visibilita === true
+      && ((ammo === true && ammobi !== undefined) || (ammo === false))) {
       if (document.URL.includes('vendita-affitto')) {
         countElement = 0;
         countAllElement += 1;
       } else countElement += 1;
-      if (countAllElement === 7 && document.URL.includes('vendita-affitto')) {
-        return (<ImmoElementEvidence elemento={element} />);
-      }
-      const listLargeImage = !element.immagini ? <></>
-        : element.immagini.map((elem, index) => (
+      const image = element?.immagini?.length < 1 ? false
+        : [...element.immagini].sort((a, b) => a.posizione - b.posizione);
+
+      const imageFiltered = image.length > 0 ? image.filter((i) => i.old === false) : [];
+      const listLargeImage = !element.immagini || image === false ? <></>
+        : imageFiltered.map((elem, index) => (
 
           <CardMedia
             key={elem.id}
@@ -77,8 +77,22 @@ const ImmoElement = () => {
           />
 
         ));
+
       const date = parseJSON(element.disponibilita);
+      let subito;
+      let sub;
+
       const dateFormat = format(new Date(date), 'dd.MM.yyyy');
+
+      if (dateFormat.toString() !== '04.01.1900') {
+        sub = new Date(date) <= new Date();
+
+        subito = 'Da subito';
+      } else {
+        sub = true;
+        subito = 'Su richiesta';
+      }
+
       let count = 0;
       const parking = element.immobiliCaratteristiche.map((car) => {
         if (car.caratteristicaId === 18 || car.caratteristicaId === 3
@@ -103,8 +117,8 @@ const ImmoElement = () => {
       });
       const getSingleParking = parking.filter((value) => value !== '');
       return (
-        <Grid item md={4} m={12} xl={4} xs={12}>
-          <Paper className={classes.paper} onClick={() => window.location.href = `https://multimmobiliare.webflow.io/dettaglio?id=${element.id}`}>
+        <Grid key={element.id} item md={4} m={12} xl={4} xs={12}>
+          <Paper className={classes.paper} onClick={() => window.location.href = `${window.location.href.substring(0, window.location.href.indexOf('/'))}dettaglio?id=${element.id}`}>
             {element.immagini[0]
               ? (
                 <>
@@ -136,18 +150,25 @@ const ImmoElement = () => {
                 {element.citta}
               </Typography>
               <span className={classes.div}>
-                <Typography variant="h3" style={{ marginRight: '10px' }}>
-                  CHF
-                </Typography>
-                <Typography variant="h3">
+                {element.suRichiesta ? <></>
 
-                  <NumberFormat
-                    value={element.pigione}
-                    className="foo"
-                    displayType="text"
-                    thousandSeparator
-                    renderText={(value, props) => <div {...props}>{value}</div>}
-                  />
+                  : (
+                    <Typography variant="h3" style={{ marginRight: '10px' }}>
+                      CHF
+                    </Typography>
+                  )}
+                <Typography variant="h3">
+                  {element.suRichiesta ? 'Prezzo su richiesta'
+
+                    : (
+                      <NumberFormat
+                        value={element.pigione}
+                        className="foo"
+                        displayType="text"
+                        thousandSeparator
+                        renderText={(value, props) => <div {...props}>{value}</div>}
+                      />
+                    )}
                 </Typography>
               </span>
             </Grid>
@@ -162,40 +183,64 @@ const ImmoElement = () => {
               alignItems="center"
               className={classes.padding}
             >
-              <Grid item xs={12} sm={6}>
-                <div className={classes.div}>
-                  <img src="https://api.multimmobiliare.com/img/icons/Locali.png" alt="locali" style={{ width: '30px', marginRight: '10px' }} />
-                  {' '}
-                  <Typography variant="h4">
 
-                    {element.locali.numero}
-                    {' '}
-                    {element.locali.numero === 1 || element.locali.numero === 1.5 ? 'locale' : 'locali'}
-                  </Typography>
-                </div>
-              </Grid>
-              <Grid item xs={12} sm={2}>
-                <span className={classes.div}>
-                  <img src="https://api.multimmobiliare.com/img/icons/metratura.png" alt="locali" style={{ width: '30px', marginRight: '10px' }} />
-                  {' '}
-                  <Typography variant="h4">
+              <div className={classes.div}>
+                {element.tipologia.nome === 'Garage' || element.tipologia.nome === 'Parcheggio' ? <></>
+                  : (
+                    <>
+                      <img src="https://api.multimmobiliare.com/img/icons/Locali.png" alt="locali" style={{ width: '30px', marginRight: '10px' }} />
+                      {' '}
 
-                    {element.metratura}
+                      <Typography variant="h4">
+
+                        {element.tipologiaId === 10 ? `${element.numeroAppartamenti} Appartamenti`
+                          : (
+                            <>
+                              {element.locali.numero}
+                              {' '}
+                              {element.locali.numero === 1 || element.locali.numero === 1.5 ? 'locale' : 'locali'}
+                            </>
+                          )}
+
+                      </Typography>
+                    </>
+                  )}
+              </div>
+
+              <span className={classes.div}>
+                {element.tipologia.nome === 'Garage' || element.tipologia.nome === 'Parcheggio' ? <></>
+                  : (
+                    <>
+                      <img src="https://api.multimmobiliare.com/img/icons/metratura.png" alt="locali" style={{ width: '30px', marginRight: '10px' }} />
+                      {' '}
+                      <Typography variant="h4">
+
+                        {element.metratura}
+                        {' '}
+                        m²
+                      </Typography>
+                    </>
+                  )}
+                {' '}
+              </span>
+
+              {element.tipologiaId === 8 || (element.tipologiaId === 7
+               && element.pianiEdificio === null) ? <></>
+                : (
+                  <div className={classes.div}>
+                    <img src="https://api.multimmobiliare.com/img/icons/scala.png" alt="locali" style={{ width: '30px', marginRight: '10px' }} />
                     {' '}
-                    m²
-                  </Typography>
-                  {' '}
-                </span>
-              </Grid>
-              <Grid item xs={12} sm={3}>
-                <div className={classes.div}>
-                  <img src="https://api.multimmobiliare.com/img/icons/scala.png" alt="locali" style={{ width: '30px', marginRight: '10px' }} />
-                  {' '}
-                  <Typography variant="h4">
-                    {element.piano === 0 ? ' PT' : `  ${element.piano} °Piano`}
-                  </Typography>
-                </div>
-              </Grid>
+                    <Typography variant="h4">
+                      {(element.tipologiaId === 10 || element.tipologiaId === 7) && element.pianiEdificio !== null ? `${element.pianiEdificio} Piani`
+                        : (
+                          <>
+                            {' '}
+                            {element.piano === 0 || element.piano === null ? ' PT' : `  ${element.piano} °Piano`}
+                          </>
+                        )}
+                    </Typography>
+                  </div>
+                )}
             </Grid>
             <Grid
               container
@@ -204,45 +249,72 @@ const ImmoElement = () => {
               alignItems="center"
               className={classes.padding}
             >
-              <Grid item xs={12} sm={6}>
-                <span className={classes.div}>
-                  <LocalParkingIcon style={{ marginRight: '10px' }} />
-                  {' '}
-                  {getSingleParking.length === 0
-                    ? <Typography variant="h4">Nessun parcheggio</Typography> : parking}
-                </span>
-              </Grid>
-              <Grid item xs={12} sm={2}>
-                <div className={classes.div}>
-                  <WcIcon style={{ marginRight: '10px' }} />
-                  {' '}
-                  {bagni?.quantita > 1
-                    ? (
-                      <Typography variant="h4">
 
-                        {bagni?.quantita}
-                        {' '}
-                        bagni
-                      </Typography>
+              <span className={classes.div}>
+                {element.tipologia.nome === 'Garage' || element.tipologia.nome === 'Parcheggio' ? <></>
+                  : (
+                    <>
+                      <LocalParkingIcon style={{ marginRight: '10px' }} />
+                      {' '}
+                      {getSingleParking.length === 0
+                        ? <Typography variant="h4">Nessun parcheggio</Typography> : parking}
+                    </>
+                  )}
+              </span>
+
+              <div className={classes.div}>
+                {element.tipologia.nome === 'Garage' || element.tipologia.nome === 'Parcheggio' ? <></>
+                  : (
+                    <>
+
+                      {element.tipologiaId === 10 ? (
+                        <>
+                          {' '}
+                          <CalendarTodayIcon style={{ marginRight: '10px' }} />
+                          {' '}
+                          <Typography variant="h4">
+
+                            {element.annoCostruzione}
+                            {' '}
+                            Anno costruzione
+                          </Typography>
+                        </>
+                      )
+                        : (
+                          <>
+                            <WcIcon style={{ marginRight: '10px' }} />
+                            {' '}
+                            {bagni?.quantita > 1
+                              ? (
+                                <Typography variant="h4">
+
+                                  {bagni?.quantita}
+                                  {' '}
+                                  bagni
+                                </Typography>
                     )
-                    : (
-                      <Typography variant="h4">
+                              : (
+                                <Typography variant="h4">
 
-                        Bagno
-                      </Typography>
+                                  Bagno
+                                </Typography>
                     )}
-                </div>
-              </Grid>
-              <Grid item xs={12} sm={3}>
-                <div className={classes.div}>
-                  <EventAvailableIcon style={{ marginRight: '10px' }} />
+                          </>
+                        )}
+
+                    </>
+                  )}
+              </div>
+
+              <div className={classes.div}>
+                <EventAvailableIcon style={{ marginRight: '10px' }} />
+                {' '}
+                <Typography variant="h4">
                   {' '}
-                  <Typography variant="h4">
-                    {' '}
-                    {dateFormat}
-                  </Typography>
-                </div>
-              </Grid>
+                  {sub ? subito : dateFormat}
+                </Typography>
+              </div>
+
             </Grid>
             <Divider classes={{ root: classes.divider }} />
             <Grid

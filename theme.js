@@ -37,7 +37,7 @@ const theme = createMuiTheme({
         fontWeight: 300,
         fontSize: '12px',
         '@media (min-width:600px)': {
-          fontSize: '20px',
+          fontSize: '15px',
         },
       },
       h1: {
@@ -55,9 +55,9 @@ const theme = createMuiTheme({
       },
       h3: {
         fontWeight: 300,
-        fontSize: '15px',
+        fontSize: '17px',
         '@media (min-width:600px)': {
-          fontSize: '30px',
+          fontSize: '20px',
         },
 
       },

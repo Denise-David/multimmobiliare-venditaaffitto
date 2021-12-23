@@ -14,9 +14,9 @@ const useStyles = makeStyles((theme) => ({
 
   },
   prova: {
-    minWidth: '10em',
+    width: '18em',
     '@media (min-width:600px)': {
-      minWidth: '18em',
+      width: '18em',
     },
     color: '#ECECEC',
 
@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
   inputRoot: {
     fontSize: '15px',
     '@media (min-width:600px)': {
-      fontSize: '25px',
+      fontSize: '17px',
     },
     '&$cssFocused $notchedOutline': {
       borderColor: '#131313 !important',
@@ -61,7 +61,8 @@ const useStyles = makeStyles((theme) => ({
     color: '#ECECEC !important',
     backgroundColor: 'black',
     marginTop: '-5px',
-    paddingRight: '5px',
+    paddingRight: '10px',
+    paddingBottom: '10px',
     '&$labelFocused': {
       color: '#ECECEC !important',
     },

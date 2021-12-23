@@ -55,7 +55,7 @@ const DropDownListCategory = ({ actionClick, name }) => {
 
   const itemUniqueRegion = uniqueArray.map((element) => (
     <MenuItem key={element.id} value={element.id}>
-      <Typography>
+      <Typography style={{ fontSize: '15px' }}>
         {element.nome}
       </Typography>
 

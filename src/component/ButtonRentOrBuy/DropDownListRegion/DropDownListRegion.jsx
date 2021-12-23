@@ -20,6 +20,7 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import { defaultProps } from 'qrcode.react';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
+import { couldStartTrivia } from 'typescript';
 import useStyles from './style';
 
 import {
@@ -37,20 +38,26 @@ const ButtonSendCode = ({ actionClick, name }) => {
 
   const regione = useSelector(idRegionSelecter);
 
-  if (document.URL.includes('?') && regione === 0) {
-    dispatch(setIdRegionSelected(Number(parsed.idRegion)));
-  }
-  const regionDouble = allImmo.map((element) => {
-    const region = { nome: element.regione.nome, id: element.regione.id, tipo: 'regione' };
+  const regionDouble1 = allImmo.map((element) => {
+    let region = { nome: '', id: '', tipo: 'false' };
+    if (element.visibilita === true) {
+      region = { nome: element.regione.nome, id: element.regione.id, tipo: 'regione' };
+    }
     return region;
   });
 
-  const cityDouble = allImmo.map((element) => {
-    const region = {
-      nome: element.citta, id: element.cittaId, tipo: 'città', cap: element.cap,
-    };
+  const cityDouble1 = allImmo.map((element) => {
+    let region = { nome: '', id: '', tipo: 'false' };
+    if (element.visibilita === true) {
+      region = {
+        nome: element.citta, id: element.cittaId, tipo: 'città', cap: element.cap,
+      };
+    }
     return region;
   });
+
+  const regionDouble = regionDouble1.filter((i) => i.tipo !== 'false');
+  const cityDouble = cityDouble1.filter((i) => i.tipo !== 'false');
   const uniqueArray = regionDouble.reduce((acc, current) => {
     const x = acc.find((item) => item.id === current.id);
     if (!x) {
@@ -67,14 +74,28 @@ const ButtonSendCode = ({ actionClick, name }) => {
     return acc;
   }, []);
   const concatenati = uniqueArray.concat(uniqueCity);
-
   const [value, setValue] = React.useState('');
+  const [change, setChange] = React.useState(false);
+  useEffect(() => {
+    if (document.URL.includes('?') && regione.id === 0 && parsed.idRegion !== '-1') {
+      dispatch(setIdRegionSelected({ id: Number(parsed.idRegion), tipo: 'regione' }));
+      const regioneUrl = concatenati.find((x) => x.id === Number(parsed.idRegion));
+      setValue(regioneUrl);
+    } else if (document.URL.includes('?') && regione.id === 0 && parsed.idCitta !== '-1' && parsed.idCitta !== '0') {
+      dispatch(setIdRegionSelected({ id: Number(parsed.idCitta), tipo: 'città' }));
+      const regioneUrl = concatenati.find((x) => x.id === Number(parsed.idCitta));
+      setValue(regioneUrl);
+    }
+  }, []);
+
   const [inputValue, setInputValue] = React.useState({ nome: '', tipo: '' });
 
-  if (regionSelected.id === 0 && regionSelected.tipo === '' && inputValue !== '') {
-    setInputValue('');
-    setValue(0);
-  }
+  useEffect(() => {
+    if (regionSelected.id === 0 && regionSelected.tipo === '' && inputValue !== '') {
+      setInputValue('');
+      setValue(0);
+    }
+  }, [regionSelected]);
 
   return (
     <>
@@ -89,13 +110,14 @@ const ButtonSendCode = ({ actionClick, name }) => {
               setValue(newValue);
               dispatch(setIdRegionSelected({ id: newValue.id, tipo: newValue.tipo }));
             }}
+            defaultValue=" "
             classes={{
               inputRoot: {
                 root: classes.inputRoot,
                 notchedOutline: classes.notchedOutline,
               },
             }}
-            inputValue={regionSelected.id === 0 ? ' ' : inputValue}
+            inputValue={inputValue}
             onInputChange={(event, newInputValue) => {
               setInputValue(newInputValue);
             }}
@@ -106,7 +128,7 @@ const ButtonSendCode = ({ actionClick, name }) => {
             color="secondary"
             getOptionLabel={(option) => {
               if (option === 0) {
-                return (', ');
+                return (' ');
               }
               return (`${option?.cap ? option?.cap : ''} ${option.nome ? option.nome : ''} ${option.tipo ? `(${option.tipo})` : ''}`);
             }}
