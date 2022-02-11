@@ -105,6 +105,7 @@ const ButtonSendCode = ({ actionClick, name }) => {
           className={classes.ddl}
         >
           <Autocomplete
+            selectOnFocus
             value={value}
             onChange={(event, newValue) => {
               setValue(newValue);

@@ -78,13 +78,18 @@ const ImmoElement = () => {
 
         ));
 
-      const date = parseJSON(element.disponibilita);
+      let date = null;
+      if (element.disponibilita !== null) {
+        date = parseJSON(element.disponibilita);
+      }
       let subito;
       let sub;
+      let dateFormat = null;
+      if (date !== null) {
+        dateFormat = format(new Date(date), 'dd.MM.yyyy');
+      }
 
-      const dateFormat = format(new Date(date), 'dd.MM.yyyy');
-
-      if (dateFormat.toString() !== '04.01.1900') {
+      if (dateFormat !== null && dateFormat.toString() !== '04.01.1900') {
         sub = new Date(date) <= new Date();
 
         subito = 'Da subito';
@@ -96,12 +101,15 @@ const ImmoElement = () => {
       let count = 0;
       const parking = element.immobiliCaratteristiche.map((car) => {
         if (car.caratteristicaId === 18 || car.caratteristicaId === 3
-          || car.caratteristicaId === 10) {
+          || car.caratteristicaId === 10 || car.caratteristicaId === 5
+           || car.caratteristicaId === 31) {
           count += 1;
           if (count >= 2) {
             return (
               <Typography variant="h4">
                 /
+                {' '}
+                {car.quantita}
                 {' '}
                 {car.caratteristica.nome}
               </Typography>
@@ -109,6 +117,8 @@ const ImmoElement = () => {
           }
           return (
             <Typography variant="h4">
+              {car.quantita}
+              {' '}
               {car.caratteristica.nome}
             </Typography>
           );
@@ -118,7 +128,7 @@ const ImmoElement = () => {
       const getSingleParking = parking.filter((value) => value !== '');
       return (
         <Grid key={element.id} item md={4} m={12} xl={4} xs={12}>
-          <Paper className={classes.paper} onClick={() => window.location.href = `${window.location.href.substring(0, window.location.href.indexOf('/'))}dettaglio?id=${element.id}`}>
+          <Paper className={classes.paper} onClick={() => window.location.href = `${window.location.href.substring(0, window.location.href.indexOf('/'))}dettaglio?id=${element.id}&tipo=Sito`}>
             {element.immagini[0]
               ? (
                 <>
@@ -208,7 +218,7 @@ const ImmoElement = () => {
               </div>
 
               <span className={classes.div}>
-                {element.tipologia.nome === 'Garage' || element.tipologia.nome === 'Parcheggio' ? <></>
+                {element.tipologia.nome === 'Garage' || element.tipologia.nome === 'Parcheggio' || element.metratura === 0 ? <></>
                   : (
                     <>
                       <img src="https://api.multimmobiliare.com/img/icons/metratura.png" alt="locali" style={{ width: '30px', marginRight: '10px' }} />
