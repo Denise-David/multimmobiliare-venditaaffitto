@@ -1,17 +1,16 @@
 /* eslint-disable no-undef */
 /* eslint-disable prefer-destructuring */
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 /**
  * Gestione etichetta autoanamnesi con etichetta
  */
 const ImmoSlice = createSlice({
-  name: 'Immo',
-  initialState:
-  {
+  name: "Immo",
+  initialState: {
     immo: [],
     rentOrSell: 0,
-    idRegionSelected: { id: 0, tipo: ' ' },
+    idRegionSelected: { id: 0, tipo: " " },
     idLocalSelected: 0,
     idCategorySelected: 0,
     priceLimits: [0, 0],
@@ -19,7 +18,6 @@ const ImmoSlice = createSlice({
     longitude: 0,
     arrayImmo: [],
     ammobiliato: false,
-
   },
   reducers: {
     setLat(state, { payload }) {
@@ -47,21 +45,20 @@ const ImmoSlice = createSlice({
       state.priceLimits = payload;
     },
     setPriceLimitsMin(state, { payload }) {
-      if (Number(payload) > state.priceLimits[1]) {
-        state.priceLimits[1] = payload;
-        state.priceLimits[0] = payload;
-      }
       state.priceLimits[0] = Number(payload);
     },
     setPriceLimitsMax(state, { payload }) {
-      if (Number(payload) < state.priceLimits[0]) {
-        state.priceLimits[1] = payload;
-        state.priceLimits[0] = payload;
-      }
       state.priceLimits[1] = Number(payload);
     },
     goToThePage(state) {
-      window.location.href = `${window.location.href.substring(0, window.location.href.indexOf('/'))}vendita-affitto?rentOrSell=${state.rentOrSell}&idRegion=${state.idRegionSelected}&idLocal=${state.idLocalSelected}&idCategory=${state.idCategorySelected}&priceMin=${state.priceLimits[0]}&priceMax=${state.priceLimits[1]}`;
+      window.location.href = `${window.location.href.substring(
+        0,
+        window.location.href.indexOf("/")
+      )}vendita-affitto?rentOrSell=${state.rentOrSell}&idRegion=${
+        state.idRegionSelected
+      }&idLocal=${state.idLocalSelected}&idCategory=${
+        state.idCategorySelected
+      }&priceMin=${state.priceLimits[0]}&priceMax=${state.priceLimits[1]}`;
     },
     resetAll(state) {
       state.rentOrSell = 0;
@@ -69,7 +66,7 @@ const ImmoSlice = createSlice({
       state.idCategorySelected = 0;
       state.priceLimits = [0, 0];
       state.idRegionSelected.id = 0;
-      state.idRegionSelected.tipo = '';
+      state.idRegionSelected.tipo = "";
       state.ammobiliato = false;
     },
     setAmmobiliato(state) {
@@ -88,7 +85,6 @@ const ImmoSlice = createSlice({
     setArrayImmo(state, { payload }) {
       state.arrayImmo.push(payload);
     },
-
   },
 });
 
@@ -102,8 +98,21 @@ export const rentOrSell = (state) => state.Immo.rentOrSell;
 export const immo = (state) => state.Immo.immo;
 export const ammobiliato = (state) => state.Immo.ammobiliato;
 export const {
-  setAllImmo, setRentOrSell, setIdRegionSelected, setIdLocalSelected, setIdCategorySelected,
-  setPriceLimits, setPriceLimitsMin, setPriceLimitsMax, goToThePage, resetAll,
-  setLat, setLng, setLatAndLngImmo, setArrayImmo, setAmmobiliato, setTrueAmmobiliato,
+  setAllImmo,
+  setRentOrSell,
+  setIdRegionSelected,
+  setIdLocalSelected,
+  setIdCategorySelected,
+  setPriceLimits,
+  setPriceLimitsMin,
+  setPriceLimitsMax,
+  goToThePage,
+  resetAll,
+  setLat,
+  setLng,
+  setLatAndLngImmo,
+  setArrayImmo,
+  setAmmobiliato,
+  setTrueAmmobiliato,
 } = ImmoSlice.actions;
 export default ImmoSlice.reducer;

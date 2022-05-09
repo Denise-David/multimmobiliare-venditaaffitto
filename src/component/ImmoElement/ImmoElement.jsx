@@ -54,8 +54,8 @@ const ImmoElement = () => {
       || ((element.cittaId === selectedRegion.id || selectedRegion.id === 0) && (selectedRegion.tipo === 'città' || selectedRegion.tipo === ' ')))
       && (element.locali.numero === selectedLocal || selectedLocal === 0)
       && (element.tipologia.id === selectedCategory || selectedCategory === 0)
-      && ((element.pigione <= prices[1] && element.pigione >= prices[0])
-      || (prices[1] === 0 && prices[0] === 0))
+      && ((element.pigione <= prices[1] || prices[1] === 0) && (element.pigione >= prices[0] || prices[0] === 0))
+
       && element.visibilita === true
       && ((ammo === true && ammobi !== undefined) || (ammo === false))) {
       if (document.URL.includes('vendita-affitto')) {
@@ -128,7 +128,10 @@ const ImmoElement = () => {
       const getSingleParking = parking.filter((value) => value !== '');
       return (
         <Grid key={element.id} item md={4} m={12} xl={4} xs={12}>
-          <Paper className={classes.paper} onClick={() => window.location.href = `${window.location.href.substring(0, window.location.href.indexOf('/'))}dettaglio?id=${element.id}&tipo=Sito`}>
+          <Paper
+            className={classes.paper}
+            onClick={() => window.location.href = `${window.location.href.substring(0, window.location.href.indexOf('/'))}dettaglio?id=${element.id}&tipo=Sito&rentOrSell=${contractType}&idRegion=${selectedRegion.tipo === 'regione' ? selectedRegion.id : -1}&idCitta=${selectedRegion.tipo === 'città' ? selectedRegion.id : -1}&idLocal=${selectedLocal}&idCategory=${selectedCategory}&priceMin=${prices[0]}&priceMax=${prices[1]}&ammobiliato=${ammo}`}
+          >
             {element.immagini[0]
               ? (
                 <>

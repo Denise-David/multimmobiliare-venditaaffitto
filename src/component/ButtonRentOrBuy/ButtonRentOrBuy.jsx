@@ -143,9 +143,6 @@ const ButtonSendCode = () => {
           alignItems="flex-end"
         >
           <div>
-            <Price />
-          </div>
-          <div>
             <DropDownListRegion />
           </div>
           <div>
@@ -154,6 +151,10 @@ const ButtonSendCode = () => {
           <div>
             <DropDownListCategory />
           </div>
+          <div>
+            <Price />
+          </div>
+
           <div style={{ marginBottom: '35px', marginRight: '30px' }}>
             <Typography color="secondary" variant="h6" style={{ marginLeft: '10px' }}>
               Ammobiliato
